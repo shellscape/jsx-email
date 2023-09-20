@@ -74,6 +74,7 @@ jobs:
 
       - name: Build Projects
         run: |
+          pnpm exec tsc --version
           moon run jsx-email:build.packages
 
       - name: Lint Monorepo
