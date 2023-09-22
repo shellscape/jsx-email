@@ -27,7 +27,7 @@ $ moon run cli:build
 To start up the preview server locally:
 
 ```console
-$ pnpm dev
+$ moon run demo:dev
 ```
 
 Open up the preview server [http://localhost:55420/](http://localhost:55420/)
