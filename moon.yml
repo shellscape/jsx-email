@@ -11,7 +11,6 @@ tasks:
     deps:
       - body:build
       - button:build
-      - cli:build
       - column:build
       - container:build
       - font:build
@@ -29,8 +28,9 @@ tasks:
       - text:build
       # Note: Build render second to last
       - render:build
-      # Note: Build components last
+      # Note: Build components and cli last
       - components:build
+      - cli:build
     options:
       cache: false
       outputStyle: 'stream'

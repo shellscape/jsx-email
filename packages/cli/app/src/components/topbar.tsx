@@ -80,11 +80,11 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                       />
                     )}
                     <span
-                      className={classnames('relative', {
+                      className={classnames('inline-block relative', {
                         'text-cta-text': activeView === 'jsx'
                       })}
                     >
-                      {'< jsx />'}
+                      JSX
                     </span>
                   </motion.div>
                 </ToggleGroup.Item>
@@ -104,7 +104,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                         'text-cta-text': activeView === 'html'
                       })}
                     >
-                      {'< html />'}
+                      HTML
                     </span>
                   </motion.div>
                 </ToggleGroup.Item>
