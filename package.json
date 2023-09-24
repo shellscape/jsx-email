@@ -19,7 +19,8 @@
     "husky": "^8.0.3",
     "lint-staged": "14.0.1",
     "ts-node": "10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitepress": "1.0.0-rc.17"
   },
   "lint-staged": {
     "*.{ts,js}": [
