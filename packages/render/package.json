@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Transform React components into HTML email templates",
+  "description": "Render JSX email components to HTML email",
   "license": "MIT",
   "repository": {
     "type": "git",

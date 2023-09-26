@@ -7,7 +7,7 @@ export interface ColumnProps extends RootProps {}
 
 export const Column = React.forwardRef<ColumnElement, Readonly<ColumnProps>>(
   ({ children, style, ...props }, forwardedRef) => (
-    <td {...props} ref={forwardedRef} data-id="__react-email-column" style={style}>
+    <td {...props} ref={forwardedRef} data-id="@jsx-email/column" style={style}>
       {children}
     </td>
   )
