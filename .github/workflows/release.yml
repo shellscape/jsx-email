@@ -21,8 +21,16 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 10
+          ref: main
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Set Git Config
+        run: |
+          git config pull.rebase false
+          git config --global user.email "release-workflow@rollup.dev"
+          git config --global user.name "Release Workflow"
+          git remote set-url origin https://github.com/${{ github.repository }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
