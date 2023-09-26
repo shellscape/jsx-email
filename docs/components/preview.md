@@ -18,16 +18,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/preview -E
+```console [pnpm]
+pnpm add @jsx-email/preview
 ```
 
-```sh yarn
-yarn add @react-email/preview -E
+```console [npm]
+npm add @jsx-email/preview
 ```
 
-```sh pnpm
-pnpm add @react-email/preview -E
+```console [yarn]
+yarn add @jsx-email/preview
 ```
 
 :::
@@ -37,7 +37,7 @@ pnpm add @react-email/preview -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Preview } from '@react-email/preview';
+import { Preview } from '@jsx-email/preview';
 
 const Email = () => {
   return <Preview>Email preview text</Preview>;

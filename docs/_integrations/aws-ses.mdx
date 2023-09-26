@@ -2,25 +2,25 @@
 title: 'Send email using AWS SES'
 sidebarTitle: 'AWS SES'
 description: 'Learn how to send an email using React Email and the AWS SES Node.js SDK.'
-'og:image': 'https://react.email/static/covers/react-email.png'
+'og:image': 'https://react.email/static/covers/jsx-email.png'
 ---
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [AWS SES Node.js SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/).
+Get the [@jsx-email/render](https://www.npmjs.com/package/@jsx-email/render) package and the [AWS SES Node.js SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/).
 
 ::: code-group
 
-```sh npm
-npm install @react-email/render @aws-sdk/client-ses
+```console [pnpm]
+pnpm add @jsx-email/render @aws-sdk/client-ses
 ```
 
-```sh yarn
-yarn add @react-email/render @aws-sdk/client-ses
+```console [npm]
+npm add @jsx-email/render @aws-sdk/client-ses
 ```
 
-```sh pnpm
-pnpm add @react-email/render @aws-sdk/client-ses
+```console [yarn]
+yarn add @jsx-email/render @aws-sdk/client-ses
 ```
 
 :::
@@ -31,8 +31,8 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```jsx email.jsx
 import * as React from 'react';
-import { Html } from '@react-email/html';
-import { Button } from '@react-email/button';
+import { Html } from '@jsx-email/html';
+import { Button } from '@jsx-email/button';
 
 export function Email(props) {
   const { url } = props;
@@ -52,7 +52,7 @@ Import the email template you just built, convert into a HTML string, and use th
 ::: code-group
 
 ```js React
-import { render } from '@react-email/render';
+import { render } from '@jsx-email/render';
 import { SES } from '@aws-sdk/client-ses';
 import { Email } from './email';
 
@@ -83,7 +83,7 @@ await ses.sendEmail(params);
 ```
 
 ```js NodeJS
-import { render } from '@react-email/render';
+import { render } from '@jsx-email/render';
 import { SES } from '@aws-sdk/client-ses';
 import { Email } from './email';
 
@@ -121,7 +121,7 @@ await ses.sendEmail(params);
   title="AWS SES example"
   icon='arrow-up-right-from-square'
   iconType="duotone"
-  href="https://github.com/resendlabs/react-email/tree/main/examples/aws-ses"
+  href="https://github.com/resendlabs/jsx-email/tree/main/examples/aws-ses"
 >
   See the full source code.
 </Card>

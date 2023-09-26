@@ -12,16 +12,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/font -E
+```console [pnpm]
+pnpm add @jsx-email/font
 ```
 
-```sh yarn
-yarn add @react-email/font -E
+```console [npm]
+npm add @jsx-email/font
 ```
 
-```sh pnpm
-pnpm add @react-email/font -E
+```console [yarn]
+yarn add @jsx-email/font
 ```
 
 :::
@@ -33,9 +33,9 @@ Note, that not all email clients supports web fonts, this is why it is important
 To view all email clients that supports web fonts [see](https://www.caniemail.com/features/css-at-font-face/)
 
 ```jsx
-import { Html } from '@react-email/html';
-import { Head } from '@react-email/head';
-import { Font } from '@react-email/font';
+import { Html } from '@jsx-email/html';
+import { Head } from '@jsx-email/head';
+import { Font } from '@jsx-email/font';
 
 const Email = () => {
   return (
@@ -57,27 +57,45 @@ const Email = () => {
 };
 ```
 
-## Props
+## Component Props
 
-<ResponseField name="fontFamily" type="string">
+### `fontFamily`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   The font family you want to use. If the webFont property is configured, this
   should contain the name of that font
-</ResponseField>
 
-<ResponseField name="fallbackFontFamily" type="string">
+
+### `fallbackFontFamily`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   The fallback font family the system should you, if web fonts are not supported
   or the chosen font is not installed on the system.
-</ResponseField>
+
 
 <ResponseField name="webFont" type="{url: string, format: string} | undefined">
   The webFont the supported email client should use
-</ResponseField>
+
 
 <ResponseField name="fontWeight" type="number | string">
   The weight of the font
-</ResponseField>
 
-<ResponseField name="fontStyle" type="string">
+
+### `fontStyle`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   The style of the font
-</ResponseField>
+
 

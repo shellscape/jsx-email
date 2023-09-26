@@ -17,16 +17,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/button -E
+```console [pnpm]
+pnpm add @jsx-email/button
 ```
 
-```sh yarn
-yarn add @react-email/button -E
+```console [npm]
+npm add @jsx-email/button
 ```
 
-```sh pnpm
-pnpm add @react-email/button -E
+```console [yarn]
+yarn add @jsx-email/button
 ```
 
 :::
@@ -36,7 +36,7 @@ pnpm add @react-email/button -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from '@react-email/button';
+import { Button } from '@jsx-email/button';
 
 const Email = () => {
   return (
@@ -47,13 +47,20 @@ const Email = () => {
 };
 ```
 
-## Props
+## Component Props
 
-<ResponseField name="href" type="string" required>
-  Link to be triggered when the button is clicked
-</ResponseField>
+### `href`
 
-<ResponseField name="target" type="string" default="_blank">
-  Specify the target attribute for the button link
-</ResponseField>
+Type: `string`<br>
+Required<br>
+
+The url to navigate to when the button is clicked.
+
+### `target`
+
+Type: `string`<br>
+Default: `_blank`<br/>
+Required: `false`
+
+Specifies the value of the `"target"` attribute for the button `target`.
 

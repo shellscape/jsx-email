@@ -2,7 +2,7 @@
 title: 'React Email'
 sidebarTitle: 'Introduction'
 description: 'Build and send emails using React and TypeScript.'
-'og:image': 'https://react.email/static/covers/react-email.png'
+'og:image': 'https://react.email/static/covers/jsx-email.png'
 icon: 'hand-wave'
 ---
 

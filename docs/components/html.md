@@ -12,16 +12,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/html -E
+```console [pnpm]
+pnpm add @jsx-email/html
 ```
 
-```sh yarn
-yarn add @react-email/html -E
+```console [npm]
+npm add @jsx-email/html
 ```
 
-```sh pnpm
-pnpm add @react-email/html -E
+```console [yarn]
+yarn add @jsx-email/html
 ```
 
 :::
@@ -31,8 +31,8 @@ pnpm add @react-email/html -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from '@react-email/button';
-import { Html } from '@react-email/html';
+import { Button } from '@jsx-email/button';
+import { Html } from '@jsx-email/html';
 
 const Email = () => {
   return (
@@ -45,12 +45,18 @@ const Email = () => {
 };
 ```
 
-## Props
+## Component Props
 
-<ResponseField name="lang" type="string" default="en">
+### `lang`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+ default="en">
   Identify the language of text content on the email
-</ResponseField>
+
 <ResponseField name="dir" type="string" default="ltr" >
   Identify the direction of text content on the email
-</ResponseField>
+
 

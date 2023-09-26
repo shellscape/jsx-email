@@ -12,16 +12,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/img -E
+```console [pnpm]
+pnpm add @jsx-email/img
 ```
 
-```sh yarn
-yarn add @react-email/img -E
+```console [npm]
+npm add @jsx-email/img
 ```
 
-```sh pnpm
-pnpm add @react-email/img -E
+```console [yarn]
+yarn add @jsx-email/img
 ```
 :::
 
@@ -30,7 +30,7 @@ pnpm add @react-email/img -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Img } from '@react-email/img';
+import { Img } from '@jsx-email/img';
 
 const Email = () => {
   return <Img src="cat.jpg" alt="Cat" width="300" height="300" />;
@@ -44,21 +44,45 @@ const Email = () => {
   Email](https://www.caniemail.com/features/image-svg/) for more information.
 </Tip>
 
-## Props
+## Component Props
 
-<ResponseField name="alt" type="string">
+### `alt`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   Alternate description for an image
-</ResponseField>
 
-<ResponseField name="src" type="string">
+
+### `src`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   The path to the image
-</ResponseField>
 
-<ResponseField name="width" type="string">
+
+### `width`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   The width of an image in pixels
-</ResponseField>
 
-<ResponseField name="height" type="string">
+
+### `height`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   The height of an image in pixels
-</ResponseField>
+
 

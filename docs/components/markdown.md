@@ -1,7 +1,7 @@
 ---
 title: "Markdown"
 sidebarTitle: "Markdown"
-description: "A Markdown component that converts markdown to valid react-email template code"
+description: "A Markdown component that converts markdown to valid jsx-email template code"
 icon: "file-code"
 ---
 
@@ -11,16 +11,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/markdown -E
+```console [pnpm]
+pnpm add @jsx-email/markdown
 ```
 
-```sh yarn
-yarn add @react-email/markdown -E
+```console [npm]
+npm add @jsx-email/markdown
 ```
 
-```sh pnpm
-pnpm add @react-email/markdown -E
+```console [yarn]
+yarn add @jsx-email/markdown
 ```
 
 :::
@@ -30,8 +30,8 @@ pnpm add @react-email/markdown -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Markdown } from "@react-email/markdown";
-import { Html } from "@react-email/html";
+import { Markdown } from "@jsx-email/markdown";
+import { Html } from "@jsx-email/html";
 
 const Email = () => {
   return (
@@ -56,18 +56,36 @@ const Email = () => {
 };
 ```
 
-## Props
+## Component Props
 
-<ResponseField name="children" type="string">
+### `children`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   Contains the markdown content that will be rendered in the email template
-</ResponseField>
-<ResponseField name="markdownContainerStyles" type="object" default="{}">
+
+### `markdownContainerStyles`
+
+Type: `object`<br>
+Default: ``<br/>
+Required: `false`
+
+ default="{}">
   Provide custom styles for the containing div that wraps the markdown content
-</ResponseField>
-<ResponseField name="markdownCustomStyles" type="object" default="{}">
+
+### `markdownCustomStyles`
+
+Type: `object`<br>
+Default: ``<br/>
+Required: `false`
+
+ default="{}">
   Provide custom styles for the corresponding html element (p, h1, h2, etc.)
   ::: tip
     Note: Passing a custom style for an element overrides the default styles.
   :::
-</ResponseField>
+
 

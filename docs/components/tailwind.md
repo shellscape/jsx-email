@@ -12,16 +12,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/tailwind -E
+```console [pnpm]
+pnpm add @jsx-email/tailwind
 ```
 
-```sh yarn
-yarn add @react-email/tailwind -E
+```console [npm]
+npm add @jsx-email/tailwind
 ```
 
-```sh pnpm
-pnpm add @react-email/tailwind -E
+```console [yarn]
+yarn add @jsx-email/tailwind
 ```
 
 :::
@@ -31,8 +31,8 @@ pnpm add @react-email/tailwind -E
 Add the component around your email body content.
 
 ```jsx
-import { Button } from '@react-email/button';
-import { Tailwind } from '@react-email/tailwind';
+import { Button } from '@jsx-email/button';
+import { Tailwind } from '@jsx-email/tailwind';
 
 const Email = () => {
   return (
@@ -58,15 +58,21 @@ const Email = () => {
 };
 ```
 
-## Props
+## Component Props
 
-<ResponseField name="config" type="object">
+### `config`
+
+Type: `object`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   Customize the default theme for your project with the available properties in
   [Tailwind docs](https://tailwindcss.com/docs/theme).
   ::: tip
     Note: Most email clients are style-limited and some styles may not work.
   :::
-</ResponseField>
+
 
 ## Live example
 

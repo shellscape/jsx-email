@@ -11,16 +11,16 @@ Install package from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/render -E
+```console [pnpm]
+pnpm add @jsx-email/render
 ```
 
-```sh yarn
-yarn add @react-email/render -E
+```console [npm]
+npm add @jsx-email/render
 ```
 
-```sh pnpm
-pnpm add @react-email/render -E
+```console [yarn]
+yarn add @jsx-email/render
 ```
 
 :::
@@ -31,10 +31,10 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```jsx email.jsx
 import * as React from 'react';
-import { Button } from '@react-email/button';
-import { Hr } from '@react-email/hr';
-import { Html } from '@react-email/html';
-import { Text } from '@react-email/text';
+import { Button } from '@jsx-email/button';
+import { Hr } from '@jsx-email/hr';
+import { Html } from '@jsx-email/html';
+import { Text } from '@jsx-email/text';
 
 export function MyTemplate(props) {
   return (
@@ -57,7 +57,7 @@ Import an existing React component and convert into a HTML string.
 
 ```jsx
 import { MyTemplate } from './email';
-import { render } from '@react-email/render';
+import { render } from '@jsx-email/render';
 
 const html = render(<MyTemplate />, {
   pretty: true,
@@ -99,7 +99,7 @@ Here's how to convert a React component into plain text.
 
 ```jsx
 import { MyTemplate } from './email';
-import { render } from '@react-email/render';
+import { render } from '@jsx-email/render';
 
 const text = render(<MyTemplate />, {
   plainText: true,
@@ -120,9 +120,21 @@ Click me [https://example.com]
 
 ## Options
 
-<ResponseField name="pretty" type="boolean">
+### `pretty`
+
+Type: `boolean`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   Beautify HTML output
-</ResponseField>
-<ResponseField name="plainText" type="boolean">
+
+### `plainText`
+
+Type: `boolean`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   Generate plain text version
-</ResponseField>
+

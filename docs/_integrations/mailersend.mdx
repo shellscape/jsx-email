@@ -2,25 +2,25 @@
 title: 'Send email using MailerSend'
 sidebarTitle: 'MailerSend'
 description: 'Learn how to send an email using React Email and the MailerSend Node.js SDK.'
-'og:image': 'https://react.email/static/covers/react-email.png'
+'og:image': 'https://react.email/static/covers/jsx-email.png'
 ---
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [MailerSend Node.js SDK](https://www.npmjs.com/package/mailersend).
+Get the [@jsx-email/render](https://www.npmjs.com/package/@jsx-email/render) package and the [MailerSend Node.js SDK](https://www.npmjs.com/package/mailersend).
 
 ::: code-group
 
-```sh npm
-npm install @react-email/render mailersend
+```console [pnpm]
+pnpm add @jsx-email/render mailersend
 ```
 
-```sh yarn
-yarn add @react-email/render mailersend
+```console [npm]
+npm add @jsx-email/render mailersend
 ```
 
-```sh pnpm
-pnpm add @react-email/render mailersend
+```console [yarn]
+yarn add @jsx-email/render mailersend
 ```
 
 :::
@@ -31,8 +31,8 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```jsx email.jsx
 import * as React from 'react';
-import { Html } from '@react-email/html';
-import { Button } from '@react-email/button';
+import { Html } from '@jsx-email/html';
+import { Button } from '@jsx-email/button';
 
 export function Email(props) {
   const { url } = props;
@@ -51,7 +51,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
 
 ```jsx index.jsx
-import { render } from '@react-email/render';
+import { render } from '@jsx-email/render';
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { Email } from './email';
 
@@ -82,7 +82,7 @@ mailerSend.email.send(emailParams);
   title="MailerSend example"
   icon='arrow-up-right-from-square'
   iconType="duotone"
-  href="https://github.com/resendlabs/react-email/tree/main/examples/mailersend"
+  href="https://github.com/resendlabs/jsx-email/tree/main/examples/mailersend"
 >
   See the full source code.
 </Card>

@@ -12,16 +12,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/heading -E
+```console [pnpm]
+pnpm add @jsx-email/heading
 ```
 
-```sh yarn
-yarn add @react-email/heading -E
+```console [npm]
+npm add @jsx-email/heading
 ```
 
-```sh pnpm
-pnpm add @react-email/heading -E
+```console [yarn]
+yarn add @jsx-email/heading
 ```
 
 :::
@@ -31,7 +31,7 @@ pnpm add @react-email/heading -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Heading } from '@react-email/heading';
+import { Heading } from '@jsx-email/heading';
 
 const Email = () => {
   return (
@@ -40,37 +40,85 @@ const Email = () => {
 };
 ```
 
-## Props
+## Component Props
 
-<ResponseField name="as" type="string" default="h1">
+### `as`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+ default="h1">
   Render component as `h1`, `h2`, `h3`, `h4`, `h5` or `h6`.
-</ResponseField>
 
-<ResponseField name="m" type="string">
+
+### `m`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   A shortcut for `margin` CSS property.
-</ResponseField>
 
-<ResponseField name="mx" type="string">
+
+### `mx`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   A shortcut for `margin-left` and `margin-right` CSS properties.
-</ResponseField>
 
-<ResponseField name="my" type="string">
+
+### `my`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   A shortcut for `margin-top` and `margin-bottom` CSS properties.
-</ResponseField>
 
-<ResponseField name="mt" type="string">
+
+### `mt`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   A shortcut for `margin-top` CSS property.
-</ResponseField>
 
-<ResponseField name="mr" type="string">
+
+### `mr`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   A shortcut for `margin-right` CSS property.
-</ResponseField>
 
-<ResponseField name="mb" type="string">
+
+### `mb`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   A shortcut for `margin-bottom` CSS property.
-</ResponseField>
 
-<ResponseField name="ml" type="string">
+
+### `ml`
+
+Type: `string`<br>
+Default: ``<br/>
+Required: `false`
+
+>
   A shortcut for `margin-left` CSS property.
-</ResponseField>
+
 

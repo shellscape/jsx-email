@@ -15,7 +15,6 @@ pnpm add @jsx-email/text
 # yarn add @jsx-email/text
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.

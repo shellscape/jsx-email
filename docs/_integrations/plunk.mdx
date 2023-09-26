@@ -2,7 +2,7 @@
 title: 'Send email using Plunk'
 sidebarTitle: 'Plunk'
 description: 'Learn how to send an email using React Email and the Plunk Node.js SDK.'
-'og:image': 'https://react.email/static/covers/react-email.png'
+'og:image': 'https://react.email/static/covers/jsx-email.png'
 ---
 
 ## 1. Install dependencies
@@ -11,15 +11,15 @@ Get the [Plunk Node.js SDK](https://www.npmjs.com/package/@plunk/node).
 
 ::: code-group
 
-  ```sh npm
+  ```console [foo]
   npm install @plunk/node
   ```
 
-  ```sh yarn
+  ```console [npm]
   yarn add @plunk/node
   ```
 
-  ```sh pnpm
+  ```console [yarn]
   pnpm add @plunk/node
   ```
 
@@ -31,8 +31,8 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```jsx email.jsx
 import * as React from 'react';
-import { Html } from '@react-email/html';
-import { Button } from '@react-email/button';
+import { Html } from '@jsx-email/html';
+import { Button } from '@jsx-email/button';
 
 export function Email(props) {
   const { url } = props;
@@ -55,7 +55,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
   ```js React
   import Plunk from '@plunk/node';
-  import { render } from '@react-email/render';
+  import { render } from '@jsx-email/render';
   import { Email } from './email';
 
   const plunk = new Plunk(process.env.PLUNK_API_KEY);
@@ -71,7 +71,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
   ```js NodeJS
   import Plunk from '@plunk/node';
-  import { render } from '@react-email/render';
+  import { render } from '@jsx-email/render';
   import { Email } from './email';
 
   const plunk = new Plunk(process.env.PLUNK_API_KEY);
@@ -93,7 +93,7 @@ Import the email template you just built, convert into a HTML string, and use th
   title="Plunk example"
   icon='arrow-up-right-from-square'
   iconType="duotone"
-  href="https://github.com/resendlabs/react-email/tree/main/examples/plunk"
+  href="https://github.com/resendlabs/jsx-email/tree/main/examples/plunk"
 >
   See the full source code.
 </Card>

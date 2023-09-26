@@ -12,16 +12,16 @@ Install component from your command line.
 
 ::: code-group
 
-```sh npm
-npm install @react-email/hr -E
+```console [pnpm]
+pnpm add @jsx-email/hr
 ```
 
-```sh yarn
-yarn add @react-email/hr -E
+```console [npm]
+npm add @jsx-email/hr
 ```
 
-```sh pnpm
-pnpm add @react-email/hr -E
+```console [yarn]
+yarn add @jsx-email/hr
 ```
 
 :::
@@ -31,7 +31,7 @@ pnpm add @react-email/hr -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Hr } from '@react-email/hr';
+import { Hr } from '@jsx-email/hr';
 
 const Email = () => {
   return <Hr />;

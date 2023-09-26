@@ -1,7 +1,7 @@
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/resendlabs/react-email.git
+git clone https://github.com/resendlabs/jsx-email.git
 ```
 
 2. Install all dependencies:
