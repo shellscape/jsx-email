@@ -142,6 +142,66 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
 
+  packages/all:
+    dependencies:
+      '@jsx-email/body':
+        specifier: workspace:*
+        version: link:../body
+      '@jsx-email/button':
+        specifier: workspace:*
+        version: link:../button
+      '@jsx-email/column':
+        specifier: workspace:*
+        version: link:../column
+      '@jsx-email/container':
+        specifier: workspace:*
+        version: link:../container
+      '@jsx-email/font':
+        specifier: workspace:*
+        version: link:../font
+      '@jsx-email/head':
+        specifier: workspace:*
+        version: link:../head
+      '@jsx-email/heading':
+        specifier: workspace:*
+        version: link:../heading
+      '@jsx-email/hr':
+        specifier: workspace:*
+        version: link:../hr
+      '@jsx-email/html':
+        specifier: workspace:*
+        version: link:../html
+      '@jsx-email/img':
+        specifier: workspace:*
+        version: link:../img
+      '@jsx-email/link':
+        specifier: workspace:*
+        version: link:../link
+      '@jsx-email/markdown':
+        specifier: workspace:*
+        version: link:../markdown
+      '@jsx-email/preview':
+        specifier: workspace:*
+        version: link:../preview
+      '@jsx-email/render':
+        specifier: workspace:*
+        version: link:../render
+      '@jsx-email/row':
+        specifier: workspace:*
+        version: link:../row
+      '@jsx-email/section':
+        specifier: workspace:*
+        version: link:../section
+      '@jsx-email/tailwind':
+        specifier: workspace:*
+        version: link:../tailwind
+      '@jsx-email/text':
+        specifier: workspace:*
+        version: link:../text
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+
   packages/body:
     dependencies:
       react:

@@ -1,8 +1,3 @@
-
-[npm]: https://img.shields.io/npm/v/@jsx-email/html
-[npm-url]: https://www.npmjs.com/package/@jsx-email/html
-
-[![npm][npm]][npm-url]
 [![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
 
 <div align="center">

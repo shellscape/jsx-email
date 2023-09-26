@@ -1,30 +1,28 @@
-### Getting Started
+[![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
 
-If you're new to either `pnpm` or `Moon` you'll want to run the `bootstrap.sh` script first. It will install everything you'll need to get started, and bootstrap your environment:
+<div align="center">
+	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"><br/><br/>
+</div>
 
-```console
-$ ./shared/bootstrap.sh
-```
+# @jsx-email/all
 
-Next we'll want to get dependencies installed, and get everything built. _(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don't techincally have to install dependencies first)_:
+<div>
+  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
+  A project to demo and test the `email preview` CLI command
+  <br/>
+<div>
 
-```console
-$ pnpm install
-```
+The intent of this package is to provide a likely real-world scenario on which users might use `@jsx-email/cli` and its commands. Specifically the `preview` command, which starts a live-preview server.
 
-Build all of the packages in the repo:
+## Requirements
 
-```console
-$ moon run jsx-email:build.packages
-```
+This package requires an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
 
-And build the cli:
+## Testing
 
-```console
-$ moon run cli:build
-```
+To begin, you'll need to be setup to work within this repo. Please see _Getting Started_ in the [CONTRIBUTING.md](../../CONTRIBUTING.md) guide before continuing.
 
-To start up the preview server locally:
+To start the preview server locally, run:
 
 ```console
 $ moon run demo:dev
