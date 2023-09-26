@@ -28,7 +28,7 @@ jobs:
       - name: Set Git Config
         run: |
           git config pull.rebase false
-          git config --global user.email "release-workflow@rollup.dev"
+          git config --global user.email "release-workflow@jsx.email"
           git config --global user.name "Release Workflow"
           git remote set-url origin https://github.com/${{ github.repository }}
 
@@ -80,7 +80,7 @@ jobs:
         # Sanity check before we publish
       - name: Build Projects
         run: |
-          moon run jsx-email:build.packages
+          moon run repo:build.packages
 
       - name: Release
         run: moon run :release --affected --concurrency 1 --remote

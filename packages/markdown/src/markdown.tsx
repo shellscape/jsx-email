@@ -25,7 +25,7 @@ export const Markdown = React.forwardRef<MarkdownElement, MarkdownProps>(
       <div
         {...props}
         ref={forwardedRef}
-        data-id="react-email-markdown"
+        data-id="@jsx-email/markdown"
         style={markdownContainerStyles}
         dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
       />

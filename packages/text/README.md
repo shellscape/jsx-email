@@ -1,24 +1,26 @@
 # @jsx-email/text
 
+## Requirements
+
+This package requires an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
+
 ## Install
 
-Install component from your command line.
+```shell
+pnpm add @jsx-email/text
 
-#### With yarn
-
-```sh
-yarn add @react-email/text -E
+# We recommend pnpm - https://pnpm.io
+# But npm and yarn are supported
+# npm add @jsx-email/text
+# yarn add @jsx-email/text
 ```
 
-#### With npm
 
-```sh
-npm install @react-email/text -E
-```
+## Usage
 
-## Getting started
+We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 
-Add the component to your email template. Include styles where needed.
+Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
 import { Text } from "@jsx-email/text";

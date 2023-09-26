@@ -13,7 +13,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, Readonly<HeadingProp
     <Slot
       {...props}
       ref={forwardedRef}
-      data-id="react-email-heading"
+      data-id="@jsx-email/heading"
       style={{ ...withMargin({ m, mb, ml, mr, mt, mx, my }), ...style }}
     >
       <Tag>{children}</Tag>

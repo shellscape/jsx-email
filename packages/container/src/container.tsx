@@ -12,7 +12,7 @@ export const Container = React.forwardRef<ContainerElement, Readonly<ContainerPr
       width="100%"
       {...props}
       ref={forwardedRef}
-      data-id="__react-email-container"
+      data-id="@jsx-email/container"
       role="presentation"
       cellSpacing="0"
       cellPadding="0"

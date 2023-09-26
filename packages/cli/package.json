@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A CLI for working with Email Templates made with react-email",
+  "description": "A CLI for working with Email Templates made with jsx-email",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,7 +30,6 @@
     "@radix-ui/react-slot": "1.0.2",
     "@radix-ui/react-toggle-group": "1.0.4",
     "@radix-ui/react-tooltip": "1.0.6",
-    "@react-email/render": "0.0.7",
     "@vitejs/plugin-react": "^4.0.4",
     "autoprefixer": "^10.4.15",
     "chalk": "4.1.2",

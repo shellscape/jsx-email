@@ -27,6 +27,6 @@ const renderAsPlainText = (component: React.ReactElement, _options?: Options) =>
   convert(ReactDomServer.renderToStaticMarkup(component), {
     selectors: [
       { format: 'skip', selector: 'img' },
-      { format: 'skip', selector: '#__react-email-preview' }
+      { format: 'skip', selector: '[data-id="@jsx-email/preview"]' }
     ]
   });
