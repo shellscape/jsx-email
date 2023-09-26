@@ -30,6 +30,9 @@
     "email",
     "tailwind"
   ],
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
   "dependencies": {
     "html-react-parser": "^4.2.2",
     "react": "18.2.0",

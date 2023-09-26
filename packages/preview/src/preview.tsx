@@ -24,7 +24,7 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
     return (
       <div
         ref={forwardedRef}
-        id="__react-email-preview"
+        data-id="@jsx-email/preview"
         style={{
           display: 'none',
           lineHeight: '1px',

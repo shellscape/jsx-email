@@ -59,7 +59,7 @@ export const renderAsync = async (
     return convert(markup, {
       selectors: [
         { format: 'skip', selector: 'img' },
-        { format: 'skip', selector: '#__react-email-preview' }
+        { format: 'skip', selector: '[data-id="@jsx-email/preview"]' }
       ]
     });
   }

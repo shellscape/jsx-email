@@ -14,7 +14,7 @@ export const Row = React.forwardRef<RowElement, Readonly<RowProps>>(
       width="100%"
       {...props}
       ref={forwardedRef}
-      data-id="react-email-row"
+      data-id="@jsx-email/row"
       style={style}
       role="presentation"
       cellSpacing="0"
