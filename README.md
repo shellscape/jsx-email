@@ -1,135 +1,98 @@
-![React email cover](https://react.email/static/covers/react-email.png)
 
-<div align="center"><strong>React Email</strong></div>
-<div align="center">The next generation of writing emails.<br />High-quality, unstyled components for creating emails.</div>
-<br />
+[npm]: https://img.shields.io/npm/v/@jsx-email/html
+[npm-url]: https://www.npmjs.com/package/@jsx-email/html
+
+[![npm][npm]][npm-url]
+[![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
+
 <div align="center">
-<a href="https://react.email">Website</a>
-<span> · </span>
-<a href="https://github.com/resendlabs/react-email">GitHub</a>
-<span> · </span>
-<a href="https://react.email/discord">Discord</a>
+	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"><br/><br/>
 </div>
 
-## Fork Information
+<div>
+  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
+  JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients.
+  <br/><br/>
+  The components handle the heavy lifting of compatibility and client insonsistency so designers and developers can focus on building impactful and engaging templates.
+  <br/>
+<div>
 
-This is a soft fork of `@react-email`. The information below is accurate, however when using this fork, substitute `@jsx-email` for `@react-email` in instructions.
+## Getting Started
 
-Users can expect that this project is in line with the upstream project. The intent of this project to provide an up to date channel, merging PRs from the upstream project quickly and rolling out fixes and new features faster than the `react-email` project can currently tackle.
+Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs). Please give that a read and let us know if there's anything we can help with.
 
-## Introduction
+## Requirements
 
-A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.
-It reduces the pain of coding responsive emails with dark mode support. It also takes care of inconsistencies between Gmail, Outlook, and other email clients for you.
+The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
 
-## Why
-
-We believe that email is an extremely important medium for people to communicate. However, we need to stop developing emails like 2010, and rethink how email can be done in 2022 and beyond. Email development needs a revamp. A renovation. Modernized for the way we build web apps today.
-
-## Install
-
-Install one of the components from your command line.
-
-#### With yarn
-
-```sh
-yarn add @react-email/button -E
-```
-
-#### With npm
-
-```sh
-npm install @react-email/button -E
-```
-
-## Getting started
-
-Add the component to your email template. Include styles where needed.
-
-```jsx
-import { Button } from '@react-email/button';
-
-const Email = () => {
-  return (
-    <Button href="https://example.com" style={{ color: '#61dafb' }}>
-      Click me
-    </Button>
-  );
-};
-```
+<div>
+  <br/>
+	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/clients.svg" alt="JSX email"><br/>
+  Compatible with all modern email services
+  <br/><br/>
+</div>
 
 ## Components
 
-A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
+A list of available components found here:
 
-- [Html](https://github.com/resendlabs/react-email/tree/main/packages/html)
-- [Head](https://github.com/resendlabs/react-email/tree/main/packages/head)
-- [Heading](https://github.com/resendlabs/react-email/tree/main/packages/heading)
-- [Button](https://github.com/resendlabs/react-email/tree/main/packages/button)
-- [Link](https://github.com/resendlabs/react-email/tree/main/packages/link)
-- [Image](https://github.com/resendlabs/react-email/tree/main/packages/img)
-- [Divider](https://github.com/resendlabs/react-email/tree/main/packages/hr)
-- [Paragraph](https://github.com/resendlabs/react-email/tree/main/packages/text)
-- [Container](https://github.com/resendlabs/react-email/tree/main/packages/container)
-- [Preview](https://github.com/resendlabs/react-email/tree/main/packages/preview)
-- [Body](https://github.com/resendlabs/react-email/tree/main/packages/body)
-- [Column](https://github.com/resendlabs/react-email/tree/main/packages/column)
-- [Section](https://github.com/resendlabs/react-email/tree/main/packages/section)
-- [Font](https://github.com/resendlabs/react-email/tree/main/packages/font)
+|                                     |                                                                                           |
+| ------------------------------------| ----------------------------------------------------------------------------------------- |
+| [body](packages/body)               |                                         |
+| [button](packages/button)           |                                         |
+| [column](packages/column)           |                                         |
+| [container](packages/container)     |                                         |
+| [font](packages/font)               |                                         |
+| [head](packages/head)               |                                         |
+| [heading](packages/heading)         |                                         |
+| [hr](packages/hr)                   |                                         |
+| [html](packages/html)               |                                         |
+| [image](packages/image)             |                                         |
+| [link](packages/link)               |                                         |
+| [markdown](packages/markdown)       |                                         |
+| [preview](packages/preview)         |                                         |
+| [row](packages/row)                 |                                         |
+| [section](packages/section)         |                                         |
+| [tailwind](packages/tailwind)       |                                         |
+| [text](packages/text)               |                                         |
+|                                     |                                                                                           |
 
-## Integrations
+## Helper Packages
 
-Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
+A list of available helper packages found here:
 
-- [Resend](https://github.com/resendlabs/react-email/tree/main/examples/resend)
-- [Nodemailer](https://github.com/resendlabs/react-email/tree/main/examples/nodemailer)
-- [SendGrid](https://github.com/resendlabs/react-email/tree/main/examples/sendgrid)
-- [Postmark](https://github.com/resendlabs/react-email/tree/main/examples/postmark)
-- [AWS SES](https://github.com/resendlabs/react-email/tree/main/examples/aws-ses)
+|                                     |                                                            |
+| ----------------------------------- | ---------------------------------------------------------- |
+| [all](packages/all)                 | A package containing all available JSX email components    |
+| [cli](packages/cli)                 | A CLI for working with Email Templates made with jsx-email |
+| [render](packages/render)           | Render JSX email components to HTML email                  |
+|                                     |                                                            |
 
-## Support
+## Service Integrations
 
-All components were tested using the most popular email clients.
+Email built and rendered with JSX email can be used with any email provider that provides an API for sending email as a `String`.
+This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), and [SendGrid](https://sendgrid.com).
 
-| <img src="https://react.email/static/icons/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/icons/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/icons/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/icons/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/icons/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/icons/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Gmail ✔                                                                                            | Apple Mail ✔                                                                                            | Outlook ✔                                                                                              | Yahoo! Mail ✔                                                                                                 | HEY ✔                                                                                          | Superhuman ✔                                                                                                 |
+<!-- FIXME: Write and link to example code for integrations on the docs site -->
 
 ## Contributing, Working With This Repo
 
-The `jsx-email` repository is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) that uses two primary tools; [`pnpm`](https://pnpm.io/) and [`Moon`](https://moonrepo.dev/). `pnpm` is used for package management and [workspace management](https://pnpm.io/workspaces) of the repo. `Moon` is used as our task runner for the repo - all commands to work with the packages and code in the repo go through `Moon`. We also assume that you have Node.js installed, because this is a project that leverages React.
+We 💛 contributions! After all, this is a community-driven project. We have no corporate sponsorship or backing. The maintainers and users keep this project going!
 
-### Getting Started
-
-If you're new to either `pnpm` or `Moon` you'll want to run the `bootstrap.sh` script first. It will install everything you'll need to get started, and bootstrap your environment:
-
-```console
-$ ./shared/bootstrap.sh
-```
-
-Next we'll want to get dependencies installed, and get everything built. _(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don't techincally have to install dependencies first)_:
-
-```console
-$ pnpm install
-```
-
-Build all of the packages in the repo:
-
-```console
-$ moon run jsx-email:build.packages
-```
-
-And build the cli:
-
-```console
-$ moon run cli:build
-```
-
-Read more on our [Contribution Guide](https://react.email/docs/contributing).
+Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
 ## Attribution 🧡
 
-This package was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
+This project was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
+
+`JSX email` is a fork of `react-email`. The goals of this project are to provide similar benefits, with an improved focus on Developer Experience, maintenance, fast improvements and fast releases. Improvements over `react-email` include:
+
+- Smoother Developer Experience (DX)
+- Better Command Line tools
+- Less complex, smoother Preview Server
+- Faster improvements and releases
+- Community-driven maintenance
+- No vendor lock-in for tools. `jsx-email` uses only generic components and tools.
 
 ## License
 

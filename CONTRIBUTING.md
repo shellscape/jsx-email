@@ -1,23 +1,66 @@
-## Contributing
-Wanna help? Awesome! There are many ways you can contribute.
+## Contributing in this repository
 
-## Improving the docs
-Documentation is extremely important and takes a fair deal of time and effort to write and keep updated. Everything is written in Markdown to facilitate the process of contributing.
+We 💛 contributions! The rules for contributing to this org are few:
 
-## Building new components
-We’re open to expanding the catalog of components to cover as many use cases as possible. We suggest to open an issue for discussion first to make sure your idea is aligned with the project goals.
+1. Don't be a jerk
+1. Search issues before opening a new one
+1. Lint and run tests locally before submitting a PR
+1. Adhere to the code style the project has chosen
 
-## Opening issues
-Open an issue to report bugs or to propose new features.
+## Repo Info
 
-**- Reporting bugs:**
-describe the bug as clearly as you can, including steps to reproduce, what happened and what you were expecting to happen. Also include browser version, OS and other related software’s (npm, Node.js, etc) versions when applicable.
+The `jsx-email` repository is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) that uses two primary tools; [`pnpm`](https://pnpm.io/) and [`Moon`](https://moonrepo.dev/). `pnpm` is used for package management and [workspace management](https://pnpm.io/workspaces) of the repo. `Moon` is used as our task runner for the repo - all commands to work with the packages and code in the repo go through `Moon`. We also assume that you have Node.js installed, because this is a project that leverages React.
 
-**- Suggesting features:** explain the proposed feature, what it should do, why it is useful, how users should use it. Give us as much info as possible so it will be easier to discuss, access and implement the proposed feature. When you’re unsure about a certain aspect of the feature, feel free to leave it open for others to discuss and find an appropriate solution.
+### Getting Started
 
-## Proposing pull requests
-Pull requests are very welcome. Note that if you are going to propose drastic changes, be sure to open an issue for discussion first, to make sure that your PR will be accepted before you spend effort coding it.
+If you're new to either `pnpm` or `Moon` you'll want to run the `bootstrap.sh` script first. It will install everything you'll need to get started, and bootstrap your environment:
 
-**- Forking the repository:** clone it locally and create a branch for your proposed bug fix or new feature. Avoid working directly on the main branch.
+```console
+$ ./shared/bootstrap.sh
+```
 
-**- Making changes:** implement your bug fix or feature, write tests to cover it and make sure all tests are passing. Then commit your changes, push your bug fix/feature branch to the origin (your forked repo) and open a pull request to the upstream (the repository you originally forked)‘s main branch.
+Next we'll want to get dependencies installed, and get everything built. _(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don't techincally have to install dependencies first)_:
+
+```console
+$ pnpm install
+```
+
+Build all of the packages in the repo:
+
+```console
+$ moon run repo:build.packages
+```
+
+And build the cli:
+
+```console
+$ moon run cli:build
+```
+
+## Before Committing
+
+1. Use at least Node.js v18.0.0 or higher. [NVM](https://github.com/creationix/nvm) can be handy for switching between Node versions.
+1. Lint your changes via `moon run repo:lint`. Fix any errors and warnings before committing.
+1. Test your changes via `moon run repo:test`. Only Pull Requests with passing tests will be accepted.
+
+## Submitting Code
+
+Any code change should be submitted as a pull request. Our guidelines for Pull Requests:
+
+- Please fill in our template in its entirety. Please don't reformat it or modify it
+- The description should explain what the code does and give steps to execute it
+- The pull request should also contain tests
+- Before submitting your Pull Request, please lint your changes by running `moon run repo:lint` in the root directory
+- If any checks fail for your Pull Request, please resolve them. Always feel free to ask for help if unable to resolve issues with checks
+
+## Code Review Process
+
+The bigger the pull request, the longer it will take to review and merge. Try to break down large pull requests in smaller chunks that are easier to review and merge.
+
+It is also always helpful to have some context for your pull request. What was the purpose? Why does it matter to you? Does it resolve any known Github issues? Adding a line "resolves #<issue number>" (e.g. "resolves #23") to the description of your pull request or of a specific commit will automatically close this issue once the pull request is merged.
+
+
+
+
+
+

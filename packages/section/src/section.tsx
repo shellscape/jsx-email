@@ -12,7 +12,7 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
       width="100%"
       {...props}
       ref={forwardedRef}
-      data-id="react-email-section"
+      data-id="@jsx-email/section"
       style={style}
       border={0}
       cellPadding="0"

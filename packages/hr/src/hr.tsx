@@ -10,7 +10,7 @@ export const Hr = React.forwardRef<HrElement, Readonly<HrProps>>(
     <hr
       {...props}
       ref={forwardedRef}
-      data-id="react-email-hr"
+      data-id="@jsx-email/hr"
       style={{
         border: 'none',
         borderTop: '1px solid #eaeaea',

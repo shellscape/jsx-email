@@ -8,7 +8,7 @@
     "react": "^18.2.0"
   },
   "dependencies": {
-    "@jsx-email/cli": "workspace:*",
-    "@jsx-email/components": "workspace:*"
+    "@jsx-email/all": "workspace:*",
+    "@jsx-email/cli": "workspace:*"
   }
 }

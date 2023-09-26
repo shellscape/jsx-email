@@ -75,10 +75,10 @@ jobs:
       - name: Build Projects
         run: |
           pnpm exec tsc --version
-          moon run jsx-email:build.packages
+          moon run repo:build.packages
 
       - name: Lint Monorepo
-        run: moon run jsx-email:lint
+        run: moon run repo:lint
 
       # leave this commented until we have tests
       # - name: Run Tests
