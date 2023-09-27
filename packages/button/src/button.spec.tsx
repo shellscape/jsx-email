@@ -1,5 +1,4 @@
 import { render } from '@jsx-email/render';
-
 import { Button } from './index';
 
 describe('<Button> component', () => {
