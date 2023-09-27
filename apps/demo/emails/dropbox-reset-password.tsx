@@ -9,7 +9,7 @@ import {
   Preview,
   Section,
   Text
-} from '@jsx-email/components';
+} from '@jsx-email/all';
 import * as React from 'react';
 
 interface DropboxResetPasswordEmailProps {

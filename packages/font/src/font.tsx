@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type React from 'react';
 
 type FallbackFont = 'Arial' | 'Helvetica' | 'Verdana' | 'Georgia' | 'Times New Roman';
 
@@ -46,8 +46,8 @@ export const Font: React.FC<Readonly<FontProps>> = ({
 
     * {
       font-family: '${fontFamily}', ${
-    Array.isArray(fallbackFontFamily) ? fallbackFontFamily.join(', ') : fallbackFontFamily
-  };
+        Array.isArray(fallbackFontFamily) ? fallbackFontFamily.join(', ') : fallbackFontFamily
+      };
     }
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;
