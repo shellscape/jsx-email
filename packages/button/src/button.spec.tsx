@@ -34,7 +34,7 @@ describe('<Button> component', () => {
     );
   });
 
-  it('renders the <Button> component with no padding value', () => {
+  it('renders with no padding value', () => {
     const actualOutput = render(<Button href="https://example.com" />);
     expect(actualOutput).toMatchInlineSnapshot(
       '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><a href=\\"https://example.com\\" data-id=\\"@jsx-email/button\\" target=\\"_blank\\" style=\\"display:inline-block;line-height:100%;max-width:100%;padding:0px 0px 0px 0px;text-decoration:none\\"><span><!--[if mso]><i style=\\"letter-spacing: 0px;mso-font-width:-100%;mso-text-raise:0\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"display:inline-block;line-height:120%;max-width:100%;mso-padding-alt:0px;mso-text-raise:0\\"></span><span><!--[if mso]><i style=\\"letter-spacing: 0px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>"'
