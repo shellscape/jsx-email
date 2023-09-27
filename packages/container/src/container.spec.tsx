@@ -1,16 +1,30 @@
-import * as React from 'react';
-
 import { render } from '@jsx-email/render';
-
 import { Container } from './index';
 
-describe('render', () => {
+describe('<Container> component', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('renders the <Container> component', () => {
+  it('renders children correctly', () => {
+    const testMessage = 'Test message';
+    const html = render(<Container>{testMessage}</Container>);
+    expect(html).toContain(testMessage);
+  });
+
+  it('passes style and other props correctly', () => {
+    const style = { maxWidth: 300, backgroundColor: 'red' };
+    const html = render(
+      <Container style={style} data-testid="container-test">
+        Test
+      </Container>
+    );
+    expect(html).toContain('style="max-width:300px;background-color:red"');
+    expect(html).toContain('data-testid="container-test"');
+  });
+
+  it('renders correctly', () => {
     const container = render(
       <Container style={{ maxWidth: '300px' }}>
         <button>Hi</button>
