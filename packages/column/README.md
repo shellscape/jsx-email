@@ -30,7 +30,6 @@ pnpm add @jsx-email/column
 # yarn add @jsx-email/column
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -50,7 +49,6 @@ const Email = () => {
   );
 };
 ```
-
 
 ## Attribution 🧡
 

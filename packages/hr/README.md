@@ -30,7 +30,6 @@ pnpm add @jsx-email/hr
 # yarn add @jsx-email/hr
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,13 +37,12 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Hr } from "@jsx-email/hr";
+import { Hr } from '@jsx-email/hr';
 
 const Email = () => {
   return <Hr />;
 };
 ```
-
 
 ## Attribution 🧡
 

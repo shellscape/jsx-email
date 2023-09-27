@@ -30,7 +30,6 @@ pnpm add @jsx-email/heading
 # yarn add @jsx-email/heading
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,13 +37,12 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Heading } from "@jsx-email/heading";
+import { Heading } from '@jsx-email/heading';
 
 const Email = () => {
   return <Heading as="h1">Lorem ipsum</Heading>;
 };
 ```
-
 
 ## Attribution 🧡
 

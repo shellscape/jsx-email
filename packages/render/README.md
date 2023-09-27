@@ -30,14 +30,13 @@ pnpm add @jsx-email/render
 # yarn add @jsx-email/render
 ```
 
-
 ## Usage
 
 Convert React components into a HTML string.
 
 ```jsx
-import { MyTemplate } from "../components/MyTemplate";
-import { render } from "@jsx-email/render";
+import { MyTemplate } from '../components/MyTemplate';
+import { render } from '@jsx-email/render';
 
 const html = render(<MyTemplate firstName="Jim" />);
 ```

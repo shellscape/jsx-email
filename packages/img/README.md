@@ -30,7 +30,6 @@ pnpm add @jsx-email/img
 # yarn add @jsx-email/img
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,7 +37,7 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Img } from "@jsx-email/img";
+import { Img } from '@jsx-email/img';
 
 const Email = () => {
   return <Img src="cat.jpg" alt="Cat" width="300" height="300" />;
@@ -53,7 +52,6 @@ const Email = () => {
 | src    | string |         | The path to the image              |
 | width  | string |         | The width of an image in pixels    |
 | height | string |         | The height of an image in pixels   |
-
 
 ## Attribution 🧡
 

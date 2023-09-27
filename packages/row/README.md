@@ -30,7 +30,6 @@ pnpm add @jsx-email/row
 # yarn add @jsx-email/row
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,9 +37,9 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Section } from "@jsx-email/section";
-import { Row } from "@jsx-email/row";
-import { Column } from "@jsx-email/column";
+import { Section } from '@jsx-email/section';
+import { Row } from '@jsx-email/row';
+import { Column } from '@jsx-email/column';
 
 const Email = () => {
   return (
@@ -58,7 +57,6 @@ const Email = () => {
   );
 };
 ```
-
 
 ## Attribution 🧡
 

@@ -64,7 +64,6 @@ Examples
 
 For more documentation and information using the CLI, please review our [Documentation](https://jsx.email/docs/cli)
 
-
 ## Attribution 🧡
 
 This package was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
