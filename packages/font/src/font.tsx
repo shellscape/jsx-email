@@ -46,8 +46,8 @@ export const Font: React.FC<Readonly<FontProps>> = ({
 
     * {
       font-family: '${fontFamily}', ${
-        Array.isArray(fallbackFontFamily) ? fallbackFontFamily.join(', ') : fallbackFontFamily
-      };
+    Array.isArray(fallbackFontFamily) ? fallbackFontFamily.join(', ') : fallbackFontFamily
+  };
     }
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;
