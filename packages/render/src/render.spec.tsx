@@ -1,7 +1,4 @@
-import * as React from 'react';
-
 import { render } from './index';
-
 import { Template } from './utils/template';
 import { Preview } from './utils/preview';
 

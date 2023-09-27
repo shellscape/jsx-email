@@ -1,9 +1,6 @@
 import * as React from 'react';
-
 import ReactDOMServer from 'react-dom/server';
-
 import { renderAsync } from './index';
-
 import { Template } from './utils/template';
 import { Preview } from './utils/preview';
 
