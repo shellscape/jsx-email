@@ -3,6 +3,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import htmlParser, { attributesToProps, domToReact, Element } from 'html-react-parser';
 import { tailwindToCSS, TailwindConfig } from 'tw-to-css';
 
+import { cleanCss, makeCssMap, getMediaQueryCss } from './utils';
+
 export interface TailwindProps {
   children: React.ReactNode;
   config?: TailwindConfig;
@@ -74,8 +76,10 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
               .split(' ')
               .map((className: string) => cssMap[`.${className}`])
               .join(';');
+            // eslint-disable-next-line no-param-reassign
             domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
 
+            // eslint-disable-next-line no-param-reassign
             domNode.attribs.class = domNode.attribs.class
               // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
               .split(' ')
@@ -84,6 +88,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, '_');
 
+            // eslint-disable-next-line no-param-reassign
             if (domNode.attribs.class === '') delete domNode.attribs.class;
           }
         }
@@ -97,61 +102,3 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 };
 
 Tailwind.displayName = 'Tailwind';
-
-/**
- * Clean css selectors to replace all non-alphanumeric characters with underscores
- */
-function cleanCss(css: string) {
-  const newCss = css
-    .replace(/\\/g, '')
-    // find all css selectors and look ahead for opening and closing curly braces
-    // eslint-disable-next-line no-useless-escape
-    .replace(/[.\!\#\w\d\\:\-\[\]\/\.%\(\))]+(?=\s*?{[^{]*?\})\s*?{/g, (m) =>
-      // eslint-disable-next-line no-useless-escape
-      m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, '_')
-    )
-    .replace(
-      /font-family(?<value>[^;\r\n]+)/g,
-      (_, value) => `font-family${value.replace(/['"]+/g, '')}`
-    );
-  return newCss;
-}
-
-/**
- * Get media query css to put in head
- */
-function getMediaQueryCss(css: string) {
-  const mediaQueryRegex = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm;
-
-  return (
-    css
-      .replace(mediaQueryRegex, (m) =>
-        m.replace(/([^{]+\{)([\s\S]+?)(\}\s*\})/gm, (_, start, content, end) => {
-          const newContent = (content as string).replace(
-            /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
-            (_, prop, value) => `${prop}: ${value} !important;`
-          );
-          return `${start}${newContent}${end}`;
-        })
-      )
-      // only return media queries
-      .match(/@media\s*([^{]+)\{([^{}]*\{[^{}]*\})*[^{}]*\}/g)
-      ?.join('') ?? ''
-  );
-}
-
-/**
- * Make a map of all class names and their css styles
- */
-function makeCssMap(css: string) {
-  const cssNoMedia = css.replace(/@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm, '');
-
-  const cssMap = cssNoMedia.split('}').reduce((acc, cur) => {
-    const [key, value] = cur.split('{');
-    if (key && value) {
-      acc[key] = value;
-    }
-    return acc;
-  }, {} as Record<string, string>);
-  return cssMap;
-}
