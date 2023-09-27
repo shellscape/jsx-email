@@ -44,18 +44,18 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Html } from "@jsx-email/html";
-import { Body } from "@jsx-email/body";
-import { Column } from "@jsx-email/column";
-import { Section } from "@jsx-email/section";
+import { Html } from '@jsx-email/html';
+import { Body } from '@jsx-email/body';
+import { Column } from '@jsx-email/column';
+import { Section } from '@jsx-email/section';
 
 const Email = () => {
   return (
     <Html lang="en">
-      <Body style={{ backgroundColor: "#61dafb" }}>
+      <Body style={{ backgroundColor: '#61dafb' }}>
         <Section>
-          <Column style={{ width: "50%" }}>{/* First column */}</Column>
-          <Column style={{ width: "50%" }}>{/* Second column */}</Column>
+          <Column style={{ width: '50%' }}>{/* First column */}</Column>
+          <Column style={{ width: '50%' }}>{/* Second column */}</Column>
         </Section>
       </Body>
     </Html>

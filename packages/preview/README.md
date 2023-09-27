@@ -30,7 +30,6 @@ pnpm add @jsx-email/preview
 # yarn add @jsx-email/preview
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,13 +37,12 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Preview } from "@jsx-email/preview";
+import { Preview } from '@jsx-email/preview';
 
 const Email = () => {
   return <Preview>Email preview text</Preview>;
 };
 ```
-
 
 ## Attribution 🧡
 

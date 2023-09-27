@@ -31,37 +31,37 @@ The packages and components that make up JSX email require an [LTS](https://gith
 
 A list of available components found here:
 
-|                                     |                                                                                           |
-| ------------------------------------| ----------------------------------------------------------------------------------------- |
-| [body](packages/body)               |                                         |
-| [button](packages/button)           |                                         |
-| [column](packages/column)           |                                         |
-| [container](packages/container)     |                                         |
-| [font](packages/font)               |                                         |
-| [head](packages/head)               |                                         |
-| [heading](packages/heading)         |                                         |
-| [hr](packages/hr)                   |                                         |
-| [html](packages/html)               |                                         |
-| [image](packages/image)             |                                         |
-| [link](packages/link)               |                                         |
-| [markdown](packages/markdown)       |                                         |
-| [preview](packages/preview)         |                                         |
-| [row](packages/row)                 |                                         |
-| [section](packages/section)         |                                         |
-| [tailwind](packages/tailwind)       |                                         |
-| [text](packages/text)               |                                         |
-|                                     |                                                                                           |
+|                                 |     |
+| ------------------------------- | --- |
+| [body](packages/body)           |     |
+| [button](packages/button)       |     |
+| [column](packages/column)       |     |
+| [container](packages/container) |     |
+| [font](packages/font)           |     |
+| [head](packages/head)           |     |
+| [heading](packages/heading)     |     |
+| [hr](packages/hr)               |     |
+| [html](packages/html)           |     |
+| [image](packages/image)         |     |
+| [link](packages/link)           |     |
+| [markdown](packages/markdown)   |     |
+| [preview](packages/preview)     |     |
+| [row](packages/row)             |     |
+| [section](packages/section)     |     |
+| [tailwind](packages/tailwind)   |     |
+| [text](packages/text)           |     |
+|                                 |     |
 
 ## Helper Packages
 
 A list of available helper packages found here:
 
-|                                     |                                                            |
-| ----------------------------------- | ---------------------------------------------------------- |
-| [all](packages/all)                 | A package containing all available JSX email components    |
-| [cli](packages/cli)                 | A CLI for working with Email Templates made with jsx-email |
-| [render](packages/render)           | Render JSX email components to HTML email                  |
-|                                     |                                                            |
+|                           |                                                            |
+| ------------------------- | ---------------------------------------------------------- |
+| [all](packages/all)       | A package containing all available JSX email components    |
+| [cli](packages/cli)       | A CLI for working with Email Templates made with jsx-email |
+| [render](packages/render) | Render JSX email components to HTML email                  |
+|                           |                                                            |
 
 ## Service Integrations
 

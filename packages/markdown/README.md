@@ -30,7 +30,6 @@ pnpm add @jsx-email/markdown
 # yarn add @jsx-email/markdown
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -84,7 +83,6 @@ Provide custom styles for the corresponding HTML element (e.g., p, h1, h2, etc.)
 - **Default**: `{}`
 
 Provide custom styles for the containing `div` that wraps the markdown content.
-
 
 ## Attribution 🧡
 

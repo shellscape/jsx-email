@@ -30,7 +30,6 @@ pnpm add @jsx-email/container
 # yarn add @jsx-email/container
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,13 +37,13 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Button } from "@jsx-email/button";
-import { Container } from "@jsx-email/container";
+import { Button } from '@jsx-email/button';
+import { Container } from '@jsx-email/container';
 
 const Email = () => {
   return (
     <Container>
-      <Button href="https://example.com" style={{ color: "#61dafb" }}>
+      <Button href="https://example.com" style={{ color: '#61dafb' }}>
         Click me
       </Button>
     </Container>
