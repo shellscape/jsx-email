@@ -393,6 +393,10 @@ importers:
       tw-to-css:
         specifier: 0.0.11
         version: 0.0.11(ts-node@10.9.1)
+    devDependencies:
+      '@jsx-email/hr':
+        specifier: workspace:*
+        version: link:../hr
 
   packages/text:
     dependencies:
@@ -1441,7 +1445,7 @@ packages:
     engines: {node: '>=14.18.0'}
     dependencies:
       fs-extra: 8.1.0
-      globby: 11.1.0
+      globby: 11.0.4
       jju: 1.4.0
       read-yaml-file: 1.1.0
     dev: false
@@ -4490,6 +4494,7 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
+    dev: true
 
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
