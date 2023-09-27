@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { renderToStaticMarkup as render } from 'react-dom/server';
 import { TailwindConfig } from 'tw-to-css';
 import { Hr } from '@jsx-email/hr';
@@ -55,8 +56,6 @@ describe('Tailwind component', () => {
           <Hr className="w-12" />
         </Tailwind>
       );
-
-      console.log(actualOutput);
 
       expect(actualOutput).toContain('width:3rem');
     });
