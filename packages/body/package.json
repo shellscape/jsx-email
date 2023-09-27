@@ -23,6 +23,9 @@
   "peerDependencies": {
     "react": "^18.2.0"
   },
+  "devDependencies": {
+    "@jsx-email/render": "workspace:*"
+  },
   "types": "./dist/index.d.ts",
   "sideEffects": false
 }

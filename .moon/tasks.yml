@@ -55,3 +55,9 @@ tasks:
       cache: false
       outputStyle: 'stream'
     platform: system
+
+  test:
+    command: vitest
+    options:
+      cache: true
+      outputStyle: 'stream'
