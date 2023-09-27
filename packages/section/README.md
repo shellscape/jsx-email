@@ -30,7 +30,6 @@ pnpm add @jsx-email/section
 # yarn add @jsx-email/section
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -65,7 +64,6 @@ const Email = () => {
 };
 ```
 
-
 ## Attribution 🧡
 
 This package was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
@@ -73,4 +71,3 @@ This package was built upon prior work for `react-email` by Bu Kinoshita ([@buki
 ## License
 
 [MIT License](./LICENSE.md)
-

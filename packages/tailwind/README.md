@@ -30,7 +30,6 @@ pnpm add @jsx-email/tailwind
 # yarn add @jsx-email/tailwind
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,8 +37,8 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Button } from "@jsx-email/button";
-import { Tailwind } from "@jsx-email/tailwind";
+import { Button } from '@jsx-email/button';
+import { Tailwind } from '@jsx-email/tailwind';
 
 const Email = () => {
   return (
@@ -48,23 +47,19 @@ const Email = () => {
         theme: {
           extend: {
             colors: {
-              "custom-color": "#ff0000",
-            },
-          },
-        },
+              'custom-color': '#ff0000'
+            }
+          }
+        }
       }}
     >
-      <Button
-        href="https://example.com"
-        className="text-custom-color bg-white mx-auto"
-      >
+      <Button href="https://example.com" className="text-custom-color bg-white mx-auto">
         Click me
       </Button>
     </Tailwind>
   );
 };
 ```
-
 
 ## Attribution 🧡
 

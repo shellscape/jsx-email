@@ -30,7 +30,6 @@ pnpm add @jsx-email/font
 # yarn add @jsx-email/font
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,9 +37,9 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Html } from "@jsx-email/html";
-import { Head } from "@jsx-email/head";
-import { Font } from "@jsx-email/font";
+import { Html } from '@jsx-email/html';
+import { Head } from '@jsx-email/head';
+import { Font } from '@jsx-email/font';
 
 const Email = () => {
   return (
@@ -50,8 +49,8 @@ const Email = () => {
           fontFamily="Roboto"
           fallbackFontFamily="Verdana"
           webFont={{
-            url: "https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2",
-            format: "woff2",
+            url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
+            format: 'woff2'
           }}
         />
       </Head>
@@ -59,7 +58,6 @@ const Email = () => {
   );
 };
 ```
-
 
 ## Attribution 🧡
 

@@ -1,7 +1,6 @@
 ---
 name: 🔌 New Component
 about: Request a new Component or Tools
-
 ---
 
 <!--
@@ -23,6 +22,7 @@ Request Checklist:
   Required Steps Before Opening This Issue
   Please [x] check the boxes to acknowledge you have performed these tasks
 -->
+
 - [ ] I have searched https://npmjs.com/ before opening this issue
 - [ ] I have searched https://jsx.email/docs before opening this issue
 

@@ -30,7 +30,6 @@ pnpm add @jsx-email/link
 # yarn add @jsx-email/link
 ```
 
-
 ## Usage
 
 We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
@@ -38,7 +37,7 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Link } from "@jsx-email/link";
+import { Link } from '@jsx-email/link';
 
 const Email = () => {
   return <Link href="https://example.com">Example</Link>;
@@ -51,7 +50,6 @@ const Email = () => {
 | ------ | ------ | -------- | ------------------------------------------------ |
 | href   | string |          | Link to be triggered when the button is clicked  |
 | target | string | `_blank` | Specify the target attribute for the button link |
-
 
 ## Attribution 🧡
 

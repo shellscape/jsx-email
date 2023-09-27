@@ -22,7 +22,7 @@ We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
 ```jsx
-import { Text } from "@jsx-email/text";
+import { Text } from '@jsx-email/text';
 
 const Email = () => {
   return <Text>Lorem ipsum</Text>;

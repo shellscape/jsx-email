@@ -1,6 +1,6 @@
 {
   "name": "@jsx-email/render",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },

@@ -1,7 +1,6 @@
 ---
 name: 🔧 Modification Request
 about: Would you like something work differently? Have an alternative approach? This is the template for you.
-
 ---
 
 <!--
@@ -22,8 +21,6 @@ about: Would you like something work differently? Have an alternative approach? 
 
 ### Expected Behavior / Situation
 
-
 ### Actual Behavior / Situation
-
 
 ### Modification Proposal
