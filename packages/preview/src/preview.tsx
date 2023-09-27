@@ -8,7 +8,7 @@ export interface PreviewProps extends RootProps {
 
 const PREVIEW_MAX_LENGTH = 150;
 
-const renderWhiteSpace = (text: string) => {
+export const renderWhiteSpace = (text: string) => {
   if (text.length >= PREVIEW_MAX_LENGTH) {
     return null;
   }
