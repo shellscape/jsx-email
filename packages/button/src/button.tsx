@@ -57,7 +57,12 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
   const textRaise = pxToPt(y);
 
   return (
-    <a {...props} target={target} style={buttonStyle({ ...style, pb, pl, pr, pt })}>
+    <a
+      {...props}
+      data-id="@jsx-email/button"
+      target={target}
+      style={buttonStyle({ ...style, pb, pl, pr, pt })}
+    >
       <span
         dangerouslySetInnerHTML={{
           __html: `<!--[if mso]><i style="letter-spacing: ${pl}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`

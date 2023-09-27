@@ -4,8 +4,8 @@ import { Font } from './index';
 
 describe('render', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
   });
 
   it('renders the <Font> component', () => {

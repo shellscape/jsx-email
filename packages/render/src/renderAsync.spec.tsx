@@ -9,8 +9,8 @@ import { Preview } from './utils/preview';
 
 describe('renderAsync using renderToStaticMarkup', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
   });
 
   it('converts a React component into HTML', async () => {
@@ -76,8 +76,8 @@ describe('renderAsync using renderToReadableStream', () => {
   };
 
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
 
     (ReactDOMServer.renderToStaticMarkup as unknown as undefined) = undefined;
     ReactDOMServer.renderToReadableStream = mockRenderToReadableStream;

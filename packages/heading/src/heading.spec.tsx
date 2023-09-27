@@ -3,8 +3,8 @@ import { render } from '@jsx-email/render';
 
 describe('render', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
   });
 
   it('renders children correctly', () => {
@@ -31,7 +31,7 @@ describe('render', () => {
       </Heading>
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h2 style=\\"margin-left:4px;margin-right:4px\\">Lorem ipsum</h2>"`
+      '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h2 data-id=\\"@jsx-email/heading\\" style=\\"margin-left:4px;margin-right:4px\\">Lorem ipsum</h2>"'
     );
   });
 });

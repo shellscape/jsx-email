@@ -7,8 +7,8 @@ import { Preview } from './utils/preview';
 
 describe('render', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
   });
 
   it('converts a React component into HTML', () => {

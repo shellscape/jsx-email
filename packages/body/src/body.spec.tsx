@@ -1,5 +1,4 @@
 import { render } from '@jsx-email/render';
-
 import { Body } from './index';
 
 describe('render', () => {

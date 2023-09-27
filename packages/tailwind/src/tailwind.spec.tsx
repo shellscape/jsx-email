@@ -6,8 +6,8 @@ import { Tailwind } from './tailwind';
 
 describe('Tailwind component', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
   });
 
   describe('Inline styles', () => {
