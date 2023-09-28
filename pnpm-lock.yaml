@@ -669,10 +669,7 @@ packages:
   /@commander-js/extra-typings@9.4.1(commander@9.4.1):
     resolution: {integrity: sha512-v0BqORYamk1koxDon6femDGLWSL7P78vYTyOU5nFaALnmNALL+ktgdHvWbxzzBBJIKS7kv3XvM/DqNwiLcgFTA==}
     peerDependencies:
-      commander: '*'
-    peerDependenciesMeta:
-      commander:
-        optional: true
+      commander: 9.4.x
     dependencies:
       commander: 9.4.1
     dev: false

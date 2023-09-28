@@ -8,7 +8,7 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     globals: true,
-    resolveSnapshotPath: (testPath, snapExtension) =>
+    resolveSnapshotPath: (testPath: string, snapExtension: string) =>
       join(dirname(testPath), '.snapshots', basename(testPath) + snapExtension),
     watch: false
   }
