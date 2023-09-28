@@ -16,6 +16,9 @@ tasks:
       - ~:compile
     options:
       cache: false
+      inputs:
+        - src
+        - package.json
       outputStyle: 'stream'
       runDepsInParallel: false
 
@@ -60,4 +63,7 @@ tasks:
     command: vitest
     options:
       cache: true
+      inputs:
+        - src
+        - package.json
       outputStyle: 'stream'
