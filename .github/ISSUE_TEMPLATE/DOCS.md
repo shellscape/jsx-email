@@ -11,7 +11,7 @@ about: Are the docs lacking or missing something? Do they need some new 🔥 hot
   Or your issue may be closed.
 
   👉🏽 Need help or tech support? Please don't open an issue!
-  Head to https://discord.gg/E9ZGqYRZ or start a Discussion https://github.com/shellscape/jsx-email/discussions
+  Head to https://discord.gg/FywZN57mTg or start a Discussion https://github.com/shellscape/jsx-email/discussions
 
   ❤️ JSX email? Please consider sponsoring our maintainers or telling others about us!
 -->
