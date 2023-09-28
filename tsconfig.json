@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "types": ["vitest/globals"]
   },
   "extends": "./shared/tsconfig.base.json",
-  "include": ["apps", "packages"]
+  "include": ["apps", "packages", "shared"]
 }

@@ -3,5 +3,13 @@
     "noEmit": true
   },
   "extends": "./tsconfig.base.json",
-  "include": ["**/.eslintrc.js", "**/ava.config.js", "../apps", "../packages", "../shared"]
+  "include": [
+    "../**/.eslintrc.js",
+    "../**/ava.config.js",
+    "../apps",
+    "../packages",
+    "../shared",
+    "../vitest.config.ts",
+    "../vitest.workspace.ts"
+  ]
 }

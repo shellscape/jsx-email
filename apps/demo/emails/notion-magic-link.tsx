@@ -1,14 +1,4 @@
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Img,
-  Link,
-  Preview,
-  Text
-} from '@jsx-email/components';
+import { Body, Container, Head, Heading, Html, Img, Link, Preview, Text } from '@jsx-email/all';
 import * as React from 'react';
 
 interface NotionMagicLinkEmailProps {

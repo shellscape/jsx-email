@@ -31,7 +31,7 @@ const entries = Object.entries(groups!).map(([key, value]) => {
 
 export const sidebar = [
   {
-    text: 'Meat and Potatos',
+    text: 'Meat and Potatoes',
     items: [
       { text: 'Introduction', link: '/docs/introduction' },
       { text: 'Getting Started', link: '/docs/getting-started' },

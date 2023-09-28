@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type React from 'react';
 
 type FallbackFont = 'Arial' | 'Helvetica' | 'Verdana' | 'Georgia' | 'Times New Roman';
 
