@@ -14,11 +14,11 @@ tasks:
     command: rm -f tsconfig.json
     deps:
       - ~:compile
+    inputs:
+      - src
+      - package.json
     options:
       cache: false
-      inputs:
-        - src
-        - package.json
       outputStyle: 'stream'
       runDepsInParallel: false
 
@@ -31,6 +31,7 @@ tasks:
     command: tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
     inputs:
       - src
+      - package.json
     deps:
       - ~:tsconfig.link
       - ~:compile.cjs
@@ -60,10 +61,11 @@ tasks:
     platform: system
 
   test:
-    command: vitest
+    command: vitest --config ../../shared/vitest.config.ts
+    inputs:
+      - src
+      - test
+      - package.json
     options:
       cache: true
-      inputs:
-        - src
-        - package.json
       outputStyle: 'stream'

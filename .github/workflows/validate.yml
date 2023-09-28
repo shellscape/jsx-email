@@ -22,7 +22,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 10
-          ref: main
 
       # Needed for https://github.com/moonrepo/moon/issues/1060
       - name: Force Update Main
