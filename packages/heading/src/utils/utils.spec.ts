@@ -2,8 +2,8 @@ import { withMargin, withSpace, Margin } from './';
 
 describe('withMargin', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
   });
 
   it('should return an empty object for empty input', () => {
@@ -63,8 +63,8 @@ describe('withMargin', () => {
 
 describe('withSpace', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+    vi.restoreAllMocks();
+    vi.resetModules();
   });
 
   it('should return an empty object for undefined value', () => {
