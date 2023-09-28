@@ -1,24 +1,20 @@
-import * as React from 'react';
+import type React from 'react';
 
-type LinkElement = React.ElementRef<'a'>;
 type RootProps = React.ComponentPropsWithoutRef<'a'>;
 
 export interface LinkProps extends RootProps {}
 
-export const Link = React.forwardRef<LinkElement, Readonly<LinkProps>>(
-  ({ target = '_blank', style, ...props }, forwardedRef) => (
-    <a
-      {...props}
-      ref={forwardedRef}
-      data-id="@jsx-email/link"
-      target={target}
-      style={{
-        color: '#067df7',
-        textDecoration: 'none',
-        ...style
-      }}
-    />
-  )
+export const Link: React.FC<Readonly<LinkProps>> = ({ target = '_blank', style, ...props }) => (
+  <a
+    {...props}
+    data-id="@jsx-email/link"
+    target={target}
+    style={{
+      color: '#067df7',
+      textDecoration: 'none',
+      ...style
+    }}
+  />
 );
 
 Link.displayName = 'Link';

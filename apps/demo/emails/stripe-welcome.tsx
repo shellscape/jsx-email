@@ -10,7 +10,7 @@ import {
   Preview,
   Section,
   Text
-} from '@jsx-email/components';
+} from '@jsx-email/all';
 import * as React from 'react';
 
 const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';

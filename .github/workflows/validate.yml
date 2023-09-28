@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
 
       # Needed for https://github.com/moonrepo/moon/issues/1060
       - name: Force Update Main
@@ -80,6 +82,5 @@ jobs:
       - name: Lint Monorepo
         run: moon run repo:lint
 
-      # leave this commented until we have tests
-      # - name: Run Tests
-      #   run: pnpm --filter "...[origin/main]" test
+      - name: Run Tests
+        run: moon run :test --affected --concurrency 1 --remote

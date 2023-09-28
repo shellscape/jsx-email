@@ -36,7 +36,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/html-to-text": "^9.0.1",
+    "@types/html-to-text": "^9.0.2",
     "@types/pretty": "^2.0.1"
   },
   "types": "./dist/index.d.ts",

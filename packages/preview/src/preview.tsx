@@ -1,6 +1,5 @@
-import * as React from 'react';
+import type React from 'react';
 
-type PreviewElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 export interface PreviewProps extends RootProps {
@@ -9,7 +8,7 @@ export interface PreviewProps extends RootProps {
 
 const PREVIEW_MAX_LENGTH = 150;
 
-const renderWhiteSpace = (text: string) => {
+export const renderWhiteSpace = (text: string) => {
   if (text.length >= PREVIEW_MAX_LENGTH) {
     return null;
   }
@@ -17,29 +16,29 @@ const renderWhiteSpace = (text: string) => {
   return <div>{whiteSpaceCodes.repeat(PREVIEW_MAX_LENGTH - text.length)}</div>;
 };
 
-export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
-  ({ children = '', ...props }, forwardedRef) => {
-    let text = Array.isArray(children) ? children.join('') : children;
-    text = text.substr(0, PREVIEW_MAX_LENGTH);
-    return (
-      <div
-        ref={forwardedRef}
-        data-id="@jsx-email/preview"
-        style={{
-          display: 'none',
-          lineHeight: '1px',
-          maxHeight: 0,
-          maxWidth: 0,
-          opacity: 0,
-          overflow: 'hidden'
-        }}
-        {...props}
-      >
-        {text}
-        {renderWhiteSpace(text)}
-      </div>
-    );
-  }
-);
+export const Preview = ({
+  children = '',
+  ...props
+}: React.PropsWithChildren<Readonly<PreviewProps>>) => {
+  let text = Array.isArray(children) ? children.join('') : children;
+  text = text.substr(0, PREVIEW_MAX_LENGTH);
+  return (
+    <div
+      data-id="@jsx-email/preview"
+      style={{
+        display: 'none',
+        lineHeight: '1px',
+        maxHeight: 0,
+        maxWidth: 0,
+        opacity: 0,
+        overflow: 'hidden'
+      }}
+      {...props}
+    >
+      {text}
+      {renderWhiteSpace(text)}
+    </div>
+  );
+};
 
 Preview.displayName = 'Preview';

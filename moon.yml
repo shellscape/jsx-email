@@ -3,7 +3,7 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['build', 'compile', 'release', 'tsconfig.link']
+    exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
   build.packages:
@@ -66,3 +66,31 @@ tasks:
     command: 'prettier --write **/package.json'
     options:
       cache: false
+
+  test.packages:
+    command: echo "✓ All packages tested"
+    deps:
+      - body:test
+      - button:test
+      - column:test
+      - container:test
+      - font:test
+      - head:test
+      - heading:test
+      - hr:test
+      - html:test
+      - img:test
+      - link:test
+      - markdown:test
+      - preview:test
+      - row:test
+      - section:test
+      - tailwind:test
+      - text:test
+      - render:test
+      # TODO: add cli test
+      # - cli:test
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false

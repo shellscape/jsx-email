@@ -1,16 +1,18 @@
-import * as React from 'react';
+import type React from 'react';
 
-type HtmlElement = React.ElementRef<'html'>;
 type RootProps = React.ComponentPropsWithoutRef<'html'>;
 
 export interface HtmlProps extends RootProps {}
 
-export const Html = React.forwardRef<HtmlElement, Readonly<HtmlProps>>(
-  ({ children, lang = 'en', dir = 'ltr', ...props }, forwardedRef) => (
-    <html {...props} data-id="@jsx-email/html" ref={forwardedRef} lang={lang} dir={dir}>
-      {children}
-    </html>
-  )
+export const Html = ({
+  children,
+  lang = 'en',
+  dir = 'ltr',
+  ...props
+}: React.PropsWithChildren<Readonly<HtmlProps>>) => (
+  <html {...props} data-id="@jsx-email/html" lang={lang} dir={dir}>
+    {children}
+  </html>
 );
 
 Html.displayName = 'Html';
