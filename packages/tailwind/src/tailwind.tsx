@@ -43,8 +43,9 @@ function processElement(
 
     const newProps = {
       ...element.props,
-      className: customClassNames.join(' '),
-      style: cssToJsxStyle(convertedStyles.join(' '))
+      // eslint-disable-next-line no-undefined
+      className: customClassNames.length ? customClassNames.join(' ') : undefined,
+      style: { ...element.props.style, ...cssToJsxStyle(convertedStyles.join(' ')) }
     };
 
     // eslint-disable-next-line no-param-reassign
