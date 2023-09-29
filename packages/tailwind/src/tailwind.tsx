@@ -75,7 +75,6 @@ function processHead(child: React.ReactElement, responsiveStyles: string[]): Rea
     const headChildren = React.Children.toArray(child.props.children);
     headChildren.push(styleElement);
 
-    // eslint-disable-next-line no-param-reassign
     child = React.cloneElement(child, child.props, ...headChildren);
   }
   if (child.props.children) {
@@ -86,7 +85,7 @@ function processHead(child: React.ReactElement, responsiveStyles: string[]): Rea
       }
       return child;
     });
-    // eslint-disable-next-line no-param-reassign
+
     child = React.cloneElement(child, child.props, ...processedChildren);
   }
 

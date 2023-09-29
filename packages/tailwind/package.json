@@ -40,9 +40,9 @@
     "tw-to-css": "0.0.11"
   },
   "devDependencies": {
+    "@jsx-email/head": "workspace:*",
     "@jsx-email/hr": "workspace:*",
-    "@jsx-email/html": "workspace:*",
-    "@jsx-email/head": "workspace:*"
+    "@jsx-email/html": "workspace:*"
   },
   "types": "./dist/index.d.ts",
   "sideEffects": false
