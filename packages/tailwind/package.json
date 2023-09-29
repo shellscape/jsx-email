@@ -1,6 +1,6 @@
 {
   "name": "@jsx-email/tailwind",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -34,13 +34,14 @@
     "react": "^18.2.0"
   },
   "dependencies": {
-    "html-react-parser": "^4.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tw-to-css": "0.0.11"
   },
   "devDependencies": {
-    "@jsx-email/hr": "workspace:*"
+    "@jsx-email/head": "workspace:*",
+    "@jsx-email/hr": "workspace:*",
+    "@jsx-email/html": "workspace:*"
   },
   "types": "./dist/index.d.ts",
   "sideEffects": false

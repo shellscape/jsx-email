@@ -1,34 +1,115 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import htmlParser, { attributesToProps, domToReact, Element } from 'html-react-parser';
 import { tailwindToCSS, TailwindConfig } from 'tw-to-css';
 
-import { cleanCss, makeCssMap, getMediaQueryCss } from './utils';
+import { cssToJsxStyle } from './utils';
 
 export interface TailwindProps {
   children: React.ReactNode;
   config?: TailwindConfig;
 }
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
+function processElement(
+  element: React.ReactElement,
+  headStyles: string[],
+  config?: TailwindConfig
+): React.ReactElement {
   const { twi } = tailwindToCSS({
     config
   });
 
-  const newChildren = React.Children.toArray(children);
+  if (element.props.className) {
+    const convertedStyles: string[] = [];
+    const responsiveStyles: string[] = [];
+    const classNames = element.props.className.split(' ');
 
-  const fullHTML = renderToStaticMarkup(<>{newChildren}</>);
+    const customClassNames = classNames.filter((className: string) => {
+      if (twi(className, { ignoreMediaQueries: true })) {
+        convertedStyles.push(twi(className, { ignoreMediaQueries: true }));
+        return false;
+      } else if (twi(className, { ignoreMediaQueries: false })) {
+        responsiveStyles.push(className);
+        return false;
+      }
+      return true;
+    });
 
-  const tailwindCss = twi(fullHTML, {
-    ignoreMediaQueries: false,
-    merge: false
+    const convertedResponsiveStyles = twi(responsiveStyles, {
+      ignoreMediaQueries: false,
+      merge: false
+    });
+
+    headStyles.push(convertedResponsiveStyles.replace(/^\n+/, '').replace(/\n+$/, ''));
+
+    const newProps = {
+      ...element.props,
+      // eslint-disable-next-line no-undefined
+      className: customClassNames.length ? customClassNames.join(' ') : undefined,
+      style: { ...element.props.style, ...cssToJsxStyle(convertedStyles.join(' ')) }
+    };
+
+    // eslint-disable-next-line no-param-reassign
+    element = React.cloneElement(element, newProps);
+  }
+
+  if (element.props.children) {
+    const children = React.Children.toArray(element.props.children);
+    const processedChildren = children.map((child) => {
+      if (React.isValidElement(child)) {
+        return processElement(child, headStyles, config);
+      }
+      return child;
+    });
+
+    // eslint-disable-next-line no-param-reassign
+    element = React.cloneElement(element, element.props, ...processedChildren);
+  }
+
+  return element;
+}
+
+function processHead(child: React.ReactElement, responsiveStyles: string[]): React.ReactElement {
+  // FIXME: find a cleaner solution for child as any
+  if (child.type === 'head' || (child as any).type.displayName === 'Head') {
+    const styleElement = <style>{responsiveStyles}</style>;
+
+    const headChildren = React.Children.toArray(child.props.children);
+    headChildren.push(styleElement);
+
+    child = React.cloneElement(child, child.props, ...headChildren);
+  }
+  if (child.props.children) {
+    const children = React.Children.toArray(child.props.children);
+    const processedChildren = children.map((processedChild) => {
+      if (React.isValidElement(processedChild)) {
+        return processHead(processedChild, responsiveStyles);
+      }
+      return child;
+    });
+
+    child = React.cloneElement(child, child.props, ...processedChildren);
+  }
+
+  return child;
+}
+
+export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
+  const headStyles: string[] = [];
+
+  const childrenWithInlineStyles = React.Children.map(children, (child) => {
+    if (React.isValidElement(child)) {
+      return processElement(child, headStyles, config);
+    }
+    return child;
   });
-  const css = cleanCss(tailwindCss);
-  const cssMap = makeCssMap(css);
 
-  const headStyle = getMediaQueryCss(css);
+  if (!childrenWithInlineStyles) return <>{children}</>;
 
-  const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(headStyle);
+  const fullHTML = renderToStaticMarkup(<>{childrenWithInlineStyles}</>);
+
+  const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
+    headStyles.join(' ')
+  );
   const hasHTML = /<html[^>]*>/gm.test(fullHTML);
   const hasHead = /<head[^>]*>/gm.test(fullHTML);
 
@@ -38,67 +119,17 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     );
   }
 
-  const reactHTML = React.Children.map(newChildren, (child) => {
-    if (!React.isValidElement(child)) return child;
-
-    const html = renderToStaticMarkup(child);
-
-    const parsedHTML = htmlParser(html, {
-      // eslint-disable-next-line consistent-return
-      replace: (domNode) => {
-        if (domNode instanceof Element) {
-          if (hasResponsiveStyles && hasHead && domNode.name === 'head') {
-            let newDomNode: JSX.Element | null = null;
-
-            if (domNode.children) {
-              const props = attributesToProps(domNode.attribs);
-
-              newDomNode = (
-                <head {...props}>
-                  {domToReact(domNode.children)}
-                  <style>{headStyle}</style>
-                </head>
-              );
-            }
-
-            return newDomNode;
-          }
-
-          if (domNode.attribs?.class) {
-            // eslint-disable-next-line no-useless-escape
-            const cleanRegex = /[:#\!\-[\]\/\.%]+/g;
-            const cleanTailwindClasses = domNode.attribs.class
-              // replace all non-alphanumeric characters with underscores
-              .replace(cleanRegex, '_');
-
-            const currentStyles = domNode.attribs.style ? `${domNode.attribs.style};` : '';
-            const tailwindStyles = cleanTailwindClasses
-              .split(' ')
-              .map((className: string) => cssMap[`.${className}`])
-              .join(';');
-            // eslint-disable-next-line no-param-reassign
-            domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
-
-            // eslint-disable-next-line no-param-reassign
-            domNode.attribs.class = domNode.attribs.class
-              // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
-              .split(' ')
-              .filter((className: string) => className.search(/^.{2}:/) !== -1)
-              .join(' ')
-              // replace all non-alphanumeric characters with underscores
-              .replace(cleanRegex, '_');
-
-            // eslint-disable-next-line no-param-reassign
-            if (domNode.attribs.class === '') delete domNode.attribs.class;
-          }
-        }
+  const childrenWithInlineAndResponsiveStyles = React.Children.map(
+    childrenWithInlineStyles,
+    (child) => {
+      if (React.isValidElement(child)) {
+        return processHead(child, headStyles);
       }
-    });
+      return child;
+    }
+  );
 
-    return parsedHTML;
-  });
-
-  return <>{reactHTML}</>;
+  return <>{childrenWithInlineAndResponsiveStyles}</>;
 };
 
 Tailwind.displayName = 'Tailwind';
