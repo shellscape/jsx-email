@@ -394,9 +394,15 @@ importers:
         specifier: 0.0.11
         version: 0.0.11(ts-node@10.9.1)
     devDependencies:
+      '@jsx-email/head':
+        specifier: workspace:*
+        version: link:../head
       '@jsx-email/hr':
         specifier: workspace:*
         version: link:../hr
+      '@jsx-email/html':
+        specifier: workspace:*
+        version: link:../html
 
   packages/text:
     dependencies:
