@@ -41,6 +41,16 @@ export default defineConfig({
       { text: 'Quick Start', link: '/docs/quick-start' },
       { text: 'Email Samples', link: '/docs/samples' }
     ],
+    search: {
+      provider: 'local'
+      // FIXME: We're waiting on DocSearch approval
+      // provider: 'algolia',
+      // options: {
+      //   appId: '...',
+      //   apiKey: '...',
+      //   indexName: '...'
+      // }
+    },
     sidebar,
     siteTitle: '',
     socialLinks: [

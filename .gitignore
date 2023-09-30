@@ -7,5 +7,7 @@ dist
 .DS_Store
 .pnpm-debug.log*
 .env
+.nojekyll
+**/.vitepress/cache
 
 packages/**/tsconfig.json

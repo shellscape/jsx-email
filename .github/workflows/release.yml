@@ -7,6 +7,12 @@ on:
       - main
     tags-ignore:
       - '*-v*'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   release:
     if: |
@@ -63,8 +69,6 @@ jobs:
 
       - name: Setup Moon
         uses: moonrepo/setup-moon-action@v1
-        with:
-          version: 1.12.1
 
       - name: Sanity Check
         run: |

@@ -24,8 +24,9 @@ tasks:
 
   clean.dist:
     command: rm -rf dist
-    options:
-      cache: false
+    inputs:
+      - src
+      - package.json
 
   compile:
     command: tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext

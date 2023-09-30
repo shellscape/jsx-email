@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "globby": "11.0.4",
-    "titleize": "^4.0.0"
+    "titleize": "^4.0.0",
+    "vitepress": "1.0.0-rc.20",
+    "vue": "3.3.4"
   }
 }

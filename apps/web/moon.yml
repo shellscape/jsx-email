@@ -3,22 +3,18 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['build', 'compile', 'test']
+    exclude: ['build', 'compile', 'release', 'test']
 
 tasks:
   build:
-    command: vitepress build
+    command: ls node_modules && pnpm exec vitepress build
     inputs:
       - .vitepress
-      - markdownd
+      - markdown
       - package.json
-    options:
-      cache: false
 
-  deploy:
-    command: gh-pages -d build -u "Release Workflow <release-workflow@jsx.email>"
-    deps:
-      - build
+  cname:
+    command: echo jsx.email > dist/CNAME && touch dist/.nojekyll
     options:
       cache: false
 
@@ -31,3 +27,14 @@ tasks:
     command: vitepress preview
     options:
       cache: false
+
+  release:
+    command: gh-pages -d dist -u "Release Workflow <release-workflow@jsx.email>"
+    deps:
+      - ~:clean.dist
+      - build
+      - cname
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
