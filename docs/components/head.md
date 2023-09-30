@@ -26,7 +26,7 @@ yarn add @jsx-email/head
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include children tags where needed.
 

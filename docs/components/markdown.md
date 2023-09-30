@@ -25,7 +25,7 @@ yarn add @jsx-email/markdown
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include styles where needed.
 
@@ -64,8 +64,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  Contains the markdown content that will be rendered in the email template
+Contains the markdown content that will be rendered in the email template
 
 ### `markdownContainerStyles`
 

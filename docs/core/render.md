@@ -126,8 +126,7 @@ Type: `boolean`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  Beautify HTML output
+Beautify HTML output
 
 ### `plainText`
 
@@ -135,6 +134,5 @@ Type: `boolean`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  Generate plain text version
+Generate plain text version
 

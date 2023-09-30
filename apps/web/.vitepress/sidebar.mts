@@ -11,7 +11,6 @@ const groups = nested.reduce((prev, file) => {
   const [dirName, fileName] = file.split('/');
   const groupName = titleize(dirName);
   const itemName = basename(fileName, '.md');
-  console.log(itemName);
   const item = { link: `/docs/${dirName}/${itemName}`, text: titleize(itemName) };
 
   if (prev[groupName]) {
@@ -34,7 +33,7 @@ export const sidebar = [
     text: 'Meat and Potatoes',
     items: [
       { text: 'Introduction', link: '/docs/introduction' },
-      { text: 'Getting Started', link: '/docs/getting-started' },
+      { text: 'Quick Start', link: '/docs/quick-start' },
       { text: 'Contributing', link: '/docs/contributing' }
     ]
   },

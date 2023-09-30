@@ -26,7 +26,7 @@ yarn add @jsx-email/font
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. This applies your font to all tags inside your email.
 Note, that not all email clients supports web fonts, this is why it is important to configure your `fallbackFontFamily`.
@@ -65,10 +65,8 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  The font family you want to use. If the webFont property is configured, this
-  should contain the name of that font
-
+The font family you want to use. If the webFont property is configured, this
+should contain the name of that font
 
 ### `fallbackFontFamily`
 
@@ -76,18 +74,20 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  The fallback font family the system should you, if web fonts are not supported
-  or the chosen font is not installed on the system.
+The fallback font family the system should you, if web fonts are not supported
+or the chosen font is not installed on the system.
 
+### `webFont`
 
-<ResponseField name="webFont" type="{url: string, format: string} | undefined">
-  The webFont the supported email client should use
+Type: `{url: string, format: string} | undefined`<br>
 
+The webFont the supported email client should use
 
-<ResponseField name="fontWeight" type="number | string">
-  The weight of the font
+### `fontWeight`
 
+Type: `number | string`<br>
+
+The weight of the font
 
 ### `fontStyle`
 
@@ -95,7 +95,6 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  The style of the font
+The style of the font
 
 

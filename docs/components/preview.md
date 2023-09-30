@@ -32,7 +32,7 @@ yarn add @jsx-email/preview
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include styles where needed.
 

@@ -17,6 +17,7 @@
     "csstype": "3.1.2",
     "eslint": "8.49.0",
     "eslint-config-shellscape": "^6.0.1",
+    "gh-pages": "^6.0.0",
     "happy-dom": "^12.2.1",
     "husky": "^8.0.3",
     "lint-staged": "14.0.1",

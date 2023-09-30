@@ -26,7 +26,7 @@ yarn add @jsx-email/heading
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include styles where needed.
 
@@ -58,8 +58,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  A shortcut for `margin` CSS property.
+A shortcut for `margin` CSS property.
 
 
 ### `mx`
@@ -68,8 +67,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  A shortcut for `margin-left` and `margin-right` CSS properties.
+A shortcut for `margin-left` and `margin-right` CSS properties.
 
 
 ### `my`
@@ -78,8 +76,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  A shortcut for `margin-top` and `margin-bottom` CSS properties.
+A shortcut for `margin-top` and `margin-bottom` CSS properties.
 
 
 ### `mt`
@@ -88,8 +85,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  A shortcut for `margin-top` CSS property.
+A shortcut for `margin-top` CSS property.
 
 
 ### `mr`
@@ -98,8 +94,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  A shortcut for `margin-right` CSS property.
+A shortcut for `margin-right` CSS property.
 
 
 ### `mb`
@@ -108,8 +103,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  A shortcut for `margin-bottom` CSS property.
+A shortcut for `margin-bottom` CSS property.
 
 
 ### `ml`
@@ -118,7 +112,6 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  A shortcut for `margin-left` CSS property.
+A shortcut for `margin-left` CSS property.
 
 

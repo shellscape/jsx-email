@@ -31,7 +31,7 @@ yarn add @jsx-email/button
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include styles where needed.
 

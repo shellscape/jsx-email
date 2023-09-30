@@ -46,8 +46,10 @@ body { font-weight: 300 !important; }
 h2 { font-size: 2em !important; font-weight: 200 !important; }
 main h2 { border: 0 !important; letter-spacing: 1.6px !important; }
 
+.header-anchor { visibility: hidden; }
+img.brackets { display: none; }
+svg.brackets { display: inline-block; vertical-align: sub; }
 .prev-next { border: 0 !important; }
-
 .vp-code-group .tabs label { font-weight: 400 !important; }
 .vp-doc a { font-weight: inherit !important; text-decoration: none !important; }
 
@@ -59,6 +61,7 @@ main h2 { border: 0 !important; letter-spacing: 1.6px !important; }
 .VPContent.is-home { background-position: calc(100% + 570px) center; }
 
 .VPDoc.has-aside .content-container { max-width: none !important; }
+.VPDocAside { background: #2c2a2b44; border: 1px solid #2c2a2b44; border-radius: 5px; }
 .VPDocAsideOutline.has-outline .content { border-left: 1px solid var(--vp-c-bg) !important; }
 .VPDocAsideOutline.has-outline .outline-title { color: #ebac00 !important; font-size: 16px !important; font-weight: 400 !important; }
 

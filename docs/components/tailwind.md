@@ -26,7 +26,7 @@ yarn add @jsx-email/tailwind
 
 :::
 
-## Getting started
+## Usage
 
 Add the component around your email body content.
 
@@ -58,6 +58,10 @@ const Email = () => {
 };
 ```
 
+::: tip
+  Note: Most email clients are style-limited and some styles may not work.
+:::
+
 ## Component Props
 
 ### `config`
@@ -66,23 +70,5 @@ Type: `object`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  Customize the default theme for your project with the available properties in
-  [Tailwind docs](https://tailwindcss.com/docs/theme).
-  ::: tip
-    Note: Most email clients are style-limited and some styles may not work.
-  :::
+Customize the default theme for your project with the available properties in [Tailwind docs](https://tailwindcss.com/docs/theme).
 
-
-## Live example
-
-<Card
-  title="Tailwind Demo"
-  icon="arrow-up-right-from-square"
-  iconType="duotone"
-  href="https://demo.react.email/preview/vercel-invite-user"
->
-  See the full demo and source code.
-</Card>
-
-<Snippet file="support.mdx" />

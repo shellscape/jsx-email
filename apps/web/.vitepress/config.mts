@@ -22,14 +22,12 @@ export default defineConfig({
     ]
   ],
   markdown: {
-    anchor: {
-      permalink: undefined
-    },
     theme: {
       dark: 'slack-dark',
       light: 'slack-ochin'
     }
   },
+  outDir: './dist',
   srcDir: 'markdown',
   themeConfig: {
     logo: '/logo.svg',

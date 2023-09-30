@@ -26,7 +26,7 @@ yarn add @jsx-email/html
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include styles where needed.
 
@@ -50,13 +50,16 @@ const Email = () => {
 ### `lang`
 
 Type: `string`<br>
-Default: ``<br/>
+Default: `en`<br/>
 Required: `false`
 
- default="en">
-  Identify the language of text content on the email
+Identify the language of text content on the email
 
-<ResponseField name="dir" type="string" default="ltr" >
-  Identify the direction of text content on the email
+### `dir`
+
+Type: `string`<br>
+Default: `ltr`<br>
+
+Identify the direction of text content on the email
 
 

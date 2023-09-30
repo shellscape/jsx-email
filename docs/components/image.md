@@ -25,7 +25,7 @@ yarn add @jsx-email/img
 ```
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include styles where needed.
 
@@ -52,8 +52,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  Alternate description for an image
+Alternate description for an image
 
 
 ### `src`
@@ -62,8 +61,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  The path to the image
+The path to the image
 
 
 ### `width`
@@ -72,8 +70,7 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  The width of an image in pixels
+The width of an image in pixels
 
 
 ### `height`
@@ -82,7 +79,6 @@ Type: `string`<br>
 Default: ``<br/>
 Required: `false`
 
->
-  The height of an image in pixels
+The height of an image in pixels
 
 

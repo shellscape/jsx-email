@@ -7,11 +7,6 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "scripts": {
-    "docs:build": "vitepress build",
-    "docs:dev": "vitepress dev",
-    "docs:preview": "vitepress preview"
-  },
   "devDependencies": {
     "globby": "11.0.4",
     "titleize": "^4.0.0"

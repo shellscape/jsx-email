@@ -26,7 +26,7 @@ yarn add @jsx-email/section
 
 :::
 
-## Getting started
+## Usage
 
 Add the component to your email template. Include styles where needed.
 
