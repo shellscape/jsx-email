@@ -6,6 +6,7 @@
   "include": [
     "../**/.eslintrc.js",
     "../**/ava.config.js",
+    "../apps",
     "../packages",
     "../shared",
     "../vitest.config.ts",

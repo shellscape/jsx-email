@@ -1,0 +1,33 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'test']
+
+tasks:
+  build:
+    command: vitepress build
+    inputs:
+      - .vitepress
+      - markdownd
+      - package.json
+    options:
+      cache: false
+
+  deploy:
+    command: gh-pages -d build -u "Release Workflow <release-workflow@jsx.email>"
+    deps:
+      - build
+    options:
+      cache: false
+
+  dev:
+    command: vitepress dev
+    options:
+      cache: false
+
+  preview:
+    command: vitepress preview
+    options:
+      cache: false

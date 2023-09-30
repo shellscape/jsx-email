@@ -1,0 +1,14 @@
+{
+  "name": "app-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "jsx.email",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "globby": "11.0.4",
+    "titleize": "^4.0.0"
+  }
+}
