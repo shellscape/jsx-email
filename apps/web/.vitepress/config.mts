@@ -12,7 +12,6 @@ export default defineConfig({
   cleanUrls: true,
   description: 'Build emails with a delightful DX',
   head: [
-    ['link', { rel: 'preconnect', href: 'https://fonts.bunny.net' }],
     [
       'link',
       {
@@ -21,6 +20,7 @@ export default defineConfig({
       }
     ]
   ],
+  ignoreDeadLinks: true,
   markdown: {
     theme: {
       dark: 'slack-dark',
@@ -30,6 +30,10 @@ export default defineConfig({
   outDir: './dist',
   srcDir: 'markdown',
   themeConfig: {
+    docFooter: {
+      prev: false,
+      next: false
+    },
     logo: '/logo.svg',
     // https://vitepress.dev/reference/default-theme-config
     nav: [

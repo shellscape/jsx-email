@@ -11,7 +11,11 @@ const groups = nested.reduce((prev, file) => {
   const [dirName, fileName] = file.split('/');
   const groupName = titleize(dirName);
   const itemName = basename(fileName, '.md');
-  const item = { link: `/docs/${dirName}/${itemName}`, text: titleize(itemName) };
+  let linkName = titleize(itemName);
+
+  if (linkName === 'Cli') linkName = 'CLI';
+
+  const item = { link: `/docs/${dirName}/${itemName}`, text: linkName };
 
   if (prev[groupName]) {
     prev[groupName].items.push(item);

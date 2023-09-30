@@ -6,83 +6,50 @@ description: "After installing the React Email package (or cloning a starter), y
 icon: 'square-terminal'
 ---
 
-## `email dev`
+## Installation
 
-Starts a local development server that will watch your files and automatically rebuild your email when you make changes.
+```shell
+pnpm add @jsx-email/cli -D
 
-**Options**
+# We recommend pnpm - https://pnpm.io
+# But npm and yarn are supported
+# npm add @jsx-email/cli -D
+# yarn add @jsx-email/cli -D
+```
 
-### `--dir`
+Nearly all installations of this package will want it installed into `devDependencies` so please make sure to add the `-D` flag.
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+## Usage
 
- default="emails">
-  Change the directory of your email templates.
+Installing this package will add an `email` binary, which will be available to `pnpm exec`, `npx`, and `yarn`.
 
-### `--port`
+Invoking the CLI without parameters or flags will produce help information in the console. From there, all of the functions of the CLI can be viewed, along with any applicable parameters and flags:
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```console
+→ pnpm exec email
 
- default="3000">
-  Port to run dev server on
+@jsx-email/cli v0.0.0
 
-### `--skip-install`
+A CLI for working with Email Templates made with jsx-email
 
-Type: `boolean`<br>
-Default: ``<br/>
-Required: `false`
+Usage
+  $ email [...options]
 
- default="false">
- Do not install dependencies
+Commands
+  build       <template path>
+  help        [<command>]
+  preview     <template dir path>
 
+Options
+  --help      Displays this message
+  --version   Displays webpack-nano and webpack versions
 
-## `email export`
+Examples
+  $ email
+  $ email --help
+  $ email build ./src/templates/Invite.tsx
+  $ email create invite
+  $ email preview ./src/templates
+```
 
-Generates the plain HTML files of your emails into a `out` directory.
-
-**Options**
-
-### `--dir`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
-
- default="emails">
-  Change the directory of your email templates.
-
-### `--outDir`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
-
- default="out">
-  Change the output directory.
-
-### `--pretty`
-
-Type: `boolean`<br>
-Default: ``<br/>
-Required: `false`
-
- default="false">
-  Minify or prettify the generated HTML file.
-
-### `--plainText`
-
-Type: `boolean`<br>
-Default: ``<br/>
-Required: `false`
-
- default="false">
-  Set output format as plain text.
-
-
-## `email help <cmd>`
-
-Shows all the options for a specific command.
+To view help for specific commands, use `email help <command>`. e.g. `email help build`.
