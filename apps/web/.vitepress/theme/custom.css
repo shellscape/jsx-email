@@ -1,5 +1,13 @@
 :root {
   --vp-backdrop-bg-color: #2c2a2b;
+  --vp-button-alt-bg: #47504e;
+  --vp-button-alt-hover-bg: #61efce;
+  --vp-button-alt-hover-text: #343233;
+  --vp-button-alt-text: #78b0a0;
+  --vp-button-brand-bg: #ffd152;
+  --vp-button-brand-hover-bg: #ffc31f;
+  --vp-button-brand-hover-text: #343233;
+  --vp-button-brand-text: #343233;
   --vp-c-bg: #343233;
   --vp-c-brand-1: #ffd152;
   --vp-c-brand-2: #ebac00;
@@ -9,6 +17,7 @@
   --vp-code-tab-bg: #2c2a2b;
   --vp-code-tab-divider: #00000033;
   --vp-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --vp-home-hero-image-background-image: url(/home-hero.png);
   --vp-nav-height: 80px;
   --vp-nav-logo-height: 36px;
   --vp-sidebar-bg-color: #343233;
@@ -41,11 +50,43 @@ main h2 { border: 0 !important; letter-spacing: 1.6px !important; }
 
 .vp-code-group .tabs label { font-weight: 400 !important; }
 .vp-doc a { font-weight: inherit !important; text-decoration: none !important; }
-/* .VPDoc.has-sidebar { padding-left: 0 !important; padding-top: 0 !important; } */
-/* .VPDoc.has-sidebar .content { padding: 0; } */
+
+.VPContent {
+  background-repeat: no-repeat;
+  background-image: url(/landing-bg.svg);
+  background-position: calc(100% + 800px) center;
+}
+.VPContent.is-home { background-position: calc(100% + 570px) center; }
+
 .VPDoc.has-aside .content-container { max-width: none !important; }
 .VPDocAsideOutline.has-outline .content { border-left: 1px solid var(--vp-c-bg) !important; }
 .VPDocAsideOutline.has-outline .outline-title { color: #ebac00 !important; font-size: 16px !important; font-weight: 400 !important; }
+
+.VPHomeHero .container { margin: 0 !important; padding-left: 3em !important; }
+.VPHomeHero .tagline {
+  font-weight: 200 !important;
+  max-width: 22em !important;
+}
+.VPHomeHero .text {
+  font-size: 2.3em;
+  font-weight: 200;
+  height: 2em;
+  letter-spacing: 0.05em;
+  max-width: none;
+}
+.VPHomeHero .text .hl { color: #78b0a0; }
+.VPHomeHero .VPButton.medium {
+  border-radius: 5px !important;
+  font-size: inherit;
+  font-weight: 500;
+  padding: 0.1em 2em;
+}
+.VPHomeHero img.home-hero {
+  position: absolute;
+  right: -14%;
+  top: 60%;
+}
+
 .VPNavBar { margin-bottom: 30px !important; }
 .VPNavBarMenuLink { font-size: 16px !important; font-weight: 300 !important; }
 .VPNavBarTitle.has-sidebar { background: var(--vp-c-bg); }
@@ -72,4 +113,14 @@ main h2 { border: 0 !important; letter-spacing: 1.6px !important; }
   color: #78b0a0 !important;
   font-size: 16px !important;
   font-weight: 400 !important;
+  white-space: nowrap;
+}
+
+.VPNavScreenAppearance.appearance { display: none !important; }
+.VPNavScreenMenuLink { font-size: 16px !important; font-weight: 300 !important; }
+
+@media (max-width: 960px) {
+  .VPHomeHero img.home-hero { display: block; margin-top: 1em; position: relative; right: auto; top: auto; }
+  .VPContent.is-home { background-position: calc(100% + 800px) center; }
+  .VPHomeHero .text { height: auto; }
 }

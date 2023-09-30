@@ -46,6 +46,5 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/shellscape/jsx-email' }
     ]
   },
-  // title: false,
   titleTemplate: 'JSX email • :title'
 });
