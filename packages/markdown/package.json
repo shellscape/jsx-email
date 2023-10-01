@@ -34,7 +34,7 @@
     "react": "^18.2.0"
   },
   "dependencies": {
-    "md-to-react-email": "^4.1.0"
+    "marked": "7.0.4"
   },
   "types": "./dist/index.d.ts",
   "sideEffects": false
