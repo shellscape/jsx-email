@@ -4,7 +4,7 @@ import titleize from 'titleize';
 import globby from 'globby';
 import type { DefaultTheme } from 'vitepress';
 
-const files = await globby(['**/*.md'], { cwd: resolve(__dirname, '../markdown/docs') });
+const files = await globby(['**/*.md'], { cwd: resolve(__dirname, '../src/docs') });
 const nested = files.filter((file) => file.includes('/')).sort();
 const groups = nested.reduce((prev, file) => {
   // Note: This assumes we'll only have one level of nesting

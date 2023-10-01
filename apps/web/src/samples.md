@@ -12,6 +12,6 @@ $ git clone https://github.com/shellscape/jsx-email.git
 $ bash shared/bootstrap.sh
 $ moon repo:build.packages
 $ cd apps/demo
-$ moon demo.dev
+$ moon demo:dev
 ```
 
