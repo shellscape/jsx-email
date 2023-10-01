@@ -132,7 +132,7 @@ export const YelpRecentLoginEmail = ({
 };
 
 YelpRecentLoginEmail.PreviewProps = {
-  userFirstName: 'Zeno',
+  userFirstName: 'Bruce',
   loginDate: new Date('September 7, 2022, 10:58 am'),
   loginDevice: 'Chrome on Mac OS X',
   loginLocation: 'Upland, California, United States',

@@ -59,7 +59,7 @@ export const DropboxResetPasswordEmail = ({
 };
 
 DropboxResetPasswordEmail.PreviewProps = {
-  userFirstname: 'Zeno',
+  userFirstname: 'Bruce',
   resetPasswordLink: 'https://dropbox.com'
 } as DropboxResetPasswordEmailProps;
 

@@ -55,7 +55,7 @@ export const NikeReceiptEmail = () => (
         </Section>
         <Hr style={global.hr} />
         <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Shipping to: Zeno Rocha</Text>
+          <Text style={adressTitle}>Shipping to: Bruce Wayne</Text>
           <Text style={{ ...global.text, fontSize: 14 }}>
             2125 Chestnut St, San Francisco, CA 94123
           </Text>

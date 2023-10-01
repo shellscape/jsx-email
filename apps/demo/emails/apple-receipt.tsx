@@ -96,7 +96,7 @@ export const AppleReceiptEmail = () => (
             <Column style={informationTableColumn} colSpan={2}>
               <Text style={informationTableLabel}>BILLED TO</Text>
               <Text style={informationTableValue}>Visa .... 7461 (Apple Pay)</Text>
-              <Text style={informationTableValue}>Zeno Rocha</Text>
+              <Text style={informationTableValue}>Bruce Wayne</Text>
               <Text style={informationTableValue}>2125 Chestnut St</Text>
               <Text style={informationTableValue}>San Francisco, CA 94123</Text>
               <Text style={informationTableValue}>USA</Text>

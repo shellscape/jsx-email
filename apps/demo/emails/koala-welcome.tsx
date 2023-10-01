@@ -54,7 +54,7 @@ export const KoalaWelcomeEmail = ({ userFirstname }: KoalaWelcomeEmailProps) => 
 );
 
 KoalaWelcomeEmail.PreviewProps = {
-  userFirstname: 'Zeno'
+  userFirstname: 'Bruce'
 } as KoalaWelcomeEmailProps;
 
 export default KoalaWelcomeEmail;

@@ -25,7 +25,7 @@ const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '
 
 export const AmazonReviewEmail = ({
   titleText = 'Your opinion is important!',
-  reviewText = 'Zeno Rocha, do you have a moment? We would like to know if everything went well for you. Take a moment to review your most recent purchases.',
+  reviewText = 'Bruce Wayne, do you have a moment? We would like to know if everything went well for you. Take a moment to review your most recent purchases.',
   reviwStars = Array(5).fill(`${baseUrl}/static/amazon-rating.gif`),
   socialMediaIcons = [
     `${baseUrl}/static/amazon-instagram.jpg`,

@@ -99,7 +99,7 @@ export const AirbnbReviewEmail = ({
 AirbnbReviewEmail.PreviewProps = {
   authorName: 'Alex',
   authorImage: `${baseUrl}/static/airbnb-review-user.jpg`,
-  reviewText: `“Zeno was a great guest! Easy communication, the apartment was left
+  reviewText: `“Bruce was a great guest! Easy communication, the apartment was left
     in great condition, very polite, and respectful of all house rules.
     He’s welcome back anytime and would easily recommend him to any
     host!”`
