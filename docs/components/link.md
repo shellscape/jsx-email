@@ -40,23 +40,16 @@ const Email = () => {
 
 ## Component Props
 
-### `href`
+```ts
+href?: string;
+```
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+required>
+Link to be triggered when the button is clicked
 
- required>
-  Link to be triggered when the button is clicked
+```ts
+target?: string;
+```
 
-
-### `target`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
-
- default="_blank">
-  Specify the target attribute for the button link
-
-
+default="\_blank">
+Specify the target attribute for the button link

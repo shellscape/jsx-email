@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A preview text that will be displayed in the inbox of the recipient",
+  "description": "A JSX email text preview component that will be displayed in the inbox of the recipient.",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
+  A JSX email component that converts markdown input to valid jsx-email syntax.
 <div>
+
+[`@jsx-email/markdown` Documentation](https://jsx.email/docs/components/markdown)
 
 ## Requirements
 
@@ -65,25 +67,12 @@ const Email = () => {
 
 ## Props
 
-### `children` field
-
-- **Type**: string
-
-Contains the markdown content that will be rendered in the email template.
-
-### `markdownCustomStyles` field
-
-- **Type**: object
-- **Default**: `{}`
-
-Provide custom styles for the corresponding HTML element (e.g., p, h1, h2, etc.).
-
-### `markdownContainerStyles` field
-
-- **Type**: object
-- **Default**: `{}`
-
-Provide custom styles for the containing `div` that wraps the markdown content.
+| Name                    | Type    | Default  | Description                                                                |
+| ----------------------- | ------- | -------- | -------------------------------------------------------------------------- |
+| children                | string  |          | Contains the markdown content that will be rendered in the email template. |
+| markdownCustomStyles    | object  | `_blank` | Contains the markdown content that will be rendered in the email template. |
+| markdownContainerStyles | object  |          | Contains the markdown content that will be rendered in the email template. |
+| showDataId              | boolean |          | Controls showing data attributes on elements.                              |
 
 ## Attribution 🧡
 

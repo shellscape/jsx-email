@@ -41,10 +41,10 @@ const Email = () => {
         theme: {
           extend: {
             colors: {
-              brand: '#007291',
-            },
-          },
-        },
+              brand: '#007291'
+            }
+          }
+        }
       }}
     >
       <Button
@@ -59,16 +59,19 @@ const Email = () => {
 ```
 
 ::: tip
-  Note: Most email clients are style-limited and some styles may not work.
+Note: Most email clients are style-limited and some styles may not work.
 :::
 
 ## Component Props
 
-### `config`
+```ts
+export interface TailwindProps {
+  config?: TailwindConfig;
+}
+```
 
-Type: `object`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+config?: TailwindConfig;
+```
 
 Customize the default theme for your project with the available properties in [Tailwind docs](https://tailwindcss.com/docs/theme).
-

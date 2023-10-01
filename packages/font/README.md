@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
+  A JSX email component to set fonts.
 <div>
+
+[`@jsx-email/font` Documentation](https://jsx.email/docs/components/font)
 
 ## Requirements
 
@@ -47,8 +49,8 @@ const Email = () => {
     <Html lang="en">
       <Head>
         <Font
-          fontFamily="Roboto"
           fallbackFontFamily="Verdana"
+          fontFamily="Roboto"
           webFont={{
             url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
             format: 'woff2'

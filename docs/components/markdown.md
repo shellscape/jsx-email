@@ -1,8 +1,8 @@
 ---
-title: "Markdown"
-sidebarTitle: "Markdown"
-description: "A Markdown component that converts markdown to valid jsx-email template code"
-icon: "file-code"
+title: 'Markdown'
+sidebarTitle: 'Markdown'
+description: 'A Markdown component that converts markdown to valid jsx-email template code'
+icon: 'file-code'
 ---
 
 ## Install
@@ -30,21 +30,21 @@ yarn add @jsx-email/markdown
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Markdown } from "@jsx-email/markdown";
-import { Html } from "@jsx-email/html";
+import { Markdown } from '@jsx-email/markdown';
+import { Html } from '@jsx-email/html';
 
 const Email = () => {
   return (
     <Html lang="en" dir="ltr">
       <Markdown
         markdownCustomStyles={{
-          h1: { color: "red" },
-          h2: { color: "blue" },
-          codeInline: { background: "grey" },
+          h1: { color: 'red' },
+          h2: { color: 'blue' },
+          codeInline: { background: 'grey' }
         }}
         markdownContainerStyles={{
-          padding: "12px",
-          border: "solid 1px black",
+          padding: '12px',
+          border: 'solid 1px black'
         }}
       >{`# Hello, World!`}</Markdown>
 
@@ -58,33 +58,40 @@ const Email = () => {
 
 ## Component Props
 
-### `children`
+```ts
+export interface MarkdownProps extends React.PropsWithChildren {
+  children: string;
+  markdownContainerStyles?: React.CSSProperties;
+  markdownCustomStyles?: StylesType;
+  showDataId?: boolean;
+}
+```
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+children: string | string[];
+```
 
 Contains the markdown content that will be rendered in the email template
 
-### `markdownContainerStyles`
+```ts
+markdownContainerStyles?: React.CSSProperties;
+```
 
-Type: `object`<br>
-Default: ``<br/>
-Required: `false`
+Provide custom styles for the containing div that wraps the markdown content
 
- default="{}">
-  Provide custom styles for the containing div that wraps the markdown content
+```ts
+markdownCustomStyles?: StylesType;
+```
 
-### `markdownCustomStyles`
+default="{}">
+Provide custom styles for the corresponding html element (p, h1, h2, etc.)
+::: tip
+Note: Passing a custom style for an element overrides the default styles.
+:::
 
-Type: `object`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+showDataId?: boolean;
+```
 
- default="{}">
-  Provide custom styles for the corresponding html element (p, h1, h2, etc.)
-  ::: tip
-    Note: Passing a custom style for an element overrides the default styles.
-  :::
-
-
+default=false>
+Controls showing data attributes on elements.

@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A React Font component to set your fonts",
+  "description": "A JSX email component to set fonts.",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/es/index.js",

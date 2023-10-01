@@ -7,8 +7,8 @@ icon: 'b'
 ---
 
 ::: tip
-  Semantics: Quite often in the email world we talk about buttons, when actually
-  we mean links. Behind the scenes this is a `<a>` tag, that is styled like a `<button>` tag.
+Semantics: Quite often in the email world we talk about buttons, when actually
+we mean links. Behind the scenes this is a `<a>` tag, that is styled like a `<button>` tag.
 :::
 
 ## Install
@@ -49,18 +49,36 @@ const Email = () => {
 
 ## Component Props
 
-### `href`
+```ts
+// extends primitive props from <a> tag
+type RootProps = React.ComponentPropsWithoutRef<'a'>;
 
-Type: `string`<br>
-Required<br>
+export interface ButtonProps extends RootProps {
+  pX?: number;
+  pY?: number;
+}
+```
+
+```ts
+href: string;
+```
 
 The url to navigate to when the button is clicked.
 
-### `target`
-
-Type: `string`<br>
-Default: `_blank`<br/>
-Required: `false`
+```ts
+target?: string;
+```
 
 Specifies the value of the `"target"` attribute for the button `target`.
 
+```ts
+pX?: number;
+```
+
+The horizontal padding applied to the button.
+
+```ts
+pY?: number;
+```
+
+The vertical padding applied to the button.

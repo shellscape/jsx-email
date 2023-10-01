@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Display an image in your email",
+  "description": "A JSX email component that displays an image in your email.",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
+  A JSX email component for a block of heading text.
 <div>
+
+[`@jsx-email/heading` Documentation](https://jsx.email/docs/components/heading)
 
 ## Requirements
 
@@ -44,6 +46,19 @@ const Email = () => {
   return <Heading as="h1">Lorem ipsum</Heading>;
 };
 ```
+
+## Props
+
+| Name | Type             | Default | Description                                                     |
+| ---- | ---------------- | ------- | --------------------------------------------------------------- |
+| as   | string           | `h1`    | Render component as `h1`, `h2`, `h3`, `h4`, `h5` or `h6`.       |
+| m    | number \| string |         | A shortcut for `margin` CSS property.                           |
+| mx   | number \| string |         | A shortcut for `margin-left` and `margin-right` CSS properties. |
+| my   | number \| string |         | A shortcut for `margin-top` and `margin-bottom` CSS properties. |
+| mt   | number \| string |         | A shortcut for `margin-top` CSS property.                       |
+| mr   | number \| string |         | A shortcut for `margin-right` CSS property.                     |
+| mb   | number \| string |         | A shortcut for `margin-bottom` CSS property.                    |
+| ml   | number \| string |         | A shortcut for `margin-left` CSS property.                      |
 
 ## Attribution 🧡
 

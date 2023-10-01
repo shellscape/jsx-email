@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
+  A JSX email layout component for displaying rows that separate content areas horizontally in your email.
 <div>
+
+[`@jsx-email/row` Documentation](https://jsx.email/docs/components/row)
 
 ## Requirements
 

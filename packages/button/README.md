@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
+  A JSX email link component that is styled to look like a button.
 <div>
+
+[`@jsx-email/button` Documentation](https://jsx.email/docs/components/button)
 
 ## Requirements
 
@@ -55,6 +57,8 @@ const Email = () => {
 | ------ | ------ | -------- | ------------------------------------------------ |
 | href   | string |          | Link to be triggered when the button is clicked  |
 | target | string | `_blank` | Specify the target attribute for the button link |
+| pX     | number |          | The horizontal padding applied to the button     |
+| pY     | number |          | The vertical padding applied to the button       |
 
 ## Attribution 🧡
 

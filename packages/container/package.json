@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A layout component that centers all the email content",
+  "description": "A JSX email layout component that centers all the email content.",
   "license": "MIT",
   "repository": {
     "type": "git",
