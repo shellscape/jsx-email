@@ -1,5 +1,6 @@
-import { StylesType, parseMarkdownToReactEmailJSX } from 'md-to-react-email';
 import type React from 'react';
+
+import { StylesType, parseMarkdownToJSX } from './transform';
 
 export interface MarkdownProps extends React.PropsWithChildren {
   children: string;
@@ -15,7 +16,7 @@ export const Markdown = ({
   showDataId = false,
   ...props
 }: React.PropsWithChildren<MarkdownProps>) => {
-  const parsedMarkdown = parseMarkdownToReactEmailJSX({
+  const parsedMarkdown = parseMarkdownToJSX({
     customStyles: markdownCustomStyles,
     markdown: children,
     withDataAttr: showDataId
