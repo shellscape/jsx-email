@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v2.2.0
+
+_2023-10-01_
+
+### Features
+
+- feat: rewrite tailwind component (#12)
+
 ## v2.1.0
 
 _2023-09-29_
