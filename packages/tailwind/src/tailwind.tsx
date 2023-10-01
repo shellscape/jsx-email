@@ -5,7 +5,6 @@ import { tailwindToCSS, TailwindConfig } from 'tw-to-css';
 import { cssToJsxStyle } from './utils';
 
 export interface TailwindProps {
-  children: React.ReactNode;
   config?: TailwindConfig;
 }
 
@@ -93,7 +92,7 @@ function processHead(child: React.ReactElement, responsiveStyles: string[]): Rea
   return child;
 }
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
+export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindProps>) => {
   const headStyles: string[] = [];
 
   const childrenWithInlineStyles = React.Children.map(children, (child) => {

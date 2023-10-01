@@ -3,10 +3,8 @@ import type React from 'react';
 
 import { As, Margin, withMargin } from './utils';
 
-interface HeadingOwnProps {}
-
 export type HeadingAs = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'>;
-export type HeadingProps = HeadingAs & HeadingOwnProps & Margin;
+export type HeadingProps = HeadingAs & Margin;
 
 export const Heading = ({
   as: Tag = 'h1',
