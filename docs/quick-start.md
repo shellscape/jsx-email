@@ -1,6 +1,5 @@
 ---
 title: 'Quick Start'
-sidebarTitle: 'Quick Start'
 description: 'Quick Start'
 ---
 

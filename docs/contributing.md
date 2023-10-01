@@ -1,6 +1,5 @@
 ---
 title: 'Contributing'
-sidebarTitle: 'Contributing'
 description: 'We 💛 contributions!'
 ---
 

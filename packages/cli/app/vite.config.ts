@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react';
 process.chdir(__dirname);
 
 export default defineConfig({
+  build: {
+    target: 'esnext'
+  },
   define: {
     'process.env': 'import.meta.env'
   },

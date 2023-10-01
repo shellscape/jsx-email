@@ -1,6 +1,5 @@
 ---
 title: 'JSX email'
-sidebarTitle: 'Introduction'
 description: 'Build and send emails using React and TypeScript.'
 ---
 
