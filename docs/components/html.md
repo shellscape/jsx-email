@@ -1,30 +1,12 @@
 ---
-title: 'HTML'
-sidebarTitle: 'HTML'
-description: 'A React html component to wrap emails.'
-'og:image': 'https://react.email/static/covers/html.png'
-icon: 'file-code'
+title: HTML
+description: Wraps the email document with a root element
+slug: html
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/html
-```
-
-```console [npm]
-npm add @jsx-email/html
-```
-
-```console [yarn]
-yarn add @jsx-email/html
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -46,6 +28,10 @@ const Email = () => {
 ```
 
 ## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`. Additionally, the props listed below should be considered.
+
+### Props
 
 ```ts
 lang?: string;

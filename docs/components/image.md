@@ -1,30 +1,12 @@
 ---
-title: 'Image'
-sidebarTitle: 'Image'
-description: 'Display an image in your email.'
-'og:image': 'https://react.email/static/covers/img.png'
-icon: 'image'
+title: Image
+description: Displays an image
+slug: img
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/img
-```
-
-```console [npm]
-npm add @jsx-email/img
-```
-
-```console [yarn]
-yarn add @jsx-email/img
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -46,6 +28,10 @@ const Email = () => {
 </Tip>
 
 ## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`. Additionally, the props listed below should be considered.
+
+### Props
 
 ```ts
 alt?: string;

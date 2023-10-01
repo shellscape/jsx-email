@@ -63,7 +63,7 @@ Examples
   $ email preview ./src/templates
 ```
 
-For more documentation and information using the CLI, please review our [Documentation](https://jsx.email/docs/cli)
+For more documentation and information using the CLI, please review our [Documentation](https://jsx.email/docs/core/cli)
 
 ## Attribution 🧡
 

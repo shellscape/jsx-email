@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email component that displays a section that can be formatted using columns.",
+  "description": "A JSX email component which creates section bordaries that can be formatted with columns and rows",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -13,7 +13,7 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component that containes head elements such as style and meta elements.
+  A JSX email component which creates an HTML head element
 <div>
 
 [`@jsx-email/head` Documentation](https://jsx.email/docs/components/head)
@@ -35,7 +35,7 @@ pnpm add @jsx-email/head
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
+We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
@@ -50,6 +50,8 @@ const Email = () => {
   );
 };
 ```
+
+Please see the [`@jsx-email/head` Documentation](https://jsx.email/docs/components/head) for props and additional usage information.
 
 ## Attribution 🧡
 

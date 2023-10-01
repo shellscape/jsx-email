@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email component to set fonts.",
+  "description": "A JSX email component which sets up custom fonts for use in email",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/es/index.js",

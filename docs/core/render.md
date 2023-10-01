@@ -1,9 +1,10 @@
 ---
 title: 'Render'
-sidebarTitle: 'Render'
-description: 'Transform React components into HTML email templates.'
-'og:image': 'https://react.email/static/covers/render.png'
+description: 'Render JSX email components to HTML email'
+slug: render
 ---
+
+<!--@include: @/include/header.md-->
 
 ## Installation
 

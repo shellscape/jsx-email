@@ -13,7 +13,7 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component to wrap emails with Tailwind CSS.
+  A JSX email component which enables using Tailwind CSS to style emails.
 <div>
 
 [`@jsx-email/tailwind` Documentation](https://jsx.email/docs/components/tailwind)
@@ -35,7 +35,7 @@ pnpm add @jsx-email/tailwind
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
+We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
@@ -64,11 +64,7 @@ const Email = () => {
 };
 ```
 
-## Props
-
-| Name   | Type           | Default | Description                                                                                                                        |
-| ------ | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| config | TailwindConfig |         | Customize the default theme for your project with the available properties in [Tailwind docs](https://tailwindcss.com/docs/theme). |
+Please see the [`@jsx-email/tailwind` Documentation](https://jsx.email/docs/components/tailwind) for props and additional usage information.
 
 ## Attribution 🧡
 

@@ -1,30 +1,12 @@
 ---
 title: 'Text'
-sidebarTitle: 'Text'
-description: 'A block of text separated by blank spaces.'
-'og:image': 'https://react.email/static/covers/text.png'
-icon: 'text-size'
+description: 'A JSX email component which renders a paragraph element'
+slug: text
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/text
-```
-
-```console [npm]
-npm add @jsx-email/text
-```
-
-```console [yarn]
-yarn add @jsx-email/text
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -38,3 +20,6 @@ const Email = () => {
 };
 ```
 
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'p'>`.

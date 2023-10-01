@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email component to wrap emails.",
+  "description": "A JSX email component which wraps the email document with a root element",
   "license": "MIT",
   "repository": {
     "type": "git",

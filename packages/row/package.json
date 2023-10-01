@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email layout component for displaying rows that separate content areas horizontally in your email.",
+  "description": "A JSX email component which separates content boundaries horizontally",
   "license": "MIT",
   "repository": {
     "type": "git",

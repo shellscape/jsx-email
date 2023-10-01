@@ -1,30 +1,18 @@
 ---
 title: 'Head'
-sidebarTitle: 'Head'
-description: 'Contains head components, related to the document such as style and meta elements.'
-'og:image': 'https://react.email/static/covers/head.png'
-icon: 'head-side'
+description: |
+  A JSX email component which creates an HTML head element
+slug: head
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/head
-```
-
-```console [npm]
-npm add @jsx-email/head
-```
-
-```console [yarn]
-yarn add @jsx-email/head
-```
-
+::: tip
+This component is required for adding elements such as `<style>` and `meta` directly to the document
 :::
+
+
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -42,3 +30,6 @@ const Email = () => {
 };
 ```
 
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'head'>`.

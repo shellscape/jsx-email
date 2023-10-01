@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email component to wrap emails with Tailwind CSS.",
+  "description": "A JSX email component which enables using Tailwind CSS to style emails",
   "license": "MIT",
   "repository": {
     "type": "git",

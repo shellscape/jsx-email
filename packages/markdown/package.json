@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email component that converts markdown input to valid jsx-email syntax.",
+  "description": "A JSX email component which converts markdown input to valid HTML for email",
   "license": "MIT",
   "repository": {
     "type": "git",

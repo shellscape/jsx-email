@@ -1,30 +1,12 @@
 ---
-title: 'Font'
-sidebarTitle: 'Font'
-description: 'A React Font component to set your fonts.'
-'og:image': 'https://react.email/static/covers/font.png'
-icon: 'book-font'
+title: Font
+description: Sets up custom fonts for use in email
+slug: font
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/font
-```
-
-```console [npm]
-npm add @jsx-email/font
-```
-
-```console [yarn]
-yarn add @jsx-email/font
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 

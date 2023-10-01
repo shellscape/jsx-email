@@ -1,30 +1,12 @@
 ---
-title: "Row"
-sidebarTitle: "Row"
-description: "Display a row that separates content areas horizontally in your email."
-"og:image": "https://react.email/static/covers/row.png"
-icon: "table-rows"
+title: Row
+description: Separates content boundaries horizontally
+slug: row
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/row
-```
-
-```console [npm]
-npm add @jsx-email/row
-```
-
-```console [yarn]
-yarn add @jsx-email/row
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -52,3 +34,6 @@ const Email = () => {
 };
 ```
 
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.

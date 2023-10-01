@@ -1,29 +1,12 @@
 ---
-title: 'Markdown'
-sidebarTitle: 'Markdown'
-description: 'A Markdown component that converts markdown to valid jsx-email template code'
-icon: 'file-code'
+title: Markdown
+description: Converts markdown input to valid HTML for email
+slug: markdown
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/markdown
-```
-
-```console [npm]
-npm add @jsx-email/markdown
-```
-
-```console [yarn]
-yarn add @jsx-email/markdown
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 

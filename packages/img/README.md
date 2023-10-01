@@ -13,7 +13,7 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component that displays an image in your email.
+  A JSX email component which displays an image
 <div>
 
 [`@jsx-email/img` Documentation](https://jsx.email/docs/components/img)
@@ -35,7 +35,7 @@ pnpm add @jsx-email/img
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
+We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
@@ -47,14 +47,7 @@ const Email = () => {
 };
 ```
 
-## Props
-
-| Name   | Type   | Default | Description                        |
-| ------ | ------ | ------- | ---------------------------------- |
-| alt    | string |         | Alternate description for an image |
-| src    | string |         | The path to the image              |
-| width  | string |         | The width of an image in pixels    |
-| height | string |         | The height of an image in pixels   |
+Please see the [`@jsx-email/img` Documentation](https://jsx.email/docs/components/img) for props and additional usage information.
 
 ## Attribution 🧡
 

@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email hyperlink component for web pages, email addresses, or anything else a URL can address.",
+  "description": "A JSX email component which renders a hyperlink to an external resource",
   "license": "MIT",
   "repository": {
     "type": "git",

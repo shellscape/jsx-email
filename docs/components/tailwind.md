@@ -1,30 +1,12 @@
 ---
 title: 'Tailwind'
-sidebarTitle: 'Tailwind'
-description: 'A React component to wrap emails with Tailwind CSS.'
-'og:image': 'https://react.email/static/covers/tailwind.png'
-icon: 'wind'
+description: 'A JSX email component which enables using Tailwind CSS to style emails'
+slug: tailwind
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/tailwind
-```
-
-```console [npm]
-npm add @jsx-email/tailwind
-```
-
-```console [yarn]
-yarn add @jsx-email/tailwind
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -74,4 +56,4 @@ export interface TailwindProps {
 config?: TailwindConfig;
 ```
 
-Customize the default theme for your project with the available properties in [Tailwind docs](https://tailwindcss.com/docs/theme).
+Customize the default theme for your project with the available properties in [Tailwind Documentation](https://tailwindcss.com/docs/theme).

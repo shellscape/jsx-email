@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email layout component for displaying columns that separate content areas vertically in your email.",
+  "description": "A JSX email component which displays columns that separate content bounaries vertically",
   "license": "MIT",
   "repository": {
     "type": "git",

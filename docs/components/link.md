@@ -1,30 +1,12 @@
 ---
-title: 'Link'
-sidebarTitle: 'Link'
-description: 'A hyperlink to web pages, email addresses, or anything else a URL can address.'
-'og:image': 'https://react.email/static/covers/link.png'
-icon: 'link'
+title: Link
+description: Renders a hyperlink to an external resource
+slug: link
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/link
-```
-
-```console [npm]
-npm add @jsx-email/link
-```
-
-```console [yarn]
-yarn add @jsx-email/link
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -40,16 +22,17 @@ const Email = () => {
 
 ## Component Props
 
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`. Additionally, the props listed below should be considered.
+
+### Props
 ```ts
-href?: string;
+href: string;
 ```
 
-required>
 Link to be triggered when the button is clicked
 
 ```ts
 target?: string;
 ```
 
-default="\_blank">
 Specify the target attribute for the button link

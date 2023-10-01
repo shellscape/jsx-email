@@ -1,30 +1,12 @@
 ---
-title: 'Heading'
-sidebarTitle: 'Heading'
-description: 'A block of heading text.'
-'og:image': 'https://react.email/static/covers/heading.png'
-icon: 'h1'
+title: Heading
+description: A stylable heading (h1, h2, etc) element
+slug: heading
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/heading
-```
-
-```console [npm]
-npm add @jsx-email/heading
-```
-
-```console [yarn]
-yarn add @jsx-email/heading
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -92,3 +74,5 @@ ml?: number | string;
 ```
 
 A shortcut for `margin-left` CSS property.
+
+In addition to the custom props above, this component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.

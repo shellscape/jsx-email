@@ -1,35 +1,16 @@
 ---
 title: 'Button'
-sidebarTitle: 'Button'
-description: 'A link that is styled to look like a button.'
-'og:image': 'https://react.email/static/covers/button.png'
-icon: 'b'
+description: A JSX email component which styles an anchor element to appear as a button
+slug: button
 ---
 
+<!--@include: @/include/header.md-->
+
 ::: tip
-Semantics: Quite often in the email world we talk about buttons, when actually
-we mean links. Behind the scenes this is a `<a>` tag, that is styled like a `<button>` tag.
+Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
 :::
 
-## Install
-
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/button
-```
-
-```console [npm]
-npm add @jsx-email/button
-```
-
-```console [yarn]
-yarn add @jsx-email/button
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -82,3 +63,5 @@ pY?: number;
 ```
 
 The vertical padding applied to the button.
+
+In addition to the custom props above, this component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.

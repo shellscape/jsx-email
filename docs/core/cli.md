@@ -1,10 +1,10 @@
 ---
 title: 'CLI'
-sidebarTitle: 'CLI'
-description: "After installing the React Email package (or cloning a starter), you can start using the command line interface (CLI)."
-'og:image': 'https://react.email/static/covers/jsx-email.png'
-icon: 'square-terminal'
+description: 'The Command Line Interface and developer tooling for JSX email'
+slug: cli
 ---
+
+<!--@include: @/include/header.md-->
 
 ## Installation
 

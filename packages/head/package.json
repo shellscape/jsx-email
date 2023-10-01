@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email component that containes head elements such as style and meta elements.",
+  "description": "A JSX email component which creates an HTML head element",
   "license": "MIT",
   "repository": {
     "type": "git",

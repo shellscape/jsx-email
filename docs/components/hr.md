@@ -1,30 +1,12 @@
 ---
-title: 'Hr'
-sidebarTitle: 'Hr'
-description: 'Display a divider that separates content areas in your email.'
-'og:image': 'https://react.email/static/covers/hr.png'
-icon: 'horizontal-rule'
+title: Hr
+description: Creates divider (horizontal rule) that separates content
+slug: hr
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/hr
-```
-
-```console [npm]
-npm add @jsx-email/hr
-```
-
-```console [yarn]
-yarn add @jsx-email/hr
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -38,3 +20,6 @@ const Email = () => {
 };
 ```
 
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'hr'>`.

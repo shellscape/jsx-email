@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A React body component to wrap emails",
+  "description": "A JSX email component for using a React `Body` component to wrap email content",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/es/index.js",

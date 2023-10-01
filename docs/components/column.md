@@ -1,30 +1,12 @@
 ---
-title: 'Column'
-sidebarTitle: 'Column'
-description: 'Display a column that separates content areas vertically in your email. A column needs to be used in combination with a Row component.'
-'og:image': 'https://react.email/static/covers/column.png'
-icon: 'columns-3'
+title: Column
+description: A JSX email component which displays columns that separate content bounaries vertically
+slug: column
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/column
-```
-
-```console [npm]
-npm add @jsx-email/column
-```
-
-```console [yarn]
-yarn add @jsx-email/column
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -45,3 +27,6 @@ const Email = () => {
 };
 ```
 
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.

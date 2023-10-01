@@ -33,7 +33,7 @@ pnpm add @jsx-email/all
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
+We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
@@ -44,6 +44,8 @@ const Email = () => {
   return <Heading as="h1">Lorem ipsum</Heading>;
 };
 ```
+
+Please see the [`@jsx-email/all` Documentation](https://jsx.email/docs/components/all) for props and additional usage information.
 
 ## Attribution 🧡
 

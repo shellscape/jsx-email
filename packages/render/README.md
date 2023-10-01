@@ -13,7 +13,7 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for rendering JSX email components to HTML email
+  A package for rendering JSX email components to HTML email
 <div>
 
 ## Requirements
@@ -41,6 +41,8 @@ import { render } from '@jsx-email/render';
 
 const html = render(<MyTemplate firstName="Jim" />);
 ```
+
+Please see the [`@jsx-email/render` Documentation](https://jsx.email/docs/core/render) for props and additional usage information.
 
 ## Attribution 🧡
 

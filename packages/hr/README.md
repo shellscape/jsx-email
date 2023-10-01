@@ -13,7 +13,7 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component that displays a divider that separates content areas in your email.
+  A JSX email component which creates divider (horizontal rule) that separates content
 <div>
 
 [`@jsx-email/hr` Documentation](https://jsx.email/docs/components/hr)
@@ -35,7 +35,7 @@ pnpm add @jsx-email/hr
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
+We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
@@ -46,6 +46,8 @@ const Email = () => {
   return <Hr />;
 };
 ```
+
+Please see the [`@jsx-email/hr` Documentation](https://jsx.email/docs/components/hr) for props and additional usage information.
 
 ## Attribution 🧡
 

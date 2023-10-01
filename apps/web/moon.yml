@@ -7,7 +7,7 @@ workspace:
 
 tasks:
   build:
-    command: ls node_modules && pnpm exec vitepress build
+    command: vitepress build
     inputs:
       - .vitepress
       - markdown

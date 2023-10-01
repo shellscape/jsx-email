@@ -1,30 +1,12 @@
 ---
 title: 'Section'
-sidebarTitle: 'Section'
-description: 'Display a section that can also be formatted using rows and columns.'
-'og:image': 'https://react.email/static/covers/section.png'
-icon: 'rectangles-mixed'
+description: 'Creates section bordaries that can be formatted with columns and rows'
+slug: section
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/section
-```
-
-```console [npm]
-npm add @jsx-email/section
-```
-
-```console [yarn]
-yarn add @jsx-email/section
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -59,3 +41,7 @@ const Email = () => {
   );
 };
 ```
+
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.

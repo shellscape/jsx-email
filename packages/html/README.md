@@ -13,7 +13,7 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component to wrap emails.
+  A JSX email component which wraps the email document with a root element
 <div>
 
 [`@jsx-email/html` Documentation](https://jsx.email/docs/components/html)
@@ -35,7 +35,7 @@ pnpm add @jsx-email/html
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for creating new templates.
+We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
@@ -54,12 +54,7 @@ const Email = () => {
 };
 ```
 
-## Props
-
-| Name | Type   | Default | Description                                         |
-| ---- | ------ | ------- | --------------------------------------------------- |
-| lang | string | `en`    | Identify the language of text content on the email  |
-| dir  | string | `ltr`   | Identify the direction of text content on the email |
+Please see the [`@jsx-email/html` Documentation](https://jsx.email/docs/components/html) for props and additional usage information.
 
 ## Attribution 🧡
 

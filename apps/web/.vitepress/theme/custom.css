@@ -51,6 +51,7 @@ h2 { font-size: 2em !important; font-weight: 200 !important; }
 main h2 { border: 0 !important; letter-spacing: 1.6px !important; }
 
 .custom-block.tip code { color: #343233; }
+.content-container main { background: #343233; }
 .header-anchor { visibility: hidden; }
 img.brackets { display: none; }
 svg.brackets { display: inline-block; vertical-align: sub; }

@@ -1,30 +1,12 @@
 ---
 title: 'Container'
-sidebarTitle: 'Container'
-description: 'A layout component that centers all the email content.'
-'og:image': 'https://react.email/static/covers/container.png'
-icon: 'grid'
+description: Horizontally center child components and content
+slug: container
 ---
 
-## Install
+<!--@include: @/include/header.md-->
 
-Install component from your command line.
-
-::: code-group
-
-```console [pnpm]
-pnpm add @jsx-email/container
-```
-
-```console [npm]
-npm add @jsx-email/container
-```
-
-```console [yarn]
-yarn add @jsx-email/container
-```
-
-:::
+<!--@include: @/include/install.md-->
 
 ## Usage
 
@@ -45,3 +27,6 @@ const Email = () => {
 };
 ```
 
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
