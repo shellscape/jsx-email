@@ -46,7 +46,7 @@ const Email = () => {
           fallbackFontFamily="Verdana"
           webFont={{
             url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
-            format: 'woff2',
+            format: 'woff2'
           }}
           fontWeight={400}
           fontStyle="normal"
@@ -59,42 +59,54 @@ const Email = () => {
 
 ## Component Props
 
-### `fontFamily`
+```ts
+export interface FontProps {
+  fallbackFontFamily: FallbackFont | FallbackFont[];
+  fontFamily: string;
+  fontStyle?: FontStyle;
+  fontWeight?: FontWeight;
+  webFont?: {
+    format: FontFormat;
+    url: string;
+  };
+}
+```
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+### Props
 
-The font family you want to use. If the webFont property is configured, this
-should contain the name of that font
+```ts
+fallbackFontFamily: FallbackFont | FallbackFont[];
+```
 
-### `fallbackFontFamily`
+The fallback font family the system should you, if web fonts are not supported or the chosen font is not installed on the system.
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+fontFamily: string;
+```
 
-The fallback font family the system should you, if web fonts are not supported
-or the chosen font is not installed on the system.
+The font family you want to use. If the webFont property is configured, this should contain the name of that font. Note: Do not insert multiple fonts here, use `fallbackFontFamily` for that\_
 
-### `webFont`
+```ts
+fontStyle?: FontStyle;`
+```
 
-Type: `{url: string, format: string} | undefined`<br>
+Default: `'normal'`<br/>
 
-The webFont the supported email client should use
+The style of the font.
 
-### `fontWeight`
+```ts
+fontWeight?: FontWeight;`
+```
 
-Type: `number | string`<br>
+Default: `400`<br/>
 
-The weight of the font
+The weight of the font.
 
-### `fontStyle`
+```ts
+webFont?: {
+  format: FontFormat;
+  url: string;
+}
+```
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
-
-The style of the font
-
-
+The webFont the supported email client should use. _Note: Not all clients support web fonts. For support check: [https://www.caniemail.com/features/css-at-font-face](https://www.caniemail.com/features/css-at-font-face)_

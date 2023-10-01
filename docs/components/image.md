@@ -23,6 +23,7 @@ npm add @jsx-email/img
 ```console [yarn]
 yarn add @jsx-email/img
 ```
+
 :::
 
 ## Usage
@@ -46,39 +47,26 @@ const Email = () => {
 
 ## Component Props
 
-### `alt`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+alt?: string;
+```
 
 Alternate description for an image
 
-
-### `src`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+src?: string;
+```
 
 The path to the image
 
-
-### `width`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+width?: string;
+```
 
 The width of an image in pixels
 
-
-### `height`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+height?: string;
+```
 
 The height of an image in pixels
-
-

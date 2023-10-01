@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
+  A JSX email component to wrap emails.
 <div>
+
+[`@jsx-email/html` Documentation](https://jsx.email/docs/components/html)
 
 ## Requirements
 
@@ -51,6 +53,13 @@ const Email = () => {
   );
 };
 ```
+
+## Props
+
+| Name | Type   | Default | Description                                         |
+| ---- | ------ | ------- | --------------------------------------------------- |
+| lang | string | `en`    | Identify the language of text content on the email  |
+| dir  | string | `ltr`   | Identify the direction of text content on the email |
 
 ## Attribution 🧡
 

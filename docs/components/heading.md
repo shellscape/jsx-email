@@ -34,84 +34,61 @@ Add the component to your email template. Include styles where needed.
 import { Heading } from '@jsx-email/heading';
 
 const Email = () => {
-  return (
-    <Heading as="h2">Lorem ipsum</Heading>
-  );
+  return <Heading as="h2">Lorem ipsum</Heading>;
 };
 ```
 
 ## Component Props
 
-### `as`
+```ts
+export type HeadingAs = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'>;
+export type HeadingProps = HeadingAs & HeadingOwnProps & Margin;
+```
 
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+as?: string;
+```
 
- default="h1">
-  Render component as `h1`, `h2`, `h3`, `h4`, `h5` or `h6`.
+Render component as `h1`, `h2`, `h3`, `h4`, `h5` or `h6`.
 
-
-### `m`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+m?: number | string;
+```
 
 A shortcut for `margin` CSS property.
 
-
-### `mx`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+mx?: number | string;
+```
 
 A shortcut for `margin-left` and `margin-right` CSS properties.
 
-
-### `my`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+my?: number | string;
+```
 
 A shortcut for `margin-top` and `margin-bottom` CSS properties.
 
-
-### `mt`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+mt?: number | string;
+```
 
 A shortcut for `margin-top` CSS property.
 
-
-### `mr`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+mr?: number | string;
+```
 
 A shortcut for `margin-right` CSS property.
 
-
-### `mb`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+mb?: number | string;
+```
 
 A shortcut for `margin-bottom` CSS property.
 
-
-### `ml`
-
-Type: `string`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+ml?: number | string;
+```
 
 A shortcut for `margin-left` CSS property.
-
-

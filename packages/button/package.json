@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A link that is styled to look like a button",
+  "description": "A JSX email link component that is styled to look like a button.",
   "license": "MIT",
   "repository": {
     "type": "git",

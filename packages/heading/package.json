@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A block of heading text",
+  "description": "A JSX email component for a block of heading text.",
   "license": "MIT",
   "repository": {
     "type": "git",

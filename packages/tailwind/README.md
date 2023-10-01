@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
-<div> using Tailwind in templates.
+  A JSX email component to wrap emails with Tailwind CSS.
+<div>
+
+[`@jsx-email/tailwind` Documentation](https://jsx.email/docs/components/tailwind)
 
 ## Requirements
 
@@ -61,6 +63,12 @@ const Email = () => {
   );
 };
 ```
+
+## Props
+
+| Name   | Type           | Default | Description                                                                                                                        |
+| ------ | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| config | TailwindConfig |         | Customize the default theme for your project with the available properties in [Tailwind docs](https://tailwindcss.com/docs/theme). |
 
 ## Attribution 🧡
 

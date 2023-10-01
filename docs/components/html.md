@@ -47,19 +47,14 @@ const Email = () => {
 
 ## Component Props
 
-### `lang`
-
-Type: `string`<br>
-Default: `en`<br/>
-Required: `false`
+```ts
+lang?: string;
+```
 
 Identify the language of text content on the email
 
-### `dir`
-
-Type: `string`<br>
-Default: `ltr`<br>
+```ts
+dir?: string;
+```
 
 Identify the direction of text content on the email
-
-

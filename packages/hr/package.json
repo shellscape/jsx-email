@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Display a divider that separates content areas in your email",
+  "description": "A JSX email component that displays a divider that separates content areas in your email.",
   "license": "MIT",
   "repository": {
     "type": "git",

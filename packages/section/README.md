@@ -13,8 +13,10 @@
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  A JSX email component for
+  A JSX email component that displays a section that can be formatted using columns.
 <div>
+
+[`@jsx-email/section` Documentation](https://jsx.email/docs/components/section)
 
 ## Requirements
 

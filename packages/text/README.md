@@ -1,4 +1,22 @@
+[npm]: https://img.shields.io/npm/v/@jsx-email/text
+[npm-url]: https://www.npmjs.com/package/@jsx-email/text
+
+[![npm][npm]][npm-url]
+[![Join our Discord](https://img.shields.io/badge/join_our-Discord-5a64ea)](https://discord.gg/FywZN57mTg)
+[![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
+
+<div align="center">
+	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"><br/><br/>
+</div>
+
 # @jsx-email/text
+
+<div>
+  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
+  A JSX email component that displays a block of text separated by blank spaces.
+<div>
+
+[`@jsx-email/text` Documentation](https://jsx.email/docs/components/text)
 
 ## Requirements
 

@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A React row component",
+  "description": "A JSX email layout component for displaying rows that separate content areas horizontally in your email.",
   "license": "MIT",
   "repository": {
     "type": "git",
