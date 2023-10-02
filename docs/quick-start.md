@@ -52,7 +52,7 @@ If you'd rather create a `.jsx` file, use the `--jsx` flag
 
 ## Superstruct
 
-[Superstruct](docs.superstructjs.org) is a fantastic validation package that predates `zod` and `yup`. It's smaller and faster than alternatives and uses a delightful API without chaining or cruft. JSX email uses it as an option for defining `prop` types and creating props for use in email previews.
+[Superstruct](https://docs.superstructjs.org/) is a fantastic validation package that predates `zod` and `yup`. It's smaller and faster than alternatives and uses a delightful API without chaining or cruft. JSX email uses it as an option for defining `prop` types and creating props for use in email previews.
 
 ## Email Previews
 
