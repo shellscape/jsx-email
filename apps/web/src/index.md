@@ -11,10 +11,8 @@ hero:
   actions:
     - theme: brand
       text: Quick Start
-      link: /docs/quick-start/
+      link: /docs/quick-start
     - theme: alt
       text: View on Github
       link: https://github.com/shellscape/jsx-email
-
 ---
-
