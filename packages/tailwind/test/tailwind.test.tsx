@@ -289,7 +289,7 @@ describe('Custom plugins config', () => {
   });
 });
 
-describe('', () => {
+describe('<Tailwind> component', () => {
   it('should preserve mso styles', () => {
     const actualOutput = render(
       <Tailwind>
@@ -305,6 +305,49 @@ describe('', () => {
       </Tailwind>
     );
 
-    expect(actualOutput).toMatchSnapshot();
+    expect(actualOutput).toMatchInlineSnapshot(
+      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"'
+    );
+  });
+
+  it('should recognize custom resopnsive screen', () => {
+    const config: TailwindConfig = {
+      theme: {
+        screens: {
+          '2xl': { min: '1536px' },
+          lg: { min: '1024px' },
+          md: { min: '768px' },
+          sm: { min: '640px' },
+          xl: { min: '1280px' }
+        }
+      }
+    };
+    const actualOutput = render(
+      <Tailwind config={config}>
+        <Html>
+          <Head />
+          <div className="xl:bg-green-500">Test</div>
+          <div className="2xl:bg-blue-500">Test</div>
+        </Html>
+      </Tailwind>
+    );
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></style></head><div><div>Test</div></div><div><div>Test</div></div></html>"'
+    );
+  });
+
+  it('should work with calc() with + sign', () => {
+    const actualOutput = render(
+      <Tailwind>
+        <div className="max-h-[calc(50px+3rem)] bg-red-100">
+          <div className="h-[200px]">something tall</div>
+        </div>
+      </Tailwind>
+    );
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\"><div style=\\"height:200px\\">something tall</div></div></div>"'
+    );
   });
 });
