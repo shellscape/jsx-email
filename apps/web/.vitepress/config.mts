@@ -54,7 +54,7 @@ export default defineConfig({
     sidebar,
     siteTitle: '',
     socialLinks: [
-      { icon: 'discord', link: 'https://github.com/vuejs/vitepress' },
+      { icon: 'discord', link: 'https://discord.gg/FywZN57mTg' },
       { icon: 'github', link: 'https://github.com/shellscape/jsx-email' }
     ]
   },
