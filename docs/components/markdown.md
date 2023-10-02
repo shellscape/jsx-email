@@ -50,6 +50,8 @@ export interface MarkdownProps extends React.PropsWithChildren {
 }
 ```
 
+### Props
+
 ```ts
 children: string | string[];
 ```
@@ -66,8 +68,8 @@ Provide custom styles for the containing div that wraps the markdown content
 markdownCustomStyles?: StylesType;
 ```
 
-default="{}">
 Provide custom styles for the corresponding html element (p, h1, h2, etc.)
+
 ::: tip
 Note: Passing a custom style for an element overrides the default styles.
 :::
@@ -76,5 +78,4 @@ Note: Passing a custom style for an element overrides the default styles.
 showDataId?: boolean;
 ```
 
-default=false>
 Controls showing data attributes on elements.

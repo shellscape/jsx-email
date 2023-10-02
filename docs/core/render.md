@@ -22,27 +22,32 @@ pnpm add @jsx-email/render -D
 Convert React components into a HTML string.
 
 ```jsx
-import { MyTemplate } from '../components/MyTemplate';
 import { render } from '@jsx-email/render';
 
-const html = render(<MyTemplate firstName="Bruce" lastName="Wayne" />);
+import { BatmanTemplate } from './emails/Batman';
+
+const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
 ```
 
-## Options
+## Method Options
 
-### `pretty`
+```ts
+export interface Options {
+  plainText?: boolean;
+  pretty?: boolean;
+}
+```
 
-Type: `boolean`<br>
-Default: ``<br/>
-Required: `false`
+### Options
+
+```ts
+plainText?: boolean;
+```
 
 Beautify HTML output
 
-### `plainText`
-
-Type: `boolean`<br>
-Default: ``<br/>
-Required: `false`
+```ts
+pretty?: boolean;
+```
 
 Generate plain text version
-

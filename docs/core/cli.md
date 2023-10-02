@@ -72,4 +72,3 @@ The Preview Tool will start up and open a new window in your browser, and you'll
 ![Preview 1](/preview-2.png)<br/><br/>
 ![Preview 1](/preview-3.png)<br/><br/>
 ![Preview 1](/preview-4.png)
-

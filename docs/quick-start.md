@@ -78,4 +78,6 @@ $ email build ./emails/BatmanEmail.tsx
 
 ::: tip
 Please use `email help build` to view optional flags, including providing props and setting the output path.
+
+Rendering can also be done programmatically (in code) with the [@jsx-email/render](/docs/core/render) core package.
 :::

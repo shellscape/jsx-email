@@ -26,7 +26,7 @@
     "vitest": "^0.34.5"
   },
   "lint-staged": {
-    "*.{ts,js}": [
+    "*.{ts,tsx,js,jsx}": [
       "eslint --fix --cache"
     ],
     "**/(package|tsconfig(.*)?).json": [
