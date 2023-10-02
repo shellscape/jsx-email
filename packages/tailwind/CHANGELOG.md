@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v2.2.1
+
+_2023-10-02_
+
+### Bugfixes
+
+- fix: perf optimisations (#19)
+
 ## v2.2.0
 
 _2023-10-01_
