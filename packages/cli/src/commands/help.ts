@@ -19,6 +19,7 @@ ${pkg.description}
 
 {underline Commands}
   build       {dim <template path>}
+  create      {dim <template nam>}
   help        [{dim <command>}]
   preview     {dim <template dir path>}
 
