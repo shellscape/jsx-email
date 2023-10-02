@@ -58,5 +58,19 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/shellscape/jsx-email' }
     ]
   },
-  titleTemplate: 'JSX email • :title'
+  titleTemplate: 'JSX email • :title',
+  transformPageData(pageData) {
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(
+      ['meta', { name: 'og:description', content: pageData.description }],
+      ['meta', { name: 'og:image', content: 'https://jsx.email/og.png' }],
+      ['meta', { name: 'og:site_name', content: 'JSX email' }],
+      ['meta', { name: 'og:title', content: pageData.title }],
+      ['meta', { name: 'og:type', content: 'website' }],
+      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+      ['meta', { name: 'twitter:description', content: pageData.description }],
+      ['meta', { name: 'twitter:image', content: 'https://jsx.email/og.png' }],
+      ['meta', { name: 'twitter:title', content: pageData.title }]
+    );
+  }
 });
