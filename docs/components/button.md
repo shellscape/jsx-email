@@ -31,16 +31,6 @@ const Email = () => {
 ## Component Props
 
 ```ts
-// extends primitive props from <a> tag
-type RootProps = React.ComponentPropsWithoutRef<'a'>;
-
-export interface ButtonProps extends RootProps {
-  pX?: number;
-  pY?: number;
-}
-```
-
-```ts
 href: string;
 ```
 
@@ -51,17 +41,5 @@ target?: string;
 ```
 
 Specifies the value of the `"target"` attribute for the button `target`.
-
-```ts
-pX?: number;
-```
-
-The horizontal padding applied to the button.
-
-```ts
-pY?: number;
-```
-
-The vertical padding applied to the button.
 
 In addition to the custom props above, this component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
