@@ -314,11 +314,14 @@ describe('<Tailwind> component', () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
-          '2xl': { min: '1536px' },
-          lg: { min: '1024px' },
-          md: { min: '768px' },
           sm: { min: '640px' },
-          xl: { min: '1280px' }
+          // eslint-disable-next-line sort-keys
+          md: { min: '768px' },
+          // eslint-disable-next-line sort-keys
+          lg: { min: '1024px' },
+          xl: { min: '1280px' },
+          // eslint-disable-next-line sort-keys
+          '2xl': { min: '1536px' }
         }
       }
     };
