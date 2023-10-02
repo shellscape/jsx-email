@@ -353,9 +353,9 @@ importers:
 
   packages/markdown:
     dependencies:
-      marked:
-        specifier: 7.0.4
-        version: 7.0.4
+      md-to-react-email:
+        specifier: 5.0.0
+        version: 5.0.0(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -5174,6 +5174,15 @@ packages:
     resolution: {integrity: sha512-t8eP0dXRJMtMvBojtkcsA7n48BkauktUKzfkPSCq85ZMTJ0v76Rke4DYz01omYpPTUh4p/f7HePgRo3ebG8+QQ==}
     engines: {node: '>= 16'}
     hasBin: true
+    dev: false
+
+  /md-to-react-email@5.0.0(react@18.2.0):
+    resolution: {integrity: sha512-GdBrBUbAAJHypnuyofYGfVos8oUslxHx69hs3CW9P0L8mS1sT6GnJuMBTlz/Fw+2widiwdavcu9UwyLF/BzZ4w==}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      marked: 7.0.4
+      react: 18.2.0
     dev: false
 
   /mdast-util-to-hast@13.0.2:
