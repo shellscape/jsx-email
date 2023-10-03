@@ -12,7 +12,7 @@
   </svg>
   JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients.
   <br/><br/>
-  The components handle the heavy lifting of compatibility and client insonsistency so designers and developers can focus on building impactful and engaging templates.
+  The components handle the heavy lifting of compatibility and client inconsistency so designers and developers can focus on building impactful and engaging templates.
   <br/>
 </div>
 
