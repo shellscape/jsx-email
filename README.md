@@ -78,7 +78,7 @@ This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), 
 
 We 💛 contributions! After all, this is a community-driven project. We have no corporate sponsorship or backing. The maintainers and users keep this project going!
 
-Please check out our [Contribution Guide](./contributing.md).
+Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
 ## Attribution 🧡
 
