@@ -1,11 +1,9 @@
-import { symlinkSync } from 'fs';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import globby from 'globby';
 import { assert, boolean, number, object, optional, Infer } from 'superstruct';
 import { createServer, normalizePath } from 'vite';
-import dynamicImport from 'vite-plugin-dynamic-import';
 
 import { CommandFn } from './types';
 
@@ -54,18 +52,10 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
 
   console.log({ targetPath: normalizePath(targetPath) });
 
-  symlinkSync(targetPath, join(config.root!, 'src/_templates'));
-
-  config.plugins!.push(dynamicImport());
-
   const server = await createServer({
     configFile: false,
     ...config,
     publicDir: targetPath,
-    resolve: {
-      alias: { '@': normalizePath(targetPath) },
-      extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json']
-    },
     server: { port }
   });
 
