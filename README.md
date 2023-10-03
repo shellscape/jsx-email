@@ -18,7 +18,7 @@
 
 ## Getting Started
 
-Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs). Please give that a read and let us know if there's anything we can help with.
+Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs/introduction). Please give that a read and let us know if there's anything we can help with.
 
 ## Requirements
 
