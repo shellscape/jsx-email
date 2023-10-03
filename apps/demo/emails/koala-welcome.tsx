@@ -37,7 +37,7 @@ export const KoalaWelcomeEmail = ({ userFirstname }: KoalaWelcomeEmailProps) => 
           and close deals faster.
         </Text>
         <Section style={btnContainer}>
-          <Button pX={12} pY={12} style={button} href="https://getkoala.com">
+          <Button style={button} href="https://getkoala.com">
             Get started
           </Button>
         </Section>
@@ -90,7 +90,8 @@ const button = {
   fontSize: '16px',
   textDecoration: 'none',
   textAlign: 'center' as const,
-  display: 'block'
+  display: 'block',
+  padding: '12px'
 };
 
 const hr = {
