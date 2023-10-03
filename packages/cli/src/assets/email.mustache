@@ -68,7 +68,8 @@ const button = {
   fontWeight: 'bold',
   textAlign: 'center' as const,
   textDecoration: 'none',
-  width: '100%'
+  width: '100%',
+  padding: '10px'
 };
 
 export const Template = ({ email, name, count }{{ propsType }}) => (
@@ -79,7 +80,7 @@ export const Template = ({ email, name, count }{{ propsType }}) => (
       <Container style={container}>
         <Section style={box}>
           <Text style={paragraph}>This is our email body text</Text>
-          <Button pX={10} pY={10} style={button} href="https://example.com">
+          <Button style={button} href="https://example.com">
             Action Button
           </Button>
           <Hr style={hr} />
