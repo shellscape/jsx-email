@@ -56,7 +56,7 @@ export const AirbnbReviewEmail = ({
                   {authorName} using your Airbnb message thread.
                 </Text>
 
-                <Button pY={19} style={button} href="https://airbnb.com/">
+                <Button style={button} href="https://airbnb.com/">
                   Send My Feedback
                 </Button>
               </Row>
@@ -153,7 +153,8 @@ const button = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
-  width: '100%'
+  width: '100%',
+  padding: '19px 0px'
 };
 
 const link = {
