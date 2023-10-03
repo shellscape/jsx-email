@@ -18,7 +18,7 @@
 
 ## Getting Started
 
-Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs). Please give that a read and let us know if there's anything we can help with.
+Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs/introduction). Please give that a read and let us know if there's anything we can help with.
 
 ## Requirements
 
@@ -78,7 +78,7 @@ This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), 
 
 We 💛 contributions! After all, this is a community-driven project. We have no corporate sponsorship or backing. The maintainers and users keep this project going!
 
-Please check out our [Contribution Guide](./contributing.md).
+Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
 ## Attribution 🧡
 
