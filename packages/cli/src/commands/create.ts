@@ -40,7 +40,7 @@ export const command: CommandFn = async (argv: CreateOptions, input) => {
 
   const [name] = input;
   const { jsx, out } = argv;
-  const template = await readFile(join(__dirname, '../assets/email.tsx.mustache'), 'utf8');
+  const template = await readFile(join(__dirname, '../assets/email.mustache'), 'utf8');
   const data = {
     name,
     propsType: jsx ? '' : ': TemplateProps',
