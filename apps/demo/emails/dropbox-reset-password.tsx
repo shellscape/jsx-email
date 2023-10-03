@@ -36,7 +36,7 @@ export const DropboxResetPasswordEmail = ({
               Someone recently requested a password change for your Dropbox account. If this was
               you, you can set a new password here:
             </Text>
-            <Button style={button} href={resetPasswordLink} pX={7} pY={14}>
+            <Button style={button} href={resetPasswordLink}>
               Reset password
             </Button>
             <Text style={text}>
@@ -94,7 +94,8 @@ const button = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
-  width: '210px'
+  width: '210px',
+  padding: '14px 7px'
 };
 
 const anchor = {
