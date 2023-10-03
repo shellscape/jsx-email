@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v1.0.4
+
+_2023-10-03_
+
+### Bugfixes
+
+- fix: mustache template path, character escaping (#25)
+
 ## v1.0.3
 
 _2023-10-03_
