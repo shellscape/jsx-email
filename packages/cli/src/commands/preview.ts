@@ -1,9 +1,11 @@
+import { symlinkSync } from 'fs';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import globby from 'globby';
 import { assert, boolean, number, object, optional, Infer } from 'superstruct';
-import { createServer } from 'vite';
+import { createServer, normalizePath } from 'vite';
+import dynamicImport from 'vite-plugin-dynamic-import';
 
 import { CommandFn } from './types';
 
@@ -44,15 +46,26 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 
 export const start = async (targetPath: string, argv: PreviewOptions) => {
   const { open = true, port = 55420 } = argv;
-  const config = await import('../../app/vite.config');
+  const { default: config } = await import('../../app/vite.config');
   const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
 
+  process.env.VITE_TARGET_PATH = JSON.stringify(targetPath);
   process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
+
+  console.log({ targetPath: normalizePath(targetPath) });
+
+  symlinkSync(targetPath, join(config.root!, 'src/_templates'));
+
+  config.plugins!.push(dynamicImport());
 
   const server = await createServer({
     configFile: false,
-    ...config.default,
+    ...config,
     publicDir: targetPath,
+    resolve: {
+      alias: { '@': normalizePath(targetPath) },
+      extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json']
+    },
     server: { port }
   });
 
