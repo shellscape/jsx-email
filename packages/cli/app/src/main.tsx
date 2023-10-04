@@ -30,29 +30,23 @@ const parseName = (path: string) => {
 };
 
 // @ts-ignore
+const sources = sǝɔɹnoslᴉɐɯǝxsɾ;
+
+// Note: ./@templates/ is a symlink to the targetPath within local app/src/
+// @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const modules = import.meta.glob('./@templates/*.tsx');
-
-// TODO: use `modules` to populate the data below. it's more reliable
-
-const targetPath = JSON.parse(process.env.VITE_TARGET_PATH!) as string;
-const templatePaths = JSON.parse(import.meta.env.VITE_EMAIL_COMPONENTS) as string[];
-console.log({ targetPath, templatePaths });
+const imports = import.meta.glob('./@templates/*.tsx');
 const templates = await Promise.all(
-  templatePaths.map<Promise<TemplateData>>(async (path) => {
-    const fileName = path.replace(targetPath, '');
-    const bareFileName = fileName.substring(1, fileName.lastIndexOf('.'));
-    const template = (await import(`./@templates/${bareFileName}.tsx`)) as TemplateExports;
-    const response = await fetch(fileName);
-    const source = await response.text();
+  Object.entries(imports).map<Promise<TemplateData>>(async ([path, fn]) => {
+    const bareFileName = path.replace('./@templates/', '');
+    const component = (await fn()) as TemplateExports;
     const result: TemplateData = {
-      jsx: source,
-      Name: template.Name || parseName(path),
-      PreviewProps: template.PreviewProps,
-      Struct: template.Struct,
-      Template: template.Template || (template as any).default
+      jsx: sources[bareFileName],
+      Name: component.Name || parseName(path),
+      PreviewProps: component.PreviewProps,
+      Struct: component.Struct,
+      Template: component.Template || (component as any).default
     };
-
     return result;
   })
 );
