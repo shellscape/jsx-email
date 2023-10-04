@@ -11,13 +11,13 @@ const DEFAULT_PATH = 'jsx-email-starter';
 const { log } = console;
 
 const intro = chalk`
-{blue email-setup v${pkg.version}}
+{underline email-setup v${pkg.version}}
 
 ${pkg.description}
 `;
 
 const footer = (name?: string) => chalk`
-{underline Starter template created}
+{blue starter template created}
 
 Now run: 
 
@@ -39,7 +39,7 @@ const init = async (name: string) => {
     projectPath = projectPath.trim();
   }
 
-  log('Creating starter template...\n\n');
+  log('Creating starter template...');
 
   const templatePath = path.resolve(__dirname, '../starter');
   const resolvedProjectPath = path.resolve(projectPath);
