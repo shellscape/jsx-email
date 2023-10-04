@@ -13,9 +13,9 @@ slug: row
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Section } from "@jsx-email/section";
-import { Row } from "@jsx-email/row";
-import { Column } from "@jsx-email/column";
+import { Section } from '@jsx-email/section';
+import { Row } from '@jsx-email/row';
+import { Column } from '@jsx-email/column';
 
 const Email = () => {
   return (

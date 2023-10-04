@@ -23,8 +23,9 @@ function processElement(
     const classNames = element.props.className.split(' ');
 
     const customClassNames = classNames.filter((className: string) => {
-      if (twi(className, { ignoreMediaQueries: true })) {
-        convertedStyles.push(twi(className, { ignoreMediaQueries: true }));
+      const tailwindClassNames = twi(className, { ignoreMediaQueries: true });
+      if (tailwindClassNames) {
+        convertedStyles.push(tailwindClassNames);
         return false;
       } else if (twi(className, { ignoreMediaQueries: false })) {
         responsiveStyles.push(className);
@@ -40,15 +41,13 @@ function processElement(
 
     headStyles.push(convertedResponsiveStyles.replace(/^\n+/, '').replace(/\n+$/, ''));
 
-    const newProps = {
+    // eslint-disable-next-line no-param-reassign
+    element = React.cloneElement(element, {
       ...element.props,
       // eslint-disable-next-line no-undefined
       className: customClassNames.length ? customClassNames.join(' ') : undefined,
       style: { ...element.props.style, ...cssToJsxStyle(convertedStyles.join(' ')) }
-    };
-
-    // eslint-disable-next-line no-param-reassign
-    element = React.cloneElement(element, newProps);
+    });
   }
 
   if (element.props.children) {
@@ -75,6 +74,7 @@ function processHead(child: React.ReactElement, responsiveStyles: string[]): Rea
     const headChildren = React.Children.toArray(child.props.children);
     headChildren.push(styleElement);
 
+    // eslint-disable-next-line no-param-reassign
     child = React.cloneElement(child, child.props, ...headChildren);
   }
   if (child.props.children) {
@@ -86,6 +86,7 @@ function processHead(child: React.ReactElement, responsiveStyles: string[]): Rea
       return child;
     });
 
+    // eslint-disable-next-line no-param-reassign
     child = React.cloneElement(child, child.props, ...processedChildren);
   }
 
@@ -109,10 +110,10 @@ export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindP
   const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
     headStyles.join(' ')
   );
-  const hasHTML = /<html[^>]*>/gm.test(fullHTML);
-  const hasHead = /<head[^>]*>/gm.test(fullHTML);
 
-  if (hasResponsiveStyles && (!hasHTML || !hasHead)) {
+  const hasHTMLAndHead = /<html[^>]*>(?=[\s\S]*<head[^>]*>)/gm.test(fullHTML);
+
+  if (hasResponsiveStyles && !hasHTMLAndHead) {
     throw new Error(
       'Tailwind: To use responsive styles you must have a <html> and <head> element in your template.'
     );
@@ -130,5 +131,3 @@ export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindP
 
   return <>{childrenWithInlineAndResponsiveStyles}</>;
 };
-
-Tailwind.displayName = 'Tailwind';

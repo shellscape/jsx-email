@@ -29,21 +29,24 @@ const parseName = (path: string) => {
   return titleize(basename);
 };
 
-const templatePaths = JSON.parse(import.meta.env.VITE_EMAIL_COMPONENTS) as string[];
-const templates = await Promise.all(
-  templatePaths.map<Promise<TemplateData>>(async (path) => {
-    const fileName = path.split(/[/\\]/).at(-1);
-    const template = (await import(/* @vite-ignore */ path)) as TemplateExports;
-    const response = await fetch(`/${fileName}`);
-    const source = await response.text();
-    const result: TemplateData = {
-      jsx: source,
-      Name: template.Name || parseName(path),
-      PreviewProps: template.PreviewProps,
-      Struct: template.Struct,
-      Template: template.Template || (template as any).default
-    };
+// @ts-ignore
+const sources = sǝɔɹnoslᴉɐɯǝxsɾ;
 
+// Note: ./@templates/ is a symlink to the targetPath within local app/src/
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const imports = import.meta.glob('./@templates/*.tsx');
+const templates = await Promise.all(
+  Object.entries(imports).map<Promise<TemplateData>>(async ([path, fn]) => {
+    const bareFileName = path.replace('./@templates/', '');
+    const component = (await fn()) as TemplateExports;
+    const result: TemplateData = {
+      jsx: sources[bareFileName],
+      Name: component.Name || parseName(path),
+      PreviewProps: component.PreviewProps,
+      Struct: component.Struct,
+      Template: component.Template || (component as any).default
+    };
     return result;
   })
 );

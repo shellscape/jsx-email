@@ -7,9 +7,9 @@ slug: preview
 <!--@include: @/include/header.md-->
 
 ::: tip
-  Email clients have this concept of “preview text” which gives insight into
-  what's inside the email before you open. A good practice is to keep that text
-  under 90 characters.
+Email clients have this concept of “preview text” which gives insight into
+what's inside the email before you open. A good practice is to keep that text
+under 90 characters.
 :::
 
 <!--@include: @/include/install.md-->

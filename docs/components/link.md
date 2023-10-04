@@ -25,6 +25,7 @@ const Email = () => {
 This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`. Additionally, the props listed below should be considered.
 
 ### Props
+
 ```ts
 href: string;
 ```

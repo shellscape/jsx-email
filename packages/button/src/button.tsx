@@ -4,10 +4,7 @@ import { pxToPt, parsePadding } from './utils';
 
 type RootProps = React.ComponentPropsWithoutRef<'a'>;
 
-export interface ButtonProps extends RootProps {
-  pX?: number;
-  pY?: number;
-}
+export interface ButtonProps extends RootProps {}
 
 const buttonStyle = (
   style?: React.CSSProperties & {

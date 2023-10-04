@@ -1,3 +1,5 @@
+import { existsSync } from 'fs';
+import { readFile, symlink, unlink } from 'fs/promises';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
@@ -13,6 +15,8 @@ const PreviewOptionsStruct = object({
 });
 
 type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
+
+const { error } = console;
 
 export const help = chalk`
 {blue email preview}
@@ -43,15 +47,34 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 };
 
 export const start = async (targetPath: string, argv: PreviewOptions) => {
-  const { open = true, port = 55420 } = argv;
-  const config = await import('../../app/vite.config');
-  const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
+  if (!existsSync(targetPath)) {
+    error(chalk`\n{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
+    return;
+  }
 
-  process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
+  const { open = true, port = 55420 } = argv;
+  const { default: config } = await import('../../app/vite.config');
+  const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
+  const linkPath = join(config.root!, 'src/@templates');
+  const templateSources = {} as Record<string, string>;
+
+  for (const path of componentPaths) {
+    templateSources[path.replace(targetPath, '').replace(/^\//, '')] =
+      // eslint-disable-next-line no-await-in-loop
+      await readFile(path, 'utf8');
+  }
+
+  if (existsSync(linkPath)) await unlink(linkPath);
+
+  await symlink(targetPath, linkPath);
 
   const server = await createServer({
     configFile: false,
-    ...config.default,
+    ...config,
+    define: {
+      sǝɔɹnoslᴉɐɯǝxsɾ: JSON.stringify(templateSources),
+      ...config.define
+    },
     publicDir: targetPath,
     server: { port }
   });

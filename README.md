@@ -12,13 +12,13 @@
   </svg>
   JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients.
   <br/><br/>
-  The components handle the heavy lifting of compatibility and client insonsistency so designers and developers can focus on building impactful and engaging templates.
+  The components handle the heavy lifting of compatibility and client inconsistency so designers and developers can focus on building impactful and engaging templates.
   <br/>
 </div>
 
 ## Getting Started
 
-Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs). Please give that a read and let us know if there's anything we can help with.
+Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs/introduction). Please give that a read and let us know if there's anything we can help with.
 
 ## Requirements
 
@@ -78,20 +78,22 @@ This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), 
 
 We 💛 contributions! After all, this is a community-driven project. We have no corporate sponsorship or backing. The maintainers and users keep this project going!
 
-Please check out our [Contribution Guide](./contributing.md).
+Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
 ## Attribution 🧡
 
 This project was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
 
-`JSX email` is a fork of `react-email`. The goals of this project are to provide similar benefits, with an improved focus on Developer Experience, maintenance, fast improvements and fast releases. Improvements over `react-email` include:
+`JSX email` is a fork of `react-email`. The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. Improvements over `react-email` include:
 
 - Smoother Developer Experience (DX)
 - Better Command Line tools
 - Less complex, smoother Preview Server
 - Faster improvements and releases
-- Community-driven maintenance
+- Community-driven maintenance rather than company-planning priority
 - No vendor lock-in for tools. `jsx-email` uses only generic components and tools.
+
+We (the maintainers) use the JSX email daily. This fork was originally created as a canary channel for fixes from pull requests and issues that had been left unaddressed. JSX email grew faster, and the upstream team didn't give the project the love we felt it needed. When our help wasn't accepted, we felt a new direction was needed.
 
 ## License
 

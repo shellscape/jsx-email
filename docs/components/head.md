@@ -11,7 +11,6 @@ slug: head
 This component is required for adding elements such as `<style>` and `meta` directly to the document
 :::
 
-
 <!--@include: @/include/install.md-->
 
 ## Usage

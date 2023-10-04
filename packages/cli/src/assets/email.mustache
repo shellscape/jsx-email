@@ -9,7 +9,7 @@ import {
   Preview,
   Section,
   Text
-} from '@jsx-email/components';
+} from '@jsx-email/all';
 // Note: Superstruct is a fantastic validation package. It's smaller and faster than alternatives
 // and uses a delightful API without chaining. docs.superstructjs.org
 //
@@ -24,7 +24,7 @@ export const TemplateStruct = object({
   email: defaulted(string(), 'batman@example.com'),
   name: defaulted(string(), 'Bruce Wayne')
 });
-{{ typeProps }}
+{{{ typeProps }}}
 
 const main = {
   backgroundColor: '#f6f9fc',
@@ -68,7 +68,8 @@ const button = {
   fontWeight: 'bold',
   textAlign: 'center' as const,
   textDecoration: 'none',
-  width: '100%'
+  width: '100%',
+  padding: '10px'
 };
 
 export const Template = ({ email, name, count }{{ propsType }}) => (
@@ -79,7 +80,7 @@ export const Template = ({ email, name, count }{{ propsType }}) => (
       <Container style={container}>
         <Section style={box}>
           <Text style={paragraph}>This is our email body text</Text>
-          <Button pX={10} pY={10} style={button} href="https://example.com">
+          <Button style={button} href="https://example.com">
             Action Button
           </Button>
           <Hr style={hr} />

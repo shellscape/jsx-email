@@ -1,6 +1,16 @@
 import type React from 'react';
 
-type FallbackFont = 'Arial' | 'Helvetica' | 'Verdana' | 'Georgia' | 'Times New Roman';
+type FallbackFont =
+  | 'Arial'
+  | 'Helvetica'
+  | 'Verdana'
+  | 'Georgia'
+  | 'Times New Roman'
+  | 'serif'
+  | 'sans-serif'
+  | 'monospace'
+  | 'cursive'
+  | 'fantasy';
 
 type FontFormat = 'woff' | 'woff2' | 'truetype' | 'opentype' | 'embedded-opentype' | 'svg';
 

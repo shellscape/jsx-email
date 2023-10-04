@@ -16,6 +16,6 @@ process.chdir(join(__dirname, '../app'));
 
   await build({
     base: '/samples/',
-    build: { outDir: join(__dirname, '../../../apps/web/src/public/samples') }
+    build: { outDir: join(__dirname, '../../../apps/web/src/public/samples'), target: 'esnext' }
   });
 })();

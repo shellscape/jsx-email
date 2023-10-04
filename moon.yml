@@ -46,7 +46,7 @@ tasks:
       cache: false
 
   lint.docs:
-    command: 'prettier --write .github/**/*.md **/README.md'
+    command: 'prettier --write .github/**/*.md **/README.md docs/**/*.md'
     options:
       cache: false
 

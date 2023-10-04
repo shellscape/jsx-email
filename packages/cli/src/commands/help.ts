@@ -19,12 +19,13 @@ ${pkg.description}
 
 {underline Commands}
   build       {dim <template path>}
+  create      {dim <template name>}
   help        [{dim <command>}]
   preview     {dim <template dir path>}
 
 {underline Options}
   --help      Displays this message
-  --version   Displays webpack-nano and webpack versions
+  --version   Displays the current @jsx-email/cli version
 
 {underline Examples}
   $ email

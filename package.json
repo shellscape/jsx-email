@@ -7,6 +7,8 @@
   },
   "devDependencies": {
     "@dot/versioner": "^0.1.5",
+    "@jsx-email/all": "workspace:*",
+    "@jsx-email/cli": "workspace:*",
     "@jsx-email/render": "workspace:*",
     "@moonrepo/cli": "^1.14.3",
     "@swc/core": "^1.3.91",
@@ -26,7 +28,7 @@
     "vitest": "^0.34.5"
   },
   "lint-staged": {
-    "*.{ts,js}": [
+    "*.{ts,tsx,js,jsx}": [
       "eslint --fix --cache"
     ],
     "**/(package|tsconfig(.*)?).json": [
