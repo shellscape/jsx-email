@@ -6,7 +6,38 @@ workspace:
     exclude: ['build', 'compile', 'test']
 
 tasks:
+  build:
+    command: rm -f tsconfig.json
+    inputs:
+      - starter
+      - src
+    deps:
+      - ~:compile
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
+  compile:
+    command: echo "Compile compelete"
+    inputs:
+      - starter
+      - src
+    deps:
+      - ~:tsconfig.link
+      - ~:tsc
+      - ~:copy
+    options:
+      runDepsInParallel: false
+
+  copy:
+    command: cp -r starter dist
+    options:
+      cache: false
+
   tsc:
     command: tsc --project tsconfig.json
     inputs:
       - src
+    options:
+      cache: false

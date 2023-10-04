@@ -67,16 +67,18 @@ const button = {
   display: 'block',
   fontSize: '16px',
   fontWeight: 'bold',
+  padding: '10px',
   textAlign: 'center' as const,
   textDecoration: 'none',
-  width: '100%',
-  padding: '10px'
+  width: '100%'
 };
 
 export const Template = ({ email, name, count }: TemplateProps) => (
   <Html>
     <Head />
-    <Preview>This is our email preview text for {name} &lt;{email}&gt;</Preview>
+    <Preview>
+      This is our email preview text for {name} &lt;{email}&gt;
+    </Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={box}>

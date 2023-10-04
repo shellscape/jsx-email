@@ -12,17 +12,21 @@
     "directory": "packages/email-setup"
   },
   "bin": {
-    "email-setup": "src/index.js"
+    "email-setup": "./dist/src/index.js"
   },
   "engines": {
     "node": ">=18.0.0"
   },
+  "files": [
+    "dist/**"
+  ],
   "keywords": [
     "jsx",
     "react",
     "email"
   ],
   "dependencies": {
+    "chalk": "4.1.2",
     "commander": "^11.0.0",
     "fs-extra": "^11.1.1"
   },
