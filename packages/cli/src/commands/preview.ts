@@ -1,10 +1,11 @@
-import { existsSync, symlinkSync, unlinkSync } from 'fs';
+import { existsSync } from 'fs';
+import { readFile, symlink, unlink } from 'fs/promises';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import globby from 'globby';
 import { assert, boolean, number, object, optional, Infer } from 'superstruct';
-import { createServer, normalizePath } from 'vite';
+import { createServer } from 'vite';
 
 import { CommandFn } from './types';
 
@@ -55,17 +56,25 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
   const { default: config } = await import('../../app/vite.config');
   const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
   const linkPath = join(config.root!, 'src/@templates');
+  const templateSources = {} as Record<string, string>;
 
-  process.env.VITE_TARGET_PATH = JSON.stringify(normalizePath(targetPath));
-  process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
+  for (const path of componentPaths) {
+    templateSources[path.replace(targetPath, '').replace(/^\//, '')] =
+      // eslint-disable-next-line no-await-in-loop
+      await readFile(path, 'utf8');
+  }
 
-  if (existsSync(linkPath)) unlinkSync(linkPath);
+  if (existsSync(linkPath)) await unlink(linkPath);
 
-  symlinkSync(targetPath, linkPath);
+  await symlink(targetPath, linkPath);
 
   const server = await createServer({
     configFile: false,
     ...config,
+    define: {
+      sǝɔɹnoslᴉɐɯǝxsɾ: JSON.stringify(templateSources),
+      ...config.define
+    },
     publicDir: targetPath,
     server: { port }
   });
