@@ -43,7 +43,7 @@ Commands
 
 Options
   --help      Displays this message
-  --version   Displays webpack-nano and webpack versions
+  --version   Displays the current @jsx-email/cli version
 
 Examples
   $ email
