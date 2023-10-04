@@ -1,5 +1,16 @@
 # @jsx-email/cli ChangeLog
 
+## v1.0.7
+
+_2023-10-04_
+
+### Bugfixes
+
+- fix: typos on cli and documentation (#29)
+- fix: rework the dynamic imports for the preview tool (#27)
+- fix: use @jsx-email/all in template (f47a5d5)
+- fix: mustache template path, character escaping (#25)
+
 ## v1.0.6
 
 _2023-10-04_
