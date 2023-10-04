@@ -1,0 +1,27 @@
+{
+  "name": "email-setup",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "The easiest way to get started with JSX Email",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/email-setup"
+  },
+  "bin": {
+    "email-setup": "src/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "jsx",
+    "react",
+    "email"
+  ],
+  "dependencies": {},
+  "devDependencies": {}
+}
