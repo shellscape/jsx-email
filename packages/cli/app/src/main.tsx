@@ -29,12 +29,21 @@ const parseName = (path: string) => {
   return titleize(basename);
 };
 
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const modules = import.meta.glob('./@templates/*.tsx');
+
+// TODO: use `modules` to populate the data below. it's more reliable
+
+const targetPath = JSON.parse(process.env.VITE_TARGET_PATH!) as string;
 const templatePaths = JSON.parse(import.meta.env.VITE_EMAIL_COMPONENTS) as string[];
+console.log({ targetPath, templatePaths });
 const templates = await Promise.all(
   templatePaths.map<Promise<TemplateData>>(async (path) => {
-    const fileName = path.split(/[/\\]/).at(-1);
-    const template = (await import(/* @vite-ignore */ path)) as TemplateExports;
-    const response = await fetch(`/${fileName}`);
+    const fileName = path.replace(targetPath, '');
+    const bareFileName = fileName.substring(1, fileName.lastIndexOf('.'));
+    const template = (await import(`./@templates/${bareFileName}.tsx`)) as TemplateExports;
+    const response = await fetch(fileName);
     const source = await response.text();
     const result: TemplateData = {
       jsx: source,

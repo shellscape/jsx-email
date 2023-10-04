@@ -1,9 +1,10 @@
+import { existsSync, symlinkSync, unlinkSync } from 'fs';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import globby from 'globby';
 import { assert, boolean, number, object, optional, Infer } from 'superstruct';
-import { createServer } from 'vite';
+import { createServer, normalizePath } from 'vite';
 
 import { CommandFn } from './types';
 
@@ -13,6 +14,8 @@ const PreviewOptionsStruct = object({
 });
 
 type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
+
+const { error } = console;
 
 export const help = chalk`
 {blue email preview}
@@ -43,15 +46,26 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 };
 
 export const start = async (targetPath: string, argv: PreviewOptions) => {
-  const { open = true, port = 55420 } = argv;
-  const config = await import('../../app/vite.config');
-  const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
+  if (!existsSync(targetPath)) {
+    error(chalk`\n{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
+    return;
+  }
 
+  const { open = true, port = 55420 } = argv;
+  const { default: config } = await import('../../app/vite.config');
+  const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
+  const linkPath = join(config.root!, 'src/@templates');
+
+  process.env.VITE_TARGET_PATH = JSON.stringify(normalizePath(targetPath));
   process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
+
+  if (existsSync(linkPath)) unlinkSync(linkPath);
+
+  symlinkSync(targetPath, linkPath);
 
   const server = await createServer({
     configFile: false,
-    ...config.default,
+    ...config,
     publicDir: targetPath,
     server: { port }
   });
