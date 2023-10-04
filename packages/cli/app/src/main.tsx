@@ -29,6 +29,8 @@ const parseName = (path: string) => {
   return titleize(basename);
 };
 
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const modules = import.meta.glob('./@templates/*.tsx');
 
 // TODO: use `modules` to populate the data below. it's more reliable
