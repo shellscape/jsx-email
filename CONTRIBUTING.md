@@ -19,7 +19,7 @@ If you're new to either `pnpm` or `Moon` you'll want to run the `bootstrap.sh` s
 $ ./shared/bootstrap.sh
 ```
 
-Next we'll want to get dependencies installed, and get everything built. _(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don't techincally have to install dependencies first)_:
+Next we'll want to get dependencies installed, and get everything built. _(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don't technically have to install dependencies first)_:
 
 ```console
 $ pnpm install
@@ -58,9 +58,3 @@ Any code change should be submitted as a pull request. Our guidelines for Pull R
 The bigger the pull request, the longer it will take to review and merge. Try to break down large pull requests in smaller chunks that are easier to review and merge.
 
 It is also always helpful to have some context for your pull request. What was the purpose? Why does it matter to you? Does it resolve any known Github issues? Adding a line "resolves #&lt;issue number&gt;" (e.g. "resolves #23") to the description of your pull request or of a specific commit will automatically close this issue once the pull request is merged.
-
-
-
-
-
-
