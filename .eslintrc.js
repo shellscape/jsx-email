@@ -23,6 +23,16 @@ module.exports = {
         'import/no-unresolved': 'off',
         'no-console': 'off'
       }
+    },
+    {
+      files: ['apps/demo/emails/**/*.tsx', 'apps/demo/staged/**/*.tsx'],
+      rules: {
+        'arrow-body-style': 'off',
+        'import/no-default-export': 'off',
+        'no-use-before-define': 'off',
+        'sort-keys': 'off',
+        'typescript-sort-keys/interface': 'off'
+      }
     }
   ],
   parserOptions: {

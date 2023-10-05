@@ -1,5 +1,4 @@
 # Note: We're ignoring this while we get the rest of the repo setup
 .snapshots
-apps
 dist
 node_modules
