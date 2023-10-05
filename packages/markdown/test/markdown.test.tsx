@@ -7,7 +7,7 @@ import { Markdown } from '../src';
 describe('<Markdown> component renders correctly', () => {
   it('renders the markdown in the correct format for browsers', () => {
     const actualOutput = render(
-      <Markdown showDataId>
+      <Markdown>
         {`# Markdown Test Document
 
 This is a **test document** to check the capabilities of a Markdown parser.
@@ -63,7 +63,7 @@ console.log(\`Hello, \$\{name\}!\`);
 
   it('renders the headers in the correct format for browsers', () => {
     const actualOutput = render(
-      <Markdown showDataId>
+      <Markdown>
         {`
 # Heading 1!
 ## Heading 2!
@@ -79,23 +79,21 @@ console.log(\`Hello, \$\{name\}!\`);
 
   it('renders text in the correct format for browsers', () => {
     const actualOutput = render(
-      <Markdown
-        showDataId
-      >{`**This is sample bold text in markdown** and *this is italic text*`}</Markdown>
+      <Markdown>{`**This is sample bold text in markdown** and *this is italic text*`}</Markdown>
     );
     expect(actualOutput).toMatchSnapshot();
   });
 
   it('renders links in the correct format for browsers', () => {
     const actualOutput = render(
-      <Markdown showDataId>{`Link to [React-email](https://react.email)`}</Markdown>
+      <Markdown>{`Link to [React-email](https://react.email)`}</Markdown>
     );
     expect(actualOutput).toMatchSnapshot();
   });
 
   it('renders lists in the correct format for browsers', () => {
     const actualOutput = render(
-      <Markdown showDataId>
+      <Markdown>
         {`
 # Below is a list
 
