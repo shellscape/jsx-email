@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { tailwindToCSS, TailwindConfig } from 'tw-to-css';
+import { tailwindToCSS, type TailwindConfig } from 'tw-to-css';
 
 import { cssToJsxStyle } from './utils';
 
