@@ -3,9 +3,9 @@ import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import mustache from 'mustache';
-import { assert, boolean, object, optional, string, Infer } from 'superstruct';
+import { assert, boolean, object, optional, string, type Infer } from 'superstruct';
 
-import { CommandFn } from './types';
+import { type CommandFn } from './types';
 
 const { log } = console;
 

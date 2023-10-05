@@ -2,7 +2,7 @@ import chalk from 'chalk';
 
 import pkg from '../../package.json';
 
-import { CommandFn } from './types';
+import type { CommandFn } from './types';
 import { help as build } from './build';
 import { help as create } from './create';
 import { help as preview } from './preview';
