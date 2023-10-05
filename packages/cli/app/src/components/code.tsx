@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import { getHighlighter } from 'shikiji';
 
-import { PreviewLanguage } from '../helpers';
+import { type PreviewLanguage } from '../helpers';
 
 interface CodeProps {
   children: string;

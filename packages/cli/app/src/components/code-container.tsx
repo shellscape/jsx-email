@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { PreviewLanguage, copyTextToClipboard } from '../helpers';
+import { type PreviewLanguage, copyTextToClipboard } from '../helpers';
 
 import { Code } from './code';
 import { IconButton, IconCheck, IconClipboard, IconDownload } from './icons';
