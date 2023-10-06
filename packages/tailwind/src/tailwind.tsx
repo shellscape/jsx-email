@@ -83,7 +83,7 @@ function processHead(child: React.ReactElement, responsiveStyles: string[]): Rea
       if (React.isValidElement(processedChild)) {
         return processHead(processedChild, responsiveStyles);
       }
-      return child;
+      return processedChild;
     });
 
     // eslint-disable-next-line no-param-reassign
