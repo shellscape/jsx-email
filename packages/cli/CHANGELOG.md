@@ -1,5 +1,17 @@
 # @jsx-email/cli ChangeLog
 
+## v1.0.11
+
+_2023-10-06_
+
+### Bugfixes
+
+- fix: specify type imports, update linter config (#32)
+
+### Updates
+
+- chore: remove unused dependency (3d4dd53)
+
 ## v1.0.10
 
 _2023-10-05_
