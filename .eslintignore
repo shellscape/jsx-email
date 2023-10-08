@@ -2,3 +2,6 @@
 .snapshots
 dist
 node_modules
+
+# Starter template files
+packages/create-jsx-email/starter
