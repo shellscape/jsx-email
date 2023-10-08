@@ -14,7 +14,7 @@
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
   A JSX email component which displays columns that separate content bounaries vertically
-<div>
+<div><br>
 
 [`@jsx-email/column` Documentation](https://jsx.email/docs/components/column)
 
