@@ -13,6 +13,11 @@
 
 ![jsx-email](../../assets/brackets.svg) The starter command for JSX email.
 
+<div>
+  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
+  The fastest way to get started with JSX email. A utility for quickly scaffolding new JSX email projects.
+<div><br>
+
 ## Requirements
 
 This package requires an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
@@ -22,19 +27,19 @@ This package requires an [LTS](https://github.com/nodejs/Release) Node version (
 To get started, open a new shell and run:
 
 ```sh
-npx create-jsx-email
+npm create jsx-email
 ```
 
-This will create a new folder called `jsx-email-starter` with a `jsx-email` project setup.
+This will create a new folder called `email-project` with a `jsx-email` project setup.
 
-Install the dependencies
+Install the dependencies:
 
 ```sh
-cd jsx-email-starter
+cd email-project
 pnpm install
 ```
 
-Start the preview server
+Start the preview server:
 
 ```sh
 pnpm run dev
@@ -45,7 +50,7 @@ pnpm run dev
 Alternatively, you can pass a parameter to specify the name of the folder:
 
 ```sh
-npx create-jsx-email <project-name>
+npm create jsx-email <project-name>
 ```
 
 ## License
