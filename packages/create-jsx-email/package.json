@@ -1,0 +1,36 @@
+{
+  "name": "create-jsx-email",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "The fastest way to get started with JSX Email",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/create-jsx-email"
+  },
+  "bin": {
+    "create-jsx-email": "./dist/src/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "jsx",
+    "react",
+    "email"
+  ],
+  "dependencies": {
+    "@types/mustache": "^4.2.3",
+    "chalk": "4.1.2",
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.2"
+  }
+}

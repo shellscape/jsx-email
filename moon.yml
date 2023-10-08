@@ -26,6 +26,7 @@ tasks:
       - section:build
       - tailwind:build
       - text:build
+      - create-jsx-email:build
       # Note: Build render second to last
       - render:build
       # Note: Build components and cli last

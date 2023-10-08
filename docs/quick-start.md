@@ -12,9 +12,21 @@ In this doc you'll find information on quickly getting started using JSX email. 
 - [Node.js](https://nodejs.org/en/) v18.0.0+
 - React v18.2.0
 
-## Installation
+## New Projects
 
-The easiest way to get started is by using the JSX email CLI.
+If you're starting a new project — whether that's a project solely for email templates, or a project that will eventually host additional code — our [`create-jsx-email`](https://github.com/shellscape/jsx-email/tree/main/packages/create-jsx-email) utility is a perfect choice, and the fastest way to get started. The utility will scaffold a new project and get everything ready for developing new email templates. To begin, make sure you have a terminal (or command line) open and your current working directory is the directory you'd like to create a new project. Run the following command in your terminal (without the `$` symbol):
+
+```console
+$ npm create jsx-email
+```
+
+This command will install and execute `create-jsx-email`, create a `email-project` directory, and add a starter template.
+
+While the _Existing Projects_ section below can be safely skipped, the information beneath it is useful and worth giving a read before working with JSX email, as it contains infmroation on the project and template that was just created.
+
+## Existing Projects
+
+The happy path for adding JSX email to an existing project is by using the JSX email CLI.
 
 ```shell
 $ pnpm add @jsx-email/cli -g
