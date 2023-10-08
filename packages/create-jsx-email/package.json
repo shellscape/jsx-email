@@ -26,8 +26,9 @@
     "email"
   ],
   "dependencies": {
+    "@types/mustache": "^4.2.3",
     "chalk": "4.1.2",
-    "fs-extra": "^11.1.1"
+    "mustache": "^4.2.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.2"

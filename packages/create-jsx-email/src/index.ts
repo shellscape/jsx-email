@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import path from 'path';
+import { copyFile, mkdir, readFile, writeFile } from 'fs/promises';
+import { join, resolve } from 'path';
 
 import chalk from 'chalk';
-
-import fse from 'fs-extra';
+import mustache from 'mustache';
 
 import pkg from '../package.json';
 
@@ -17,38 +17,37 @@ ${pkg.description}
 `;
 
 const footer = (name?: string) => chalk`
-{blue Starter template created}
+{green ✓ Email Project Created}
 
-Now run: 
+Next, run:
 
-  $ cd ${name ?? DEFAULT_PATH}
+  $ cd ${name}
   $ pnpm install
   $ pnpm run dev
 
-{blue Docs: http://jsx.email/docs/quick-start}
+{blue Documentation: {underline http://jsx.email/docs/quick-start}}
 `;
 
-const init = async (name: string) => {
-  let projectPath = name;
-
+const run = async (name = DEFAULT_PATH) => {
   log(intro);
 
-  if (!projectPath) {
-    projectPath = path.join(process.cwd(), DEFAULT_PATH);
-  }
+  const templatePath = resolve(__dirname, '../template');
+  const projectPath = resolve(process.cwd(), name);
+  const email = await readFile(join(templatePath, 'email.mustache'), 'utf8');
+  const pkg = await readFile(join(templatePath, 'package.mustache'), 'utf8');
+  const data = { name };
 
-  if (typeof projectPath === 'string') {
-    projectPath = projectPath.trim();
-  }
+  log(chalk`Creating Project at: {dim ${projectPath}}`);
 
-  log('Creating starter template...');
+  await mkdir(join(projectPath, 'templates'), { recursive: true });
 
-  const templatePath = path.resolve(__dirname, '../starter');
-  const resolvedProjectPath = path.resolve(projectPath);
+  await writeFile(join(projectPath, 'package.json'), mustache.render(pkg, data), 'utf8');
+  await writeFile(join(projectPath, `templates/${name}.tsx`), mustache.render(email, data), 'utf8');
 
-  fse.copySync(templatePath, resolvedProjectPath);
+  await copyFile(join(templatePath, '_gitignore'), join(projectPath, '.gitignore'));
+  await copyFile(join(templatePath, '_tsconfig.json'), join(projectPath, 'tsconfig.json'));
 
   log(footer(name));
 };
 
-init(process.argv[2]);
+run(process.argv[2]);
