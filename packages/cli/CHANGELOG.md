@@ -1,5 +1,14 @@
 # @jsx-email/cli ChangeLog
 
+## v1.0.12
+
+_2023-10-08_
+
+### Updates
+
+- docs: update readme formatting (2a2e091)
+- chore: remove unused dependency (3d4dd53)
+
 ## v1.0.11
 
 _2023-10-06_
