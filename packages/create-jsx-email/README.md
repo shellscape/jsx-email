@@ -36,10 +36,6 @@ Alternatively, you can pass a parameter to specify the name of the folder:
 npx email-setup
 ``` -->
 
-## Attribution 🧡
-
-This package was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
-
 ## License
 
 [MIT License](./LICENSE.md)
