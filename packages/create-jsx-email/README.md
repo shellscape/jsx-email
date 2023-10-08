@@ -22,19 +22,31 @@ This package requires an [LTS](https://github.com/nodejs/Release) Node version (
 To get started, open a new shell and run:
 
 ```sh
-npx email-setup
+npx create-jsx-email
 ```
 
-<!--
-This will create a new folder called `emails` with a few email templates.
+This will create a new folder called `jsx-email-starter` with a `jsx-email` project setup.
+
+Install the dependencies
+
+```sh
+cd jsx-email-starter
+pnpm install
+```
+
+Start the preview server
+
+```sh
+pnpm run dev
+```
 
 ## Options
 
 Alternatively, you can pass a parameter to specify the name of the folder:
 
 ```sh
-npx email-setup
-``` -->
+npx create-jsx-email <project-name>
+```
 
 ## License
 
