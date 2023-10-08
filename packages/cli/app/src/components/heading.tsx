@@ -2,7 +2,7 @@ import * as SlotPrimitive from '@radix-ui/react-slot';
 import classnames from 'classnames';
 import * as React from 'react';
 
-import { As, unreachable } from '../helpers';
+import { type As, unreachable } from '../helpers';
 
 export type HeadingSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
 export type HeadingColor = 'white' | 'gray';

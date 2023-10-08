@@ -4,10 +4,11 @@ import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import globby from 'globby';
-import { assert, boolean, number, object, optional, Infer } from 'superstruct';
+import type { Infer } from 'superstruct';
+import { assert, boolean, number, object, optional } from 'superstruct';
 import { createServer } from 'vite';
 
-import { CommandFn } from './types';
+import type { CommandFn } from './types';
 
 const PreviewOptionsStruct = object({
   open: optional(boolean()),

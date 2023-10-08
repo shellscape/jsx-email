@@ -11,7 +11,10 @@
 
 # @jsx-email/cli
 
-![jsx-email](../../assets/brackets.svg) The Command Line Interface and developer tooling for JSX email.
+<div>
+  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
+  The Command Line Interface and developer tooling for JSX email.
+<div><br>
 
 ## Requirements
 

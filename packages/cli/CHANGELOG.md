@@ -1,5 +1,37 @@
 # @jsx-email/cli ChangeLog
 
+## v1.0.12
+
+_2023-10-08_
+
+### Updates
+
+- docs: update readme formatting (2a2e091)
+- chore: remove unused dependency (3d4dd53)
+
+## v1.0.11
+
+_2023-10-06_
+
+### Bugfixes
+
+- fix: specify type imports, update linter config (#32)
+
+### Updates
+
+- chore: remove unused dependency (3d4dd53)
+
+## v1.0.10
+
+_2023-10-05_
+
+### Bugfixes
+
+- fix: specify type imports, update linter config (#32)
+- fix: use vite builtins for perf improvement in preview (#28)
+- fix: add shebang to cli script (#30)
+- fix: typos on cli and documentation (#29)
+
 ## v1.0.9
 
 _2023-10-04_

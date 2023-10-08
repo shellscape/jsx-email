@@ -46,7 +46,6 @@ export interface MarkdownProps extends React.PropsWithChildren {
   children: string;
   markdownContainerStyles?: React.CSSProperties;
   markdownCustomStyles?: StylesType;
-  showDataId?: boolean;
 }
 ```
 
@@ -73,9 +72,3 @@ Provide custom styles for the corresponding html element (p, h1, h2, etc.)
 ::: tip
 Note: Passing a custom style for an element overrides the default styles.
 :::
-
-```ts
-showDataId?: boolean;
-```
-
-Controls showing data attributes on elements.

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { tailwindToCSS, TailwindConfig } from 'tw-to-css';
+import { tailwindToCSS, type TailwindConfig } from 'tw-to-css';
 
 import { cssToJsxStyle } from './utils';
 
@@ -83,7 +83,7 @@ function processHead(child: React.ReactElement, responsiveStyles: string[]): Rea
       if (React.isValidElement(processedChild)) {
         return processHead(processedChild, responsiveStyles);
       }
-      return child;
+      return processedChild;
     });
 
     // eslint-disable-next-line no-param-reassign

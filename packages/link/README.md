@@ -14,7 +14,7 @@
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
   A JSX email component which renders a hyperlink to an external resource
-<div>
+<div><br>
 
 [`@jsx-email/link` Documentation](https://jsx.email/docs/components/link)
 
@@ -35,7 +35,7 @@ pnpm add @jsx-email/link
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
+We recommend using the [`@jsx-email/cli`](../cli) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 

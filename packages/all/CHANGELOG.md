@@ -1,5 +1,13 @@
 # @jsx-email/all ChangeLog
 
+## v2.0.1
+
+_2023-10-06_
+
+### Updates
+
+- chore: update dependencies (96511dc)
+
 ## v2.0.0
 
 _2023-10-03_

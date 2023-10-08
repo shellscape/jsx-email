@@ -1,7 +1,7 @@
 import { render } from '@jsx-email/render';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, type RouteObject, RouterProvider } from 'react-router-dom';
 import { create, type Struct } from 'superstruct';
 import titleize from 'titleize';
 

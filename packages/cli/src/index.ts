@@ -10,7 +10,7 @@ import { command as build } from './commands/build';
 import { command as create } from './commands/create';
 import { command as help } from './commands/help';
 import { command as preview } from './commands/preview';
-import { CommandFn } from './commands/types';
+import type { CommandFn } from './commands/types';
 
 const commands: Record<string, CommandFn> = { build, create, help, preview };
 const debug = debugConfig('@jsx-email/cli');

@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
-import type React from 'react';
+import React from 'react';
 
-import { As, Margin, withMargin } from './utils';
+import { type As, type Margin, withMargin } from './utils';
 
 export type HeadingAs = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'>;
 export type HeadingProps = HeadingAs & Margin;

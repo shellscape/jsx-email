@@ -1,5 +1,5 @@
-[npm]: https://img.shields.io/npm/v/@jsx-email/html
-[npm-url]: https://www.npmjs.com/package/@jsx-email/html
+[npm]: https://img.shields.io/npm/v/@jsx-email/body
+[npm-url]: https://www.npmjs.com/package/@jsx-email/body
 
 [![npm][npm]][npm-url]
 [![Join our Discord](https://img.shields.io/badge/join_our-Discord-5a64ea)](https://discord.gg/FywZN57mTg)
@@ -9,12 +9,14 @@
 	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"><br/><br/>
 </div>
 
-# @jsx-email/html
+# @jsx-email/body
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
   A JSX email component for using a React `Body` component to wrap email content
-<div>
+<div><br>
+
+[`@jsx-email/body` Documentation](https://jsx.email/docs/components/body)
 
 ## Requirements
 
@@ -40,7 +42,7 @@ $ pnpm add @jsx-email/$1
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
+We recommend using the [`@jsx-email/cli`](../cli) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 

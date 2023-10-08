@@ -10,9 +10,10 @@ import esbuild from 'esbuild';
 import globby from 'globby';
 import { minify as terser } from 'html-minifier-terser';
 import beautify from 'js-beautify';
-import { assert, boolean, object, optional, string, Infer } from 'superstruct';
+import type { Infer } from 'superstruct';
+import { assert, boolean, object, optional, string } from 'superstruct';
 
-import { CommandFn, TemplateFn } from './types';
+import type { CommandFn, TemplateFn } from './types';
 
 const { error, log } = console;
 

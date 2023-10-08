@@ -1,5 +1,29 @@
 # @jsx-email/markdown ChangeLog
 
+## v2.0.3
+
+_2023-10-08_
+
+### Updates
+
+- docs: update readme formatting (2a2e091)
+
+## v2.0.2
+
+_2023-10-05_
+
+### Updates
+
+- chore: replace transform with "md-to-react-email" dep (#18)
+
+## v2.0.1
+
+_2023-10-05_
+
+### Updates
+
+- chore: replace transform with "md-to-react-email" dep (#18)
+
 ## v2.0.0
 
 _2023-10-01_

@@ -1,5 +1,25 @@
 # @jsx-email/tailwind ChangeLog
 
+## v2.2.3
+
+_2023-10-08_
+
+### Bugfixes
+
+- fix: incorrect variable reference in processHead() (#33)
+
+### Updates
+
+- docs: update readme formatting (2a2e091)
+
+## v2.2.2
+
+_2023-10-06_
+
+### Bugfixes
+
+- fix: incorrect variable reference in processHead() (#33)
+
 ## v2.2.1
 
 _2023-10-02_
