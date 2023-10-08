@@ -1,5 +1,13 @@
 # @jsx-email/all ChangeLog
 
+## v2.0.2
+
+_2023-10-08_
+
+### Updates
+
+- docs: update readme formatting (769a7f5)
+
 ## v2.0.1
 
 _2023-10-06_
