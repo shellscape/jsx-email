@@ -14,7 +14,9 @@
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
   A package containing all available JSX email components
-<div>
+<div><br>
+
+Please see the [Documentation](https://jsx.email) for information on how to use individual components.
 
 ## Requirements
 
@@ -33,7 +35,7 @@ pnpm add @jsx-email/all
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
+We recommend using the [`@jsx-email/cli`](../cli) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
