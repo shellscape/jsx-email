@@ -14,7 +14,9 @@
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
   A package for rendering JSX email components to HTML email
-<div>
+<div><br>
+
+[`@jsx-email/render` Documentation](https://jsx.email/docs/core/render)
 
 ## Requirements
 

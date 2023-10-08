@@ -35,7 +35,7 @@ pnpm add @jsx-email/column
 
 ## Usage
 
-We recommend using the [../cli](`@jsx-email/cli`) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
+We recommend using the [`@jsx-email/cli`](../cli) for [creating new templates](https://jsx.email/docs/quick-start#create-a-template).
 
 Create an email template file (e.g. `Email.tsx`) and import the component:
 
