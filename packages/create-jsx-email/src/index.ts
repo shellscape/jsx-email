@@ -11,19 +11,21 @@ const DEFAULT_PATH = 'jsx-email-starter';
 const { log } = console;
 
 const intro = chalk`
-{underline email-setup v${pkg.version}}
+{underline create-jsx-email v${pkg.version}}
 
 ${pkg.description}
 `;
 
 const footer = (name?: string) => chalk`
-{blue starter template created}
+{blue Starter template created}
 
 Now run: 
 
   $ cd ${name ?? DEFAULT_PATH}
   $ pnpm install
   $ pnpm run dev
+
+{blue Docs: http://jsx.email/docs/quick-start}
 `;
 
 const init = async (name: string) => {

@@ -1,5 +1,5 @@
 {
-  "name": "email-setup",
+  "name": "create-jsx-email",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
@@ -9,10 +9,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/shellscape/jsx-email.git",
-    "directory": "packages/email-setup"
+    "directory": "packages/create-jsx-email"
   },
   "bin": {
-    "email-setup": "./dist/src/index.js"
+    "create-jsx-email": "./dist/src/index.js"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -27,7 +27,6 @@
   ],
   "dependencies": {
     "chalk": "4.1.2",
-    "commander": "^11.0.0",
     "fs-extra": "^11.1.1"
   },
   "devDependencies": {
