@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v1.0.13
+
+_2023-10-09_
+
+### Bugfixes
+
+- fix: use react-router-dom `Link` component in preview (#35)
+
 ## v1.0.12
 
 _2023-10-08_
