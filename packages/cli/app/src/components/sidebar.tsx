@@ -2,6 +2,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import classnames from 'classnames';
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Heading } from './heading';
 import { Logo } from './logo';
@@ -82,7 +83,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                     templateNames.map((item) => {
                       const isCurrentPage = title === item;
                       return (
-                        <a key={item} href={`/${item}`}>
+                        <Link key={item} href={`/${item}`}>
                           <motion.span
                             className={classnames(
                               'text-[14px] flex items-center gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
@@ -131,7 +132,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                             </svg>
                             {item}
                           </motion.span>
-                        </a>
+                        </Link>
                       );
                     })}
                 </LayoutGroup>
