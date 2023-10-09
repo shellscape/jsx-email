@@ -367,6 +367,15 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
 
+  packages/jsx-to-string:
+    devDependencies:
+      '@types/react':
+        specifier: 18.2.22
+        version: 18.2.22
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+
   packages/link:
     dependencies:
       react:
@@ -390,18 +399,15 @@ importers:
 
   packages/render:
     dependencies:
+      '@jsx-email/jsx-to-string':
+        specifier: workspace:*
+        version: link:../jsx-to-string
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5
       pretty:
         specifier: 2.0.0
         version: 2.0.0
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
     devDependencies:
       '@types/html-to-text':
         specifier: ^9.0.2
@@ -409,6 +415,12 @@ importers:
       '@types/pretty':
         specifier: ^2.0.1
         version: 2.0.1
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: 18.2.0
+        version: 18.2.0(react@18.2.0)
 
   packages/row:
     dependencies:
@@ -424,6 +436,9 @@ importers:
 
   packages/tailwind:
     dependencies:
+      '@jsx-email/jsx-to-string':
+        specifier: workspace:*
+        version: link:../jsx-to-string
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -5140,7 +5155,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: false
 
   /loupe@2.3.6:
     resolution: {integrity: sha512-RaPMZKiMy8/JruncMU5Bt6na1eftNoo++R4Y+N2FrxkDVTrGvcyzFTsaGif4QTeKESheMGegbhw6iUAq+5A8zA==}
@@ -5938,7 +5952,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
@@ -6029,7 +6042,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -6193,7 +6205,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /search-insights@2.8.3:
     resolution: {integrity: sha512-W9rZfQ9XEfF0O6ntgQOTI7Txc8nkZrO4eJ/pTHK0Br6wWND2sPGPoWg+yGhdIW7wMbLqk8dc23IyEtLlNGpeNw==}

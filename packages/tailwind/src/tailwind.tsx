@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { jsxToString } from '@jsx-email/jsx-to-string';
 import { tailwindToCSS, type TailwindConfig } from 'tw-to-css';
 
 import { cssToJsxStyle } from './utils';
@@ -105,7 +105,7 @@ export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindP
 
   if (!childrenWithInlineStyles) return <>{children}</>;
 
-  const fullHTML = renderToStaticMarkup(<>{childrenWithInlineStyles}</>);
+  const fullHTML = jsxToString(<>{childrenWithInlineStyles}</>);
 
   const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
     headStyles.join(' ')

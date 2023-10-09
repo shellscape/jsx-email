@@ -1,15 +1,15 @@
 {
-  "name": "@jsx-email/tailwind",
-  "version": "2.2.3",
+  "name": "@jsx-email/jsx-to-string",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
-  "description": "A JSX email component which enables using Tailwind CSS to style emails",
+  "description": "Renders JSX to HTML strings without React.",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/shellscape/jsx-email.git",
-    "directory": "packages/tailwind"
+    "directory": "packages/jsx-to-string"
   },
   "main": "dist/index.js",
   "module": "dist/es/index.js",
@@ -27,22 +27,12 @@
   ],
   "keywords": [
     "react",
-    "email",
-    "tailwind"
+    "email"
   ],
-  "peerDependencies": {
-    "react": "^18.2.0"
-  },
-  "dependencies": {
-    "@jsx-email/jsx-to-string": "workspace:*",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tw-to-css": "0.0.11"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@jsx-email/head": "workspace:*",
-    "@jsx-email/hr": "workspace:*",
-    "@jsx-email/html": "workspace:*"
+    "@types/react": "^18.2.26",
+    "react": "^18.2.0"
   },
   "types": "./dist/index.d.ts",
   "sideEffects": false

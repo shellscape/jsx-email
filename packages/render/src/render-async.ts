@@ -1,47 +1,18 @@
-import { type ReadableStream } from 'node:stream/web';
-
+import { jsxToString } from '@jsx-email/jsx-to-string';
 import { convert } from 'html-to-text';
 import pretty from 'pretty';
 import { type ReactNode } from 'react';
-import react from 'react-dom/server';
-
-const { renderToStaticMarkup } = react;
-const renderToStream =
-  // Note: only available in platforms that support WebStreams
-  // https://react.dev/reference/react-dom/server/renderToString#alternatives
-  react.renderToReadableStream ||
-  // Note: only available in Node
-  react.renderToPipeableStream;
 
 export const renderToString = async (children: ReactNode) => {
-  const stream = await renderToStream(children);
-
-  const html = await readableStreamToString(
-    // ReactDOMServerReadableStream behaves like ReadableStream
-    // in modern edge runtimes but the types are not compatible
-    stream as unknown as ReadableStream<Uint8Array>
-  );
-
+  const html = jsxToString(children);
   return (
     html
-      // Remove leading doctype becuase we add it manually
+      // Remove leading doctype because we add it manually
       .replace(/^<!DOCTYPE html>/, '')
       // Remove empty comments to match the output of renderToStaticMarkup
       .replace(/<!-- -->/g, '')
   );
 };
-
-async function readableStreamToString(readableStream: ReadableStream<Uint8Array>) {
-  let result = '';
-
-  const decoder = new TextDecoder();
-
-  for await (const chunk of readableStream) {
-    result += decoder.decode(chunk);
-  }
-
-  return result;
-}
 
 export const renderAsync = async (
   component: React.ReactElement,
@@ -50,10 +21,7 @@ export const renderAsync = async (
     pretty?: boolean;
   }
 ) => {
-  const markup =
-    typeof renderToStaticMarkup === 'undefined'
-      ? await renderToString(component)
-      : renderToStaticMarkup(component);
+  const markup = await renderToString(component);
 
   if (options?.plainText) {
     return convert(markup, {
