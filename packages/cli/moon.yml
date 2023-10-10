@@ -55,4 +55,5 @@ tasks:
   tsc:
     command: tsc --project tsconfig.json
     inputs:
+      - app
       - src

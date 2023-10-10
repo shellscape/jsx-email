@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "bootstrap": "./shared/bootstrap.sh"
+    "bootstrap": "./shared/bootstrap.sh",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@dot/versioner": "^0.1.5",
