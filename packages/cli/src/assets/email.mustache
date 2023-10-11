@@ -20,7 +20,6 @@ import * as React from 'react';
 export const TemplateName = '{{name}}';
 
 export const TemplateStruct = object({
-  count: defaulted(number(), 42),
   email: defaulted(string(), 'batman@example.com'),
   name: defaulted(string(), 'Bruce Wayne')
 });
@@ -72,7 +71,7 @@ const button = {
   padding: '10px'
 };
 
-export const Template = ({ email, name, count }{{ propsType }}) => (
+export const Template = ({ email, name }{{ propsType }}) => (
   <Html>
     <Head />
     <Preview>This is our email preview text for {name} &lt;{email}&gt;</Preview>
@@ -89,7 +88,7 @@ export const Template = ({ email, name, count }{{ propsType }}) => (
             <Link style={anchor} href="mailto:{email}">
               link
             </Link>
-            . The count is {count}.
+            .
           </Text>
         </Section>
       </Container>

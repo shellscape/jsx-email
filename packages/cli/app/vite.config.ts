@@ -1,9 +1,20 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { createLogger, defineConfig } from 'vite';
 
 process.chdir(__dirname);
 
+const logger = createLogger();
+const { warnOnce: og } = logger;
+
+logger.warnOnce = (message, options) => {
+  // Note: ignore `Sourcemap for "${file}" points to missing source files` errors
+  if (message.includes('points to missing source files')) return;
+  og(message, options);
+};
+
 export default defineConfig({
+  clearScreen: false,
+  customLogger: logger,
   define: {
     'process.env': 'import.meta.env'
   },

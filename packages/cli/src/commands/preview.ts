@@ -1,12 +1,12 @@
 import { existsSync } from 'fs';
-import { readFile, symlink, unlink } from 'fs/promises';
+import { readFile } from 'fs/promises';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import globby from 'globby';
 import type { Infer } from 'superstruct';
 import { assert, boolean, number, object, optional } from 'superstruct';
-import { createServer } from 'vite';
+import { type InlineConfig, createServer } from 'vite';
 
 import type { CommandFn } from './types';
 
@@ -56,7 +56,7 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
   const { open = true, port = 55420 } = argv;
   const { default: config } = await import('../../app/vite.config');
   const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
-  const linkPath = join(config.root!, 'src/@templates');
+  // const linkPath = join(config.root!, 'src/@templates');
   const templateSources = {} as Record<string, string>;
 
   for (const path of componentPaths) {
@@ -65,20 +65,24 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
       await readFile(path, 'utf8');
   }
 
-  if (existsSync(linkPath)) await unlink(linkPath);
-
-  await symlink(targetPath, linkPath);
-
-  const server = await createServer({
+  const mergedConfig = {
     configFile: false,
     ...config,
     define: {
       sǝɔɹnoslᴉɐɯǝxsɾ: JSON.stringify(templateSources),
       ...config.define
     },
-    publicDir: targetPath,
+    resolve: {
+      alias: {
+        '@': targetPath
+      }
+    },
     server: { port }
-  });
+  } as InlineConfig;
+
+  console.log(mergedConfig);
+
+  const server = await createServer(mergedConfig);
 
   await server.listen();
 
