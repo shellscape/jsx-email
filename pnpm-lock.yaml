@@ -367,15 +367,6 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
 
-  packages/jsx-to-string:
-    devDependencies:
-      '@types/react':
-        specifier: 18.2.22
-        version: 18.2.22
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-
   packages/link:
     dependencies:
       react:
@@ -399,9 +390,6 @@ importers:
 
   packages/render:
     dependencies:
-      '@jsx-email/jsx-to-string':
-        specifier: workspace:*
-        version: link:../jsx-to-string
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5
@@ -436,9 +424,9 @@ importers:
 
   packages/tailwind:
     dependencies:
-      '@jsx-email/jsx-to-string':
+      '@jsx-email/render':
         specifier: workspace:*
-        version: link:../jsx-to-string
+        version: link:../render
       react:
         specifier: 18.2.0
         version: 18.2.0

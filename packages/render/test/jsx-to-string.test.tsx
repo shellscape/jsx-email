@@ -107,34 +107,34 @@ describe('jsx-to-string', () => {
     describe('styles', () => {
       it('stringifies style attributes', () => {
         const result = jsxToString(<div style={{ margin: '1em 0', padding: '0.5em 1em' }} />);
-        expect(result).toBe('<div style="margin:1em 0;padding:0.5em 1em;"></div>');
+        expect(result).toBe('<div style="margin:1em 0;padding:0.5em 1em"></div>');
       });
 
       it('hyphenates style properties', () => {
         const result = jsxToString(<div style={{ marginBottom: '1em', paddingTop: '0.5em' }} />);
-        expect(result).toBe('<div style="margin-bottom:1em;padding-top:0.5em;"></div>');
+        expect(result).toBe('<div style="margin-bottom:1em;padding-top:0.5em"></div>');
       });
 
       it('hyphenates vendor prefixed properties', () => {
         const result = jsxToString(<div style={{ MozHyphens: 'auto', msHyphens: 'auto' }} />);
-        expect(result).toBe('<div style="-moz-hyphens:auto;-ms-hyphens:auto;"></div>');
+        expect(result).toBe('<div style="-moz-hyphens:auto;-ms-hyphens:auto"></div>');
       });
 
       it('applies pixel units to number values', () => {
         const result = jsxToString(<div style={{ margin: 20, padding: 10 }} />);
-        expect(result).toBe('<div style="margin:20px;padding:10px;"></div>');
+        expect(result).toBe('<div style="margin:20px;padding:10px"></div>');
       });
 
       it('does not apply pixel values to unitless properties', () => {
         const result = jsxToString(<div style={{ flexShrink: 1, order: 2 }} />);
-        expect(result).toBe('<div style="flex-shrink:1;order:2;"></div>');
+        expect(result).toBe('<div style="flex-shrink:1;order:2"></div>');
       });
 
       it('ignores null or undefined properties', () => {
         // @ts-expect-error because `width`, height` and `border` are not valid style properties.
         // eslint-disable-next-line no-undefined
         const result = jsxToString(<div style={{ border: 0, height: undefined, width: null }} />);
-        expect(result).toBe('<div style="border:0;"></div>');
+        expect(result).toBe('<div style="border:0"></div>');
       });
     });
   });

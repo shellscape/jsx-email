@@ -1,3 +1,8 @@
+/**
+ * Note: Parts of this file are derived from [Hyperons](https://github.com/i-like-robots/hyperons).
+ * @license MIT
+ */
+
 import type { FC, ReactNode } from 'react';
 
 import { escapeString } from './escape-string';
@@ -82,7 +87,18 @@ const VOID_ELEMENTS = new Set([
 
 const EMPTY_OBJECT = Object.freeze({});
 
+/**
+ * Convert a JSX element to a string.
+ * This is a slightly modified version of Hyperons's
+ * [`renderToString`](https://github.com/i-like-robots/hyperons/blob/main/src/render-to-string.js) function.
+ *
+ * @param element The JSX element to convert to a string
+ * @returns The string representation of the JSX element
+ */
 export function jsxToString(element: ReactNode): string {
+  if (element == null) {
+    return '';
+  }
   if (typeof element === 'string') {
     return escapeString(element);
   } else if (typeof element === 'number') {
@@ -95,6 +111,10 @@ export function jsxToString(element: ReactNode): string {
       html += jsxToString(child);
     }
     return html;
+  }
+
+  if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
+    throw new Error(`Unsupported JSX element: ${String(element)}`);
   }
 
   const { type } = element;

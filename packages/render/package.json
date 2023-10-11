@@ -30,7 +30,6 @@
     "email"
   ],
   "dependencies": {
-    "@jsx-email/jsx-to-string": "workspace:*",
     "html-to-text": "9.0.5",
     "pretty": "2.0.0",
     "react": "^18.2.0"

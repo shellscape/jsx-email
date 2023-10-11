@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { jsxToString } from '@jsx-email/jsx-to-string';
+import { jsxToString } from '@jsx-email/render';
 import { tailwindToCSS, type TailwindConfig } from 'tw-to-css';
 
 import { cssToJsxStyle } from './utils';

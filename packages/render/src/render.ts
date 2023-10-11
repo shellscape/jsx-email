@@ -1,6 +1,7 @@
-import { jsxToString } from '@jsx-email/jsx-to-string';
 import { convert } from 'html-to-text';
 import pretty from 'pretty';
+
+import { jsxToString } from './jsx-to-string';
 
 export interface Options {
   plainText?: boolean;
@@ -22,6 +23,9 @@ export const render = (component: React.ReactElement, options?: Options) => {
 
   return document;
 };
+
+export const renderAsync = async (component: React.ReactElement, options?: Options) =>
+  render(component, options);
 
 const renderAsPlainText = (component: React.ReactElement, _options?: Options) =>
   convert(jsxToString(component), {
