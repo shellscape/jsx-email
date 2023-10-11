@@ -1,3 +1,8 @@
+/**
+ * Note: Parts of this file are derived from [Hyperons](https://github.com/i-like-robots/hyperons).
+ * @license MIT
+ */
+
 import type { FC, ReactNode } from 'react';
 
 import { jsxToString } from '../src/jsx-to-string';
