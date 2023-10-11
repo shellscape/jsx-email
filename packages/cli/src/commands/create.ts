@@ -48,7 +48,7 @@ export const command: CommandFn = async (argv: CreateOptions, input) => {
     typeProps: jsx ? '' : '\nexport type TemplateProps = Infer<typeof TemplateStruct>;'
   };
   const newContent = mustache.render(template, data);
-  const outPath = resolve(join(out || process.cwd(), '/templates'));
+  const outPath = resolve(out || process.cwd());
   const outFile = `${name}.tsx`;
 
   log('Creating a new template at', outPath);

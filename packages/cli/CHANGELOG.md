@@ -1,5 +1,14 @@
 # @jsx-email/cli ChangeLog
 
+## v1.0.14
+
+_2023-10-10_
+
+### Bugfixes
+
+- fix: bad Link.to, don't enforce /templates for `create` (3c9b219)
+- fix: use react-router-dom `Link` component in preview (#35)
+
 ## v1.0.13
 
 _2023-10-09_
