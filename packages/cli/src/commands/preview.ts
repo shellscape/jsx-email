@@ -3,14 +3,15 @@ import { resolve } from 'path';
 
 import chalk from 'chalk';
 import type { Infer } from 'superstruct';
-import { assert, boolean, number, object, optional } from 'superstruct';
+import { assert, boolean, number, object, optional, string, union } from 'superstruct';
 import { type InlineConfig, createServer } from 'vite';
 
 import type { CommandFn } from './types';
 
 const PreviewOptionsStruct = object({
+  host: optional(boolean()),
   open: optional(boolean()),
-  port: optional(number())
+  port: optional(union([number(), string()]))
 });
 
 type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
@@ -26,6 +27,7 @@ Starts the preview server for a directory of email templates
   $ email preview <template dir path> [...options]
 
 {underline Options}
+  --host      Allow thew preview server to listen on all addresses (0.0.0.0)
   --no-open   Do not open a browser tab when the preview server starts
   --port      The local port number the preview server should run on. Default: 55420
 
@@ -51,7 +53,7 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
     return;
   }
 
-  const { open = true, port = 55420 } = argv;
+  const { host = false, open = true, port = 55420 } = argv;
   const { default: config } = await import('../../app/vite.config');
 
   const mergedConfig = {
@@ -62,7 +64,7 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
         '@': targetPath
       }
     },
-    server: { host: false, port }
+    server: { host, port: parseInt(port as any, 10) }
   } as InlineConfig;
 
   const server = await createServer(mergedConfig);
