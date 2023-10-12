@@ -5,6 +5,8 @@
 
 import type { CSSProperties } from 'react';
 
+import { escapeString } from './escape-string';
+
 const UPPERCASE = /([A-Z])/g;
 
 const MS = /^ms-/;
@@ -57,7 +59,7 @@ export function stringifyStyles(styles: CSSProperties) {
     if (value != null) {
       const unit = typeof value === 'number' && value !== 0 && !UNITLESS_PROPS.has(key) ? 'px' : '';
       const normalized = CACHE[key] || (CACHE[key] = hyphenateString(key));
-      parts.push(`${normalized}:${value}${unit}`);
+      parts.push(`${normalized}:${typeof value === 'number' ? value : escapeString(value)}${unit}`);
     }
   }
 

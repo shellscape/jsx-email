@@ -128,7 +128,7 @@ export function jsxToString(element: ReactNode): string {
     for (const prop of Object.keys(props) as ReadonlyArray<keyof typeof props & string>) {
       const value = props[prop];
 
-      if (prop === 'children' || prop === 'key' || prop === 'ref') {
+      if (prop === 'children' || prop === 'key' || prop === 'ref' || value == null) {
         // Why not use a continue statement? It's slower ¯\_(ツ)_/¯
       } else if (prop === 'class' || prop === 'className') {
         // This condition is here because it is the most common attribute
@@ -177,6 +177,10 @@ export function jsxToString(element: ReactNode): string {
       if (Symbol.keyFor(type) === 'react.fragment') {
         return jsxToString(props.children);
       }
+    } else if (isReactForwardRef(type)) {
+      return jsxToString(
+        (type as { render: (props: unknown, ref: unknown) => ReactNode }).render(props, props.ref)
+      );
     }
     throw new Error(`Unsupported JSX element type: ${String(type)}`);
   }
@@ -185,4 +189,17 @@ export function jsxToString(element: ReactNode): string {
 
 function isIterable(node: unknown): node is Iterable<unknown> {
   return typeof node === 'object' && node !== null && Symbol.iterator in node;
+}
+
+function isReactForwardRef(
+  type: unknown
+): type is { $$typeof: symbol; render: (props: unknown, ref: unknown) => ReactNode } {
+  return (
+    typeof type === 'object' &&
+    type !== null &&
+    'render' in type &&
+    '$$typeof' in type &&
+    typeof type.$$typeof === 'symbol' &&
+    Symbol.keyFor(type.$$typeof) === 'react.forward_ref'
+  );
 }

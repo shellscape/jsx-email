@@ -2,8 +2,9 @@ import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 import { renderAsync } from '../src';
-import { Preview } from '../src/utils/preview';
-import { Template } from '../src/utils/template';
+
+import { Preview } from './fixtures/preview';
+import { Template } from './fixtures/template';
 
 describe('renderAsync using renderToStaticMarkup', () => {
   beforeEach(() => {

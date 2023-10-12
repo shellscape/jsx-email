@@ -14,6 +14,61 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      '@jsx-email/body':
+        specifier: ^1.0.0
+        version: link:packages/body
+      '@jsx-email/button':
+        specifier: ^1.0.0
+        version: link:packages/button
+      '@jsx-email/column':
+        specifier: ^1.0.0
+        version: link:packages/column
+      '@jsx-email/container':
+        specifier: ^1.0.0
+        version: link:packages/container
+      '@jsx-email/font':
+        specifier: ^1.0.0
+        version: link:packages/font
+      '@jsx-email/head':
+        specifier: ^1.0.0
+        version: link:packages/head
+      '@jsx-email/heading':
+        specifier: ^1.0.0
+        version: link:packages/heading
+      '@jsx-email/hr':
+        specifier: ^1.0.0
+        version: link:packages/hr
+      '@jsx-email/html':
+        specifier: ^1.0.0
+        version: link:packages/html
+      '@jsx-email/img':
+        specifier: ^1.0.0
+        version: link:packages/img
+      '@jsx-email/link':
+        specifier: ^1.0.0
+        version: link:packages/link
+      '@jsx-email/markdown':
+        specifier: ^2.0.0
+        version: link:packages/markdown
+      '@jsx-email/preview':
+        specifier: ^1.0.0
+        version: link:packages/preview
+      '@jsx-email/row':
+        specifier: ^1.0.0
+        version: link:packages/row
+      '@jsx-email/section':
+        specifier: ^1.0.0
+        version: link:packages/section
+      '@jsx-email/tailwind':
+        specifier: ^2.0.0
+        version: link:packages/tailwind
+      '@jsx-email/text':
+        specifier: ^1.0.0
+        version: link:packages/text
+      create-jsx-email:
+        specifier: ^0.0.0
+        version: 0.0.0
     devDependencies:
       '@dot/versioner':
         specifier: ^0.1.5
@@ -3406,6 +3461,10 @@ packages:
 
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+    dev: false
+
+  /create-jsx-email@0.0.0:
+    resolution: {integrity: sha512-jA+MU8AgEVnLcT8c8810oSH37p06TslPKb5grJEDdNTIMoqWKrceOVKtj+OPgiEEX2exNogQtGXjNCvvFFX6EQ==}
     dev: false
 
   /create-require@1.1.1:
