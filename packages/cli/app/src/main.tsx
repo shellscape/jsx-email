@@ -21,8 +21,6 @@ interface TemplateData extends TemplateExports {
   jsx: string;
 }
 
-const parseBare = (path: string) => path.replace(/(\.(\.)?\/)/g, '');
-
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');
   const segment = chunks.at(-1);
@@ -31,19 +29,14 @@ const parseName = (path: string) => {
   return titleize(basename);
 };
 
-// @ts-ignore
-const sources = sǝɔɹnoslᴉɐɯǝxsɾ;
+const modules = import.meta.glob('@/*.tsx', { eager: true });
+const sources = import.meta.glob('@/*.tsx', { as: 'raw', eager: true });
 
-// Note: ./@templates/ is a symlink to the targetPath within local app/src/
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const imports = import.meta.glob('@/*.tsx');
 const templates = await Promise.all(
-  Object.entries(imports).map<Promise<TemplateData>>(async ([path, fn]) => {
-    const bareFileName = parseBare(path);
-    const component = (await fn()) as TemplateExports;
+  Object.entries(modules).map<Promise<TemplateData>>(async ([path, mod]) => {
+    const component = mod as TemplateExports;
     const result: TemplateData = {
-      jsx: sources[bareFileName],
+      jsx: sources[path],
       Name: component.Name || parseName(path),
       PreviewProps: component.PreviewProps,
       Struct: component.Struct,

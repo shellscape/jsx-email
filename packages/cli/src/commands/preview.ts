@@ -1,9 +1,7 @@
 import { existsSync } from 'fs';
-import { readFile } from 'fs/promises';
-import { join, resolve } from 'path';
+import { resolve } from 'path';
 
 import chalk from 'chalk';
-import globby from 'globby';
 import type { Infer } from 'superstruct';
 import { assert, boolean, number, object, optional } from 'superstruct';
 import { type InlineConfig, createServer } from 'vite';
@@ -55,33 +53,21 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
 
   const { open = true, port = 55420 } = argv;
   const { default: config } = await import('../../app/vite.config');
-  const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
-  const templateSources = {} as Record<string, string>;
-
-  for (const path of componentPaths) {
-    templateSources[path.replace(targetPath, '').replace(/^\//, '')] =
-      // eslint-disable-next-line no-await-in-loop
-      await readFile(path, 'utf8');
-  }
 
   const mergedConfig = {
     configFile: false,
     ...config,
-    define: {
-      sǝɔɹnoslᴉɐɯǝxsɾ: JSON.stringify(templateSources),
-      ...config.define
-    },
     resolve: {
       alias: {
         '@': targetPath
       }
     },
-    server: { port }
+    server: { host: false, port }
   } as InlineConfig;
 
   const server = await createServer(mergedConfig);
 
-  info(chalk`  🚀 {yellow JSX email} Preview\n`);
+  info(chalk`\n  🚀 {yellow JSX email} Preview\n`);
 
   await server.listen();
 

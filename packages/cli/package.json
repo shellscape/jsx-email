@@ -39,7 +39,6 @@
     "esbuild": "^0.19.3",
     "esbuild-plugin-copy": "^2.1.1",
     "framer-motion": "8.5.5",
-    "globby": "11.0.4",
     "html-minifier-terser": "^7.2.0",
     "import-local": "^3.1.0",
     "js-beautify": "^1.14.9",
