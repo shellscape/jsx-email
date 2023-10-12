@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v2.3.0
+
+_2023-10-12_
+
+### Features
+
+- feat: render JSX to strings without relying on React DOM (#36)
+
 ## v2.2.3
 
 _2023-10-08_
