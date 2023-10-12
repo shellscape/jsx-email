@@ -396,9 +396,6 @@ importers:
       pretty:
         specifier: 2.0.0
         version: 2.0.0
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
     devDependencies:
       '@jsx-email/all':
         specifier: workspace:*
@@ -409,6 +406,9 @@ importers:
       '@types/pretty':
         specifier: ^2.0.1
         version: 2.0.1
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
