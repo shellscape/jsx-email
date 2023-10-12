@@ -1,7 +1,7 @@
 import { convert } from 'html-to-text';
 import pretty from 'pretty';
 
-import { jsxToString } from './jsx-to-string';
+import { jsxToString } from './helpers/jsx-to-string';
 
 export interface Options {
   plainText?: boolean;

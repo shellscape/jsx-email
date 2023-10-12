@@ -1,6 +1,7 @@
 import { render } from '../src';
-import { Preview } from '../src/utils/preview';
-import { Template } from '../src/utils/template';
+
+import { Preview } from './fixtures/preview';
+import { Template } from './fixtures/template';
 
 describe('render', () => {
   beforeEach(() => {

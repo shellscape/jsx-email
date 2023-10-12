@@ -1,2 +1,2 @@
 export * from './render';
-export * from './jsx-to-string';
+export * from './helpers/jsx-to-string';
