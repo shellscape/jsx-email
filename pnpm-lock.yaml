@@ -235,6 +235,9 @@ importers:
       framer-motion:
         specifier: 8.5.5
         version: 8.5.5(react-dom@18.2.0)(react@18.2.0)
+      globby:
+        specifier: 11.0.4
+        version: 11.0.4
       html-minifier-terser:
         specifier: ^7.2.0
         version: 7.2.0
