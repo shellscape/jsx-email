@@ -17,7 +17,7 @@ const PreviewOptionsStruct = object({
 
 type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
 
-const { error } = console;
+const { error, info } = console;
 
 export const help = chalk`
 {blue email preview}
@@ -56,7 +56,6 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
   const { open = true, port = 55420 } = argv;
   const { default: config } = await import('../../app/vite.config');
   const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
-  // const linkPath = join(config.root!, 'src/@templates');
   const templateSources = {} as Record<string, string>;
 
   for (const path of componentPaths) {
@@ -80,9 +79,9 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
     server: { port }
   } as InlineConfig;
 
-  console.log(mergedConfig);
-
   const server = await createServer(mergedConfig);
+
+  info(chalk`  🚀 {yellow JSX email} Preview\n`);
 
   await server.listen();
 
