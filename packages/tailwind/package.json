@@ -45,5 +45,6 @@
     "@jsx-email/html": "workspace:*"
   },
   "types": "./dist/index.d.ts",
-  "sideEffects": false
+  "sideEffects": false,
+  "versionBump": "1697153372"
 }
