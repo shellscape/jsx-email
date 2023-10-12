@@ -7,6 +7,10 @@ import AirbnbEmail from '../../../apps/demo/emails/airbnb-review';
 import PlaidEmail from '../../../apps/demo/emails/plaid-verify-identity';
 import VercelEmail from '../../../apps/demo/staged/vercel-invite-user';
 
+import AirbnbEmail from '../../../apps/demo/emails/airbnb-review';
+import PlaidEmail from '../../../apps/demo/emails/plaid-verify-identity';
+import VercelEmail from '../../../apps/demo/staged/vercel-invite-user';
+
 describe('render', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
