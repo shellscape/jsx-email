@@ -400,6 +400,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
     devDependencies:
+      '@jsx-email/all':
+        specifier: workspace:*
+        version: link:../all
       '@types/html-to-text':
         specifier: ^9.0.2
         version: 9.0.2
