@@ -31,13 +31,13 @@
   ],
   "dependencies": {
     "html-to-text": "9.0.5",
-    "pretty": "2.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "pretty": "2.0.0"
   },
   "devDependencies": {
     "@types/html-to-text": "^9.0.2",
-    "@types/pretty": "^2.0.1"
+    "@types/pretty": "^2.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "types": "./dist/index.d.ts",
   "sideEffects": false

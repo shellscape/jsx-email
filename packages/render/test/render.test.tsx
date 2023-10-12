@@ -1,10 +1,11 @@
 import { render } from '../src';
-import { Preview } from '../src/utils/preview';
-import { Template } from '../src/utils/template';
 
 import AirbnbEmail from '../../../apps/demo/emails/airbnb-review';
 import PlaidEmail from '../../../apps/demo/emails/plaid-verify-identity';
 import VercelEmail from '../../../apps/demo/staged/vercel-invite-user';
+
+import { Preview } from './fixtures/preview';
+import { Template } from './fixtures/template';
 
 describe('render', () => {
   beforeEach(() => {

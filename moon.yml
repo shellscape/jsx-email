@@ -24,11 +24,10 @@ tasks:
       - preview:build
       - row:build
       - section:build
-      - tailwind:build
       - text:build
       - create-jsx-email:build
-      # Note: Build render second to last
       - render:build
+      - tailwind:build
       # Note: Build components and cli last
       - all:build
       - cli:build
