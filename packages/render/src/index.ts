@@ -1,2 +1,2 @@
 export * from './render';
-export * from './render-async';
+export * from './helpers/jsx-to-string';

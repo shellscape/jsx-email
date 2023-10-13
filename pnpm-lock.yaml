@@ -14,6 +14,61 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      '@jsx-email/body':
+        specifier: ^1.0.0
+        version: link:packages/body
+      '@jsx-email/button':
+        specifier: ^1.0.0
+        version: link:packages/button
+      '@jsx-email/column':
+        specifier: ^1.0.0
+        version: link:packages/column
+      '@jsx-email/container':
+        specifier: ^1.0.0
+        version: link:packages/container
+      '@jsx-email/font':
+        specifier: ^1.0.0
+        version: link:packages/font
+      '@jsx-email/head':
+        specifier: ^1.0.0
+        version: link:packages/head
+      '@jsx-email/heading':
+        specifier: ^1.0.0
+        version: link:packages/heading
+      '@jsx-email/hr':
+        specifier: ^1.0.0
+        version: link:packages/hr
+      '@jsx-email/html':
+        specifier: ^1.0.0
+        version: link:packages/html
+      '@jsx-email/img':
+        specifier: ^1.0.0
+        version: link:packages/img
+      '@jsx-email/link':
+        specifier: ^1.0.0
+        version: link:packages/link
+      '@jsx-email/markdown':
+        specifier: ^2.0.0
+        version: link:packages/markdown
+      '@jsx-email/preview':
+        specifier: ^1.0.0
+        version: link:packages/preview
+      '@jsx-email/row':
+        specifier: ^1.0.0
+        version: link:packages/row
+      '@jsx-email/section':
+        specifier: ^1.0.0
+        version: link:packages/section
+      '@jsx-email/tailwind':
+        specifier: ^2.0.0
+        version: link:packages/tailwind
+      '@jsx-email/text':
+        specifier: ^1.0.0
+        version: link:packages/text
+      create-jsx-email:
+        specifier: ^0.0.0
+        version: 0.0.0
     devDependencies:
       '@dot/versioner':
         specifier: ^0.1.5
@@ -396,12 +451,6 @@ importers:
       pretty:
         specifier: 2.0.0
         version: 2.0.0
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
     devDependencies:
       '@types/html-to-text':
         specifier: ^9.0.2
@@ -409,6 +458,12 @@ importers:
       '@types/pretty':
         specifier: ^2.0.1
         version: 2.0.1
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: 18.2.0
+        version: 18.2.0(react@18.2.0)
 
   packages/row:
     dependencies:
@@ -424,6 +479,9 @@ importers:
 
   packages/tailwind:
     dependencies:
+      '@jsx-email/render':
+        specifier: workspace:*
+        version: link:../render
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -3405,6 +3463,10 @@ packages:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
     dev: false
 
+  /create-jsx-email@0.0.0:
+    resolution: {integrity: sha512-jA+MU8AgEVnLcT8c8810oSH37p06TslPKb5grJEDdNTIMoqWKrceOVKtj+OPgiEEX2exNogQtGXjNCvvFFX6EQ==}
+    dev: false
+
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
 
@@ -5140,7 +5202,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: false
 
   /loupe@2.3.6:
     resolution: {integrity: sha512-RaPMZKiMy8/JruncMU5Bt6na1eftNoo++R4Y+N2FrxkDVTrGvcyzFTsaGif4QTeKESheMGegbhw6iUAq+5A8zA==}
@@ -5938,7 +5999,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
@@ -6029,7 +6089,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -6193,7 +6252,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /search-insights@2.8.3:
     resolution: {integrity: sha512-W9rZfQ9XEfF0O6ntgQOTI7Txc8nkZrO4eJ/pTHK0Br6wWND2sPGPoWg+yGhdIW7wMbLqk8dc23IyEtLlNGpeNw==}

@@ -1,5 +1,13 @@
 # @jsx-email/render ChangeLog
 
+## v1.1.0
+
+_2023-10-12_
+
+### Features
+
+- feat: render JSX to strings without relying on React DOM (#36)
+
 ## v1.0.1
 
 _2023-10-08_
