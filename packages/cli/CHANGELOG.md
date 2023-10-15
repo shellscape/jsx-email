@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v1.1.0
+
+_2023-10-15_
+
+### Features
+
+- feat: use alias for preview, support host flag, mute false positive warnings (#37)
+
 ## v1.0.14
 
 _2023-10-10_
