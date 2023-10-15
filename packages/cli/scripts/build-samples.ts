@@ -3,16 +3,16 @@
 
 import { join } from 'path';
 
-import globby from 'globby';
 import { build } from 'vite';
 
 process.chdir(join(__dirname, '../app'));
 
 (async () => {
-  const demoPath = join(__dirname, '../../../apps/demo/emails');
-  const componentPaths = await globby(join(demoPath, '/*.{jsx,tsx}'));
+  // Note: There's another ongoing branch to resolve this
+  // const demoPath = join(__dirname, '../../../apps/demo/emails');
+  // const componentPaths = await globby(join(demoPath, '/*.{jsx,tsx}'));
 
-  process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
+  // process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
 
   await build({
     base: '/samples/',
