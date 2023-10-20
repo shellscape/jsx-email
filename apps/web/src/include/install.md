@@ -8,6 +8,10 @@ Install component from your command line.
 pnpm add @jsx-email/{{ $frontmatter.slug }}
 ```
 
+```console-vue [bun]
+bun add @jsx-email/{{ $frontmatter.slug }}
+```
+
 ```console-vue [npm]
 npm add @jsx-email/{{ $frontmatter.slug }}
 ```

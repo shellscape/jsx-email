@@ -14,6 +14,7 @@ pnpm add @jsx-email/cli -D
 # We recommend pnpm - https://pnpm.io
 # But npm and yarn are supported
 # npm add @jsx-email/cli -D
+# bun add @jsx-email/cli -D
 # yarn add @jsx-email/cli -D
 ```
 

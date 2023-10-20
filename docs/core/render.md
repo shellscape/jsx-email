@@ -14,6 +14,7 @@ pnpm add @jsx-email/render -D
 # We recommend pnpm - https://pnpm.io
 # But npm and yarn are supported
 # npm add @jsx-email/render -D
+# bun add @jsx-email/render -D
 # yarn add @jsx-email/render -D
 ```
 
