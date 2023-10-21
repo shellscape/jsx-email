@@ -29,13 +29,14 @@ tasks:
       - package.json
 
   compile:
-    command: tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
+    command: tsup --config ../../shared/tsup.config.ts
+    # command: tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
     inputs:
       - src
       - package.json
-    deps:
-      - ~:tsconfig.link
-      - ~:compile.cjs
+    # deps:
+    #   - ~:tsconfig.link
+    #   - ~:compile.cjs
     options:
       runDepsInParallel: false
 

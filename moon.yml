@@ -6,7 +6,7 @@ workspace:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
-  build.packages:
+  build.packages.first:
     command: echo "✓ All packages compiled"
     deps:
       - body:build
@@ -28,6 +28,15 @@ tasks:
       - create-jsx-email:build
       - render:build
       - tailwind:build
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
+  build.packages:
+    command: echo "✓ All packages compiled"
+    deps:
+      - build.packages.first
       # Note: Build components and cli last
       - all:build
       - cli:build
