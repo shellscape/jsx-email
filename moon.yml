@@ -32,17 +32,27 @@ tasks:
       outputStyle: 'stream'
       runDepsInParallel: false
 
-  build.packages.all:
+  build.packages.second:
     <<: *build
     deps:
       - build.packages.first
+
+  build.packages.third:
+    <<: *build
+    deps:
+      - build.packages.second
       - all:compile
+
+  build.packages.fourth:
+    <<: *build
+    deps:
+      - build.packages.third
+      - cli:compile
 
   build.packages:
     <<: *build
     deps:
-      - build.packages.all
-      - cli:compile
+      - build.packages.fourth
 
   lint:
     deps:
