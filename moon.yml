@@ -6,8 +6,7 @@ workspace:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
-  build.packages.first:
-    command: echo "✓ All packages compiled"
+  build.packages.first: &build # command: echo "✓ All packages compiled"
     deps:
       - body:build
       - button:build
@@ -33,17 +32,17 @@ tasks:
       outputStyle: 'stream'
       runDepsInParallel: false
 
-  build.packages:
-    command: echo "✓ All packages compiled"
+  build.packages.all:
+    <<: *build
     deps:
       - build.packages.first
-      # Note: Build components and cli last
       - all:build
+
+  build.packages:
+    <<: *build
+    deps:
+      - build.packages.all
       - cli:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
 
   lint:
     deps:
