@@ -6,37 +6,43 @@ workspace:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
-  build.packages: &build # command: echo "✓ All packages compiled"
-    deps:
-      - body:compile
-      - button:compile
-      - column:compile
-      - container:compile
-      - font:compile
-      - head:compile
-      - heading:compile
-      - hr:compile
-      - html:compile
-      - img:compile
-      - link:compile
-      - markdown:compile
-      - preview:compile
-      - row:compile
-      - section:compile
-      - text:compile
-      - create-jsx-email:compile
-      - render:compile
-      - tailwind:compile
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
+  # build.packages: &build # command: echo "✓ All packages compiled"
+  #   deps:
+  #     - body:build
+  #     - button:build
+  #     - column:build
+  #     - container:build
+  #     - font:build
+  #     - head:build
+  #     - heading:build
+  #     - hr:build
+  #     - html:build
+  #     - img:build
+  #     - link:build
+  #     - markdown:build
+  #     - preview:build
+  #     - row:build
+  #     - section:build
+  #     - text:build
+  #     - create-jsx-email:build
+  #     - render:build
+  #     - tailwind:build
+  #   options:
+  #     cache: false
+  #     outputStyle: 'stream'
+  #     runDepsInParallel: false
 
-  build.cli:
-    <<: *build
-    deps:
-      - all:compile
-      - cli:compile
+  # build.cli:
+  #   <<: *build
+  #   deps:
+  #     - all:build
+  #     - cli:build
+
+  build.packages:
+    command: bash ./shared/buildPackages.sh
+    platform: system
+    options:
+      shell: false
 
   lint:
     deps:
