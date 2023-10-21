@@ -78,7 +78,7 @@ jobs:
       - name: Build Projects
         run: |
           pnpm exec tsc --version
-          moon run repo:build.packages --log trace
+          moon run repo:build.packages
 
       - name: Lint Monorepo
         run: moon run repo:lint
