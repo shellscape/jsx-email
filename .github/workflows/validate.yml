@@ -78,8 +78,8 @@ jobs:
       - name: Build Projects
         run: |
           pnpm exec tsc --version
-          moon run repo:build.packages
-          moon run repo:build.cli
+          moon run repo:build.packages --concurrency 2
+          moon run repo:build.cli --concurrency 2
 
       - name: Lint Monorepo
         run: moon run repo:lint
