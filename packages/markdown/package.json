@@ -11,6 +11,7 @@
     "url": "https://github.com/shellscape/jsx-email.git",
     "directory": "packages/markdown"
   },
+  "homepage": "https://jsx.email/docs/components/markdown",
   "main": "dist/index.js",
   "module": "dist/es/index.js",
   "exports": {
@@ -37,5 +38,9 @@
     "md-to-react-email": "5.0.0"
   },
   "types": "./dist/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
   "sideEffects": false
 }

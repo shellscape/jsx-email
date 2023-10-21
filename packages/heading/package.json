@@ -11,6 +11,7 @@
     "url": "https://github.com/shellscape/jsx-email.git",
     "directory": "packages/heading"
   },
+  "homepage": "https://jsx.email/docs/components/heading",
   "main": "dist/index.js",
   "module": "dist/es/index.js",
   "exports": {
@@ -36,5 +37,9 @@
     "@radix-ui/react-slot": "1.0.2"
   },
   "types": "./dist/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
   "sideEffects": false
 }

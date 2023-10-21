@@ -11,6 +11,7 @@
     "url": "https://github.com/shellscape/jsx-email.git",
     "directory": "packages/link"
   },
+  "homepage": "https://jsx.email/docs/components/link",
   "main": "dist/index.js",
   "module": "dist/es/index.js",
   "exports": {
@@ -33,5 +34,9 @@
     "react": "^18.2.0"
   },
   "types": "./dist/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
   "sideEffects": false
 }

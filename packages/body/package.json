@@ -6,6 +6,7 @@
   },
   "description": "A JSX email component for using a React `Body` component to wrap email content",
   "license": "MIT",
+  "homepage": "https://jsx.email/docs/components/body",
   "main": "dist/index.js",
   "module": "dist/es/index.js",
   "exports": {
@@ -27,5 +28,9 @@
     "@jsx-email/render": "workspace:*"
   },
   "types": "./dist/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
   "sideEffects": false
 }
