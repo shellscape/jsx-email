@@ -37,6 +37,10 @@
     "react",
     "email"
   ],
+  "peerDependencies": {
+    "@jsx-email/all": "^2.0.0",
+    "@jsx-email/cli": "^1.0.0"
+  },
   "dependencies": {
     "html-to-text": "9.0.5",
     "pretty": "2.0.0"

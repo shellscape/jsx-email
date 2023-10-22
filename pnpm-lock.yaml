@@ -17,55 +17,55 @@ importers:
     dependencies:
       '@jsx-email/body':
         specifier: ^1.0.0
-        version: link:packages/body
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/button':
         specifier: ^1.0.0
-        version: link:packages/button
+        version: 1.0.2(react@18.2.0)
       '@jsx-email/column':
         specifier: ^1.0.0
-        version: link:packages/column
+        version: 1.0.2(react@18.2.0)
       '@jsx-email/container':
         specifier: ^1.0.0
-        version: link:packages/container
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/font':
         specifier: ^1.0.0
-        version: link:packages/font
+        version: 1.0.2(react@18.2.0)
       '@jsx-email/head':
         specifier: ^1.0.0
-        version: link:packages/head
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/heading':
         specifier: ^1.0.0
-        version: link:packages/heading
+        version: 1.0.1(@types/react@18.2.22)(react@18.2.0)
       '@jsx-email/hr':
         specifier: ^1.0.0
-        version: link:packages/hr
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/html':
         specifier: ^1.0.0
-        version: link:packages/html
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/img':
         specifier: ^1.0.0
-        version: link:packages/img
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/link':
         specifier: ^1.0.0
-        version: link:packages/link
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/markdown':
         specifier: ^2.0.0
-        version: link:packages/markdown
+        version: 2.0.3(react@18.2.0)
       '@jsx-email/preview':
         specifier: ^1.0.0
-        version: link:packages/preview
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/row':
         specifier: ^1.0.0
-        version: link:packages/row
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/section':
         specifier: ^1.0.0
-        version: link:packages/section
+        version: 1.0.1(react@18.2.0)
       '@jsx-email/tailwind':
         specifier: ^2.0.0
-        version: link:packages/tailwind
+        version: 2.4.0(react@18.2.0)(ts-node@10.9.1)
       '@jsx-email/text':
         specifier: ^1.0.0
-        version: link:packages/text
+        version: 1.0.1(react@18.2.0)
       create-jsx-email:
         specifier: ^0.0.0
         version: 0.0.0
@@ -129,7 +129,7 @@ importers:
         version: 10.9.1(@swc/core@1.3.91)(@types/node@20.6.2)(typescript@5.2.2)
       tsup:
         specifier: ^7.2.0
-        version: 7.2.0(@swc/core@1.3.91)(ts-node@10.9.1)(typescript@5.2.2)
+        version: 7.2.0(@swc/core@1.3.91)(postcss@8.4.21)(ts-node@10.9.1)(typescript@5.2.2)
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -159,7 +159,7 @@ importers:
         version: 4.0.0
       vitepress:
         specifier: 1.0.0-rc.20
-        version: 1.0.0-rc.20(@algolia/client-search@4.20.0)(@types/node@20.6.2)(@types/react@18.2.22)(search-insights@2.8.3)
+        version: 1.0.0-rc.20(@algolia/client-search@4.20.0)(@types/node@20.6.2)(@types/react@18.2.22)(postcss@8.4.21)(react@18.2.0)(search-insights@2.8.3)
       vue:
         specifier: 3.3.4
         version: 3.3.4
@@ -172,6 +172,9 @@ importers:
       '@jsx-email/button':
         specifier: workspace:*
         version: link:../button
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       '@jsx-email/column':
         specifier: workspace:*
         version: link:../column
@@ -226,6 +229,12 @@ importers:
 
   packages/body:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -236,6 +245,15 @@ importers:
 
   packages/button:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -363,12 +381,30 @@ importers:
 
   packages/column:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/container:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -391,18 +427,45 @@ importers:
 
   packages/font:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/head:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/heading:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       '@radix-ui/react-slot':
         specifier: 1.0.2
         version: 1.0.2(@types/react@18.2.22)(react@18.2.0)
@@ -412,30 +475,75 @@ importers:
 
   packages/hr:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/html:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/img:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/link:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/markdown:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       md-to-react-email:
         specifier: 5.0.0
         version: 5.0.0(react@18.2.0)
@@ -445,12 +553,27 @@ importers:
 
   packages/preview:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/render:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5
@@ -473,18 +596,42 @@ importers:
 
   packages/row:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/section:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/tailwind:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       '@jsx-email/render':
         specifier: workspace:*
         version: link:../render
@@ -510,6 +657,15 @@ importers:
 
   packages/text:
     dependencies:
+      '@jsx-email/all':
+        specifier: ^2.0.0
+        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/cli':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
+      '@jsx-email/render':
+        specifier: ^1.0.0
+        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -916,10 +1072,10 @@ packages:
     resolution: {integrity: sha512-SPiDHaWKQZpwR2siD0KQUwlStvIAnEyK6tAE2h2Wuoq8ue9skzhlyVQ1ddzOxX6khULnAALDiR/isSF3bnuciA==}
     dev: true
 
-  /@docsearch/js@3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(search-insights@2.8.3):
+  /@docsearch/js@3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(react@18.2.0)(search-insights@2.8.3):
     resolution: {integrity: sha512-p1YFTCDflk8ieHgFJYfmyHBki1D61+U9idwrLh+GQQMrBSP3DLGKpy0XUJtPjAOPltcVbqsTjiPFfH7JImjUNg==}
     dependencies:
-      '@docsearch/react': 3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(search-insights@2.8.3)
+      '@docsearch/react': 3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(react@18.2.0)(search-insights@2.8.3)
       preact: 10.17.1
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -929,7 +1085,7 @@ packages:
       - search-insights
     dev: true
 
-  /@docsearch/react@3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(search-insights@2.8.3):
+  /@docsearch/react@3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(react@18.2.0)(search-insights@2.8.3):
     resolution: {integrity: sha512-9Ahcrs5z2jq/DcAvYtvlqEBHImbm4YJI8M9y0x6Tqg598P40HTEkX7hsMcIuThI+hTFxRGZ9hll0Wygm2yEjng==}
     peerDependencies:
       '@types/react': 18.2.22
@@ -951,6 +1107,7 @@ packages:
       '@docsearch/css': 3.5.2
       '@types/react': 18.2.22
       algoliasearch: 4.20.0
+      react: 18.2.0
       search-insights: 2.8.3
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -1527,6 +1684,258 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@jsx-email/all@2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1):
+    resolution: {integrity: sha512-Ng9ETfsyNVj1BB/9jiwQohFqaN5vxWBEjZaz0TCYhyVI8dh/a76jEGPHlS+1ueCrOHfvbJXG6zbBBqeGehIOKQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      '@jsx-email/body': 1.0.1(react@18.2.0)
+      '@jsx-email/button': 1.0.2(react@18.2.0)
+      '@jsx-email/column': 1.0.2(react@18.2.0)
+      '@jsx-email/container': 1.0.1(react@18.2.0)
+      '@jsx-email/font': 1.0.2(react@18.2.0)
+      '@jsx-email/head': 1.0.1(react@18.2.0)
+      '@jsx-email/heading': 1.0.1(@types/react@18.2.22)(react@18.2.0)
+      '@jsx-email/hr': 1.0.1(react@18.2.0)
+      '@jsx-email/html': 1.0.1(react@18.2.0)
+      '@jsx-email/img': 1.0.1(react@18.2.0)
+      '@jsx-email/link': 1.0.1(react@18.2.0)
+      '@jsx-email/markdown': 2.0.3(react@18.2.0)
+      '@jsx-email/preview': 1.0.1(react@18.2.0)
+      '@jsx-email/render': 1.1.0
+      '@jsx-email/row': 1.0.1(react@18.2.0)
+      '@jsx-email/section': 1.0.1(react@18.2.0)
+      '@jsx-email/tailwind': 2.4.0(react@18.2.0)(ts-node@10.9.1)
+      '@jsx-email/text': 1.0.1(react@18.2.0)
+      react: 18.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+      - ts-node
+    dev: false
+
+  /@jsx-email/body@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-ehQQRRbjdFJ6r8wFX9IMD9+3bzOWVUolbrODH6HXTgdTYui5nMgDIgREnHQLv/LFLH6VV17/KSy/UrWhX3vgyw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/button@1.0.2(react@18.2.0):
+    resolution: {integrity: sha512-jvJmL4LnqtZOAtDvGiIUixFSdM3grhEvNMxT3G1/Nji3U8/VAn8x47kSPDbqaN+uyy8sAO6iF31Wh/D9RoRGWA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/cli@1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1):
+    resolution: {integrity: sha512-eGju3gvD+MnbrkJolVR5LN4t/OUsNYlczQWn+8IuzPlT+MiB2ZLDNO/7sKoG3bf4Yo36U1A7zGI4i81AohyHYw==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+    dependencies:
+      '@dot/log': 0.1.3
+      '@fontsource/inter': 5.0.8
+      '@jsx-email/render': 1.1.0
+      '@radix-ui/colors': 1.0.1
+      '@radix-ui/react-collapsible': 1.0.3(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-popover': 1.0.6(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-slot': 1.0.2(@types/react@18.2.22)(react@18.2.0)
+      '@radix-ui/react-toggle-group': 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-tooltip': 1.0.6(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+      '@vitejs/plugin-react': 4.1.0(vite@4.4.9)
+      autoprefixer: 10.4.16(postcss@8.4.30)
+      chalk: 4.1.2
+      cheerio: 1.0.0-rc.12
+      classnames: 2.3.2
+      debug: 4.3.4
+      esbuild: 0.19.3
+      esbuild-plugin-copy: 2.1.1(esbuild@0.19.3)
+      framer-motion: 8.5.5(react-dom@18.2.0)(react@18.2.0)
+      globby: 11.0.4
+      html-minifier-terser: 7.2.0
+      import-local: 3.1.0
+      js-beautify: 1.14.9
+      mustache: 4.2.0
+      postcss: 8.4.30
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-router-dom: 6.16.0(react-dom@18.2.0)(react@18.2.0)
+      shikiji: 0.6.8
+      superstruct: 1.0.3
+      tailwindcss: 3.3.3(ts-node@10.9.1)
+      titleize: 4.0.0
+      vite: 4.4.9(@types/node@20.6.2)
+      vite-plugin-dynamic-import: 1.5.0
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@types/react'
+      - '@types/react-dom'
+      - less
+      - lightningcss
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - ts-node
+    dev: false
+
+  /@jsx-email/column@1.0.2(react@18.2.0):
+    resolution: {integrity: sha512-E1J89Qp9vcueaps/B/L5BrHN7s9JSWdw6LS6Z56BKOpa+jtttPJKmmiSHimZdIZXzD9kqhitgJVgNInccxvMbQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/container@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-nJZ8oSEBROLMNHYF/eCUnPn1r3idCD2h9a074WvHoLvaHo5LBS4R0XQaUYYRlM90gxypildTium33YkGXCY6wg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/font@1.0.2(react@18.2.0):
+    resolution: {integrity: sha512-U/W+3VxuWUKbHOtP2m9tLD2gBxQYhipNUWP/K9kr5F9Gu1P2PBLaLUE4floERW1T9gWCZU6XHR0Y3QvxpqVRlw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/head@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-+qrYCAbXBE8i9QPnothT7SxQzZ2ThKMpBad6ZyBzkhS7CAP7NN8CGesoQzhm9TEqW8ICwyZBa1obmQup9ECojQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/heading@1.0.1(@types/react@18.2.22)(react@18.2.0):
+    resolution: {integrity: sha512-WI9rGae1oJ3g7lfI1elqt28bIb38vKzqJBLKJo2rZJXD1rj71tXnflQX5LrfUiR1drEWKaCbvFXKinDZA8q/Zw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      '@radix-ui/react-slot': 1.0.2(@types/react@18.2.22)(react@18.2.0)
+      react: 18.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+    dev: false
+
+  /@jsx-email/hr@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-G+QUMEX62P0vbml3syjxwlbAMrqmGic5aRU7c5tfSdqJdXIMR/0huWKw9hQgFegKR6pE3TDQQya7iOQG4Ik/Qg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/html@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-LB26GrYK/jLg6i+ffLv7rrZEQNOQVIuov5bhw0O0bMu0XukVm/HPM9a+5q8SO2TRW1YyBJWZ20Boz5dFaNC1ZA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/img@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-U1+6lm+XIhTMWDGMsXrBGXk8mH/kj3/gYujUBaV+JPFTllBHNy/9jBgK+3yHrOS2tczlxwHdnYKuG58q0HtZmg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/link@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-1fkBUBP9wqVtUINIP59SU9hGnTHvxJXjuxf/pYPFNaPJQktD4dLKOow4/FC57l9cy6saX+92WNkawoiyExskzw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/markdown@2.0.3(react@18.2.0):
+    resolution: {integrity: sha512-OKaqyDpRVmqvr+cPcpDKivFcOsqZ4YE5FJ6+3iJ7W3ghSakwwjbNarSBnIxozEAcWQQk2Y5Qt0DvjUBIG1vcaQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      md-to-react-email: 5.0.0(react@18.2.0)
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/preview@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-mldJRnWyW3hMfE28kkKQuSvFmdNspNHbcJkCrYkhMCBUQXWzZdiNIZoh2yQUflbHPmwJm5Wu7J3Ulx1Lr0Qgaw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/render@1.1.0:
+    resolution: {integrity: sha512-KCLTck6e0hO1GGljzcqmDP1KhXlZWiA1VDqCPCjHq5YdZy1X3v/WIUAnisYEXmmvHsnO34kYF2QXYsth1u6Vgw==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      html-to-text: 9.0.5
+      pretty: 2.0.0
+    dev: false
+
+  /@jsx-email/row@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-gUHPbOR3ccH5cKzaT9lgTjj0mL52BI8oNxwpBYkVB4enXreGSjCrOc7tL9IOMdwX6dxuqgmCNToKOwulqgUdqw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/section@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-67/M+A0MaXA9ts5avIBwIO3Hb1HbYBVwhvUv+gJu0b0CBBcIWs/PZw6UXeLeq03MbBKGGf5jhP8T9929ztRDkQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@jsx-email/tailwind@2.4.0(react@18.2.0)(ts-node@10.9.1):
+    resolution: {integrity: sha512-CMgzQBgLaTQPtGybP/wjgvgwoZHavsAwmXxcTc9Dd3rOqWW+YF7KQsqLuXHfyURUo4CdXWtB30agGs62+2f9kg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      '@jsx-email/render': 1.1.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tw-to-css: 0.0.11(ts-node@10.9.1)
+    transitivePeerDependencies:
+      - ts-node
+    dev: false
+
+  /@jsx-email/text@1.0.1(react@18.2.0):
+    resolution: {integrity: sha512-Vt/IrsQyrOnkQrFylbxSpyYFfA9YWNnDXJo6lQnRQxRV44Ng9zkErH2v4JI0ekreHdGxLZmodAjukVG1yu2NcA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@moonrepo/cli@1.15.2:
     resolution: {integrity: sha512-DxDm1eJGtboz66PruFS4nKx1sQ1gLldgxuYmaiaQIY0D7FIuq1pvL7Hoq9Ix0i/C8/fbMF93Tl4ZYTYdUehf7w==}
@@ -5871,6 +6280,24 @@ packages:
       yaml: 1.10.2
     dev: false
 
+  /postcss-load-config@4.0.1(postcss@8.4.21)(ts-node@10.9.1):
+    resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      postcss: '>=8.0.9'
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      ts-node:
+        optional: true
+    dependencies:
+      lilconfig: 2.1.0
+      postcss: 8.4.21
+      ts-node: 10.9.1(@swc/core@1.3.91)(@types/node@20.6.2)(typescript@5.2.2)
+      yaml: 2.3.2
+    dev: true
+
   /postcss-load-config@4.0.1(postcss@8.4.30)(ts-node@10.9.1):
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
     engines: {node: '>= 14'}
@@ -5887,6 +6314,7 @@ packages:
       postcss: 8.4.30
       ts-node: 10.9.1(@swc/core@1.3.91)(@types/node@20.6.2)(typescript@5.2.2)
       yaml: 2.3.2
+    dev: false
 
   /postcss-nested@6.0.0(postcss@8.4.21):
     resolution: {integrity: sha512-0DkamqrPcmkBDsLn+vQDIrtkSbNkv5AD/M322ySo9kqFkCIYklym2xEmWkwo+Y3/qZo34tzEPNUw4y7yMCdv5w==}
@@ -5927,7 +6355,6 @@ packages:
       nanoid: 3.3.6
       picocolors: 1.0.0
       source-map-js: 1.0.2
-    dev: false
 
   /postcss@8.4.30:
     resolution: {integrity: sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==}
@@ -6776,7 +7203,7 @@ packages:
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
-  /tsup@7.2.0(@swc/core@1.3.91)(ts-node@10.9.1)(typescript@5.2.2):
+  /tsup@7.2.0(@swc/core@1.3.91)(postcss@8.4.21)(ts-node@10.9.1)(typescript@5.2.2):
     resolution: {integrity: sha512-vDHlczXbgUvY3rWvqFEbSqmC1L7woozbzngMqTtL2PGBODTtWlRwGDDawhvWzr5c1QjKe4OAKqJGfE1xeXUvtQ==}
     engines: {node: '>=16.14'}
     hasBin: true
@@ -6801,7 +7228,8 @@ packages:
       execa: 5.1.1
       globby: 11.0.4
       joycon: 3.1.1
-      postcss-load-config: 4.0.1(postcss@8.4.30)(ts-node@10.9.1)
+      postcss: 8.4.21
+      postcss-load-config: 4.0.1(postcss@8.4.21)(ts-node@10.9.1)
       resolve-from: 5.0.0
       rollup: 3.28.1
       source-map: 0.8.0-beta.0
@@ -7118,7 +7546,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vitepress@1.0.0-rc.20(@algolia/client-search@4.20.0)(@types/node@20.6.2)(@types/react@18.2.22)(search-insights@2.8.3):
+  /vitepress@1.0.0-rc.20(@algolia/client-search@4.20.0)(@types/node@20.6.2)(@types/react@18.2.22)(postcss@8.4.21)(react@18.2.0)(search-insights@2.8.3):
     resolution: {integrity: sha512-CykMUJ8JLxLcGWek0ew3wln4RYbsOd1+0YzXITTpajggpynm2S331TNkJVOkHrMRc6GYe3y4pS40GfgcW0ZwAw==}
     hasBin: true
     peerDependencies:
@@ -7131,7 +7559,7 @@ packages:
         optional: true
     dependencies:
       '@docsearch/css': 3.5.2
-      '@docsearch/js': 3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(search-insights@2.8.3)
+      '@docsearch/js': 3.5.2(@algolia/client-search@4.20.0)(@types/react@18.2.22)(react@18.2.0)(search-insights@2.8.3)
       '@types/markdown-it': 13.0.2
       '@vue/devtools-api': 6.5.0
       '@vueuse/core': 10.4.1(vue@3.3.4)
@@ -7139,6 +7567,7 @@ packages:
       focus-trap: 7.5.3
       mark.js: 8.11.1
       minisearch: 6.1.0
+      postcss: 8.4.21
       shiki: 0.14.4
       vite: 4.4.9(@types/node@20.6.2)
       vue: 3.3.4

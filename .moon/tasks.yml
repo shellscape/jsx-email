@@ -23,23 +23,6 @@ tasks:
       outputStyle: 'stream'
       runDepsInParallel: false
 
-  build.critical:
-    command: Build Complete
-    deps:
-      - render:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-
-  build.last:
-    command: Build Complete
-    deps:
-      - all:build
-      - cli:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-
   clean.dist:
     command: rm -rf dist
     inputs:
