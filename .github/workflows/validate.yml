@@ -59,7 +59,7 @@ jobs:
             ${{ runner.os }}-eslintcache-
 
       - name: Setup Moon
-        uses: moonrepo/setup-moon-action@v1
+        uses: moonrepo/setup-toolchain@v0
 
       - name: Sanity Check
         run: |
@@ -72,10 +72,14 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
 
+      - name: Moon Dump
+        run: moon ag repo:build.packages --dot
+
       - name: Build Projects
         run: |
-          pnpm exec tsc --version
-          moon run repo:build.packages
+          moon repo:build.critical
+          moon repo:build.packages
+          moon repo:build.last
 
       - name: Lint Monorepo
         run: moon run repo:lint

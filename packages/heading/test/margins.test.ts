@@ -1,4 +1,4 @@
-import { withMargin, withSpace, type Margin } from './';
+import { withMargin, withSpace, type Margin } from '../src/heading';
 
 describe('withMargin', () => {
   beforeEach(() => {

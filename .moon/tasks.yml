@@ -13,6 +13,7 @@ tasks:
   build:
     command: rm -f tsconfig.json
     deps:
+      - ~:clean.dist
       - ~:compile
     inputs:
       - src
@@ -29,20 +30,14 @@ tasks:
       - package.json
 
   compile:
-    command: tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
+    command: tsup --config ../../shared/tsup.config.ts
     inputs:
       - src
       - package.json
     deps:
       - ~:tsconfig.link
-      - ~:compile.cjs
     options:
       runDepsInParallel: false
-
-  compile.cjs:
-    command: tsc --project tsconfig.json
-    options:
-      cache: false
 
   # FIXME: since @jsx-email/components uses workspace deps now, we'll need a script that recognizes
   # it needs to be updated and manually commits to update the package using versioner

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { jsxToString } from '@jsx-email/render';
 import { tailwindToCSS, type TailwindConfig } from 'tw-to-css';
 
-import { cssToJsxStyle } from './utils';
+import { cssToJsxStyle } from './css-to-jsx-style';
 
 export interface TailwindProps {
   config?: TailwindConfig;
