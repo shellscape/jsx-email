@@ -45,9 +45,6 @@
     "email"
   ],
   "peerDependencies": {
-    "@jsx-email/all": "^2.0.0",
-    "@jsx-email/cli": "^1.0.0",
-    "@jsx-email/render": "^1.0.0",
     "react": "^18.2.0"
   },
   "types": "dist/index.d.mts",

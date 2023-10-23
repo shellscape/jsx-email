@@ -1,4 +1,4 @@
-import { render } from '../src';
+import { render } from '../src/render';
 
 import AirbnbEmail from '../../../apps/demo/emails/airbnb-review';
 import PlaidEmail from '../../../apps/demo/emails/plaid-verify-identity';

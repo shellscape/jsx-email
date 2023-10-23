@@ -172,9 +172,6 @@ importers:
       '@jsx-email/button':
         specifier: workspace:*
         version: link:../button
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       '@jsx-email/column':
         specifier: workspace:*
         version: link:../column
@@ -229,12 +226,6 @@ importers:
 
   packages/body:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -245,15 +236,6 @@ importers:
 
   packages/button:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -381,30 +363,12 @@ importers:
 
   packages/column:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/container:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -427,45 +391,18 @@ importers:
 
   packages/font:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/head:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/heading:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       '@radix-ui/react-slot':
         specifier: 1.0.2
         version: 1.0.2(@types/react@18.2.22)(react@18.2.0)
@@ -475,75 +412,30 @@ importers:
 
   packages/hr:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/html:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/img:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/link:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/markdown:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       md-to-react-email:
         specifier: 5.0.0
         version: 5.0.0(react@18.2.0)
@@ -553,27 +445,12 @@ importers:
 
   packages/preview:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/render:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5
@@ -596,42 +473,18 @@ importers:
 
   packages/row:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/section:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
 
   packages/tailwind:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
       '@jsx-email/render':
         specifier: workspace:*
         version: link:../render
@@ -657,15 +510,6 @@ importers:
 
   packages/text:
     dependencies:
-      '@jsx-email/all':
-        specifier: ^2.0.0
-        version: 2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/cli':
-        specifier: ^1.0.0
-        version: 1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1)
-      '@jsx-email/render':
-        specifier: ^1.0.0
-        version: 1.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -1685,36 +1529,6 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@jsx-email/all@2.2.0(@types/react@18.2.22)(react@18.2.0)(ts-node@10.9.1):
-    resolution: {integrity: sha512-Ng9ETfsyNVj1BB/9jiwQohFqaN5vxWBEjZaz0TCYhyVI8dh/a76jEGPHlS+1ueCrOHfvbJXG6zbBBqeGehIOKQ==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: 18.2.0
-    dependencies:
-      '@jsx-email/body': 1.0.1(react@18.2.0)
-      '@jsx-email/button': 1.0.2(react@18.2.0)
-      '@jsx-email/column': 1.0.2(react@18.2.0)
-      '@jsx-email/container': 1.0.1(react@18.2.0)
-      '@jsx-email/font': 1.0.2(react@18.2.0)
-      '@jsx-email/head': 1.0.1(react@18.2.0)
-      '@jsx-email/heading': 1.0.1(@types/react@18.2.22)(react@18.2.0)
-      '@jsx-email/hr': 1.0.1(react@18.2.0)
-      '@jsx-email/html': 1.0.1(react@18.2.0)
-      '@jsx-email/img': 1.0.1(react@18.2.0)
-      '@jsx-email/link': 1.0.1(react@18.2.0)
-      '@jsx-email/markdown': 2.0.3(react@18.2.0)
-      '@jsx-email/preview': 1.0.1(react@18.2.0)
-      '@jsx-email/render': 1.1.0
-      '@jsx-email/row': 1.0.1(react@18.2.0)
-      '@jsx-email/section': 1.0.1(react@18.2.0)
-      '@jsx-email/tailwind': 2.4.0(react@18.2.0)(ts-node@10.9.1)
-      '@jsx-email/text': 1.0.1(react@18.2.0)
-      react: 18.2.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - ts-node
-    dev: false
-
   /@jsx-email/body@1.0.1(react@18.2.0):
     resolution: {integrity: sha512-ehQQRRbjdFJ6r8wFX9IMD9+3bzOWVUolbrODH6HXTgdTYui5nMgDIgREnHQLv/LFLH6VV17/KSy/UrWhX3vgyw==}
     engines: {node: '>=18.0.0'}
@@ -1731,58 +1545,6 @@ packages:
       react: 18.2.0
     dependencies:
       react: 18.2.0
-    dev: false
-
-  /@jsx-email/cli@1.1.0(@types/node@20.6.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(ts-node@10.9.1):
-    resolution: {integrity: sha512-eGju3gvD+MnbrkJolVR5LN4t/OUsNYlczQWn+8IuzPlT+MiB2ZLDNO/7sKoG3bf4Yo36U1A7zGI4i81AohyHYw==}
-    engines: {node: '>=18.0.0'}
-    hasBin: true
-    dependencies:
-      '@dot/log': 0.1.3
-      '@fontsource/inter': 5.0.8
-      '@jsx-email/render': 1.1.0
-      '@radix-ui/colors': 1.0.1
-      '@radix-ui/react-collapsible': 1.0.3(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-popover': 1.0.6(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-slot': 1.0.2(@types/react@18.2.22)(react@18.2.0)
-      '@radix-ui/react-toggle-group': 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-tooltip': 1.0.6(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
-      '@vitejs/plugin-react': 4.1.0(vite@4.4.9)
-      autoprefixer: 10.4.16(postcss@8.4.30)
-      chalk: 4.1.2
-      cheerio: 1.0.0-rc.12
-      classnames: 2.3.2
-      debug: 4.3.4
-      esbuild: 0.19.3
-      esbuild-plugin-copy: 2.1.1(esbuild@0.19.3)
-      framer-motion: 8.5.5(react-dom@18.2.0)(react@18.2.0)
-      globby: 11.0.4
-      html-minifier-terser: 7.2.0
-      import-local: 3.1.0
-      js-beautify: 1.14.9
-      mustache: 4.2.0
-      postcss: 8.4.30
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-router-dom: 6.16.0(react-dom@18.2.0)(react@18.2.0)
-      shikiji: 0.6.8
-      superstruct: 1.0.3
-      tailwindcss: 3.3.3(ts-node@10.9.1)
-      titleize: 4.0.0
-      vite: 4.4.9(@types/node@20.6.2)
-      vite-plugin-dynamic-import: 1.5.0
-    transitivePeerDependencies:
-      - '@types/node'
-      - '@types/react'
-      - '@types/react-dom'
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - ts-node
     dev: false
 
   /@jsx-email/column@1.0.2(react@18.2.0):

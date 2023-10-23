@@ -1,10 +1,13 @@
 import React from 'react';
 
-import { pxToPt, parsePadding } from './utils';
+import { parsePadding } from './padding';
 
 type RootProps = React.ComponentPropsWithoutRef<'a'>;
 
 export interface ButtonProps extends RootProps {}
+
+export const pxToPt = (px: number): number | null =>
+  typeof px === 'number' && !isNaN(Number(px)) ? (px * 3) / 4 : null;
 
 const buttonStyle = (
   style?: React.CSSProperties & {

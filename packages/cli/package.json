@@ -11,7 +11,6 @@
     "url": "https://github.com/shellscape/jsx-email.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://jsx.email/docs/core/cli",
   "bin": {
     "email": "./dist/src/index.js"
   },
@@ -63,9 +62,5 @@
     "@types/import-local": "^3.1.0",
     "@types/js-beautify": "^1.14.1",
     "@types/mustache": "^4.2.3"
-  },
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/shellscape"
   }
 }
