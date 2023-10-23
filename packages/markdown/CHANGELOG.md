@@ -1,5 +1,13 @@
 # @jsx-email/markdown ChangeLog
 
+## v2.0.4
+
+_2023-10-23_
+
+### Updates
+
+- chore(\*): use tsup (again) to produce compatible esm and cjs builds (#42)
+
 ## v2.0.3
 
 _2023-10-08_
