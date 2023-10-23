@@ -1,5 +1,13 @@
 # @jsx-email/button ChangeLog
 
+## v1.0.3
+
+_2023-10-23_
+
+### Updates
+
+- chore(\*): use tsup (again) to produce compatible esm and cjs builds (#42)
+
 ## v1.0.2
 
 _2023-10-08_
