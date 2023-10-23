@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v2.4.1
+
+_2023-10-23_
+
+### Updates
+
+- chore(\*): use tsup (again) to produce compatible esm and cjs builds (#42)
+
 ## v2.4.0
 
 _2023-10-12_
