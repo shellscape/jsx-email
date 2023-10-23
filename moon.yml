@@ -25,7 +25,6 @@ tasks:
       - row:build
       - section:build
       - text:build
-      - create-jsx-email:build
       - tailwind:build
     options:
       cache: false
@@ -43,6 +42,7 @@ tasks:
   build.last:
     command: echo "Build Complete"
     deps:
+      - create-jsx-email:build
       - all:build
       - cli:build
     options:

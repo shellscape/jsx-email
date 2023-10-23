@@ -4,7 +4,7 @@ import { Hr } from '@jsx-email/hr';
 import { Head } from '@jsx-email/head';
 import { Html } from '@jsx-email/html';
 
-import { Tailwind } from '../src';
+import { Tailwind } from '../dist';
 
 describe('Tailwind component', () => {
   beforeEach(() => {

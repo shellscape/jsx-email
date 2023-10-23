@@ -38,7 +38,6 @@
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "csstype": "3.1.2",
-    "esbuild-plugin-file-path-extensions": "^1.0.0",
     "eslint": "8.49.0",
     "eslint-config-shellscape": "^6.0.1",
     "gh-pages": "^6.0.0",
