@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v2.4.2
+
+_2023-10-27_
+
+### Bugfixes
+
+- fix: bundle tw-to-css while waiting for ESM fix (4e8c64d)
+
 ## v2.4.1
 
 _2023-10-23_
