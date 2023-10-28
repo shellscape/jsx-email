@@ -45,7 +45,7 @@
     "@jsx-email/render": "workspace:*",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tw-to-css": "0.0.11"
+    "tw-to-css": "0.0.12"
   },
   "devDependencies": {
     "@jsx-email/head": "workspace:*",
