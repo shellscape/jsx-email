@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
-import { basename, extname, join, resolve } from 'path';
+import { basename, extname, join, resolve, win32, posix } from 'path';
 
 import { render } from '@jsx-email/render';
 import chalk from 'chalk';
@@ -61,6 +61,9 @@ const pretty = (html: string) => {
   return beautify.html(html, defaults);
 };
 
+// Credit: https://github.com/rollup/plugins/blob/master/packages/pluginutils/src/normalizePath.ts#L5
+const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
+
 const stripHtml = (html: string) => {
   const $ = load(html);
 
@@ -108,7 +111,7 @@ const compile = async (files: string[], outDir: string) => {
     write: true
   });
 
-  return globby([join(outDir, '*.js')]);
+  return globby([normalizePath(join(outDir, '*.js'))]);
 };
 
 export const command: CommandFn = async (argv: BuildOptions, input) => {
@@ -129,7 +132,7 @@ export const command: CommandFn = async (argv: BuildOptions, input) => {
   const isFile = target.endsWith('.tsx') || target.endsWith('.jsx');
   const { out = '.rendered' } = argv;
   const glob = isFile ? target : join(target, '*.{jsx,tsx}');
-  const targetFiles = await globby([glob]);
+  const targetFiles = await globby([normalizePath(glob)]);
   const outputPath = resolve(out);
 
   log('Found', targetFiles.length, 'files:');
