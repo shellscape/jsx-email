@@ -81,10 +81,11 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
 
-        # Sanity check before we publish
       - name: Build Projects
         run: |
-          moon run repo:build.packages
+          moon repo:build.critical
+          moon repo:build.packages
+          moon repo:build.last
 
       - name: Release
         run: moon run :release --affected --concurrency 1 --remote
