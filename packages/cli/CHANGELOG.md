@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v1.1.1
+
+_2023-10-30_
+
+### Bugfixes
+
+- fix: Normalize globby path for cli build command (#44)
+
 ## v1.1.0
 
 _2023-10-15_
