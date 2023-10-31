@@ -1,5 +1,13 @@
 # @jsx-email/all ChangeLog
 
+## v2.2.2
+
+_2023-10-31_
+
+### Bugfixes
+
+- fix: bump dependencies (f6c2b7c)
+
 ## v2.2.1
 
 _2023-10-23_
