@@ -1,0 +1,55 @@
+---
+title: Code
+description: A JSX email component which displays a syntax-highlighted code block using <a href="https://shiki.matsu.io/">Shiki</a>
+slug: code
+---
+
+<!--@include: @/include/header.md-->
+
+<!--@include: @/include/install.md-->
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { getCode } from '@jsx-email/code';
+
+const Code = await getCode({ language: 'js', theme: 'nord' });
+
+const Email = () => {
+  return(
+    <Code>
+    {`
+      import { batman } from 'superheros';
+      import { joker } from 'villains';
+
+      const henchmen = joker.help();
+
+      batman.fight(henchmen);
+      batman.arrest(joker);
+    `}
+    </Code>
+  );
+};
+```
+
+## `getCode` Options
+
+The `Code` component is unique in that it requires calling an asynchronous getter method. This is due in part to using `shiki` for its incredible speed.
+
+```ts
+lang?: string;
+```
+
+_Optional_. Specifies the language to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/languages.md) for more information on supported languages.
+
+```ts
+theme?: string;
+```
+
+_Optional_. Specifies the theme to use for the highlighter.  See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/themes.md) for more information on supported themes, modifying themes, and how to make your own.
+
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'pre'>`.
