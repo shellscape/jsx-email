@@ -56,7 +56,26 @@ Examples
 
 To view help for specific commands, use `email help <command>`. e.g. `email help build`.
 
-## Preview Tool
+## Build
+
+The `build` command compiles and renders an email template to HTML for use with an email provider.
+
+```console
+$ cd ~/code/email-app
+$ email build ./emails/Batman.tsx
+```
+
+### Client Compatibility Check
+
+As part of the build process, `jsx-email` can run a client compatibility check on the ouput, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client compatibility issues. This check will not throw an error or block any pipelines, and is purely informative.
+
+To enable this check, use the `--check` flag.
+
+```console
+$ email build ./emails/Batman.tsx --check
+```
+
+## Preview
 
 JSX email ships with a Preview Tool as part of the CLI. Our Preview is fast, simple, and smooth. It doesn't require installing any crazy dependencies, downloading additional "clients," or copying your project's dependencies. It just works. And the best part: it works with monorepos out of the box.
 
