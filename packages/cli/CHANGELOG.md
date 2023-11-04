@@ -1,5 +1,18 @@
 # @jsx-email/cli ChangeLog
 
+## v1.3.0
+
+_2023-11-04_
+
+### Bugfixes
+
+- fix: update link to documentation in preview home page (#51)
+- fix: Normalize globby path for cli build command (#44)
+
+### Features
+
+- feat: add client compatibility check (#49)
+
 ## v1.2.0
 
 _2023-11-03_
