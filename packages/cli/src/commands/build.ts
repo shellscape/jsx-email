@@ -57,6 +57,7 @@ Builds a template and saves the result
                 templates share the same props.
 
 {underline Examples}
+  $ email build ./src/emails
   $ email build ./src/templates/Invite.tsx
   $ email build ./src/templates/Invite.tsx --props='\{"batman": "Bruce Wayne"\}'
 `;
@@ -85,7 +86,7 @@ const stripHtml = (html: string) => {
 };
 
 const build = async (path: string, argv: BuildOptions) => {
-  const { minify, out, plain, props = {}, strip = true } = argv;
+  const { minify, out, plain, props = '{}', strip = true } = argv;
   const template = await import(path);
   const componentExport: TemplateFn = template.Template || template.default;
   const extension = plain ? '.txt' : '.html';
@@ -95,7 +96,8 @@ const build = async (path: string, argv: BuildOptions) => {
     process.exit(1);
   }
 
-  const component = componentExport(props);
+  const buildProps = JSON.parse(props);
+  const component = componentExport(buildProps);
   const writePath = join(out!, basename(path).replace(extname(path), extension));
 
   if (plain) {

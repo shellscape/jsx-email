@@ -58,7 +58,14 @@ To view help for specific commands, use `email help <command>`. e.g. `email help
 
 ## Build
 
-The `build` command compiles and renders an email template to HTML for use with an email provider.
+The `build` command compiles and renders an email template to HTML for use with an email provider. The command takes a directory or single file as input:
+
+```console
+$ cd ~/code/email-app
+$ email build ./emails
+```
+
+Or for a single file:
 
 ```console
 $ cd ~/code/email-app
