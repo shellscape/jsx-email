@@ -1,5 +1,13 @@
 # @jsx-email/button ChangeLog
 
+## v1.0.4
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: better padding logic (#56)
+
 ## v1.0.3
 
 _2023-10-23_
