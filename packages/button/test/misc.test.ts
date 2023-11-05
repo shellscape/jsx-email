@@ -66,7 +66,7 @@ describe('parsePadding', () => {
 
   it('handles undefined input as zeros', () => {
     const result = parsePadding({ padding: undefined });
-    expect(result).toEqual({ pb: 0, pl: 0, pr: 0, pt: 0 });
+    expect(result).toEqual(void 0);
   });
 
   it('handles empty string input as zeros', () => {

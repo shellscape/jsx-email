@@ -11,20 +11,22 @@ export const pxToPt = (px: number): number | null =>
 
 const buttonStyle = (
   style?: React.CSSProperties & {
-    pb: number;
-    pl: number;
-    pr: number;
-    pt: number;
+    pb?: number;
+    pl?: number;
+    pr?: number;
+    pt?: number;
   }
 ) => {
   const { pt, pr, pb, pl, padding, ...rest } = style || {};
+
+  const addPadding = [pt, pr, pb, pl].some((thing) => typeof thing !== 'undefined');
 
   return {
     ...rest,
     display: 'inline-block',
     lineHeight: '100%',
     maxWidth: '100%',
-    padding: `${pt}px ${pr}px ${pb}px ${pl}px`,
+    padding: addPadding ? `${pt}px ${pr}px ${pb}px ${pl}px` : void 0,
     textDecoration: 'none'
   };
 };
@@ -45,33 +47,37 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
   target = '_blank',
   ...props
 }) => {
-  const { pt, pr, pb, pl } = parsePadding({
-    padding: style?.padding,
-    paddingBottom: style?.paddingBottom,
-    paddingLeft: style?.paddingLeft,
-    paddingRight: style?.paddingRight,
-    paddingTop: style?.paddingTop
-  });
+  const parsedPadding = parsePadding((style as any) || {});
+  let textRaiseTop = '';
+  let textRaiseBottom: number | undefined;
+  let letterSpacingLeft = '';
+  let letterSpacingRight = '';
 
-  const y = pt + pb;
-  const textRaise = pxToPt(y);
+  if (parsedPadding) {
+    const { pt, pb, pl, pr } = parsedPadding;
+    const y = pt + pb;
+    letterSpacingLeft = `letter-spacing: ${pl}px;`;
+    letterSpacingRight = `letter-spacing: ${pr}px;`;
+    textRaiseTop = `mso-text-raise: ${pxToPt(y) ?? void 0};`;
+    textRaiseBottom = pb;
+  }
 
   return (
     <a
       {...props}
       data-id="@jsx-email/button"
       target={target}
-      style={buttonStyle({ ...style, pb, pl, pr, pt })}
+      style={buttonStyle({ ...style, ...parsedPadding })}
     >
       <span
         dangerouslySetInnerHTML={{
-          __html: `<!--[if mso]><i style="letter-spacing: ${pl}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`
+          __html: `<!--[if mso]><i style="${letterSpacingLeft}mso-font-width:-100%;${textRaiseTop}" hidden>&nbsp;</i><![endif]-->`
         }}
       />
-      <span style={buttonTextStyle(pb)}>{children}</span>
+      <span style={buttonTextStyle(textRaiseBottom)}>{children}</span>
       <span
         dangerouslySetInnerHTML={{
-          __html: `<!--[if mso]><i style="letter-spacing: ${pr}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`
+          __html: `<!--[if mso]><i style="${letterSpacingRight}mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`
         }}
       />
     </a>
