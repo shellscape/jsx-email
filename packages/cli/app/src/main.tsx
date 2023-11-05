@@ -21,12 +21,14 @@ interface TemplateData extends TemplateExports {
   jsx: string;
 }
 
+const addSpacesForCamelCaseName = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2');
+
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');
   const segment = chunks.at(-1);
   const basename = segment!.split(/\.[^.]+$/)[0];
 
-  return titleize(basename);
+  return titleize(addSpacesForCamelCaseName(basename));
 };
 
 const modules = import.meta.glob('@/*.tsx', { eager: true });
