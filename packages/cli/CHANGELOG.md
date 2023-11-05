@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v1.4.2
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: clarify build examples, set default props correctly (#57)
+
 ## v1.4.1
 
 _2023-11-05_
