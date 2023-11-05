@@ -48,18 +48,18 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
   ...props
 }) => {
   const parsedPadding = parsePadding((style as any) || {});
-  let textRaiseTop = '';
+  let textRaiseTop: number | undefined;
   let textRaiseBottom: number | undefined;
-  let letterSpacingLeft = '';
-  let letterSpacingRight = '';
+  let letterSpacingLeft: number | undefined;
+  let letterSpacingRight: number | undefined;
 
   if (parsedPadding) {
     const { pt, pb, pl, pr } = parsedPadding;
     const y = pt + pb;
-    letterSpacingLeft = `letter-spacing: ${pl}px;`;
-    letterSpacingRight = `letter-spacing: ${pr}px;`;
-    textRaiseTop = `mso-text-raise: ${pxToPt(y) ?? void 0};`;
-    textRaiseBottom = pb;
+    letterSpacingLeft = pl;
+    letterSpacingRight = pr;
+    textRaiseTop = pxToPt(y) ?? void 0;
+    textRaiseTop = pb;
   }
 
   return (
@@ -71,13 +71,13 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
     >
       <span
         dangerouslySetInnerHTML={{
-          __html: `<!--[if mso]><i style="${letterSpacingLeft}mso-font-width:-100%;${textRaiseTop}" hidden>&nbsp;</i><![endif]-->`
+          __html: `<!--[if mso]><i style="letter-spacing: ${letterSpacingLeft}px;mso-font-width:-100%;mso-text-raise:${textRaiseTop}" hidden>&nbsp;</i><![endif]-->`
         }}
       />
       <span style={buttonTextStyle(textRaiseBottom)}>{children}</span>
       <span
         dangerouslySetInnerHTML={{
-          __html: `<!--[if mso]><i style="${letterSpacingRight}mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`
+          __html: `<!--[if mso]><i style="letter-spacing: ${letterSpacingRight}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`
         }}
       />
     </a>

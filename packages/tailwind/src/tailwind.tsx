@@ -6,6 +6,7 @@ import presetAutoprefix from '@twind/preset-autoprefix';
 import presetTailwind from '@twind/preset-tailwind';
 
 const defaultConfig = defineConfig({
+  preflight: false,
   presets: [presetAutoprefix(), presetTailwind()]
 });
 
@@ -14,7 +15,7 @@ export interface TailwindProps {
   isProduction?: boolean;
 }
 
-const renderTwind = (html: string, { config, isProduction = true }: TailwindProps) => {
+const renderTwind = (html: string, { config, isProduction = false }: TailwindProps) => {
   const tw = install({ ...defaultConfig, ...config }, isProduction);
   const { html: shimmedHtml, css } = extract(html, tw);
 
