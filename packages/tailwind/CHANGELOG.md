@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v2.4.4
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: responsive classname error (#55)
+
 ## v2.4.3
 
 _2023-10-29_
