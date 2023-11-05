@@ -1,6 +1,7 @@
 type paddingType = string | number | undefined;
-interface paddingProperties {
-  padding: paddingType;
+
+interface PaddingProperties {
+  padding?: paddingType;
   paddingBottom?: paddingType;
   paddingLeft?: paddingType;
   paddingRight?: paddingType;
@@ -51,23 +52,30 @@ export function convertToPx(value: paddingType) {
  * @example e.g. "10px" => pt: 10, pr: 10, pb: 10, pl: 10
  */
 export function parsePadding({
-  padding = '',
+  padding,
   paddingTop,
   paddingRight,
   paddingBottom,
   paddingLeft
-}: paddingProperties) {
+}: PaddingProperties) {
   let pt = 0;
   let pr = 0;
   let pb = 0;
   let pl = 0;
+
+  if (
+    ![padding, paddingTop, paddingRight, paddingBottom, paddingLeft].some(
+      (thing) => typeof thing !== 'undefined'
+    )
+  )
+    return void 0;
 
   if (typeof padding === 'number') {
     pt = padding;
     pr = padding;
     pb = padding;
     pl = padding;
-  } else {
+  } else if (typeof padding !== 'undefined') {
     const values = padding.split(/\s+/);
 
     switch (values.length) {
