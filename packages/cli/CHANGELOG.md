@@ -1,5 +1,18 @@
 # @jsx-email/cli ChangeLog
 
+## v1.4.0
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: make no-open preview option work correctly (#52)
+- fix: update link to documentation in preview home page (#51)
+
+### Features
+
+- feat: add client compatibility check (#49)
+
 ## v1.3.0
 
 _2023-11-04_
