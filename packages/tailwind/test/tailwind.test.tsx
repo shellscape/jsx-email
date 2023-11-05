@@ -306,7 +306,7 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"'
+      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:640px){.sm\\\\:\\\\!text-sm{font-size:0.875rem !important;line-height:1.25rem !important}.sm\\\\:\\\\!bg-red-50{background-color:rgb(254,242,242) !important}}@media(min-width:768px){.md\\\\:\\\\!text-lg{font-size:1.125rem !important;line-height:1.75rem !important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class sm:!bg-red-50 sm:!text-sm md:!text-lg\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"'
     );
   });
 
@@ -336,7 +336,7 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></head><div>Test</div><div>Test</div></html>"'
+      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:1280px){.xl\\\\:\\\\!bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.\\\\32xl\\\\:\\\\!bg-blue-500{background-color:undefined !important}.\\\\32xl\\\\:\\\\!bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class=\\"xl:!bg-green-500\\">Test</div><div class=\\"2xl:!bg-blue-500\\">Test</div></html>"'
     );
   });
 
