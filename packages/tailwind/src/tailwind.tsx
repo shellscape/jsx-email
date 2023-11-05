@@ -6,7 +6,6 @@ import presetAutoprefix from '@twind/preset-autoprefix';
 import presetTailwind from '@twind/preset-tailwind';
 
 const defaultConfig = defineConfig({
-  preflight: false,
   presets: [presetAutoprefix(), presetTailwind()]
 });
 
@@ -46,5 +45,5 @@ export const Tailwind = ({ children, ...props }: React.PropsWithChildren<Tailwin
 
   const finalHtml = $doc.html()!;
 
-  return <section dangerouslySetInnerHTML={{ __html: finalHtml }} />;
+  return finalHtml;
 };

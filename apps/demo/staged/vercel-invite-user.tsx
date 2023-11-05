@@ -46,11 +46,11 @@ export const VercelInviteUserEmail = ({
 
   return (
     <Html>
-      <Head />
-      <Preview>{previewText}</Preview>
       <Tailwind>
+        <Head />
+        <Preview>{previewText}</Preview>
         <Body className="bg-white my-auto mx-auto font-sans">
-          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
+          <Container className="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
             <Section className="mt-[32px]">
               <Img
                 src={`${baseUrl}/static/vercel-logo.png`}
@@ -97,14 +97,14 @@ export const VercelInviteUserEmail = ({
                 Join the team
               </Button>
             </Section>
-            <Text className="text-black text-[14px] leading-[24px]">
+            <Text className="text-black !text-[14px] leading-[24px]">
               or copy and paste this URL into your browser:{' '}
               <Link href={inviteLink} className="text-blue-600 no-underline">
                 {inviteLink}
               </Link>
             </Text>
             <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Text className="text-[#666666] !text-[12px] leading-[24px]">
               This invitation was intended for <span className="text-black">{username} </span>.This
               invite was sent from <span className="text-black">{inviteFromIp}</span> located in{' '}
               <span className="text-black">{inviteFromLocation}</span>. If you were not expecting
