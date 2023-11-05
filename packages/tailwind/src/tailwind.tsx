@@ -28,7 +28,8 @@ function processElement(
         convertedStyles.push(tailwindClassNames);
         return false;
       } else if (twi(className, { ignoreMediaQueries: false })) {
-        responsiveStyles.push(className);
+        const [breakpoint, twClass] = className.split(':');
+        responsiveStyles.push(twClass.startsWith('!') ? className : `${breakpoint}:!${twClass}`);
         return false;
       }
       return true;
@@ -41,11 +42,13 @@ function processElement(
 
     headStyles.push(convertedResponsiveStyles.replace(/^\n+/, '').replace(/\n+$/, ''));
 
+    const finalClassNames = [...customClassNames, ...responsiveStyles];
+
     // eslint-disable-next-line no-param-reassign
     element = React.cloneElement(element, {
       ...element.props,
       // eslint-disable-next-line no-undefined
-      className: customClassNames.length ? customClassNames.join(' ') : undefined,
+      className: finalClassNames.length ? finalClassNames.join(' ') : undefined,
       style: { ...element.props.style, ...cssToJsxStyle(convertedStyles.join(' ')) }
     });
   }
