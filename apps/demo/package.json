@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@jsx-email/all": "workspace:*",
-    "@jsx-email/cli": "workspace:*"
+    "@jsx-email/cli": "workspace:*",
+    "@jsx-email/tailwind": "workspace:*"
   }
 }

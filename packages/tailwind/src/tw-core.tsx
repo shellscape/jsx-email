@@ -2,42 +2,36 @@ import { jsxToString } from '@jsx-email/render';
 import chalk from 'chalk';
 import { load } from 'cheerio';
 // import { create } from 'twind';
-// import { defineConfig, extract, install } from '@twind/core';
-import { defineConfig } from '@twind/core';
+import { defineConfig, extract, install } from '@twind/core';
 // import { setup } from 'twind';
-import { virtualSheet, shim, getStyleTag, type Configuration } from 'twind/shim/server';
+// import { virtualSheet, shim, getStyleTag, type Configuration } from 'twind/shim/server';
 import presetAutoprefix from '@twind/preset-autoprefix';
 import presetTailwind from '@twind/preset-tailwind';
 
-// const defaultConfig = defineConfig({
-//   presets: [presetAutoprefix(), presetTailwind()]
-// });
 const defaultConfig = defineConfig({
   presets: [presetAutoprefix(), presetTailwind()]
 });
 
 export interface TailwindProps {
   config?: typeof defaultConfig;
-  // config?: Omit<Configuration, 'sheet'>;
 }
 
 // @ts-ignore
 const renderTwind = (html: string, config: TailwindProps['config']) => {
-  const sheet = virtualSheet();
+  // const sheet = virtualSheet();
   // const { tw } = create({ sheet, ...config });
-  setup(defaultConfig);
-  const shimmedHtml = shim(html);
+  // setup({ sheet, ...config });
   // const shimmedHtml = shim(html, tw);
-  // const tw = install({ ...defaultConfig, ...config });
-  // const { html: shimmedHtml, css } = extract(html, tw);
+  const tw = install({ ...defaultConfig, ...config });
+  // const shimmedHtml = shim(html, tw);
+  const { html: shimmedHtml, css } = extract(html, tw);
   console.log(html);
   console.log(shimmedHtml);
-  // console.log(css);
+  console.log(css);
 
-  const styleTag = getStyleTag(sheet);
+  // const styleTag = getStyleTag(sheet);
 
-  // return { shimmedHtml, styleTag: `<style>${css}</style>` };
-  return { shimmedHtml, styleTag };
+  return { shimmedHtml, styleTag: `<style>${css}</style>` };
 };
 
 export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindProps>) => {

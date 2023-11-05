@@ -114,7 +114,8 @@ export function jsxToString(element: ReactNode): string {
   }
 
   if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
-    throw new Error(`Unsupported JSX element: ${String(element)}`);
+    console.log({ element });
+    throw new Error('Unsupported JSX element:', element as any);
   }
 
   const { type } = element;
