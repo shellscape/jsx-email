@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v1.4.1
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: add spaces for camel case template names in preview (#54)
+
 ## v1.4.0
 
 _2023-11-05_
