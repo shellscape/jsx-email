@@ -1,48 +1,29 @@
 import { jsxToString } from '@jsx-email/render';
 import chalk from 'chalk';
 import { load } from 'cheerio';
-// import { create } from 'twind';
-// import { defineConfig, extract, install } from '@twind/core';
-import { defineConfig } from '@twind/core';
-// import { setup } from 'twind';
-import { virtualSheet, shim, getStyleTag, type Configuration } from 'twind/shim/server';
+import { defineConfig, extract, install } from '@twind/core';
 import presetAutoprefix from '@twind/preset-autoprefix';
 import presetTailwind from '@twind/preset-tailwind';
 
-// const defaultConfig = defineConfig({
-//   presets: [presetAutoprefix(), presetTailwind()]
-// });
 const defaultConfig = defineConfig({
   presets: [presetAutoprefix(), presetTailwind()]
 });
 
 export interface TailwindProps {
   config?: typeof defaultConfig;
-  // config?: Omit<Configuration, 'sheet'>;
+  isProduction?: boolean;
 }
 
-// @ts-ignore
-const renderTwind = (html: string, config: TailwindProps['config']) => {
-  const sheet = virtualSheet();
-  // const { tw } = create({ sheet, ...config });
-  setup(defaultConfig);
-  const shimmedHtml = shim(html);
-  // const shimmedHtml = shim(html, tw);
-  // const tw = install({ ...defaultConfig, ...config });
-  // const { html: shimmedHtml, css } = extract(html, tw);
-  console.log(html);
-  console.log(shimmedHtml);
-  // console.log(css);
+const renderTwind = (html: string, { config, isProduction = true }: TailwindProps) => {
+  const tw = install({ ...defaultConfig, ...config }, isProduction);
+  const { html: shimmedHtml, css } = extract(html, tw);
 
-  const styleTag = getStyleTag(sheet);
-
-  // return { shimmedHtml, styleTag: `<style>${css}</style>` };
-  return { shimmedHtml, styleTag };
+  return { shimmedHtml, styleTag: `<style twind>${css}</style>` };
 };
 
-export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindProps>) => {
+export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => {
   const initialHtml = jsxToString(<>{children}</>);
-  const { shimmedHtml, styleTag } = renderTwind(initialHtml, config);
+  const { shimmedHtml, styleTag } = renderTwind(initialHtml, props);
   const $doc = load(shimmedHtml, { xml: { decodeEntities: false }, xmlMode: true });
   const $head = $doc('head');
 
@@ -62,7 +43,7 @@ export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindP
     $doc.root().prepend(styleTag);
   }
 
-  const finalHtml = $doc.html()!.replace(/id="__twind"/g, `twind`);
+  const finalHtml = $doc.html()!;
 
   return <section dangerouslySetInnerHTML={{ __html: finalHtml }} />;
 };
