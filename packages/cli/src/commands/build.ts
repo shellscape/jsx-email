@@ -23,6 +23,7 @@ const BuildOptionsStruct = object({
   minify: optional(boolean()),
   out: optional(string()),
   plain: optional(boolean()),
+  pretty: optional(boolean()),
   props: optional(string()),
   strip: optional(boolean())
 });
@@ -52,6 +53,7 @@ Builds a template and saves the result
   --no-strip    Prevents stripping data-id attributes from output
   --out         File path to save the rendered template
   --plain       Emit template as plain text
+  --pretty      Oututs HTML in a pretty-print format. Note: Don't use this for production.
   --props       A JSON string containing props to be passed to the email template
                 This is usually only useful when building a single template, unless all of your
                 templates share the same props.
@@ -61,7 +63,7 @@ Builds a template and saves the result
   $ email build ./src/templates/Invite.tsx --props='\{"batman": "Bruce Wayne"\}'
 `;
 
-const pretty = (html: string) => {
+const prettify = (html: string) => {
   const defaults = {
     indent_char: ' ',
     indent_inner_html: true,
@@ -77,7 +79,7 @@ const pretty = (html: string) => {
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
 const stripHtml = (html: string) => {
-  const $ = load(html);
+  const $ = load(html, { xml: { decodeEntities: false }, xmlMode: true });
 
   $('*').removeAttr('data-id');
 
@@ -85,7 +87,7 @@ const stripHtml = (html: string) => {
 };
 
 const build = async (path: string, argv: BuildOptions) => {
-  const { minify, out, plain, props = {}, strip = true } = argv;
+  const { minify, out, plain, pretty = false, props = '{}', strip = true } = argv;
   const template = await import(path);
   const componentExport: TemplateFn = template.Template || template.default;
   const extension = plain ? '.txt' : '.html';
@@ -95,7 +97,9 @@ const build = async (path: string, argv: BuildOptions) => {
     process.exit(1);
   }
 
-  const component = componentExport(props);
+  const legacyPreviewProps = (componentExport as any).PreviewProps;
+  const buildProps = legacyPreviewProps || JSON.parse(props);
+  const component = componentExport(buildProps);
   const writePath = join(out!, basename(path).replace(extname(path), extension));
 
   if (plain) {
@@ -105,9 +109,10 @@ const build = async (path: string, argv: BuildOptions) => {
   }
 
   let html = render(component);
+
   if (strip) html = stripHtml(html);
   if (minify) html = await terser(html);
-  else html = pretty(html);
+  if (pretty) html = prettify(html);
 
   await mkdir(out!, { recursive: true });
   await writeFile(writePath, html, 'utf8');
