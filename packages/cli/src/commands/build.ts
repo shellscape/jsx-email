@@ -80,7 +80,7 @@ const prettify = (html: string) => {
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
 const stripHtml = (html: string) => {
-  const $ = load(html, { xml: { decodeEntities: false }, xmlMode: true });
+  const $ = load(html, { xml: { decodeEntities: false }, xmlMode: true } as any);
 
   $('*').removeAttr('data-id');
 
