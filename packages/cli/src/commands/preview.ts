@@ -10,7 +10,7 @@ import type { CommandFn } from './types';
 
 const PreviewOptionsStruct = object({
   host: optional(boolean()),
-  'no-open': optional(boolean()),
+  open: optional(boolean()),
   port: optional(union([number(), string()]))
 });
 
@@ -53,8 +53,7 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
     return;
   }
 
-  const { host = false, port = 55420 } = argv;
-  const open = !argv['no-open'];
+  const { host = false, open = true, port = 55420 } = argv;
   const { default: config } = await import('../../app/vite.config');
 
   const mergedConfig = {
