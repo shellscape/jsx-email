@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+import { parseArgs } from 'node:util';
+
 import debugConfig from 'debug';
 import importLocal from 'import-local';
-import yargs from 'yargs-parser';
 
 import pkg from '../package.json';
 
@@ -16,22 +17,20 @@ const debug = debugConfig('@jsx-email/cli');
 const { log } = console;
 
 const run = async () => {
-  const argv = yargs(process.argv.slice(2));
-  const { _: positionals, ...flags } = argv;
-  const [commandName] = positionals;
+  const argv = parseArgs({ allowPositionals: true, args: process.argv.slice(2), strict: false });
+  const [commandName] = argv.positionals;
   let command = commands[commandName];
 
   debug(`Command Name: \`${commandName}\``);
 
-  if (flags.version) {
+  if (argv.values.version) {
     log(`${pkg.name} v${pkg.version}\n`);
     return;
   }
 
   if (!command) command = help;
 
-  const input = (positionals.slice(1) as string[]) || [];
-  const result = await command(flags, input);
+  const result = await command(argv.values, argv.positionals?.slice(1) || []);
 
   if (!result) {
     debug(`Command \`${commandName}\` returned \`false\``);

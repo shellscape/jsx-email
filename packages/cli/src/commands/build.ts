@@ -6,11 +6,8 @@ import { basename, extname, join, resolve, win32, posix } from 'path';
 import { doIUseEmail } from '@jsx-email/doiuse-email';
 import { render } from '@jsx-email/render';
 import chalk from 'chalk';
-import { load } from 'cheerio';
 import esbuild from 'esbuild';
 import globby from 'globby';
-import { minify as terser } from 'html-minifier-terser';
-import beautify from 'js-beautify';
 import type { Infer } from 'superstruct';
 import { assert, boolean, object, optional, string } from 'superstruct';
 
@@ -20,7 +17,8 @@ const { error, log } = console;
 
 const BuildOptionsStruct = object({
   check: optional(boolean()),
-  minify: optional(boolean()),
+  minify: optional(string()),
+  'no-strip': optional(boolean()),
   out: optional(string()),
   plain: optional(boolean()),
   pretty: optional(boolean()),
@@ -53,7 +51,6 @@ Builds a template and saves the result
   --no-strip    Prevents stripping data-id attributes from output
   --out         File path to save the rendered template
   --plain       Emit template as plain text
-  --pretty      Oututs HTML in a pretty-print format. Note: Don't use this for production.
   --props       A JSON string containing props to be passed to the email template
                 This is usually only useful when building a single template, unless all of your
                 templates share the same props.
@@ -64,31 +61,11 @@ Builds a template and saves the result
   $ email build ./src/templates/Invite.tsx --props='\{"batman": "Bruce Wayne"\}'
 `;
 
-const prettify = (html: string) => {
-  const defaults = {
-    indent_char: ' ',
-    indent_inner_html: true,
-    indent_size: 2,
-    sep: '\n',
-    unformatted: ['code', 'pre', 'em', 'strong', 'span']
-  };
-
-  return beautify.html(html, defaults);
-};
-
 // Credit: https://github.com/rollup/plugins/blob/master/packages/pluginutils/src/normalizePath.ts#L5
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
-const stripHtml = (html: string) => {
-  const $ = load(html, { xml: { decodeEntities: false }, xmlMode: true });
-
-  $('*').removeAttr('data-id');
-
-  return $.html()!;
-};
-
 const build = async (path: string, argv: BuildOptions) => {
-  const { minify, out, plain, pretty = false, props = '{}', strip = true } = argv;
+  const { out, plain, props = '{}' } = argv;
   const template = await import(path);
   const componentExport: TemplateFn = template.Template || template.default;
   const extension = plain ? '.txt' : '.html';
@@ -103,16 +80,12 @@ const build = async (path: string, argv: BuildOptions) => {
   const writePath = join(out!, basename(path).replace(extname(path), extension));
 
   if (plain) {
-    const plainText = render(component, { plainText: plain });
+    const plainText = await render(component, { plainText: plain });
     await writeFile(writePath, plainText, 'utf8');
     return plainText;
   }
 
-  let html = render(component);
-
-  if (strip) html = stripHtml(html);
-  if (minify) html = await terser(html);
-  if (pretty) html = prettify(html);
+  const html = await render(component, argv as any);
 
   await mkdir(out!, { recursive: true });
   await writeFile(writePath, html, 'utf8');

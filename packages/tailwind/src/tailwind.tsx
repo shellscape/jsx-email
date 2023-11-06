@@ -1,11 +1,11 @@
 import { jsxToString } from '@jsx-email/render';
-import chalk from 'chalk';
 import { load } from 'cheerio';
 import { defineConfig, extract, install } from '@twind/core';
 import presetAutoprefix from '@twind/preset-autoprefix';
 import presetTailwind from '@twind/preset-tailwind';
 
 const defaultConfig = defineConfig({
+  preflight: false,
   presets: [presetAutoprefix(), presetTailwind()]
 });
 
@@ -24,26 +24,16 @@ const renderTwind = (html: string, { config, isProduction = false }: TailwindPro
 export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => {
   const initialHtml = jsxToString(<>{children}</>);
   const { shimmedHtml, styleTag } = renderTwind(initialHtml, props);
-  const $doc = load(shimmedHtml, { xml: { decodeEntities: false }, xmlMode: true });
-  const $head = $doc('head');
+  const $doc = load(shimmedHtml, { xml: { decodeEntities: false }, xmlMode: true } as any);
 
-  if ($head.length) {
-    $head.append(styleTag);
-  } else {
-    const { warn } = console;
-    const warning = chalk`
-   Some email clients (like Gmail) do not support <style> elements within the document body.
-   Additionally, media queries and responsive styles may not work properly
-   See: {cyan https://www.caniemail.com/features/html-style}
-   We recommend using the Tailwind component like so:
-     <Tailwind><Head/><Body>...</Body></Tailwind>
-`;
-    warn(chalk`\n{yellow ⚠️  jsx-email:Tailwind → No <head> tag was found}${warning}`);
+  const $head = $doc('<head data-id="__jsx-email-twnd" />');
+  $head.append(styleTag);
 
-    $doc.root().prepend(styleTag);
-  }
+  $doc.root().prepend($head);
 
   const finalHtml = $doc.html()!;
 
-  return finalHtml;
+  console.log({ finalHtml });
+
+  return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
 };
