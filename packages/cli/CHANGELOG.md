@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v2.0.0
+
+_2023-11-06_
+
+### Breaking Changes
+
+- feat!: move minify, pretty, strip into render. combine head tags (#59)
+
 ## v1.4.3
 
 _2023-11-06_

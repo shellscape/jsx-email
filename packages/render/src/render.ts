@@ -25,16 +25,8 @@ const combineHeads = (html: string) => {
   const firstHtml = $first.html()!;
   const othersHtml = $others.html()!;
 
-  console.log({ firstHtml, othersHtml });
-
-  // const combinedHtml = $others.children.map(function map() {
-  //   return $(this).html();
-  // });
-
   $others.remove();
   $first.html(firstHtml + othersHtml);
-
-  console.log({ combinedHtml: $first.html()! });
 
   return $.html()!;
 };

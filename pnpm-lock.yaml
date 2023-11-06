@@ -345,15 +345,9 @@ importers:
       '@types/debug':
         specifier: ^4.1.9
         version: 4.1.9
-      '@types/html-minifier-terser':
-        specifier: ^7.0.0
-        version: 7.0.0
       '@types/import-local':
         specifier: ^3.1.0
         version: 3.1.0
-      '@types/js-beautify':
-        specifier: ^1.14.1
-        version: 1.14.1
       '@types/mustache':
         specifier: ^4.2.3
         version: 4.2.3
@@ -464,6 +458,9 @@ importers:
         specifier: 2.0.0
         version: 2.0.0
     devDependencies:
+      '@types/html-minifier-terser':
+        specifier: ^7.0.0
+        version: 7.0.0
       '@types/html-to-text':
         specifier: ^9.0.2
         version: 9.0.2
@@ -2697,10 +2694,6 @@ packages:
 
   /@types/import-local@3.1.0:
     resolution: {integrity: sha512-D3hdmKcolSXqXAT5n9e1aM27UYmFN5RICHa/98THCEwpgcOSHVr29OMuRC/t5RIzrSKxmCJ4NPpqgOCXmBrMoQ==}
-    dev: true
-
-  /@types/js-beautify@1.14.1:
-    resolution: {integrity: sha512-pjbakQH0LywQL0wUFIWbxr5GZTnnqMD5wavqOpf61xz83V3V1uyhyPSWWNSoXZ153TF3XBgRTa07W1XDgFNYfw==}
     dev: true
 
   /@types/json-schema@7.0.12:
