@@ -457,6 +457,12 @@ importers:
 
   packages/render:
     dependencies:
+      cheerio:
+        specifier: 1.0.0-rc.12
+        version: 1.0.0-rc.12
+      html-minifier-terser:
+        specifier: ^7.2.0
+        version: 7.2.0
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5

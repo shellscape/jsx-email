@@ -1,36 +1,67 @@
+import { load } from 'cheerio';
+import { minify as minifyHtml } from 'html-minifier-terser';
 import { convert } from 'html-to-text';
-import pretty from 'pretty';
+import prettyHtml from 'pretty';
 
 import { jsxToString } from './jsx-to-string';
 
 export interface Options {
+  minify?: boolean;
   plainText?: boolean;
   pretty?: boolean;
+  strip?: boolean;
 }
 
-export const render = (component: React.ReactElement, options?: Options) => {
-  if (options?.plainText) {
-    return renderAsPlainText(component, options);
-  }
-  const doctype =
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-  const markup = jsxToString(component);
-  const document = `${doctype}${markup}`;
+const cheeioOptions = { xml: { decodeEntities: false }, xmlMode: true };
 
-  if (options && options.pretty) {
-    return pretty(document);
-  }
+const combineHeads = (html: string) => {
+  const $ = load(html, cheeioOptions);
+  const $heads = $('head');
 
-  return document;
+  if ($heads.length <= 1) return html;
+
+  const $first = $($heads.get(0));
+  const $others = $heads.slice(1);
+  const firstHtml = $first.html()!;
+  const othersHtml = $others.html()!;
+
+  $others.remove();
+  $first.html(firstHtml + othersHtml);
+
+  return $.html()!;
 };
 
-export const renderAsync = async (component: React.ReactElement, options?: Options) =>
-  render(component, options);
+const stripHtml = (html: string) => {
+  const $ = load(html, cheeioOptions);
 
-const renderAsPlainText = (component: React.ReactElement, _options?: Options) =>
+  $('*').removeAttr('data-id');
+
+  return $.html()!;
+};
+
+const renderPlainText = (component: React.ReactElement, _options?: Options) =>
   convert(jsxToString(component), {
     selectors: [
       { format: 'skip', selector: 'img' },
       { format: 'skip', selector: '[data-id="@jsx-email/preview"]' }
     ]
   });
+
+export const render = async (component: React.ReactElement, options?: Options) => {
+  const { minify, plainText, pretty, strip = true } = options || {};
+
+  if (plainText) return renderPlainText(component, options);
+
+  const doctype =
+    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+  const markup = jsxToString(component);
+  let html = `${doctype}${markup}`;
+
+  html = combineHeads(html);
+
+  if (minify) html = await minifyHtml(html);
+  if (pretty) html = prettyHtml(html);
+  if (strip) html = stripHtml(html);
+
+  return html;
+};
