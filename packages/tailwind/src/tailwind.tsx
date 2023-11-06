@@ -5,7 +5,6 @@ import presetAutoprefix from '@twind/preset-autoprefix';
 import presetTailwind from '@twind/preset-tailwind';
 
 const defaultConfig = defineConfig({
-  preflight: false,
   presets: [presetAutoprefix(), presetTailwind()]
 });
 
