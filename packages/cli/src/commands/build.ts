@@ -59,6 +59,7 @@ Builds a template and saves the result
                 templates share the same props.
 
 {underline Examples}
+  $ email build ./src/emails
   $ email build ./src/templates/Invite.tsx
   $ email build ./src/templates/Invite.tsx --props='\{"batman": "Bruce Wayne"\}'
 `;
@@ -97,8 +98,7 @@ const build = async (path: string, argv: BuildOptions) => {
     process.exit(1);
   }
 
-  const legacyPreviewProps = (componentExport as any).PreviewProps;
-  const buildProps = legacyPreviewProps || JSON.parse(props);
+  const buildProps = JSON.parse(props);
   const component = componentExport(buildProps);
   const writePath = join(out!, basename(path).replace(extname(path), extension));
 
