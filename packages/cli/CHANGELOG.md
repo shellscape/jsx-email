@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v1.4.3
+
+_2023-11-06_
+
+### Bugfixes
+
+- fix: use yargs, pretty should be optional (#58)
+
 ## v1.4.2
 
 _2023-11-05_
