@@ -1,136 +1,36 @@
-import * as React from 'react';
 import { jsxToString } from '@jsx-email/render';
-import { tailwindToCSS, type TailwindConfig } from 'tw-to-css';
+import { load } from 'cheerio';
+import { defineConfig, extract, install } from '@twind/core';
+import presetAutoprefix from '@twind/preset-autoprefix';
+import presetTailwind from '@twind/preset-tailwind';
 
-import { cssToJsxStyle } from './css-to-jsx-style';
+const defaultConfig = defineConfig({
+  presets: [presetAutoprefix(), presetTailwind()]
+});
 
 export interface TailwindProps {
-  config?: TailwindConfig;
+  config?: Partial<typeof defaultConfig>;
+  isProduction?: boolean;
 }
 
-function processElement(
-  element: React.ReactElement,
-  headStyles: string[],
-  config?: TailwindConfig
-): React.ReactElement {
-  const { twi } = tailwindToCSS({
-    config
-  });
+const renderTwind = (html: string, { config, isProduction = false }: TailwindProps) => {
+  const tw = install({ ...defaultConfig, ...config }, isProduction);
+  const { html: shimmedHtml, css } = extract(html, tw);
 
-  if (element.props.className) {
-    const convertedStyles: string[] = [];
-    const responsiveStyles: string[] = [];
-    const classNames = element.props.className.split(' ');
+  return { shimmedHtml, styleTag: `<style twind>${css}</style>` };
+};
 
-    const customClassNames = classNames.filter((className: string) => {
-      const tailwindClassNames = twi(className, { ignoreMediaQueries: true });
-      if (tailwindClassNames) {
-        convertedStyles.push(tailwindClassNames);
-        return false;
-      } else if (twi(className, { ignoreMediaQueries: false })) {
-        const [breakpoint, twClass] = className.split(':');
-        responsiveStyles.push(twClass.startsWith('!') ? className : `${breakpoint}:!${twClass}`);
-        return false;
-      }
-      return true;
-    });
+export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => {
+  const initialHtml = jsxToString(<>{children}</>);
+  const { shimmedHtml, styleTag } = renderTwind(initialHtml, props);
+  const $doc = load(shimmedHtml, { xml: { decodeEntities: false }, xmlMode: true } as any);
 
-    const convertedResponsiveStyles = twi(responsiveStyles, {
-      ignoreMediaQueries: false,
-      merge: false
-    });
+  const $head = $doc('<head data-id="__jsx-email-twnd" />');
+  $head.append(styleTag);
 
-    headStyles.push(convertedResponsiveStyles.replace(/^\n+/, '').replace(/\n+$/, ''));
+  $doc.root().prepend($head);
 
-    const finalClassNames = [...customClassNames, ...responsiveStyles];
+  const finalHtml = $doc.html()!;
 
-    // eslint-disable-next-line no-param-reassign
-    element = React.cloneElement(element, {
-      ...element.props,
-      // eslint-disable-next-line no-undefined
-      className: finalClassNames.length ? finalClassNames.join(' ') : undefined,
-      style: { ...element.props.style, ...cssToJsxStyle(convertedStyles.join(' ')) }
-    });
-  }
-
-  if (element.props.children) {
-    const children = React.Children.toArray(element.props.children);
-    const processedChildren = children.map((child) => {
-      if (React.isValidElement(child)) {
-        return processElement(child, headStyles, config);
-      }
-      return child;
-    });
-
-    // eslint-disable-next-line no-param-reassign
-    element = React.cloneElement(element, element.props, ...processedChildren);
-  }
-
-  return element;
-}
-
-function processHead(child: React.ReactElement, responsiveStyles: string[]): React.ReactElement {
-  // FIXME: find a cleaner solution for child as any
-  if (child.type === 'head' || (child as any).type.displayName === 'Head') {
-    const styleElement = <style>{responsiveStyles}</style>;
-
-    const headChildren = React.Children.toArray(child.props.children);
-    headChildren.push(styleElement);
-
-    // eslint-disable-next-line no-param-reassign
-    child = React.cloneElement(child, child.props, ...headChildren);
-  }
-  if (child.props.children) {
-    const children = React.Children.toArray(child.props.children);
-    const processedChildren = children.map((processedChild) => {
-      if (React.isValidElement(processedChild)) {
-        return processHead(processedChild, responsiveStyles);
-      }
-      return processedChild;
-    });
-
-    // eslint-disable-next-line no-param-reassign
-    child = React.cloneElement(child, child.props, ...processedChildren);
-  }
-
-  return child;
-}
-
-export const Tailwind = ({ children, config }: React.PropsWithChildren<TailwindProps>) => {
-  const headStyles: string[] = [];
-
-  const childrenWithInlineStyles = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      return processElement(child, headStyles, config);
-    }
-    return child;
-  });
-
-  if (!childrenWithInlineStyles) return <>{children}</>;
-
-  const fullHTML = jsxToString(<>{childrenWithInlineStyles}</>);
-
-  const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
-    headStyles.join(' ')
-  );
-
-  const hasHTMLAndHead = /<html[^>]*>(?=[\s\S]*<head[^>]*>)/gm.test(fullHTML);
-
-  if (hasResponsiveStyles && !hasHTMLAndHead) {
-    throw new Error(
-      'Tailwind: To use responsive styles you must have a <html> and <head> element in your template.'
-    );
-  }
-
-  const childrenWithInlineAndResponsiveStyles = React.Children.map(
-    childrenWithInlineStyles,
-    (child) => {
-      if (React.isValidElement(child)) {
-        return processHead(child, headStyles);
-      }
-      return child;
-    }
-  );
-
-  return <>{childrenWithInlineAndResponsiveStyles}</>;
+  return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
 };

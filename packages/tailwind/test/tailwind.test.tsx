@@ -1,10 +1,11 @@
-import { renderToStaticMarkup as render } from 'react-dom/server';
-import { type TailwindConfig } from 'tw-to-css';
+import { jsxToString } from '@jsx-email/render';
 import { Hr } from '@jsx-email/hr';
 import { Head } from '@jsx-email/head';
 import { Html } from '@jsx-email/html';
 
-import { Tailwind } from '../dist';
+import { Tailwind, type TailwindProps } from '../dist';
+
+type TailwindConfig = Partial<TailwindProps['config']>;
 
 describe('Tailwind component', () => {
   beforeEach(() => {
@@ -14,7 +15,7 @@ describe('Tailwind component', () => {
 
   describe('Inline styles', () => {
     it('should render children with inline Tailwind styles', () => {
-      const actualOutput = render(
+      const actualOutput = jsxToString(
         <Tailwind>
           <div className="bg-white text-sm" />
         </Tailwind>
@@ -25,7 +26,7 @@ describe('Tailwind component', () => {
   });
 
   it('should be able to use background image', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <div className="bg-[url(https://example.com/image.png)]" />
       </Tailwind>
@@ -35,7 +36,7 @@ describe('Tailwind component', () => {
   });
 
   it('should override inline styles with Tailwind styles', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <div
           style={{ backgroundColor: 'red', fontSize: '12px' }}
@@ -48,7 +49,7 @@ describe('Tailwind component', () => {
   });
 
   it('should override component styles with Tailwind styles', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <Hr className="w-12" />
       </Tailwind>
@@ -60,7 +61,7 @@ describe('Tailwind component', () => {
 
 describe('Responsive styles', () => {
   it('should add css to <head/>', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <html>
           <head />
@@ -74,49 +75,8 @@ describe('Responsive styles', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should throw an error when used without either <html/> or <head/> tags', () => {
-    function noHtmlOrHead() {
-      render(
-        <Tailwind>
-          <div className="bg-red-200 sm:bg-red-500" />
-        </Tailwind>
-      );
-    }
-    expect(noHtmlOrHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
-    );
-
-    function noHtml() {
-      render(
-        <Tailwind>
-          <head>
-            <title>Test</title>
-          </head>
-          <div className="bg-red-200 sm:bg-red-500" />
-        </Tailwind>
-      );
-    }
-    expect(noHtml).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
-    );
-
-    function noHead() {
-      render(
-        <Tailwind>
-          <html>
-            {/* <Head></Head> */}
-            <div className="bg-red-200 sm:bg-red-500" />
-          </html>
-        </Tailwind>
-      );
-    }
-    expect(noHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
-    );
-  });
-
   it('should persist exsisting <head/> elements', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <html>
           <head>
@@ -146,7 +106,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="text-custom bg-custom" />
       </Tailwind>
@@ -167,7 +127,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="font-sans" />
         <div className="font-serif" />
@@ -187,7 +147,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="m-8xl"></div>
       </Tailwind>
@@ -205,7 +165,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="rounded-4xl" />
       </Tailwind>
@@ -220,11 +180,11 @@ describe('Custom theme config', () => {
           textAlign: {
             justify: 'justify'
           }
-        }
+        } as any
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="text-justify" />
       </Tailwind>
@@ -234,64 +194,9 @@ describe('Custom theme config', () => {
   });
 });
 
-describe('Custom plugins config', () => {
-  it('should be able to use custom plugins', () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid'
-            }
-          };
-
-          addUtilities(newUtilities);
-        }
-      ]
-    };
-
-    const actualOutput = render(
-      <Tailwind config={config}>
-        <div className="border-custom" />
-      </Tailwind>
-    );
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-
-  it('should be able to use custom plugins with responsive styles', () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid'
-            }
-          };
-
-          addUtilities(newUtilities);
-        }
-      ]
-    };
-
-    const actualOutput = render(
-      <Tailwind config={config}>
-        <html>
-          <head />
-          <body>
-            <div className="border-custom sm:border-custom" />
-          </body>
-        </html>
-      </Tailwind>
-    );
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-});
-
 describe('<Tailwind> component', () => {
   it('should preserve mso styles', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <Html>
           <Head />
@@ -306,7 +211,7 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:640px){.sm\\\\:\\\\!text-sm{font-size:0.875rem !important;line-height:1.25rem !important}.sm\\\\:\\\\!bg-red-50{background-color:rgb(254,242,242) !important}}@media(min-width:768px){.md\\\\:\\\\!text-lg{font-size:1.125rem !important;line-height:1.75rem !important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class sm:!bg-red-50 sm:!text-sm md:!text-lg\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"'
+      '"<div data-id=\\"__jsx-email-twnd\\"><head data-id=\\"__jsx-email-twnd\\"><style twind=\\"\\">*,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::before,::after{--tw-content:\'\'}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\";font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;font-feature-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,[type=\'button\'],[type=\'reset\'],[type=\'submit\']{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=\'search\']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}button,[role=\\"button\\"]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}.bg-white{--tw-bg-opacity:1;background-color:rgba(255,255,255,var(--tw-bg-opacity))}@media (min-width:640px){.sm\\\\:bg-red-50{--tw-bg-opacity:1;background-color:rgba(254,242,242,var(--tw-bg-opacity))}}@media (min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}}@media (min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></head><html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"bg-white sm:bg-red-50 sm:text-sm md:text-lg custom-class\\"/></html></div>"'
     );
   });
 
@@ -325,7 +230,7 @@ describe('<Tailwind> component', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <Html>
           <Head />
@@ -336,12 +241,12 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:1280px){.xl\\\\:\\\\!bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.\\\\32xl\\\\:\\\\!bg-blue-500{background-color:undefined !important}.\\\\32xl\\\\:\\\\!bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class=\\"xl:!bg-green-500\\">Test</div><div class=\\"2xl:!bg-blue-500\\">Test</div></html>"'
+      '"<div data-id=\\"__jsx-email-twnd\\"><head data-id=\\"__jsx-email-twnd\\"><style twind=\\"\\">*,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:currentColor}::before,::after{--tw-content:\'\'}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\";font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;font-feature-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,[type=\'button\'],[type=\'reset\'],[type=\'submit\']{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=\'search\']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}button,[role=\\"button\\"]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}</style></head><html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/></head><div class=\\"xl:bg-green-500\\">Test</div><div class=\\"2xl:bg-blue-500\\">Test</div></html></div>"'
     );
   });
 
   it('should work with calc() with + sign', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <div className="max-h-[calc(50px+3rem)] bg-red-100">
           <div className="h-[200px]">something tall</div>
@@ -350,7 +255,7 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"'
+      '"<div data-id=\\"__jsx-email-twnd\\"><head data-id=\\"__jsx-email-twnd\\"><style twind=\\"\\">*,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::before,::after{--tw-content:\'\'}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\";font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;font-feature-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,[type=\'button\'],[type=\'reset\'],[type=\'submit\']{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=\'search\']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}button,[role=\\"button\\"]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}.h-\\\\[200px\\\\]{height:200px}.bg-red-100{--tw-bg-opacity:1;background-color:rgba(254,226,226,var(--tw-bg-opacity))}.max-h-\\\\[calc\\\\(50px\\\\+3rem\\\\)\\\\]{max-height:calc(50px + 3rem)}</style></head><div class=\\"max-h-[calc(50px+3rem)] bg-red-100\\"><div class=\\"h-[200px]\\">something tall</div></div></div>"'
     );
   });
 });
