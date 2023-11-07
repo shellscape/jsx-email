@@ -9,7 +9,7 @@ const defaultConfig = defineConfig({
 });
 
 export interface TailwindProps {
-  config?: typeof defaultConfig;
+  config?: Partial<typeof defaultConfig>;
   isProduction?: boolean;
 }
 
@@ -31,8 +31,6 @@ export const Tailwind = ({ children, ...props }: React.PropsWithChildren<Tailwin
   $doc.root().prepend($head);
 
   const finalHtml = $doc.html()!;
-
-  console.log({ finalHtml });
 
   return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
 };

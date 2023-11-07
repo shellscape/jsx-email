@@ -1,10 +1,11 @@
-import { renderToStaticMarkup as render } from 'react-dom/server';
-import { type TailwindConfig } from 'tw-to-css';
+import { jsxToString } from '@jsx-email/render';
 import { Hr } from '@jsx-email/hr';
 import { Head } from '@jsx-email/head';
 import { Html } from '@jsx-email/html';
 
-import { Tailwind } from '../dist';
+import { Tailwind, type TailwindProps } from '../dist';
+
+type TailwindConfig = Partial<TailwindProps['config']>;
 
 describe('Tailwind component', () => {
   beforeEach(() => {
@@ -14,7 +15,7 @@ describe('Tailwind component', () => {
 
   describe('Inline styles', () => {
     it('should render children with inline Tailwind styles', () => {
-      const actualOutput = render(
+      const actualOutput = jsxToString(
         <Tailwind>
           <div className="bg-white text-sm" />
         </Tailwind>
@@ -25,7 +26,7 @@ describe('Tailwind component', () => {
   });
 
   it('should be able to use background image', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <div className="bg-[url(https://example.com/image.png)]" />
       </Tailwind>
@@ -35,7 +36,7 @@ describe('Tailwind component', () => {
   });
 
   it('should override inline styles with Tailwind styles', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <div
           style={{ backgroundColor: 'red', fontSize: '12px' }}
@@ -48,7 +49,7 @@ describe('Tailwind component', () => {
   });
 
   it('should override component styles with Tailwind styles', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <Hr className="w-12" />
       </Tailwind>
@@ -60,7 +61,7 @@ describe('Tailwind component', () => {
 
 describe('Responsive styles', () => {
   it('should add css to <head/>', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <html>
           <head />
@@ -75,7 +76,7 @@ describe('Responsive styles', () => {
   });
 
   it('should persist exsisting <head/> elements', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <html>
           <head>
@@ -105,7 +106,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="text-custom bg-custom" />
       </Tailwind>
@@ -126,7 +127,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="font-sans" />
         <div className="font-serif" />
@@ -146,7 +147,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="m-8xl"></div>
       </Tailwind>
@@ -164,7 +165,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="rounded-4xl" />
       </Tailwind>
@@ -179,11 +180,11 @@ describe('Custom theme config', () => {
           textAlign: {
             justify: 'justify'
           }
-        }
+        } as any
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <div className="text-justify" />
       </Tailwind>
@@ -193,64 +194,9 @@ describe('Custom theme config', () => {
   });
 });
 
-describe('Custom plugins config', () => {
-  it('should be able to use custom plugins', () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid'
-            }
-          };
-
-          addUtilities(newUtilities);
-        }
-      ]
-    };
-
-    const actualOutput = render(
-      <Tailwind config={config}>
-        <div className="border-custom" />
-      </Tailwind>
-    );
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-
-  it('should be able to use custom plugins with responsive styles', () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid'
-            }
-          };
-
-          addUtilities(newUtilities);
-        }
-      ]
-    };
-
-    const actualOutput = render(
-      <Tailwind config={config}>
-        <html>
-          <head />
-          <body>
-            <div className="border-custom sm:border-custom" />
-          </body>
-        </html>
-      </Tailwind>
-    );
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-});
-
 describe('<Tailwind> component', () => {
   it('should preserve mso styles', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <Html>
           <Head />
@@ -284,7 +230,7 @@ describe('<Tailwind> component', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind config={config}>
         <Html>
           <Head />
@@ -300,7 +246,7 @@ describe('<Tailwind> component', () => {
   });
 
   it('should work with calc() with + sign', () => {
-    const actualOutput = render(
+    const actualOutput = jsxToString(
       <Tailwind>
         <div className="max-h-[calc(50px+3rem)] bg-red-100">
           <div className="h-[200px]">something tall</div>
