@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v3.0.1
+
+_2023-11-07_
+
+### Bugfixes
+
+- fix: theme extensions (#69)
+
 ## v3.0.0
 
 _2023-11-07_
