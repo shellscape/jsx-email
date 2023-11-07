@@ -2,6 +2,7 @@
 title: 'Tailwind'
 description: 'A JSX email component which enables using Tailwind CSS to style emails'
 slug: tailwind
+type: component
 ---
 
 <!--@include: @/include/header.md-->

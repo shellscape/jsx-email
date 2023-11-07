@@ -1,7 +1,9 @@
 ---
 title: 'Render'
 description: 'Render JSX email components to HTML email'
+params: -D
 slug: render
+type: package
 ---
 
 <!--@include: @/include/header.md-->
@@ -9,8 +11,6 @@ slug: render
 <!--@include: @/include/install.md-->
 
 ## Usage
-
-Convert JSX components to an HTML string
 
 ```jsx
 import { render } from '@jsx-email/render';

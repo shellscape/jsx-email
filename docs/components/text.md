@@ -2,6 +2,7 @@
 title: 'Text'
 description: 'A JSX email component which renders a paragraph element'
 slug: text
+type: component
 ---
 
 <!--@include: @/include/header.md-->

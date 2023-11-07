@@ -1,22 +1,14 @@
 ---
 title: 'CLI'
 description: 'The Command Line Interface and developer tooling for JSX email'
+params: -D
 slug: cli
+type: package
 ---
 
 <!--@include: @/include/header.md-->
 
-## Installation
-
-```shell
-pnpm add @jsx-email/cli -D
-
-# We recommend pnpm - https://pnpm.io
-# But npm and yarn are supported
-# npm add @jsx-email/cli -D
-# bun add @jsx-email/cli -D
-# yarn add @jsx-email/cli -D
-```
+<!--@include: @/include/install.md-->
 
 Nearly all installations of this package will want it installed into `devDependencies` so please make sure to add the `-D` flag.
 

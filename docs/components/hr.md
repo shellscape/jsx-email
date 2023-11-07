@@ -2,6 +2,7 @@
 title: Hr
 description: Creates divider (horizontal rule) that separates content
 slug: hr
+type: component
 ---
 
 <!--@include: @/include/header.md-->
