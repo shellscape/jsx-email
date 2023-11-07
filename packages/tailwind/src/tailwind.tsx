@@ -8,10 +8,10 @@ export interface TailwindProps {
   isProduction?: boolean;
 }
 
-const renderTwind = (html: string, { config }: TailwindProps) => {
+const renderTwind = (html: string, { config, isProduction = false }: TailwindProps) => {
   const sheet = virtualSheet();
 
-  const { tw } = create({ sheet, ...(config || {}) });
+  const { tw } = create({ sheet, ...(config || {}), hash: isProduction });
 
   sheet.reset();
 
