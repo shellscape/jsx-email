@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v3.0.0
+
+_2023-11-07_
+
+### Breaking Changes
+
+- feat!: rewrite component using `twind` (#60)
+
 ## v2.4.4
 
 _2023-11-05_
