@@ -11,6 +11,10 @@ type: component
 
 Our `Tailwind` component is lightning quick and extensible. No other email template system is as flexible or renders smaller with Tailwind styles.
 
+::: tip
+Docs for v2.4.4 and older can be found at https://github.com/shellscape/jsx-email/blob/tailwind-v2.4.4/docs/components/tailwind.md
+:::
+
 ## Usage
 
 Add the component around your email body content.
@@ -60,7 +64,7 @@ export interface TailwindProps {
 config?: TailwindConfig;
 ```
 
-This option allows customizing the theme for your template, as well as [Presets](https://twind.style/presets). See: [`TailwindConfig`](https://twind.style/packages/@twind/core~TwindUserConfig) for type information. For more information on theming, please see https://twind.style/rules.
+This option allows customizing the theme for your template, as well as [Plugins](https://twind.dev/handbook/plugins.html). See: [Configuration](https://twind.dev/handbook/configuration.html) for type information. For more information on theming, please see https://twind.dev/handbook/extended-functionality.html.
 
 ```ts
 isProduction?: boolean;
@@ -70,6 +74,6 @@ If true, any Tailwind class names will be converted to hashed names. e.g. The cl
 
 ## Tailwind Plugins
 
-The `Tailwind` component isn't compatible with [Tailwind Plugins](https://tailwindcss.com/docs/plugins) out of the box. This is a side-effect of using [`twind`](https://twind.style/) for our Tailwind processor. However, `twind` does support the concept of [Presets](https://twind.style/presets) which act and behave like Tailwind Plugins. While not ideal, complex rulesets and plugins are an unlikely need for formatting emails.
+The `Tailwind` component isn't compatible with [Tailwind Plugins](https://tailwindcss.com/docs/plugins) out of the box. This is a side-effect of using [`twind`](https://twind.dev/) for our Tailwind processor. However, `twind` does have a set of commonly-used equivalent [`twind` plugins](https://twind.dev/handbook/extended-functionality.html#utilities). While not ideal, complex rulesets and plugins are an unlikely need for formatting emails.
 
 Should you find yourself in need of a Tailwind Plugin for an email template, please stop by our [Discord Channel](https://discord.gg/FywZN57mTg) and we'll be happy to help you.
