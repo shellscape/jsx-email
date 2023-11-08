@@ -39,13 +39,15 @@ const stripHtml = (html: string) => {
   return $.html()!;
 };
 
-const renderPlainText = (component: React.ReactElement, _options?: Options) =>
-  convert(jsxToString(component), {
+const renderPlainText = async (component: React.ReactElement, _options?: Options) => {
+  const result = await jsxToString(component);
+  return convert(result, {
     selectors: [
       { format: 'skip', selector: 'img' },
       { format: 'skip', selector: '[data-id="@jsx-email/preview"]' }
     ]
   });
+};
 
 export const render = async (component: React.ReactElement, options?: Options) => {
   const { minify, plainText, pretty, strip = true } = options || {};
@@ -54,7 +56,7 @@ export const render = async (component: React.ReactElement, options?: Options) =
 
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-  const markup = jsxToString(component);
+  const markup = await jsxToString(component);
   let html = `${doctype}${markup}`;
 
   html = combineHeads(html);
