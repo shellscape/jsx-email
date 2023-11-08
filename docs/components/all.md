@@ -14,14 +14,16 @@ type: component
 Using this package, all JSX email components can be accessed from a single import. For folks who prefer that style, versus importing individual component packages.
 
 ```jsx
-import { Button, Heading } from '@jsx-email/all';
+import { Button, Heading } from "@jsx-email/all";
 
-const Email = () => {
+export default function () {
   return (
-    <Heading as="h1">Batman</Heading>;
-    <Button href="https://example.com" style={{ color: '#61dafb' }}>
-      Click me
-    </Button>
+    <>
+      <Heading as="h1">Batman</Heading>
+      <Button href="https://example.com" style={{ color: "#61dafb" }}>
+        Click me
+      </Button>
+    </>
   );
-};
+}
 ```
