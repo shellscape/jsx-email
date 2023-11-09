@@ -17,7 +17,7 @@ For those not familiar with the bits above, here are some links to resources tha
 - [Executing Local NPM Packages](https://jaireina.medium.com/executing-local-npm-packages-226820ad2c31)
 - [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and [`pnpm exec`](https://pnpm.io/cli/exec)
 - [How to use relative paths on windows CMD?](https://superuser.com/a/1270599)
-:::
+  :::
 
 ## Prerequisites
 
