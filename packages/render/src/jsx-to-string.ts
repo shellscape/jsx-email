@@ -3,7 +3,6 @@
  * @license MIT
  */
 
-// import pThrottle from 'p-throttle';
 import type { FC, ReactNode } from 'react';
 import hash from 'object-hash';
 
@@ -91,7 +90,6 @@ const EMPTY_OBJECT = Object.freeze({});
 
 const promiseMap = new Map();
 
-/** the good old wrapPromise **/
 export function wrapPromise<TPromise extends Promise<any>>(promise: TPromise) {
   let status = 'pending';
   let result: Awaited<TPromise>;
