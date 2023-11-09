@@ -7,15 +7,15 @@ import { Tailwind, type TailwindProps } from '../dist';
 
 type TailwindConfig = Partial<TailwindProps['config']>;
 
-describe('Tailwind component', () => {
+describe('Tailwind component', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  describe('Inline styles', () => {
-    it('should render children with inline Tailwind styles', () => {
-      const actualOutput = jsxToString(
+  describe('Inline styles', async () => {
+    it('should render children with inline Tailwind styles', async () => {
+      const actualOutput = await jsxToString(
         <Tailwind>
           <div className="bg-white text-sm" />
         </Tailwind>
@@ -25,8 +25,8 @@ describe('Tailwind component', () => {
     });
   });
 
-  it('should be able to use background image', () => {
-    const actualOutput = jsxToString(
+  it('should be able to use background image', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <div className="bg-[url(https://example.com/image.png)]" />
       </Tailwind>
@@ -35,8 +35,8 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should override inline styles with Tailwind styles', () => {
-    const actualOutput = jsxToString(
+  it('should override inline styles with Tailwind styles', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <div
           style={{ backgroundColor: 'red', fontSize: '12px' }}
@@ -48,8 +48,8 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should override component styles with Tailwind styles', () => {
-    const actualOutput = jsxToString(
+  it('should override component styles with Tailwind styles', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <Hr className="w-12" />
       </Tailwind>
@@ -59,9 +59,9 @@ describe('Tailwind component', () => {
   });
 });
 
-describe('Responsive styles', () => {
-  it('should add css to <head/>', () => {
-    const actualOutput = jsxToString(
+describe('Responsive styles', async () => {
+  it('should add css to <head/>', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <html>
           <head />
@@ -75,8 +75,8 @@ describe('Responsive styles', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should persist exsisting <head/> elements', () => {
-    const actualOutput = jsxToString(
+  it('should persist exsisting <head/> elements', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <html>
           <head>
@@ -94,8 +94,8 @@ describe('Responsive styles', () => {
   });
 });
 
-describe('Custom theme config', () => {
-  it('should be able to use custom colors', () => {
+describe('Custom theme config', async () => {
+  it('should be able to use custom colors', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -106,7 +106,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = jsxToString(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="text-custom bg-custom" />
       </Tailwind>
@@ -115,7 +115,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom colors', () => {
+  it('should be able to use custom colors', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -127,7 +127,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = jsxToString(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="font-sans" />
         <div className="font-serif" />
@@ -137,7 +137,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom spacing', () => {
+  it('should be able to use custom spacing', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -147,7 +147,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = jsxToString(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="m-8xl"></div>
       </Tailwind>
@@ -155,7 +155,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom border radius', () => {
+  it('should be able to use custom border radius', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -165,7 +165,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = jsxToString(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="rounded-4xl" />
       </Tailwind>
@@ -173,7 +173,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom text alignment', () => {
+  it('should be able to use custom text alignment', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -184,7 +184,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = jsxToString(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="text-justify" />
       </Tailwind>
@@ -194,9 +194,9 @@ describe('Custom theme config', () => {
   });
 });
 
-describe('<Tailwind> component', () => {
-  it('should preserve mso styles', () => {
-    const actualOutput = jsxToString(
+describe('<Tailwind> component', async () => {
+  it('should preserve mso styles', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <Html>
           <Head />
@@ -215,7 +215,7 @@ describe('<Tailwind> component', () => {
     );
   });
 
-  it('should recognize custom resopnsive screen', () => {
+  it('should recognize custom resopnsive screen', async () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
@@ -230,7 +230,7 @@ describe('<Tailwind> component', () => {
         }
       }
     };
-    const actualOutput = jsxToString(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <Html>
           <Head />
@@ -245,8 +245,8 @@ describe('<Tailwind> component', () => {
     );
   });
 
-  it('should work with calc() with + sign', () => {
-    const actualOutput = jsxToString(
+  it('should work with calc() with + sign', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <div className="max-h-[calc(50px+3rem)] bg-red-100">
           <div className="h-[200px]">something tall</div>

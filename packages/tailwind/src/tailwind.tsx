@@ -1,5 +1,6 @@
-import { jsxToString } from '@jsx-email/render';
+import { jsxToString, useData } from '@jsx-email/render';
 import { load } from 'cheerio';
+import { Suspense } from 'react';
 import { create, type Configuration } from 'twind';
 import { virtualSheet, shim, getStyleTag } from 'twind/shim/server';
 
@@ -21,8 +22,8 @@ const renderTwind = (html: string, { config, isProduction = false }: TailwindPro
   return { shimmedHtml, styleTag: tag.replace('id="__twind"', 'twind') };
 };
 
-export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => {
-  const initialHtml = jsxToString(<>{children}</>);
+const Renderer = (props: React.PropsWithChildren<TailwindProps>) => {
+  const initialHtml = useData(props, () => jsxToString(<>{props.children}</>));
   const { shimmedHtml, styleTag } = renderTwind(initialHtml, props);
   const $doc = load(shimmedHtml, { xml: { decodeEntities: false }, xmlMode: true } as any);
 
@@ -35,3 +36,11 @@ export const Tailwind = ({ children, ...props }: React.PropsWithChildren<Tailwin
 
   return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
 };
+
+export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => (
+  <>
+    <Suspense fallback={<div>waiting</div>}>
+      <Renderer {...props}>{children}</Renderer>
+    </Suspense>
+  </>
+);

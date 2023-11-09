@@ -2,26 +2,26 @@ import { render } from '@jsx-email/render';
 
 import { Section } from '../src';
 
-describe('<Section> component', () => {
+describe('<Section> component', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('renders correctly', () => {
-    const actualOutput = render(<Section>Lorem ipsum</Section>);
+  it('renders correctly', async () => {
+    const actualOutput = await render(<Section>Lorem ipsum</Section>);
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('renders children correctly', () => {
+  it('renders children correctly', async () => {
     const testMessage = 'Test message';
-    const html = render(<Section>{testMessage}</Section>);
+    const html = await render(<Section>{testMessage}</Section>);
     expect(html).toContain(testMessage);
   });
 
-  it('passes style and other props correctly', () => {
+  it('passes style and other props correctly', async () => {
     const style = { backgroundColor: 'red' };
-    const html = render(
+    const html = await render(
       <Section style={style} data-testid="section-test">
         Test
       </Section>
@@ -30,8 +30,8 @@ describe('<Section> component', () => {
     expect(html).toContain('data-testid="section-test"');
   });
 
-  it('renders with <td> wrapper if no <Column> is provided', () => {
-    const actualOutput = render(
+  it('renders with <td> wrapper if no <Column> is provided', async () => {
+    const actualOutput = await render(
       <Section>
         <div>Lorem ipsum</div>
       </Section>
@@ -39,8 +39,8 @@ describe('<Section> component', () => {
     expect(actualOutput).toContain('<td>');
   });
 
-  it('renders with <td> wrapper if <Column> is provided', () => {
-    const actualOutput = render(
+  it('renders with <td> wrapper if <Column> is provided', async () => {
+    const actualOutput = await render(
       <Section>
         <td>Lorem ipsum</td>
       </Section>
@@ -48,8 +48,8 @@ describe('<Section> component', () => {
     expect(actualOutput).toContain('<td>');
   });
 
-  it('renders wrapping any child provided in a <td> tag', () => {
-    const actualOutput = render(
+  it('renders wrapping any child provided in a <td> tag', async () => {
+    const actualOutput = await render(
       <Section>
         <div>Lorem ipsum</div>
         <p>Lorem ipsum</p>

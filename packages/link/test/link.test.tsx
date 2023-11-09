@@ -2,21 +2,21 @@ import { render } from '@jsx-email/render';
 
 import { Link } from '../src';
 
-describe('<Link> component', () => {
+describe('<Link> component', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('renders children correctly', () => {
+  it('renders children correctly', async () => {
     const testMessage = 'Test message';
-    const html = render(<Link href="https://example.com">{testMessage}</Link>);
+    const html = await render(<Link href="https://example.com">{testMessage}</Link>);
     expect(html).toContain(testMessage);
   });
 
-  it('passes style and other props correctly', () => {
+  it('passes style and other props correctly', async () => {
     const style = { color: 'red' };
-    const html = render(
+    const html = await render(
       <Link href="https://example.com" style={style} data-testid="link-test">
         Test
       </Link>
@@ -25,13 +25,13 @@ describe('<Link> component', () => {
     expect(html).toContain('data-testid="link-test"');
   });
 
-  it('opens in a new tab', () => {
-    const html = render(<Link href="https://example.com">Test</Link>);
+  it('opens in a new tab', async () => {
+    const html = await render(<Link href="https://example.com">Test</Link>);
     expect(html).toContain(`target="_blank"`);
   });
 
-  it('renders correctly', () => {
-    const actualOutput = render(<Link href="https://example.com">Example</Link>);
+  it('renders correctly', async () => {
+    const actualOutput = await render(<Link href="https://example.com">Example</Link>);
     expect(actualOutput).toMatchSnapshot();
   });
 });
