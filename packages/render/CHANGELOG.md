@@ -1,5 +1,13 @@
 # @jsx-email/render ChangeLog
 
+## v3.0.0
+
+_2023-11-09_
+
+### Breaking Changes
+
+- feat!: `Suspense` and psuedo-async component support (#71)
+
 ## v2.0.0
 
 _2023-11-06_
