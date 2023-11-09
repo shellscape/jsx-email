@@ -41,11 +41,13 @@
     "cheerio": "1.0.0-rc.12",
     "html-minifier-terser": "^7.2.0",
     "html-to-text": "9.0.5",
+    "object-hash": "^3.0.0",
     "pretty": "2.0.0"
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0",
     "@types/html-to-text": "^9.0.2",
+    "@types/object-hash": "^3.0.6",
     "@types/pretty": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

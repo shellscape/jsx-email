@@ -454,6 +454,9 @@ importers:
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5
+      object-hash:
+        specifier: ^3.0.0
+        version: 3.0.0
       pretty:
         specifier: 2.0.0
         version: 2.0.0
@@ -464,6 +467,9 @@ importers:
       '@types/html-to-text':
         specifier: ^9.0.2
         version: 9.0.2
+      '@types/object-hash':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/pretty':
         specifier: ^2.0.1
         version: 2.0.1
@@ -2699,6 +2705,10 @@ packages:
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
+    dev: true
+
+  /@types/object-hash@3.0.6:
+    resolution: {integrity: sha512-fOBV8C1FIu2ELinoILQ+ApxcUKz4ngq+IWUYrxSGjXzzjUALijilampwkMgEtJ+h2njAW3pi853QpzNVCHB73w==}
     dev: true
 
   /@types/pretty@2.0.1:

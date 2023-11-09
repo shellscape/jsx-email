@@ -4,6 +4,7 @@
  */
 
 import type { FC, ReactNode } from 'react';
+import hash from 'object-hash';
 
 import { escapeString } from './escape-string';
 import { stringifyStyles } from './stringify-styles';
@@ -87,6 +88,60 @@ const VOID_ELEMENTS = new Set([
 
 const EMPTY_OBJECT = Object.freeze({});
 
+const promiseMap = new Map();
+
+const wrapPromise = <TPromise extends Promise<any>>(promise: TPromise) => {
+  let status = 'pending';
+  let result: Awaited<TPromise>;
+  const suspender = promise.then(
+    (r) => {
+      status = 'success';
+      result = r;
+    },
+    (e) => {
+      status = 'error';
+      result = e;
+    }
+  );
+  return {
+    // eslint-disable-next-line consistent-return
+    read() {
+      if (status === 'pending') {
+        throw suspender;
+      } else if (status === 'error') {
+        throw result;
+      } else if (status === 'success') {
+        return result;
+      }
+    }
+  };
+};
+
+export const useData = <TData>(props: any, cb: () => Promise<TData>): TData => {
+  const key = hash(props);
+  let dataPromise;
+  if (promiseMap.has(key)) {
+    dataPromise = promiseMap.get(key);
+  } else {
+    dataPromise = wrapPromise(cb());
+    promiseMap.set(key, dataPromise);
+  }
+  return dataPromise.read();
+};
+
+const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
+  try {
+    const result = await jsxToString(children);
+    return result;
+  } catch (error) {
+    if (error instanceof Promise) {
+      await error;
+      return renderSuspense(children);
+    }
+    throw error;
+  }
+};
+
 /**
  * Convert a JSX element to a string.
  * This is a slightly modified version of Hyperons's
@@ -95,7 +150,7 @@ const EMPTY_OBJECT = Object.freeze({});
  * @param element The JSX element to convert to a string
  * @returns The string representation of the JSX element
  */
-export function jsxToString(element: ReactNode): string {
+export async function jsxToString(element: ReactNode): Promise<string> {
   if (element == null) {
     return '';
   }
@@ -108,7 +163,8 @@ export function jsxToString(element: ReactNode): string {
   } else if (isIterable(element)) {
     let html = '';
     for (const child of element) {
-      html += jsxToString(child);
+      // eslint-disable-next-line no-await-in-loop
+      html += await jsxToString(child);
     }
     return html;
   }
@@ -162,7 +218,7 @@ export function jsxToString(element: ReactNode): string {
       if (innerHTML) {
         html += innerHTML;
       } else {
-        html += jsxToString(props.children);
+        html += await jsxToString(props.children);
       }
 
       html += `</${type}>`;
@@ -173,15 +229,20 @@ export function jsxToString(element: ReactNode): string {
     if (typeof type === 'function') {
       return jsxToString((type as FC)(props));
     } else if (typeof type === 'symbol') {
+      const key = Symbol.keyFor(type);
       // is this react fragment?
-      if (Symbol.keyFor(type) === 'react.fragment') {
+      if (key === 'react.fragment') {
         return jsxToString(props.children);
+      } else if (key === 'react.suspense') {
+        const suspenseResult = await renderSuspense(props.children);
+        return suspenseResult;
       }
     } else if (isReactForwardRef(type)) {
       return jsxToString(
         (type as { render: (props: unknown, ref: unknown) => ReactNode }).render(props, props.ref)
       );
     }
+
     throw new Error(`Unsupported JSX element type: ${String(type)}`);
   }
   return '';
