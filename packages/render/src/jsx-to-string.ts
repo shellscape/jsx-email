@@ -90,7 +90,7 @@ const EMPTY_OBJECT = Object.freeze({});
 
 const promiseMap = new Map();
 
-export function wrapPromise<TPromise extends Promise<any>>(promise: TPromise) {
+const wrapPromise = <TPromise extends Promise<any>>(promise: TPromise) => {
   let status = 'pending';
   let result: Awaited<TPromise>;
   const suspender = promise.then(
@@ -115,7 +115,7 @@ export function wrapPromise<TPromise extends Promise<any>>(promise: TPromise) {
       }
     }
   };
-}
+};
 
 export const useData = <TData>(props: any, cb: () => Promise<TData>): TData => {
   const key = hash(props);
