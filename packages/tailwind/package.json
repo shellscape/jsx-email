@@ -54,6 +54,7 @@
     "react": "18.2.0"
   },
   "types": "dist/index.d.mts",
+  "bump": "1",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
