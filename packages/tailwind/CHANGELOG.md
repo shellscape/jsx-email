@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v3.0.2
+
+_2023-11-09_
+
+### Bugfixes
+
+- fix: update render dependency (09bd931)
+
 ## v3.0.1
 
 _2023-11-07_
