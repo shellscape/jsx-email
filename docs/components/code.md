@@ -39,7 +39,7 @@ const Email = () => {
 The `Code` component is unique in that it requires calling an asynchronous getter method. This is due in part to using `shiki` for its incredible speed.
 
 ```ts
-lang?: string;
+language?: string;
 ```
 
 _Optional_. Specifies the language to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/languages.md) for more information on supported languages.

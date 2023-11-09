@@ -1,6 +1,6 @@
 import { render } from '@jsx-email/render';
 
-import { getCode } from '../src';
+import { Code } from '../src';
 
 describe('<Code> component', () => {
   beforeEach(() => {
@@ -10,9 +10,8 @@ describe('<Code> component', () => {
 
   it('passes style and other props correctly', async () => {
     const style = { backgroundColor: 'red' };
-    const Code = await getCode({ language: 'js' });
-    const html = render(
-      <Code style={style} data-testid="code-test">
+    const html = await render(
+      <Code style={style} data-testid="code-test" language="js">
         Test
       </Code>
     );
@@ -21,9 +20,8 @@ describe('<Code> component', () => {
   });
 
   it('renders correctly, with literal', async () => {
-    const Code = await getCode({ language: 'js' });
-    const actualOutput = render(
-      <Code>
+    const actualOutput = await render(
+      <Code language="js">
         {`
         import { batman } from 'superheros';
         import { joker } from 'villains';
@@ -39,8 +37,7 @@ describe('<Code> component', () => {
   });
 
   it('renders correctly, plain text', async () => {
-    const Code = await getCode({ language: 'js' });
-    const actualOutput = render(<Code>import batman from 'superheros';</Code>);
+    const actualOutput = await render(<Code language="js">import batman from 'superheros';</Code>);
     expect(actualOutput).toMatchSnapshot();
   });
 });

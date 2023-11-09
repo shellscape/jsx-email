@@ -1,18 +1,16 @@
 import { AssertionError } from 'assert';
 
+import { useData } from '@jsx-email/render';
 import mem from 'p-memoize';
-import React from 'react';
+import { Suspense } from 'react';
 import { getHighlighter as shikiGetHighlighter } from 'shiki';
 
 type RootProps = React.ComponentPropsWithoutRef<'pre'>;
 
-interface CodeOptions {
-  language?: string;
-  theme?: string;
-}
-
 export interface CodeProps extends RootProps {
   children: string;
+  language?: string;
+  theme?: string;
 }
 
 const highlighterPromise = shikiGetHighlighter({});
@@ -33,27 +31,34 @@ const getHighlighter = mem(async (language?: string, theme?: string) => {
   return highlighter;
 });
 
-export const getCode = async ({ language, theme = 'nord' }: CodeOptions) => {
-  const highlighter = await getHighlighter(language, theme);
+const Renderer = (props: React.PropsWithChildren<CodeProps>) => {
+  const { children, language, style, theme = 'nord', ...rest } = props;
+  const highlighter = useData(props, () => getHighlighter(language, theme));
 
-  const Code = ({ children, style, ...props }: React.PropsWithChildren<Readonly<CodeProps>>) => {
-    if (typeof children !== 'string')
-      throw new AssertionError({ message: 'Code: component children must be of type string' });
+  const code = children as string;
+  const html = highlighter.codeToHtml(code, {
+    lang: language,
+    theme
+  });
 
-    const code = children as string;
-    const html = highlighter.codeToHtml(code, {
-      lang: language,
-      theme
-    });
-
-    return (
-      <pre {...props} data-id="@jsx-email/code" style={style}>
-        <code dangerouslySetInnerHTML={{ __html: html }}></code>
-      </pre>
-    );
-  };
-
-  Code.displayName = 'Code';
-
-  return Code;
+  return (
+    <pre {...rest} data-id="@jsx-email/code" style={style}>
+      <code dangerouslySetInnerHTML={{ __html: html }}></code>
+    </pre>
+  );
 };
+
+export const Code = ({ children, ...props }: React.PropsWithChildren<CodeProps>) => {
+  if (typeof children !== 'string')
+    throw new AssertionError({ message: 'Code: component children must be of type string' });
+
+  return (
+    <>
+      <Suspense fallback={<div>waiting</div>}>
+        <Renderer {...props}>{children}</Renderer>
+      </Suspense>
+    </>
+  );
+};
+
+Code.displayName = 'Code';
