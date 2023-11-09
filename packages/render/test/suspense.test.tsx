@@ -1,4 +1,4 @@
-// import { render } from '../src/render';
+import { render } from '../src/render';
 import { jsxToString } from '../src/jsx-to-string';
 
 import { Template } from './fixtures/async-template';
@@ -14,8 +14,8 @@ describe('render', () => {
     expect(result).toMatchSnapshot();
   });
 
-  // it('renders an async component', async () => {
-  //   const result = await render(<Template firstName="Jim" />);
-  //   expect(result).toMatchSnapshot();
-  // });
+  it('renders an async component', async () => {
+    const result = await render(<Template firstName="Jim" />);
+    expect(result).toMatchSnapshot();
+  });
 });
