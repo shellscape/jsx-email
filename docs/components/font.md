@@ -2,6 +2,7 @@
 title: Font
 description: Sets up custom fonts for use in email
 slug: font
+type: component
 ---
 
 <!--@include: @/include/header.md-->

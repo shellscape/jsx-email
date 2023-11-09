@@ -2,6 +2,7 @@
 title: Link
 description: Renders a hyperlink to an external resource
 slug: link
+type: component
 ---
 
 <!--@include: @/include/header.md-->

@@ -2,42 +2,42 @@ import { render } from '@jsx-email/render';
 
 import { Preview, renderWhiteSpace } from '../src';
 
-describe('<Preview> component', () => {
+describe('<Preview> component', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('renders correctly', () => {
-    const actualOutput = render(<Preview>Email preview text</Preview>);
+  it('renders correctly', async () => {
+    const actualOutput = await render(<Preview>Email preview text</Preview>);
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('renders correctly with array text', () => {
-    const actualOutputArray = render(<Preview>Email {'preview'} text</Preview>);
+  it('renders correctly with array text', async () => {
+    const actualOutputArray = await render(<Preview>Email {'preview'} text</Preview>);
     expect(actualOutputArray).toMatchSnapshot();
   });
 
-  it('renders correctly with really long text', () => {
+  it('renders correctly with really long text', async () => {
     const longText = 'really long'.repeat(100);
-    const actualOutputLong = render(<Preview>{longText}</Preview>);
+    const actualOutputLong = await render(<Preview>{longText}</Preview>);
     expect(actualOutputLong).toMatchSnapshot();
   });
 });
 
-describe('renderWhiteSpace', () => {
-  it('renders null when text length is greater than or equal to PREVIEW_MAX_LENGTH (150)', () => {
+describe('renderWhiteSpace', async () => {
+  it('renders null when text length is greater than or equal to PREVIEW_MAX_LENGTH (150)', async () => {
     const text =
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolore mollitia dignissimos itaque. At excepturi reiciendis iure molestias incidunt. Ab saepe, nostrum dicta dolor maiores tenetur eveniet odio amet ipsum?';
-    const html = renderWhiteSpace(text);
+    const html = await renderWhiteSpace(text);
     expect(html).toBeNull();
   });
 
-  it('renders white space characters when text length is less than PREVIEW_MAX_LENGTH', () => {
+  it('renders white space characters when text length is less than PREVIEW_MAX_LENGTH', async () => {
     const text = 'Short text';
     const whiteSpaceCharacters = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';
 
-    const html = renderWhiteSpace(text);
+    const html = await renderWhiteSpace(text);
     expect(html).not.toBeNull();
 
     const actualTextContent = html?.props.children;

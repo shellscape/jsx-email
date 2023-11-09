@@ -1,5 +1,37 @@
 # @jsx-email/tailwind ChangeLog
 
+## v3.0.2
+
+_2023-11-09_
+
+### Bugfixes
+
+- fix: update render dependency (09bd931)
+
+## v3.0.1
+
+_2023-11-07_
+
+### Bugfixes
+
+- fix: theme extensions (#69)
+
+## v3.0.0
+
+_2023-11-07_
+
+### Breaking Changes
+
+- feat!: rewrite component using `twind` (#60)
+
+## v2.4.4
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: responsive classname error (#55)
+
 ## v2.4.3
 
 _2023-10-29_

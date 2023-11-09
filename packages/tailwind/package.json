@@ -1,6 +1,6 @@
 {
   "name": "@jsx-email/tailwind",
-  "version": "2.4.3",
+  "version": "3.0.2",
   "publishConfig": {
     "access": "public"
   },
@@ -34,8 +34,9 @@
     "dist/**"
   ],
   "keywords": [
-    "react",
+    "jsx",
     "email",
+    "react",
     "tailwind"
   ],
   "peerDependencies": {
@@ -43,20 +44,20 @@
   },
   "dependencies": {
     "@jsx-email/render": "workspace:*",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tw-to-css": "0.0.12"
+    "cheerio": "1.0.0-rc.12",
+    "twind": "^0.16.19"
   },
   "devDependencies": {
     "@jsx-email/head": "workspace:*",
     "@jsx-email/hr": "workspace:*",
-    "@jsx-email/html": "workspace:*"
+    "@jsx-email/html": "workspace:*",
+    "react": "18.2.0"
   },
   "types": "dist/index.d.mts",
+  "bump": "1",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
   },
-  "sideEffects": false,
-  "versionBump": "1697153372"
+  "sideEffects": false
 }

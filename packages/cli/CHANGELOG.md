@@ -1,5 +1,75 @@
 # @jsx-email/cli ChangeLog
 
+## v2.0.0
+
+_2023-11-06_
+
+### Breaking Changes
+
+- feat!: move minify, pretty, strip into render. combine head tags (#59)
+
+## v1.4.3
+
+_2023-11-06_
+
+### Bugfixes
+
+- fix: use yargs, pretty should be optional (#58)
+
+## v1.4.2
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: clarify build examples, set default props correctly (#57)
+
+## v1.4.1
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: add spaces for camel case template names in preview (#54)
+
+## v1.4.0
+
+_2023-11-05_
+
+### Bugfixes
+
+- fix: make no-open preview option work correctly (#52)
+- fix: update link to documentation in preview home page (#51)
+
+### Features
+
+- feat: add client compatibility check (#49)
+
+## v1.3.0
+
+_2023-11-04_
+
+### Bugfixes
+
+- fix: update link to documentation in preview home page (#51)
+- fix: Normalize globby path for cli build command (#44)
+
+### Features
+
+- feat: add client compatibility check (#49)
+
+## v1.2.0
+
+_2023-11-03_
+
+### Bugfixes
+
+- fix: Normalize globby path for cli build command (#44)
+
+### Features
+
+- feat: add client compatibility check (#49)
+
 ## v1.1.1
 
 _2023-10-30_

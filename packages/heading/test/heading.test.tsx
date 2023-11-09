@@ -2,21 +2,21 @@ import { render } from '@jsx-email/render';
 
 import { Heading } from '../src';
 
-describe('render', () => {
+describe('render', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('renders children correctly', () => {
+  it('renders children correctly', async () => {
     const testMessage = 'Test message';
-    const html = render(<Heading>{testMessage}</Heading>);
+    const html = await render(<Heading>{testMessage}</Heading>);
     expect(html).toContain(testMessage);
   });
 
-  it('passes style and other props correctly', () => {
+  it('passes style and other props correctly', async () => {
     const style = { backgroundColor: 'red' };
-    const html = render(
+    const html = await render(
       <Heading style={style} data-testid="heading-test">
         Test
       </Heading>
@@ -25,8 +25,8 @@ describe('render', () => {
     expect(html).toContain('data-testid="heading-test"');
   });
 
-  it('renders the <Heading> component', () => {
-    const actualOutput = render(
+  it('renders the <Heading> component', async () => {
+    const actualOutput = await render(
       <Heading mx={4} as="h2">
         Lorem ipsum
       </Heading>

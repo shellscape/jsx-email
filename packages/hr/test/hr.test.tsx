@@ -8,16 +8,16 @@ describe('<Hr> component', () => {
     vi.resetModules();
   });
 
-  it('passes styles and other props correctly', () => {
+  it('passes styles and other props correctly', async () => {
     const style = { borderColor: 'black', width: '50%' };
-    const html = render(<Hr style={style} data-testid="hr-test" />);
+    const html = await render(<Hr style={style} data-testid="hr-test" />);
     expect(html).toContain('width:50%');
     expect(html).toContain('border-color:black');
     expect(html).toContain('data-testid="hr-test"');
   });
 
-  it('renders correctly', () => {
-    const actualOutput = render(<Hr />);
+  it('renders correctly', async () => {
+    const actualOutput = await render(<Hr />);
     expect(actualOutput).toMatchSnapshot();
   });
 });

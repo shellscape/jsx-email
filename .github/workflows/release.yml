@@ -27,9 +27,13 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v4
         with:
-          fetch-depth: 10
+          fetch-depth: 100
+          fetch-tags: true
           ref: main
           token: ${{ secrets.GH_TOKEN }}
+
+      - name: Fetch Tags
+        run: git fetch --tags
 
       - name: Set Git Config
         run: |

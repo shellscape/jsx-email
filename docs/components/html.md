@@ -2,6 +2,7 @@
 title: HTML
 description: Wraps the email document with a root element
 slug: html
+type: component
 ---
 
 <!--@include: @/include/header.md-->

@@ -2,21 +2,21 @@ import { render } from '@jsx-email/render';
 
 import { Container } from '../src';
 
-describe('<Container> component', () => {
+describe('<Container> component', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('renders children correctly', () => {
+  it('renders children correctly', async () => {
     const testMessage = 'Test message';
-    const html = render(<Container>{testMessage}</Container>);
+    const html = await render(<Container>{testMessage}</Container>);
     expect(html).toContain(testMessage);
   });
 
-  it('passes style and other props correctly', () => {
+  it('passes style and other props correctly', async () => {
     const style = { backgroundColor: 'red', maxWidth: 300 };
-    const html = render(
+    const html = await render(
       <Container style={style} data-testid="container-test">
         Test
       </Container>
@@ -25,8 +25,8 @@ describe('<Container> component', () => {
     expect(html).toContain('data-testid="container-test"');
   });
 
-  it('renders correctly', () => {
-    const container = render(
+  it('renders correctly', async () => {
+    const container = await render(
       <Container style={{ maxWidth: '300px' }}>
         <button>Hi</button>
       </Container>

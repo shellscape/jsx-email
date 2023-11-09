@@ -2,15 +2,15 @@ import { render } from '@jsx-email/render';
 
 import { Img } from '../src';
 
-describe('<Img> component', () => {
+describe('<Img> component', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('passes style and other props correctly', () => {
+  it('passes style and other props correctly', async () => {
     const style = { backgroundColor: 'red', border: 'solid 1px black' };
-    const html = render(
+    const html = await render(
       <Img src="cat.jpg" alt="Cat" width="300" height="300" style={style} data-testid="img-test" />
     );
     expect(html).toContain('background-color:red');
@@ -18,8 +18,8 @@ describe('<Img> component', () => {
     expect(html).toContain('data-testid="img-test"');
   });
 
-  it('renders correctly', () => {
-    const actualOutput = render(<Img src="cat.jpg" alt="Cat" width="300" height="300" />);
+  it('renders correctly', async () => {
+    const actualOutput = await render(<Img src="cat.jpg" alt="Cat" width="300" height="300" />);
     expect(actualOutput).toMatchSnapshot();
   });
 });

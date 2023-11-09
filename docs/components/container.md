@@ -2,6 +2,7 @@
 title: 'Container'
 description: Horizontally center child components and content
 slug: container
+type: component
 ---
 
 <!--@include: @/include/header.md-->

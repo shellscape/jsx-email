@@ -1,5 +1,21 @@
 # @jsx-email/render ChangeLog
 
+## v3.0.0
+
+_2023-11-09_
+
+### Breaking Changes
+
+- feat!: `Suspense` and psuedo-async component support (#71)
+
+## v2.0.0
+
+_2023-11-06_
+
+### Breaking Changes
+
+- feat!: move minify, pretty, strip into render. combine head tags (#59)
+
 ## v1.1.1
 
 _2023-10-23_

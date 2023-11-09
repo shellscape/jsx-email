@@ -30,7 +30,7 @@ export const Home = ({ templateNames }: { templateNames: string[] }) => {
 
         <SlotPrimitive.Slot className="mt-4 inline-block focus:ring-2 focus:ring-white/20 focus:outline-none focus:bg-white/90 text-base py-2 px-4 rounded gap-2 bg-cta-bg text-cta-text hover:bg-cta-bg-hover">
           <SlotPrimitive.Slottable>
-            <a href="https://react.email/docs">Read our Documentation</a>
+            <a href="https://jsx.email/docs/introduction">Read our Documentation</a>
           </SlotPrimitive.Slottable>
         </SlotPrimitive.Slot>
       </div>

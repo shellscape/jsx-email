@@ -2,6 +2,7 @@
 title: 'Body'
 description: 'A JSX email component for using a React `Body` component to wrap email content'
 slug: body
+type: component
 ---
 
 <!--@include: @/include/header.md-->

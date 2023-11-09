@@ -2,6 +2,7 @@
 title: 'All (The Things)'
 description: 'This package exports all of the JSX email components'
 slug: all
+type: component
 ---
 
 <!--@include: @/include/header.md-->

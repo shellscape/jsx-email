@@ -1,20 +1,21 @@
-import { renderToStaticMarkup as render } from 'react-dom/server';
-import { type TailwindConfig } from 'tw-to-css';
+import { jsxToString } from '@jsx-email/render';
 import { Hr } from '@jsx-email/hr';
 import { Head } from '@jsx-email/head';
 import { Html } from '@jsx-email/html';
 
-import { Tailwind } from '../dist';
+import { Tailwind, type TailwindProps } from '../dist';
 
-describe('Tailwind component', () => {
+type TailwindConfig = Partial<TailwindProps['config']>;
+
+describe('Tailwind component', async () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  describe('Inline styles', () => {
-    it('should render children with inline Tailwind styles', () => {
-      const actualOutput = render(
+  describe('Inline styles', async () => {
+    it('should render children with inline Tailwind styles', async () => {
+      const actualOutput = await jsxToString(
         <Tailwind>
           <div className="bg-white text-sm" />
         </Tailwind>
@@ -24,8 +25,8 @@ describe('Tailwind component', () => {
     });
   });
 
-  it('should be able to use background image', () => {
-    const actualOutput = render(
+  it('should be able to use background image', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <div className="bg-[url(https://example.com/image.png)]" />
       </Tailwind>
@@ -34,8 +35,8 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should override inline styles with Tailwind styles', () => {
-    const actualOutput = render(
+  it('should override inline styles with Tailwind styles', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <div
           style={{ backgroundColor: 'red', fontSize: '12px' }}
@@ -47,8 +48,8 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should override component styles with Tailwind styles', () => {
-    const actualOutput = render(
+  it('should override component styles with Tailwind styles', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <Hr className="w-12" />
       </Tailwind>
@@ -58,9 +59,9 @@ describe('Tailwind component', () => {
   });
 });
 
-describe('Responsive styles', () => {
-  it('should add css to <head/>', () => {
-    const actualOutput = render(
+describe('Responsive styles', async () => {
+  it('should add css to <head/>', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <html>
           <head />
@@ -74,49 +75,8 @@ describe('Responsive styles', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should throw an error when used without either <html/> or <head/> tags', () => {
-    function noHtmlOrHead() {
-      render(
-        <Tailwind>
-          <div className="bg-red-200 sm:bg-red-500" />
-        </Tailwind>
-      );
-    }
-    expect(noHtmlOrHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
-    );
-
-    function noHtml() {
-      render(
-        <Tailwind>
-          <head>
-            <title>Test</title>
-          </head>
-          <div className="bg-red-200 sm:bg-red-500" />
-        </Tailwind>
-      );
-    }
-    expect(noHtml).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
-    );
-
-    function noHead() {
-      render(
-        <Tailwind>
-          <html>
-            {/* <Head></Head> */}
-            <div className="bg-red-200 sm:bg-red-500" />
-          </html>
-        </Tailwind>
-      );
-    }
-    expect(noHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
-    );
-  });
-
-  it('should persist exsisting <head/> elements', () => {
-    const actualOutput = render(
+  it('should persist exsisting <head/> elements', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <html>
           <head>
@@ -134,8 +94,8 @@ describe('Responsive styles', () => {
   });
 });
 
-describe('Custom theme config', () => {
-  it('should be able to use custom colors', () => {
+describe('Custom theme config', async () => {
+  it('should be able to use custom colors', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -146,7 +106,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="text-custom bg-custom" />
       </Tailwind>
@@ -155,7 +115,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom colors', () => {
+  it('should be able to use custom colors', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -167,7 +127,7 @@ describe('Custom theme config', () => {
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="font-sans" />
         <div className="font-serif" />
@@ -177,7 +137,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom spacing', () => {
+  it('should be able to use custom spacing', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -187,7 +147,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="m-8xl"></div>
       </Tailwind>
@@ -195,7 +155,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom border radius', () => {
+  it('should be able to use custom border radius', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -205,7 +165,7 @@ describe('Custom theme config', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="rounded-4xl" />
       </Tailwind>
@@ -213,18 +173,18 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom text alignment', () => {
+  it('should be able to use custom text alignment', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
           textAlign: {
             justify: 'justify'
           }
-        }
+        } as any
       }
     };
 
-    const actualOutput = render(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <div className="text-justify" />
       </Tailwind>
@@ -234,64 +194,9 @@ describe('Custom theme config', () => {
   });
 });
 
-describe('Custom plugins config', () => {
-  it('should be able to use custom plugins', () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid'
-            }
-          };
-
-          addUtilities(newUtilities);
-        }
-      ]
-    };
-
-    const actualOutput = render(
-      <Tailwind config={config}>
-        <div className="border-custom" />
-      </Tailwind>
-    );
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-
-  it('should be able to use custom plugins with responsive styles', () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid'
-            }
-          };
-
-          addUtilities(newUtilities);
-        }
-      ]
-    };
-
-    const actualOutput = render(
-      <Tailwind config={config}>
-        <html>
-          <head />
-          <body>
-            <div className="border-custom sm:border-custom" />
-          </body>
-        </html>
-      </Tailwind>
-    );
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-});
-
-describe('<Tailwind> component', () => {
-  it('should preserve mso styles', () => {
-    const actualOutput = render(
+describe('<Tailwind> component', async () => {
+  it('should preserve mso styles', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <Html>
           <Head />
@@ -306,11 +211,11 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"'
+      '"<div data-id=\\"__jsx-email-twnd\\"><head data-id=\\"__jsx-email-twnd\\"><style twind=\\"\\">button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;margin:0;padding:0;line-height:inherit;color:inherit}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\"}table{text-indent:0;border-color:inherit;border-collapse:collapse}hr{height:0;color:inherit;border-top-width:1px}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}button{background-color:transparent;background-image:none}body{font-family:inherit;line-height:inherit}*,::before,::after{box-sizing:border-box;border:0 solid #e5e7eb}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}::-moz-focus-inner{border-style:none;padding:0}[type=\\"search\\"]{-webkit-appearance:textfield;outline-offset:-2px}pre,code,kbd,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;font-size:1em}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}body,blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre,fieldset,ol,ul{margin:0}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}fieldset,ol,ul,legend{padding:0}textarea{resize:vertical}button,[role=\\"button\\"]{cursor:pointer}:-moz-focusring{outline:1px dotted ButtonText}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}summary{display:list-item}:root{-moz-tab-size:4;tab-size:4}ol,ul{list-style:none}img{border-style:solid}button,select{text-transform:none}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}sub{bottom:-0.25em}sup{top:-0.5em}button,[type=\\"button\\"],[type=\\"reset\\"],[type=\\"submit\\"]{-webkit-appearance:button}::-webkit-search-decoration{-webkit-appearance:none}.bg-white{--tw-bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--tw-bg-opacity))}@media (min-width:640px){.sm\\\\:bg-red-50{--tw-bg-opacity:1;background-color:#fef2f2;background-color:rgba(254,242,242,var(--tw-bg-opacity))}}@media (min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}}@media (min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></head><html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"bg-white sm:bg-red-50 sm:text-sm md:text-lg custom-class\\"/></html></div>"'
     );
   });
 
-  it('should recognize custom resopnsive screen', () => {
+  it('should recognize custom resopnsive screen', async () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
@@ -325,7 +230,7 @@ describe('<Tailwind> component', () => {
         }
       }
     };
-    const actualOutput = render(
+    const actualOutput = await jsxToString(
       <Tailwind config={config}>
         <Html>
           <Head />
@@ -336,12 +241,12 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></head><div>Test</div><div>Test</div></html>"'
+      '"<div data-id=\\"__jsx-email-twnd\\"><head data-id=\\"__jsx-email-twnd\\"><style twind=\\"\\">button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;margin:0;padding:0;line-height:inherit;color:inherit}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\"}table{text-indent:0;border-color:inherit;border-collapse:collapse}hr{height:0;color:inherit;border-top-width:1px}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}button{background-color:transparent;background-image:none}body{font-family:inherit;line-height:inherit}*,::before,::after{box-sizing:border-box;border:0 solid #e5e7eb}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}::-moz-focus-inner{border-style:none;padding:0}[type=\\"search\\"]{-webkit-appearance:textfield;outline-offset:-2px}pre,code,kbd,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;font-size:1em}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}body,blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre,fieldset,ol,ul{margin:0}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}fieldset,ol,ul,legend{padding:0}textarea{resize:vertical}button,[role=\\"button\\"]{cursor:pointer}:-moz-focusring{outline:1px dotted ButtonText}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}summary{display:list-item}:root{-moz-tab-size:4;tab-size:4}ol,ul{list-style:none}img{border-style:solid}button,select{text-transform:none}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}sub{bottom:-0.25em}sup{top:-0.5em}button,[type=\\"button\\"],[type=\\"reset\\"],[type=\\"submit\\"]{-webkit-appearance:button}::-webkit-search-decoration{-webkit-appearance:none}@media (min-width:1280px){.xl\\\\:bg-green-500{--tw-bg-opacity:1;background-color:#10b981;background-color:rgba(16,185,129,var(--tw-bg-opacity))}}@media (min-width:1536px){.\\\\32 xl\\\\:bg-blue-500{--tw-bg-opacity:1;background-color:#3b82f6;background-color:rgba(59,130,246,var(--tw-bg-opacity))}}</style></head><html data-id=\\"@jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"@jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/></head><div class=\\"xl:bg-green-500\\">Test</div><div class=\\"2xl:bg-blue-500\\">Test</div></html></div>"'
     );
   });
 
-  it('should work with calc() with + sign', () => {
-    const actualOutput = render(
+  it('should work with calc() with + sign', async () => {
+    const actualOutput = await jsxToString(
       <Tailwind>
         <div className="max-h-[calc(50px+3rem)] bg-red-100">
           <div className="h-[200px]">something tall</div>
@@ -350,7 +255,7 @@ describe('<Tailwind> component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"'
+      '"<div data-id=\\"__jsx-email-twnd\\"><head data-id=\\"__jsx-email-twnd\\"><style twind=\\"\\">button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;margin:0;padding:0;line-height:inherit;color:inherit}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Arial,\\"Noto Sans\\",sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\",\\"Segoe UI Symbol\\",\\"Noto Color Emoji\\"}table{text-indent:0;border-color:inherit;border-collapse:collapse}hr{height:0;color:inherit;border-top-width:1px}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}button{background-color:transparent;background-image:none}body{font-family:inherit;line-height:inherit}*,::before,::after{box-sizing:border-box;border:0 solid #e5e7eb}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}::-moz-focus-inner{border-style:none;padding:0}[type=\\"search\\"]{-webkit-appearance:textfield;outline-offset:-2px}pre,code,kbd,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace;font-size:1em}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}body,blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre,fieldset,ol,ul{margin:0}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}fieldset,ol,ul,legend{padding:0}textarea{resize:vertical}button,[role=\\"button\\"]{cursor:pointer}:-moz-focusring{outline:1px dotted ButtonText}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}summary{display:list-item}:root{-moz-tab-size:4;tab-size:4}ol,ul{list-style:none}img{border-style:solid}button,select{text-transform:none}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}sub{bottom:-0.25em}sup{top:-0.5em}button,[type=\\"button\\"],[type=\\"reset\\"],[type=\\"submit\\"]{-webkit-appearance:button}::-webkit-search-decoration{-webkit-appearance:none}.bg-red-100{--tw-bg-opacity:1;background-color:#fee2e2;background-color:rgba(254,226,226,var(--tw-bg-opacity))}.h-\\\\[200px\\\\]{height:200px}.max-h-\\\\[calc\\\\(50px\\\\+3rem\\\\)\\\\]{max-height:calc(50px + 3rem)}</style></head><div class=\\"max-h-[calc(50px+3rem)] bg-red-100\\"><div class=\\"h-[200px]\\">something tall</div></div></div>"'
     );
   });
 });

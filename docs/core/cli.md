@@ -1,22 +1,14 @@
 ---
 title: 'CLI'
 description: 'The Command Line Interface and developer tooling for JSX email'
+params: -D
 slug: cli
+type: package
 ---
 
 <!--@include: @/include/header.md-->
 
-## Installation
-
-```shell
-pnpm add @jsx-email/cli -D
-
-# We recommend pnpm - https://pnpm.io
-# But npm and yarn are supported
-# npm add @jsx-email/cli -D
-# bun add @jsx-email/cli -D
-# yarn add @jsx-email/cli -D
-```
+<!--@include: @/include/install.md-->
 
 Nearly all installations of this package will want it installed into `devDependencies` so please make sure to add the `-D` flag.
 
@@ -56,7 +48,33 @@ Examples
 
 To view help for specific commands, use `email help <command>`. e.g. `email help build`.
 
-## Preview Tool
+## Build
+
+The `build` command compiles and renders an email template to HTML for use with an email provider. The command takes a directory or single file as input:
+
+```console
+$ cd ~/code/email-app
+$ email build ./emails
+```
+
+Or for a single file:
+
+```console
+$ cd ~/code/email-app
+$ email build ./emails/Batman.tsx
+```
+
+### Client Compatibility Check
+
+As part of the build process, `jsx-email` can run a client compatibility check on the ouput, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client compatibility issues. This check will not throw an error or block any pipelines, and is purely informative.
+
+To enable this check, use the `--check` flag.
+
+```console
+$ email build ./emails/Batman.tsx --check
+```
+
+## Preview
 
 JSX email ships with a Preview Tool as part of the CLI. Our Preview is fast, simple, and smooth. It doesn't require installing any crazy dependencies, downloading additional "clients," or copying your project's dependencies. It just works. And the best part: it works with monorepos out of the box.
 

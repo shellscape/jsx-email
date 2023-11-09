@@ -21,12 +21,14 @@ interface TemplateData extends TemplateExports {
   jsx: string;
 }
 
+const addSpacesForCamelCaseName = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2');
+
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');
   const segment = chunks.at(-1);
   const basename = segment!.split(/\.[^.]+$/)[0];
 
-  return titleize(basename);
+  return titleize(addSpacesForCamelCaseName(basename));
 };
 
 const modules = import.meta.glob('@/*.tsx', { eager: true });
@@ -48,7 +50,7 @@ const templates = await Promise.all(
 
 const templateNames = templates.map((template) => template.Name!);
 
-const templateRoutes: RouteObject[] = templates.map((template) => {
+const templateRoutes = templates.map(async (template) => {
   const { Name, PreviewProps, Struct, Template } = template;
   let props: any;
 
@@ -61,14 +63,14 @@ const templateRoutes: RouteObject[] = templates.map((template) => {
     props = (Template as any).PreviewProps;
   }
 
-  const html = render(<Template {...props} />, { pretty: true });
-  const plainText = render(<Template {...props} />, { plainText: true });
+  const html = await render(<Template {...props} />, { pretty: true });
+  const plainText = await render(<Template {...props} />, { plainText: true });
   const element = (
     <Layout>
       <Preview {...{ html, jsx: template.jsx, plainText, templateNames, title: Name! }} />
     </Layout>
   );
-  return { element, path: `/${template.Name}` };
+  return { element, path: `/${template.Name}` } as RouteObject;
 });
 
 const router = createBrowserRouter([
@@ -81,7 +83,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     path: '/'
   },
-  ...templateRoutes
+  ...(await Promise.all(templateRoutes))
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
