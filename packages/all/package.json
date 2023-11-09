@@ -46,6 +46,7 @@
   "dependencies": {
     "@jsx-email/body": "workspace:*",
     "@jsx-email/button": "workspace:*",
+    "@jsx-email/code": "workspace:*",
     "@jsx-email/column": "workspace:*",
     "@jsx-email/container": "workspace:*",
     "@jsx-email/font": "workspace:*",

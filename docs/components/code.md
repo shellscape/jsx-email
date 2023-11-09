@@ -47,5 +47,3 @@ theme?: string;
 _Optional_. Defaults to `'nord'`. Specifies the theme to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/themes.md) for more information on supported themes, modifying themes, and how to make your own.
 
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'pre'>`.
-
-
