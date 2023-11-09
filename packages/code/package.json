@@ -43,7 +43,7 @@
   "dependencies": {
     "@jsx-email/render": "workspace:*",
     "p-memoize": "4.0.4",
-    "shiki": "^0.14.5"
+    "shikiji": "^0.6.8"
   },
   "types": "dist/index.d.mts",
   "funding": {
