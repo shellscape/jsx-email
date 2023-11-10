@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v3.0.0
+
+_2023-11-10_
+
+### Breaking Changes
+
+- chore!: update dependencies (ec1eaea)
+
 ## v2.0.0
 
 _2023-11-06_
