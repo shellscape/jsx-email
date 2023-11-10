@@ -62,6 +62,7 @@
     "@types/mustache": "^4.2.3",
     "@types/yargs-parser": "^21.0.2"
   },
+  "bump": "1",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
