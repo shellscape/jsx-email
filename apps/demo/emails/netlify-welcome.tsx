@@ -24,7 +24,7 @@ interface NetlifyWelcomeEmailProps {
   links?: string[];
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 const PropDefaults: NetlifyWelcomeEmailProps = {
   steps: [
@@ -96,7 +96,7 @@ export const NetlifyWelcomeEmail = ({
       >
         <Body className="bg-offwhite text-base font-sans">
           <Img
-            src={`${baseUrl}/static/netlify-logo.png`}
+            src={`${baseUrl}netlify-logo.png`}
             width="184"
             height="75"
             alt="Netlify"

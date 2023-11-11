@@ -18,7 +18,7 @@ interface LinearLoginCodeEmailProps {
   validationCode?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const LinearLoginCodeEmail = ({ validationCode }: LinearLoginCodeEmailProps) => (
   <Html>
@@ -26,13 +26,7 @@ export const LinearLoginCodeEmail = ({ validationCode }: LinearLoginCodeEmailPro
     <Preview>Your login code for Linear</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/linear-logo.png`}
-          width="42"
-          height="42"
-          alt="Linear"
-          style={logo}
-        />
+        <Img src={`${baseUrl}linear-logo.png`} width="42" height="42" alt="Linear" style={logo} />
         <Heading style={heading}>Your login code for Linear</Heading>
         <Section style={buttonContainer}>
           <Button style={button} href="https://linear.app">

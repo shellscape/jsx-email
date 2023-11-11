@@ -5,7 +5,7 @@ interface NotionMagicLinkEmailProps {
   loginCode?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const NotionMagicLinkEmail = ({ loginCode }: NotionMagicLinkEmailProps) => (
   <Html>
@@ -49,7 +49,7 @@ export const NotionMagicLinkEmail = ({ loginCode }: NotionMagicLinkEmailProps) =
         >
           Hint: You can set a permanent password in Settings & members → My account.
         </Text>
-        <Img src={`${baseUrl}/static/notion-logo.png`} width="32" height="32" alt="Notion's Logo" />
+        <Img src={`${baseUrl}notion-logo.png`} width="32" height="32" alt="Notion's Logo" />
         <Text style={footer}>
           <Link href="https://notion.so" target="_blank" style={{ ...link, color: '#898989' }}>
             Notion.so

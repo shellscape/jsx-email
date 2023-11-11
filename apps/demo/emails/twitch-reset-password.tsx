@@ -11,101 +11,13 @@ import {
   Section,
   Text
 } from '@jsx-email/all';
-import * as React from 'react';
 
 interface TwitchResetPasswordEmailProps {
   username?: string;
   updatedDate?: Date;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
-
-export const TwitchResetPasswordEmail = ({
-  username,
-  updatedDate
-}: TwitchResetPasswordEmailProps) => {
-  const formattedDate = new Intl.DateTimeFormat('en', {
-    dateStyle: 'medium',
-    timeStyle: 'medium'
-  }).format(updatedDate);
-
-  return (
-    <Html>
-      <Head />
-      <Preview>You updated the password for your Twitch account</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Section style={logo}>
-            <Img width={114} src={`${baseUrl}/static/twitch-logo.png`} />
-          </Section>
-          <Section style={sectionsBorders}>
-            <Row>
-              <Column style={sectionBorder} />
-              <Column style={sectionCenter} />
-              <Column style={sectionBorder} />
-            </Row>
-          </Section>
-          <Section style={content}>
-            <Text style={paragraph}>Hi {username},</Text>
-            <Text style={paragraph}>
-              You updated the password for your Twitch account on {formattedDate}. If this was you,
-              then no further action is required.
-            </Text>
-            <Text style={paragraph}>
-              However if you did NOT perform this password change, please{' '}
-              <Link href="#" style={link}>
-                reset your account password
-              </Link>{' '}
-              immediately.
-            </Text>
-            <Text style={paragraph}>
-              Remember to use a password that is both strong and unique to your Twitch account. To
-              learn more about how to create a strong and unique password,{' '}
-              <Link href="#" style={link}>
-                click here.
-              </Link>
-            </Text>
-            <Text style={paragraph}>
-              Still have questions? Please contact{' '}
-              <Link href="#" style={link}>
-                Twitch Support
-              </Link>
-            </Text>
-            <Text style={paragraph}>
-              Thanks,
-              <br />
-              Twitch Support Team
-            </Text>
-          </Section>
-        </Container>
-
-        <Section style={footer}>
-          <Row>
-            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
-              <Img src={`${baseUrl}/static/twitch-icon-twitter.png`} />
-            </Column>
-            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
-              <Img src={`${baseUrl}/static/twitch-icon-facebook.png`} />
-            </Column>
-          </Row>
-          <Row>
-            <Text style={{ textAlign: 'center', color: '#706a7b' }}>
-              © 2022 Twitch, All Rights Reserved <br />
-              350 Bush Street, 2nd Floor, San Francisco, CA, 94104 - USA
-            </Text>
-          </Row>
-        </Section>
-      </Body>
-    </Html>
-  );
-};
-
-TwitchResetPasswordEmail.PreviewProps = {
-  username: 'zenorocha',
-  updatedDate: new Date('June 23, 2022 4:06:00 pm UTC')
-} as TwitchResetPasswordEmailProps;
-
-export default TwitchResetPasswordEmail;
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 const fontFamily = 'HelveticaNeue,Helvetica,Arial,sans-serif';
 
@@ -159,3 +71,90 @@ const sectionCenter = {
 const link = {
   textDecoration: 'underline'
 };
+
+export const TwitchResetPasswordEmail = ({
+  username,
+  updatedDate
+}: TwitchResetPasswordEmailProps) => {
+  const formattedDate = new Intl.DateTimeFormat('en', {
+    dateStyle: 'medium',
+    timeStyle: 'medium'
+  }).format(updatedDate);
+
+  return (
+    <Html>
+      <Head />
+      <Preview>You updated the password for your Twitch account</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Section style={logo}>
+            <Img width={114} src={`${baseUrl}twitch-logo.png`} />
+          </Section>
+          <Section style={sectionsBorders}>
+            <Row>
+              <Column style={sectionBorder} />
+              <Column style={sectionCenter} />
+              <Column style={sectionBorder} />
+            </Row>
+          </Section>
+          <Section style={content}>
+            <Text style={paragraph}>Hi {username},</Text>
+            <Text style={paragraph}>
+              You updated the password for your Twitch account on {formattedDate}. If this was you,
+              then no further action is required.
+            </Text>
+            <Text style={paragraph}>
+              However if you did NOT perform this password change, please{' '}
+              <Link href="#" style={link}>
+                reset your account password
+              </Link>{' '}
+              immediately.
+            </Text>
+            <Text style={paragraph}>
+              Remember to use a password that is both strong and unique to your Twitch account. To
+              learn more about how to create a strong and unique password,{' '}
+              <Link href="#" style={link}>
+                click here.
+              </Link>
+            </Text>
+            <Text style={paragraph}>
+              Still have questions? Please contact{' '}
+              <Link href="#" style={link}>
+                Twitch Support
+              </Link>
+            </Text>
+            <Text style={paragraph}>
+              Thanks,
+              <br />
+              Twitch Support Team
+            </Text>
+          </Section>
+        </Container>
+
+        <Section style={footer}>
+          <Row>
+            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
+              <Img src={`${baseUrl}twitch-icon-twitter.png`} />
+            </Column>
+            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
+              <Img src={`${baseUrl}twitch-icon-facebook.png`} />
+            </Column>
+          </Row>
+          <Row>
+            <Text style={{ textAlign: 'center', color: '#706a7b' }}>
+              © 2022 Twitch, All Rights Reserved <br />
+              350 Bush Street, 2nd Floor, San Francisco, CA, 94104 - USA
+            </Text>
+          </Row>
+        </Section>
+      </Body>
+    </Html>
+  );
+};
+
+TwitchResetPasswordEmail.PreviewProps = {
+  username: 'Batman',
+  updatedDate: new Date('June 23, 2022 4:06:00 pm UTC')
+} as TwitchResetPasswordEmailProps;
+
+export default TwitchResetPasswordEmail;

@@ -19,7 +19,7 @@ interface StackOverflowTipsEmailProps {
   tips?: { id: number; description: string }[];
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 const PropDefaults: StackOverflowTipsEmailProps = {
   tips: [
@@ -46,7 +46,7 @@ export const StackOverflowTipsEmail = ({ tips = [] }: StackOverflowTipsEmailProp
     <Body style={main}>
       <Container style={container}>
         <Section style={logo}>
-          <Img width={146} src={`${baseUrl}/static/stack-overflow-logo.png`} />
+          <Img width={146} src={`${baseUrl}stack-overflow-logo.png`} />
         </Section>
 
         <Section style={header}>
@@ -58,7 +58,7 @@ export const StackOverflowTipsEmail = ({ tips = [] }: StackOverflowTipsEmailProp
               </Text>
             </Column>
             <Column style={headerImageContainer}>
-              <Img width={340} src={`${baseUrl}/static/stack-overflow-header.png`} />
+              <Img width={340} src={`${baseUrl}stack-overflow-header.png`} />
             </Column>
           </Row>
         </Section>
@@ -127,7 +127,7 @@ export const StackOverflowTipsEmail = ({ tips = [] }: StackOverflowTipsEmailProp
 
         <Hr style={footerDivider} />
 
-        <Img width={111} src={`${baseUrl}/static/stack-overflow-logo-sm.png`} />
+        <Img width={111} src={`${baseUrl}stack-overflow-logo-sm.png`} />
         <Text style={footerAddress}>
           <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New York, NY 10038
         </Text>

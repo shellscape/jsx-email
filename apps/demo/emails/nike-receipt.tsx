@@ -15,7 +15,7 @@ import {
 } from '@jsx-email/all';
 import * as React from 'react';
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const NikeReceiptEmail = () => (
   <Html>
@@ -37,7 +37,7 @@ export const NikeReceiptEmail = () => (
         <Hr style={global.hr} />
         <Section style={message}>
           <Img
-            src={`${baseUrl}/static/nike-logo.png`}
+            src={`${baseUrl}nike-logo.png`}
             width="66"
             height="22"
             alt="Nike"
@@ -65,7 +65,7 @@ export const NikeReceiptEmail = () => (
           <Row>
             <Column>
               <Img
-                src={`${baseUrl}/static/nike-product.png`}
+                src={`${baseUrl}nike-product.png`}
                 alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
                 style={{ float: 'left' }}
                 width="260px"
@@ -105,7 +105,7 @@ export const NikeReceiptEmail = () => (
           <Row style={recomendations.container}>
             <Column style={{ ...recomendations.product, paddingLeft: '4px' }} align="center">
               <Img
-                src={`${baseUrl}/static/nike-recomendation-1.png`}
+                src={`${baseUrl}nike-recomendation-1.png`}
                 alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
                 width="100%"
               />
@@ -114,7 +114,7 @@ export const NikeReceiptEmail = () => (
             </Column>
             <Column style={recomendations.product} align="center">
               <Img
-                src={`${baseUrl}/static/nike-recomendation-2.png`}
+                src={`${baseUrl}nike-recomendation-2.png`}
                 alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
                 width="100%"
               />
@@ -125,7 +125,7 @@ export const NikeReceiptEmail = () => (
             </Column>
             <Column style={recomendations.product} align="center">
               <Img
-                src={`${baseUrl}/static/nike-recomendation-4.png`}
+                src={`${baseUrl}nike-recomendation-4.png`}
                 alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
                 width="100%"
               />
@@ -134,7 +134,7 @@ export const NikeReceiptEmail = () => (
             </Column>
             <Column style={{ ...recomendations.product, paddingRight: '4px' }} align="center">
               <Img
-                src={`${baseUrl}/static/nike-recomendation-4.png`}
+                src={`${baseUrl}nike-recomendation-4.png`}
                 alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
                 width="100%"
               />
@@ -183,7 +183,7 @@ export const NikeReceiptEmail = () => (
               <Row>
                 <Column style={{ width: '16px' }}>
                   <Img
-                    src={`${baseUrl}/static/nike-phone.png`}
+                    src={`${baseUrl}nike-phone.png`}
                     width="16px"
                     height="26px"
                     style={{ paddingRight: '14px' }}

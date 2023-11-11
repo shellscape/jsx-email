@@ -18,6 +18,11 @@ tasks:
     options:
       cache: false
 
+  copy:
+    command: cp -r src/public/demo dist/assets/demo
+    options:
+      cache: false
+
   dev:
     command: vitepress dev
     options:
@@ -34,6 +39,7 @@ tasks:
       - ~:clean.dist
       - build
       - cname
+      - copy
     options:
       cache: false
       outputStyle: 'stream'

@@ -15,7 +15,6 @@ import {
   Text
 } from '@jsx-email/all';
 import { Tailwind } from '@jsx-email/tailwind';
-import * as React from 'react';
 
 interface VercelInviteUserEmailProps {
   username?: string;
@@ -29,7 +28,7 @@ interface VercelInviteUserEmailProps {
   inviteFromLocation?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const VercelInviteUserEmail = ({
   username,
@@ -53,7 +52,7 @@ export const VercelInviteUserEmail = ({
           <Container className="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
             <Section className="mt-[32px]">
               <Img
-                src={`${baseUrl}/static/vercel-logo.png`}
+                src={`${baseUrl}vercel-logo.png`}
                 width="40"
                 height="37"
                 alt="Vercel"
@@ -78,7 +77,7 @@ export const VercelInviteUserEmail = ({
                 </Column>
                 <Column align="center">
                   <Img
-                    src={`${baseUrl}/static/vercel-arrow.png`}
+                    src={`${baseUrl}vercel-arrow.png`}
                     width="12"
                     height="9"
                     alt="invited you to"
@@ -119,15 +118,15 @@ export const VercelInviteUserEmail = ({
 };
 
 VercelInviteUserEmail.PreviewProps = {
-  username: 'zenorocha',
-  userImage: `${baseUrl}/static/vercel-user.png`,
-  invitedByUsername: 'bukinoshita',
-  invitedByEmail: 'bukinoshita@example.com',
-  teamName: 'My Project',
-  teamImage: `${baseUrl}/static/vercel-team.png`,
+  username: 'batman',
+  userImage: `${baseUrl}batman-adam.jpg`,
+  invitedByUsername: 'joker',
+  invitedByEmail: 'joker@arkham.com',
+  teamName: 'Batmobile',
+  teamImage: `${baseUrl}vercel-team.png`,
   inviteLink: 'https://vercel.com/teams/invite/foo',
-  inviteFromIp: '204.13.186.218',
-  inviteFromLocation: 'São Paulo, Brazil'
+  inviteFromIp: '123.45.678.910',
+  inviteFromLocation: 'Gotham City'
 } as VercelInviteUserEmailProps;
 
 export default VercelInviteUserEmail;

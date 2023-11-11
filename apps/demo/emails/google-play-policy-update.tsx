@@ -14,7 +14,7 @@ import {
 } from '@jsx-email/all';
 import * as React from 'react';
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const GooglePlayPolicyUpdateEmail = () => (
   <Html>
@@ -27,14 +27,14 @@ export const GooglePlayPolicyUpdateEmail = () => (
             <Column>
               <Img
                 style={headerBlue}
-                src={`${baseUrl}/static/google-play-header.png`}
+                src={`${baseUrl}google-play-header.png`}
                 width="305"
                 height="28"
                 alt="Google Play developers header blue transparent"
               />
               <Img
                 style={sectionLogo}
-                src={`${baseUrl}/static/google-play-logo.png`}
+                src={`${baseUrl}google-play-logo.png`}
                 width="155"
                 height="31"
                 alt="Google Play"
@@ -105,22 +105,22 @@ export const GooglePlayPolicyUpdateEmail = () => (
           >
             <Column style={{ paddingRight: '4px' }}>
               <Link href="https://notifications.google.com">
-                <Img width="28" height="28" src={`${baseUrl}/static/google-play-chat.png`} />
+                <Img width="28" height="28" src={`${baseUrl}google-play-chat.png`} />
               </Link>
             </Column>
             <Column style={{ paddingRight: '4px' }}>
               <Link href="https://notifications.google.com">
-                <Img width="28" height="28" src={`${baseUrl}/static/google-play-icon.png`} />
+                <Img width="28" height="28" src={`${baseUrl}google-play-icon.png`} />
               </Link>
             </Column>
             <Column style={{ paddingRight: '4px' }}>
               <Link href="https://notifications.google.com">
-                <Img width="28" height="28" src={`${baseUrl}/static/google-play-academy.png`} />
+                <Img width="28" height="28" src={`${baseUrl}google-play-academy.png`} />
               </Link>
             </Column>
           </Row>
           <Row>
-            <Img width="540" height="48" src={`${baseUrl}/static/google-play-footer.png`} />
+            <Img width="540" height="48" src={`${baseUrl}google-play-footer.png`} />
           </Row>
         </Section>
 

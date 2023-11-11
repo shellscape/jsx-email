@@ -16,7 +16,7 @@ interface GithubAccessTokenEmailProps {
   username?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const GithubAccessTokenEmail = ({ username }: GithubAccessTokenEmailProps) => (
   <Html>
@@ -24,7 +24,7 @@ export const GithubAccessTokenEmail = ({ username }: GithubAccessTokenEmailProps
     <Preview>A fine-grained personal access token has been added to your account</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src={`${baseUrl}/static/github.png`} width="32" height="32" alt="Github" />
+        <Img src={`${baseUrl}github.png`} width="32" height="32" alt="Github" />
 
         <Text style={title}>
           <strong>@{username}</strong>, a personal access was created on your account.
@@ -55,7 +55,7 @@ export const GithubAccessTokenEmail = ({ username }: GithubAccessTokenEmailProps
 );
 
 GithubAccessTokenEmail.PreviewProps = {
-  username: 'zenorocha'
+  username: 'Batman'
 } as GithubAccessTokenEmailProps;
 
 export default GithubAccessTokenEmail;
