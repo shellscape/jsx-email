@@ -50,6 +50,17 @@ tasks:
       cache: false
       outputStyle: 'stream'
 
+  clean.samples:
+    command: rm -rf /tmp/samples.jsx.email
+    inputs:
+      - src
+      - package.json
+
+  cname.samples:
+    command: echo samples.jsx.email > /tmp/samples.jsx.email/CNAME && touch /tmp/samples.jsx.email/.nojekyll
+    options:
+      cache: false
+
   lint:
     deps:
       - jsx-email:lint.docs
@@ -80,6 +91,17 @@ tasks:
     command: 'prettier --write **/package.json'
     options:
       cache: false
+
+  release.samples:
+    command: gh-pages -d /tmp/samples.jsx.email -u "Release Workflow <release-workflow@jsx.email>" --repo git@github.com:shellscape/samples.jsx.email.git
+    deps:
+      - ~:clean.dist
+      - cli:build.samples
+      - cname.samples
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
 
   test.packages:
     command: echo "✓ All packages tested"
