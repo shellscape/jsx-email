@@ -1,5 +1,4 @@
 import { jsxToString, useData } from '@jsx-email/render';
-import { load } from 'cheerio';
 import { Suspense } from 'react';
 import { create, type Configuration } from 'twind';
 import { virtualSheet, shim, getStyleTag } from 'twind/shim/server';
@@ -25,14 +24,7 @@ const renderTwind = (html: string, { config, isProduction = false }: TailwindPro
 const Renderer = (props: React.PropsWithChildren<TailwindProps>) => {
   const initialHtml = useData(props, () => jsxToString(<>{props.children}</>));
   const { shimmedHtml, styleTag } = renderTwind(initialHtml, props);
-  const $doc = load(shimmedHtml, { xml: { decodeEntities: false }, xmlMode: true } as any);
-
-  const $head = $doc('<head data-id="__jsx-email-twnd" />');
-  $head.append(styleTag);
-
-  $doc.root().prepend($head);
-
-  const finalHtml = $doc.html()!;
+  const finalHtml = `${shimmedHtml}${styleTag}`;
 
   return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
 };

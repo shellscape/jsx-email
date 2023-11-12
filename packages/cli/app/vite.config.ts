@@ -1,5 +1,8 @@
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
+// @ts-ignore
+// eslint-disable-next-line
+import hypothetical from 'rollup-plugin-hypothetical';
 
 process.chdir(__dirname);
 
@@ -28,6 +31,14 @@ export default defineConfig({
       'react-dom/server'
     ]
   },
-  plugins: [react()],
+  plugins: [
+    hypothetical({
+      allowFallthrough: true,
+      files: {
+        'rehype-preset-minify/': `export default {};`
+      }
+    }),
+    react()
+  ],
   root: __dirname
 });

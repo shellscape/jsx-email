@@ -4,7 +4,7 @@
  */
 
 import type { FC, ReactNode } from 'react';
-import hash from 'object-hash';
+import hash from 'hash-it';
 
 import { escapeString } from './escape-string';
 import { stringifyStyles } from './stringify-styles';
