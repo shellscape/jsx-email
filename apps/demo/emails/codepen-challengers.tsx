@@ -15,7 +15,7 @@ import {
 } from '@jsx-email/all';
 import * as React from 'react';
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const CodepenChallengersEmail = () => (
   <Html>
@@ -25,7 +25,7 @@ export const CodepenChallengersEmail = () => (
       <Section style={header}>
         <Img
           style={imgHeader}
-          src={`${baseUrl}/static/codepen-challengers.png`}
+          src={`${baseUrl}codepen-challengers.png`}
           width={600}
           alt="codepen"
         />
@@ -71,15 +71,10 @@ export const CodepenChallengersEmail = () => (
             <Link style={blueLink}>create a Pen that includes cube shapes.</Link>
           </Text>
 
-          <Img src={`${baseUrl}/static/codepen-cube.png`} width={600} alt="codepen" />
+          <Img src={`${baseUrl}codepen-cube.png`} width={600} alt="codepen" />
 
           <Section style={sectionPro}>
-            <Img
-              style={imagePro}
-              src={`${baseUrl}/static/codepen-pro.png`}
-              width={250}
-              alt="codepen"
-            />
+            <Img style={imagePro} src={`${baseUrl}codepen-pro.png`} width={250} alt="codepen" />
 
             <Text>
               CodePen PRO combines a bunch of features that can help any front-end designer or

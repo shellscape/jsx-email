@@ -1,21 +1,29 @@
-// Note: This script builds the ./apps/web/docs/samples directory by compiling the preview app
-// against apps/demo/emails
+// Note: This script builds the preview app for deploy to https://samples.jsx.email against
+// apps/demo/emails
 
-import { join } from 'path';
+import { join, resolve } from 'path';
 
 import { build } from 'vite';
 
 process.chdir(join(__dirname, '../app'));
 
 (async () => {
-  // Note: There's another ongoing branch to resolve this
-  // const demoPath = join(__dirname, '../../../apps/demo/emails');
-  // const componentPaths = await globby(join(demoPath, '/*.{jsx,tsx}'));
-
-  // process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
-
+  const { default: config } = await import('../app/vite.config');
   await build({
-    base: '/samples/',
-    build: { outDir: join(__dirname, '../../../apps/web/src/public/samples'), target: 'esnext' }
+    ...config,
+    build: {
+      outDir: '/tmp/samples.jsx.email',
+      target: 'esnext'
+    },
+    configFile: false,
+    define: {
+      'process.platform': null,
+      'process.version': null
+    },
+    resolve: {
+      alias: {
+        '@': resolve('../../../apps/demo/emails')
+      }
+    }
   });
 })();

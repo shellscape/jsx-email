@@ -17,7 +17,7 @@ interface RaycastMagicLinkEmailProps {
   magicLink?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const RaycastMagicLinkEmail = ({ magicLink }: RaycastMagicLinkEmailProps) => (
   <Html>
@@ -25,7 +25,7 @@ export const RaycastMagicLinkEmail = ({ magicLink }: RaycastMagicLinkEmailProps)
     <Preview>Log in with this magic link.</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src={`${baseUrl}/static/raycast-logo.png`} width={48} height={48} alt="Raycast" />
+        <Img src={`${baseUrl}raycast-logo.png`} width={48} height={48} alt="Raycast" />
         <Heading style={heading}>🪄 Your magic link</Heading>
         <Section style={body}>
           <Text style={paragraph}>
@@ -41,7 +41,7 @@ export const RaycastMagicLinkEmail = ({ magicLink }: RaycastMagicLinkEmailProps)
         </Text>
         <Hr style={hr} />
         <Img
-          src={`${baseUrl}/static/raycast-logo.png`}
+          src={`${baseUrl}raycast-logo.png`}
           width={32}
           height={32}
           style={{

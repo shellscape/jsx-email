@@ -12,7 +12,6 @@ import {
   Section,
   Text
 } from '@jsx-email/all';
-import * as React from 'react';
 
 interface AirbnbReviewEmailProps {
   authorName?: string;
@@ -20,92 +19,7 @@ interface AirbnbReviewEmailProps {
   reviewText?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
-
-export const AirbnbReviewEmail = ({
-  authorName,
-  authorImage,
-  reviewText
-}: AirbnbReviewEmailProps) => {
-  const previewText = `Read ${authorName}'s review`;
-
-  return (
-    <Html>
-      <Head />
-      <Preview>{previewText}</Preview>
-
-      <Body style={main}>
-        <Section style={main}>
-          <Container style={container}>
-            <Section>
-              <Img src={`${baseUrl}/static/airbnb-logo.png`} width="96" height="30" alt="Airbnb" />
-            </Section>
-            <Section>
-              <Img src={authorImage} width="96" height="96" alt={authorName} style={userImage} />
-            </Section>
-            <Section style={{ paddingBottom: '20px' }}>
-              <Row>
-                <Text style={heading}>Here's what {authorName} wrote</Text>
-                <Text style={review}>{reviewText}</Text>
-                <Text style={paragraph}>
-                  Now that the review period is over, we’ve posted {authorName}
-                  ’s review to your Airbnb profile.
-                </Text>
-                <Text style={{ ...paragraph, paddingBottom: '16px' }}>
-                  While it’s too late to write a review of your own, you can send your feedback to{' '}
-                  {authorName} using your Airbnb message thread.
-                </Text>
-
-                <Button style={button} href="https://airbnb.com/">
-                  Send My Feedback
-                </Button>
-              </Row>
-            </Section>
-
-            <Hr style={hr} />
-
-            <Section>
-              <Row>
-                <Text style={{ ...paragraph, fontWeight: '700' }}>Common questions</Text>
-                <Text>
-                  <Link href="https://airbnb.com/help/article/13" style={link}>
-                    How do reviews work?
-                  </Link>
-                </Text>
-                <Text>
-                  <Link href="https://airbnb.com/help/article/1257" style={link}>
-                    How do star ratings work?
-                  </Link>
-                </Text>
-                <Text>
-                  <Link href="https://airbnb.com/help/article/995" style={link}>
-                    Can I leave a review after 14 days?
-                  </Link>
-                </Text>
-                <Hr style={hr} />
-                <Text style={footer}>Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103</Text>
-                <Link href="https://airbnb.com" style={reportLink}>
-                  Report unsafe behavior
-                </Link>
-              </Row>
-            </Section>
-          </Container>
-        </Section>
-      </Body>
-    </Html>
-  );
-};
-
-AirbnbReviewEmail.PreviewProps = {
-  authorName: 'Alex',
-  authorImage: `${baseUrl}/static/airbnb-review-user.jpg`,
-  reviewText: `“Bruce was a great guest! Easy communication, the apartment was left
-    in great condition, very polite, and respectful of all house rules.
-    He’s welcome back anytime and would easily recommend him to any
-    host!”`
-} as AirbnbReviewEmailProps;
-
-export default AirbnbReviewEmail;
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 const main = {
   backgroundColor: '#ffffff',
@@ -179,3 +93,85 @@ const footer = {
   fontSize: '14px',
   marginBottom: '10px'
 };
+
+export const AirbnbReviewEmail = ({
+  authorName,
+  authorImage,
+  reviewText
+}: AirbnbReviewEmailProps) => {
+  const previewText = `Read ${authorName}'s review`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+
+      <Body style={main}>
+        <Section style={main}>
+          <Container style={container}>
+            <Section>
+              <Img src={`${baseUrl}airbnb-logo.png`} width="96" height="30" alt="Airbnb" />
+            </Section>
+            <Section>
+              <Img src={authorImage} width="96" height="96" alt={authorName} style={userImage} />
+            </Section>
+            <Section style={{ paddingBottom: '20px' }}>
+              <Row>
+                <Text style={heading}>Here's what {authorName} wrote</Text>
+                <Text style={review}>{reviewText}</Text>
+                <Text style={paragraph}>
+                  Now that the review period is over, we’ve posted {authorName}
+                  ’s review to your Airbnb profile.
+                </Text>
+                <Text style={{ ...paragraph, paddingBottom: '16px' }}>
+                  While it’s too late to write a review of your own, you can send your feedback to{' '}
+                  {authorName} using your Airbnb message thread.
+                </Text>
+
+                <Button style={button} href="https://airbnb.com/">
+                  Send My Feedback
+                </Button>
+              </Row>
+            </Section>
+
+            <Hr style={hr} />
+
+            <Section>
+              <Row>
+                <Text style={{ ...paragraph, fontWeight: '700' }}>Common questions</Text>
+                <Text>
+                  <Link href="https://airbnb.com/help/article/13" style={link}>
+                    How do reviews work?
+                  </Link>
+                </Text>
+                <Text>
+                  <Link href="https://airbnb.com/help/article/1257" style={link}>
+                    How do star ratings work?
+                  </Link>
+                </Text>
+                <Text>
+                  <Link href="https://airbnb.com/help/article/995" style={link}>
+                    Can I leave a review after 14 days?
+                  </Link>
+                </Text>
+                <Hr style={hr} />
+                <Text style={footer}>Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103</Text>
+                <Link href="https://airbnb.com" style={reportLink}>
+                  Report unsafe behavior
+                </Link>
+              </Row>
+            </Section>
+          </Container>
+        </Section>
+      </Body>
+    </Html>
+  );
+};
+
+AirbnbReviewEmail.PreviewProps = {
+  authorName: 'Joker',
+  authorImage: `${baseUrl}batman-twilight.jpg`,
+  reviewText: `"Batsy's stay at my Airbnb Batcave was a riot! Batman surprised with a hidden sense of humor, engaging in epic banter and a prank war. His detective skills impressed, and the Batcave remained spotless. Game night and snacks were a hit, and even during downtime, he couldn't resist a Bat-signal. Hosting Batsy was chaos perfected – if you want a guest with brooding intensity and unexpected laughter, Batman's your Bat. Hahahahahahahahahaha! "`
+} as AirbnbReviewEmailProps;
+
+export default AirbnbReviewEmail;

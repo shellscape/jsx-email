@@ -16,7 +16,7 @@ interface KoalaWelcomeEmailProps {
   userFirstname: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const KoalaWelcomeEmail = ({ userFirstname }: KoalaWelcomeEmailProps) => (
   <Html>
@@ -24,13 +24,7 @@ export const KoalaWelcomeEmail = ({ userFirstname }: KoalaWelcomeEmailProps) => 
     <Preview>The sales intelligence platform that helps you uncover qualified leads.</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/koala-logo.png`}
-          width="170"
-          height="50"
-          alt="Koala"
-          style={logo}
-        />
+        <Img src={`${baseUrl}koala-logo.png`} width="170" height="50" alt="Koala" style={logo} />
         <Text style={paragraph}>Hi {userFirstname},</Text>
         <Text style={paragraph}>
           Welcome to Koala, the sales intelligence platform that helps you uncover qualified leads

@@ -12,7 +12,6 @@ import {
   Section,
   Text
 } from '@jsx-email/all';
-import * as React from 'react';
 
 interface YelpRecentLoginEmailProps {
   userFirstName?: string;
@@ -22,7 +21,51 @@ interface YelpRecentLoginEmailProps {
   loginIp?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+const main = {
+  backgroundColor: '#fff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
+};
+
+const paragraph = {
+  fontSize: 16
+};
+
+const logo = {
+  padding: '30px 20px'
+};
+
+const containerButton = {
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%'
+};
+
+const button = {
+  backgroundColor: '#e00707',
+  borderRadius: 3,
+  color: '#FFF',
+  fontWeight: 'bold',
+  border: '1px solid rgb(0,0,0, 0.1)',
+  cursor: 'pointer',
+  padding: '12px 30px'
+};
+
+const content = {
+  border: '1px solid rgb(0,0,0, 0.1)',
+  borderRadius: '3px',
+  overflow: 'hidden'
+};
+
+const boxInfos = {
+  padding: '20px 40px'
+};
+
+const containerImageFooter = {
+  padding: '45px 0 0 0'
+};
 
 export const YelpRecentLoginEmail = ({
   userFirstName,
@@ -43,12 +86,12 @@ export const YelpRecentLoginEmail = ({
       <Body style={main}>
         <Container>
           <Section style={logo}>
-            <Img src={`${baseUrl}/static/yelp-logo.png`} />
+            <Img src={`${baseUrl}yelp-logo.png`} />
           </Section>
 
           <Section style={content}>
             <Row>
-              <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
+              <Img width={620} src={`${baseUrl}yelp-header.png`} />
             </Row>
 
             <Row style={{ ...boxInfos, paddingBottom: '0' }}>
@@ -111,7 +154,7 @@ export const YelpRecentLoginEmail = ({
           </Section>
 
           <Section style={containerImageFooter}>
-            <Img width={620} src={`${baseUrl}/static/yelp-footer.png`} />
+            <Img width={620} src={`${baseUrl}yelp-footer.png`} />
           </Section>
 
           <Text
@@ -133,52 +176,8 @@ YelpRecentLoginEmail.PreviewProps = {
   userFirstName: 'Bruce',
   loginDate: new Date('September 7, 2022, 10:58 am'),
   loginDevice: 'Chrome on Mac OS X',
-  loginLocation: 'Upland, California, United States',
-  loginIp: '47.149.53.167'
+  loginLocation: 'Gotham City, United States',
+  loginIp: '12.345.67.891'
 } as YelpRecentLoginEmailProps;
 
 export default YelpRecentLoginEmail;
-
-const main = {
-  backgroundColor: '#fff',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
-};
-
-const paragraph = {
-  fontSize: 16
-};
-
-const logo = {
-  padding: '30px 20px'
-};
-
-const containerButton = {
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%'
-};
-
-const button = {
-  backgroundColor: '#e00707',
-  borderRadius: 3,
-  color: '#FFF',
-  fontWeight: 'bold',
-  border: '1px solid rgb(0,0,0, 0.1)',
-  cursor: 'pointer',
-  padding: '12px 30px'
-};
-
-const content = {
-  border: '1px solid rgb(0,0,0, 0.1)',
-  borderRadius: '3px',
-  overflow: 'hidden'
-};
-
-const boxInfos = {
-  padding: '20px 40px'
-};
-
-const containerImageFooter = {
-  padding: '45px 0 0 0'
-};

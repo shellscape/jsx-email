@@ -11,9 +11,8 @@ import {
   Section,
   Text
 } from '@jsx-email/all';
-import * as React from 'react';
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const StripeWelcomeEmail = () => (
   <Html>
@@ -22,7 +21,7 @@ export const StripeWelcomeEmail = () => (
     <Body style={main}>
       <Container style={container}>
         <Section style={box}>
-          <Img src={`${baseUrl}/static/stripe-logo.png`} width="49" height="21" alt="Stripe" />
+          <Img src={`${baseUrl}stripe-logo.png`} width="49" height="21" alt="Stripe" />
           <Hr style={hr} />
           <Text style={paragraph}>
             Thanks for submitting your account information. You're now ready to make live
