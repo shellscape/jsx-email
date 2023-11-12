@@ -1,3 +1,6 @@
+// Note: For some reason CI has a hard time with this, even though the dependency is installed, and
+// it builds locally fine
+// @ts-ignore
 import type { Element, Parents, Root } from 'hast';
 import prettyHtml from 'pretty';
 
