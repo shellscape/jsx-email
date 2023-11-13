@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Preview, renderWhiteSpace } from '../src';
+import { Preview, renderWhiteSpace } from '../../src';
 
 describe('<Preview> component', async () => {
   beforeEach(() => {

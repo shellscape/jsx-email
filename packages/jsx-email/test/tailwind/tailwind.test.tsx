@@ -1,9 +1,9 @@
-import { jsxToString } from '@jsx-email/render';
-import { Hr } from '@jsx-email/hr';
-import { Head } from '@jsx-email/head';
-import { Html } from '@jsx-email/html';
+import { jsxToString } from '../../src/render';
+import { Hr } from '../../src/components/hr';
+import { Head } from '../../src/components/head';
+import { Html } from '../../src/components/html';
 
-import { Tailwind, type TailwindProps } from '../dist';
+import { Tailwind, type TailwindProps } from '../../dist';
 
 type TailwindConfig = Partial<TailwindProps['config']>;
 

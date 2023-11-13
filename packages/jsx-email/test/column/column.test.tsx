@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Column } from '../src';
+import { Column } from '../../src';
 
 describe('<Column> component', () => {
   beforeEach(() => {

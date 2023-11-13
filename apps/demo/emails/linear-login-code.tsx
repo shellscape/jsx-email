@@ -11,7 +11,7 @@ import {
   Preview,
   Section,
   Text
-} from '@jsx-email/all';
+} from 'jsx-email';
 import * as React from 'react';
 
 interface LinearLoginCodeEmailProps {

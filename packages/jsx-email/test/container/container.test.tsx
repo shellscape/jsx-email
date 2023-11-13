@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Container } from '../src';
+import { Container } from '../../src';
 
 describe('<Container> component', async () => {
   beforeEach(() => {

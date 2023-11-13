@@ -1,15 +1,4 @@
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Hr,
-  Html,
-  Img,
-  Preview,
-  Section,
-  Text
-} from '@jsx-email/all';
+import { Body, Button, Container, Head, Hr, Html, Img, Preview, Section, Text } from 'jsx-email';
 import * as React from 'react';
 
 interface KoalaWelcomeEmailProps {

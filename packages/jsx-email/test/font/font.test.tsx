@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Font } from '../src';
+import { Font } from '../../src';
 
 describe('<Font> component', async () => {
   beforeEach(() => {

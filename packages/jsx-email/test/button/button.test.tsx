@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Button } from '../src';
+import { Button } from '../../src';
 
 describe('<Button> component', async () => {
   beforeEach(() => {

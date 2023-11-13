@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Hr } from '../src';
+import { Hr } from '../../src';
 
 describe('<Hr> component', () => {
   beforeEach(() => {

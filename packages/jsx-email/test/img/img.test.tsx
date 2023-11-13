@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Img } from '../src';
+import { Img } from '../../src';
 
 describe('<Img> component', async () => {
   beforeEach(() => {

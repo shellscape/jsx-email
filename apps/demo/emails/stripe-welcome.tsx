@@ -10,7 +10,7 @@ import {
   Preview,
   Section,
   Text
-} from '@jsx-email/all';
+} from 'jsx-email';
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 

@@ -11,9 +11,9 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text
-} from '@jsx-email/all';
-import { Tailwind } from '@jsx-email/tailwind';
+} from 'jsx-email';
 import * as React from 'react';
 
 interface NetlifyWelcomeEmailProps {

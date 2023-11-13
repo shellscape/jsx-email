@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Heading } from '../src';
+import { Heading } from '../../src';
 
 describe('render', async () => {
   beforeEach(() => {

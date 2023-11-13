@@ -1,5 +1,5 @@
-import { render } from '../src/render';
-import { jsxToString } from '../src/jsx-to-string';
+import { render } from '../../src/render';
+import { jsxToString } from '../../src/render/jsx-to-string';
 
 import { Template } from './fixtures/async-template';
 

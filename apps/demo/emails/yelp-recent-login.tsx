@@ -11,7 +11,7 @@ import {
   Row,
   Section,
   Text
-} from '@jsx-email/all';
+} from 'jsx-email';
 
 interface YelpRecentLoginEmailProps {
   userFirstName?: string;

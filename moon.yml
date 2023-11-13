@@ -2,6 +2,7 @@
 $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 project:
+  description: It's the repo root
   name: repo
 
 workspace:
@@ -9,45 +10,19 @@ workspace:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
-  build.packages:
+  build.first:
     command: echo "Build Complete"
     deps:
-      - body:build
-      - button:build
-      - code:build
-      - column:build
-      - container:build
-      - font:build
-      - head:build
-      - heading:build
-      - hr:build
-      - html:build
-      - img:build
-      - link:build
-      - markdown:build
-      - preview:build
-      - row:build
-      - section:build
-      - text:build
-      - tailwind:build
+      - jsx-email:build
     options:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
 
-  build.critical:
-    command: echo "Build Complete"
-    deps:
-      - render:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-
   build.last:
     command: echo "Build Complete"
     deps:
       - create-jsx-email:build
-      - all:build
       - cli:build
     options:
       cache: false
@@ -66,10 +41,10 @@ tasks:
 
   lint:
     deps:
-      - jsx-email:lint.docs
-      - jsx-email:lint.json
-      - jsx-email:lint.package
-      - jsx-email:lint.js
+      - repo:lint.docs
+      - repo:lint.json
+      - repo:lint.package
+      - repo:lint.js
     options:
       cache: false
 
@@ -109,24 +84,7 @@ tasks:
   test.packages:
     command: echo "✓ All packages tested"
     deps:
-      - body:test
-      - button:test
-      - column:test
-      - container:test
-      - font:test
-      - head:test
-      - heading:test
-      - hr:test
-      - html:test
-      - img:test
-      - link:test
-      - markdown:test
-      - preview:test
-      - row:test
-      - section:test
-      - tailwind:test
-      - text:test
-      - render:test
+      - jsx-email:test
       # TODO: add cli test
       # - cli:test
     options:

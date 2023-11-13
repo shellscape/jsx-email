@@ -1,8 +1,8 @@
 /* eslint-disable no-useless-escape */
 
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Markdown } from '../src';
+import { Markdown } from '../../src';
 
 describe('<Markdown> component renders correctly', async () => {
   it('renders the markdown in the correct format for browsers', async () => {

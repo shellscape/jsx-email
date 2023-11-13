@@ -1,6 +1,6 @@
-import { render } from '@jsx-email/render';
+import { render } from '../../src/render';
 
-import { Html } from '../src';
+import { Html } from '../../src';
 
 describe('<Html> component', async () => {
   beforeEach(() => {

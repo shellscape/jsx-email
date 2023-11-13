@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 
-import { useData } from '../../src/jsx-to-string';
+import { useData } from '../../../src/render/jsx-to-string';
 
 interface TemplateProps {
   firstName: string;
