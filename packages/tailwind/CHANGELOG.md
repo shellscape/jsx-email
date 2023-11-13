@@ -1,5 +1,13 @@
 # @jsx-email/tailwind ChangeLog
 
+## v3.0.3
+
+_2023-11-13_
+
+### Bugfixes
+
+- fix: use rehype, remove cheerio and terser (#75)
+
 ## v3.0.2
 
 _2023-11-09_
