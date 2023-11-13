@@ -1,5 +1,13 @@
 # @jsx-email/cli ChangeLog
 
+## v3.0.1
+
+_2023-11-13_
+
+### Bugfixes
+
+- fix: use rehype, remove cheerio and terser (#75)
+
 ## v3.0.0
 
 _2023-11-10_
