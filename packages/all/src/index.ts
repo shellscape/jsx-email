@@ -1,5 +1,6 @@
 export * from '@jsx-email/body';
 export * from '@jsx-email/button';
+export * from '@jsx-email/code';
 export * from '@jsx-email/column';
 export * from '@jsx-email/container';
 export * from '@jsx-email/font';

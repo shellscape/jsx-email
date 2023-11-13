@@ -44,7 +44,6 @@
   },
   "dependencies": {
     "@jsx-email/render": "workspace:*",
-    "cheerio": "1.0.0-rc.12",
     "twind": "^0.16.19"
   },
   "devDependencies": {

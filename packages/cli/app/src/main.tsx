@@ -1,4 +1,4 @@
-import { render } from '@jsx-email/render';
+import { render, renderPlainText } from '@jsx-email/render';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, type RouteObject, RouterProvider } from 'react-router-dom';
@@ -64,7 +64,7 @@ const templateRoutes = templates.map(async (template) => {
   }
 
   const html = await render(<Template {...props} />, { pretty: true });
-  const plainText = await render(<Template {...props} />, { plainText: true });
+  const plainText = await renderPlainText(<Template {...props} />);
   const element = (
     <Layout>
       <Preview {...{ html, jsx: template.jsx, plainText, templateNames, title: Name! }} />

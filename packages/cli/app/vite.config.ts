@@ -1,5 +1,9 @@
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+// @ts-ignore
+// eslint-disable-next-line
+import hypothetical from 'rollup-plugin-hypothetical';
 
 process.chdir(__dirname);
 
@@ -19,15 +23,33 @@ export default defineConfig({
     'process.env': 'import.meta.env'
   },
   optimizeDeps: {
+    // Note: These are all CommonJS dependencies that don't implement an ESM compatible exports
+    // strategy. Any packages which throws "does not provide an export named 'default'" needs to go
+    // here.
     include: [
       'classnames',
       'deepmerge',
+      'extend',
+      'parse5',
       'pretty',
       'react-dom',
-      'react-dom/client',
-      'react-dom/server'
+      'react-dom/client'
     ]
   },
-  plugins: [react()],
+  plugins: [
+    hypothetical({
+      allowFallthrough: true,
+      files: {
+        'rehype-preset-minify/': `export default {};`
+      }
+    }),
+    nodePolyfills(),
+    react()
+  ],
+  resolve: {
+    alias: {
+      path: 'path-browserify'
+    }
+  },
   root: __dirname
 });
