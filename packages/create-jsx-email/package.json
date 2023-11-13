@@ -28,10 +28,14 @@
   "dependencies": {
     "@types/mustache": "^4.2.3",
     "chalk": "4.1.2",
-    "mustache": "^4.2.0"
+    "detect-package-manager": "^3.0.1",
+    "globby": "11.0.4",
+    "mustache": "^4.2.0",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.2"
+    "@types/fs-extra": "^11.0.2",
+    "@types/prompts": "^2.4.8"
   },
   "funding": {
     "type": "github",
