@@ -7,7 +7,7 @@ import mustache from 'mustache';
 
 import pkg from '../package.json';
 
-const DEFAULT_PATH = 'jsx-email-starter';
+const DEFAULT_PATH = 'email-project';
 const { log } = console;
 
 const intro = chalk`

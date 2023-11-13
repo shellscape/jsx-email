@@ -162,9 +162,6 @@ importers:
       import-local:
         specifier: ^3.1.0
         version: 3.1.0
-      jsx-email:
-        specifier: workspace:*
-        version: link:../jsx-email
       mustache:
         specifier: ^4.2.0
         version: 4.2.0
@@ -220,6 +217,9 @@ importers:
       '@types/yargs-parser':
         specifier: ^21.0.2
         version: 21.0.2
+      jsx-email:
+        specifier: workspace:*
+        version: link:../jsx-email
 
   packages/create-jsx-email:
     dependencies:
@@ -239,6 +239,9 @@ importers:
 
   packages/jsx-email:
     dependencies:
+      '@jsx-email/cli':
+        specifier: workspace:*
+        version: link:../cli
       '@radix-ui/react-slot':
         specifier: 1.0.2
         version: 1.0.2(@types/react@18.2.22)(react@18.2.0)

@@ -54,7 +54,7 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
   }
 
   const { host = false, open = true, port = 55420 } = argv;
-  const { default: config } = await import('../../app/vite.config');
+  const { default: config } = await import('../preview-app/vite.config');
 
   const mergedConfig = {
     configFile: false,
