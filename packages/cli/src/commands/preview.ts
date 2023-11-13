@@ -61,7 +61,8 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
     ...config,
     resolve: {
       alias: {
-        '@': targetPath
+        '@': targetPath,
+        ...config.resolve?.alias
       }
     },
     server: { host, port: parseInt(port as any, 10) }

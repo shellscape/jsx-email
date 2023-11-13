@@ -22,7 +22,8 @@ process.chdir(join(__dirname, '../app'));
     },
     resolve: {
       alias: {
-        '@': resolve('../../../apps/demo/emails')
+        '@': resolve('../../../apps/demo/emails'),
+        ...config.resolve?.alias
       }
     }
   });
