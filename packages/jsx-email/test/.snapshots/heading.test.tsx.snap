@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`render > renders the <Heading> component 1`] = `"<h2 data-id=\\"@jsx-email/heading\\" style=\\"margin-left:4px;margin-right:4px\\">Lorem ipsum</h2>"`;

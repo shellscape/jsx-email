@@ -1,3 +1,6 @@
+// @ts-ignore
+import React from 'react';
+
 import { render } from '../../src/render';
 
 import AirbnbEmail from '../../../../apps/demo/emails/airbnb-review';

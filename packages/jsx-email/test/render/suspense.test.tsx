@@ -1,3 +1,6 @@
+// @ts-ignore
+import React from 'react';
+
 import { render } from '../../src/render';
 import { jsxToString } from '../../src/render/jsx-to-string';
 

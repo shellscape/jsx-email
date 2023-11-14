@@ -14,6 +14,10 @@ export const processHtml = async ({ html, minify, pretty, strip }: ProcessOption
   const { visit } = await import('unist-util-visit');
   const docType =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+  const settings = {
+    emitParseErrors: true
+    // fragment: true
+  };
 
   function rehypeMoveStyle() {
     return function (tree: Root) {
@@ -61,7 +65,7 @@ export const processHtml = async ({ html, minify, pretty, strip }: ProcessOption
     };
   }
 
-  let processor = rehype().use(rehypeMoveStyle);
+  let processor = rehype().data('settings', settings).use(rehypeMoveStyle);
 
   if (strip) processor = processor.use(rehypeRemoveDataId);
   if (minify) {
@@ -69,7 +73,14 @@ export const processHtml = async ({ html, minify, pretty, strip }: ProcessOption
     processor = processor.use(rehypeMinify);
   }
 
-  const doc = await processor.use(stringify, { allowDangerousCharacters: true }).process(html);
+  const doc = await processor
+    .use(stringify, {
+      allowDangerousCharacters: true,
+      allowDangerousHtml: true,
+      closeEmptyElements: true,
+      collapseEmptyAttributes: true
+    })
+    .process(html);
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   if (pretty) result = prettyHtml(result);
