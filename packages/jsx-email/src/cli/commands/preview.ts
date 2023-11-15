@@ -68,8 +68,6 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
     server: { host, port: parseInt(port as any, 10) }
   } as InlineConfig;
 
-  console.log({ mergedConfig });
-
   const server = await createServer(mergedConfig);
 
   info(chalk`\n  🚀 {yellow JSX email} Preview\n`);
