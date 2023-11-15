@@ -10,6 +10,11 @@ workspace:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
+  build.all:
+    deps:
+      - jsx-email:build
+      - create-jsx-email:build
+
   build.samples:
     command: ts-node scripts/build-samples.ts
     deps:

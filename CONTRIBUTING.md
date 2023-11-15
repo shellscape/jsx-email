@@ -25,16 +25,10 @@ Next we'll want to get dependencies installed, and get everything built. _(Note:
 $ pnpm install
 ```
 
-Build all of the packages in the repo:
+Then build all the things:
 
 ```console
-$ moon run repo:build.packages
-```
-
-And build the cli:
-
-```console
-$ moon run cli:build
+$ moon build.all
 ```
 
 ## Before Committing

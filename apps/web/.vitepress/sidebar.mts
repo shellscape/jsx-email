@@ -25,12 +25,14 @@ const groups = nested.reduce((prev, file) => {
 
   return prev;
 }, {} as Record<string, DefaultTheme.SidebarItem> | void);
-const entries = Object.entries(groups!).map(([key, value]) => {
-  return {
-    text: key,
-    ...value
-  };
-});
+const entries = Object.entries(groups!)
+  .map(([key, value]) => {
+    return {
+      text: key,
+      ...value
+    };
+  })
+  .reverse();
 
 export const sidebar = [
   {
@@ -40,6 +42,7 @@ export const sidebar = [
       { text: 'Quick Start', link: '/docs/quick-start' },
       { text: 'Email Providers', link: '/docs/email-providers' },
       { text: 'Email Samples', link: 'https://samples.jsx.email' },
+      { text: 'FAQ', link: '/docs/faq' },
       { text: 'Contributing', link: '/docs/contributing' }
     ]
   },
