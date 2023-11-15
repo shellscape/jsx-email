@@ -1,4 +1,5 @@
-import { render, renderPlainText } from '@jsx-email/render';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { render, renderPlainText } from 'jsx-email';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, type RouteObject, RouterProvider } from 'react-router-dom';

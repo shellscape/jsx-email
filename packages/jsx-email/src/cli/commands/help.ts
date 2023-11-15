@@ -25,7 +25,7 @@ ${pkg.description}
 
 {underline Options}
   --help      Displays this message
-  --version   Displays the current @jsx-email/cli version
+  --version   Displays the current jsx-email version
 
 {underline Examples}
   $ email

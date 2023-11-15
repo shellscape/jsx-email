@@ -13,7 +13,7 @@ type: package
 ## Usage
 
 ```jsx
-import { render } from '@jsx-email/render';
+import { render } from 'jsx-email';
 
 import { BatmanTemplate } from './emails/Batman';
 

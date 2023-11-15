@@ -21,7 +21,7 @@ Invoking the CLI without parameters or flags will produce help information in th
 ```console
 → pnpm exec email
 
-@jsx-email/cli v0.0.0
+jsx-email v0.0.0
 
 A CLI for working with Email Templates made with jsx-email
 
@@ -36,7 +36,7 @@ Commands
 
 Options
   --help      Displays this message
-  --version   Displays the current @jsx-email/cli version
+  --version   Displays the current jsx-email version
 
 Examples
   $ email

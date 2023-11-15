@@ -14,19 +14,19 @@ type: component
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Img } from '@jsx-email/img';
+import { Img } from 'jsx-email';
 
 const Email = () => {
   return <Img src="cat.jpg" alt="Cat" width="300" height="300" />;
 };
 ```
 
-<Tip>
+::: tip
   All email clients can display `.png`, `.gif`, and `.jpg` images.
   Unfortunately, `.svg` images are not well supported, regardless of how they're
   referenced, so avoid using these. See [Can I
   Email](https://www.caniemail.com/features/image-svg/) for more information.
-</Tip>
+:::
 
 ## Component Props
 

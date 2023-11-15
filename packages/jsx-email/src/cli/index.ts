@@ -12,7 +12,7 @@ import { command as preview } from './commands/preview';
 import type { CommandFn } from './commands/types';
 
 const commands: Record<string, CommandFn> = { build, create, help, preview };
-const debug = debugConfig('@jsx-email/cli');
+const debug = debugConfig('jsx-email/cli');
 const { log } = console;
 
 const run = async () => {

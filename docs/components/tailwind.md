@@ -20,8 +20,7 @@ Docs for v2.4.4 and older can be found at https://github.com/shellscape/jsx-emai
 Add the component around your email body content.
 
 ```jsx
-import { Button } from '@jsx-email/button';
-import { Tailwind } from '@jsx-email/tailwind';
+import { Button, Tailwind } from 'jsx-email';
 
 const Email = () => {
   return (
