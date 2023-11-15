@@ -7,7 +7,7 @@ export interface HrProps extends RootProps {}
 export const Hr: React.FC<Readonly<HrProps>> = ({ style, ...props }) => (
   <hr
     {...props}
-    data-id="@jsx-email/hr"
+    data-id="jsx-email/hr"
     style={{
       border: 'none',
       borderTop: '1px solid #eaeaea',

@@ -21,7 +21,7 @@ export const Markdown = ({
   return (
     <div
       {...props}
-      data-id="@jsx-email/markdown"
+      data-id="jsx-email/markdown"
       style={markdownContainerStyles}
       dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
     />

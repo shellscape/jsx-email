@@ -1,3 +1,7 @@
+[npm]: https://img.shields.io/npm/v/jsx-email
+[npm-url]: https://www.npmjs.com/package/jsx-email
+
+[![npm][npm]][npm-url]
 [![Join our Discord](https://img.shields.io/badge/join_our-Discord-5a64ea)](https://discord.gg/FywZN57mTg)
 [![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
 
@@ -22,7 +26,7 @@ Everything to know about the components, props, and usage is available within ou
 
 ## Requirements
 
-The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
+The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+
 
 <div>
   <br/>
@@ -33,39 +37,7 @@ The packages and components that make up JSX email require an [LTS](https://gith
 
 ## Components
 
-A list of available components found here:
-
-|                                 |     |
-| ------------------------------- | --- |
-| [body](packages/body)           |     |
-| [button](packages/button)       |     |
-| [column](packages/column)       |     |
-| [container](packages/container) |     |
-| [font](packages/font)           |     |
-| [head](packages/head)           |     |
-| [heading](packages/heading)     |     |
-| [hr](packages/hr)               |     |
-| [html](packages/html)           |     |
-| [image](packages/image)         |     |
-| [link](packages/link)           |     |
-| [markdown](packages/markdown)   |     |
-| [preview](packages/preview)     |     |
-| [row](packages/row)             |     |
-| [section](packages/section)     |     |
-| [tailwind](packages/tailwind)   |     |
-| [text](packages/text)           |     |
-|                                 |     |
-
-## Helper Packages
-
-A list of available helper packages found here:
-
-|                           |                                                            |
-| ------------------------- | ---------------------------------------------------------- |
-| [all](packages/all)       | A package containing all available JSX email components    |
-| [cli](packages/cli)       | A CLI for working with Email Templates made with jsx-email |
-| [render](packages/render) | Render JSX email components to HTML email                  |
-|                           |                                                            |
+A list of available components can be found on the [`jsx-email` Documentation](https://jsx.email/docs/introduction)
 
 ## Service Integrations
 

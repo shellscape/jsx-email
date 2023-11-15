@@ -9,7 +9,7 @@ export const Column = ({
   style,
   ...props
 }: React.PropsWithChildren<Readonly<ColumnProps>>) => (
-  <td {...props} data-id="@jsx-email/column" style={style}>
+  <td {...props} data-id="jsx-email/column" style={style}>
     {children}
   </td>
 );

@@ -7,7 +7,7 @@ export interface LinkProps extends RootProps {}
 export const Link: React.FC<Readonly<LinkProps>> = ({ target = '_blank', style, ...props }) => (
   <a
     {...props}
-    data-id="@jsx-email/link"
+    data-id="jsx-email/link"
     target={target}
     style={{
       color: '#067df7',

@@ -10,24 +10,6 @@ workspace:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
-  build.first:
-    command: echo "Build Complete"
-    deps:
-      - jsx-email:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
-
-  build.last:
-    command: echo "Build Complete"
-    deps:
-      - create-jsx-email:build
-      - cli:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-
   clean.samples:
     command: rm -rf /tmp/samples.jsx.email
     inputs:

@@ -31,7 +31,7 @@ const Renderer = (props: React.PropsWithChildren<CodeProps>) => {
   return (
     <div
       {...rest}
-      data-id="@jsx-email/code"
+      data-id="jsx-email/code"
       style={style}
       dangerouslySetInnerHTML={{ __html: html }}
     />

@@ -9,7 +9,7 @@ export const Section: React.FC<Readonly<SectionProps>> = ({ children, style, ...
     align="center"
     width="100%"
     {...props}
-    data-id="@jsx-email/section"
+    data-id="jsx-email/section"
     style={style}
     border={0}
     cellPadding="0"

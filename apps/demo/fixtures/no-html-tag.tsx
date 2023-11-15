@@ -1,5 +1,4 @@
-import { Button } from '@jsx-email/all';
-import { Tailwind } from '@jsx-email/tailwind';
+import { Button, Tailwind } from 'jsx-email';
 
 export const Template = () => (
   <Tailwind

@@ -24,7 +24,7 @@ export const Preview = ({
   text = text.substr(0, PREVIEW_MAX_LENGTH);
   return (
     <div
-      data-id="@jsx-email/preview"
+      data-id="jsx-email/preview"
       style={{
         display: 'none',
         lineHeight: '1px',

@@ -65,7 +65,7 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
   return (
     <a
       {...props}
-      data-id="@jsx-email/button"
+      data-id="jsx-email/button"
       target={target}
       style={buttonStyle({ ...style, ...parsedPadding })}
     >

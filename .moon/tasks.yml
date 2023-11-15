@@ -10,37 +10,12 @@ fileGroups:
     - 'tests/**/*.test.*'
 
 tasks:
-  build:
-    command: rm -f tsconfig.json
-    deps:
-      - ~:clean.dist
-      - ~:compile
-    inputs:
-      - src
-      - package.json
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
-
   clean.dist:
     command: rm -rf dist
     inputs:
       - src
       - package.json
 
-  compile:
-    command: tsup --config ../../shared/tsup.config.ts
-    inputs:
-      - src
-      - package.json
-    deps:
-      - ~:tsconfig.link
-    options:
-      runDepsInParallel: false
-
-  # FIXME: since @jsx-email/components uses workspace deps now, we'll need a script that recognizes
-  # it needs to be updated and manually commits to update the package using versioner
   release:
     command: versioner --target $projectRoot
     deps:

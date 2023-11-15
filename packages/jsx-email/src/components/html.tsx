@@ -10,7 +10,7 @@ export const Html = ({
   dir = 'ltr',
   ...props
 }: React.PropsWithChildren<Readonly<HtmlProps>>) => (
-  <html {...props} data-id="@jsx-email/html" lang={lang} dir={dir}>
+  <html {...props} data-id="jsx-email/html" lang={lang} dir={dir}>
     {children}
   </html>
 );

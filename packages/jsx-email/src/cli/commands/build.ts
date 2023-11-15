@@ -4,7 +4,6 @@ import os from 'node:os';
 import { basename, extname, join, resolve, win32, posix } from 'path';
 
 import { doIUseEmail } from '@jsx-email/doiuse-email';
-import { render } from '@jsx-email/render';
 import chalk from 'chalk';
 import esbuild from 'esbuild';
 import globby from 'globby';
@@ -70,6 +69,9 @@ const build = async (path: string, argv: BuildOptions) => {
   const template = await import(path);
   const componentExport: TemplateFn = template.Template || template.default;
   const extension = plain ? '.txt' : '.html';
+  const renderImport = 'jsx-email';
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  const { render } = await import(renderImport);
 
   if (!componentExport) {
     error(`${path} does not contain a named \`Template\` or default export of a JSX Element`);

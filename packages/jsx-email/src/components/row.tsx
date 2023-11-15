@@ -9,7 +9,7 @@ export const Row = ({ children, style, ...props }: React.PropsWithChildren<Reado
     align="center"
     width="100%"
     {...props}
-    data-id="@jsx-email/row"
+    data-id="jsx-email/row"
     style={style}
     role="presentation"
     cellSpacing="0"

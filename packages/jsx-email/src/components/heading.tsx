@@ -89,7 +89,7 @@ export const Heading = ({
 }: React.PropsWithChildren<Readonly<HeadingProps>>) => (
   <Slot
     {...props}
-    data-id="@jsx-email/heading"
+    data-id="jsx-email/heading"
     style={{ ...withMargin({ m, mb, ml, mr, mt, mx, my }), ...style }}
   >
     <Tag>{children}</Tag>

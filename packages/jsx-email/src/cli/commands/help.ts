@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import pkg from '../../package.json';
+import pkg from '../../../package.json';
 
 import type { CommandFn } from './types';
 import { help as build } from './build';

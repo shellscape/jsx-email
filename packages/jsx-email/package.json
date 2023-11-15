@@ -14,7 +14,7 @@
   "homepage": "https://jsx.email/docs/core/render",
   "main": "dist/index.js",
   "bin": {
-    "email": "./dist/src/index.js"
+    "email": "./dist/cli/index.js"
   },
   "module": "dist/index.mjs",
   "exports": {

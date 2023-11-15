@@ -3,7 +3,7 @@ import debugConfig from 'debug';
 import importLocal from 'import-local';
 import yargs from 'yargs-parser';
 
-import pkg from '../package.json';
+import pkg from '../../package.json';
 
 import { command as build } from './commands/build';
 import { command as create } from './commands/create';

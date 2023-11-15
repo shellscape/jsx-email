@@ -5,7 +5,7 @@
 	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"><br/><br/>
 </div>
 
-# @jsx-email/all
+# Demo App
 
 <div>
   <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
@@ -13,7 +13,7 @@
   <br/>
 <div>
 
-The intent of this package is to provide a likely real-world scenario on which users might use `@jsx-email/cli` and its commands. Specifically the `preview` command, which starts a live-preview server.
+The intent of this app is to provide a likely real-world scenario on which users might use `jsx-email` and its commands. Specifically the `preview` command, which starts a live-preview server.
 
 ## Requirements
 

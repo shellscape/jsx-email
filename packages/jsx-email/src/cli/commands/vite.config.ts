@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -5,7 +7,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 // eslint-disable-next-line
 import hypothetical from 'rollup-plugin-hypothetical';
 
-process.chdir(__dirname);
+process.chdir(resolve(__dirname, '../preview-app'));
 
 const logger = createLogger();
 const { warnOnce: og } = logger;
@@ -16,7 +18,7 @@ logger.warnOnce = (message, options) => {
   og(message, options);
 };
 
-export default defineConfig({
+export const viteConfig = defineConfig({
   clearScreen: false,
   customLogger: logger,
   define: {

@@ -15,7 +15,7 @@ export const renderPlainText = async (
   return convert(result, {
     selectors: [
       { format: 'skip', selector: 'img' },
-      { format: 'skip', selector: '[data-id="@jsx-email/preview"]' }
+      { format: 'skip', selector: '[data-id="jsx-email/preview"]' }
     ]
   });
 };

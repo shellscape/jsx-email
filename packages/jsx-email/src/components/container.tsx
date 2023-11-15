@@ -9,7 +9,7 @@ export const Container: React.FC<Readonly<ContainerProps>> = ({ children, style,
     align="center"
     width="100%"
     {...props}
-    data-id="@jsx-email/container"
+    data-id="jsx-email/container"
     role="presentation"
     cellSpacing="0"
     cellPadding="0"

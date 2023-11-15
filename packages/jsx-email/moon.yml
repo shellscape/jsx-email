@@ -1,0 +1,47 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['compile', 'test']
+
+tasks:
+  build:
+    command: rm -f tsconfig.json
+    deps:
+      - ~:clean.dist
+      - ~:compile
+      - ~:copy
+    inputs:
+      - src
+      - package.json
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
+  compile:
+    command: tsup --config tsup.config.ts
+    inputs:
+      - src
+      - package.json
+    deps:
+      - ~:tsconfig.link
+    options:
+      runDepsInParallel: false
+
+  copy:
+    command: cp -r src/cli/assets dist && cp -r src/cli/preview-app dist
+    options:
+      cache: false
+
+  start.preview:
+    command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
+    options:
+      cache: false
+
+  tsc:
+    command: tsc --project tsconfig.json
+    inputs:
+      - app
+      - src
