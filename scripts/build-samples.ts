@@ -8,9 +8,9 @@ import { build } from 'vite';
 process.chdir(join(__dirname, '../app'));
 
 (async () => {
-  const { default: config } = await import('../app/vite.config');
+  const { viteConfig } = await import('../packages/jsx-email/src/cli/commands/vite.config');
   await build({
-    ...config,
+    ...viteConfig,
     build: {
       outDir: '/tmp/samples.jsx.email',
       target: 'esnext'
@@ -22,8 +22,8 @@ process.chdir(join(__dirname, '../app'));
     },
     resolve: {
       alias: {
-        '@': resolve('../../../apps/demo/emails'),
-        ...config.resolve?.alias
+        '@': resolve('../apps/demo/emails'),
+        ...viteConfig.resolve?.alias
       }
     }
   });

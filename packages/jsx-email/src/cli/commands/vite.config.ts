@@ -7,7 +7,9 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 // eslint-disable-next-line
 import hypothetical from 'rollup-plugin-hypothetical';
 
-process.chdir(resolve(__dirname, '../preview-app'));
+const root = resolve(__dirname, '../preview-app');
+
+process.chdir(root);
 
 const logger = createLogger();
 const { warnOnce: og } = logger;
@@ -53,5 +55,5 @@ export const viteConfig = defineConfig({
       path: 'path-browserify'
     }
   },
-  root: __dirname
+  root
 });

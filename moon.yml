@@ -10,6 +10,13 @@ workspace:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
+  build.samples:
+    command: ts-node scripts/build-samples.ts
+    deps:
+      - clean.samples
+    options:
+      cache: false
+
   clean.samples:
     command: rm -rf /tmp/samples.jsx.email
     inputs:
@@ -56,7 +63,7 @@ tasks:
     command: gh-pages -d /tmp/samples.jsx.email -u "Release Workflow <release-workflow@jsx.email>" --repo git@github.com:shellscape/samples.jsx.email.git
     deps:
       - ~:clean.dist
-      - cli:build.samples
+      - ~:build.samples
       - cname.samples
     options:
       cache: false

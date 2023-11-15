@@ -4,5 +4,5 @@
     "types": ["vitest/globals"]
   },
   "extends": "./shared/tsconfig.base.json",
-  "include": ["apps", "packages", "shared"]
+  "include": ["apps", "packages", "scripts", "shared"]
 }
