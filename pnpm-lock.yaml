@@ -251,18 +251,27 @@ importers:
         specifier: ^21.1.1
         version: 21.1.1
     devDependencies:
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
       '@types/html-minifier-terser':
         specifier: ^7.0.0
         version: 7.0.0
       '@types/html-to-text':
         specifier: ^9.0.2
         version: 9.0.2
+      '@types/import-local':
+        specifier: ^3.1.2
+        version: 3.1.2
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
       '@types/pretty':
         specifier: ^2.0.1
         version: 2.0.1
+      '@types/yargs-parser':
+        specifier: ^21.0.3
+        version: 21.0.3
       hast:
         specifier: ^1.0.0
         version: 1.0.0
@@ -2189,6 +2198,12 @@ packages:
     resolution: {integrity: sha512-VOVRLM1mBxIRxydiViqPcKn6MIxZytrbMpd6RJLIWKxUNr3zux8no0Oc7kJx0WAPIitgZ0gkrDS+btlqQpubpw==}
     dev: true
 
+  /@types/debug@4.1.12:
+    resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+    dependencies:
+      '@types/ms': 0.7.34
+    dev: true
+
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: false
@@ -2212,6 +2227,10 @@ packages:
 
   /@types/html-to-text@9.0.2:
     resolution: {integrity: sha512-cO9qsPwfIJ2GKFJ4AgpgmmFoUr0IulsN1clwOiPdChpsY/LVmbpGenUGrvZiYsSXSg/dWsj4NTzWZeIlv3D22w==}
+    dev: true
+
+  /@types/import-local@3.1.2:
+    resolution: {integrity: sha512-JoLrjY0vikldvoHv/efsV1gAqZAgPVS+eLK5+3ThLs1zsViz8kkMTJ0GQOKP8ncBc9M/mDl59bkdnqercE7JBw==}
     dev: true
 
   /@types/json-schema@7.0.12:
@@ -2251,6 +2270,10 @@ packages:
 
   /@types/minimist@1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
+    dev: true
+
+  /@types/ms@0.7.34:
+    resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: true
 
   /@types/mustache@4.2.3:
@@ -2307,6 +2330,10 @@ packages:
 
   /@types/web-bluetooth@0.0.17:
     resolution: {integrity: sha512-4p9vcSmxAayx72yn70joFoL44c9MO/0+iVEBIQXe3v2h2SiAsEIo/G5v6ObFWvNKRFjbrVadNf9LqEEZeQPzdA==}
+    dev: true
+
+  /@types/yargs-parser@21.0.3:
+    resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
     dev: true
 
   /@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.27.0)(typescript@5.2.2):

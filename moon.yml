@@ -62,14 +62,3 @@ tasks:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
-
-  test.packages:
-    command: echo "✓ All packages tested"
-    deps:
-      - jsx-email:test
-      # TODO: add cli test
-      # - cli:test
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
