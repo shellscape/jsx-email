@@ -1,34 +1,67 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { createGenerator, type ConfigBase } from '@unocss/core';
+import { presetWind } from '@unocss/preset-wind';
+import { presetUno } from '@unocss/preset-uno';
+import transformerCompileClass from '@unocss/transformer-compile-class';
+import transformerVariantGroup from '@unocss/transformer-variant-group';
+import MagicString from 'magic-string';
+import postcss from 'postcss';
+import cssvariables from 'postcss-css-variables';
 import { Suspense } from 'react';
-import { create, type Configuration } from 'twind';
-import { virtualSheet, shim, getStyleTag } from 'twind/shim/server';
 
 import { jsxToString, useData } from '../render/jsx-to-string';
 
 export interface TailwindProps {
-  config?: Partial<Configuration>;
-  isProduction?: boolean;
+  config?: Pick<ConfigBase, 'layers' | 'rules' | 'separators' | 'shortcuts' | 'theme' | 'variants'>;
+  production?: boolean;
 }
 
-const renderTwind = (html: string, { config, isProduction = false }: TailwindProps) => {
-  const sheet = virtualSheet();
+const getUno = (production: boolean) => {
+  const transformers = [transformerVariantGroup()];
 
-  const { tw } = create({ sheet, ...(config || {}), hash: isProduction });
+  if (production)
+    transformers.push(
+      transformerCompileClass({
+        classPrefix: '',
+        trigger: ':jsx:'
+      })
+    );
 
-  sheet.reset();
+  const uno = createGenerator({
+    presets: [presetUno(), presetWind()],
+    transformers
+  });
 
-  const shimmedHtml = shim(html, tw);
-  const tag = getStyleTag(sheet);
+  return uno;
+};
 
-  return { shimmedHtml, styleTag: tag.replace('id="__twind"', 'twind') };
+const render = async ({ children, production = false }: React.PropsWithChildren<TailwindProps>) => {
+  const uno = getUno(production);
+  const html = await jsxToString(<>{children}</>);
+  const code = production ? html.replace(/class="/g, 'class=":jsx: ') : html;
+  const s = new MagicString(code);
+  const invalidate = () => 0;
+
+  for (const transformer of uno.config.transformers || []) {
+    // eslint-disable-next-line no-await-in-loop
+    await transformer.transform(s, 'Tailwind', { invalidate, tokens: new Set(), uno } as any);
+  }
+
+  const finalHtml = s.toString();
+  const result = await uno.generate(finalHtml);
+  // Note: Remove css variables, replace them with static values. It's not ideal to run PostCSS
+  // after using Uno, but it's pretty quick. Uno doesn't have a transformer that can match this,
+  // and it's crucial for email client support (e.g. Gmail)
+  const { css } = postcss([cssvariables({ preserveAtRulesOrder: true })]).process(result.css);
+  const styleTag = `<style tailwind>${css}</style>`;
+
+  return `${finalHtml}${styleTag}`;
 };
 
 const Renderer = (props: React.PropsWithChildren<TailwindProps>) => {
-  const initialHtml = useData(props, () => jsxToString(<>{props.children}</>));
-  const { shimmedHtml, styleTag } = renderTwind(initialHtml, props);
-  const finalHtml = `${shimmedHtml}${styleTag}`;
+  const html = useData(props, () => render(props));
 
-  return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
+  return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => (

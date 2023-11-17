@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
 // @ts-ignore
 // eslint-disable-next-line
 import hypothetical from 'rollup-plugin-hypothetical';
@@ -37,7 +38,8 @@ export const viteConfig = defineConfig({
       'parse5',
       'pretty',
       'react-dom',
-      'react-dom/client'
+      'react-dom/client',
+      'source-map-js'
     ]
   },
   plugins: [
@@ -52,7 +54,9 @@ export const viteConfig = defineConfig({
   ],
   resolve: {
     alias: {
-      path: 'path-browserify'
+      path: 'path-browserify',
+      postcss: 'https://jspm.dev/postcss@8.4.31',
+      'postcss-css-variables': 'https://jspm.dev/postcss-css-variables@0.19.0'
     }
   },
   root
