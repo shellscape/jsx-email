@@ -3,7 +3,7 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['compile', 'test']
+    exclude: ['compile', 'release', 'test']
 
 tasks:
   build:
@@ -20,6 +20,11 @@ tasks:
       outputStyle: 'stream'
       runDepsInParallel: false
 
+  clean.readme:
+    command: rm README.md
+    options:
+      cache: false
+
   compile:
     command: tsup --config tsup.config.ts
     inputs:
@@ -31,9 +36,38 @@ tasks:
       runDepsInParallel: false
 
   copy:
-    command: cp -r src/cli/assets dist && cp -r src/cli/preview-app dist
+    command: cp -r src/cli/assets dist
+    deps:
+      - ~:copy.preview
+      - ~:copy.readme
     options:
       cache: false
+
+  copy.preview:
+    command: cp -r src/cli/preview-app dist
+    options:
+      cache: false
+
+  copy.readme:
+    command: cp -r ../../README.md README.md
+    options:
+      cache: false
+
+  release:
+    command: rm README.md
+    deps:
+      - ~:build
+      - ~:copy
+      - ~:release.actual
+    options:
+      cache: false
+      outputStyle: 'stream'
+
+  release.actual:
+    command: versioner --target $projectRoot
+    options:
+      cache: false
+      outputStyle: 'stream'
 
   start.preview:
     command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
