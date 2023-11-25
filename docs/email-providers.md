@@ -154,3 +154,23 @@ sendgrid.send({
   html: html
 });
 ```
+
+## Plunk
+
+```tsx
+import { render } from '@jsx-email/render';
+import Plunk from '@plunk/node';
+
+import { BatmanTemplate } from './emails/Batman.tsx';
+
+const plunk = new Plunk(process.env.PLUNK_API_KEY);
+
+const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+
+plunk.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  body: html
+});
+```
