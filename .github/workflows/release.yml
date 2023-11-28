@@ -72,7 +72,7 @@ jobs:
             ${{ runner.os }}-eslintcache-
 
       - name: Setup Moon
-        uses: moonrepo/setup-moon-action@v1
+        uses: moonrepo/setup-moon-action@v0
 
       - name: Sanity Check
         run: |
