@@ -47,7 +47,10 @@ If you are using Next.js and encounter an error when building your project like 
   x await isn't allowed in non-async function
 ```
 
-This is a known issue with Next.js and Webpack. This may happen when a server action is directly imported into a client component. To workaround this, you can import the server action into a server component first, and then pass it into your client component as a prop. For example:
+This is a [known issue with Next.js and Webpack](https://github.com/vercel/next.js/discussions/57535). This may happen when a server action is directly imported into a client component. To workaround this, you have two options:
+
+#### I. Change imports
+ You can import the server action into a server component first, and then pass it into your client component as a prop. For example:
 
 ### `page.jsx`
 
@@ -81,3 +84,19 @@ export async function myEmailAction() {
   ...
 }
 ```
+#### II. Disable esm externals
+
+Alternatively, you can also turn off `esmExternals` in `next.config.js`.
+
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    esmExternals: false,
+  }
+};
+
+module.exports = nextConfig;
+```
+
+This will allow you to keep importing server actions which use `jsx-email` into client components.
