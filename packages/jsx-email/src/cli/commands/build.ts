@@ -3,7 +3,6 @@ import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import { basename, extname, join, resolve, win32, posix } from 'path';
 
-import { doIUseEmail } from '@jsx-email/doiuse-email';
 import chalk from 'chalk';
 import esbuild from 'esbuild';
 import globby from 'globby';
@@ -15,24 +14,15 @@ import type { CommandFn, TemplateFn } from './types';
 const { error, log } = console;
 
 const BuildOptionsStruct = object({
-  check: optional(boolean()),
   minify: optional(boolean()),
   'no-strip': optional(boolean()),
   out: optional(string()),
   plain: optional(boolean()),
   pretty: optional(boolean()),
   props: optional(string()),
-  strip: optional(boolean())
+  strip: optional(boolean()),
+  writeToFile: optional(boolean())
 });
-
-const emailClients = [
-  'apple-mail.*',
-  'gmail.*',
-  'outlook.*',
-  'protonmail.*',
-  'hey.*',
-  'fastmail.*'
-];
 
 type BuildOptions = Infer<typeof BuildOptionsStruct>;
 
@@ -42,10 +32,9 @@ export const help = chalk`
 Builds a template and saves the result
 
 {underline Usage}
-  $ email build <template path> [...options]
+  $ email build <template file or dir path> [...options]
 
 {underline Options}
-  --check       Check built templates for client compatibility
   --minify      Minify the rendered template before saving
   --no-strip    Prevents stripping data-id attributes from output
   --out         File path to save the rendered template
@@ -64,10 +53,22 @@ Builds a template and saves the result
 // Credit: https://github.com/rollup/plugins/blob/master/packages/pluginutils/src/normalizePath.ts#L5
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
-const build = async (path: string, argv: BuildOptions) => {
-  const { out, plain, props = '{}' } = argv;
+export const build = async (path: string, argv: BuildOptions) => {
+  const { out, plain, props = '{}', writeToFile = true } = argv;
   const template = await import(path);
-  const componentExport: TemplateFn = template.Template || template.default;
+  // Note: This is silly, but necessary to parse all the whacky ways things may be exported
+  const componentExport: TemplateFn =
+    template.Template || typeof template.default === 'function'
+      ? template.default
+      : template.default.Template || template.default.default;
+
+  if (typeof componentExport !== 'function')
+    error(
+      chalk`{red Template Export Problem:} ${basename(
+        path
+      )} doesn't export Template or export a Template as default`
+    );
+
   const extension = plain ? '.txt' : '.html';
   const renderImport = 'jsx-email';
   // eslint-disable-next-line import/no-extraneous-dependencies
@@ -84,14 +85,14 @@ const build = async (path: string, argv: BuildOptions) => {
 
   if (plain) {
     const plainText = await render(component, { plainText: plain });
-    await writeFile(writePath, plainText, 'utf8');
+    if (writeToFile) await writeFile(writePath, plainText, 'utf8');
     return plainText;
   }
 
   const html = await render(component, argv as any);
 
   await mkdir(out!, { recursive: true });
-  await writeFile(writePath, html, 'utf8');
+  if (writeToFile) await writeFile(writePath, html, 'utf8');
 
   return html;
 };
@@ -109,46 +110,13 @@ const compile = async (files: string[], outDir: string) => {
   return globby([normalizePath(join(outDir, '*.js'))]);
 };
 
-const formatSubject = (what: string) =>
-  what.replace(/`([\s\w<>.-]+)`/g, (_, bit) => chalk`{bold ${bit}}`).trim();
-
-const combine = (lines: string[]) => {
-  const rePreamble = /(`([\s\w<>.-]+)`[\s\w]+)/;
-
-  const result = lines.reduce<Record<string, string[]>>((prev, curr) => {
-    const matches = curr.match(rePreamble);
-    const preamble = matches![0];
-
-    prev[preamble] = (prev[preamble] || []).concat(curr.replace(rePreamble, '').replace(/`/g, ''));
-
-    return prev;
-  }, {});
-
-  for (const key of Object.keys(result)) {
-    result[key] = Array.from(new Set(result[key]));
-  }
-
-  return result;
-};
-
-export const command: CommandFn = async (argv: BuildOptions, input) => {
-  if (input.length < 1) return false;
-
-  const [target] = input;
+export const buildTemplates = async (target: string, argv: BuildOptions) => {
   const tmpdir = await realpath(os.tmpdir());
   const esbuildOutPath = join(tmpdir, 'jsx-email', Date.now().toString());
-  const { check = false, plain } = argv;
-
-  if (!(await existsSync(target))) {
-    error(chalk`{red The provided build target '${target}' does not exist}`);
-    process.exit(1);
-  }
-
-  assert(argv, BuildOptionsStruct);
 
   // Note: niave check that will probably get us into some edge cases
   const isFile = target.endsWith('.tsx') || target.endsWith('.jsx');
-  const { out = '.rendered' } = argv;
+  const { out = '.rendered', writeToFile = true } = argv;
   const glob = isFile ? target : join(target, '*.{jsx,tsx}');
   const targetFiles = await globby([normalizePath(glob)]);
   const outputPath = resolve(out);
@@ -159,7 +127,7 @@ export const command: CommandFn = async (argv: BuildOptions, input) => {
 
   const compiledFiles = await compile(targetFiles, esbuildOutPath);
 
-  const builtFiles = await Promise.all(
+  const result = await Promise.all(
     compiledFiles.map(async (filePath, index) => {
       return {
         fileName: targetFiles[index],
@@ -168,70 +136,25 @@ export const command: CommandFn = async (argv: BuildOptions, input) => {
     })
   );
 
-  if (check && !plain) {
-    log(chalk`{blue Checking results for Client Compatibility...}\n`);
+  if (writeToFile) log(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
+  else log(chalk`\n{green Build complete}`);
 
-    const counts = { errors: 0, notes: 0, warnings: 0 };
+  return result;
+};
 
-    for (const file of builtFiles) {
-      const result = doIUseEmail(file.html, { emailClients });
-      const { success } = result;
+export const command: CommandFn = async (argv: BuildOptions, input) => {
+  if (input.length < 1) return false;
 
-      // eslint-disable-next-line no-continue
-      if (success && !result.warnings) continue;
+  const [target] = input;
 
-      log(chalk`{underline ${file.fileName}}\n`);
-
-      if (!success && result.errors?.length) {
-        const errors = combine(result.errors);
-        const indent = '           ';
-        for (const [preamble, clients] of Object.entries(errors)) {
-          log(
-            chalk`  {red error}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
-              `\n${indent}`
-            )}}\n`
-          );
-
-          counts.errors += 1;
-        }
-      }
-
-      if (result.warnings?.length) {
-        const warnings = combine(result.warnings);
-        const indent = '          ';
-        for (const [preamble, clients] of Object.entries(warnings)) {
-          log(
-            chalk`  {yellow warn}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
-              `\n${indent}`
-            )}}\n`
-          );
-          counts.warnings += 1;
-        }
-      }
-
-      // FIXME: Think about how to intelligently display notes, because they aren't always useful
-      // if (result.notes?.length) {
-      //   const notes = combine(result.notes);
-      //   const indent = '          ';
-      //   for (const [preamble, clients] of Object.entries(notes)) {
-      //     log(
-      //       chalk`  {green note}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
-      //         `\n${indent}`
-      //       )}}\n`
-      //     );
-      //     counts.notes += 1;
-      //   }
-      // }
-    }
-
-    const errors = counts.errors > 0 ? chalk.red(counts.errors) : chalk.green(counts.errors);
-    const warnings =
-      counts.warnings > 0 ? chalk.yellow(counts.warnings) : chalk.green(counts.warnings);
-
-    log(chalk`{green Check Complete:} ${errors} error(s), ${warnings} warning(s)`);
+  if (!(await existsSync(target))) {
+    error(chalk`{red The provided build target '${target}' does not exist}`);
+    process.exit(1);
   }
 
-  log(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
+  assert(argv, BuildOptionsStruct);
+
+  await buildTemplates(target, argv);
 
   return true;
 };

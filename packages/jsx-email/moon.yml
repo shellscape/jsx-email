@@ -11,7 +11,9 @@ tasks:
     deps:
       - ~:clean.dist
       - ~:compile
-      - ~:copy
+      - ~:copy.assets
+      - ~:copy.preview
+      - ~:copy.readme
     inputs:
       - src
       - package.json
@@ -35,11 +37,8 @@ tasks:
     options:
       runDepsInParallel: false
 
-  copy:
+  copy.assets:
     command: cp -r src/cli/assets dist
-    deps:
-      - ~:copy.preview
-      - ~:copy.readme
     options:
       cache: false
 
@@ -57,7 +56,9 @@ tasks:
     command: rm README.md
     deps:
       - ~:build
-      - ~:copy
+      - ~:copy.assets
+      - ~:copy.preview
+      - ~:copy.readme
       - ~:release.actual
     options:
       cache: false
