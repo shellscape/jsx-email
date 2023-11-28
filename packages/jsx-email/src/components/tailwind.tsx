@@ -12,11 +12,14 @@ import { Suspense } from 'react';
 import { jsxToString, useData } from '../render/jsx-to-string';
 
 export interface TailwindProps {
-  config?: Pick<ConfigBase, 'layers' | 'rules' | 'separators' | 'shortcuts' | 'theme' | 'variants'>;
+  config?: Pick<
+    ConfigBase,
+    'layers' | 'presets' | 'rules' | 'separators' | 'shortcuts' | 'theme' | 'variants'
+  >;
   production?: boolean;
 }
 
-const getUno = (production: boolean) => {
+const getUno = (config: ConfigBase, production: boolean) => {
   const transformers = [transformerVariantGroup()];
 
   if (production)
@@ -27,16 +30,22 @@ const getUno = (production: boolean) => {
       })
     );
 
+  const presets = [...(config.presets || []), presetUno(), presetWind()];
   const uno = createGenerator({
-    presets: [presetUno(), presetWind()],
+    ...config,
+    presets,
     transformers
   });
 
   return uno;
 };
 
-const render = async ({ children, production = false }: React.PropsWithChildren<TailwindProps>) => {
-  const uno = getUno(production);
+const render = async ({
+  children,
+  config = {},
+  production = false
+}: React.PropsWithChildren<TailwindProps>) => {
+  const uno = getUno(config, production);
   const html = await jsxToString(<>{children}</>);
   const code = production ? html.replace(/class="/g, 'class=":jsx: ') : html;
   const s = new MagicString(code);
