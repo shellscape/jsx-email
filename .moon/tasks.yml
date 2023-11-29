@@ -30,15 +30,3 @@ tasks:
       cache: false
       outputStyle: 'stream'
     platform: system
-
-  test:
-    command: vitest --config ../../shared/vitest.config.ts
-    deps:
-      - ~:build
-    inputs:
-      - src
-      - test
-      - package.json
-    options:
-      cache: true
-      outputStyle: 'stream'

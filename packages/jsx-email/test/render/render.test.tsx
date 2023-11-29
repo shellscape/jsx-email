@@ -5,10 +5,10 @@ import { render } from '../../src/render';
 
 import AirbnbEmail from '../../../../apps/demo/emails/airbnb-review';
 import PlaidEmail from '../../../../apps/demo/emails/plaid-verify-identity';
-import VercelEmail from '../../../../apps/demo/emails/vercel-invite-user';
 
 import { Preview } from './fixtures/preview';
 import { Template } from './fixtures/template';
+import { Template as TailwindTemplate } from './fixtures/tailwind';
 
 describe('render', () => {
   beforeEach(() => {
@@ -50,7 +50,7 @@ describe('render', () => {
   });
 
   it('renders the vercel demo template', async () => {
-    expect(await render(<VercelEmail />)).toMatchSnapshot();
-    expect(await render(<VercelEmail />, { pretty: true })).toMatchSnapshot();
+    expect(await render(<TailwindTemplate />)).toMatchSnapshot();
+    expect(await render(<TailwindTemplate />, { pretty: true })).toMatchSnapshot();
   });
 });

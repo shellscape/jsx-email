@@ -3,7 +3,7 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['compile', 'release', 'test']
+    exclude: ['compile', 'release']
 
 tasks:
   build:
@@ -74,6 +74,18 @@ tasks:
     command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
     options:
       cache: false
+
+  test:
+    command: vitest --config ../../shared/vitest.config.ts
+    deps:
+      - ~:build
+    inputs:
+      - src
+      - test
+      - package.json
+    options:
+      cache: false
+      outputStyle: 'stream'
 
   tsc:
     command: tsc --project tsconfig.json
