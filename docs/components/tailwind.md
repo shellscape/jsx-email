@@ -9,10 +9,12 @@ type: component
 
 <!--@include: @/include/install.md-->
 
-Our `Tailwind` component is lightning quick and extensible. No other email template system is as flexible or renders smaller with Tailwind styles.
+Our `Tailwind` component is lightning quick and extensible. No other email template system is as flexible or renders smaller with Tailwind styles. That's because we leverage the insanely fast and flexible [UnoCSS](https://unocss.dev/) project for Atomic CSS - including Tailwind _and_ [Windi CSS](https://windicss.org/) support. Not only do you get Tailwind support, but also the vast ecosystem of UnoCSS possibilities.
 
 ::: tip
-Docs for v2.4.4 and older can be found at https://github.com/shellscape/jsx-email/blob/tailwind-v2.4.4/docs/components/tailwind.md
+These are docs for the unified `jsx-email` package, and the Tailwind component contained within.
+
+Docs for the deprecated `@jsx-email/tailwind` v3.0.0+ can be found at https://github.com/shellscape/jsx-email/blob/tailwind-v3.0.4/docs/components/tailwind.md
 :::
 
 ## Usage
@@ -47,23 +49,23 @@ const Email = () => {
 ```
 
 ::: tip
-Note: Most email clients are style-limited and some styles may not work.
+Note: Most email clients are style-limited and some styles may not work. It's always recommended to use `email check` to check your CSS for client compatibility.
 :::
 
 ## Component Props
 
 ```ts
 export interface TailwindProps {
-  config?: TwindUserConfig;
+  config?: UnoCssConfig;
   isProduction?: boolean;
 }
 ```
 
 ```ts
-config?: TailwindConfig;
+config?: UnoCssConfig;
 ```
 
-This option allows customizing the theme for your template, as well as [Plugins](https://twind.dev/handbook/plugins.html). See: [Configuration](https://twind.dev/handbook/configuration.html) for type information. For more information on theming, please see https://twind.dev/handbook/extended-functionality.html.
+This option allows customizing the theme for your template, using [UnoCSS Configuration](https://unocss.dev/config/) as well as UnoCSS `layers`, `presets`, `rules`, `separators`, `shortcuts`, and `variants`. See: [Configuration](https://unocss.dev/guide/config-file) for type and further information. For more information on theming and any of the other customization options, please see https://unocss.dev/config/.
 
 ```ts
 isProduction?: boolean;
@@ -73,6 +75,7 @@ If true, any Tailwind class names will be converted to hashed names. e.g. The cl
 
 ## Tailwind Plugins
 
-The `Tailwind` component isn't compatible with [Tailwind Plugins](https://tailwindcss.com/docs/plugins) out of the box. This is a side-effect of using [`twind`](https://twind.dev/) for our Tailwind processor. However, `twind` does have a set of commonly-used equivalent [`twind` plugins](https://twind.dev/handbook/extended-functionality.html#utilities). While not ideal, complex rulesets and plugins are an unlikely need for formatting emails.
+The `Tailwind` component isn't compatible with [Tailwind Plugins](https://tailwindcss.com/docs/plugins) out of the box. This is a side-effect of using [UnoCSS](https://unocss.dev/) for our Tailwind processor. However, UnoCSS does have a set of commonly-used equivalent core [UnoCSS presets](https://unocss.dev/presets/), [Community Presets](https://unocss.dev/presets/community), and [Transformers](https://unocss.dev/transformers/variant-group). While not entirely ideal for 1:1 Tailwind plugin support, complex rulesets and plugins are an unlikely need for formatting emails. If you'd like to port a Tailwind plugin to an UnoCSS present, there is [documentation for that](https://unocss.dev/guide/presets) as well.
 
 Should you find yourself in need of a Tailwind Plugin for an email template, please stop by our [Discord Channel](https://discord.gg/FywZN57mTg) and we'll be happy to help you.
+
