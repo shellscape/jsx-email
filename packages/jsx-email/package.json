@@ -54,6 +54,7 @@
     "@radix-ui/react-toggle-group": "1.0.4",
     "@radix-ui/react-tooltip": "1.0.6",
     "@unocss/core": "^0.57.4",
+    "@unocss/preset-typography": "^0.57.7",
     "@unocss/preset-uno": "^0.57.4",
     "@unocss/preset-wind": "^0.57.4",
     "@unocss/transformer-compile-class": "^0.57.4",

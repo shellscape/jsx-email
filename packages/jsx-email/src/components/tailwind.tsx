@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createGenerator, type ConfigBase } from '@unocss/core';
+import { presetTypography } from '@unocss/preset-typography';
 import { presetWind } from '@unocss/preset-wind';
 import { presetUno } from '@unocss/preset-uno';
 import transformerCompileClass from '@unocss/transformer-compile-class';
@@ -10,6 +11,8 @@ import cssvariables from 'postcss-css-variables';
 import { Suspense } from 'react';
 
 import { jsxToString, useData } from '../render/jsx-to-string';
+
+const { warn } = console;
 
 export interface TailwindProps {
   config?: Pick<
@@ -30,9 +33,18 @@ const getUno = (config: ConfigBase, production: boolean) => {
       })
     );
 
-  const presets = [...(config.presets || []), presetUno(), presetWind()];
+  if ((config?.theme as any)?.extend) {
+    warn(
+      'jsx-email → Tailwind: Use of `theme.extend` is not necessary. `theme.extend` has been merged into `theme`'
+    );
+    const { extend } = config.theme as any;
+    delete (config.theme as any).extend;
+    config.theme = { ...config.theme, ...extend };
+  }
+
+  const presets = [...(config.presets || []), presetTypography(), presetUno(), presetWind()];
   const uno = createGenerator({
-    ...config,
+    ...(config as any),
     presets,
     transformers
   });

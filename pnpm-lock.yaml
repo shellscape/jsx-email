@@ -11,6 +11,11 @@ overrides:
   react-dom: 18.2.0
   react-router-dom: 6.16.0
 
+patchedDependencies:
+  postcss-css-variables@0.19.0:
+    hash: qlknih6cdb5oxm3ryakvjfh6dy
+    path: patches/postcss-css-variables@0.19.0.patch
+
 importers:
 
   .:
@@ -157,6 +162,9 @@ importers:
       '@unocss/core':
         specifier: ^0.57.4
         version: 0.57.4
+      '@unocss/preset-typography':
+        specifier: ^0.57.7
+        version: 0.57.7
       '@unocss/preset-uno':
         specifier: ^0.57.4
         version: 0.57.4
@@ -222,7 +230,7 @@ importers:
         version: 8.4.30
       postcss-css-variables:
         specifier: ^0.19.0
-        version: 0.19.0(postcss@8.4.30)
+        version: 0.19.0(patch_hash=qlknih6cdb5oxm3ryakvjfh6dy)(postcss@8.4.30)
       pretty:
         specifier: 2.0.0
         version: 2.0.0
@@ -2536,10 +2544,20 @@ packages:
     resolution: {integrity: sha512-JXufixa501p7+uwUkfG9voIUvNYXv58shZCKXO4Q9AojOzOMu6TDj35x8f3Sv5WFtZ3tp03sIETAfQRo7ksshw==}
     dev: false
 
+  /@unocss/core@0.57.7:
+    resolution: {integrity: sha512-1d36M0CV3yC80J0pqOa5rH1BX6g2iZdtKmIb3oSBN4AWnMCSrrJEPBrUikyMq2TEQTrYWJIVDzv5A9hBUat3TA==}
+    dev: false
+
   /@unocss/extractor-arbitrary-variants@0.57.4:
     resolution: {integrity: sha512-BPvS2ePUrhGMSuEkNMnPcOcTC7SkrRblARwGk00PGGfCRSWhCi6Csz0oHvn2Qm8147hoQzkEwM74+dox8gcsxw==}
     dependencies:
       '@unocss/core': 0.57.4
+    dev: false
+
+  /@unocss/extractor-arbitrary-variants@0.57.7:
+    resolution: {integrity: sha512-JdyhPlsgS0x4zoF8WYXDcusPcpU4ysE6Rkkit4a9+xUZEvg7vy7InH6PQ8dL8B9oY7pbxF7G6eFguUDpv9xx4Q==}
+    dependencies:
+      '@unocss/core': 0.57.7
     dev: false
 
   /@unocss/preset-mini@0.57.4:
@@ -2548,6 +2566,21 @@ packages:
       '@unocss/core': 0.57.4
       '@unocss/extractor-arbitrary-variants': 0.57.4
       '@unocss/rule-utils': 0.57.4
+    dev: false
+
+  /@unocss/preset-mini@0.57.7:
+    resolution: {integrity: sha512-YPmmh+ZIg4J7/nPMfvzD1tOfUFD+8KEFXX9ISRteooflYeosn2YytGW66d/sq97AZos9N630FJ//DvPD2wfGwA==}
+    dependencies:
+      '@unocss/core': 0.57.7
+      '@unocss/extractor-arbitrary-variants': 0.57.7
+      '@unocss/rule-utils': 0.57.7
+    dev: false
+
+  /@unocss/preset-typography@0.57.7:
+    resolution: {integrity: sha512-1QuoLhqHVRs+baaVvfH54JxmJhVuBp5jdVw3HCN/vXs1CSnq2Rm/C/+PahcnQg/KLtoW6MgK5S+/hU9TCxGRVQ==}
+    dependencies:
+      '@unocss/core': 0.57.7
+      '@unocss/preset-mini': 0.57.7
     dev: false
 
   /@unocss/preset-uno@0.57.4:
@@ -2572,6 +2605,14 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       '@unocss/core': 0.57.4
+      magic-string: 0.30.5
+    dev: false
+
+  /@unocss/rule-utils@0.57.7:
+    resolution: {integrity: sha512-gLqbKTIetvRynLkhonu1znr+bmWnw+Cl3dFVNgZPGjiqGHd78PGS0gXQKvzuyN0iO2ADub1A7GlCWs826iEHjA==}
+    engines: {node: '>=14'}
+    dependencies:
+      '@unocss/core': 0.57.7
       magic-string: 0.30.5
     dev: false
 
@@ -6151,7 +6192,7 @@ packages:
       pathe: 1.1.1
     dev: true
 
-  /postcss-css-variables@0.19.0(postcss@8.4.30):
+  /postcss-css-variables@0.19.0(patch_hash=qlknih6cdb5oxm3ryakvjfh6dy)(postcss@8.4.30):
     resolution: {integrity: sha512-Hr0WEYKLK9VCrY15anHXOd4RCvJy/xRvCnWdplGBeLInwEj6Z14hgzTb2W/39dYTCnS8hnHUfU4/F1zxX0IZuQ==}
     peerDependencies:
       postcss: ^8.2.6
@@ -6161,6 +6202,7 @@ packages:
       extend: 3.0.2
       postcss: 8.4.30
     dev: false
+    patched: true
 
   /postcss-import@15.1.0(postcss@8.4.30):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
