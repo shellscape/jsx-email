@@ -85,10 +85,9 @@ Alternatively, you can also turn off `esmExternals` in `next.config.js` which wi
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    esmExternals: false,
+    esmExternals: false
   }
 };
 
 module.exports = nextConfig;
 ```
-

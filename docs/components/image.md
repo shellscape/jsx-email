@@ -22,10 +22,10 @@ const Email = () => {
 ```
 
 ::: tip
-  All email clients can display `.png`, `.gif`, and `.jpg` images.
-  Unfortunately, `.svg` images are not well supported, regardless of how they're
-  referenced, so avoid using these. See [Can I
-  Email](https://www.caniemail.com/features/image-svg/) for more information.
+All email clients can display `.png`, `.gif`, and `.jpg` images.
+Unfortunately, `.svg` images are not well supported, regardless of how they're
+referenced, so avoid using these. See [Can I
+Email](https://www.caniemail.com/features/image-svg/) for more information.
 :::
 
 ## Component Props

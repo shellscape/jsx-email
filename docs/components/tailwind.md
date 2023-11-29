@@ -78,4 +78,3 @@ If true, any Tailwind class names will be converted to hashed names. e.g. The cl
 The `Tailwind` component isn't compatible with [Tailwind Plugins](https://tailwindcss.com/docs/plugins) out of the box. This is a side-effect of using [UnoCSS](https://unocss.dev/) for our Tailwind processor. However, UnoCSS does have a set of commonly-used equivalent core [UnoCSS presets](https://unocss.dev/presets/), [Community Presets](https://unocss.dev/presets/community), and [Transformers](https://unocss.dev/transformers/variant-group). While not entirely ideal for 1:1 Tailwind plugin support, complex rulesets and plugins are an unlikely need for formatting emails. If you'd like to port a Tailwind plugin to an UnoCSS present, there is [documentation for that](https://unocss.dev/guide/presets) as well.
 
 Should you find yourself in need of a Tailwind Plugin for an email template, please stop by our [Discord Channel](https://discord.gg/FywZN57mTg) and we'll be happy to help you.
-
