@@ -55,8 +55,7 @@ export const viteConfig = defineConfig({
   resolve: {
     alias: {
       path: 'path-browserify',
-      postcss: 'https://jspm.dev/postcss@8.4.31',
-      'postcss-css-variables': 'https://jspm.dev/postcss-css-variables@0.19.0'
+      postcss: 'https://jspm.dev/postcss@8.4.31'
     }
   },
   root
