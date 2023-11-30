@@ -14,10 +14,7 @@ type: component
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Section } from '@jsx-email/section';
-import { Column } from '@jsx-email/column';
-import { Row } from '@jsx-email/row';
-import { Text } from '@jsx-email/text';
+import { Column, Row, Section, Text } from 'jsx-email';
 
 const Email = () => {
   return (

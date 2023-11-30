@@ -1,3 +1,7 @@
+[npm]: https://img.shields.io/npm/v/jsx-email
+[npm-url]: https://www.npmjs.com/package/jsx-email
+
+[![npm][npm]][npm-url]
 [![Join our Discord](https://img.shields.io/badge/join_our-Discord-5a64ea)](https://discord.gg/FywZN57mTg)
 [![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
 
@@ -22,7 +26,7 @@ Everything to know about the components, props, and usage is available within ou
 
 ## Requirements
 
-The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
+The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+
 
 <div>
   <br/>
@@ -33,44 +37,27 @@ The packages and components that make up JSX email require an [LTS](https://gith
 
 ## Components
 
-A list of available components found here:
+A list of available components can be found on the [`jsx-email` Documentation](https://jsx.email/docs/introduction)
 
-|                                 |     |
-| ------------------------------- | --- |
-| [body](packages/body)           |     |
-| [button](packages/button)       |     |
-| [column](packages/column)       |     |
-| [container](packages/container) |     |
-| [font](packages/font)           |     |
-| [head](packages/head)           |     |
-| [heading](packages/heading)     |     |
-| [hr](packages/hr)               |     |
-| [html](packages/html)           |     |
-| [image](packages/image)         |     |
-| [link](packages/link)           |     |
-| [markdown](packages/markdown)   |     |
-| [preview](packages/preview)     |     |
-| [row](packages/row)             |     |
-| [section](packages/section)     |     |
-| [tailwind](packages/tailwind)   |     |
-| [text](packages/text)           |     |
-|                                 |     |
+## Advantages Over `react-email`
 
-## Helper Packages
+The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. As such, we feel that `jsx-email` has a number of improvements and advantages over `react-email`. Those include:
 
-A list of available helper packages found here:
-
-|                           |                                                            |
-| ------------------------- | ---------------------------------------------------------- |
-| [all](packages/all)       | A package containing all available JSX email components    |
-| [cli](packages/cli)       | A CLI for working with Email Templates made with jsx-email |
-| [render](packages/render) | Render JSX email components to HTML email                  |
-|                           |                                                            |
+- [Email Client Compatibility Checking](https://jsx.email/docs/core/cli#client-compatibility-check)
+- Crazy fast Tailwind support
+- Support for `<Suspense>` and `async` within Components
+- Exclusive Components
+- Enhanced Developer Experience (DX)
+- Better Command Line tools
+- Less complex, smoother Preview Server
+- Faster improvements, feature development, and releases
+- Community-driven maintenance rather than company-planning priority
+- No vendor lock-in for tools. `jsx-email` uses only generic components and tools
 
 ## Service Integrations
 
 Email built and rendered with JSX email can be used with any email provider that provides an API for sending email as a `String`.
-This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), and [SendGrid](https://sendgrid.com).
+This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), and [SendGrid](https://sendgrid.com). See our documentation on [Email Providers](http://localhost:5173/docs/email-providers) for more info and example usage.
 
 <!-- FIXME: Write and link to example code for integrations on the docs site -->
 
@@ -84,16 +71,9 @@ Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
 This project was built upon prior work for `react-email` by Bu Kinoshita ([@Joker](https://twitter.com/Joker)) and Bruce Wayne ([@Batman](https://twitter.com/Batman)).
 
-`JSX email` is a fork of `react-email`. The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. Improvements over `react-email` include:
+`jsx-email` is a fork of `react-email`.
 
-- Smoother Developer Experience (DX)
-- Better Command Line tools
-- Less complex, smoother Preview Server
-- Faster improvements and releases
-- Community-driven maintenance rather than company-planning priority
-- No vendor lock-in for tools. `jsx-email` uses only generic components and tools.
-
-We (the maintainers) use the JSX email daily. This fork was originally created as a canary channel for fixes from pull requests and issues that had been left unaddressed. JSX email grew faster, and the upstream team didn't give the project the love we felt it needed. When our help wasn't accepted, we felt a new direction was needed.
+We (the maintainers) use JSX email daily. This fork was originally created as a canary channel for fixes from pull requests and issues that had been left unaddressed. JSX email grew faster, and the upstream team didn't give the project the love we felt it needed. When our help wasn't accepted, we felt a new direction was warranted.
 
 ## License
 

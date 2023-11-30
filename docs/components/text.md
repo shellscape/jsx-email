@@ -14,7 +14,7 @@ type: component
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Text } from '@jsx-email/text';
+import { Text } from 'jsx-email';
 
 const Email = () => {
   return <Text>Lorem ipsum</Text>;

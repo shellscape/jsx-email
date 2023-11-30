@@ -12,7 +12,7 @@ import {
   Row,
   Section,
   Text
-} from '@jsx-email/all';
+} from 'jsx-email';
 import * as React from 'react';
 
 const baseUrl = 'https://jsx.email/assets/demo/';

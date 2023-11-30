@@ -6,7 +6,7 @@ import { defineConfig } from 'vitest/config';
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   test: {
-    environment: 'happy-dom',
+    // environment: 'happy-dom',
     globals: true,
     resolveSnapshotPath: (testPath: string, snapExtension: string) =>
       join(dirname(testPath), '.snapshots', basename(testPath) + snapExtension),

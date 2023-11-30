@@ -72,14 +72,10 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
 
-      - name: Moon Dump
-        run: moon ag repo:build.packages --dot
-
       - name: Build Projects
         run: |
-          moon repo:build.critical
-          moon repo:build.packages
-          moon repo:build.last
+          moon jsx-email:build
+          moon create-jsx-email:build
 
       - name: Lint Monorepo
         run: moon run repo:lint

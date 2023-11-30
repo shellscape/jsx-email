@@ -14,13 +14,10 @@ node:
 
   # The version of the package manager (above) to use.
   pnpm:
-    version: '8.7.1'
+    version: '8.11.0'
 
   # Add `node.version` as a constraint in the root `package.json` `engines`.
   addEnginesConstraint: true
-
-  # Use the `package.json` name as an alias for the respective moon project.
-  aliasPackageNames: 'name-and-scope'
 
   # Dedupe dependencies after the lockfile has changed.
   dedupeOnLockfileChange: false

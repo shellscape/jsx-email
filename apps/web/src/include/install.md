@@ -5,19 +5,19 @@ Install the {{ $frontmatter.type }} from your command line
 ::: code-group
 
 ```console-vue [pnpm]
-pnpm add @jsx-email/{{ $frontmatter.slug }} {{ $frontmatter.params }}
+pnpm add jsx-email
 ```
 
 ```console-vue [bun]
-bun add @jsx-email/{{ $frontmatter.slug }} {{ $frontmatter.params }}
+bun add jsx-email
 ```
 
 ```console-vue [npm]
-npm add @jsx-email/{{ $frontmatter.slug }} {{ $frontmatter.params }}
+npm add jsx-email
 ```
 
 ```console-vue [yarn]
-yarn add @jsx-email/{{ $frontmatter.slug }} {{ $frontmatter.params }}
+yarn add jsx-email
 ```
 
 :::

@@ -12,9 +12,9 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text
-} from '@jsx-email/all';
-import { Tailwind } from '@jsx-email/tailwind';
+} from 'jsx-email';
 
 interface VercelInviteUserEmailProps {
   username?: string;

@@ -38,25 +38,14 @@ While the _Existing Projects_ section below can be safely skipped, the informati
 
 ## Existing Projects
 
-The happy path for adding JSX email to an existing project is by using the JSX email CLI.
+The happy path for adding JSX email to an existing project is by using the JSX email CLI:
+
+<!--@include: @/include/install.md-->
+
+If you want to avoid global installation, you can use `pnpm dlx`, `npx`, or `yarn` instead like so:
 
 ```shell
-$ pnpm add @jsx-email/cli -g
-
-# We recommend pnpm - https://pnpm.io
-# But npm and yarn are supported
-# npm add @jsx-email/cli
-# yarn add @jsx-email/cli
-```
-
-If you want to avoid global installation, you can use npx instead:
-
-```shell
-$ pnpm exec email <command>
-
-# With npm or yarn
-# npx email <command>
-# yarn email <command>
+$ pnpm dlx email <command>
 ```
 
 ## Create A Template
@@ -99,7 +88,7 @@ Please use `email help preview` to view optional flags, including setting the po
 
 ## Building Your Template
 
-The next step is to build your template. This can be done with the CLI, or with the [Core Render Package](/docs/core/render) in code. While most people will need to render emails dynamically at runtime using `@jsx-email/render`, the CLI is capable of rendering both static and dynamic emails that take props as input. To build your email into an HTML document, run:
+The next step is to build your template. This can be done with the CLI, or with the [`render` method](/docs/core/render) in code. While most people will need to render emails dynamically at runtime using `render`, the CLI is capable of rendering both static and dynamic emails that take props as input. To build your email into an HTML document, run:
 
 ```sh
 $ email build ./emails/BatmanEmail.tsx
@@ -107,6 +96,4 @@ $ email build ./emails/BatmanEmail.tsx
 
 ::: tip
 Please use `email help build` to view optional flags, including providing props and setting the output path.
-
-Rendering can also be done programmatically (in code) with the [@jsx-email/render](/docs/core/render) core package.
 :::

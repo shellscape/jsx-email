@@ -1,4 +1,4 @@
-import { Body, Container, Head, Heading, Html, Img, Link, Section, Text } from '@jsx-email/all';
+import { Body, Container, Head, Heading, Html, Img, Link, Section, Text } from 'jsx-email';
 import * as React from 'react';
 
 interface PlaidVerifyIdentityEmailProps {

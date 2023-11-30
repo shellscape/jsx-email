@@ -16,4 +16,4 @@ _2023-10-08_
 
 - feat: initial release (#34)
 
-# @jsx-email/create-jsx-email ChangeLog
+# create-jsx-email ChangeLog

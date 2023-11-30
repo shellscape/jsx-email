@@ -1,54 +1,26 @@
 # https://moonrepo.dev/docs/config/tasks
 $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
+project:
+  description: It's the repo root
+  name: repo
+
 workspace:
   inheritedTasks:
     exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
 
 tasks:
-  build.packages:
-    command: echo "Build Complete"
+  build.all:
     deps:
-      - body:build
-      - button:build
-      - code:build
-      - column:build
-      - container:build
-      - font:build
-      - head:build
-      - heading:build
-      - hr:build
-      - html:build
-      - img:build
-      - link:build
-      - markdown:build
-      - preview:build
-      - row:build
-      - section:build
-      - text:build
-      - tailwind:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
-
-  build.critical:
-    command: echo "Build Complete"
-    deps:
-      - render:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-
-  build.last:
-    command: echo "Build Complete"
-    deps:
+      - jsx-email:build
       - create-jsx-email:build
-      - all:build
-      - cli:build
+
+  build.samples:
+    command: ts-node scripts/build-samples.ts
+    deps:
+      - clean.samples
     options:
       cache: false
-      outputStyle: 'stream'
 
   clean.samples:
     command: rm -rf /tmp/samples.jsx.email
@@ -63,10 +35,10 @@ tasks:
 
   lint:
     deps:
-      - jsx-email:lint.docs
-      - jsx-email:lint.json
-      - jsx-email:lint.package
-      - jsx-email:lint.js
+      - repo:lint.docs
+      - repo:lint.json
+      - repo:lint.package
+      - repo:lint.js
     options:
       cache: false
 
@@ -96,36 +68,8 @@ tasks:
     command: gh-pages -d /tmp/samples.jsx.email -u "Release Workflow <release-workflow@jsx.email>" --repo git@github.com:shellscape/samples.jsx.email.git
     deps:
       - ~:clean.dist
-      - cli:build.samples
+      - ~:build.samples
       - cname.samples
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
-
-  test.packages:
-    command: echo "✓ All packages tested"
-    deps:
-      - body:test
-      - button:test
-      - column:test
-      - container:test
-      - font:test
-      - head:test
-      - heading:test
-      - hr:test
-      - html:test
-      - img:test
-      - link:test
-      - markdown:test
-      - preview:test
-      - row:test
-      - section:test
-      - tailwind:test
-      - text:test
-      - render:test
-      # TODO: add cli test
-      # - cli:test
     options:
       cache: false
       outputStyle: 'stream'

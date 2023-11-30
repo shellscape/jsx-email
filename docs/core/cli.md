@@ -21,7 +21,7 @@ Invoking the CLI without parameters or flags will produce help information in th
 ```console
 → pnpm exec email
 
-@jsx-email/cli v0.0.0
+jsx-email v0.0.0
 
 A CLI for working with Email Templates made with jsx-email
 
@@ -29,14 +29,15 @@ Usage
   $ email [...options]
 
 Commands
-  build       <template path>
+  build       <template file or dir path>
+  check       <template file path>
   create      <template name>
   help        [<command>]
   preview     <template dir path>
 
 Options
   --help      Displays this message
-  --version   Displays the current @jsx-email/cli version
+  --version   Displays the current jsx-email version
 
 Examples
   $ email
@@ -64,14 +65,48 @@ $ cd ~/code/email-app
 $ email build ./emails/Batman.tsx
 ```
 
-### Client Compatibility Check
+## Check
 
-As part of the build process, `jsx-email` can run a client compatibility check on the ouput, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client compatibility issues. This check will not throw an error or block any pipelines, and is purely informative.
-
-To enable this check, use the `--check` flag.
+`jsx-email` can run a client compatibility check on any template, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client incompatibility issues. This check is incredibly helpful in diagnosing and debugging display issues between multiple email clients.
 
 ```console
-$ email build ./emails/Batman.tsx --check
+$ email check ./emails/Batman.tsx
+```
+
+Example output:
+
+```console
+Checking email template for Client Compatibility...
+
+Found 1 files:
+   ./emails/Batman.tsx
+
+Starting build...
+
+Build complete
+
+./emails/Batman.tsx
+
+  error  Class selector is not supported by:
+           gmail.mobile-webmail
+           protonmail.desktop-webmail
+           protonmail.ios
+
+  error  border-radius is not supported by:
+           outlook.windows
+           outlook.windows-mail
+
+  ...
+
+  warn  target attribute is only partially supported by:
+          apple-mail.macos
+          apple-mail.ios
+          outlook.windows
+          outlook.windows-mail
+          outlook.ios
+          outlook.android
+
+Check Complete: 14 error(s), 20 warning(s)
 ```
 
 ## Preview

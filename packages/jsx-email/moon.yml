@@ -1,0 +1,94 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['compile', 'release']
+
+tasks:
+  build:
+    command: rm -f tsconfig.json
+    deps:
+      - ~:clean.dist
+      - ~:compile
+      - ~:copy.assets
+      - ~:copy.preview
+      - ~:copy.readme
+    inputs:
+      - src
+      - package.json
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
+  clean.readme:
+    command: rm README.md
+    options:
+      cache: false
+
+  compile:
+    command: tsup --config tsup.config.ts
+    inputs:
+      - src
+      - package.json
+    deps:
+      - ~:tsconfig.link
+    options:
+      runDepsInParallel: false
+
+  copy.assets:
+    command: cp -r src/cli/assets dist
+    options:
+      cache: false
+
+  copy.preview:
+    command: cp -r src/cli/preview-app dist
+    options:
+      cache: false
+
+  copy.readme:
+    command: cp -r ../../README.md README.md
+    options:
+      cache: false
+
+  release:
+    command: rm README.md
+    deps:
+      - ~:build
+      - ~:copy.assets
+      - ~:copy.preview
+      - ~:copy.readme
+      - ~:release.actual
+    options:
+      cache: false
+      outputStyle: 'stream'
+
+  release.actual:
+    command: versioner --target $projectRoot
+    options:
+      cache: false
+      outputStyle: 'stream'
+
+  start.preview:
+    command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
+    options:
+      cache: false
+
+  test:
+    command: vitest --config ../../shared/vitest.config.ts
+    deps:
+      - ~:build
+    inputs:
+      - src
+      - test
+      - package.json
+    options:
+      cache: false
+      outputStyle: 'stream'
+
+  tsc:
+    command: tsc --project tsconfig.json
+    inputs:
+      - app
+      - src

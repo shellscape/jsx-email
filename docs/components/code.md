@@ -13,7 +13,7 @@ slug: code
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Code } from '@jsx-email/code';
+import { Code } from 'jsx-email';
 
 const Email = () => {
   return (
