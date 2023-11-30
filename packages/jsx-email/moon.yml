@@ -55,20 +55,20 @@ tasks:
   release:
     command: rm README.md
     deps:
-      - ~:build
-      - ~:copy.assets
-      - ~:copy.preview
-      - ~:copy.readme
       - ~:release.actual
     options:
       cache: false
       outputStyle: 'stream'
+      runDepsInParallel: false
 
   release.actual:
     command: versioner --target $projectRoot
+    deps:
+      - ~:build
     options:
       cache: false
       outputStyle: 'stream'
+      runDepsInParallel: false
 
   start.preview:
     command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
