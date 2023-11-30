@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v1.0.0
+
+_2023-11-30_
+
+### Breaking Changes
+
+- feat!: use jsx-email (f606d30)
+
 ## v0.1.1
 
 _2023-11-02_
