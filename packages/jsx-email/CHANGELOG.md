@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.0.1
+
+_2023-11-30_
+
+### Bugfixes
+
+- fix: correct moon release dependencies (8187d3f)
+
 ## v1.0.0
 
 _2023-11-30_
