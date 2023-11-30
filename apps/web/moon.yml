@@ -28,7 +28,7 @@ tasks:
     options:
       cache: false
 
-  release:
+  publish:
     command: gh-pages -d dist -u "Release Workflow <release-workflow@jsx.email>"
     deps:
       - ~:clean.dist
