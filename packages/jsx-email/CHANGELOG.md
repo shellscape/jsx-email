@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.0.3
+
+_2023-12-01_
+
+### Bugfixes
+
+- jsx-email: don't default button target to \_blank. fixes #81 (a7690ba)
+
 ## v1.0.2
 
 _2023-12-01_
