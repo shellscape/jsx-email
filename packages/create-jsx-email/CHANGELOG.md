@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v1.0.1
+
+_2023-12-01_
+
+### Bugfixes
+
+- create-jsx-email: correct output paths (217b986)
+
 ## v1.0.0
 
 _2023-11-30_
