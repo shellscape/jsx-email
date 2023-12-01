@@ -14,8 +14,8 @@ import { Preview } from './preview.tsx';
 interface TemplateExports {
   Name?: string;
   PreviewProps?: () => any;
-  Struct?: Struct;
   Template: React.ExoticComponent;
+  TemplateStruct?: Struct;
 }
 
 interface TemplateData extends TemplateExports {
@@ -42,8 +42,8 @@ const templates = await Promise.all(
       jsx: sources[path],
       Name: component.Name || parseName(path),
       PreviewProps: component.PreviewProps,
-      Struct: component.Struct,
-      Template: component.Template || (component as any).default
+      Template: component.Template || (component as any).default,
+      TemplateStruct: component.TemplateStruct
     };
     return result;
   })
@@ -52,10 +52,10 @@ const templates = await Promise.all(
 const templateNames = templates.map((template) => template.Name!);
 
 const templateRoutes = templates.map(async (template) => {
-  const { Name, PreviewProps, Struct, Template } = template;
+  const { Name, PreviewProps, Template, TemplateStruct } = template;
   let props: any;
 
-  if (Struct) props = create({}, Struct);
+  if (TemplateStruct) props = create({}, TemplateStruct);
   else if (PreviewProps) props = PreviewProps();
   else if ((Template as any).PreviewProps) {
     console.warn(
