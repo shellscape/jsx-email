@@ -14,7 +14,7 @@ If you're a Next.js user, and you're trying to run `jsx-email` in a server actio
 export 'getHighlighterCore' (reexported as 'getHighlighterCore') was not found in './core.mjs' (module has no exports)
 ```
 
-Then congratulations, you've been affected by Next.js using webpack and webpack not handling `.mjs` files correctly. Luckily, there's a quick fix to get around this limitation. Please follow the instructions on this issue: https://github.com/antfu/shikiji/issues/13#issuecomment-1749588964. The issue has more information, but the workaround entails adding the following to your `next.config.js` file:
+Then congratulations, you've been affected by Next.js using webpack and webpack not handling `.mjs` files correctly. Luckily, there's a quick fix to get around this limitation. Please follow the [instructions on this issue](https://github.com/antfu/shikiji/issues/13#issuecomment-1749588964). The issue has more information, but the workaround entails adding the following to your `next.config.js` file:
 
 ```js
 /** @type {import('next').NextConfig} */
@@ -37,7 +37,7 @@ module.exports = nextConfig;
 
 ## Next.js `x await isn't allowed in non-async function` Build Errors
 
-If you're a Next.js and encounting an error when building your project which looks similar to:
+If you're a Next.js user and encountering an error when building your project which looks similar to:
 
 ```
 8058.js from Terser
@@ -77,7 +77,7 @@ export async function myEmailAction() {
 }
 ```
 
-#### II. Disable EXM Externals
+### II. Disable ESM Externals
 
 Alternatively, you can also turn off `esmExternals` in `next.config.js` which will allow you to keep importing server actions which use `jsx-email` into client components:
 
