@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.0.2
+
+_2023-12-01_
+
+### Bugfixes
+
+- jsx-email: render TemplateStruct in preview (6c315a8)
+
 ## v2.0.0
 
 _2023-11-30_
