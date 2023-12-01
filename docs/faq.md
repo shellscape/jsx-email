@@ -91,3 +91,18 @@ const nextConfig = {
 
 module.exports = nextConfig;
 ```
+
+## I have another question that isn't answered here!
+
+If you have a question that isn't answered here, please [open an issue](https://github.com/shellscape/jsx-email/issues), start a [Discussion](https://github.com/shellscape/jsx-email/discussions), or [join our friendly Discord](https://discord.gg/FywZN57mTg) and ask away!
+
+If your question relates to a bug or code issue, we really do need you to create a minimal reproduction. Without a reproduction it is nearly impossible for us to work out what whether the problem might be in your code, your individual setup, or a bug in JSX email! The reproduction helps everyone by ensuring we're all working with the same information.
+
+The reproduction should be a small, self-contained project that demonstrates the issue. Try and narrow it down to just demonstrating what is causing the issue.
+
+It's easy to do, and you can either:
+
+- Use the [`jsx-email-repro` StackBlitz reproduction template](https://stackblitz.com/fork/jsx-email-repro); or
+- Provide a minimal repository link. Read [this gist](https://gist.github.com/Rich-Harris/88c5fc2ac6dc941b22e7996af05d70ff) for instructions.
+
+Include the reproduction link with your question, and we'll be happy to help!
