@@ -41,12 +41,7 @@ const buttonTextStyle = (pb?: number) => {
   };
 };
 
-export const Button: React.FC<Readonly<ButtonProps>> = ({
-  children,
-  style,
-  target = '_blank',
-  ...props
-}) => {
+export const Button: React.FC<Readonly<ButtonProps>> = ({ children, style, target, ...props }) => {
   const parsedPadding = parsePadding((style as any) || {});
   let textRaiseTop = '';
   let textRaiseBottom: number | undefined;

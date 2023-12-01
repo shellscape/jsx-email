@@ -4,6 +4,8 @@
  */
 
 import type { FC, ReactNode } from 'react';
+// @ts-ignore
+import React from 'react';
 
 import { jsxToString } from '../../src/render/jsx-to-string';
 
