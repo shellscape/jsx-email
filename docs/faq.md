@@ -98,7 +98,7 @@ If you have a question that isn't answered here, please [open an issue](https://
 
 If your question relates to a bug or code issue, we really do need you to create a minimal reproduction. Without a reproduction it is nearly impossible for us to work out what whether the problem might be in your code, your individual setup, or a bug in JSX email! The reproduction helps everyone by ensuring we're all working with the same information.
 
-The reproduction should be a small, self-contained project that demonstrates the issue. Try and narrow it down to just demonstrating what is causing the issue.
+The reproduction should be a small, self-contained project. Try and narrow it down to just demonstrating what is causing the issue.
 
 It's easy to do, and you can either:
 
