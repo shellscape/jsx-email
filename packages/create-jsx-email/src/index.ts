@@ -81,22 +81,26 @@ const run = async () => {
   const { overwrite, projectName } = result;
   const root = join(process.cwd(), targetPath);
 
-  log(chalk`{blue Creating Project} at: {dim ${root}}`);
+  log(chalk`\n{blue Creating Project} at: {dim ${root}}`);
 
-  const templatesPath = resolve(__dirname, '../generators');
-  const templates = await globby([normalizePath(join(templatesPath, '*.*'))]);
-  const templdateData = { name: projectName };
+  const generatorsPath = resolve(__dirname, '../generators');
+  const templates = await globby([normalizePath(join(generatorsPath, '/**/*.*'))]);
+  const templateData = { name: projectName };
 
   if (overwrite && existsSync(root)) clearDirectory(root);
 
   await mkdir(join(root, 'templates'), { recursive: true });
 
+  console.log({ templates });
+
   for (const path of templates) {
     const template = await readFile(path, 'utf8');
-    const contents = mustache.render(template, templdateData);
+    const contents = mustache.render(template, templateData);
     const basePath = dirname(path);
-    const fileName = basename(path).replace('_', '.');
+    const fileName = basename(path).replace('_', '').replace('.mustache', '');
     const outPath = join(root, basePath.endsWith('templates') ? 'templates' : '', fileName);
+
+    console.log(outPath);
 
     await writeFile(outPath, contents, 'utf8');
   }
@@ -112,9 +116,9 @@ const run = async () => {
 Next, run:
 
   $ cd ${projectName}
-  ${install}
+${install}
 
-{blue Check out the docs! {underline http://jsx.email/docs/quick-start}}
+{magenta Check out the docs!} {underline http://jsx.email/docs/quick-start}
 `;
 
   log(footer);

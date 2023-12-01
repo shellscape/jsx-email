@@ -7,13 +7,14 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@dot/versioner": "^0.3.1",
+    "@dot/versioner": "^0.3.2",
     "@moonrepo/cli": "^1.17.3",
     "@swc/core": "^1.3.91",
     "@swc/helpers": "^0.5.2",
     "@types/node": "20.6.2",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
+    "create-jsx-email": "workspace:*",
     "csstype": "3.1.2",
     "eslint": "8.49.0",
     "eslint-config-shellscape": "^6.0.1",
