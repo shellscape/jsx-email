@@ -78,6 +78,7 @@
     "postcss": "^8.4.30",
     "postcss-var-replace": "^1.0.0",
     "pretty": "2.0.0",
+    "pretty-bytes": "^5.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.16.0",
