@@ -74,7 +74,7 @@ const run = async () => {
       { onCancel: cancelled }
     );
   } catch (cancelled: any) {
-    console.log(cancelled.message);
+    log(cancelled.message);
     return;
   }
 
@@ -91,16 +91,12 @@ const run = async () => {
 
   await mkdir(join(root, 'templates'), { recursive: true });
 
-  console.log({ templates });
-
   for (const path of templates) {
     const template = await readFile(path, 'utf8');
     const contents = mustache.render(template, templateData);
     const basePath = dirname(path);
     const fileName = basename(path).replace('_', '').replace('.mustache', '');
     const outPath = join(root, basePath.endsWith('templates') ? 'templates' : '', fileName);
-
-    console.log(outPath);
 
     await writeFile(outPath, contents, 'utf8');
   }

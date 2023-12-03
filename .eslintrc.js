@@ -51,6 +51,7 @@ module.exports = {
         vars: 'local',
         varsIgnorePattern: '^_'
       }
-    ]
+    ],
+    'no-console': 'error'
   }
 };
