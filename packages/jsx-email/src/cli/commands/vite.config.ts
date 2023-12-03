@@ -32,9 +32,13 @@ export const viteConfig = defineConfig({
     // strategy. Any packages which throws "does not provide an export named 'default'" needs to go
     // here.
     include: [
+      '@jridgewell/sourcemap-codec',
+      'balanced-match',
       'classnames',
       'deepmerge',
+      'escape-string-regexp',
       'extend',
+      'p-memoize',
       'parse5',
       'pretty',
       'react-dom',
