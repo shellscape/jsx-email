@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.1.0
+
+_2023-12-03_
+
+### Features
+
+- jsx-email: show html size, warn if over gmail threshold (#89)
+
 ## v1.0.3
 
 _2023-12-01_
