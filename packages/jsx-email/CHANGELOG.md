@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.1.1
+
+_2023-12-03_
+
+### Bugfixes
+
+- jsx-email: optimize transient deps for preview, fixes #90 (725baaa)
+
 ## v1.1.0
 
 _2023-12-03_
