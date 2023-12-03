@@ -9,6 +9,8 @@ import globby from 'globby';
 import type { Infer } from 'superstruct';
 import { assert, boolean, object, optional, string } from 'superstruct';
 
+import { formatBytes, gmailByteLimit } from '../helpers';
+
 import type { CommandFn, TemplateFn } from './types';
 
 const { error, log } = console;
@@ -25,6 +27,10 @@ const BuildOptionsStruct = object({
 });
 
 type BuildOptions = Infer<typeof BuildOptionsStruct>;
+
+interface BuildOptionsInternal extends BuildOptions {
+  showStats?: boolean;
+}
 
 export const help = chalk`
 {blue email build}
@@ -110,16 +116,17 @@ const compile = async (files: string[], outDir: string) => {
   return globby([normalizePath(join(outDir, '*.js'))]);
 };
 
-export const buildTemplates = async (target: string, argv: BuildOptions) => {
+export const buildTemplates = async (target: string, options: BuildOptionsInternal) => {
   const tmpdir = await realpath(os.tmpdir());
   const esbuildOutPath = join(tmpdir, 'jsx-email', Date.now().toString());
 
   // Note: niave check that will probably get us into some edge cases
   const isFile = target.endsWith('.tsx') || target.endsWith('.jsx');
-  const { out = '.rendered', writeToFile = true } = argv;
+  const { out = '.rendered', showStats = true, writeToFile = true } = options;
   const glob = isFile ? target : join(target, '*.{jsx,tsx}');
   const targetFiles = await globby([normalizePath(glob)]);
   const outputPath = resolve(out);
+  let largeCount = 0;
 
   log(chalk`{cyan Found}`, targetFiles.length, 'files:');
   log('  ', targetFiles.join('\n  '));
@@ -129,13 +136,26 @@ export const buildTemplates = async (target: string, argv: BuildOptions) => {
 
   const result = await Promise.all(
     compiledFiles.map(async (filePath, index) => {
-      return {
+      const result = {
         fileName: targetFiles[index],
-        html: await build(filePath, { ...argv, out: outputPath })
+        html: await build(filePath, { ...options, out: outputPath })
       };
+
+      if (showStats) {
+        const bytes = Buffer.byteLength(result.html, 'utf8');
+        const htmlSize = formatBytes(bytes);
+
+        if (bytes > gmailByteLimit) largeCount += 1;
+
+        log(`  ${result.fileName} → HTML: ${htmlSize}`);
+      }
+
+      return result;
     })
   );
 
+  if (showStats && largeCount > 0)
+    log(chalk`\n{yellow Warning:} ${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
   if (writeToFile) log(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
   else log(chalk`\n{green Build complete}`);
 

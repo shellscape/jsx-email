@@ -4,6 +4,8 @@ import { doIUseEmail } from '@jsx-email/doiuse-email';
 import chalk from 'chalk';
 import { assert, object, type Infer } from 'superstruct';
 
+import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers';
+
 import { buildTemplates } from './build';
 import { type CommandFn } from './types';
 
@@ -57,13 +59,15 @@ Check jsx-email templates for client compatibility
 `;
 
 const runCheck = (fileName: string, html: string) => {
+  const bytes = Buffer.byteLength(html, 'utf8');
   const counts = { errors: 0, notes: 0, warnings: 0 };
+  const htmlSize = formatBytes(bytes);
   const result = doIUseEmail(html, { emailClients });
   const { success } = result;
 
   if (success && !result.warnings) return;
 
-  log(chalk`{underline ${fileName}}\n`);
+  log(chalk`{underline ${fileName}} → HTML: ${htmlSize}\n`);
 
   if (!success && result.errors?.length) {
     const errors = combine(result.errors);
@@ -79,6 +83,11 @@ const runCheck = (fileName: string, html: string) => {
     }
   }
 
+  if (bytes >= gmailByteLimit) {
+    log(chalk`  {red error}  HTML content is over the Gmail Clipping Limit: ${htmlSize}\n`);
+    counts.errors += 1;
+  }
+
   if (result.warnings?.length) {
     const warnings = combine(result.warnings);
     const indent = '          ';
@@ -92,19 +101,10 @@ const runCheck = (fileName: string, html: string) => {
     }
   }
 
-  // FIXME: Think about how to intelligently display notes, because they aren't always useful
-  // if (result.notes?.length) {
-  //   const notes = combine(result.notes);
-  //   const indent = '          ';
-  //   for (const [preamble, clients] of Object.entries(notes)) {
-  //     log(
-  //       chalk`  {green note}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
-  //         `\n${indent}`
-  //       )}}\n`
-  //     );
-  //     counts.notes += 1;
-  //   }
-  // }
+  if (bytes > gmailBytesSafe && bytes < gmailByteLimit) {
+    log(chalk`  {red warn}  HTML content is near the Gmail Clipping Limit: ${htmlSize}\n`);
+    counts.warnings += 1;
+  }
 
   const errors = counts.errors > 0 ? chalk.red(counts.errors) : chalk.green(counts.errors);
   const warnings =
@@ -130,7 +130,7 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
 
   log(chalk`{blue Checking email template for Client Compatibility...}\n`);
 
-  const [file] = await buildTemplates(input[0], { writeToFile: false });
+  const [file] = await buildTemplates(input[0], { showStats: false, writeToFile: false });
 
   log();
 
