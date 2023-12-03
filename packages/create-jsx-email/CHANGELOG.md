@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v1.0.2
+
+_2023-12-03_
+
+### Bugfixes
+
+- create-jsx-email: remove superfluous logging (7394d64)
+
 ## v1.0.1
 
 _2023-12-01_
