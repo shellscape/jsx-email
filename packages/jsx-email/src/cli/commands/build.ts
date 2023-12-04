@@ -62,17 +62,28 @@ const normalizePath = (filename: string) => filename.split(win32.sep).join(posix
 export const build = async (path: string, argv: BuildOptions) => {
   const { out, plain, props = '{}', writeToFile = true } = argv;
   const template = await import(path);
+  // proper named export
+  let componentExport: TemplateFn = template.Template;
+
   // Note: This is silly, but necessary to parse all the whacky ways things may be exported
-  const componentExport: TemplateFn =
-    template.Template || typeof template.default === 'function'
-      ? template.default
-      : template.default.Template || template.default.default;
+  if (!componentExport) {
+    if (typeof template.default === 'function') {
+      // export default Template
+      componentExport = template.default;
+    } else if (typeof template.default.Template === 'function') {
+      // weird CJS edge case for export default Template
+      componentExport = template.default.Template;
+    } else if (typeof template.default.default === 'function') {
+      // super weird edge case for CJS as ESM default exports I ran into with ts-node
+      componentExport = template.default.default;
+    }
+  }
 
   if (typeof componentExport !== 'function')
     error(
       chalk`{red Template Export Problem:} ${basename(
         path
-      )} doesn't export Template or export a Template as default`
+      )} doesn't export Template or export a Template as default. If you feel this is a bug, please open a new issue.`
     );
 
   const extension = plain ? '.txt' : '.html';
