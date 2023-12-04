@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.1.2
+
+_2023-12-04_
+
+### Bugfixes
+
+- jsx-email: tweak the exports loading logic for `build` (daac84b)
+
 ## v1.1.1
 
 _2023-12-03_
