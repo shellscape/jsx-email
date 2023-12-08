@@ -2,10 +2,12 @@ import { existsSync } from 'node:fs';
 import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import { basename, extname, join, resolve, win32, posix } from 'path';
+import { pathToFileURL } from 'url';
 
 import chalk from 'chalk';
 import esbuild from 'esbuild';
 import globby from 'globby';
+import { isWindows } from 'std-env';
 import type { Infer } from 'superstruct';
 import { assert, boolean, object, optional, string } from 'superstruct';
 
@@ -61,7 +63,8 @@ const normalizePath = (filename: string) => filename.split(win32.sep).join(posix
 
 export const build = async (path: string, argv: BuildOptions) => {
   const { out, plain, props = '{}', writeToFile = true } = argv;
-  const template = await import(path);
+  const platformPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
+  const template = await import(platformPath);
   // proper named export
   let componentExport: TemplateFn = template.Template;
 
