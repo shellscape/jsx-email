@@ -1,4 +1,4 @@
-import { convert } from 'html-to-text';
+import { htmlToText } from 'html-to-text';
 
 import type { RenderOptions } from './types';
 import { jsxToString } from './jsx-to-string';
@@ -12,10 +12,11 @@ export const renderPlainText = async (
   _options?: RenderOptions
 ) => {
   const result = await jsxToString(component);
-  return convert(result, {
+  return htmlToText(result, {
     selectors: [
       { format: 'skip', selector: 'img' },
-      { format: 'skip', selector: '[data-id="jsx-email/preview"]' }
+      { format: 'skip', selector: '[data-id="jsx-email/preview"]' },
+      { options: { linkBrackets: false }, selector: 'a' }
     ]
   });
 };
