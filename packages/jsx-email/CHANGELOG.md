@@ -1,5 +1,14 @@
 # jsx-email ChangeLog
 
+## v1.1.3
+
+_2023-12-08_
+
+### Bugfixes
+
+- jsx-email: further normalize janky windows paths (8e57033)
+- jsx-email: strip brackets from links for plain text (9b8a1cc)
+
 ## v1.1.2
 
 _2023-12-04_
