@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.2.0
+
+_2023-12-09_
+
+### Features
+
+- jsx-email: allow passing html-to-text options to render (2a90ec9)
+
 ## v1.1.3
 
 _2023-12-08_
