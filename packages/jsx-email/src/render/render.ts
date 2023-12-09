@@ -1,15 +1,12 @@
 import { htmlToText } from 'html-to-text';
 
-import type { RenderOptions } from './types';
+import type { PlainTextOptions, RenderOptions } from './types';
 import { jsxToString } from './jsx-to-string';
 import { processHtml } from './process';
 
 export const renderPlainText = async (
   component: React.ReactElement,
-  /**
-   * @deprecated `options` will be removed in the next major version
-   */
-  _options?: RenderOptions
+  options?: PlainTextOptions
 ) => {
   const result = await jsxToString(component);
   return htmlToText(result, {
@@ -17,14 +14,15 @@ export const renderPlainText = async (
       { format: 'skip', selector: 'img' },
       { format: 'skip', selector: '[data-id="jsx-email/preview"]' },
       { options: { linkBrackets: false }, selector: 'a' }
-    ]
+    ],
+    ...options
   });
 };
 
 export const render = async (component: React.ReactElement, options?: RenderOptions) => {
   const { minify = false, plainText, pretty = false, strip = true } = options || {};
 
-  if (plainText) return renderPlainText(component, options);
+  if (plainText) return renderPlainText(component, typeof plainText === 'object' ? plainText : {});
 
   let html = await jsxToString(component);
 

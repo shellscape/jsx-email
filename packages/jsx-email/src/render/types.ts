@@ -1,6 +1,10 @@
+import type { HtmlToTextOptions } from 'html-to-text';
+
+export type PlainTextOptions = HtmlToTextOptions;
+
 export interface RenderOptions {
   minify?: boolean;
-  plainText?: boolean;
+  plainText?: boolean | PlainTextOptions;
   pretty?: boolean;
   strip?: boolean;
 }

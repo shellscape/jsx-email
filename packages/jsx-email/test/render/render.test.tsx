@@ -31,6 +31,11 @@ describe('render', () => {
     expect(result).toMatchSnapshot();
   });
 
+  it('converts to plain text using options', async () => {
+    const result = await render(<Preview />, { plainText: { selectors: [] } });
+    expect(result).toMatchSnapshot();
+  });
+
   it('renders the airbnb demo template', async () => {
     expect(await render(<AirbnbEmail />)).toMatchSnapshot();
     expect(await render(<AirbnbEmail />, { pretty: true })).toMatchSnapshot();
