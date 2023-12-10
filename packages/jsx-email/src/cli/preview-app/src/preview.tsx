@@ -1,11 +1,13 @@
 'use client';
 
+import classnames from 'classnames';
 import React from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { CodeContainer } from './components/code-container';
+import { Mobile } from './components/mobile';
 import { Shell } from './components/shell';
-import { Tooltip } from './components/tooltip';
+import { Views } from './types';
 
 interface PreviewProps {
   html: string;
@@ -15,25 +17,35 @@ interface PreviewProps {
   title: string;
 }
 
+const validViews = Object.keys(Views).filter((key) => isNaN(+key));
+
 export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
-  const [activeView, setActiveView] = React.useState('desktop');
+  const view = (searchParams.get('view') as Views) || Views.Desktop;
+  const [viewSize, setViewSize] = React.useState<null | string>(null);
+  const [activeView, setActiveView] = React.useState(view);
+  const iframe = classnames('w-full h-[calc(100vh_-_70px)]', {
+    'mt-2 mx-auto shadow-md': activeView === Views.Mobile
+  });
+  let iframeStyle = {};
 
   React.useEffect(() => {
     document.title = `JSX email • ${title}`;
 
-    const view = searchParams.get('view');
-
-    if (view && ['desktop', 'html', 'jsx', 'plainText'].includes(view)) setActiveView(view);
+    if (view && validViews.includes(view)) setActiveView(view);
   }, [searchParams]);
 
-  const handleViewChange = (view: string) => {
+  const handleViewChange = (view: Views) => {
     setActiveView(view);
     navigate(`${pathname}?view=${view}`);
   };
+
+  if (activeView === Views.Mobile || viewSize) {
+    const [width, height] = (viewSize || '430,932').split(',');
+    iframeStyle = { height: `${height}px`, width: `${width}px` };
+  }
 
   return (
     <Shell
@@ -43,21 +55,20 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
       activeView={activeView}
       setActiveView={handleViewChange}
     >
-      {activeView === 'desktop' ? (
-        <iframe srcDoc={html} className="w-full h-[calc(100vh_-_70px)]" />
+      {activeView === Views.Mobile && <Mobile setViewSize={setViewSize} />}
+      {activeView === Views.Desktop || activeView === Views.Mobile ? (
+        <iframe srcDoc={html} className={iframe} style={iframeStyle} />
       ) : (
         <div>
-          <Tooltip.Provider>
-            <CodeContainer
-              raws={[
-                { content: jsx, language: 'jsx' },
-                { content: html, language: 'html' },
-                { content: plainText, language: 'plain' }
-              ]}
-              activeView={activeView}
-              setActiveView={handleViewChange}
-            />
-          </Tooltip.Provider>
+          <CodeContainer
+            raws={[
+              { content: jsx, language: 'jsx' },
+              { content: html, language: 'html' },
+              { content: plainText, language: 'plain' }
+            ]}
+            activeView={activeView}
+            setActiveView={handleViewChange}
+          />
         </div>
       )}
     </Shell>

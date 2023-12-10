@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import { getHighlighter } from 'shikiji';
 
-import { type PreviewLanguage } from '../helpers';
+export type PreviewLanguage = 'html' | 'jsx' | 'plain';
 
 interface CodeProps {
   children: string;
@@ -16,7 +16,6 @@ const shiki = await getHighlighter({
 });
 
 export const Code = ({ children: value, language = 'html' }: CodeProps) => {
-  // const [isCopied, setIsCopied] = React.useState(false);
   const lang = language === 'jsx' ? 'tsx' : language;
   const code = language === 'plain' ? value : shiki.codeToHtml(value, { lang, theme });
   const lines = value.split('\n').length;

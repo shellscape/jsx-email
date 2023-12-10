@@ -45,6 +45,7 @@ module.exports = {
       'light-bg-text': '#574c4f',
       link: '#ffd152',
       'link-hover': '#ebac00',
+      'select-item-hover': '#e7dfd2',
       'tab-bg': '#47504E'
     },
     extend: {

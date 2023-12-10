@@ -1,14 +1,16 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import type { Views } from '../types';
+
 import { Sidebar } from './sidebar';
-import { Topbar } from './topbar';
+import { Nav } from './nav';
 
 type ShellElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 interface ShellProps extends RootProps {
-  activeView?: string;
+  activeView?: Views;
   html?: string;
   setActiveView?: (view: string) => void;
   templateNames: string[];
@@ -35,7 +37,7 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
             })}
           >
             {title && (
-              <Topbar
+              <Nav
                 title={title}
                 activeView={activeView}
                 setActiveView={setActiveView}

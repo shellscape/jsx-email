@@ -4,7 +4,6 @@ import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Heading } from './heading';
 import { Logo } from './logo';
 
 type SidebarElement = React.ElementRef<'aside'>;
@@ -50,15 +49,9 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
             </svg>
 
             <div className="flex items-center transition ease-in-out duration-200 hover:text-dark-bg-text">
-              <Heading
-                as="h3"
-                color="gray"
-                size="2"
-                weight="medium"
-                className="transition ease-in-out duration-200 hover:text-dark-bg-text"
-              >
+              <h3 className="text-sm font-medium transition ease-in-out duration-200 hover:text-dark-bg-text">
                 Email Templates
-              </Heading>
+              </h3>
               {templateNames && templateNames.length > 0 && (
                 <svg
                   width="24"

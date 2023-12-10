@@ -50,4 +50,13 @@
   .plainText .shiki .line:before {
     display: none;
   }
+
+  .inline-code {
+    background: #65758529;
+    border-radius: 4px;
+    color: #9cdcfe;
+    display: inline-block;
+    font-weight: 300;
+    padding: 3px 6px;
+  }
 }

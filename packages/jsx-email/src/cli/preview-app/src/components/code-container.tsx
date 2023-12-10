@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { type PreviewLanguage, copyTextToClipboard } from '../helpers';
+import { Views } from '../types';
 
-import { Code } from './code';
+import { Code, type PreviewLanguage } from './code';
 import { IconButton, IconCheck, IconClipboard, IconDownload } from './icons';
-import { Tooltip } from './tooltip';
 
 interface RawProps {
   content: string;
@@ -13,48 +12,36 @@ interface RawProps {
 }
 
 interface CodeContainerProps {
-  activeView: string;
+  activeView: Views;
   raws: RawProps[];
   setActiveView: (lang: string) => void;
 }
 
-export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
-  activeView,
-  raws
-  // setActiveLang
-}) => {
+const copyText = async (text: string) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (error) {
+    throw new Error(`jsx-email Preview: Unable to copy text: ${error}`);
+  }
+};
+
+export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({ activeView, raws }) => {
   const [isCopied, setIsCopied] = React.useState(false);
 
-  const renderDownloadIcon = () => {
-    const value = raws.find((raw) => raw.language === activeView);
-    const file = new File([value!.content], `email.${value!.language}`);
-    const url = URL.createObjectURL(file);
-
-    return (
-      <a
-        href={url}
-        download={file.name}
-        className="transition ease-in-out duration-200 hover:text-dark-bg-text"
-      >
-        <IconDownload />
-      </a>
-    );
+  const handleClipboard = async () => {
+    const activeContent = raws.filter(({ language }) => activeView === language);
+    setIsCopied(true);
+    await copyText(activeContent[0].content);
+    setTimeout(() => setIsCopied(false), 3000);
   };
 
-  const renderClipboardIcon = () => {
-    const handleClipboard = async () => {
-      const activeContent = raws.filter(({ language }) => activeView === language);
-      setIsCopied(true);
-      await copyTextToClipboard(activeContent[0].content);
-      setTimeout(() => setIsCopied(false), 3000);
-    };
-
-    return (
-      <IconButton onClick={handleClipboard}>
-        {isCopied ? <IconCheck /> : <IconClipboard />}
-      </IconButton>
-    );
-  };
+  const value = raws.find((raw) => raw.language === activeView);
+  const file = new File([value!.content], `email.${value!.language}`);
+  const downloadUrl = URL.createObjectURL(file);
+  const copy =
+    'rounded focus:text-dark-bg-text ease-in-out transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-8 hover:text-dark-bg-text absolute top-[20px] right-[20px] hidden md:block';
+  const download =
+    'text-gray-11 absolute top-[20px] right-[50px] hidden md:block transition ease-in-out duration-200 hover:text-dark-bg-text';
 
   React.useEffect(() => {
     setIsCopied(false);
@@ -62,26 +49,19 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
 
   return (
     <>
-      <Tooltip>
-        <Tooltip.Trigger asChild className="absolute top-[20px] right-[20px] hidden md:block">
-          {renderClipboardIcon()}
-        </Tooltip.Trigger>
-        <Tooltip.Content style={{ color: '#777' }}>Copy to Clipboard</Tooltip.Content>
-      </Tooltip>
-      <Tooltip>
-        <Tooltip.Trigger
-          asChild
-          className="text-gray-11 absolute top-[20px] right-[50px] hidden md:block"
-        >
-          {renderDownloadIcon()}
-        </Tooltip.Trigger>
-        <Tooltip.Content style={{ color: '#777' }}>Download</Tooltip.Content>
-      </Tooltip>
+      <IconButton className={copy} onClick={handleClipboard} title="Copy to Clipboard">
+        {isCopied ? <IconCheck /> : <IconClipboard />}
+      </IconButton>
+
+      <a className={download} download={file.name} href={downloadUrl} title="Download">
+        <IconDownload />
+      </a>
+
       {raws.map(({ language, content }) => (
         <div
           className={classNames({
             hidden: activeView !== language,
-            'text-base text-[#ccc] p-4 pr-20 whitespace-pre': activeView === 'plain',
+            'text-base text-[#ccc] p-4 pr-20 whitespace-pre': activeView === Views.Plain,
             'text-xs': activeView !== 'plain'
           })}
           key={language}

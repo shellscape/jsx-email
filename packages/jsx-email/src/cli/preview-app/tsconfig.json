@@ -11,5 +11,5 @@
     "target": "ESNext",
     "types": ["vite/client"]
   },
-  "include": ["src"]
+  "include": ["src", "src/devices.json"]
 }
