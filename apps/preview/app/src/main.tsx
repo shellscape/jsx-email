@@ -1,4 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/first */
+import './globals.css';
+
 import { render, renderPlainText } from 'jsx-email';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -8,7 +10,6 @@ import titleize from 'titleize';
 
 import { Error } from './error.tsx';
 import { Home } from './home.tsx';
-import { Layout } from './layout.tsx';
 import { Preview } from './preview.tsx';
 
 interface TemplateExports {
@@ -24,6 +25,12 @@ interface TemplateData extends TemplateExports {
 
 const { warn } = console;
 const addSpacesForCamelCaseName = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+const Layout = ({ children }: { children: React.ReactNode }) => (
+  <div className="bg-dark-bg text-dark-bg-text">
+    <div>{children}</div>
+  </div>
+);
 
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');

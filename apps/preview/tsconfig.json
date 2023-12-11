@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
-    "composite": true,
+    "composite": false,
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -11,5 +11,5 @@
     "target": "ESNext",
     "types": ["vite/client"]
   },
-  "include": ["src", "src/devices.json"]
+  "include": ["app", "src", "src/devices.json"]
 }

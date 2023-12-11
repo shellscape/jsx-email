@@ -43,7 +43,7 @@ tasks:
       cache: false
 
   copy.preview:
-    command: cp -r src/cli/preview-app dist
+    command: cp -r ../../apps/preview/app dist
     options:
       cache: false
 

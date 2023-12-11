@@ -14,3 +14,4 @@ dist
 packages/**/tsconfig.json
 packages/jsx-email/README.md
 !packages/jsx-email/src/cli/preview-app/tsconfig.json
+!packages/app/tsconfig.json
