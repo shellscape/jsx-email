@@ -17,14 +17,7 @@ Add the `QrCode` component to your email template to display a QR code. You can 
 import { QrCode } from 'jsx-email';
 
 const Email = () => {
-  return (
-    <QrCode 
-      src="https://example.com" 
-      alt="QR Code" 
-      size={300} 
-      correctionLevel="H" 
-    />
-  );
+  return <QrCode src="https://example.com" alt="QR Code" size={300} correctionLevel="H" />;
 };
 ```
 
