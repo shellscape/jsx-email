@@ -49,6 +49,7 @@ The goals of this project are to provide an improved focus on Developer Experien
 - Exclusive Components
 - Enhanced Developer Experience (DX)
 - Better Command Line tools
+- Works with Monorepos out of the box. No exhaustive setup needed.
 - Less complex, smoother Preview Server
 - Faster improvements, feature development, and releases
 - Community-driven maintenance rather than company-planning priority
