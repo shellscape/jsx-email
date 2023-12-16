@@ -1,5 +1,7 @@
 import React from 'react';
 
+import type { BaseProps, JsxEmailComponent } from '../../types';
+
 import { parsePadding } from './padding';
 
 type RootProps = BaseProps<'a'>;

@@ -22,4 +22,9 @@ describe('<Hr> component', () => {
     const actualOutput = await jsxToString(<Hr />);
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it('disables the default styles', async () => {
+    const actualOutput = await jsxToString(<Hr disableDefaultStyle={true} />);
+    expect(actualOutput).toMatchSnapshot();
+  });
 });
