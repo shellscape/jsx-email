@@ -1,32 +1,9 @@
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
 
-export type As<
-  DefaultTag extends React.ElementType,
-  T1 extends React.ElementType,
-  T2 extends React.ElementType = T1,
-  T3 extends React.ElementType = T1,
-  T4 extends React.ElementType = T1,
-  T5 extends React.ElementType = T1
-> =
-  | (React.ComponentPropsWithRef<DefaultTag> & {
-      as?: DefaultTag;
-    })
-  | (React.ComponentPropsWithRef<T1> & {
-      as: T1;
-    })
-  | (React.ComponentPropsWithRef<T2> & {
-      as: T2;
-    })
-  | (React.ComponentPropsWithRef<T3> & {
-      as: T3;
-    })
-  | (React.ComponentPropsWithRef<T4> & {
-      as: T4;
-    })
-  | (React.ComponentPropsWithRef<T5> & {
-      as: T5;
-    });
+import type { BaseProps, JsxEmailComponent } from '../types';
+
+export type PresentAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 type MarginCSSProperty = React.CSSProperties[
   | 'margin'
@@ -45,8 +22,7 @@ export interface Margin {
   my?: number | string;
 }
 
-export type HeadingAs = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'>;
-export type HeadingProps = HeadingAs & Margin;
+export type HeadingProps = BaseProps<PresentAs> & Margin & { as?: PresentAs };
 
 export const withSpace = (value: number | string | undefined, properties: MarginCSSProperty[]) =>
   properties.reduce((styles, property) => {
@@ -74,7 +50,7 @@ export const withMargin = (props: Margin) => {
   return mergedStyles;
 };
 
-export const Heading = ({
+export const Heading: JsxEmailComponent<HeadingProps> = ({
   as: Tag = 'h1',
   children,
   style,
@@ -86,7 +62,7 @@ export const Heading = ({
   mb,
   ml,
   ...props
-}: React.PropsWithChildren<Readonly<HeadingProps>>) => (
+}) => (
   <Slot
     {...props}
     data-id="jsx-email/heading"

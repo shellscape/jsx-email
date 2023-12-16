@@ -43,4 +43,6 @@ target?: string;
 
 Specifies the value of the `"target"` attribute for the button `target`.
 
-In addition to the custom props above, this component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+:::tip
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+:::
