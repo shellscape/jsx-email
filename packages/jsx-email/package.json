@@ -76,6 +76,7 @@
     "mustache": "^4.2.0",
     "p-memoize": "4.0.4",
     "postcss": "^8.4.30",
+    "postcss-color-functional-notation": "^6.0.3",
     "postcss-var-replace": "^1.0.0",
     "pretty": "2.0.0",
     "pretty-bytes": "^5.6.0",
