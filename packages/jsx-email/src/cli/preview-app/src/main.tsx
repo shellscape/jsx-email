@@ -22,6 +22,8 @@ interface TemplateData extends TemplateExports {
   jsx: string;
 }
 
+const { warn } = console;
+
 const addSpacesForCamelCaseName = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2');
 
 const parseName = (path: string) => {
@@ -58,7 +60,7 @@ const templateRoutes = templates.map(async (template) => {
   if (TemplateStruct) props = create({}, TemplateStruct);
   else if (PreviewProps) props = PreviewProps();
   else if ((Template as any).PreviewProps) {
-    console.warn(
+    warn(
       `jsx-email: ${Name} → PreviewProps as a property of a component is deprecated. Please used a named export.`
     );
     props = (Template as any).PreviewProps;

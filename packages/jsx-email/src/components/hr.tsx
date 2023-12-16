@@ -1,17 +1,19 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'hr'>;
+export interface HrProps extends BaseProps<'hr'> {}
 
-export interface HrProps extends RootProps {}
-
-export const Hr: React.FC<Readonly<HrProps>> = ({ style, ...props }) => (
+export const Hr: JsxEmailComponent<HrProps> = ({ disableDefaultStyle, style, ...props }) => (
   <hr
     {...props}
     data-id="jsx-email/hr"
     style={{
-      border: 'none',
-      borderTop: '1px solid #eaeaea',
-      width: '100%',
+      ...(disableDefaultStyle
+        ? {}
+        : {
+            border: 'none',
+            borderTop: '1px solid #eaeaea',
+            width: '100%'
+          }),
       ...style
     }}
   />

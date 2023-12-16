@@ -17,3 +17,4 @@ export * from './components/section';
 export * from './components/tailwind';
 export * from './components/text';
 export * from './render';
+export * from './types';
