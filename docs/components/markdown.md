@@ -42,14 +42,12 @@ const Email = () => {
 ## Component Props
 
 ```ts
-export interface MarkdownProps extends React.PropsWithChildren {
+export interface MarkdownProps {
   children: string;
   markdownContainerStyles?: React.CSSProperties;
   markdownCustomStyles?: StylesType;
 }
 ```
-
-### Props
 
 ```ts
 children: string | string[];

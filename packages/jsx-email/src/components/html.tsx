@@ -1,8 +1,6 @@
 import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = BaseProps<'html'>;
-
-export interface HtmlProps extends RootProps {}
+export interface HtmlProps extends BaseProps<'html'> {}
 
 export const Html: JsxEmailComponent<HtmlProps> = ({
   children,
