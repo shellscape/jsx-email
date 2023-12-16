@@ -1,10 +1,13 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'table'>;
+export interface ContainerProps extends BaseProps<'table'> {}
 
-export interface ContainerProps extends RootProps {}
-
-export const Container: React.FC<Readonly<ContainerProps>> = ({ children, style, ...props }) => (
+export const Container: JsxEmailComponent<ContainerProps> = ({
+  children,
+  disableDefaultStyle,
+  style,
+  ...props
+}) => (
   <table
     align="center"
     width="100%"
@@ -14,10 +17,10 @@ export const Container: React.FC<Readonly<ContainerProps>> = ({ children, style,
     cellSpacing="0"
     cellPadding="0"
     border={0}
-    style={{ maxWidth: '37.5em', ...style }}
+    style={{ ...(disableDefaultStyle ? {} : { maxWidth: '37.5em' }), ...style }}
   >
     <tbody>
-      <tr style={{ width: '100%' }}>
+      <tr style={disableDefaultStyle ? {} : { width: '100%' }}>
         <td>{children}</td>
       </tr>
     </tbody>

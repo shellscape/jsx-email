@@ -1,10 +1,16 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'img'>;
+export interface ImgProps extends BaseProps<'img'> {}
 
-export interface ImgProps extends RootProps {}
-
-export const Img: React.FC<Readonly<ImgProps>> = ({ alt, src, width, height, style, ...props }) => (
+export const Img: JsxEmailComponent<ImgProps> = ({
+  alt,
+  disableDefaultStyle,
+  height,
+  src,
+  style,
+  width,
+  ...props
+}) => (
   <img
     {...props}
     data-id="jsx-email/img"
@@ -13,10 +19,9 @@ export const Img: React.FC<Readonly<ImgProps>> = ({ alt, src, width, height, sty
     width={width}
     height={height}
     style={{
-      border: 'none',
-      display: 'block',
-      outline: 'none',
-      textDecoration: 'none',
+      ...(disableDefaultStyle
+        ? {}
+        : { border: 'none', display: 'block', outline: 'none', textDecoration: 'none' }),
       ...style
     }}
   />
