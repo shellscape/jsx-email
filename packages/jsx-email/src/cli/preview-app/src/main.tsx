@@ -58,6 +58,7 @@ const templateRoutes = templates.map(async (template) => {
   if (TemplateStruct) props = create({}, TemplateStruct);
   else if (PreviewProps) props = PreviewProps();
   else if ((Template as any).PreviewProps) {
+    // eslint-disable-next-line no-console
     console.warn(
       `jsx-email: ${Name} → PreviewProps as a property of a component is deprecated. Please used a named export.`
     );
