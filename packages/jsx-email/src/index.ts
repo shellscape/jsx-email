@@ -14,7 +14,7 @@ export * from './components/markdown';
 export * from './components/preview';
 export * from './components/row';
 export * from './components/section';
-export * from './components/tailwind';
+export * from './components/tailwind/tailwind';
 export * from './components/text';
 export * from './render';
 export * from './types';
