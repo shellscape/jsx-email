@@ -9,5 +9,9 @@
   },
   "dependencies": {
     "jsx-email": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/node": "20.6.2"
   }
 }
