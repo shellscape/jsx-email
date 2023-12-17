@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.3.0
+
+_2023-12-16_
+
+### Features
+
+- jsx-email: disable default component style (#100)
+
 ## v1.2.0
 
 _2023-12-09_
