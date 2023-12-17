@@ -31,4 +31,10 @@ describe('<Text> component', async () => {
     const actualOutput = await jsxToString(<Text>Lorem ipsum</Text>);
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it('disables the default styles', async () => {
+    const testMessage = 'Test message';
+    const html = await jsxToString(<Text disableDefaultStyle={true}>{testMessage}</Text>);
+    expect(html).toMatchSnapshot();
+  });
 });

@@ -1,17 +1,13 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'p'>;
+export interface TextProps extends BaseProps<'p'> {}
 
-export interface TextProps extends RootProps {}
-
-export const Text: React.FC<Readonly<TextProps>> = ({ style, ...props }) => (
+export const Text: JsxEmailComponent<TextProps> = ({ disableDefaultStyle, style, ...props }) => (
   <p
     {...props}
     data-id="jsx-email/text"
     style={{
-      fontSize: '14px',
-      lineHeight: '24px',
-      margin: '16px 0',
+      ...(disableDefaultStyle ? {} : { fontSize: '14px', lineHeight: '24px', margin: '16px 0' }),
       ...style
     }}
   />

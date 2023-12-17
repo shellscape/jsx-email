@@ -1,10 +1,6 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'div'>;
-
-export interface PreviewProps extends RootProps {
-  children: string | string[];
-}
+export interface PreviewProps extends BaseProps<'div'> {}
 
 const PREVIEW_MAX_LENGTH = 150;
 
@@ -16,12 +12,10 @@ export const renderWhiteSpace = (text: string) => {
   return <div>{whiteSpaceCodes.repeat(PREVIEW_MAX_LENGTH - text.length)}</div>;
 };
 
-export const Preview = ({
-  children = '',
-  ...props
-}: React.PropsWithChildren<Readonly<PreviewProps>>) => {
-  let text = Array.isArray(children) ? children.join('') : children;
-  text = text.substr(0, PREVIEW_MAX_LENGTH);
+export const Preview: JsxEmailComponent<PreviewProps> = ({ children = '', ...props }) => {
+  const childText = Array.isArray(children) ? children.join('') : children;
+  const text = String(childText ?? '').substring(0, PREVIEW_MAX_LENGTH);
+
   return (
     <div
       data-id="jsx-email/preview"

@@ -1,14 +1,8 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'td'>;
+export interface ColumnProps extends BaseProps<'td'> {}
 
-export interface ColumnProps extends RootProps {}
-
-export const Column = ({
-  children,
-  style,
-  ...props
-}: React.PropsWithChildren<Readonly<ColumnProps>>) => (
+export const Column: JsxEmailComponent<ColumnProps> = ({ children, style, ...props }) => (
   <td {...props} data-id="jsx-email/column" style={style}>
     {children}
   </td>

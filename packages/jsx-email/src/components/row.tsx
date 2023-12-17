@@ -1,10 +1,13 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'table'>;
+export interface RowProps extends BaseProps<'table'> {}
 
-export interface RowProps extends RootProps {}
-
-export const Row = ({ children, style, ...props }: React.PropsWithChildren<Readonly<RowProps>>) => (
+export const Row: JsxEmailComponent<RowProps> = ({
+  children,
+  disableDefaultStyle,
+  style,
+  ...props
+}) => (
   <table
     align="center"
     width="100%"
@@ -16,8 +19,8 @@ export const Row = ({ children, style, ...props }: React.PropsWithChildren<Reado
     cellPadding="0"
     border={0}
   >
-    <tbody style={{ width: '100%' }}>
-      <tr style={{ width: '100%' }}>{children}</tr>
+    <tbody style={disableDefaultStyle ? {} : { width: '100%' }}>
+      <tr style={disableDefaultStyle ? {} : { width: '100%' }}>{children}</tr>
     </tbody>
   </table>
 );

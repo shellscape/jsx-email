@@ -28,7 +28,11 @@ describe('<Link> component', async () => {
   });
 
   it('opens in a new tab', async () => {
-    const html = await jsxToString(<Link href="https://example.com">Test</Link>);
+    const html = await jsxToString(
+      <Link href="https://example.com" target="_blank">
+        Test
+      </Link>
+    );
     expect(html).toContain(`target="_blank"`);
   });
 

@@ -1,10 +1,10 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'body'>;
+type RootProps = BaseProps<'body'>;
 
 export interface BodyProps extends RootProps {}
 
-export const Body: React.FC<Readonly<BodyProps>> = ({ children, style, ...props }) => (
+export const Body: JsxEmailComponent<BodyProps> = ({ children, style, ...props }) => (
   <body {...props} data-id="jsx-email/body" style={style}>
     {children}
   </body>

@@ -5,6 +5,10 @@ description: 'You know the drill. Questions that get asked oodles'
 
 <!--@include: @/include/header.md-->
 
+## Monorepo Setup
+
+`jsx-email` works out of the box with every monorepo setup. There are no additional or exhaustive setup steps to perform. Enjoy!
+
 ## Next.js `import` or `export` Errors
 
 If you're a Next.js user, and you're trying to run `jsx-email` in a server action (or `use server`) and running into an error which looks like this:

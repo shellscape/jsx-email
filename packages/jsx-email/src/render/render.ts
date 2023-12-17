@@ -1,6 +1,7 @@
 import { htmlToText } from 'html-to-text';
 
-import type { PlainTextOptions, RenderOptions } from './types';
+import type { PlainTextOptions, RenderOptions } from '../types';
+
 import { jsxToString } from './jsx-to-string';
 import { processHtml } from './process';
 

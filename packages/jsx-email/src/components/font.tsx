@@ -1,5 +1,7 @@
 import React from 'react';
 
+import type { JsxEmailComponent } from '../types';
+
 type FallbackFont =
   | 'Arial'
   | 'Helvetica'
@@ -13,9 +15,8 @@ type FallbackFont =
   | 'fantasy';
 
 type FontFormat = 'woff' | 'woff2' | 'truetype' | 'opentype' | 'embedded-opentype' | 'svg';
-
-type FontWeight = React.CSSProperties['fontWeight'];
 type FontStyle = React.CSSProperties['fontStyle'];
+type FontWeight = React.CSSProperties['fontWeight'];
 
 export interface FontProps {
   /** An array is possible, but the order of the array is the priority order */
@@ -34,7 +35,7 @@ export interface FontProps {
 }
 
 /** The component MUST be place inside the <head> tag */
-export const Font: React.FC<Readonly<FontProps>> = ({
+export const Font: JsxEmailComponent<FontProps> = ({
   fontFamily,
   fallbackFontFamily,
   webFont,

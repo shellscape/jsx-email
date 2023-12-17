@@ -12,9 +12,11 @@ tasks:
       - .vitepress
       - markdown
       - package.json
+    options:
+      cache: false
 
   cname:
-    command: echo jsx.email > dist/CNAME && touch dist/.nojekyll
+    command: mkdir -p dist && echo jsx.email > dist/CNAME && touch dist/.nojekyll
     options:
       cache: false
 
@@ -31,7 +33,6 @@ tasks:
   publish:
     command: gh-pages -d dist -u "Release Workflow <release-workflow@jsx.email>"
     deps:
-      - ~:clean.dist
       - build
       - cname
     options:

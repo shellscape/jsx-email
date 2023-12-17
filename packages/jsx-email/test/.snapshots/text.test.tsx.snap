@@ -1,3 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`<Text> component > disables the default styles 1`] = `"<p data-id=\\"jsx-email/text\\" style=\\"\\">Test message</p>"`;
+
 exports[`<Text> component > renders correctly 1`] = `"<p data-id=\\"jsx-email/text\\" style=\\"font-size:14px;line-height:24px;margin:16px 0\\">Lorem ipsum</p>"`;

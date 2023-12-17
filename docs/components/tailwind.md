@@ -57,7 +57,7 @@ Note: Most email clients are style-limited and some styles may not work. It's al
 ```ts
 export interface TailwindProps {
   config?: UnoCssConfig;
-  isProduction?: boolean;
+  production?: boolean;
 }
 ```
 
@@ -68,7 +68,7 @@ config?: UnoCssConfig;
 This option allows customizing the theme for your template, using [UnoCSS Configuration](https://unocss.dev/config/) as well as UnoCSS `layers`, `presets`, `rules`, `separators`, `shortcuts`, and `variants`. See: [Configuration](https://unocss.dev/guide/config-file) for type and further information. For more information on theming and any of the other customization options, please see https://unocss.dev/config/.
 
 ```ts
-isProduction?: boolean;
+production?: boolean;
 ```
 
 If true, any Tailwind class names will be converted to hashed names. e.g. The class `bg-purple-400` is transformed into `#ae387`, with an accompanying class in the associated `<style>` tag. This is adventageous as it reduces the overall size of the rendered email. In email, every byte counts towards your user's experience.

@@ -1,10 +1,8 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'table'>;
+export interface SectionProps extends BaseProps<'table'> {}
 
-export interface SectionProps extends RootProps {}
-
-export const Section: React.FC<Readonly<SectionProps>> = ({ children, style, ...props }) => (
+export const Section: JsxEmailComponent<SectionProps> = ({ children, style, ...props }) => (
   <table
     align="center"
     width="100%"

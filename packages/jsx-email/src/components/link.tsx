@@ -1,17 +1,21 @@
-import React from 'react';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'a'>;
+type RootProps = BaseProps<'a'>;
 
 export interface LinkProps extends RootProps {}
 
-export const Link: React.FC<Readonly<LinkProps>> = ({ target = '_blank', style, ...props }) => (
+export const Link: JsxEmailComponent<LinkProps> = ({
+  disableDefaultStyle,
+  style,
+  target,
+  ...props
+}) => (
   <a
     {...props}
     data-id="jsx-email/link"
     target={target}
     style={{
-      color: '#067df7',
-      textDecoration: 'none',
+      ...(disableDefaultStyle ? {} : { color: '#067df7', textDecoration: 'none' }),
       ...style
     }}
   />

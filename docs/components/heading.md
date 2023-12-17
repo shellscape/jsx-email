@@ -24,8 +24,19 @@ const Email = () => {
 ## Component Props
 
 ```ts
-export type HeadingAs = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'>;
-export type HeadingProps = HeadingAs & HeadingOwnProps & Margin;
+export interface Margin {
+  m?: number | string;
+  mb?: number | string;
+  ml?: number | string;
+  mr?: number | string;
+  mt?: number | string;
+  mx?: number | string;
+  my?: number | string;
+}
+
+export type PresentAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+export type HeadingProps = Margin & { as?: PresentAs };
 ```
 
 ```ts
@@ -76,4 +87,6 @@ ml?: number | string;
 
 A shortcut for `margin-left` CSS property.
 
-In addition to the custom props above, this component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.
+:::tip
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.
+:::
