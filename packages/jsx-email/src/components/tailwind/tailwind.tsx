@@ -9,11 +9,12 @@ import MagicString from 'magic-string';
 import postcss from 'postcss';
 // @ts-ignore
 // Note: https://github.com/csstools/postcss-plugins/issues/1217
-import postcssColorNotation from 'postcss-color-functional-notation';
 import { postcssVarReplace } from 'postcss-var-replace';
 import { Suspense } from 'react';
 
-import { jsxToString, useData } from '../render/jsx-to-string';
+import { jsxToString, useData } from '../../render/jsx-to-string';
+
+import { plugin as colorFunctions } from './color-functions';
 
 const { warn } = console;
 
@@ -78,7 +79,7 @@ const render = async ({
   // and it's crucial for email client support (e.g. Gmail)
   const { css } = postcss([
     postcssVarReplace({ preserveAtRulesOrder: true }),
-    postcssColorNotation()
+    colorFunctions()
   ]).process(result.css);
   const styleTag = `<style tailwind>${css}</style>`;
 
