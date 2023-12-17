@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.3.1
+
+_2023-12-17_
+
+### Bugfixes
+
+- jsx-email: assert comma color function notation for Tailwind (#101)
+
 ## v1.3.0
 
 _2023-12-16_
