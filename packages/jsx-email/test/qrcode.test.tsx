@@ -13,7 +13,6 @@ describe('render', async () => {
   it('renders QR code with required props', async () => {
     const testValue = 'test';
     const html = await jsxToString(<QrCode src={testValue} size={300} correctionLevel="L" />);
-    // expect(html).toContain(testValue);
     expect(html).toContain('width="300"');
     expect(html).toContain('height="300"');
   });
