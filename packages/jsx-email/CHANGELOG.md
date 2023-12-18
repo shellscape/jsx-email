@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.4.0
+
+_2023-12-18_
+
+### Features
+
+- jsx-email: ColorScheme component for dark and light mode setup (#104)
+
 ## v1.3.1
 
 _2023-12-17_
