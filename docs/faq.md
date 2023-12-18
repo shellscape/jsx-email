@@ -7,7 +7,10 @@ description: 'You know the drill. Questions that get asked oodles'
 
 ## Dark and Light Mode
 
-Handling dark and light mode in emails is tricky, and doesn't work exactly like one would expect with relevant experience handling modes on the web. There's a lot of information (and misinformation) out there about dark and light mode when authoring emails, but we recommend taking a look at the following article, which hits most of the important bits of info for authoring emails: https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers
+Handling dark and light mode in emails is tricky, and doesn't work exactly like one would expect with relevant experience handling modes on the web. Gmail and Outlook on Windows in particular, have essentially no support for color switching. There's a lot of information (and misinformation) out there about dark and light mode when authoring emails, but we recommend taking a look at the following articles, which hit most of the important bits of info for authoring emails:
+
+- https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers
+- https://web.dev/articles/color-scheme (crucial web development related dark mode info)
 
 ## Monorepo Setup
 
