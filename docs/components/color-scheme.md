@@ -26,8 +26,7 @@ const Email = () => {
       <Head>
         <ColorScheme mode="light only" />
       </Head>
-      <Body>
-      </Body>
+      <Body></Body>
     </Html>
   );
 };
@@ -60,4 +59,3 @@ Supported Values:
 - `'light dark only'` The email client will choose the first of the listed schemes that it supports taking user preference into account and forbids the email client from overriding the color scheme.
 - `'light only'` The email client will only ever render the content in the light color scheme and forbids the email client from overriding the color scheme.
 - `'normal'` Indicates that the email supports the page's supported color schemes, if they are set, or that it supports no color schemes at all otherwise.
-

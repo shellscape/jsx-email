@@ -63,5 +63,3 @@ The width of an image in pixels
 ::: tip
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`.
 :::
-
-
