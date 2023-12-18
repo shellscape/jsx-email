@@ -32,6 +32,24 @@ const Email = () => {
 };
 ```
 
+Which will produce the following HTML:
+
+```html
+<html>
+  <head>
+    <meta name="color-scheme" content="light only" />
+    <meta name="supported-color-schemes" content="light only" />
+    <style>
+      :root {
+        color-scheme: light only;
+        supported-color-schemes: light only;
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
+```
+
 ## Component Props
 
 ```ts

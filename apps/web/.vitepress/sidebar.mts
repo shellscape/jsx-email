@@ -11,7 +11,7 @@ const groups = nested.reduce((prev, file) => {
   const [dirName, fileName] = file.split('/');
   const groupName = titleize(dirName);
   const itemName = basename(fileName, '.md');
-  let linkName = titleize(itemName);
+  let linkName = titleize(itemName).replace(/-/g, '');
 
   if (linkName === 'Cli') linkName = 'CLI';
 
