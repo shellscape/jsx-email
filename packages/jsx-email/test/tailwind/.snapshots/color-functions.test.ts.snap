@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`color functions > should accurately detect color functions 1`] = `"rgb(100,90,80)"`;
+
+exports[`color functions > should accurately detect color functions 2`] = `"rgb(1,20,3,0.5)"`;
+
+exports[`color functions > should accurately detect color functions 3`] = `"rgba(100,90,80)"`;
+
+exports[`color functions > should accurately detect color functions 4`] = `"rgba(1,20,3,0.5)"`;
+
+exports[`color functions > should accurately detect color functions 5`] = `"hsl(100,90,80)"`;
+
+exports[`color functions > should accurately detect color functions 6`] = `"hsl(1,20,3,0.5)"`;
+
+exports[`color functions > should accurately detect color functions 7`] = `"hsla(100,90,80)"`;
+
+exports[`color functions > should accurately detect color functions 8`] = `"hsla(1,20,3,0.5)"`;
+
+exports[`color functions > should replace all color functions in a css block 1`] = `
+"
+/* layer: preflights */
+/* layer: default */
+@media (min-width: 1280px) {
+  .xl\\\\:bg-green-500 {
+    background-color: rgb(34,197,94);
+  }
+
+  @media (min-width: 1280px) {
+    .xl\\\\:bg-green-500 {
+      background-color: rgb(34,197,94);
+    }
+  }
+}
+
+@media (min-width: 1536px) {
+  .\\\\32 xl\\\\:bg-blue-500 {
+    background-color: rgb(59,130,246);
+  }
+
+  @media (min-width: 1536px) {
+    .\\\\32 xl\\\\:bg-blue-500 {
+      background-color: rgb(59,130,246);
+    }
+  }
+}
+"
+`;

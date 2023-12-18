@@ -41,7 +41,7 @@
     "*package.json": [
       "prettier --write --plugin=prettier-plugin-package"
     ],
-    "((.github/**/*)|(README|CHANGELOG)|(**/(README|CHANGELOG))).md": [
+    "((.github/**/*)|(docs/**/*)|(web/**/*.md)|(README|CHANGELOG)|(**/(README|CHANGELOG))).md": [
       "prettier --write"
     ]
   },
