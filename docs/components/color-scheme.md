@@ -1,7 +1,7 @@
 ---
-title: 'DarkMode'
+title: 'ColorScheme'
 description: A JSX email component which provides meta and style foundations for color scheme support
-slug: dark-mode
+slug: color-scheme
 type: component
 ---
 
@@ -15,16 +15,20 @@ Please be sure to read our FAQ about Dark Mode in the context of email templates
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
+Add the component to your email template.
 
 ```jsx
-import { Button } from 'jsx-email';
+import { Body, ColorScheme, Head, Html } from 'jsx-email';
 
 const Email = () => {
   return (
-    <Button href="https://example.com" style={{ color: '#61dafb', padding: '10px 20px' }}>
-      Click me
-    </Button>
+    <Html>
+      <Head>
+        <ColorScheme mode="light only" />
+      </Head>
+      <Body>
+      </Body>
+    </Html>
   );
 };
 ```
@@ -32,7 +36,7 @@ const Email = () => {
 ## Component Props
 
 ```ts
-export interface DarkModeProps {
+export interface ColorSchemeProps {
   mode?: Mode;
 }
 ```
