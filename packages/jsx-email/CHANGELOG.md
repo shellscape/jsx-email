@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.4.1
+
+_2023-12-19_
+
+### Bugfixes
+
+- jsx-email: remove errant semicolon in ColorScheme component (dfe366b)
+
 ## v1.4.0
 
 _2023-12-18_
