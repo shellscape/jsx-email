@@ -45,7 +45,7 @@ export const ColorScheme: JsxEmailComponent<ColorSchemeProps> = ({ mode = 'norma
     <>
       <meta name="color-scheme" content={mode} />
       <meta name="supported-color-schemes" content={mode} />
-      <style dangerouslySetInnerHTML={{ __html: style }} />;
+      <style dangerouslySetInnerHTML={{ __html: style }} />
     </>
   );
 };
