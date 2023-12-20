@@ -9,5 +9,8 @@
   },
   "dependencies": {
     "jsx-email": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "20.10.5"
   }
 }
