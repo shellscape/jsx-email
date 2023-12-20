@@ -58,7 +58,7 @@ The goals of this project are to provide an improved focus on Developer Experien
 ## Service Integrations
 
 Email built and rendered with JSX email can be used with any email provider that provides an API for sending email as a `String`.
-This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), and [SendGrid](https://sendgrid.com). See our documentation on [Email Providers](https://jsx.email/docs/email-providers) for more info and example usage.
+This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), [Plunk](https://www.useplunk.com/) and [SendGrid](https://sendgrid.com). See our documentation on [Email Providers](https://jsx.email/docs/email-providers) for more info and example usage.
 
 <!-- FIXME: Write and link to example code for integrations on the docs site -->
 
