@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const qrcode = require('qrcode');
+import qrcode from 'qrcode';
 
 type RootProps = React.ComponentPropsWithoutRef<'img'>;
 
