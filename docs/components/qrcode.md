@@ -7,6 +7,10 @@ type: component
 
 <!--@include: @/include/header.md-->
 
+::: warning
+This component utilizes the base64 image format to inline the QR Code image. Please note that not all email clients support that image format. See https://www.caniemail.com/features/image-base64/ for more information.
+:::
+
 <!--@include: @/include/install.md-->
 
 ## Usage
@@ -27,7 +31,16 @@ The `QrCode` component generates a QR code based on the provided `src` prop. It 
 
 ## Component Props
 
-In addition to expressing all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`, `QrCode` accepts the following custom props:
+```ts
+interface QrProps extends RootProps {
+  correctionLevel: 'L' | 'M' | 'H';
+  height?: number;
+  size: number;
+  src: string;
+  style?: React.CSSProperties;
+  width?: number;
+}
+```
 
 ### Props
 
@@ -38,22 +51,22 @@ correctionLevel: 'L' | 'M' | 'H';
 The error correction level for the QR code. Higher levels offer more resilience at the cost of reduced storage capacity. The available levels are 'L' (low), 'M' (medium), and 'H' (high).
 
 ```ts
+height?: number;
+```
+
+(Optional) The height of the wrapping image in pixels. If not provided, the `size` value will be used.
+
+```ts
 size: number;
 ```
 
 The size of the QR code in pixels. This size will apply to both width and height unless overridden by specific `width` or `height` props.
 
 ```ts
-width?: number;
+src: string;
 ```
 
-(Optional) The width of the wrapping image in pixels. If not provided, the `size` value will be used.
-
-```ts
-height?: number;
-```
-
-(Optional) The height of the wrapping image in pixels. If not provided, the `size` value will be used.
+The data or URL you want to encode in the QR code. The QR code will be generated dynamically based on this content.
 
 ```ts
 style?: React.CSSProperties;
@@ -61,6 +74,14 @@ style?: React.CSSProperties;
 
 (Optional) Custom CSS styles to be applied to the QR code image.
 
-::: note
-Ensure that the `src` prop contains the data or URL you want to encode in the QR code. The QR code will be generated dynamically based on this content.
+```ts
+width?: number;
+```
+
+(Optional) The width of the wrapping image in pixels. If not provided, the `size` value will be used.
+
+::: tip
+This component also expresses all of the  [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`
 :::
+
+
