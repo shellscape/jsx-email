@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.5.0
+
+_2023-12-21_
+
+### Features
+
+- jsx-email: QrCode component (#93)
+
 ## v1.4.1
 
 _2023-12-19_
