@@ -36,7 +36,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
           </Heading>
         </div>
 
-        <div>
+        <div className="flex">
           <LayoutGroup id="topbar">
             {setActiveView && (
               <ToggleGroup.Root
