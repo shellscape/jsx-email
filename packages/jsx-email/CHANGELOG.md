@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.5.3
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: make jsx files visible to preview app (#112)
+
 ## v1.5.2
 
 _2023-12-26_
