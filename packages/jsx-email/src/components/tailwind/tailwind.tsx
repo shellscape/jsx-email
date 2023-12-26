@@ -32,7 +32,7 @@ const getUno = (config: ConfigBase, production: boolean) => {
   if (production)
     transformers.push(
       transformerCompileClass({
-        classPrefix: '',
+        classPrefix: 'je',
         trigger: ':jsx:'
       })
     );
