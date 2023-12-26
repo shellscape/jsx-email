@@ -4,6 +4,7 @@ import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
 
 import { Heading } from './heading';
+import { Send } from './send';
 
 type TopbarElement = React.ElementRef<'header'>;
 type RootProps = React.ComponentPropsWithoutRef<'header'>;
@@ -29,13 +30,13 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         )}
         {...props}
       >
-        <div className={`items-center overflow-hidden hidden lg:flex`}>
+        <div className="items-center overflow-hidden hidden lg:flex lg:flex-1">
           <Heading as="h2" className="truncate text">
             {title}
           </Heading>
         </div>
 
-        <div>
+        <div className="flex">
           <LayoutGroup id="topbar">
             {setActiveView && (
               <ToggleGroup.Root
@@ -131,6 +132,10 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
               </ToggleGroup.Root>
             )}
           </LayoutGroup>
+        </div>
+
+        <div className="lg:flex-1 lg:flex lg:justify-end">
+          <Send markup={markup} />
         </div>
       </header>
     );

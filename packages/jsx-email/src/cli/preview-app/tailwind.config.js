@@ -41,6 +41,7 @@ module.exports = {
       'dark-bg-border': '#1a191a',
       'dark-bg-text': '#efdab9',
       'darker-bg': '#2c2a2b',
+      'error-text': '#f87171',
       'light-bg': '#efeae1',
       'light-bg-text': '#574c4f',
       link: '#ffd152',
