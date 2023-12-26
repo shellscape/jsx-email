@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.5.2
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: allow preview server to serve files outside of workspace root (#105)
+
 ## v1.5.1
 
 _2023-12-26_
