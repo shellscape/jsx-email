@@ -259,3 +259,17 @@ describe('<Tailwind> component', async () => {
     );
   });
 });
+
+describe('Production mode', async () => {
+  it('should generate class names with a prefix', async () => {
+    const actualOutput = await jsxToString(
+      <Tailwind production>
+        <Html>
+          <div className="text-sm bg-red-100" />
+        </Html>
+      </Tailwind>
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+});
