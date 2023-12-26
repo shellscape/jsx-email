@@ -1,0 +1,7 @@
+{
+  "extends": "../../shared/tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "types": ["./node_modules/jsx-email/node_modules/vite/client", "./node_modules/@types/node"]
+  }
+}
