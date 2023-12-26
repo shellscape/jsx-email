@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.5.1
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: add prefix to production class names (#111)
+
 ## v1.5.0
 
 _2023-12-21_
