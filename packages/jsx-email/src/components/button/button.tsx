@@ -1,8 +1,10 @@
 import React from 'react';
 
+import type { BaseProps, JsxEmailComponent } from '../../types';
+
 import { parsePadding } from './padding';
 
-type RootProps = React.ComponentPropsWithoutRef<'a'>;
+type RootProps = BaseProps<'a'>;
 
 export interface ButtonProps extends RootProps {}
 
@@ -41,8 +43,8 @@ const buttonTextStyle = (pb?: number) => {
   };
 };
 
-export const Button: React.FC<Readonly<ButtonProps>> = ({ children, style, target, ...props }) => {
-  const parsedPadding = parsePadding((style as any) || {});
+export const Button: JsxEmailComponent<ButtonProps> = ({ children, style, target, ...props }) => {
+  const parsedPadding = parsePadding(style || {});
   let textRaiseTop = '';
   let textRaiseBottom: number | undefined;
   let letterSpacingLeft = '';

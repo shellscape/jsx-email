@@ -64,8 +64,9 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
         ...viteConfig.resolve?.alias
       }
     },
-    server: { host, port: parseInt(port as any, 10) }
-  } as InlineConfig;
+    server: { fs: { strict: false }, host, port: parseInt(port.toString(), 10) }
+  } satisfies InlineConfig;
+
   const server = await createServer(mergedConfig);
 
   info(chalk`\n  🚀 {yellow jsx-email} Preview\n`);

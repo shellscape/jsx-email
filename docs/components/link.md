@@ -23,18 +23,24 @@ const Email = () => {
 
 ## Component Props
 
-This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`. Additionally, the props listed below should be considered.
+```ts
+disableDefaultStyle?: boolean;
+```
 
-### Props
+If `false`, instructs the component not to add default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
 ```ts
 href: string;
 ```
 
-Link to be triggered when the button is clicked
+Link to be triggered when the button is clicked.
 
 ```ts
 target?: string;
 ```
 
-Specify the target attribute for the button link
+Specify the target attribute for the button link.
+
+::: tip
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+:::

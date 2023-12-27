@@ -29,10 +29,6 @@ const Email = () => {
 
 ## Component Props
 
-This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`. Additionally, the props listed below should be considered.
-
-### Props
-
 ```ts
 lang?: string;
 ```
@@ -44,3 +40,7 @@ dir?: string;
 ```
 
 Identify the direction of text content on the email
+
+:::tip
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.
+:::

@@ -3,8 +3,9 @@ import { Suspense } from 'react';
 import { getHighlighter as getHighBro, type BuiltinLanguage } from 'shikiji';
 
 import { useData } from '../render/jsx-to-string';
+import type { BaseProps, JsxEmailComponent } from '../types';
 
-type RootProps = React.ComponentPropsWithoutRef<'pre'>;
+type RootProps = BaseProps<'pre'>;
 
 export interface CodeProps extends RootProps {
   children: string;
@@ -38,7 +39,7 @@ const Renderer = (props: React.PropsWithChildren<CodeProps>) => {
   );
 };
 
-export const Code = ({ children, ...props }: React.PropsWithChildren<CodeProps>) => {
+export const Code: JsxEmailComponent<CodeProps> = ({ children, ...props }) => {
   if (typeof children !== 'string')
     throw new Error('Code: component children must be of type string');
 

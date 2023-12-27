@@ -4,7 +4,7 @@
 import type { Element, Parents, Root } from 'hast';
 import prettyHtml from 'pretty';
 
-import type { ProcessOptions } from './types';
+import type { ProcessOptions } from '../types';
 
 export { prettyHtml };
 

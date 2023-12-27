@@ -29,4 +29,12 @@ const Email = () => {
 
 ## Component Props
 
-This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
+```ts
+disableDefaultStyle?: boolean;
+```
+
+If `false`, instructs the component not to add default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+::: tip
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
+:::

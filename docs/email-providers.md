@@ -158,7 +158,7 @@ sendgrid.send({
 ## Plunk
 
 ```tsx
-import { render } from '@jsx-email/render';
+import { render } from 'jsx-email';
 import Plunk from '@plunk/node';
 
 import { BatmanTemplate } from './emails/Batman.tsx';

@@ -1,11 +1,11 @@
 // @ts-ignore
 import React from 'react';
 
-import { Tailwind, type TailwindProps } from '../dist';
-import { jsxToString, render } from '../src/render';
-import { Hr } from '../src/components/hr';
-import { Head } from '../src/components/head';
-import { Html } from '../src/components/html';
+import { Tailwind, type TailwindProps } from '../../dist';
+import { jsxToString, render } from '../../src/render';
+import { Hr } from '../../src/components/hr';
+import { Head } from '../../src/components/head';
+import { Html } from '../../src/components/html';
 
 type TailwindConfig = Partial<TailwindProps['config']>;
 
@@ -254,8 +254,22 @@ describe('<Tailwind> component', async () => {
       /* layer: default */
       .h-\\\\[200px\\\\]{height:200px;}
       .max-h-\\\\[calc\\\\(50px\\\\+3rem\\\\)\\\\]{max-height:calc(50px + 3rem);}
-      .bg-red-100{background-color:rgb(254 226 226 / 1);}</style></div>"
+      .bg-red-100{background-color:rgb(254,226,226);}</style></div>"
     `
     );
+  });
+});
+
+describe('Production mode', async () => {
+  it('should generate class names with a prefix', async () => {
+    const actualOutput = await jsxToString(
+      <Tailwind production>
+        <Html>
+          <div className="text-sm bg-red-100" />
+        </Html>
+      </Tailwind>
+    );
+
+    expect(actualOutput).toMatchSnapshot();
   });
 });
