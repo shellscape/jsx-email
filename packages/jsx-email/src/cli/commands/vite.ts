@@ -10,7 +10,7 @@ import hypothetical from 'rollup-plugin-hypothetical';
 
 const logger = createLogger();
 const { warnOnce: og } = logger;
-const root = join(dirname(require.resolve('.')), '../app');
+const root = join(dirname(require.resolve('@jsx-email/app-preview')), 'app');
 
 process.chdir(root);
 

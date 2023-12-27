@@ -4,4 +4,3 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 workspace:
   inheritedTasks:
     exclude: ['build', 'compile', 'release', 'test']
-
