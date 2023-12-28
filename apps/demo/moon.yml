@@ -10,3 +10,10 @@ tasks:
     command: email preview emails
     options:
       cache: false
+
+  release:
+    command: versioner --target $projectRoot
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
