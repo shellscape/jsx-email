@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.6.0
+
+_2023-12-28_
+
+### Features
+
+- jsx-email: preview mobile devices in preview app (#114)
+
 ## v1.5.3
 
 _2023-12-26_
