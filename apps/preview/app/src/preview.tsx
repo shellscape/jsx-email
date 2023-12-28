@@ -42,9 +42,11 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
     navigate(`${pathname}?view=${view}`);
   };
 
-  if (activeView === Views.Mobile || viewSize) {
+  if (activeView === Views.Mobile) {
     const [width, height] = (viewSize || '430,932').split(',');
     iframeStyle = { height: `${height}px`, width: `${width}px` };
+  } else {
+    iframeStyle = void 0;
   }
 
   return (
