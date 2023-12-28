@@ -22,6 +22,9 @@
     "index.js",
     "README.md"
   ],
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
   "dependencies": {
     "@radix-ui/colors": "3.0.0",
     "@radix-ui/react-collapsible": "1.0.3",
@@ -33,7 +36,6 @@
     "@vitejs/plugin-react": "^4.1.0",
     "classnames": "2.3.2",
     "framer-motion": "10.16.16",
-    "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.20.1",
     "shikiji": "^0.8.0",
