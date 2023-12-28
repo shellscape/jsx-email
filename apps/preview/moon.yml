@@ -1,0 +1,14 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'release', 'test']
+
+tasks:
+  release:
+    command: versioner --target $projectRoot
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
