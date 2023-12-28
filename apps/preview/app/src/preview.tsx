@@ -19,6 +19,17 @@ interface PreviewProps {
 
 const validViews = Object.keys(Views).filter((key) => isNaN(+key));
 
+const patchIframe = (frame: HTMLIFrameElement) => {
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  const styleElement = doc.createElement('style');
+
+  styleElement.innerHTML = `
+/* Added by jsx-email for mobile view */
+table { overflow-wrap: anywhere; width: 100% !important; }
+`;
+  doc.head.appendChild(styleElement);
+};
+
 export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -37,31 +48,17 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
     if (view && validViews.includes(view)) setActiveView(view);
   }, [searchParams]);
 
-  const iframeRef = React.useRef(null);
+  const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
   React.useEffect(() => {
     const handleLoad = () => {
-      if (activeView !== Views.Mobile) return;
-
-      const iframeDocument =
-        iframeRef.current.contentDocument || iframeRef.current.contentWindow.document;
-
-      const styleElement = iframeDocument.createElement('style');
-      styleElement.innerHTML = `table{
-          width: 100% !important; 
-        }`;
-
-      iframeDocument.head.appendChild(styleElement);
+      if (activeView === Views.Mobile) patchIframe(iframeRef.current);
     };
 
-    if (iframeRef.current) {
-      iframeRef.current.addEventListener('load', handleLoad);
-    }
+    if (iframeRef.current) iframeRef.current.addEventListener('load', handleLoad);
 
     return () => {
-      if (iframeRef.current) {
-        iframeRef.current.removeEventListener('load', handleLoad);
-      }
+      if (iframeRef.current) iframeRef.current.removeEventListener('load', handleLoad);
     };
   }, [html, activeView]);
 
