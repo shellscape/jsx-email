@@ -37,6 +37,32 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
     if (view && validViews.includes(view)) setActiveView(view);
   }, [searchParams]);
 
+  const iframeRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleLoad = () => {
+      const iframeDocument =
+        iframeRef.current.contentDocument || iframeRef.current.contentWindow.document;
+
+      const styleElement = iframeDocument.createElement('style');
+      styleElement.innerHTML = `table{
+          width: 100% !important; 
+        }`;
+
+      iframeDocument.head.appendChild(styleElement);
+    };
+
+    if (iframeRef.current) {
+      iframeRef.current.addEventListener('load', handleLoad);
+    }
+
+    return () => {
+      if (iframeRef.current) {
+        iframeRef.current.removeEventListener('load', handleLoad);
+      }
+    };
+  }, [html]);
+
   const handleViewChange = (view: Views) => {
     setActiveView(view);
     navigate(`${pathname}?view=${view}`);
@@ -59,7 +85,7 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
     >
       {activeView === Views.Mobile && <Mobile setViewSize={setViewSize} />}
       {activeView === Views.Desktop || activeView === Views.Mobile ? (
-        <iframe srcDoc={html} className={iframe} style={iframeStyle} />
+        <iframe ref={iframeRef} srcDoc={html} className={iframe} style={iframeStyle} />
       ) : (
         <div>
           <CodeContainer
