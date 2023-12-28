@@ -12,7 +12,6 @@ tasks:
       - ~:clean.dist
       - ~:compile
       - ~:copy.assets
-      - ~:copy.preview
       - ~:copy.readme
     inputs:
       - src
@@ -39,11 +38,6 @@ tasks:
 
   copy.assets:
     command: cp -r src/cli/assets dist
-    options:
-      cache: false
-
-  copy.preview:
-    command: cp -r src/cli/preview-app dist
     options:
       cache: false
 

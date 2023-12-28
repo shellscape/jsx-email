@@ -81,7 +81,5 @@ width?: number;
 (Optional) The width of the wrapping image in pixels. If not provided, the `size` value will be used.
 
 ::: tip
-This component also expresses all of the  [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`
 :::
-
-

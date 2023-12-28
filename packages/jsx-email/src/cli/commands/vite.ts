@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { dirname, join } from 'path';
 
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
@@ -8,12 +8,11 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 // eslint-disable-next-line
 import hypothetical from 'rollup-plugin-hypothetical';
 
-const root = resolve(__dirname, '../preview-app');
-
-process.chdir(root);
-
 const logger = createLogger();
 const { warnOnce: og } = logger;
+const root = join(dirname(require.resolve('@jsx-email/app-preview')), 'app');
+
+process.chdir(root);
 
 logger.warnOnce = (message, options) => {
   // Note: ignore `Sourcemap for "${file}" points to missing source files` errors
