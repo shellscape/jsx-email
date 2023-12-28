@@ -1,3 +1,5 @@
+import { Cross2Icon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import * as Popover from '@radix-ui/react-popover';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import classnames from 'classnames';
 import { LayoutGroup } from 'framer-motion';
@@ -29,6 +31,31 @@ export const Nav = React.forwardRef<React.ElementRef<'header'>, Readonly<NavProp
       </div>
 
       <div>
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <button
+              className="align-top h-[20px] w-[20px] pt-[9px] mr-4"
+              aria-label="Preview Information"
+            >
+              <QuestionMarkCircledIcon className="h-[20px] w-[20px]" />
+            </button>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.Content className="note" sideOffset={5}>
+              <div className="pt-4 text-xs">
+                The Desktop and Mobile views are <em>an approximation</em> of what your email
+                template will looke like on various devices. It should not be considered a source of
+                truth, but rather a guide for styling and layout. Always send a test email to your
+                target email clients for Quality Control, before sending emails in production.
+              </div>
+              <Popover.Close className="note-close" aria-label="Close">
+                <Cross2Icon />
+              </Popover.Close>
+              <Popover.Arrow className="note-arrow" />
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
+
         <LayoutGroup id="topbar">
           {setActiveView && (
             <ToggleGroup.Root
