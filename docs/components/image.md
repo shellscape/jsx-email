@@ -28,6 +28,23 @@ referenced, so avoid using these. See [Can I
 Email](https://www.caniemail.com/features/image-svg/) for more information.
 :::
 
+::: tip
+To use local images during development, you can resolve the path with node.
+Just remember, for production, you'll need to host the images somewhere and
+reference them with a URL.
+
+```jsx
+import { Img } from 'jsx-email';
+
+const baseUrl = import.meta.DEV ? import.meta.resolve('../assets/') : 'https://assets.example.com/';
+
+const Email = () => {
+  return <Img src={`${baseUrl}cat.jpg`} alt="Cat" width="300" height="300" />;
+};
+```
+
+:::
+
 ## Component Props
 
 ```ts
@@ -63,5 +80,3 @@ The width of an image in pixels
 ::: tip
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`.
 :::
-
-

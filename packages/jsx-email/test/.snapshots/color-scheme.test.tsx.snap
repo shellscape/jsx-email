@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<ColorScheme> component > renders correctly 1`] = `"<meta name=\\"color-scheme\\" content=\\"normal\\"/><meta name=\\"supported-color-schemes\\" content=\\"normal\\"/><style>:root { color-scheme: normal; supported-color-schemes: normal; }</style>"`;
+
+exports[`<ColorScheme> component > renders correctly 2`] = `"<meta name=\\"color-scheme\\" content=\\"dark\\"/><meta name=\\"supported-color-schemes\\" content=\\"dark\\"/><style>:root { color-scheme: dark; supported-color-schemes: dark; }</style>"`;
+
+exports[`<ColorScheme> component > renders correctly 3`] = `"<meta name=\\"color-scheme\\" content=\\"dark only\\"/><meta name=\\"supported-color-schemes\\" content=\\"dark only\\"/><style>:root { color-scheme: dark only; supported-color-schemes: dark only; }</style>"`;
+
+exports[`<ColorScheme> component > renders correctly 4`] = `"<meta name=\\"color-scheme\\" content=\\"light\\"/><meta name=\\"supported-color-schemes\\" content=\\"light\\"/><style>:root { color-scheme: light; supported-color-schemes: light; }</style>"`;
+
+exports[`<ColorScheme> component > renders correctly 5`] = `"<meta name=\\"color-scheme\\" content=\\"light dark\\"/><meta name=\\"supported-color-schemes\\" content=\\"light dark\\"/><style>:root { color-scheme: light dark; supported-color-schemes: light dark; }</style>"`;
+
+exports[`<ColorScheme> component > renders correctly 6`] = `"<meta name=\\"color-scheme\\" content=\\"light dark only\\"/><meta name=\\"supported-color-schemes\\" content=\\"light dark only\\"/><style>:root { color-scheme: light dark only; supported-color-schemes: light dark only; }</style>"`;
+
+exports[`<ColorScheme> component > renders correctly 7`] = `"<meta name=\\"color-scheme\\" content=\\"light only\\"/><meta name=\\"supported-color-schemes\\" content=\\"light only\\"/><style>:root { color-scheme: light only; supported-color-schemes: light only; }</style>"`;

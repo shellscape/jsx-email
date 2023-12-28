@@ -1,6 +1,7 @@
 export * from './components/body';
 export * from './components/button/button';
 export * from './components/code';
+export * from './components/color-scheme';
 export * from './components/column';
 export * from './components/container';
 export * from './components/font';
@@ -14,7 +15,7 @@ export * from './components/markdown';
 export * from './components/preview';
 export * from './components/row';
 export * from './components/section';
-export * from './components/tailwind';
+export * from './components/tailwind/tailwind';
 export * from './components/text';
 export * from './render';
 export * from './types';

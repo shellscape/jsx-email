@@ -1,5 +1,69 @@
 # jsx-email ChangeLog
 
+## v1.6.0
+
+_2023-12-28_
+
+### Features
+
+- jsx-email: preview mobile devices in preview app (#114)
+
+## v1.5.3
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: make jsx files visible to preview app (#112)
+
+## v1.5.2
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: allow preview server to serve files outside of workspace root (#105)
+
+## v1.5.1
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: add prefix to production class names (#111)
+
+## v1.5.0
+
+_2023-12-21_
+
+### Features
+
+- jsx-email: QrCode component (#93)
+
+## v1.4.1
+
+_2023-12-19_
+
+### Bugfixes
+
+- jsx-email: remove errant semicolon in ColorScheme component (dfe366b)
+
+## v1.4.0
+
+_2023-12-18_
+
+### Features
+
+- jsx-email: ColorScheme component for dark and light mode setup (#104)
+
+## v1.3.1
+
+_2023-12-17_
+
+### Bugfixes
+
+- jsx-email: assert comma color function notation for Tailwind (#101)
+
 ## v1.3.0
 
 _2023-12-16_

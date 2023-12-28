@@ -1,4 +1,6 @@
 /* eslint-disable no-useless-escape */
+// @ts-ignore
+import React from 'react';
 
 import { jsxToString } from '../src/render';
 import { Markdown } from '../src';

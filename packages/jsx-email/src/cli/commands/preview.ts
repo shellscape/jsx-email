@@ -54,8 +54,7 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
   }
 
   const { host = false, open = true, port = 55420 } = argv;
-  const { viteConfig } = await import('./vite.config');
-
+  const { viteConfig } = await import('./vite');
   const mergedConfig = {
     configFile: false,
     ...viteConfig,
@@ -65,12 +64,12 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
         ...viteConfig.resolve?.alias
       }
     },
-    server: { host, port: parseInt(port as any, 10) }
-  } as InlineConfig;
+    server: { fs: { strict: false }, host, port: parseInt(port.toString(), 10) }
+  } satisfies InlineConfig;
 
   const server = await createServer(mergedConfig);
 
-  info(chalk`\n  🚀 {yellow JSX email} Preview\n`);
+  info(chalk`\n  🚀 {yellow jsx-email} Preview\n`);
 
   await server.listen();
 
