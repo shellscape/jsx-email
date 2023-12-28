@@ -41,6 +41,8 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
 
   React.useEffect(() => {
     const handleLoad = () => {
+      if (activeView !== Views.Mobile) return;
+
       const iframeDocument =
         iframeRef.current.contentDocument || iframeRef.current.contentWindow.document;
 
@@ -61,7 +63,7 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
         iframeRef.current.removeEventListener('load', handleLoad);
       }
     };
-  }, [html]);
+  }, [html, activeView]);
 
   const handleViewChange = (view: Views) => {
     setActiveView(view);
