@@ -84,13 +84,7 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
     >
       {activeView === Views.Mobile && <Mobile setViewSize={setViewSize} />}
       {activeView === Views.Desktop || activeView === Views.Mobile ? (
-        <iframe
-          id="preview-frame"
-          ref={iframeRef}
-          srcDoc={html}
-          className={iframe}
-          style={iframeStyle}
-        />
+        <iframe ref={iframeRef} srcDoc={html} className={iframe} style={iframeStyle} />
       ) : (
         <div>
           <CodeContainer

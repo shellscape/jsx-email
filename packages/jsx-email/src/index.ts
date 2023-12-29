@@ -13,7 +13,6 @@ export * from './components/img';
 export * from './components/link';
 export * from './components/markdown';
 export * from './components/preview';
-export * from './components/qrcode';
 export * from './components/row';
 export * from './components/section';
 export * from './components/tailwind/tailwind';

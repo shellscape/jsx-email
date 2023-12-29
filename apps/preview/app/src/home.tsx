@@ -12,10 +12,7 @@ export const Home = ({ templateNames }: { templateNames: string[] }) => {
 
   return (
     <Shell templateNames={templateNames}>
-      <div
-        id="landing"
-        className="bg-dark-bg max-w-md border border-dark-bg-border m-auto mt-56 rounded-md p-8"
-      >
+      <div className="bg-dark-bg max-w-md border border-dark-bg-border m-auto mt-56 rounded-md p-8">
         <h2 className="font-medium">JSX Email Preview</h2>
         <SlotPrimitive.Slot className="mt-2 mb-4 text-sm">
           <SlotPrimitive.Slottable>

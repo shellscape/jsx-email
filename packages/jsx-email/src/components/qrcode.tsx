@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import qrcode, { type QRCodeToBufferOptions } from 'qrcode';
+import qrcode from 'qrcode';
 
 type RootProps = React.ComponentPropsWithoutRef<'img'>;
 
@@ -15,7 +15,7 @@ export interface QrProps extends RootProps {
 export const QrCode: React.FC<Readonly<QrProps>> = ({
   correctionLevel,
   alt,
-  src = '',
+  src,
   width,
   height,
   style,
@@ -24,10 +24,11 @@ export const QrCode: React.FC<Readonly<QrProps>> = ({
 }) => {
   const qrCodeOptions = {
     errorCorrectionLevel: correctionLevel,
+    height: size,
     margin: 1,
-    type: 'png',
+    type: 'image/png',
     width: size
-  } satisfies QRCodeToBufferOptions;
+  };
   const qrCodeBuffer = qrcode.toBuffer(src, qrCodeOptions);
 
   return (
@@ -35,7 +36,6 @@ export const QrCode: React.FC<Readonly<QrProps>> = ({
       {...props}
       data-id="jsx-email/qr"
       alt={alt}
-      // @ts-ignore
       src={qrCodeBuffer}
       width={width && width < size ? size : width || size}
       height={height && height < size ? size : height || size}
