@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+import { getHTML } from './helpers/html';
+
 // TODO: Wire up tests for:
 // - Mobile View
 // - JSX View
@@ -13,14 +15,21 @@ test('landing', async ({ page }) => {
 
   const landing = await page.locator('#landing');
   expect(await landing.innerHTML({ timeout: 1e4 })).toMatchSnapshot();
+
+  await expect(page.locator('#link-Base')).toBeVisible();
 });
 
 const pages = ['Base', 'Code', 'Local-Assets', 'Tailwind'];
 
 pages.forEach((name) => {
   test(`page: ${name}`, async ({ page }) => {
-    await page.locator(`a[href="/${name}"]`).click();
-    const body = await page.frameLocator('iframe').locator('body');
-    expect(await body.innerHTML({ timeout: 1e4 })).toMatchSnapshot();
+    const selector = `#link-${name}`;
+    await page.goto('/');
+    await expect(page.locator(selector)).toBeVisible();
+    await page.click(selector);
+    const iframe = await page.frameLocator('#preview-frame');
+    const html = await getHTML(iframe.locator('html'), { deep: true });
+
+    expect(html).toMatchSnapshot();
   });
 });

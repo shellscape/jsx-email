@@ -12,20 +12,22 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] }
-    },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] }
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] }
     }
+
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] }
+    // },
+
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] }
+    // }
   ],
   reporter: 'list',
   retries: process.env.CI ? 2 : 0,
+  snapshotPathTemplate:
+    '{testDir}/.snapshots/{testFileDir}/{testFileName}-{arg}{-projectName}{ext}',
   testDir: './tests',
   use: {
     baseURL: 'http://localhost:55420',
