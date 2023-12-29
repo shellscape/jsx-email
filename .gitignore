@@ -13,3 +13,8 @@ dist
 
 packages/**/tsconfig.json
 packages/jsx-email/README.md
+
+test-results
+playwright-report
+blob-report
+playwright/.cache/
