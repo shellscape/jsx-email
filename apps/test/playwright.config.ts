@@ -32,7 +32,7 @@ export default defineConfig({
     trace: 'on-first-retry'
   },
   webServer: {
-    command: 'pnpm exec email preview ./fixtures --no-open',
+    command: 'moon app-test:dev',
     reuseExistingServer: !process.env.CI,
     url: 'http://localhost:55420'
   },
