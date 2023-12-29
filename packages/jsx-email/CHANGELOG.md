@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.6.1
+
+_2023-12-29_
+
+### Bugfixes
+
+- jsx-email: remove qr-code (#117)
+
 ## v1.6.0
 
 _2023-12-28_
