@@ -82,3 +82,10 @@ jobs:
 
       - name: Run Tests
         run: moon run :test --affected --concurrency 1 --remote
+
+      - name: Run Preview Test
+        # Note: We're running `pnpm i` again so that pnpm places the `email` bin in root node_modules
+        # We'll need that for the preview tests below
+        run: |
+          pnpm i
+          moon app-test:playwright

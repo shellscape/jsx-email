@@ -1,0 +1,23 @@
+<html
+  lang="en"
+  dir="ltr"
+>
+  <head>
+  </head>
+  <body>
+    <img
+      id="image"
+      alt="Cat"
+      src="http://localhost:55420/@fs/<path-removed>/apps/test/fixtures/static/cat.jpeg"
+      width="200"
+      height="200"
+      style="border:none;display:block;outline:none;text-decoration:none"
+    >
+    <a
+      href="http://localhost:55420/@fs/<path-removed>/apps/test/fixtures/static/cat.jpeg"
+      style="color:#067df7;text-decoration:none"
+    >
+      http://localhost:55420/@fs/<path-removed>/apps/test/fixtures/static/cat.jpeg
+    </a>
+  </body>
+</html>

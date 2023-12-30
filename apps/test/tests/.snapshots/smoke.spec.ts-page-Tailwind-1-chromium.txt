@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <style tailwind>
+      /* layer: preflights */
+    /* layer: default */
+    .bg-brand {
+      background-color: rgb(0, 114, 145);
+    }
+
+    .px-3 {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .py-2 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .font-medium {
+      font-weight: 500;
+    }
+
+    .leading-4 {
+      line-height: 1rem;
+    }
+
+    .text-white {
+      color: rgb(255, 255, 255);
+    }
+    </style>
+  </head>
+  <body>
+    <div>
+      <a
+        href="https://example.com"
+        class="px-3 py-2 font-medium leading-4 text-white bg-brand"
+        style="display:inline-block;line-height:100%;max-width:100%;text-decoration:none"
+      >
+        <span>
+          <!--[if mso]><i style="mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->
+        </span>
+        <span style="display:inline-block;line-height:120%;max-width:100%;mso-padding-alt:0px;mso-text-raise:0">
+          Click me
+        </span>
+        <span>
+          <!--[if mso]><i style="mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->
+        </span>
+      </a>
+    </div>
+  </body>
+</html>
