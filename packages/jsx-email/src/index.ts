@@ -3,6 +3,7 @@ export * from './components/button/button';
 export * from './components/code';
 export * from './components/color-scheme';
 export * from './components/column';
+export * from './components/conditional';
 export * from './components/container';
 export * from './components/font';
 export * from './components/head';

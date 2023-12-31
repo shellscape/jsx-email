@@ -8,6 +8,8 @@ import type { ProcessOptions } from '../types';
 
 export { prettyHtml };
 
+export const jsxEmailTags = ['jsx-email-cond'];
+
 export const processHtml = async ({ html, minify, pretty, strip }: ProcessOptions) => {
   const { rehype } = await import('rehype');
   const { default: stringify } = await import('rehype-stringify');
@@ -18,6 +20,7 @@ export const processHtml = async ({ html, minify, pretty, strip }: ProcessOption
     emitParseErrors: true
     // fragment: true
   };
+  const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
 
   function rehypeMoveStyle() {
     return function (tree: Root) {
@@ -81,7 +84,10 @@ export const processHtml = async ({ html, minify, pretty, strip }: ProcessOption
       collapseEmptyAttributes: true
     })
     .process(html);
+
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
+
+  result = result.replace(reJsxTags, '');
 
   if (pretty) result = prettyHtml(result);
 
