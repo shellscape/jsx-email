@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.7.0
+
+_2024-01-01_
+
+### Features
+
+- jsx-email: add Conditional (mso) component (#119)
+
 ## v1.6.1
 
 _2023-12-29_
