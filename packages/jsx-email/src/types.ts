@@ -6,15 +6,7 @@ export type BaseProps<TElement extends React.ElementType> =
     disableDefaultStyle?: boolean;
   };
 
-// export type BaseParentProps<TElement extends React.ElementType> = BaseProps<TElement> & {
-//   children?: React.ReactNode | undefined;
-// };
-
 export type JsxEmailComponent<TProps extends BaseProps<any>> = React.FC<Readonly<TProps>>;
-
-// export type JsxEmailParentComponent<TProps extends BaseParentProps<any> = {}> = React.FC<
-//   Readonly<TProps>
-// >;
 
 export type PlainTextOptions = HtmlToTextOptions;
 

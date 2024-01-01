@@ -3,6 +3,7 @@ import {
   Button,
   ColorScheme,
   Column,
+  Conditional,
   Container,
   Font,
   Head,
@@ -22,7 +23,11 @@ import {
 export const Template = () => (
   <Html>
     <ColorScheme />
-    <Head />
+    <Head>
+      <Conditional mso={true}>
+        <meta content="batman" />
+      </Conditional>
+    </Head>
     <Preview>Preview Content</Preview>
     <Body>
       <Container>
