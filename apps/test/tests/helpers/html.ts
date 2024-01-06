@@ -24,7 +24,7 @@ const getHTML = async (locator: string | Locator, options?: GetHtmlOptions) => {
 
   const { deep = true } = options || { deep: false };
   const raw = await locator.evaluate((node, d) => {
-    const tgt = d ? node : (node as any).cloneNode();
+    const tgt = d ? node : node.cloneNode();
 
     return tgt.outerHTML;
   }, deep);
