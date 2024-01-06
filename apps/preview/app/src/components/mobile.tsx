@@ -15,7 +15,7 @@ const Group = (key: keyof typeof devices) => {
     '!outline-none !select-none data-[highlighted]:bg-select-item-hover'
   );
   const items = devices[key].map((device) => (
-    <Select.Item className={item} value={`${device.width},${device.height}`}>
+    <Select.Item className={item} value={`${device.width},${device.height}`} key={device.name}>
       <Select.ItemText>{device.name}</Select.ItemText>
       <Select.ItemIndicator className="absolute left-0 inline-flex items-center">
         <CheckIcon />
