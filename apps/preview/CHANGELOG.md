@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.0.2
+
+_2024-01-06_
+
+### Bugfixes
+
+- app-preview: add key prop to select.item component (#124)
+
 ## v1.0.1
 
 _2023-12-29_
