@@ -43,19 +43,25 @@ const parseName = (path: string) => {
 const modules = import.meta.glob('@/*.{jsx,tsx}', { eager: true });
 const sources = import.meta.glob('@/*.{jsx,tsx}', { as: 'raw', eager: true });
 
-const templates = await Promise.all(
-  Object.entries(modules).map<Promise<TemplateData>>(async ([path, mod]) => {
-    const component = mod as TemplateExports;
-    const result: TemplateData = {
-      jsx: sources[path],
-      Name: component.Name || parseName(path),
-      PreviewProps: component.PreviewProps,
-      Template: component.Template || (component as any).default,
-      TemplateStruct: component.TemplateStruct
-    };
-    return result;
-  })
-);
+const templates = (
+  await Promise.all(
+    Object.entries(modules).map<Promise<TemplateData>>(async ([path, mod]) => {
+      const component = mod as TemplateExports;
+      const Template = component.Template || (component as any).default;
+
+      if (!Template) return null;
+
+      const result: TemplateData = {
+        jsx: sources[path],
+        Name: component.Name || parseName(path),
+        PreviewProps: component.PreviewProps || Template.PreviewProps,
+        Template,
+        TemplateStruct: component.TemplateStruct
+      };
+      return result;
+    })
+  )
+).filter(Boolean);
 
 const templateNames = templates.map((template) => template.Name!);
 
