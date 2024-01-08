@@ -229,7 +229,7 @@ importers:
         specifier: ^0.1.3
         version: 0.1.3
       '@jsx-email/app-preview':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../apps/preview
       '@jsx-email/doiuse-email':
         specifier: ^1.0.1
