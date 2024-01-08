@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.0.3
+
+_2024-01-08_
+
+### Bugfixes
+
+- app-preview: ignore empty modules (#126)
+
 ## v1.0.2
 
 _2024-01-06_
