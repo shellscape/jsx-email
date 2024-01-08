@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.7.1
+
+_2024-01-08_
+
+### Bugfixes
+
+- jsx-email: use compatible version range for app-preview dependency (0ce03e1)
+
 ## v1.7.0
 
 _2024-01-01_
