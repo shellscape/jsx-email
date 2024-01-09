@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface PreviewProps {}
 
 export const Preview: React.FC<Readonly<PreviewProps>> = () => (
