@@ -179,13 +179,13 @@ importers:
   apps/web:
     devDependencies:
       '@octokit/rest':
-        specifier: ^20.0.2
+        specifier: 20.0.2
         version: 20.0.2
       globby:
         specifier: 11.0.4
         version: 11.0.4
       titleize:
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0
       vitepress:
         specifier: 1.0.0-rc.20
