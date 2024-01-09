@@ -38,7 +38,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Documentation', link: '/docs/introduction' },
-      { text: 'Quick Start', link: '/docs/quick-start' },
+      { text: 'Contributions', link: '/contributions' },
       { text: 'Email Samples', link: 'http://samples.jsx.email' }
     ],
     search: {
