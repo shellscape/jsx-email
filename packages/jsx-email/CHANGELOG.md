@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.7.2
+
+_2024-01-09_
+
+### Bugfixes
+
+- jsx-email: shikiji error while using cjs, auto import react (#130)
+
 ## v1.7.1
 
 _2024-01-08_
