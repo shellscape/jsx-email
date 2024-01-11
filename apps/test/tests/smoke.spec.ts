@@ -19,7 +19,17 @@ test('landing', async ({ page }) => {
   await expect(page.locator('#link-Base')).toBeVisible();
 });
 
-const pages = ['Base', 'Code', 'Local-Assets', 'Tailwind'];
+const pages = [
+  'Base',
+  'Code',
+  'Default-Export',
+  'Default-Export-Props-Fn',
+  'Local-Assets',
+  'Preview-Props',
+  'Preview-Props-Fn',
+  'Preview-Props-Named',
+  'Tailwind'
+];
 
 pages.forEach((name) => {
   test(`page: ${name}`, async ({ page }) => {
