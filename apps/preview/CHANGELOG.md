@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.0.4
+
+_2024-01-11_
+
+### Bugfixes
+
+- app-preview: properly handle different preview props. fixes #132 (#136)
+
 ## v1.0.3
 
 _2024-01-08_
