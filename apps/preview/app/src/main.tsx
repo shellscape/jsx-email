@@ -70,7 +70,8 @@ const templateRoutes = templates.map(async (template) => {
   let props: any;
 
   if (TemplateStruct) props = create({}, TemplateStruct);
-  else if (PreviewProps) props = PreviewProps();
+  else if (typeof PreviewProps === 'function') props = PreviewProps();
+  else if (PreviewProps) props = PreviewProps;
   else if ((Template as any).PreviewProps) {
     warn(
       `jsx-email: ${Name} → PreviewProps as a property of a component is deprecated. Please used a named export.`
