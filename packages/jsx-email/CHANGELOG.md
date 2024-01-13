@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.7.3
+
+_2024-01-13_
+
+### Bugfixes
+
+- jsx-email: revert excluding jsx-email+react during build. fixes #137 (#138)
+
 ## v1.7.2
 
 _2024-01-09_
