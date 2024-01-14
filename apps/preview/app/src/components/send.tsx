@@ -58,7 +58,7 @@ export const Send: React.FC<SendProps> = ({ markup }) => {
 
   return (
     <Popover.Root>
-      <Popover.Anchor className="rounded bg-darker-bg absolute top-[20px] right-[20px] w-7 h-7 animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]" />
+      <div className="rounded bg-darker-bg absolute top-[20px] right-[20px] w-7 h-7 animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]" />
       <Popover.Trigger asChild>
         <IconButton
           className="bg-darker-bg p-1 rounded focus:text-dark-bg-text ease-in-out transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-8 hover:text-dark-bg-text absolute top-[20px] right-[20px] hidden md:block"
@@ -69,7 +69,6 @@ export const Send: React.FC<SendProps> = ({ markup }) => {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          sideOffset={25}
           align="end"
           className="w-80 -mt-10 p-3 bg-dark-bg border border-dark-bg-border text-dark-bg-text rounded-lg"
         >
