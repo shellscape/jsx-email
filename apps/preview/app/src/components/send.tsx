@@ -17,7 +17,11 @@ const PlunkLogo: React.FC<React.ComponentPropsWithoutRef<'svg'>> = (props) => (
   </svg>
 );
 
-export const Send = ({ markup }: { markup: string }) => {
+export interface SendProps {
+  markup: string;
+}
+
+export const Send: React.FC<SendProps> = ({ markup }) => {
   const [to, setTo] = React.useState('');
   const [isSending, setIsSending] = React.useState(false);
   const [submitError, setSubmitError] = React.useState<string | null>(null);
@@ -54,10 +58,10 @@ export const Send = ({ markup }: { markup: string }) => {
 
   return (
     <Popover.Root>
-      <Popover.Anchor className="absolute top-[20px] right-[20px]" />
+      <Popover.Anchor className="rounded bg-darker-bg absolute top-[20px] right-[20px] w-7 h-7 animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]" />
       <Popover.Trigger asChild>
         <IconButton
-          className="bg-darker-bg animate-bounce p-1 rounded focus:text-dark-bg-text ease-in-out transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-8 hover:text-dark-bg-text absolute top-[20px] right-[20px] hidden md:block"
+          className="bg-darker-bg p-1 rounded focus:text-dark-bg-text ease-in-out transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-8 hover:text-dark-bg-text absolute top-[20px] right-[20px] hidden md:block"
           title="Send preview email"
         >
           <IconPaperAirplane />
