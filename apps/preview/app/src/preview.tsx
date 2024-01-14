@@ -8,6 +8,7 @@ import { CodeContainer } from './components/code-container';
 import { Mobile } from './components/mobile';
 import { Shell } from './components/shell';
 import { Views } from './types';
+import { Send } from './components/send';
 
 interface PreviewProps {
   html: string;
@@ -84,13 +85,16 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
     >
       {activeView === Views.Mobile && <Mobile setViewSize={setViewSize} />}
       {activeView === Views.Desktop || activeView === Views.Mobile ? (
-        <iframe
-          id="preview-frame"
-          ref={iframeRef}
-          srcDoc={html}
-          className={iframe}
-          style={iframeStyle}
-        />
+        <>
+          <Send markup={html} />
+          <iframe
+            id="preview-frame"
+            ref={iframeRef}
+            srcDoc={html}
+            className={iframe}
+            style={iframeStyle}
+          />
+        </>
       ) : (
         <div>
           <CodeContainer
