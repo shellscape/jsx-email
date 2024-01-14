@@ -1,5 +1,77 @@
 # jsx-email ChangeLog
 
+## v1.7.3
+
+_2024-01-13_
+
+### Bugfixes
+
+- jsx-email: revert excluding jsx-email+react during build. fixes #137 (#138)
+
+## v1.7.2
+
+_2024-01-09_
+
+### Bugfixes
+
+- jsx-email: shikiji error while using cjs, auto import react (#130)
+
+## v1.7.1
+
+_2024-01-08_
+
+### Bugfixes
+
+- jsx-email: use compatible version range for app-preview dependency (0ce03e1)
+
+## v1.7.0
+
+_2024-01-01_
+
+### Features
+
+- jsx-email: add Conditional (mso) component (#119)
+
+## v1.6.1
+
+_2023-12-29_
+
+### Bugfixes
+
+- jsx-email: remove qr-code (#117)
+
+## v1.6.0
+
+_2023-12-28_
+
+### Features
+
+- jsx-email: preview mobile devices in preview app (#114)
+
+## v1.5.3
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: make jsx files visible to preview app (#112)
+
+## v1.5.2
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: allow preview server to serve files outside of workspace root (#105)
+
+## v1.5.1
+
+_2023-12-26_
+
+### Bugfixes
+
+- jsx-email: add prefix to production class names (#111)
+
 ## v1.5.0
 
 _2023-12-21_

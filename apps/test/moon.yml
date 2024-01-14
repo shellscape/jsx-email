@@ -1,0 +1,26 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'release', 'test']
+
+tasks:
+  dev:
+    command: email preview fixtures
+    options:
+      cache: false
+
+  install:
+    command: playwright install --with-deps
+    deps:
+    - ~:install
+    options:
+      cache: false
+
+  playwright:
+    command: playwright test -x
+    deps:
+    - ~:install
+    options:
+      cache: false

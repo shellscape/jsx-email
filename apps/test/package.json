@@ -1,0 +1,21 @@
+{
+  "name": "app-test",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A project to demo and test the `email preview` CLI command",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.40.1",
+    "dedent": "^1.5.1",
+    "diffable-html": "^5.0.0",
+    "jsx-email": "workspace:*",
+    "superstruct": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/diffable-html": "^5.0.2",
+    "@types/node": "20.10.5"
+  }
+}

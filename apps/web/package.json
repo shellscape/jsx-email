@@ -8,6 +8,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
+    "@octokit/rest": "^20.0.2",
     "globby": "11.0.4",
     "titleize": "^4.0.0",
     "vitepress": "1.0.0-rc.20",

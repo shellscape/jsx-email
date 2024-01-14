@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 import { useData } from '../../../src/render/jsx-to-string';
 

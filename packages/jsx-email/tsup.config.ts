@@ -7,7 +7,6 @@ const base: Options = {
   entry: ['src/index.ts'],
   format: ['cjs', 'esm'],
   keepNames: true,
-  // noExternal: ['vite-plugin-jspm'],
   outDir: 'dist',
   sourcemap: true,
   target: ['es2022', 'node18']

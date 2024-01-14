@@ -66,6 +66,12 @@ exports[`Custom theme config > should be able to use custom text alignment 1`] =
 .text-justify{text-align:justify;}</style></div>"
 `;
 
+exports[`Production mode > should generate class names with a prefix 1`] = `
+"<div data-id=\\"__jsx-email-twnd\\"><html data-id=\\"jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\"><div class=\\"je-5wyw0k\\"></div></html><style tailwind>/* layer: preflights */
+/* layer: shortcuts */
+.je-5wyw0k{background-color:rgb(254,226,226);font-size:0.875rem;line-height:1.25rem;}</style></div>"
+`;
+
 exports[`Responsive styles > should add css to <head/> 1`] = `
 "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><html><head><style tailwind>/* layer: preflights */
 /* layer: default */

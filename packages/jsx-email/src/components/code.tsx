@@ -1,6 +1,6 @@
 import mem from 'p-memoize';
 import { Suspense } from 'react';
-import { getHighlighter as getHighBro, type BuiltinLanguage } from 'shikiji';
+import { type BuiltinLanguage } from 'shikiji';
 
 import { useData } from '../render/jsx-to-string';
 import type { BaseProps, JsxEmailComponent } from '../types';
@@ -14,6 +14,7 @@ export interface CodeProps extends RootProps {
 }
 
 const getHighlighter = mem(async (language?: string, theme = 'nord') => {
+  const { getHighlighter: getHighBro } = await import('shikiji');
   const shiki = await getHighBro({
     langs: language ? [language] : [],
     themes: [theme]
