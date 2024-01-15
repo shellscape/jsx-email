@@ -36,7 +36,7 @@ reference them with a URL.
 ```jsx
 import { Img } from 'jsx-email';
 
-const baseUrl = import.meta.DEV ? import.meta.resolve('../assets/') : 'https://assets.example.com/';
+const baseUrl = import.meta.env.DEV ? import.meta.resolve('../assets/') : 'https://assets.example.com/';
 
 const Email = () => {
   return <Img src={`${baseUrl}cat.jpg`} alt="Cat" width="300" height="300" />;
