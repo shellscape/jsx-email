@@ -12,6 +12,10 @@ Handling dark and light mode in emails is tricky, and doesn't work exactly like 
 - https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers
 - https://web.dev/articles/color-scheme (crucial web development related dark mode info)
 
+## Gmail and Tailwind
+
+Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind/>` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail's rules.
+
 ## Monorepo Setup
 
 `jsx-email` works out of the box with every monorepo setup. There are no additional or exhaustive setup steps to perform. Enjoy!
