@@ -111,3 +111,36 @@ export const IconDownload = React.forwardRef<IconElement, Readonly<IconProps>>(
 );
 
 IconDownload.displayName = 'IconDownload';
+
+export const IconPaperAirplane = React.forwardRef<IconElement, Readonly<IconProps>>(
+  ({ ...props }, forwardedRef) => (
+    <IconBase ref={forwardedRef} {...props}>
+      <path
+        d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </IconBase>
+  )
+);
+
+IconPaperAirplane.displayName = 'IconPaperAirplane';
+
+export const IconLoader = React.forwardRef<IconElement, Readonly<IconProps>>(
+  ({ ...props }, forwardedRef) => (
+    <IconBase ref={forwardedRef} {...props}>
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path
+        d="M12 3a9 9 0 1 0 9 9"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </IconBase>
+  )
+);
+
+IconLoader.displayName = 'IconLoader';
