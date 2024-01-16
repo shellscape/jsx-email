@@ -24,6 +24,7 @@ const pages = [
   'Code',
   'Default-Export',
   'Default-Export-Props-Fn',
+  'Env',
   'Local-Assets',
   'Preview-Props',
   'Preview-Props-Fn',

@@ -8,7 +8,7 @@ import { build } from 'vite';
 process.chdir(join(__dirname, '../app'));
 
 (async () => {
-  const { viteConfig } = await import('../packages/jsx-email/src/cli/commands/vite.config');
+  const { viteConfig } = await import('../packages/jsx-email/src/cli/commands/vite');
   await build({
     ...viteConfig,
     build: {
