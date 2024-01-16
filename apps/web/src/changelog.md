@@ -3,7 +3,7 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: page
 sidebar: false
-title: Follow the latest contributions and updates of jsx-email.
+title: Changes and Updates
 ---
 
 <script setup>
@@ -23,17 +23,17 @@ const dataObject = computed(() => {
 
     processedData[day] = [...processedData[day] ?? [], {
         author:
-        { 
-            img: pr.user.avatar_url, 
-            name: pr.user.login, 
+        {
+            img: pr.user.avatar_url,
+            name: pr.user.login,
             url: pr.user.html_url,
-        }, 
-        pr: 
+        },
+        pr:
         {
             number: pr.number,
             title: pr.title,
             url: pr.html_url,
-        }, 
+        },
 
     }]
   })
@@ -57,14 +57,14 @@ const data = Object.entries(dataObject.value)
     <div :class="$style.container">
         <div :class="$style.timeline__wrapper">
             <div :class="$style.timeline__titleblock">
-                <h2 :class="$style.timeline__titleblock_title">Contributions</h2>
+                <h2 :class="$style.timeline__titleblock_title">Changelog</h2>
                 <p :class="$style.timeline__titleblock_desc">Explore the latest contributions to jsx-email </p>
                 <a href="https://github.com/shellscape/jsx-email/pulls?q=is%3Apr+is%3Aclosed+is%3Amerged" target="_blank" :class="$style.button">View on Github</a>
             </div>
             <div :class="$style.timeline__bar" />
             <template v-for="([day, event], index) in data">
                 <div :class="$style.timeline__event" :style="{
-                    marginLeft: index % 2 === 0 ? '-8px': '8px', 
+                    marginLeft: index % 2 === 0 ? '-8px': '8px',
                     transform: `translateX(${ index % 2 === 0 ? 50: -50}%)`,
                     flexDirection:  index % 2 === 0 ? 'row': 'row-reverse',
                     textAlign: index % 2 === 0 ? 'left': 'right'
@@ -140,7 +140,7 @@ const data = Object.entries(dataObject.value)
     background: #565656;
     position: absolute;
     top: 0;
-    left: 50%; 
+    left: 50%;
     right: 50%;
     margin-left: -1px;
     flex-shrink: 0;
@@ -227,11 +227,12 @@ const data = Object.entries(dataObject.value)
 
 .timeline__content {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     transition-property: opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
     opacity: 1;
+    margin-bottom: 20px;
 }
 
 .timeline__date{
@@ -244,7 +245,7 @@ const data = Object.entries(dataObject.value)
 
 .timeline__version{
     font-size: 1.875rem;
-    line-height: 2.25rem;  
+    line-height: 2.25rem;
     margin-top: 0.5rem;
     font-weight: 700;
     transition-property: color;
@@ -257,11 +258,12 @@ const data = Object.entries(dataObject.value)
     line-height: 1.5rem;
     word-break: break-all;
     color: #8E8373;
+    margin-top: 10px;
 }
 
 .timeline__pr_authorimg{
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 1000px;
     background: #8E8373;
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 10;
@@ -282,11 +284,10 @@ const data = Object.entries(dataObject.value)
     font-size: 0.75rem;
     line-height: 1rem;
     display: inline-flex;
-    gap: 2px;
+    gap: 10px;
     align-items: center;
     border-radius: 1000px;
-    padding: 0.125rem 0.25rem;
-    padding-right: 0.25rem;
+    padding: 0.5rem 0.5rem;
     vertical-align: middle;
     box-shadow: 0px 0px 1px 1px #8E8373;
     background: rgb(142 131 115 / 20%);

@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.8.0
+
+_2024-01-16_
+
+### Features
+
+- jsx-email: add better environment variable support. fixes #139 (#142)
+
 ## v1.7.3
 
 _2024-01-13_

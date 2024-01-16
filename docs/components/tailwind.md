@@ -61,6 +61,8 @@ export interface TailwindProps {
 }
 ```
 
+### Props
+
 ```ts
 config?: UnoCssConfig;
 ```
@@ -72,6 +74,10 @@ production?: boolean;
 ```
 
 If true, any Tailwind class names will be converted to hashed names. e.g. The class `bg-purple-400` is transformed into `#ae387`, with an accompanying class in the associated `<style>` tag. This is adventageous as it reduces the overall size of the rendered email. In email, every byte counts towards your user's experience.
+
+::: tip
+Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind/>` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail's rules.
+:::
 
 ## Tailwind Plugins
 

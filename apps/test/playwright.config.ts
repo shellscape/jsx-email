@@ -35,6 +35,9 @@ export default defineConfig({
   },
   webServer: {
     command: 'moon app-test:dev',
+    env: {
+      ENV_TEST_VALUE: 'joker'
+    },
     reuseExistingServer: !process.env.CI,
     url: 'http://localhost:55420'
   },
