@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.1.0
+
+_2024-01-16_
+
+### Features
+
+- app-preview: add send email button (#109)
+
 ## v1.0.4
 
 _2024-01-11_
