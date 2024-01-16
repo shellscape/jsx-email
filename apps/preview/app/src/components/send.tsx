@@ -1,7 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
 
-import { IconButton, IconPaperAirplane } from './icons';
+import { IconButton, IconPaperAirplane, IconLoader } from './icons';
 
 const PlunkLogo: React.FC<React.ComponentPropsWithoutRef<'svg'>> = (props) => (
   <svg viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -12,7 +12,7 @@ const PlunkLogo: React.FC<React.ComponentPropsWithoutRef<'svg'>> = (props) => (
     />
     <path
       d="M304.835 467.541L426.099 489.952L411.851 580.937L391.091 699.816L266.088 676.643L304.835 467.541Z"
-      fill="none"
+      className="fill-dark-bg"
     />
   </svg>
 );
@@ -22,9 +22,11 @@ export interface SendProps {
 }
 
 export const Send: React.FC<SendProps> = ({ markup }) => {
+  const [open, setOpen] = React.useState(false);
   const [to, setTo] = React.useState('');
   const [isSending, setIsSending] = React.useState(false);
   const [submitError, setSubmitError] = React.useState<string | null>(null);
+  const [showEmailSent, setShowEmailSent] = React.useState(false);
 
   const onFormSubmit = async (e: React.FormEvent) => {
     try {
@@ -48,16 +50,23 @@ export const Send: React.FC<SendProps> = ({ markup }) => {
       if (response.status !== 200) {
         const error = await response.text();
         setSubmitError(error);
+        return;
       }
     } catch (error: unknown) {
       setSubmitError('Something went wrong. Please try again.');
     } finally {
       setIsSending(false);
     }
+
+    setShowEmailSent(true);
+    setTimeout(() => {
+      setOpen(false);
+      setShowEmailSent(false);
+    }, 3000);
   };
 
   return (
-    <Popover.Root>
+    <Popover.Root open={open} onOpenChange={setOpen}>
       <div className="rounded bg-darker-bg absolute top-[20px] right-[20px] w-7 h-7 animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]" />
       <Popover.Trigger asChild>
         <IconButton
@@ -78,44 +87,48 @@ export const Send: React.FC<SendProps> = ({ markup }) => {
           >
             ✕
           </Popover.Close>
-          <form onSubmit={onFormSubmit}>
-            <label htmlFor="to" className="text-xs uppercase mb-2 block">
-              Recipient
-            </label>
-            <input
-              autoFocus={true}
-              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
-              onChange={(e) => setTo(e.target.value)}
-              defaultValue={to}
-              placeholder="you@example.com"
-              type="email"
-              id="to"
-              required
-            />
+          {showEmailSent ? (
+            <p className="text-sm">Your template was sent!</p>
+          ) : (
+            <form onSubmit={onFormSubmit}>
+              <label htmlFor="to" className="text-xs uppercase mb-2 block">
+                Recipient
+              </label>
+              <input
+                autoFocus={true}
+                className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
+                onChange={(e) => setTo(e.target.value)}
+                defaultValue={to}
+                placeholder="you@example.com"
+                type="email"
+                id="to"
+                required
+              />
 
-            <p className="inline-block mb-3 text-error-text">{submitError}</p>
-            <div className="flex items-center justify-between">
-              <p className="inline-block text-xs">
-                Powered by{' '}
-                <a
-                  className="hover:text-slate-12 transition ease-in-out duration-300"
-                  href="https://www.useplunk.com"
-                  target="_blank"
-                  rel="noreferrer"
+              <p className="inline-block mb-3 text-error-text">{submitError}</p>
+              <div className="flex items-center justify-between">
+                <p className="inline-block text-xs">
+                  Powered by{' '}
+                  <a
+                    className="hover:text-slate-12 transition ease-in-out duration-300"
+                    href="https://www.useplunk.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Plunk
+                    <PlunkLogo height={20} width={20} className="ml-1 inline" />
+                  </a>
+                </p>
+                <button
+                  type="submit"
+                  disabled={to.length === 0 || isSending}
+                  className="disabled:bg-slate-11 disabled:border-transparent outline-none text-sm font-medium px-3 py-1 transition ease-in-out duration-200 relative bg-cta-bg text-cta-text rounded-md"
                 >
-                  Plunk
-                  <PlunkLogo height={20} width={20} className="ml-1 inline" />
-                </a>
-              </p>
-              <button
-                type="submit"
-                disabled={to.length === 0 || isSending}
-                className="disabled:bg-slate-11 disabled:border-transparent outline-none text-sm font-medium px-3 py-1 transition ease-in-out duration-200 relative bg-cta-bg text-cta-text rounded-md"
-              >
-                Send
-              </button>
-            </div>
-          </form>
+                  {isSending ? <IconLoader className="animate-spin" /> : 'Send'}
+                </button>
+              </div>
+            </form>
+          )}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
