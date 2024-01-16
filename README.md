@@ -70,7 +70,7 @@ Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
 ## Attribution 🧡
 
-This project was built upon prior work for `react-email` by Bu Kinoshita ([@Joker](https://twitter.com/Joker)) and Bruce Wayne ([@Batman](https://twitter.com/Batman)).
+This project was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
 
 `jsx-email` is a fork of `react-email`.
 

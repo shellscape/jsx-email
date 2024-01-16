@@ -39,7 +39,7 @@ export default defineConfig({
     nav: [
       { text: 'Documentation', link: '/docs/introduction' },
       { text: 'Quick Start', link: '/docs/quick-start' },
-      { text: 'Contributions', link: '/contributions' },
+      { text: 'Changelog', link: '/changelog' },
       { text: 'Email Samples', link: 'http://samples.jsx.email' }
     ],
     search: {
