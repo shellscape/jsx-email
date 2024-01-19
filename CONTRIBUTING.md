@@ -28,7 +28,7 @@ $ pnpm install
 Then build all the things:
 
 ```console
-$ moon build.all
+$ moon repo:build.all
 ```
 
 ## Before Committing
