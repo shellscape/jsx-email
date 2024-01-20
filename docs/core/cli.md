@@ -126,3 +126,13 @@ The Preview Tool will start up and open a new window in your browser, and you'll
 ![Preview 1](/preview-2.png)<br/><br/>
 ![Preview 1](/preview-3.png)<br/><br/>
 ![Preview 1](/preview-4.png)
+
+## Deploying Your Preview App
+
+As part of the CLI, users have the ability to build their templates into a deployable preview app. The resulting app can be deployed anywhere, not just select service providers. To build templates into a deployable app, run:
+
+```console
+$ email preview <templates-path> --build-path <build-path>
+```
+
+where `<build-path>` is the path you want the build output files placed.
