@@ -40,8 +40,8 @@ const parseName = (path: string) => {
   return titleize(addSpacesForCamelCaseName(basename));
 };
 
-const modules = import.meta.glob('@/*.{jsx,tsx}', { eager: true });
-const sources = import.meta.glob('@/*.{jsx,tsx}', { as: 'raw', eager: true });
+const modules = import.meta.glob('☞/*.{jsx,tsx}', { eager: true });
+const sources = import.meta.glob('☞/*.{jsx,tsx}', { as: 'raw', eager: true });
 
 const templates = (
   await Promise.all(

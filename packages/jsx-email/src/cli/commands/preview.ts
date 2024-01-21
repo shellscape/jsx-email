@@ -58,13 +58,14 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { host = false, port = 55420 } = argv;
-  const { viteConfig } = await import('./vite');
+  const { getViteConfig } = await import('./vite');
+  const viteConfig = await getViteConfig(targetPath);
   const config = {
     configFile: false,
     ...viteConfig,
     resolve: {
       alias: {
-        '@': targetPath,
+        '☞': targetPath,
         ...viteConfig.resolve?.alias
       }
     },
