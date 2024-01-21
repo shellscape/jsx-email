@@ -88,10 +88,10 @@ const nestedTemplateParts = templates.reduce((acc, template) => {
     const part = parts[i];
 
     // Check if child with name exists
-    let child = curr.children?.find((c) => c.name === part);
+    let child = curr.children?.find((c) => c.name === parseName(part));
     if (!child) {
       // If not, create it
-      child = { children: [], name: part };
+      child = { children: [], name: parseName(part) };
       curr.children.push(child);
     }
 
