@@ -10,19 +10,19 @@ type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
 
 interface SidebarProps extends RootProps {
-  templateNames: string[];
+  templateParts: any;
   title?: string;
 }
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  ({ className, templateNames, title, ...props }, forwardedRef) => (
+  ({ className, templateParts, title, ...props }, forwardedRef) => (
     <aside ref={forwardedRef} className={className} {...props}>
       <nav className="h-full p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-dark-bg-border">
         <Logo />
         <Collapsible.Root className="pt-4" defaultOpen>
           <Collapsible.Trigger
             className={classnames('flex items-center gap-1', {
-              'cursor-default': templateNames && templateNames.length === 0
+              'cursor-default': templateParts && templateParts.length === 0
             })}
           >
             <svg
@@ -52,7 +52,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
               <h3 className="text-sm font-medium transition ease-in-out duration-200 hover:text-dark-bg-text">
                 Email Templates
               </h3>
-              {templateNames && templateNames.length > 0 && (
+              {templateParts && templateParts.length > 0 && (
                 <svg
                   width="24"
                   height="24"
@@ -66,23 +66,27 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
             </div>
           </Collapsible.Trigger>
 
-          {templateNames && templateNames.length > 0 && (
+          {templateParts && templateParts.length > 0 && (
             <Collapsible.Content className="relative mt-3">
               <div className="absolute left-2.5 w-px h-full bg-slate-6" />
 
               <div className="py-2 flex flex-col truncate">
                 <LayoutGroup id="sidebar">
-                  {templateNames &&
-                    templateNames.map((item) => {
-                      const isCurrentPage = title === item;
+                  {templateParts &&
+                    templateParts.map((item) => {
+                      const isCurrentPage = title === item.name;
                       return (
-                        <Link id={`link-${item}`} key={item} to={`/${item}`}>
+                        <Link
+                          id={`link-${item.name}`}
+                          key={item.name}
+                          to={`/${item.name.split('.')[0]}`}
+                        >
                           <motion.span
                             className={classnames(
                               'text-[14px] flex items-center gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
                               {
                                 'font-medium': isCurrentPage,
-                                'hover:text-dark-bg-text': title !== item,
+                                'hover:text-dark-bg-text': title !== item.name,
                                 'text-cyan-11': isCurrentPage
                               }
                             )}
@@ -123,7 +127,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                                 strokeLinejoin="round"
                               />
                             </svg>
-                            {item}
+                            {item.name}
                           </motion.span>
                         </Link>
                       );

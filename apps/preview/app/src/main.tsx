@@ -21,6 +21,7 @@ interface TemplateExports {
 
 interface TemplateData extends TemplateExports {
   jsx: string;
+  path?: string;
 }
 
 const { warn } = console;
@@ -32,6 +33,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+function getCommonRoot(paths) {
+  const sortedPaths = paths.concat().sort();
+  const [first] = sortedPaths;
+  const last = sortedPaths[sortedPaths.length - 1];
+  const firstLength = first.length;
+  let i = 0;
+  while (i < firstLength && first.charAt(i) === last.charAt(i)) {
+    i += 1;
+  }
+  return first.substring(0, i);
+}
+
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');
   const segment = chunks.at(-1);
@@ -42,6 +55,7 @@ const parseName = (path: string) => {
 
 const modules = import.meta.glob('@/**/*.{jsx,tsx}', { eager: true });
 const sources = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'raw', eager: true });
+const root = getCommonRoot(Object.keys(modules));
 
 const templates = (
   await Promise.all(
@@ -54,6 +68,7 @@ const templates = (
       const result: TemplateData = {
         jsx: sources[path],
         Name: component.Name || parseName(path),
+        path: path.replace(root, ''),
         PreviewProps: component.PreviewProps || Template.PreviewProps,
         Template,
         TemplateStruct: component.TemplateStruct
@@ -63,7 +78,32 @@ const templates = (
   )
 ).filter(Boolean);
 
-const templateNames = templates.map((template) => template.Name!);
+const getPathParts = (path) => path.split('/');
+
+const nestedTemplateParts = templates.reduce((acc, template) => {
+  const parts = getPathParts(template.path);
+
+  let curr = { children: acc };
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+
+    // Check if child with name exists
+    let child = curr.children?.find((c) => c.name === part);
+    if (!child) {
+      // If not, create it
+      child = { children: [], name: part };
+      curr.children.push(child);
+    }
+
+    // Descend into child
+    curr = child;
+  }
+
+  // Add template data to leaf node
+  curr.template = template;
+
+  return acc;
+}, []);
 
 const templateRoutes = templates.map(async (template) => {
   const { Name, PreviewProps, Template, TemplateStruct } = template;
@@ -83,9 +123,18 @@ const templateRoutes = templates.map(async (template) => {
   const plainText = await renderPlainText(<Template {...props} />);
   const element = (
     <Layout>
-      <Preview {...{ html, jsx: template.jsx, plainText, templateNames, title: Name! }} />
+      <Preview
+        {...{
+          html,
+          jsx: template.jsx,
+          plainText,
+          templateParts: nestedTemplateParts,
+          title: Name!
+        }}
+      />
     </Layout>
   );
+
   return { element, path: `/${template.Name}` } as RouteObject;
 });
 
@@ -93,7 +142,7 @@ const router = createBrowserRouter([
   {
     element: (
       <Layout>
-        <Home templateNames={templateNames} />
+        <Home templateParts={nestedTemplateParts} />
       </Layout>
     ),
     errorElement: <Error />,

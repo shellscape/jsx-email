@@ -14,7 +14,7 @@ interface PreviewProps {
   html: string;
   jsx: string;
   plainText: string;
-  templateNames: string[];
+  templateParts: any;
   title: string;
 }
 
@@ -31,7 +31,7 @@ table { overflow-wrap: anywhere; width: 100% !important; }
   doc.head.appendChild(styleElement);
 };
 
-export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewProps) => {
+export const Preview = ({ html, jsx, plainText, templateParts, title }: PreviewProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -77,7 +77,7 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
 
   return (
     <Shell
-      templateNames={templateNames}
+      templateParts={templateParts}
       title={title}
       html={html}
       activeView={activeView}
