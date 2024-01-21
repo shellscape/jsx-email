@@ -91,7 +91,7 @@ const nestedTemplateParts = templates.reduce((acc, template) => {
     let child = curr.children?.find((c) => c.name === parseName(part));
     if (!child) {
       // If not, create it
-      child = { children: [], name: parseName(part) };
+      child = { children: [], name: parseName(part), path: template.path.replace('.tsx', '') };
       curr.children.push(child);
     }
 
@@ -129,13 +129,13 @@ const templateRoutes = templates.map(async (template) => {
           jsx: template.jsx,
           plainText,
           templateParts: nestedTemplateParts,
-          title: Name!
+          title: template.path.replace('.tsx', '')
         }}
       />
     </Layout>
   );
 
-  return { element, path: `/${template.Name}` } as RouteObject;
+  return { element, path: `/${template.path.replace('.tsx', '')}` } as RouteObject;
 });
 
 const router = createBrowserRouter([

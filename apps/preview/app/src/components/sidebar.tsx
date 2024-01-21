@@ -80,7 +80,7 @@ const SidebarSection = ({
           <LayoutGroup id="sidebar">
             {templateParts &&
               templateParts.map((item) => {
-                const isCurrentPage = currentPageTitle === item.name;
+                const isCurrentPage = currentPageTitle === item.path;
                 const isParent = item.children && item.children.length > 0;
                 return isParent ? (
                   <div className="pl-4">
@@ -92,11 +92,7 @@ const SidebarSection = ({
                     />
                   </div>
                 ) : (
-                  <Link
-                    id={`link-${item.name.split('.')[0]}`}
-                    key={item.name}
-                    to={`/${item.name.split('.')[0]}`}
-                  >
+                  <Link id={`link-${item.name.split('.')[0]}`} key={item.name} to={`/${item.path}`}>
                     <motion.span
                       className={classnames(
                         'text-[14px] flex items-center gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
