@@ -61,9 +61,10 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { exclude, host = false, port = 55420 } = argv;
-  const { viteConfig } = await import('../vite');
-  // FIXME: when we go for 2.0, add the trailing slash here and remove it from main.tsx
-  const relativePath = normalizePath(relative(viteConfig.root!, targetPath));
+  const { getViteConfig } = await import('../vite');
+  const viteConfig = await getViteConfig(targetPath);
+  // Note: The trailing slash is required
+  const relativePath = `${normalizePath(relative(viteConfig.root!, targetPath))}/`;
 
   process.env.VITE_JSXE_FILTER_GLOB = exclude;
   process.env.VITE_JSXE_RELATIVE_PATH = relativePath;
@@ -71,15 +72,9 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const config = {
     configFile: false,
     ...viteConfig,
-    define: {
-      // FIXME: remove this v2, as we're going to stop using `define` for better asymmetric updates
-      // to the CLI and app-preview
-      __JSX_EMAIL_RELATIVE_PATH__: JSON.stringify(relativePath),
-      ...viteConfig.define
-    },
     resolve: {
       alias: {
-        '@': targetPath,
+        '☞': targetPath,
         ...viteConfig.resolve?.alias
       }
     },
