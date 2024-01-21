@@ -1,13 +1,17 @@
-import { dirname, join } from 'path';
+import { promisify } from 'node:util';
+import { dirname, join } from 'node:path';
+import childProcess from 'node:child_process';
 
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // @ts-ignore
 // eslint-disable-next-line
 import hypothetical from 'rollup-plugin-hypothetical';
 
+const exec = promisify(childProcess.exec);
 const logger = createLogger();
 const { warnOnce: og } = logger;
 const root = join(dirname(require.resolve('@jsx-email/app-preview')), 'app');
@@ -20,6 +24,27 @@ logger.warnOnce = (message, options) => {
   og(message, options);
 };
 
+const getGitRoot = async () => {
+  let isGit = true;
+
+  try {
+    await exec('git rev-parse --is-inside-work-tree');
+  } catch (_) {
+    isGit = false;
+  }
+
+  if (isGit) {
+    try {
+      const { stdout: root } = await exec('git rev-parse --show-toplevel');
+      return root;
+    } catch (_) {
+      // no-op
+    }
+  }
+
+  return process.cwd();
+};
+
 // Note: This prepares a `define` object to inject all of the process' envars into vite. Vite is weird
 // in that it limits envars to those with a VITE_ prefix, but that's not a behavior that we need or
 // want for shipping vite as a wrapped dev server
@@ -30,54 +55,64 @@ const envDefine = Object.keys(process.env)
     return agg;
   }, {} as Record<string, string | null>);
 
-export const viteConfig = defineConfig({
-  clearScreen: false,
-  customLogger: logger,
-  define: {
-    'process.env': 'import.meta.env',
-    // Note: vite appears to use a bottom-up (or reverse) strategy for applying defines. If the
-    // spread below is before the `process.env` define above, all of the keys we've defined in
-    // `envDefine` are replaced with an `import.meta.env` prefix, and thus don't work
-    ...envDefine
-  },
-  optimizeDeps: {
-    // Note: These are all CommonJS dependencies that don't implement an ESM compatible exports
-    // strategy. Any packages which throws "does not provide an export named 'default'" needs to go
-    // here.
-    include: [
-      '@jridgewell/sourcemap-codec',
-      'balanced-match',
-      'classnames',
-      'debug',
-      'deepmerge',
-      'escape-string-regexp',
-      'extend',
-      'p-memoize',
-      'parse5',
-      'pretty',
-      'react-dom',
-      'react-dom/client',
-      'source-map-js'
-    ]
-  },
-  plugins: [
-    hypothetical({
-      allowFallthrough: true,
-      files: {
-        'rehype-preset-minify/': `export default {};`
+export const getViteConfig = async (templatesPath: string) => {
+  const { findUp } = await import('find-up');
+  const gitRoot = await getGitRoot();
+  const foundRoot = await findUp(['jsconfig.json', 'tsconfig.json'], {
+    cwd: templatesPath,
+    stopAt: gitRoot
+  });
+  const tsConfigRoot = foundRoot ? dirname(foundRoot) : void 0;
+
+  return defineConfig({
+    clearScreen: false,
+    customLogger: logger,
+    define: {
+      'process.env': 'import.meta.env',
+      // Note: vite appears to use a bottom-up (or reverse) strategy for applying defines. If the
+      // spread below is before the `process.env` define above, all of the keys we've defined in
+      // `envDefine` are replaced with an `import.meta.env` prefix, and thus don't work
+      ...envDefine
+    },
+    optimizeDeps: {
+      // Note: These are all CommonJS dependencies that don't implement an ESM compatible exports
+      // strategy. Any packages which throws "does not provide an export named 'default'" needs to go
+      // here.
+      include: [
+        '@jridgewell/sourcemap-codec',
+        'balanced-match',
+        'classnames',
+        'deepmerge',
+        'escape-string-regexp',
+        'extend',
+        'p-memoize',
+        'parse5',
+        'pretty',
+        'react-dom',
+        'react-dom/client',
+        'source-map-js'
+      ]
+    },
+    plugins: [
+      tsconfigPaths({ loose: true, root: tsConfigRoot }),
+      hypothetical({
+        allowFallthrough: true,
+        files: {
+          'rehype-preset-minify/': `export default {};`
+        }
+      }),
+      nodePolyfills(),
+      react()
+    ],
+    resolve: {
+      alias: {
+        path: 'path-browserify',
+        postcss: 'https://jspm.dev/postcss@8.4.31',
+        rehype: 'https://jspm.dev/rehype@13.0.1',
+        'rehype-stringify': 'https://jspm.dev/rehype-stringify@10.0.0',
+        'unist-util-visit': 'https://jspm.dev/unist-util-visit@5.0.0'
       }
-    }),
-    nodePolyfills(),
-    react()
-  ],
-  resolve: {
-    alias: {
-      path: 'path-browserify',
-      postcss: 'https://jspm.dev/postcss@8.4.31',
-      rehype: 'https://jspm.dev/rehype@13.0.1',
-      'rehype-stringify': 'https://jspm.dev/rehype-stringify@10.0.0',
-      'unist-util-visit': 'https://jspm.dev/unist-util-visit@5.0.0'
-    }
-  },
-  root
-});
+    },
+    root
+  });
+};

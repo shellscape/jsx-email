@@ -3,7 +3,7 @@ import { Body, Html, Img, Link } from 'jsx-email';
 export const TemplateName = 'local-assets';
 
 // @ts-ignore
-const baseUrl = import.meta.resolve('./static/');
+const baseUrl = import.meta.resolve('../static/');
 
 export const Template = () => {
   const catUrl = `${baseUrl}cat.jpeg`;
