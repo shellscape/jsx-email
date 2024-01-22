@@ -24,7 +24,7 @@ const SidebarSection = ({
 }: {
   currentPageTitle: string;
   isSubSection?: boolean;
-  templateParts: any;
+  templateParts: TemplatePart[];
   title: string;
 }) => (
   <Collapsible.Root className={isSubSection ? 'pt-0' : 'pt-4'} defaultOpen={!isSubSection}>
