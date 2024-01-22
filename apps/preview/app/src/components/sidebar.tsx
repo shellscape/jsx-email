@@ -2,7 +2,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import classnames from 'classnames';
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import type { TemplatePart } from '../types';
 
@@ -87,8 +87,11 @@ const SidebarSection = ({
   isSubSection,
   title = 'Email Templates'
 }: SidebarSectionProps) => {
+  const { pathname: basePathName } = useLocation();
+  const pathname = basePathName.startsWith('/') ? basePathName.slice(1) : basePathName;
+
   const [isOpen, setIsOpen] = React.useState(
-    !isSubSection || templateParts.some((item) => item.path === currentPageTitle)
+    !isSubSection || pathname.indexOf(title.toLowerCase()) > -1
   );
 
   return (
@@ -118,7 +121,7 @@ const SidebarSection = ({
 
       {templateParts && templateParts.length > 0 && (
         <Collapsible.Content
-          className={classnames('mt-1 collapsible-content', {
+          className={classnames('relative collapsible-content', {
             'mt-1': isSubSection,
             'mt-3': !isSubSection
           })}
@@ -131,7 +134,7 @@ const SidebarSection = ({
             <LayoutGroup id="sidebar">
               {templateParts &&
                 templateParts.map((item) => {
-                  const isCurrentPage = currentPageTitle === item.path;
+                  const isCurrentPage = pathname === item.path;
                   const isParent = item.children && item.children.length > 0;
                   return isParent ? (
                     <div className="pl-4">
