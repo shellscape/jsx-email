@@ -96,7 +96,7 @@ const SidebarSection = ({
   return (
     <Collapsible.Root
       className={isSubSection ? 'py-1' : 'pt-4'}
-      id="sidebar-tree"
+      id={isSubSection ? `${title.replace(' ', '')}-sidebar-tree` : 'sidebar-tree'}
       onOpenChange={setIsOpen}
       defaultOpen={isOpen}
     >
@@ -130,7 +130,7 @@ const SidebarSection = ({
           <div
             className={isSubSection ? 'py-0 flex flex-col truncate' : 'py-2 flex flex-col truncate'}
           >
-            <div id="sidebar">
+            <div id={isSubSection ? `${title.replace(' ', '')}-sidebar` : 'sidebar'}>
               {templateParts &&
                 templateParts.map((item) => {
                   const isCurrentPage = pathname === item.path;
@@ -147,7 +147,11 @@ const SidebarSection = ({
                   ) : (
                     <Link
                       data-name={item.name}
-                      id={`link-${item.name}`}
+                      id={
+                        isSubSection
+                          ? `${title.replace(' ', '')}-link-${item.name}`
+                          : `link-${item.name}`
+                      }
                       key={item.name}
                       to={`/${item.path}`}
                     >
