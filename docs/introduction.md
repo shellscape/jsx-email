@@ -1,5 +1,5 @@
 ---
-title: 'JSX email'
+title: 'Introduction'
 description: 'Build and send emails using React and TypeScript.'
 ---
 

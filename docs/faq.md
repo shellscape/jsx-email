@@ -12,6 +12,10 @@ Handling dark and light mode in emails is tricky, and doesn't work exactly like 
 - https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers
 - https://web.dev/articles/color-scheme (crucial web development related dark mode info)
 
+## Deploying Your Preview App
+
+Can I deploy my own preview app? Absolutely! The CLI has the ability to build a custom, deployable preview app using your templates. Please see [the documentation](https://jsx.email/docs/core/cli#deploying-your-preview-app) for more information.
+
 ## Gmail and Tailwind
 
 Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind/>` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail's rules.

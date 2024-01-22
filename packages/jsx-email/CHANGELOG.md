@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.9.0
+
+_2024-01-20_
+
+### Features
+
+- jsx-email: build and deploy user preview apps (#144)
+
 ## v1.8.0
 
 _2024-01-16_

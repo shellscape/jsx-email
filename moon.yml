@@ -16,7 +16,7 @@ tasks:
       - create-jsx-email:build
 
   build.samples:
-    command: ts-node scripts/build-samples.ts
+    command: email preview ./apps/demo/emails --build-path /tmp/samples.jsx.email
     deps:
       - clean.samples
     options:

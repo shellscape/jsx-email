@@ -72,7 +72,10 @@ export const viteConfig = defineConfig({
   resolve: {
     alias: {
       path: 'path-browserify',
-      postcss: 'https://jspm.dev/postcss@8.4.31'
+      postcss: 'https://jspm.dev/postcss@8.4.31',
+      rehype: 'https://jspm.dev/rehype@13.0.1',
+      'rehype-stringify': 'https://jspm.dev/rehype-stringify@10.0.0',
+      'unist-util-visit': 'https://jspm.dev/unist-util-visit@5.0.0'
     }
   },
   root

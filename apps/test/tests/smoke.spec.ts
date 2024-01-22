@@ -10,7 +10,7 @@ import { getHTML } from './helpers/html';
 
 test('landing', async ({ page }) => {
   await page.goto('/');
-  await expect(page).toHaveTitle('JSX email');
+  await expect(page).toHaveTitle('JSX Email');
   await page.getByText('JSX Email Preview');
 
   const landing = await page.locator('#landing');
