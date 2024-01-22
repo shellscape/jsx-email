@@ -1,6 +1,5 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import classnames from 'classnames';
-import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -131,7 +130,7 @@ const SidebarSection = ({
           <div
             className={isSubSection ? 'py-0 flex flex-col truncate' : 'py-2 flex flex-col truncate'}
           >
-            <LayoutGroup id="sidebar">
+            <div id="sidebar">
               {templateParts &&
                 templateParts.map((item) => {
                   const isCurrentPage = pathname === item.path;
@@ -152,7 +151,7 @@ const SidebarSection = ({
                       key={item.name}
                       to={`/${item.path}`}
                     >
-                      <motion.span
+                      <span
                         className={classnames(
                           'text-[14px] flex items-center gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
                           {
@@ -163,23 +162,20 @@ const SidebarSection = ({
                         )}
                       >
                         {isCurrentPage && (
-                          <motion.span
+                          <span
                             layoutId="sidebar"
-                            className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-[#78b0a04d]"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                            className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-[#78b0a04d] animate-nav-fade-in"
                           >
-                            <div className="bg-[#61efce] w-px absolute top-1 left-2.5 h-6" />
-                          </motion.span>
+                            <div className="bg-[#61efce] w-px absolute top-1 left-2.5 h-6 transition-all ease-in-out" />
+                          </span>
                         )}
                         <FileName />
                         {item.name}
-                      </motion.span>
+                      </span>
                     </Link>
                   );
                 })}
-            </LayoutGroup>
+            </div>
           </div>
         </Collapsible.Content>
       )}
