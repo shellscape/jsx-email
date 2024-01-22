@@ -1,5 +1,4 @@
 import { Body, Container, Head, Heading, Html, Img, Link, Preview, Text } from 'jsx-email';
-import * as React from 'react';
 
 interface NotionMagicLinkEmailProps {
   loginCode?: string;

@@ -1,5 +1,4 @@
 import { Body, Button, Container, Head, Html, Img, Link, Preview, Section, Text } from 'jsx-email';
-import * as React from 'react';
 
 interface DropboxResetPasswordEmailProps {
   userFirstname?: string;
