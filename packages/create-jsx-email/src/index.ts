@@ -2,15 +2,20 @@
 /* eslint-disable no-await-in-loop */
 import { existsSync, readdirSync, rmSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { basename, dirname, join, resolve, win32, posix } from 'path';
+import { basename, join, resolve } from 'path';
 
 import chalk from 'chalk';
 import { detect } from 'detect-package-manager';
-import globby from 'globby';
 import mustache from 'mustache';
 import prompts from 'prompts';
 
 import pkg from '../package.json';
+
+interface CreateEmailArgs {
+  jsx: boolean;
+  name: string;
+  outputPath: string;
+}
 
 const cancelled = () => {
   throw new Error(chalk`{red ✖} Operation cancelled`);
@@ -34,14 +39,38 @@ const isEmpty = (path: string) => {
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
 };
 const { log } = console;
-const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
+const typeProps = `\nexport type TemplateProps = {
+  email: string;
+  name: string;
+}`;
+
+export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) => {
+  const data = {
+    name,
+    propsType: jsx ? '' : ': TemplateProps',
+    typeProps: jsx ? '' : typeProps
+  };
+  const templatePath = resolve(__dirname, '../generators/templates/email.mustache');
+  const template = await readFile(templatePath, 'utf8');
+  const contents = mustache.render(template, data);
+  const fileName = basename(templatePath)
+    .replace('_', '')
+    .replace('.mustache', jsx ? '.jsx' : '.tsx');
+  const outPath = join(outputPath, fileName);
+
+  log('Creating a new template at', outPath);
+
+  await writeFile(outPath, contents, 'utf8');
+
+  return outPath;
+};
 
 const run = async () => {
   log(intro);
 
   const argTargetDir = formatTargetDir(process.argv[2]);
   let targetPath = argTargetDir || defaultTargetDir;
-  let result: prompts.Answers<'projectName' | 'overwrite'>;
+  let result: prompts.Answers<'projectName' | 'projectType' | 'overwrite'>;
 
   try {
     result = await prompts(
@@ -54,6 +83,15 @@ const run = async () => {
             targetPath = formatTargetDir(state.value) || defaultTargetDir;
           },
           type: argTargetDir ? null : 'text'
+        },
+        {
+          choices: [
+            { title: 'TypeScript', value: 'TypeScript' },
+            { title: 'JavaScript', value: 'JavaScript' }
+          ],
+          message: 'TypeScript or JavaScript:',
+          name: 'projectType',
+          type: 'multiselect'
         },
         {
           message: () =>
@@ -78,28 +116,22 @@ const run = async () => {
     return;
   }
 
-  const { overwrite, projectName } = result;
+  const { overwrite, projectName, projectType } = result;
   const root = join(process.cwd(), targetPath);
 
   log(chalk`\n{blue Creating Project} at: {dim ${root}}`);
 
-  const generatorsPath = resolve(__dirname, '../generators');
-  const templates = await globby([normalizePath(join(generatorsPath, '/**/*.*'))]);
-  const templateData = { name: projectName };
-
   if (overwrite && existsSync(root)) clearDirectory(root);
 
-  await mkdir(join(root, 'templates'), { recursive: true });
+  const outputPath = join(root, 'templates');
 
-  for (const path of templates) {
-    const template = await readFile(path, 'utf8');
-    const contents = mustache.render(template, templateData);
-    const basePath = dirname(path);
-    const fileName = basename(path).replace('_', '').replace('.mustache', '');
-    const outPath = join(root, basePath.endsWith('templates') ? 'templates' : '', fileName);
+  await mkdir(outputPath, { recursive: true });
 
-    await writeFile(outPath, contents, 'utf8');
-  }
+  await createEmail({
+    jsx: projectType === 'TypeScript',
+    name: projectName,
+    outputPath
+  });
 
   const packageManager = await detect();
   const install =
