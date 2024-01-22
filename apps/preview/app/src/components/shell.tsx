@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import type { Views } from '../types';
+import type { TemplatePart, Views } from '../types';
 
 import { Sidebar } from './sidebar';
 import { Nav } from './nav';
@@ -13,7 +13,7 @@ interface ShellProps extends RootProps {
   activeView?: Views;
   html?: string;
   setActiveView?: (view: string) => void;
-  templateParts: any[];
+  templateParts: TemplatePart[];
 }
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(

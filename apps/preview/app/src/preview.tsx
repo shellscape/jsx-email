@@ -7,6 +7,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { CodeContainer } from './components/code-container';
 import { Mobile } from './components/mobile';
 import { Shell } from './components/shell';
+import type { TemplatePart } from './types';
 import { Views } from './types';
 import { Send } from './components/send';
 
@@ -14,7 +15,7 @@ interface PreviewProps {
   html: string;
   jsx: string;
   plainText: string;
-  templateParts: any;
+  templateParts: TemplatePart[];
   title: string;
 }
 

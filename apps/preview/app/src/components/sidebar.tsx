@@ -4,13 +4,15 @@ import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+import type { TemplatePart } from '../types';
+
 import { Logo } from './logo';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
 
 interface SidebarProps extends RootProps {
-  templateParts: any;
+  templateParts: TemplatePart[];
   title?: string;
 }
 

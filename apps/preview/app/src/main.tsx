@@ -5,24 +5,13 @@ import { render, renderPlainText } from 'jsx-email';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, type RouteObject, RouterProvider } from 'react-router-dom';
-import { create, type Struct } from 'superstruct';
+import { create } from 'superstruct';
 import titleize from 'titleize';
 
 import { Error } from './error.tsx';
 import { Home } from './home.tsx';
 import { Preview } from './preview.tsx';
-
-interface TemplateExports {
-  Name?: string;
-  PreviewProps?: () => any;
-  Template: React.ExoticComponent;
-  TemplateStruct?: Struct;
-}
-
-interface TemplateData extends TemplateExports {
-  jsx: string;
-  path?: string;
-}
+import type { TemplatePart, TemplateData, TemplateExports } from './types.ts';
 
 const { warn } = console;
 const addSpacesForCamelCaseName = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2');
@@ -80,10 +69,10 @@ const templates = (
 
 const getPathParts = (path) => path.split('/');
 
-const nestedTemplateParts = templates.reduce((acc, template) => {
+const nestedTemplateParts: TemplatePart[] = templates.reduce((acc, template) => {
   const parts = getPathParts(template.path);
 
-  let curr = { children: acc };
+  let curr: TemplatePart = { children: acc, name: '' };
   for (let i = 0; i < parts.length; i++) {
     const part = parts[i];
 
