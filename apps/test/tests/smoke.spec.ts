@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+
 import { test, expect } from '@playwright/test';
 
 import { getHTML } from './helpers/html';
@@ -7,6 +9,8 @@ import { getHTML } from './helpers/html';
 // - JSX View
 // - HTML View
 // - Copy and Download buttons on code views
+
+const timeout = { timeout: 15e3 };
 
 test('landing', async ({ page }) => {
   await page.goto('/');
@@ -19,28 +23,26 @@ test('landing', async ({ page }) => {
   await expect(page.locator('#link-Base')).toBeVisible();
 });
 
-const pages = [
-  'Base',
-  'Code',
-  'Default-Export',
-  'Default-Export-Props-Fn',
-  'Env',
-  'Local-Assets',
-  'Preview-Props',
-  'Preview-Props-Fn',
-  'Preview-Props-Named',
-  'Tailwind'
-];
+test('templates', async ({ page }) => {
+  test.setTimeout(30e3);
 
-pages.forEach((name) => {
-  test(`page: ${name}`, async ({ page }) => {
-    const selector = `#link-${name}`;
-    await page.goto('/');
-    await expect(page.locator(selector)).toBeVisible();
-    await page.click(selector);
-    const iframe = await page.frameLocator('#preview-frame');
-    const html = await getHTML(iframe.locator('html'), { deep: true });
+  const selector = '#sidebar-tree a';
 
-    expect(html).toMatchSnapshot();
-  });
+  await page.goto('/');
+  await page.waitForSelector(selector, timeout);
+
+  const links = await page.locator(selector);
+
+  for (const link of await links.all()) {
+    const name = await link.getAttribute('data-name');
+
+    await test.step(`page: ${name}`, async () => {
+      await link.click(timeout);
+
+      const iframe = await page.frameLocator('#preview-frame');
+      const html = await getHTML(iframe.locator('html'), { deep: true });
+
+      expect(html).toMatchSnapshot({ name: `${name!}.snap` });
+    });
+  }
 });

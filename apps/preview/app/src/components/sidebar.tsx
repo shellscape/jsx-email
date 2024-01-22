@@ -16,6 +16,13 @@ interface SidebarProps extends RootProps {
   title?: string;
 }
 
+interface SidebarSectionProps {
+  currentPageTitle: string;
+  isSubSection?: boolean;
+  templateParts: TemplatePart[];
+  title: string;
+}
+
 const FolderPlus = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -73,17 +80,13 @@ const FileName = () => (
     />
   </svg>
 );
+
 const SidebarSection = ({
   templateParts,
   currentPageTitle,
   isSubSection,
   title = 'Email Templates'
-}: {
-  currentPageTitle: string;
-  isSubSection?: boolean;
-  templateParts: TemplatePart[];
-  title: string;
-}) => {
+}: SidebarSectionProps) => {
   const [isOpen, setIsOpen] = React.useState(
     !isSubSection || templateParts.some((item) => item.path === currentPageTitle)
   );
@@ -114,7 +117,7 @@ const SidebarSection = ({
 
       {templateParts && templateParts.length > 0 && (
         <Collapsible.Content className={isSubSection ? 'relative mt-1' : 'relative mt-3'}>
-          <div className="absolute left-2.5 w-px h-full bg-slate-6" />
+          <div id="sidebar-tree" className="absolute left-2.5 w-px h-full bg-slate-6" />
 
           <div
             className={isSubSection ? 'py-0 flex flex-col truncate' : 'py-2 flex flex-col truncate'}
@@ -135,7 +138,8 @@ const SidebarSection = ({
                     </div>
                   ) : (
                     <Link
-                      id={`link-${item.name.split('.')[0]}`}
+                      data-name={item.name}
+                      id={`link-${item.name}`}
                       key={item.name}
                       to={`/${item.path}`}
                     >
