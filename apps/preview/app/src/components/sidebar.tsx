@@ -104,7 +104,7 @@ const SidebarSection = ({
           <h3
             className={classnames(
               'text-sm transition ease-in-out duration-200 hover:text-dark-bg-text',
-              { 'font-medium': currentPageTitle === title || !isSubSection, 'ml-1': isSubSection }
+              { 'font-medium': currentPageTitle === title || !isSubSection, 'ml-2': isSubSection }
             )}
           >
             {title}
