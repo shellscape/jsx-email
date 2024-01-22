@@ -87,7 +87,9 @@ const SidebarSection = ({
   title = 'Email Templates'
 }: SidebarSectionProps) => {
   const { pathname: basePathName } = useLocation();
-  const pathname = basePathName.startsWith('/') ? basePathName.slice(1) : basePathName;
+  const pathname = decodeURIComponent(
+    basePathName.startsWith('/') ? basePathName.slice(1) : basePathName
+  );
 
   const [isOpen, setIsOpen] = React.useState(
     !isSubSection || pathname.indexOf(title.toLowerCase()) > -1
