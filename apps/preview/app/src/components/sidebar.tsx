@@ -57,20 +57,14 @@ const SidebarSection = ({
       </svg>
 
       <div className="flex items-center transition ease-in-out duration-200 hover:text-dark-bg-text">
-        <h3 className="text-sm font-medium transition ease-in-out duration-200 hover:text-dark-bg-text">
+        <h3
+          className={classnames(
+            'text-sm transition ease-in-out duration-200 hover:text-dark-bg-text',
+            { 'font-medium': currentPageTitle === title || !isSubSection, 'ml-1': isSubSection }
+          )}
+        >
           {title}
         </h3>
-        {templateParts && templateParts.length > 0 && (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M12 15L8.5359 9.75L15.4641 9.75L12 15Z" fill="currentColor" />
-          </svg>
-        )}
       </div>
     </Collapsible.Trigger>
 
