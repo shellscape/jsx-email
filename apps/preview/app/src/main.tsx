@@ -16,6 +16,16 @@ import type { TemplatePart, TemplateData, TemplateExports } from './types.ts';
 const { warn } = console;
 const addSpacesForCamelCaseName = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2');
 
+// Note: Disables annoying key errors. We're static so we don't need to worry about this.
+/* eslint-disable no-console */
+const og = console.error;
+const re =
+  /^Warning: Each child in an array or iterator should have a unique "key" prop|^Warning: Each child in a list should have a unique "key" prop/;
+console.error = (...args) => {
+  const line = args[0];
+  if (!re.test(line)) og(...args);
+};
+
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <div className="bg-dark-bg text-dark-bg-text">
     <div>{children}</div>
