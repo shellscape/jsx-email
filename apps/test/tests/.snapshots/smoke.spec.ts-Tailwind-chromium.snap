@@ -31,7 +31,7 @@
     </style>
   </head>
   <body>
-    <div>
+    <div data-id="__jsx-email-twnd">
       <a
         href="https://example.com"
         class="px-3 py-2 font-medium leading-4 text-white bg-brand"
