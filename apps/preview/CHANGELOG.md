@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.2.1
+
+_2024-01-22_
+
+### Bugfixes
+
+- app-preview: Updates sidebar comparison logic (#148)
+
 ## v1.2.0
 
 _2024-01-22_
