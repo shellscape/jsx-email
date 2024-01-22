@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.0
+
+_2024-01-22_
+
+### Features
+
+- jsx-email: use debug for data attribute rendering (#147)
+
 ## v1.9.0
 
 _2024-01-20_
