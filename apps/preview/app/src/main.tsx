@@ -118,7 +118,7 @@ const templateRoutes = templates.map(async (template) => {
           jsx: template.jsx,
           plainText,
           templateParts: nestedTemplateParts,
-          title: template.path.replace('.tsx', '')
+          title: template.Name || template.path.replace('.tsx', '')
         }}
       />
     </Layout>
