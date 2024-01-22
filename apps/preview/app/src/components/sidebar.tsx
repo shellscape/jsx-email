@@ -117,7 +117,12 @@ const SidebarSection = ({
       </Collapsible.Trigger>
 
       {templateParts && templateParts.length > 0 && (
-        <Collapsible.Content className={isSubSection ? 'relative mt-1' : 'relative mt-3'}>
+        <Collapsible.Content
+          className={classnames('mt-1 collapsible-content', {
+            'mt-1': isSubSection,
+            'mt-3': !isSubSection
+          })}
+        >
           <div className="absolute left-2.5 w-px h-full bg-slate-6" />
 
           <div
