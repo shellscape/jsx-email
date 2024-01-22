@@ -30,6 +30,7 @@
     "@types/mustache": "^4.2.3",
     "chalk": "4.1.2",
     "detect-package-manager": "^3.0.1",
+    "globby": "11.0.4",
     "mustache": "^4.2.0",
     "prompts": "^2.4.2"
   },
