@@ -1,6 +1,9 @@
+import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 export interface ImgProps extends BaseProps<'img'> {}
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/img' } : {};
 
 export const Img: JsxEmailComponent<ImgProps> = ({
   alt,
@@ -13,7 +16,7 @@ export const Img: JsxEmailComponent<ImgProps> = ({
 }) => (
   <img
     {...props}
-    data-id="jsx-email/img"
+    {...debugProps}
     alt={alt}
     src={src}
     width={width}

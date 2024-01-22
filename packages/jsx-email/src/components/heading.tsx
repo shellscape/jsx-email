@@ -1,6 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
 
+import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 export type PresentAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -23,6 +24,8 @@ export interface Margin {
 }
 
 export type HeadingProps = BaseProps<PresentAs> & Margin & { as?: PresentAs };
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/heading' } : {};
 
 export const withSpace = (value: number | string | undefined, properties: MarginCSSProperty[]) =>
   properties.reduce((styles, property) => {
@@ -65,7 +68,7 @@ export const Heading: JsxEmailComponent<HeadingProps> = ({
 }) => (
   <Slot
     {...props}
-    data-id="jsx-email/heading"
+    {...debugProps}
     style={{ ...withMargin({ m, mb, ml, mr, mt, mx, my }), ...style }}
   >
     <Tag>{children}</Tag>

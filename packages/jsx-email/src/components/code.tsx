@@ -2,6 +2,7 @@ import mem from 'p-memoize';
 import { Suspense } from 'react';
 import { type BuiltinLanguage } from 'shikiji';
 
+import { debug } from '../debug';
 import { useData } from '../render/jsx-to-string';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
@@ -12,6 +13,8 @@ export interface CodeProps extends RootProps {
   language: BuiltinLanguage;
   theme?: string;
 }
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/code' } : {};
 
 const getHighlighter = mem(async (language?: string, theme = 'nord') => {
   const { getHighlighter: getHighBro } = await import('shikiji');
@@ -30,14 +33,7 @@ const Renderer = (props: React.PropsWithChildren<CodeProps>) => {
   const code = children as string;
   const html = highlighter.codeToHtml(code, { lang: language, theme });
 
-  return (
-    <div
-      {...rest}
-      data-id="jsx-email/code"
-      style={style}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+  return <div {...rest} {...debugProps} style={style} dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 export const Code: JsxEmailComponent<CodeProps> = ({ children, ...props }) => {

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 
-import debugConfig from 'debug';
 import importLocal from 'import-local';
 import yargs from 'yargs-parser';
 
 import pkg from '../../package.json';
+import { debug } from '../debug';
 
 import { command as build } from './commands/build';
 import { command as check } from './commands/check';
@@ -15,7 +15,7 @@ import { command as preview } from './commands/preview';
 import type { CommandFn } from './commands/types';
 
 const commands: Record<string, CommandFn> = { build, check, create, help, preview };
-const debug = debugConfig('jsx-email/cli');
+
 const { log } = console;
 
 const run = async () => {
@@ -24,7 +24,7 @@ const run = async () => {
   const [commandName] = positionals;
   let command = commands[commandName];
 
-  debug(`Command Name: \`${commandName}\``);
+  debug.cli(`Command Name: \`${commandName}\``);
 
   if (flags.version) {
     log(`${pkg.name} v${pkg.version}\n`);
@@ -37,13 +37,13 @@ const run = async () => {
   const result = await command(flags, input);
 
   if (!result) {
-    debug(`Command \`${commandName}\` returned \`false\``);
+    debug.cli(`Command \`${commandName}\` returned \`false\``);
     help({}, []);
   }
 };
 
 if (importLocal(__filename)) {
-  debug('Using local install of webpack-command');
+  debug.cli('Using local install of webpack-command');
 } else {
   run();
 }

@@ -50,10 +50,6 @@ describe('render', () => {
     expect(await render(<PlaidEmail />, { minify: false })).toMatchSnapshot();
   });
 
-  it('renders without stripping', async () => {
-    expect(await render(<PlaidEmail />, { minify: false, strip: false })).toMatchSnapshot();
-  });
-
   it('renders the vercel demo template', async () => {
     expect(await render(<TailwindTemplate />)).toMatchSnapshot();
     expect(await render(<TailwindTemplate />, { pretty: true })).toMatchSnapshot();

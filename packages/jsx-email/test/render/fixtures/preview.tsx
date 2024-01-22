@@ -2,7 +2,7 @@ interface PreviewProps {}
 
 export const Preview: React.FC<Readonly<PreviewProps>> = () => (
   <>
-    <div data-id="jsx-email/preview">This should be hidden from plain text</div>
+    <div data-skip="true">This should be hidden from plain text</div>
     <span
       dangerouslySetInnerHTML={{
         __html: `<!--[if mso]><i style="mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`

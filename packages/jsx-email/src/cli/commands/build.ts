@@ -19,12 +19,10 @@ const { error, log } = console;
 
 const BuildOptionsStruct = object({
   minify: optional(boolean()),
-  'no-strip': optional(boolean()),
   out: optional(string()),
   plain: optional(boolean()),
   pretty: optional(boolean()),
   props: optional(string()),
-  strip: optional(boolean()),
   writeToFile: optional(boolean())
 });
 
@@ -44,7 +42,6 @@ Builds a template and saves the result
 
 {underline Options}
   --minify      Minify the rendered template before saving
-  --no-strip    Prevents stripping data-id attributes from output
   --out         File path to save the rendered template
   --plain       Emit template as plain text
   --pretty      Oututs HTML in a pretty-print format. Note: Don't use this for production.

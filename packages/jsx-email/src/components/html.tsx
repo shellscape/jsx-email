@@ -1,6 +1,9 @@
+import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 export interface HtmlProps extends BaseProps<'html'> {}
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/html' } : {};
 
 export const Html: JsxEmailComponent<HtmlProps> = ({
   children,
@@ -8,7 +11,7 @@ export const Html: JsxEmailComponent<HtmlProps> = ({
   dir = 'ltr',
   ...props
 }) => (
-  <html {...props} data-id="jsx-email/html" lang={lang} dir={dir}>
+  <html {...props} {...debugProps} lang={lang} dir={dir}>
     {children}
   </html>
 );
