@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.2.0
+
+_2024-01-22_
+
+### Features
+
+- app-preview: support for nested directories in sidebar (#146)
+
 ## v1.1.0
 
 _2024-01-16_
