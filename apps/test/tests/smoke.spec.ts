@@ -42,7 +42,7 @@ test('templates', async ({ page }) => {
       const iframe = await page.frameLocator('#preview-frame');
       const html = await getHTML(iframe.locator('html'), { deep: true });
 
-      expect(html).toMatchSnapshot({ name: `${name!}.snap` });
+      expect(html).toMatchSnapshot({ name: `${name}.snap` });
     });
   }
 });

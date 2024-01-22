@@ -94,6 +94,7 @@ const SidebarSection = ({
   return (
     <Collapsible.Root
       className={isSubSection ? 'py-1' : 'pt-4'}
+      id="sidebar-tree"
       onOpenChange={setIsOpen}
       defaultOpen={isOpen}
     >
@@ -117,7 +118,7 @@ const SidebarSection = ({
 
       {templateParts && templateParts.length > 0 && (
         <Collapsible.Content className={isSubSection ? 'relative mt-1' : 'relative mt-3'}>
-          <div id="sidebar-tree" className="absolute left-2.5 w-px h-full bg-slate-6" />
+          <div className="absolute left-2.5 w-px h-full bg-slate-6" />
 
           <div
             className={isSubSection ? 'py-0 flex flex-col truncate' : 'py-2 flex flex-col truncate'}
