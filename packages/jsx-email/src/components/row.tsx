@@ -1,6 +1,9 @@
+import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 export interface RowProps extends BaseProps<'table'> {}
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/row' } : {};
 
 export const Row: JsxEmailComponent<RowProps> = ({
   children,
@@ -12,7 +15,7 @@ export const Row: JsxEmailComponent<RowProps> = ({
     align="center"
     width="100%"
     {...props}
-    data-id="jsx-email/row"
+    {...debugProps}
     style={style}
     role="presentation"
     cellSpacing="0"

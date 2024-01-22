@@ -10,7 +10,7 @@ export { prettyHtml };
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
-export const processHtml = async ({ html, minify, pretty, strip }: ProcessOptions) => {
+export const processHtml = async ({ html, minify, pretty }: ProcessOptions) => {
   const { rehype } = await import('rehype');
   const { default: stringify } = await import('rehype-stringify');
   const { visit } = await import('unist-util-visit');
@@ -55,22 +55,8 @@ export const processHtml = async ({ html, minify, pretty, strip }: ProcessOption
     };
   }
 
-  function rehypeRemoveDataId() {
-    return function (tree: Root) {
-      visit(tree, 'element', (node) => {
-        // eslint-disable-next-line guard-for-in
-        for (const prop in node.properties) {
-          if (Object.hasOwn(node.properties, prop)) {
-            if (prop === 'dataId') node.properties[prop] = undefined;
-          }
-        }
-      });
-    };
-  }
-
   let processor = rehype().data('settings', settings).use(rehypeMoveStyle);
 
-  if (strip) processor = processor.use(rehypeRemoveDataId);
   if (minify) {
     const { default: rehypeMinify } = await import('rehype-preset-minify');
     processor = processor.use(rehypeMinify);

@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Column> component > passes style and other props correctly 1`] = `"<td data-testid=\\"column-test\\" data-id=\\"jsx-email/column\\" style=\\"background-color:red\\">Test</td>"`;
+exports[`<Column> component > passes style and other props correctly 1`] = `"<td data-testid=\\"column-test\\" style=\\"background-color:red\\">Test</td>"`;
 
-exports[`<Column> component > renders children correctly 1`] = `"<td data-id=\\"jsx-email/column\\">Test message</td>"`;
+exports[`<Column> component > renders children correctly 1`] = `"<td>Test message</td>"`;
 
-exports[`<Column> component > renders correctly 1`] = `"<td data-id=\\"jsx-email/column\\">Lorem ipsum</td>"`;
+exports[`<Column> component > renders correctly 1`] = `"<td>Lorem ipsum</td>"`;

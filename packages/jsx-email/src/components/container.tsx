@@ -1,6 +1,9 @@
+import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 export interface ContainerProps extends BaseProps<'table'> {}
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/container' } : {};
 
 export const Container: JsxEmailComponent<ContainerProps> = ({
   children,
@@ -12,7 +15,7 @@ export const Container: JsxEmailComponent<ContainerProps> = ({
     align="center"
     width="100%"
     {...props}
-    data-id="jsx-email/container"
+    {...debugProps}
     role="presentation"
     cellSpacing="0"
     cellPadding="0"

@@ -250,7 +250,7 @@ describe('<Tailwind> component', async () => {
 
     expect(actualOutput).toMatchInlineSnapshot(
       `
-      "<div data-id=\\"__jsx-email-twnd\\"><div class=\\"max-h-[calc(50px+3rem)] bg-red-100\\"><div class=\\"h-[200px]\\">something tall</div></div><style tailwind>/* layer: preflights */
+      "<div><div class=\\"max-h-[calc(50px+3rem)] bg-red-100\\"><div class=\\"h-[200px]\\">something tall</div></div><style tailwind>/* layer: preflights */
       /* layer: default */
       .h-\\\\[200px\\\\]{height:200px;}
       .max-h-\\\\[calc\\\\(50px\\\\+3rem\\\\)\\\\]{max-height:calc(50px + 3rem);}

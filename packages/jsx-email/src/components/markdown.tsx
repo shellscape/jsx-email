@@ -1,11 +1,15 @@
 import { type StylesType, parseMarkdownToJSX } from 'md-to-react-email';
 import React from 'react';
 
+import { debug } from '../debug';
+
 export interface MarkdownProps extends React.PropsWithChildren {
   children: string;
   markdownContainerStyles?: React.CSSProperties;
   markdownCustomStyles?: StylesType;
 }
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/markdown' } : {};
 
 export const Markdown = ({
   children,
@@ -21,7 +25,7 @@ export const Markdown = ({
   return (
     <div
       {...props}
-      data-id="jsx-email/markdown"
+      {...debugProps}
       style={markdownContainerStyles}
       dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
     />

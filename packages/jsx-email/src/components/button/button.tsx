@@ -1,12 +1,15 @@
 import React from 'react';
 
 import type { BaseProps, JsxEmailComponent } from '../../types';
+import { debug } from '../../debug';
 
 import { parsePadding } from './padding';
 
 type RootProps = BaseProps<'a'>;
 
 export interface ButtonProps extends RootProps {}
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/button' } : {};
 
 export const pxToPt = (px: number): number | null =>
   typeof px === 'number' && !isNaN(Number(px)) ? (px * 3) / 4 : null;
@@ -62,7 +65,7 @@ export const Button: JsxEmailComponent<ButtonProps> = ({ children, style, target
   return (
     <a
       {...props}
-      data-id="jsx-email/button"
+      {...debugProps}
       target={target}
       style={buttonStyle({ ...style, ...parsedPadding })}
     >

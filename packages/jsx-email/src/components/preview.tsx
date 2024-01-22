@@ -1,24 +1,26 @@
+import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 export interface PreviewProps extends BaseProps<'div'> {}
 
-const PREVIEW_MAX_LENGTH = 150;
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/preview' } : {};
+const maxLength = 150;
 
 export const renderWhiteSpace = (text: string) => {
-  if (text.length >= PREVIEW_MAX_LENGTH) {
-    return null;
-  }
+  if (text.length >= maxLength) return null;
+
   const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';
-  return <div>{whiteSpaceCodes.repeat(PREVIEW_MAX_LENGTH - text.length)}</div>;
+  return <div>{whiteSpaceCodes.repeat(maxLength - text.length)}</div>;
 };
 
 export const Preview: JsxEmailComponent<PreviewProps> = ({ children = '', ...props }) => {
   const childText = Array.isArray(children) ? children.join('') : children;
-  const text = String(childText ?? '').substring(0, PREVIEW_MAX_LENGTH);
+  const text = String(childText ?? '').substring(0, maxLength);
 
   return (
     <div
-      data-id="jsx-email/preview"
+      {...debugProps}
+      data-skip="true"
       style={{
         display: 'none',
         lineHeight: '1px',

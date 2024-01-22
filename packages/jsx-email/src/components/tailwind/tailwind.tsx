@@ -12,6 +12,7 @@ import postcss from 'postcss';
 import { postcssVarReplace } from 'postcss-var-replace';
 import { Suspense } from 'react';
 
+import { debug } from '../../debug';
 import { jsxToString, useData } from '../../render/jsx-to-string';
 
 import { plugin as colorFunctions } from './color-functions';
@@ -25,6 +26,8 @@ export interface TailwindProps {
   >;
   production?: boolean;
 }
+
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/tailwind' } : {};
 
 const getUno = (config: ConfigBase, production: boolean) => {
   const transformers = [transformerVariantGroup()];
@@ -89,7 +92,7 @@ const render = async ({
 const Renderer = (props: React.PropsWithChildren<TailwindProps>) => {
   const html = useData(props, () => render(props));
 
-  return <div data-id="__jsx-email-twnd" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div {...debugProps} dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => (
