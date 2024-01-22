@@ -136,7 +136,7 @@ const SidebarSection = ({
                   const isCurrentPage = pathname === item.path;
                   const isParent = item.children && item.children.length > 0;
                   return isParent ? (
-                    <div className="pl-4">
+                    <div className="pl-4" key={item.name}>
                       <SidebarSection
                         templateParts={item.children}
                         currentPageTitle={currentPageTitle}
@@ -166,10 +166,7 @@ const SidebarSection = ({
                         )}
                       >
                         {isCurrentPage && (
-                          <span
-                            layoutId="sidebar"
-                            className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-[#78b0a04d] animate-nav-fade-in"
-                          >
+                          <span className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-[#78b0a04d] animate-nav-fade-in">
                             <div className="bg-[#61efce] w-px absolute top-1 left-2.5 h-6 transition-all ease-in-out" />
                           </span>
                         )}
