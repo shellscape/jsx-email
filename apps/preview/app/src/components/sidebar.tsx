@@ -76,7 +76,9 @@ const SidebarSection = ({
       <Collapsible.Content className={isSubSection ? 'relative mt-0' : 'relative mt-3'}>
         <div className="absolute left-2.5 w-px h-full bg-slate-6" />
 
-        <div className={'py-2 flex flex-col truncate'}>
+        <div
+          className={isSubSection ? 'py-0 flex flex-col truncate' : 'py-2 flex flex-col truncate'}
+        >
           <LayoutGroup id="sidebar">
             {templateParts &&
               templateParts.map((item) => {
