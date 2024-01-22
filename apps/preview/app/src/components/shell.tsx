@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import type { Views } from '../types';
+import type { TemplatePart, Views } from '../types';
 
 import { Sidebar } from './sidebar';
 import { Nav } from './nav';
@@ -13,11 +13,11 @@ interface ShellProps extends RootProps {
   activeView?: Views;
   html?: string;
   setActiveView?: (view: string) => void;
-  templateNames: string[];
+  templateParts: TemplatePart[];
 }
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
-  ({ title, templateNames, children, html, activeView, setActiveView }, forwardedRef) => {
+  ({ title, templateParts, children, html, activeView, setActiveView }, forwardedRef) => {
     const [showNav] = React.useState(false);
     return (
       <div className="flex flex-col h-screen overflow-x-hidden">
@@ -27,7 +27,7 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
               'translate-x-[-100%] lg:translate-x-0 absolute lg:relative': !showNav,
               'translate-x-0': showNav
             })}
-            templateNames={templateNames}
+            templateParts={templateParts}
             title={title}
           />
           <main

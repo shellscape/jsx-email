@@ -5,23 +5,13 @@ import { render, renderPlainText } from 'jsx-email';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, type RouteObject, RouterProvider } from 'react-router-dom';
-import { create, type Struct } from 'superstruct';
+import { create } from 'superstruct';
 import titleize from 'titleize';
 
 import { Error } from './error.tsx';
 import { Home } from './home.tsx';
 import { Preview } from './preview.tsx';
-
-interface TemplateExports {
-  Name?: string;
-  PreviewProps?: () => any;
-  Template: React.ExoticComponent;
-  TemplateStruct?: Struct;
-}
-
-interface TemplateData extends TemplateExports {
-  jsx: string;
-}
+import type { TemplatePart, TemplateData, TemplateExports } from './types.ts';
 
 const { warn } = console;
 const addSpacesForCamelCaseName = (str: string) => str.replace(/([a-z])([A-Z])/g, '$1 $2');
@@ -32,6 +22,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+function getCommonRoot(paths) {
+  const sortedPaths = paths.concat().sort();
+  const [first] = sortedPaths;
+  const last = sortedPaths[sortedPaths.length - 1];
+  const firstLength = first.length;
+  let i = 0;
+  while (i < firstLength && first.charAt(i) === last.charAt(i)) {
+    i += 1;
+  }
+  return first.substring(0, i);
+}
+
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');
   const segment = chunks.at(-1);
@@ -40,8 +42,9 @@ const parseName = (path: string) => {
   return titleize(addSpacesForCamelCaseName(basename));
 };
 
-const modules = import.meta.glob('@/*.{jsx,tsx}', { eager: true });
-const sources = import.meta.glob('@/*.{jsx,tsx}', { as: 'raw', eager: true });
+const modules = import.meta.glob('@/**/*.{jsx,tsx}', { eager: true });
+const sources = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'raw', eager: true });
+const root = getCommonRoot(Object.keys(modules));
 
 const templates = (
   await Promise.all(
@@ -54,6 +57,7 @@ const templates = (
       const result: TemplateData = {
         jsx: sources[path],
         Name: component.Name || parseName(path),
+        path: path.replace(root, ''),
         PreviewProps: component.PreviewProps || Template.PreviewProps,
         Template,
         TemplateStruct: component.TemplateStruct
@@ -63,7 +67,32 @@ const templates = (
   )
 ).filter(Boolean);
 
-const templateNames = templates.map((template) => template.Name!);
+const getPathParts = (path) => path.split('/');
+
+const nestedTemplateParts: TemplatePart[] = templates.reduce((acc, template) => {
+  const parts = getPathParts(template.path);
+
+  let curr: TemplatePart = { children: acc, name: '' };
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+
+    // Check if child with name exists
+    let child = curr.children?.find((c) => c.name === parseName(part));
+    if (!child) {
+      // If not, create it
+      child = { children: [], name: parseName(part), path: template.path.replace('.tsx', '') };
+      curr.children.push(child);
+    }
+
+    // Descend into child
+    curr = child;
+  }
+
+  // Add template data to leaf node
+  curr.template = template;
+
+  return acc;
+}, []);
 
 const templateRoutes = templates.map(async (template) => {
   const { Name, PreviewProps, Template, TemplateStruct } = template;
@@ -83,17 +112,26 @@ const templateRoutes = templates.map(async (template) => {
   const plainText = await renderPlainText(<Template {...props} />);
   const element = (
     <Layout>
-      <Preview {...{ html, jsx: template.jsx, plainText, templateNames, title: Name! }} />
+      <Preview
+        {...{
+          html,
+          jsx: template.jsx,
+          plainText,
+          templateParts: nestedTemplateParts,
+          title: template.Name || template.path.replace('.tsx', '')
+        }}
+      />
     </Layout>
   );
-  return { element, path: `/${template.Name}` } as RouteObject;
+
+  return { element, path: `/${template.path.replace('.tsx', '')}` } as RouteObject;
 });
 
 const router = createBrowserRouter([
   {
     element: (
       <Layout>
-        <Home templateNames={templateNames} />
+        <Home templateParts={nestedTemplateParts} />
       </Layout>
     ),
     errorElement: <Error />,

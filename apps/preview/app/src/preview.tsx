@@ -7,6 +7,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { CodeContainer } from './components/code-container';
 import { Mobile } from './components/mobile';
 import { Shell } from './components/shell';
+import type { TemplatePart } from './types';
 import { Views } from './types';
 import { Send } from './components/send';
 
@@ -14,7 +15,7 @@ interface PreviewProps {
   html: string;
   jsx: string;
   plainText: string;
-  templateNames: string[];
+  templateParts: TemplatePart[];
   title: string;
 }
 
@@ -31,7 +32,7 @@ table { overflow-wrap: anywhere; width: 100% !important; }
   doc.head.appendChild(styleElement);
 };
 
-export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewProps) => {
+export const Preview = ({ html, jsx, plainText, templateParts, title }: PreviewProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -77,7 +78,7 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
 
   return (
     <Shell
-      templateNames={templateNames}
+      templateParts={templateParts}
       title={title}
       html={html}
       activeView={activeView}

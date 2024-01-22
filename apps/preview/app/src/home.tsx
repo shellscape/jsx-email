@@ -5,13 +5,13 @@ import React from 'react';
 
 import { Shell } from './components/shell';
 
-export const Home = ({ templateNames }: { templateNames: string[] }) => {
+export const Home = ({ templateParts }: { templateParts: any }) => {
   React.useEffect(() => {
     document.title = 'JSX email';
   }, []);
 
   return (
-    <Shell templateNames={templateNames}>
+    <Shell templateParts={templateParts}>
       <div
         id="landing"
         className="bg-dark-bg max-w-md border border-dark-bg-border m-auto mt-56 rounded-md p-8"
