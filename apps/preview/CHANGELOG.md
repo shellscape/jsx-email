@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.2.3
+
+_2024-01-23_
+
+### Bugfixes
+
+- app-preview: Change how root path is determined for singular template (#150)
+
 ## v1.2.2
 
 _2024-01-23_
