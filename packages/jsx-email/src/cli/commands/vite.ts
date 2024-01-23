@@ -48,6 +48,7 @@ export const viteConfig = defineConfig({
       '@jridgewell/sourcemap-codec',
       'balanced-match',
       'classnames',
+      'debug',
       'deepmerge',
       'escape-string-regexp',
       'extend',
