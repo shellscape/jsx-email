@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.2.2
+
+_2024-01-23_
+
+### Bugfixes
+
+- app-preview: suppress erroneous react key errors (#149)
+
 ## v1.2.1
 
 _2024-01-22_
