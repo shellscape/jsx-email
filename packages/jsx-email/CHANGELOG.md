@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.1
+
+_2024-01-23_
+
+### Bugfixes
+
+- jsx-email: debug dependency needs vite optimize (b660f8f)
+
 ## v1.10.0
 
 _2024-01-22_
