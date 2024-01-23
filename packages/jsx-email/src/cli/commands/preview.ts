@@ -62,6 +62,7 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const config = {
     configFile: false,
     ...viteConfig,
+    define: { __JSX_EMAIL_TARGET_PATH__: JSON.stringify(targetPath) },
     resolve: {
       alias: {
         '@': targetPath,
@@ -78,7 +79,7 @@ const build = async (targetPath: string, argv: PreviewOptions) => {
   const { buildPath } = argv;
   const config = await getConfig(targetPath, argv);
 
-  delete config.define!['process.env'];
+  delete config.define['process.env'];
 
   await viteBuild({
     ...config,
