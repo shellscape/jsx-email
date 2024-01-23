@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.2
+
+_2024-01-23_
+
+### Bugfixes
+
+- jsx-email: inject target path for preview app (#151)
+
 ## v1.10.1
 
 _2024-01-23_
