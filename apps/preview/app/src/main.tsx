@@ -33,6 +33,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
 );
 
 function getCommonRoot(paths) {
+  if (paths.length === 1) {
+    const root = `${paths[0].split('/').slice(0, -1).join('/')}/`;
+    return root;
+  }
+
   const sortedPaths = paths.concat().sort();
   const [first] = sortedPaths;
   const last = sortedPaths[sortedPaths.length - 1];
@@ -41,6 +46,7 @@ function getCommonRoot(paths) {
   while (i < firstLength && first.charAt(i) === last.charAt(i)) {
     i += 1;
   }
+
   return first.substring(0, i);
 }
 
@@ -54,6 +60,7 @@ const parseName = (path: string) => {
 
 const modules = import.meta.glob('@/**/*.{jsx,tsx}', { eager: true });
 const sources = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'raw', eager: true });
+
 const root = getCommonRoot(Object.keys(modules));
 
 const templates = (
