@@ -32,6 +32,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+function getCommonRoot(paths) {
+  const sortedPaths = paths.concat().sort();
+  const [first] = sortedPaths;
+  const last = sortedPaths[sortedPaths.length - 1];
+  const firstLength = first.length;
+  let i = 0;
+  while (i < firstLength && first.charAt(i) === last.charAt(i)) {
+    i += 1;
+  }
+  return first.substring(0, i);
+}
+
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');
   const segment = chunks.at(-1);
@@ -42,11 +54,7 @@ const parseName = (path: string) => {
 
 const modules = import.meta.glob('@/**/*.{jsx,tsx}', { eager: true });
 const sources = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'raw', eager: true });
-const fileUrls = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'url', eager: true });
-const pathLookup = Object.keys(fileUrls).reduce((acc, path) => {
-  acc[path] = fileUrls[path].replace(`/@fs${__JSX_EMAIL_TARGET_PATH__}/`, '');
-  return acc;
-}, {});
+const root = getCommonRoot(Object.keys(modules));
 
 const templates = (
   await Promise.all(
@@ -59,7 +67,7 @@ const templates = (
       const result: TemplateData = {
         jsx: sources[path],
         Name: component.Name || parseName(path),
-        path: pathLookup[path],
+        path: path.replace(root, ''),
         PreviewProps: component.PreviewProps || Template.PreviewProps,
         Template,
         TemplateStruct: component.TemplateStruct
