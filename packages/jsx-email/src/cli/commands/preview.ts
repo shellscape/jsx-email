@@ -1,5 +1,5 @@
 import { existsSync } from 'fs';
-import { resolve } from 'path';
+import { relative, resolve } from 'path';
 
 import chalk from 'chalk';
 import type { Infer } from 'superstruct';
@@ -59,10 +59,14 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { host = false, port = 55420 } = argv;
   const { viteConfig } = await import('./vite');
+  const realtivePath = relative(viteConfig.root!, targetPath);
   const config = {
     configFile: false,
     ...viteConfig,
-    define: { __JSX_EMAIL_TARGET_PATH__: JSON.stringify(targetPath), ...viteConfig.define },
+    define: {
+      __JSX_EMAIL_RELATIVE_PATH__: JSON.stringify(realtivePath),
+      ...viteConfig.define
+    },
     resolve: {
       alias: {
         '@': targetPath,
