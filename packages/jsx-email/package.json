@@ -98,6 +98,7 @@
     "hast": "^1.0.0"
   },
   "types": "dist/index.d.mts",
+  "bump": "0",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
