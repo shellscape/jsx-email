@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.2.4
+
+_2024-01-24_
+
+### Bugfixes
+
+- app-preview: naturally sort directories (#152)
+
 ## v1.2.3
 
 _2024-01-23_
