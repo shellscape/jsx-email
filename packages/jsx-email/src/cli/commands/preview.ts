@@ -1,5 +1,5 @@
 import { existsSync } from 'fs';
-import { relative, resolve } from 'path';
+import { relative, resolve, win32, posix } from 'path';
 
 import chalk from 'chalk';
 import type { Infer } from 'superstruct';
@@ -18,6 +18,7 @@ const PreviewOptionsStruct = object({
 type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
 
 const { error, info } = console;
+const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
 export const help = chalk`
 {blue email preview}
@@ -59,7 +60,8 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { host = false, port = 55420 } = argv;
   const { viteConfig } = await import('./vite');
-  const realtivePath = relative(viteConfig.root!, targetPath);
+  // FIXME: when we go for 2.0, add the trailing slash here and remove it from main.tsx
+  const realtivePath = normalizePath(relative(viteConfig.root!, targetPath));
   const config = {
     configFile: false,
     ...viteConfig,
