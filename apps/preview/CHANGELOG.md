@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v1.2.5
+
+_2024-01-24_
+
+### Bugfixes
+
+- app-preview: use relative path replacement, fixes prod build (#153)
+
 ## v1.2.4
 
 _2024-01-24_
