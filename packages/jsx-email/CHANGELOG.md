@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.3
+
+_2024-01-24_
+
+### Bugfixes
+
+- jsx-email: bump app-preview dep version (98cb8ca)
+
 ## v1.10.2
 
 _2024-01-23_
