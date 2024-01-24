@@ -36,7 +36,9 @@ reference them with a URL.
 ```jsx
 import { Img } from 'jsx-email';
 
-const baseUrl = import.meta.env.DEV ? import.meta.resolve('../assets/') : 'https://assets.example.com/';
+const baseUrl = import.meta.env.DEV
+  ? import.meta.resolve('../assets/')
+  : 'https://assets.example.com/';
 
 const Email = () => {
   return <Img src={`${baseUrl}cat.jpg`} alt="Cat" width="300" height="300" />;
@@ -57,7 +59,7 @@ Alternate description for an image
 disableDefaultStyle?: boolean;
 ```
 
-If `false`, instructs the component not to add default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
 ```ts
 height?: string;

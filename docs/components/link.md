@@ -27,7 +27,7 @@ const Email = () => {
 disableDefaultStyle?: boolean;
 ```
 
-If `false`, instructs the component not to add default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
 ```ts
 href: string;
