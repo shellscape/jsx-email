@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.4
+
+_2024-01-24_
+
+### Bugfixes
+
+- jsx-email: normalize relative preview path for windows (#154)
+
 ## v1.10.3
 
 _2024-01-24_
