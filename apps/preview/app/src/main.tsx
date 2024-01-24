@@ -22,7 +22,7 @@ const og = console.error;
 const re =
   /^Warning: Each child in an array or iterator should have a unique "key" prop|^Warning: Each child in a list should have a unique "key" prop/;
 console.error = (...args) => {
-  const line = args[0];
+  const [line] = args;
   if (!re.test(line)) og(...args);
 };
 
@@ -35,22 +35,38 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
 const parseName = (path: string) => {
   const chunks = path.replace('\\', '/').split('/');
   const segment = chunks.at(-1);
-  const basename = segment!.split(/\.[^.]+$/)[0];
+  const [basename] = segment!.split(/\.[^.]+$/);
 
   return titleize(addSpacesForCamelCaseName(basename));
 };
 
+// @ts-expect-error
+const targetPath = __JSX_EMAIL_TARGET_PATH__;
 const modules = import.meta.glob('@/**/*.{jsx,tsx}', { eager: true });
 const sources = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'raw', eager: true });
 const fileUrls = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'url', eager: true });
 const pathLookup = Object.keys(fileUrls).reduce((acc, path) => {
-  acc[path] = fileUrls[path].replace(`/@fs${__JSX_EMAIL_TARGET_PATH__}/`, '');
+  acc[path] = fileUrls[path].replace(`/@fs${targetPath}/`, '');
   return acc;
 }, {});
+const sortedModules = Object.keys(modules)
+  .sort((a, b) => {
+    const aa = a.split('/').length;
+    const bb = b.split('/').length;
+
+    if (aa > bb) return -1;
+    if (aa === bb) return 0;
+    if (aa < bb) return 1;
+
+    return 0;
+  })
+  .reduce((acc, curr) => {
+    return { ...acc, [curr]: modules[curr] };
+  }, {});
 
 const templates = (
   await Promise.all(
-    Object.entries(modules).map<Promise<TemplateData>>(async ([path, mod]) => {
+    Object.entries(sortedModules).map<Promise<TemplateData>>(async ([path, mod]) => {
       const component = mod as TemplateExports;
       const Template = component.Template || (component as any).default;
 
