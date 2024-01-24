@@ -41,12 +41,11 @@ const parseName = (path: string) => {
 };
 
 // @ts-expect-error
-const targetPath = __JSX_EMAIL_TARGET_PATH__;
+const relativePath = `${__JSX_EMAIL_RELATIVE_PATH__}/`;
 const modules = import.meta.glob('@/**/*.{jsx,tsx}', { eager: true });
 const sources = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'raw', eager: true });
-const fileUrls = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'url', eager: true });
-const pathLookup = Object.keys(fileUrls).reduce((acc, path) => {
-  acc[path] = fileUrls[path].replace(`/@fs${targetPath}/`, '');
+const pathLookup = Object.keys(modules).reduce((acc, path) => {
+  acc[path] = path.replace(relativePath, '');
   return acc;
 }, {});
 const sortedModules = Object.keys(modules)
