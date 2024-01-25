@@ -92,7 +92,7 @@ const render = async ({
 const Renderer = (props: React.PropsWithChildren<TailwindProps>) => {
   const html = useData(props, () => render(props));
 
-  return <div {...debugProps} dangerouslySetInnerHTML={{ __html: html }} />;
+  return <head {...debugProps} dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
 export const Tailwind = ({ children, ...props }: React.PropsWithChildren<TailwindProps>) => (
