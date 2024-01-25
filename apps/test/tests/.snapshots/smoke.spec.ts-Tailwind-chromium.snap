@@ -31,22 +31,20 @@
     </style>
   </head>
   <body>
-    <div>
-      <a
-        href="https://example.com"
-        class="px-3 py-2 font-medium leading-4 text-white bg-brand"
-        style="display:inline-block;line-height:100%;max-width:100%;text-decoration:none"
-      >
-        <span>
-          <!--[if mso]><i style="mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->
-        </span>
-        <span style="display:inline-block;line-height:120%;max-width:100%;mso-padding-alt:0px;mso-text-raise:0">
-          Click me
-        </span>
-        <span>
-          <!--[if mso]><i style="mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->
-        </span>
-      </a>
-    </div>
+    <a
+      href="https://example.com"
+      class="px-3 py-2 font-medium leading-4 text-white bg-brand"
+      style="display:inline-block;line-height:100%;max-width:100%;text-decoration:none"
+    >
+      <span>
+        <!--[if mso]><i style="mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->
+      </span>
+      <span style="display:inline-block;line-height:120%;max-width:100%;mso-padding-alt:0px;mso-text-raise:0">
+        Click me
+      </span>
+      <span>
+        <!--[if mso]><i style="mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->
+      </span>
+    </a>
   </body>
 </html>

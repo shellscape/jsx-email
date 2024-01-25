@@ -24,6 +24,14 @@ describe('Tailwind component', async () => {
       );
 
       expect(actualOutput).not.toBeNull();
+
+      const renderOutput = await render(
+        <Tailwind>
+          <div className="bg-white text-sm" />
+        </Tailwind>
+      );
+
+      expect(renderOutput).toMatchSnapshot();
     });
   });
 
@@ -69,7 +77,8 @@ describe('Responsive styles', async () => {
             <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
           </body>
         </html>
-      </Tailwind>
+      </Tailwind>,
+      { pretty: true }
     );
     expect(actualOutput).toMatchSnapshot();
   });
@@ -248,15 +257,7 @@ describe('<Tailwind> component', async () => {
       </Tailwind>
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `
-      "<div><div class=\\"max-h-[calc(50px+3rem)] bg-red-100\\"><div class=\\"h-[200px]\\">something tall</div></div><style tailwind>/* layer: preflights */
-      /* layer: default */
-      .h-\\\\[200px\\\\]{height:200px;}
-      .max-h-\\\\[calc\\\\(50px\\\\+3rem\\\\)\\\\]{max-height:calc(50px + 3rem);}
-      .bg-red-100{background-color:rgb(254,226,226);}</style></div>"
-    `
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 });
 

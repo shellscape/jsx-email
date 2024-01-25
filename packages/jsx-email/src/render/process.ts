@@ -16,15 +16,17 @@ export const processHtml = async ({ html, minify, pretty }: ProcessOptions) => {
   const { visit } = await import('unist-util-visit');
   const docType =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-  const settings = {
-    emitParseErrors: true
-    // fragment: true
-  };
+  const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
+
+  interface ElementWithParent extends Element {
+    index: number;
+    parent: Parents;
+  }
 
   function rehypeMoveStyle() {
     return function (tree: Root) {
-      const matches: Array<[Parents, Element]> = [];
+      const matches: ElementWithParent[] = [];
       let head: Element | undefined;
 
       visit(tree, 'element', (node, _, parent) => {
@@ -37,19 +39,18 @@ export const processHtml = async ({ html, minify, pretty }: ProcessOptions) => {
           node.tagName === 'style' &&
           (parent.type !== 'element' || parent.tagName !== 'head')
         ) {
-          matches.push([parent, node]);
+          const found: ElementWithParent = node as any;
+          found.parent = parent;
+          found.index = parent.children.indexOf(node);
+          matches.push(found);
         }
       });
 
       if (head) {
-        let index = -1;
+        head.children.push(...matches);
 
-        // eslint-disable-next-line no-plusplus
-        while (++index < matches.length) {
-          const match = matches[index];
-          const siblings = match[0].children;
-          siblings.splice(siblings.indexOf(match[1]), 1);
-          head.children.push(match[1]);
+        for (const node of matches) {
+          node.parent.children.splice(node.index, 1);
         }
       }
     };
