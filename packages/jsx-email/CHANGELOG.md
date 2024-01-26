@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.5
+
+_2024-01-26_
+
+### Bugfixes
+
+- jsx-email: shouldn't clobber `<head>` contents (#155)
+
 ## v1.10.4
 
 _2024-01-24_
