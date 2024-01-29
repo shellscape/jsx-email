@@ -13,14 +13,36 @@ tasks:
 
   install:
     command: playwright install --with-deps
-    deps:
-    - ~:install
     options:
       cache: false
 
   playwright:
-    command: playwright test -x
+    command: playwright test -x --config playwright.dev.ts
     deps:
     - ~:install
     options:
       cache: false
+      runDepsInParallel: false
+
+  playwright.ci:
+    command: playwright test -x
+    deps:
+    - ~:install
+    - ~:setup.ci
+    options:
+      cache: false
+      runDepsInParallel: false
+
+  setup.ci:
+    command: ./scripts/ci-preview-setup.sh
+    options:
+      cache: false
+      runFromWorkspaceRoot: true
+    platform: system
+
+  start.ci:
+    command: ./scripts/ci-preview-start.sh
+    options:
+      cache: false
+      runFromWorkspaceRoot: true
+    platform: system
