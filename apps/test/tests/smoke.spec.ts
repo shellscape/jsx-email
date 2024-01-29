@@ -10,9 +10,15 @@ import { getHTML } from './helpers/html';
 // - HTML View
 // - Copy and Download buttons on code views
 
+const { error } = console;
 const timeout = { timeout: 15e3 };
 
 test('landing', async ({ page }) => {
+  page.on('pageerror', (exception) => {
+    console.log(`Uncaught exception: "${exception}"`);
+    error(`Uncaught exception: "${exception}"`);
+  });
+
   await page.goto('/');
   await expect(page).toHaveTitle('JSX Email');
   await page.getByText('JSX Email Preview');
