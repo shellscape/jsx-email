@@ -10,6 +10,7 @@ import type { CommandFn } from './types';
 
 const PreviewOptionsStruct = object({
   buildPath: optional(string()),
+  exclude: optional(string()),
   host: optional(boolean()),
   open: optional(boolean()),
   port: optional(union([number(), string()]))
@@ -30,6 +31,7 @@ Starts the preview server for a directory of email templates
 
 {underline Options}
   --build-path  An absolute path. When set, builds the preview as a deployable app and saves to disk
+  --exclude     A micromatch glob pattern that specifies files to exclude from the preview
   --host        Allow thew preview server to listen on all addresses (0.0.0.0)
   --no-open     Do not open a browser tab when the preview server starts
   --port        The local port number the preview server should run on. Default: 55420
@@ -58,15 +60,21 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 };
 
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
-  const { host = false, port = 55420 } = argv;
+  const { exclude, host = false, port = 55420 } = argv;
   const { viteConfig } = await import('./vite');
   // FIXME: when we go for 2.0, add the trailing slash here and remove it from main.tsx
-  const realtivePath = normalizePath(relative(viteConfig.root!, targetPath));
+  const relativePath = normalizePath(relative(viteConfig.root!, targetPath));
+
+  process.env.VITE_JSXE_FILTER_GLOB = exclude;
+  process.env.VITE_JSXE_RELATIVE_PATH = relativePath;
+
   const config = {
     configFile: false,
     ...viteConfig,
     define: {
-      __JSX_EMAIL_RELATIVE_PATH__: JSON.stringify(realtivePath),
+      // FIXME: remove this v2, as we're going to stop using `define` for better asymmetric updates
+      // to the CLI and app-preview
+      __JSX_EMAIL_RELATIVE_PATH__: JSON.stringify(relativePath),
       ...viteConfig.define
     },
     resolve: {
