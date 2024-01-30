@@ -7,4 +7,4 @@
 # which provides a more accurate test environment
 
 cd /tmp/jsx-email-test
-pnpm exec email preview fixtures
+pnpm exec email preview fixtures/templates

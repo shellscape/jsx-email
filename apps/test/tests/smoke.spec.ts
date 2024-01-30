@@ -24,7 +24,7 @@ test('landing', async ({ page }) => {
   await page.getByText('JSX Email Preview');
 
   const landing = await page.locator('#landing');
-  expect(await landing.innerHTML({ timeout: 1e4 })).toMatchSnapshot();
+  expect(await landing.innerHTML({ timeout: 10e3 })).toMatchSnapshot();
 
   await expect(page.locator('#link-Base')).toBeVisible();
 });

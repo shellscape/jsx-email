@@ -9,8 +9,8 @@ export const gather = async () => {
     ? config.relativePath
     : `${config.relativePath}/`;
 
-  const allModules = import.meta.glob(`@/**/*.{jsx,tsx}`, { eager: true });
-  const sources = import.meta.glob(`@/**/*.{jsx,tsx}`, { as: 'raw', eager: true });
+  const allModules = import.meta.glob(`@jsxe/**/*.{jsx,tsx}`, { eager: true });
+  const sources = import.meta.glob(`@jsxe/**/*.{jsx,tsx}`, { as: 'raw', eager: true });
 
   const modules = config.excludeGlob
     ? Object.keys(allModules).reduce((acc, path) => {
