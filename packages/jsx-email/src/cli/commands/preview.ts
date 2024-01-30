@@ -74,7 +74,7 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
     ...viteConfig,
     resolve: {
       alias: {
-        '☞': targetPath,
+        '@jsxe': targetPath,
         ...viteConfig.resolve?.alias
       }
     },
