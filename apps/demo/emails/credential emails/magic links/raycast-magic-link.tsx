@@ -11,57 +11,10 @@ import {
   Section,
   Text
 } from 'jsx-email';
-import * as React from 'react';
 
 interface RaycastMagicLinkEmailProps {
   magicLink?: string;
 }
-
-const baseUrl = 'https://jsx.email/assets/demo/';
-
-export const RaycastMagicLinkEmail = ({ magicLink }: RaycastMagicLinkEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>Log in with this magic link.</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Img src={`${baseUrl}raycast-logo.png`} width={48} height={48} alt="Raycast" />
-        <Heading style={heading}>🪄 Your magic link</Heading>
-        <Section style={body}>
-          <Text style={paragraph}>
-            <Link style={link} href={magicLink}>
-              👉 Click here to sign in 👈
-            </Link>
-          </Text>
-          <Text style={paragraph}>If you didn't request this, please ignore this email.</Text>
-        </Section>
-        <Text style={paragraph}>
-          Best,
-          <br />- Raycast Team
-        </Text>
-        <Hr style={hr} />
-        <Img
-          src={`${baseUrl}raycast-logo.png`}
-          width={32}
-          height={32}
-          style={{
-            WebkitFilter: 'grayscale(100%)',
-            filter: 'grayscale(100%)',
-            margin: '20px 0'
-          }}
-        />
-        <Text style={footer}>Raycast Technologies Inc.</Text>
-        <Text style={footer}>2093 Philadelphia Pike #3222, Claymont, DE 19703</Text>
-      </Container>
-    </Body>
-  </Html>
-);
-
-RaycastMagicLinkEmail.PreviewProps = {
-  magicLink: 'https://raycast.com'
-} as RaycastMagicLinkEmailProps;
-
-export default RaycastMagicLinkEmail;
 
 const main = {
   backgroundColor: '#ffffff',
@@ -106,3 +59,49 @@ const footer = {
   fontSize: '12px',
   marginLeft: '4px'
 };
+
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  magicLink: 'https://raycast.com'
+} as RaycastMagicLinkEmailProps;
+
+export const TemplateName = 'Raycast Magic Link';
+
+export const Template = ({ magicLink }: RaycastMagicLinkEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>Log in with this magic link.</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img src={`${baseUrl}raycast-logo.png`} width={48} height={48} alt="Raycast" />
+        <Heading style={heading}>🪄 Your magic link</Heading>
+        <Section style={body}>
+          <Text style={paragraph}>
+            <Link style={link} href={magicLink}>
+              👉 Click here to sign in 👈
+            </Link>
+          </Text>
+          <Text style={paragraph}>If you didn't request this, please ignore this email.</Text>
+        </Section>
+        <Text style={paragraph}>
+          Best,
+          <br />- Raycast Team
+        </Text>
+        <Hr style={hr} />
+        <Img
+          src={`${baseUrl}raycast-logo.png`}
+          width={32}
+          height={32}
+          style={{
+            WebkitFilter: 'grayscale(100%)',
+            filter: 'grayscale(100%)',
+            margin: '20px 0'
+          }}
+        />
+        <Text style={footer}>Raycast Technologies Inc.</Text>
+        <Text style={footer}>2093 Philadelphia Pike #3222, Claymont, DE 19703</Text>
+      </Container>
+    </Body>
+  </Html>
+);

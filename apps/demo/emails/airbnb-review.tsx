@@ -21,6 +21,14 @@ interface AirbnbReviewEmailProps {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
+export const PreviewProps = {
+  authorName: 'Joker',
+  authorImage: `${baseUrl}batman-twilight.jpg`,
+  reviewText: `"Batsy's stay at my Airbnb Batcave was a riot! Batman surprised with a hidden sense of humor, engaging in epic banter and a prank war. His detective skills impressed, and the Batcave remained spotless. Game night and snacks were a hit, and even during downtime, he couldn't resist a Bat-signal. Hosting Batsy was chaos perfected – if you want a guest with brooding intensity and unexpected laughter, Batman's your Bat. Hahahahahahahahahaha! "`
+} as AirbnbReviewEmailProps;
+
+export const TemplateName = 'Airbnb Review';
+
 const main = {
   backgroundColor: '#ffffff',
   fontFamily:
@@ -94,11 +102,7 @@ const footer = {
   marginBottom: '10px'
 };
 
-export const AirbnbReviewEmail = ({
-  authorName,
-  authorImage,
-  reviewText
-}: AirbnbReviewEmailProps) => {
+export const Template = ({ authorName, authorImage, reviewText }: AirbnbReviewEmailProps) => {
   const previewText = `Read ${authorName}'s review`;
 
   return (
@@ -167,11 +171,3 @@ export const AirbnbReviewEmail = ({
     </Html>
   );
 };
-
-AirbnbReviewEmail.PreviewProps = {
-  authorName: 'Joker',
-  authorImage: `${baseUrl}batman-twilight.jpg`,
-  reviewText: `"Batsy's stay at my Airbnb Batcave was a riot! Batman surprised with a hidden sense of humor, engaging in epic banter and a prank war. His detective skills impressed, and the Batcave remained spotless. Game night and snacks were a hit, and even during downtime, he couldn't resist a Bat-signal. Hosting Batsy was chaos perfected – if you want a guest with brooding intensity and unexpected laughter, Batman's your Bat. Hahahahahahahahahaha! "`
-} as AirbnbReviewEmailProps;
-
-export default AirbnbReviewEmail;
