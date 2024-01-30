@@ -1,46 +1,8 @@
 import { Body, Button, Container, Head, Hr, Html, Img, Preview, Section, Text } from 'jsx-email';
-import * as React from 'react';
 
 interface KoalaWelcomeEmailProps {
   userFirstname: string;
 }
-
-const baseUrl = 'https://jsx.email/assets/demo/';
-
-export const KoalaWelcomeEmail = ({ userFirstname }: KoalaWelcomeEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>The sales intelligence platform that helps you uncover qualified leads.</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Img src={`${baseUrl}koala-logo.png`} width="170" height="50" alt="Koala" style={logo} />
-        <Text style={paragraph}>Hi {userFirstname},</Text>
-        <Text style={paragraph}>
-          Welcome to Koala, the sales intelligence platform that helps you uncover qualified leads
-          and close deals faster.
-        </Text>
-        <Section style={btnContainer}>
-          <Button style={button} href="https://getkoala.com">
-            Get started
-          </Button>
-        </Section>
-        <Text style={paragraph}>
-          Best,
-          <br />
-          The Koala team
-        </Text>
-        <Hr style={hr} />
-        <Text style={footer}>408 Warren Rd - San Mateo, CA 94402</Text>
-      </Container>
-    </Body>
-  </Html>
-);
-
-KoalaWelcomeEmail.PreviewProps = {
-  userFirstname: 'Bruce'
-} as KoalaWelcomeEmailProps;
-
-export default KoalaWelcomeEmail;
 
 const main = {
   backgroundColor: '#ffffff',
@@ -86,3 +48,40 @@ const footer = {
   color: '#8898aa',
   fontSize: '12px'
 };
+
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  userFirstname: 'Bruce'
+} as KoalaWelcomeEmailProps;
+
+export const TemplateName = 'Koala Welcome';
+
+export const Template = ({ userFirstname }: KoalaWelcomeEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>The sales intelligence platform that helps you uncover qualified leads.</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img src={`${baseUrl}koala-logo.png`} width="170" height="50" alt="Koala" style={logo} />
+        <Text style={paragraph}>Hi {userFirstname},</Text>
+        <Text style={paragraph}>
+          Welcome to Koala, the sales intelligence platform that helps you uncover qualified leads
+          and close deals faster.
+        </Text>
+        <Section style={btnContainer}>
+          <Button style={button} href="https://getkoala.com">
+            Get started
+          </Button>
+        </Section>
+        <Text style={paragraph}>
+          Best,
+          <br />
+          The Koala team
+        </Text>
+        <Hr style={hr} />
+        <Text style={footer}>408 Warren Rd - San Mateo, CA 94402</Text>
+      </Container>
+    </Body>
+  </Html>
+);

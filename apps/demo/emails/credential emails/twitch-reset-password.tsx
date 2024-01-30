@@ -17,8 +17,6 @@ interface TwitchResetPasswordEmailProps {
   updatedDate?: Date;
 }
 
-const baseUrl = 'https://jsx.email/assets/demo/';
-
 const fontFamily = 'HelveticaNeue,Helvetica,Arial,sans-serif';
 
 const main = {
@@ -72,10 +70,16 @@ const link = {
   textDecoration: 'underline'
 };
 
-export const TwitchResetPasswordEmail = ({
-  username,
-  updatedDate
-}: TwitchResetPasswordEmailProps) => {
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  username: 'Batman',
+  updatedDate: new Date('June 23, 2022 4:06:00 pm UTC')
+} as TwitchResetPasswordEmailProps;
+
+export const TemplateName = 'Twitch Reset Password';
+
+export const Template = ({ username, updatedDate }: TwitchResetPasswordEmailProps) => {
   const formattedDate = new Intl.DateTimeFormat('en', {
     dateStyle: 'medium',
     timeStyle: 'medium'
@@ -151,10 +155,3 @@ export const TwitchResetPasswordEmail = ({
     </Html>
   );
 };
-
-TwitchResetPasswordEmail.PreviewProps = {
-  username: 'Batman',
-  updatedDate: new Date('June 23, 2022 4:06:00 pm UTC')
-} as TwitchResetPasswordEmailProps;
-
-export default TwitchResetPasswordEmail;

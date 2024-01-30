@@ -17,41 +17,6 @@ interface LinearLoginCodeEmailProps {
   validationCode?: string;
 }
 
-const baseUrl = 'https://jsx.email/assets/demo/';
-
-export const LinearLoginCodeEmail = ({ validationCode }: LinearLoginCodeEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>Your login code for Linear</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Img src={`${baseUrl}linear-logo.png`} width="42" height="42" alt="Linear" style={logo} />
-        <Heading style={heading}>Your login code for Linear</Heading>
-        <Section style={buttonContainer}>
-          <Button style={button} href="https://linear.app">
-            Login to Linear
-          </Button>
-        </Section>
-        <Text style={paragraph}>
-          This link and code will only be valid for the next 5 minutes. If the link does not work,
-          you can use the login verification code directly:
-        </Text>
-        <code style={code}>{validationCode}</code>
-        <Hr style={hr} />
-        <Link href="https://linear.app" style={reportLink}>
-          Linear
-        </Link>
-      </Container>
-    </Body>
-  </Html>
-);
-
-LinearLoginCodeEmail.PreviewProps = {
-  validationCode: 'tt226-5398x'
-} as LinearLoginCodeEmailProps;
-
-export default LinearLoginCodeEmail;
-
 const logo = {
   borderRadius: 21,
   width: 42,
@@ -122,3 +87,38 @@ const code = {
   borderRadius: '4px',
   color: '#3c4149'
 };
+
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  validationCode: 'tt226-5398x'
+} as LinearLoginCodeEmailProps;
+
+export const TemplateName = 'Linear Login Code';
+
+export const Template = ({ validationCode }: LinearLoginCodeEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>Your login code for Linear</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img src={`${baseUrl}linear-logo.png`} width="42" height="42" alt="Linear" style={logo} />
+        <Heading style={heading}>Your login code for Linear</Heading>
+        <Section style={buttonContainer}>
+          <Button style={button} href="https://linear.app">
+            Login to Linear
+          </Button>
+        </Section>
+        <Text style={paragraph}>
+          This link and code will only be valid for the next 5 minutes. If the link does not work,
+          you can use the login verification code directly:
+        </Text>
+        <code style={code}>{validationCode}</code>
+        <Hr style={hr} />
+        <Link href="https://linear.app" style={reportLink}>
+          Linear
+        </Link>
+      </Container>
+    </Body>
+  </Html>
+);
