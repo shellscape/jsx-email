@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.6
+
+_2024-01-29_
+
+### Bugfixes
+
+- jsx-email: move preview app to peerDeps, isolation for preview tests (#157)
+
 ## v1.10.5
 
 _2024-01-26_

@@ -1,9 +1,8 @@
 /* eslint-disable import/no-default-export */
 import { defineConfig, devices } from '@playwright/test';
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
+// Note: https://playwright.dev/docs/test-configuration.
+
 export default defineConfig({
   forbidOnly: !!process.env.CI,
   fullyParallel: true,
@@ -13,16 +12,6 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] }
     }
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] }
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] }
-    // }
   ],
   reporter: 'list',
   retries: process.env.CI ? 2 : 0,
@@ -34,12 +23,12 @@ export default defineConfig({
     trace: 'on-first-retry'
   },
   webServer: {
-    command: 'moon app-test:dev',
+    command: 'moon app-test:start.ci',
     env: {
       ENV_TEST_VALUE: 'joker'
     },
     reuseExistingServer: !process.env.CI,
     url: 'http://localhost:55420'
   },
-  workers: process.env.CI ? 1 : undefined
+  workers: process.env.CI ? 1 : void 0
 });

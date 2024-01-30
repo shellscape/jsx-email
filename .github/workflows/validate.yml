@@ -88,4 +88,4 @@ jobs:
         # We'll need that for the preview tests below
         run: |
           pnpm i
-          moon app-test:playwright
+          moon app-test:playwright.ci

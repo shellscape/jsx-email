@@ -11,7 +11,7 @@ const cleanHTML = (html: string) =>
     .replace(/\r?\n/g, EOL)
     // The .replace removes some playwright locator gunk that slips in otherwise
     .replace(/\r?\n^\s*__playwright_target__.+$/m, '')
-    .replace(/@fs\/(.+)\/apps/g, '@fs/<path-removed>/apps');
+    .replace(/@fs\/(.+)\/fixtures/g, '@fs/<path-removed>/fixtures');
 
 interface GetHtmlOptions {
   deep: boolean;
