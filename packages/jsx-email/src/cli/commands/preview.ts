@@ -59,8 +59,9 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { host = false, port = 55420 } = argv;
-  const { getViteConfig } = await import('./vite');
-  const viteConfig = await getViteConfig(targetPath);
+  const { viteConfig } = await import('./vite');
+  // FIXME: when we go for 2.0, add the trailing slash here and remove it from main.tsx
+  const realtivePath = normalizePath(relative(viteConfig.root!, targetPath));
   const config = {
     configFile: false,
     ...viteConfig,
@@ -70,7 +71,7 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
     },
     resolve: {
       alias: {
-        '☞': targetPath,
+        '@': targetPath,
         ...viteConfig.resolve?.alias
       }
     },
