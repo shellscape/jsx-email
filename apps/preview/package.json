@@ -38,6 +38,7 @@
     "@vitejs/plugin-react": "^4.1.0",
     "classnames": "2.3.2",
     "framer-motion": "10.16.16",
+    "micromatch": "^4.0.5",
     "react-dom": "18.2.0",
     "react-router-dom": "6.20.1",
     "shikiji": "^0.8.0",
