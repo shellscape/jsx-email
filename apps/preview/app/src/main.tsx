@@ -40,8 +40,28 @@ const parseName = (path: string) => {
   return titleize(addSpacesForCamelCaseName(basename));
 };
 
-const modules = import.meta.glob('☞/*.{jsx,tsx}', { eager: true });
-const sources = import.meta.glob('☞/*.{jsx,tsx}', { as: 'raw', eager: true });
+// @ts-expect-error
+const relativePath = `${__JSX_EMAIL_RELATIVE_PATH__}/`;
+const modules = import.meta.glob('@/**/*.{jsx,tsx}', { eager: true });
+const sources = import.meta.glob('@/**/*.{jsx,tsx}', { as: 'raw', eager: true });
+const pathLookup = Object.keys(modules).reduce((acc, path) => {
+  acc[path] = path.replace(relativePath, '');
+  return acc;
+}, {});
+const sortedModules = Object.keys(modules)
+  .sort((a, b) => {
+    const aa = a.split('/').length;
+    const bb = b.split('/').length;
+
+    if (aa > bb) return -1;
+    if (aa === bb) return 0;
+    if (aa < bb) return 1;
+
+    return 0;
+  })
+  .reduce((acc, curr) => {
+    return { ...acc, [curr]: modules[curr] };
+  }, {});
 
 const templates = (
   await Promise.all(

@@ -18,35 +18,15 @@ test('landing', async ({ page }) => {
   await page.getByText('JSX Email Preview');
 
   const landing = await page.locator('#landing');
-  expect(await landing.innerHTML({ timeout: 10e3 })).toMatchSnapshot();
+  expect(await landing.innerHTML({ timeout: 1e4 })).toMatchSnapshot();
 
   await expect(page.locator('#link-Base')).toBeVisible();
 });
 
-const pages = [
-  'Base',
-  'Code',
-  'Default-Export',
-  'Default-Export-Props-Fn',
-  'Env',
-  'Local-Assets',
-  'Paths',
-  'Preview-Props',
-  'Preview-Props-Fn',
-  'Preview-Props-Named',
-  'Tailwind'
-];
+test('templates', async ({ page }) => {
+  test.setTimeout(30e3);
 
-pages.forEach((name) => {
-  test(`page: ${name}`, async ({ page }) => {
-    test.setTimeout(30e3);
-
-    const selector = `#link-${name}`;
-    await page.goto('/');
-    await expect(page.locator(selector)).toBeVisible({ timeout: 10e3 });
-    await page.click(selector);
-    const iframe = await page.frameLocator('#preview-frame');
-    const html = await getHTML(iframe.locator('html'), { deep: true });
+  const selector = '#sidebar-tree a';
 
   await page.goto('/');
   await page.waitForSelector(selector, timeout);
