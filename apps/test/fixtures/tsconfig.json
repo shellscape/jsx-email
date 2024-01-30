@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "allowJs": true,
-    "paths": {
-      "@components/*": ["./components/*"]
-    }
-  },
-  "extends": "../../../shared/tsconfig.base.json"
-}
