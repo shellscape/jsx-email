@@ -1,1 +1,5 @@
-// I do nothing but help resolve the module
+const pkg = require('./package.json');
+
+const getDeps = () => pkg.optimizeDeps;
+
+module.exports = { getDeps };
