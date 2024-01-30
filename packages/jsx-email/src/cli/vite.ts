@@ -1,5 +1,6 @@
 import { dirname, join } from 'path';
 
+import { getDeps } from '@jsx-email/app-preview';
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
@@ -29,6 +30,7 @@ const envDefine = Object.keys(process.env)
     agg[`process.env.${key}`] = JSON.stringify(process.env[key]);
     return agg;
   }, {} as Record<string, string | null>);
+const previewDeps = getDeps();
 
 export const viteConfig = defineConfig({
   clearScreen: false,
@@ -57,7 +59,8 @@ export const viteConfig = defineConfig({
       'pretty',
       'react-dom',
       'react-dom/client',
-      'source-map-js'
+      'source-map-js',
+      ...previewDeps
     ]
   },
   plugins: [
