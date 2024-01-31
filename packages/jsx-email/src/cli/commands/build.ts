@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
-import { basename, extname, join, resolve, win32, posix } from 'path';
+import { dirname, basename, extname, join, resolve, win32, posix } from 'path';
 import { pathToFileURL } from 'url';
 
 import chalk from 'chalk';
@@ -58,7 +58,8 @@ Builds a template and saves the result
 // Credit: https://github.com/rollup/plugins/blob/master/packages/pluginutils/src/normalizePath.ts#L5
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
-export const build = async (path: string, argv: BuildOptions) => {
+// FIXME: in v2 change the signature to an object
+export const build = async (path: string, argv: BuildOptions, outputBasePath?: string) => {
   const { out, plain, props = '{}', writeToFile = true } = argv;
   const platformPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
   const template = await import(platformPath);
@@ -96,9 +97,15 @@ export const build = async (path: string, argv: BuildOptions) => {
     process.exit(1);
   }
 
+  await mkdir(out!, { recursive: true });
+
   const buildProps = JSON.parse(props);
   const component = componentExport(buildProps);
-  const writePath = join(out!, basename(path).replace(extname(path), extension));
+  const writePath = outputBasePath
+    ? join(out!, path.replace(outputBasePath, '').replace(extname(path), extension))
+    : join(out!, basename(path).replace(extname(path), extension));
+
+  await mkdir(dirname(writePath), { recursive: true });
 
   if (plain) {
     const plainText = await render(component, { plainText: plain });
@@ -108,7 +115,6 @@ export const build = async (path: string, argv: BuildOptions) => {
 
   const html = await render(component, argv as any);
 
-  await mkdir(out!, { recursive: true });
   if (writeToFile) await writeFile(writePath, html, 'utf8');
 
   return html;
@@ -125,7 +131,7 @@ const compile = async (files: string[], outDir: string) => {
     write: true
   });
 
-  return globby([normalizePath(join(outDir, '*.js'))]);
+  return globby([normalizePath(join(outDir, '**/*.js'))]);
 };
 
 export const buildTemplates = async (target: string, options: BuildOptionsInternal) => {
@@ -150,7 +156,7 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
     compiledFiles.map(async (filePath, index) => {
       const result = {
         fileName: targetFiles[index],
-        html: await build(filePath, { ...options, out: outputPath })
+        html: await build(filePath, { ...options, out: outputPath }, esbuildOutPath)
       };
 
       if (showStats) {

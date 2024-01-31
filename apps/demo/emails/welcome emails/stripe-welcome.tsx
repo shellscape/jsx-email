@@ -69,7 +69,7 @@ const baseUrl = 'https://jsx.email/assets/demo/';
 
 export const TemplateName = 'Stripe Welcome';
 
-export const StripeWelcomeEmail = () => (
+export const Template = () => (
   <Html>
     <Head />
     <Preview>You're now ready to make live transactions with Stripe!</Preview>
