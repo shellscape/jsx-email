@@ -3,8 +3,8 @@ import React from 'react';
 
 import { render } from '../../src/render';
 
-import AirbnbEmail from '../../../../apps/demo/emails/airbnb-review';
-import PlaidEmail from '../../../../apps/demo/emails/plaid-verify-identity';
+import { Template as AirbnbEmail } from '../../../../apps/demo/emails/airbnb-review';
+import { Template as PlaidEmail } from '../../../../apps/demo/emails/plaid-verify-identity';
 
 import { Preview } from './fixtures/preview';
 import { Template } from './fixtures/template';
