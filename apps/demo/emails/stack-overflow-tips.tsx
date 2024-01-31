@@ -13,135 +13,10 @@ import {
   Text,
   Row
 } from 'jsx-email';
-import * as React from 'react';
 
 interface StackOverflowTipsEmailProps {
   tips?: { id: number; description: string }[];
 }
-
-const baseUrl = 'https://jsx.email/assets/demo/';
-
-const PropDefaults: StackOverflowTipsEmailProps = {
-  tips: [
-    {
-      id: 1,
-      description: 'To find a specific phrase, enter it in quotes: "local storage"'
-    },
-    {
-      id: 1,
-      description: 'To search within specific tag(s), enter them in square brackets: [javascript]'
-    },
-    {
-      id: 1,
-      description:
-        'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag'
-    }
-  ]
-};
-
-export const StackOverflowTipsEmail = ({ tips = [] }: StackOverflowTipsEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>Stack overflow tips for searching</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Section style={logo}>
-          <Img width={146} src={`${baseUrl}stack-overflow-logo.png`} />
-        </Section>
-
-        <Section style={header}>
-          <Row>
-            <Column style={headerContent}>
-              <Heading style={headerContentTitle}>Find what you want, faster</Heading>
-              <Text style={headerContentSubtitle}>
-                Tips and tricks for searching on Stack Overflow
-              </Text>
-            </Column>
-            <Column style={headerImageContainer}>
-              <Img width={340} src={`${baseUrl}stack-overflow-header.png`} />
-            </Column>
-          </Row>
-        </Section>
-
-        <Section style={content}>
-          <Heading as="h2" style={title}>
-            Searching for solutions
-          </Heading>
-          <Text style={paragraph}>
-            With more than 18 million questions, it's possible that someone has already provided a
-            solution to the problem you're facing.{' '}
-          </Text>
-
-          <Hr style={divider} />
-
-          <Heading as="h2" style={title}>
-            Use the search bar at the top of the page to find what you need
-          </Heading>
-          <Text style={paragraph}>Here are a few simple search tips to get you started:</Text>
-          <ul>
-            {tips.map((tip) => (
-              <li key={tip.id}>
-                <Text style={paragraph}>{tip.description}</Text>
-              </li>
-            ))}
-          </ul>
-
-          <Text style={paragraph}>
-            The more information you can put in the search bar, the more likely you will be to
-            either find the answer you need or feel confident that no one else has asked the
-            question before.
-          </Text>
-
-          <Hr style={divider} />
-
-          <Heading as="h2" style={title}>
-            Take a break and read about the worst coder in the world
-          </Heading>
-
-          <Section style={buttonContainer}>
-            <Link style={button} href="https://stackoverflow.blog/2019/10/22/">
-              I need a break
-            </Link>
-          </Section>
-        </Section>
-      </Container>
-
-      <Section style={footer}>
-        <Text style={footerText}>
-          You're receiving this email because your Stack Overflow activity triggered this tip or
-          reminder.
-        </Text>
-
-        <Link href="/" style={footerLink}>
-          Unsubscribe from emails like this{' '}
-        </Link>
-        <Link href="/" style={footerLink}>
-          Edit email settings{' '}
-        </Link>
-        <Link href="/" style={footerLink}>
-          Contact us
-        </Link>
-        <Link href="/" style={footerLink}>
-          Privacy
-        </Link>
-
-        <Hr style={footerDivider} />
-
-        <Img width={111} src={`${baseUrl}stack-overflow-logo-sm.png`} />
-        <Text style={footerAddress}>
-          <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New York, NY 10038
-        </Text>
-        <Text style={footerHeart}>{'<3'}</Text>
-      </Section>
-    </Body>
-  </Html>
-);
-
-StackOverflowTipsEmail.PreviewProps = {
-  tips: PropDefaults.tips
-} as StackOverflowTipsEmailProps;
-
-export default StackOverflowTipsEmail;
 
 const main = {
   backgroundColor: '#f3f3f5',
@@ -270,3 +145,127 @@ const footerHeart = {
   maxWidth: 'min-content',
   margin: '0 0 32px 0'
 };
+
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+const PropDefaults: StackOverflowTipsEmailProps = {
+  tips: [
+    {
+      id: 1,
+      description: 'To find a specific phrase, enter it in quotes: "local storage"'
+    },
+    {
+      id: 1,
+      description: 'To search within specific tag(s), enter them in square brackets: [javascript]'
+    },
+    {
+      id: 1,
+      description:
+        'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag'
+    }
+  ]
+};
+
+export const PreviewProps = {
+  tips: PropDefaults.tips
+} as StackOverflowTipsEmailProps;
+
+export const TemplateName = 'StackOverflow Tips';
+
+export const Template = ({ tips = [] }: StackOverflowTipsEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>Stack overflow tips for searching</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Section style={logo}>
+          <Img width={146} src={`${baseUrl}stack-overflow-logo.png`} />
+        </Section>
+
+        <Section style={header}>
+          <Row>
+            <Column style={headerContent}>
+              <Heading style={headerContentTitle}>Find what you want, faster</Heading>
+              <Text style={headerContentSubtitle}>
+                Tips and tricks for searching on Stack Overflow
+              </Text>
+            </Column>
+            <Column style={headerImageContainer}>
+              <Img width={340} src={`${baseUrl}stack-overflow-header.png`} />
+            </Column>
+          </Row>
+        </Section>
+
+        <Section style={content}>
+          <Heading as="h2" style={title}>
+            Searching for solutions
+          </Heading>
+          <Text style={paragraph}>
+            With more than 18 million questions, it's possible that someone has already provided a
+            solution to the problem you're facing.{' '}
+          </Text>
+
+          <Hr style={divider} />
+
+          <Heading as="h2" style={title}>
+            Use the search bar at the top of the page to find what you need
+          </Heading>
+          <Text style={paragraph}>Here are a few simple search tips to get you started:</Text>
+          <ul>
+            {tips.map((tip) => (
+              <li key={tip.id}>
+                <Text style={paragraph}>{tip.description}</Text>
+              </li>
+            ))}
+          </ul>
+
+          <Text style={paragraph}>
+            The more information you can put in the search bar, the more likely you will be to
+            either find the answer you need or feel confident that no one else has asked the
+            question before.
+          </Text>
+
+          <Hr style={divider} />
+
+          <Heading as="h2" style={title}>
+            Take a break and read about the worst coder in the world
+          </Heading>
+
+          <Section style={buttonContainer}>
+            <Link style={button} href="https://stackoverflow.blog/2019/10/22/">
+              I need a break
+            </Link>
+          </Section>
+        </Section>
+      </Container>
+
+      <Section style={footer}>
+        <Text style={footerText}>
+          You're receiving this email because your Stack Overflow activity triggered this tip or
+          reminder.
+        </Text>
+
+        <Link href="/" style={footerLink}>
+          Unsubscribe from emails like this{' '}
+        </Link>
+        <Link href="/" style={footerLink}>
+          Edit email settings{' '}
+        </Link>
+        <Link href="/" style={footerLink}>
+          Contact us
+        </Link>
+        <Link href="/" style={footerLink}>
+          Privacy
+        </Link>
+
+        <Hr style={footerDivider} />
+
+        <Img width={111} src={`${baseUrl}stack-overflow-logo-sm.png`} />
+        <Text style={footerAddress}>
+          <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New York, NY 10038
+        </Text>
+        <Text style={footerHeart}>{'<3'}</Text>
+      </Section>
+    </Body>
+  </Html>
+);

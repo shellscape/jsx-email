@@ -12,11 +12,73 @@ import {
   Section,
   Text
 } from 'jsx-email';
-import * as React from 'react';
+
+const main = {
+  backgroundColor: '#dbddde',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
+};
+
+const sectionLogo = {
+  padding: '0 40px'
+};
+
+const headerBlue = {
+  marginTop: '-1px'
+};
+
+const container = {
+  margin: '30px auto',
+  width: '610px',
+  backgroundColor: '#fff',
+  borderRadius: 5,
+  overflow: 'hidden'
+};
+
+const containerContact = {
+  backgroundColor: '#f0fcff',
+  width: '90%',
+  borderRadius: '5px',
+  overflow: 'hidden',
+  paddingLeft: '20px'
+};
+
+const heading = {
+  fontSize: '14px',
+  lineHeight: '26px',
+  fontWeight: '700',
+  color: '#004dcf'
+};
+
+const paragraphContent = {
+  padding: '0 40px'
+};
+
+const paragraphList = {
+  paddingLeft: 40
+};
+
+const paragraph = {
+  fontSize: '14px',
+  lineHeight: '22px',
+  color: '#3c4043'
+};
+
+const link = {
+  ...paragraph,
+  color: '#004dcf'
+};
+
+const hr = {
+  borderColor: '#e8eaed',
+  margin: '20px 0'
+};
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const GooglePlayPolicyUpdateEmail = () => (
+export const TemplateName = 'Google Play Policy Update';
+
+export const Template = () => (
   <Html>
     <Head />
     <Preview>Google Play developers</Preview>
@@ -151,66 +213,3 @@ export const GooglePlayPolicyUpdateEmail = () => (
     </Body>
   </Html>
 );
-
-export default GooglePlayPolicyUpdateEmail;
-
-const main = {
-  backgroundColor: '#dbddde',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
-};
-
-const sectionLogo = {
-  padding: '0 40px'
-};
-
-const headerBlue = {
-  marginTop: '-1px'
-};
-
-const container = {
-  margin: '30px auto',
-  width: '610px',
-  backgroundColor: '#fff',
-  borderRadius: 5,
-  overflow: 'hidden'
-};
-
-const containerContact = {
-  backgroundColor: '#f0fcff',
-  width: '90%',
-  borderRadius: '5px',
-  overflow: 'hidden',
-  paddingLeft: '20px'
-};
-
-const heading = {
-  fontSize: '14px',
-  lineHeight: '26px',
-  fontWeight: '700',
-  color: '#004dcf'
-};
-
-const paragraphContent = {
-  padding: '0 40px'
-};
-
-const paragraphList = {
-  paddingLeft: 40
-};
-
-const paragraph = {
-  fontSize: '14px',
-  lineHeight: '22px',
-  color: '#3c4043'
-};
-
-const link = {
-  ...paragraph,
-  color: '#004dcf'
-};
-
-const hr = {
-  borderColor: '#e8eaed',
-  margin: '20px 0'
-};

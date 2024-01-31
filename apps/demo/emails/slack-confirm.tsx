@@ -17,8 +17,6 @@ interface SlackConfirmEmailProps {
   validationCode?: string;
 }
 
-const baseUrl = 'https://jsx.email/assets/demo/';
-
 const footerText = {
   fontSize: '12px',
   color: '#b7b7b7',
@@ -95,7 +93,15 @@ const text = {
   lineHeight: '24px'
 };
 
-export const SlackConfirmEmail = ({ validationCode }: SlackConfirmEmailProps) => (
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  validationCode: 'DJZ-TLX'
+} as SlackConfirmEmailProps;
+
+export const TemplateName = 'Slack Confirm';
+
+export const Template = ({ validationCode }: SlackConfirmEmailProps) => (
   <Html>
     <Head />
     <Preview>Confirm your email address</Preview>
@@ -215,9 +221,3 @@ export const SlackConfirmEmail = ({ validationCode }: SlackConfirmEmailProps) =>
     </Body>
   </Html>
 );
-
-SlackConfirmEmail.PreviewProps = {
-  validationCode: 'DJZ-TLX'
-} as SlackConfirmEmailProps;
-
-export default SlackConfirmEmail;

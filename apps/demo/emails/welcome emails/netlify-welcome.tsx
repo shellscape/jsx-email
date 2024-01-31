@@ -24,8 +24,6 @@ interface NetlifyWelcomeEmailProps {
   links?: string[];
 }
 
-const baseUrl = 'https://jsx.email/assets/demo/';
-
 const PropDefaults: NetlifyWelcomeEmailProps = {
   steps: [
     {
@@ -69,7 +67,11 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
   links: ['Visit the forums', 'Read the docs', 'Contact an expert']
 };
 
-export const NetlifyWelcomeEmail = ({
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const TemplateName = 'Netlify Welcome';
+
+export const Template = ({
   steps = PropDefaults.steps,
   links = PropDefaults.links
 }: NetlifyWelcomeEmailProps) => {
@@ -156,5 +158,3 @@ export const NetlifyWelcomeEmail = ({
     </Html>
   );
 };
-
-export default NetlifyWelcomeEmail;
