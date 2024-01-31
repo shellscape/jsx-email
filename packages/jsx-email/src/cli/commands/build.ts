@@ -135,7 +135,7 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
   // Note: niave check that will probably get us into some edge cases
   const isFile = target.endsWith('.tsx') || target.endsWith('.jsx');
   const { out = '.rendered', showStats = true, writeToFile = true } = options;
-  const glob = isFile ? target : join(target, '*.{jsx,tsx}');
+  const glob = isFile ? target : join(target, '**/*.{jsx,tsx}');
   const targetFiles = await globby([normalizePath(glob)]);
   const outputPath = resolve(out);
   let largeCount = 0;
