@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Body,
   Button,
@@ -19,22 +20,22 @@ export const Template = () => (
   <Html>
     <Head />
     <Tailwind>
-      <Body className="bg-white my-auto mx-auto font-sans">
-        <Container className="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
+      <Body className="mx-auto my-auto bg-white font-sans dark:bg-black">
+        <Container className="mx-auto my-[40px] w-[465px] border-separate rounded border border-solid border-[#eaeaea] p-[20px]">
           <Section className="mt-[32px]">
             <Img
               src={`vercel-logo.png`}
               width="40"
               height="37"
               alt="Vercel"
-              className="my-0 mx-auto"
+              className="mx-auto my-0"
             />
           </Section>
-          <Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+          <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
             Join <strong></strong> on <strong>Vercel</strong>
           </Heading>
-          <Text className="text-black text-[14px] leading-[24px]">Hello,</Text>
-          <Text className="text-black text-[14px] leading-[24px]">
+          <Text className="text-[14px] leading-[24px] text-black">Hello,</Text>
+          <Text className="text-[14px] leading-[24px] text-black">
             <strong></strong> (<Link href={`mailto:`} className="text-blue-600 no-underline"></Link>
             ) has invited you to the <strong></strong> team on <strong>Vercel</strong>.
           </Text>
@@ -51,20 +52,20 @@ export const Template = () => (
               </Column>
             </Row>
           </Section>
-          <Section className="text-center mt-[32px] mb-[32px]">
+          <Section className="mb-[32px] mt-[32px] text-center">
             <Button
-              className="bg-[#000000] rounded text-white text-[12px] px-5 py-3 font-semibold no-underline text-center"
+              className="rounded bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
               href=""
             >
               Join the team
             </Button>
           </Section>
-          <Text className="text-black !text-[14px] leading-[24px]">
+          <Text className="!text-[14px] leading-[24px] text-black">
             or copy and paste this URL into your browser:{' '}
             <Link href="" className="text-blue-600 no-underline"></Link>
           </Text>
-          <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
-          <Text className="text-[#666666] !text-[12px] leading-[24px]">
+          <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+          <Text className="!text-[12px] leading-[24px] text-[#666666]">
             This invitation was intended for <span className="text-black"> </span>.This invite was
             sent from <span className="text-black"></span> located in{' '}
             <span className="text-black"></span>. If you were not expecting this invitation, you can
