@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.9
+
+_2024-02-02_
+
+### Bugfixes
+
+- jsx-email: assert media query for Tailwind dark mode variants (#167)
+
 ## v1.10.8
 
 _2024-01-31_
