@@ -11,6 +11,7 @@
     "url": "https://github.com/shellscape/jsx-email.git",
     "directory": "packages/create-jsx-email"
   },
+  "main": "dist/src/index.js",
   "bin": {
     "create-jsx-email": "./dist/src/index.js"
   },
@@ -37,6 +38,7 @@
     "@types/fs-extra": "^11.0.2",
     "@types/prompts": "^2.4.8"
   },
+  "types": "dist/src/index.d.ts",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
