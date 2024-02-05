@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v1.1.0
+
+_2024-02-05_
+
+### Features
+
+- create-jsx-email: choose JS or TS (#160)
+
 ## v1.0.2
 
 _2023-12-03_
