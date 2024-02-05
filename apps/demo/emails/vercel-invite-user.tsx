@@ -30,7 +30,21 @@ interface VercelInviteUserEmailProps {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const VercelInviteUserEmail = ({
+export const PreviewProps = {
+  username: 'batman',
+  userImage: `${baseUrl}batman-adam.jpg`,
+  invitedByUsername: 'joker',
+  invitedByEmail: 'joker@arkham.com',
+  teamName: 'Batmobile',
+  teamImage: `${baseUrl}vercel-team.png`,
+  inviteLink: 'https://vercel.com/teams/invite/foo',
+  inviteFromIp: '123.45.678.910',
+  inviteFromLocation: 'Gotham City'
+} as VercelInviteUserEmailProps;
+
+export const TemplateName = 'Vercel Invite User';
+
+export const Template = ({
   username,
   userImage,
   invitedByUsername,
@@ -116,17 +130,3 @@ export const VercelInviteUserEmail = ({
     </Html>
   );
 };
-
-VercelInviteUserEmail.PreviewProps = {
-  username: 'batman',
-  userImage: `${baseUrl}batman-adam.jpg`,
-  invitedByUsername: 'joker',
-  invitedByEmail: 'joker@arkham.com',
-  teamName: 'Batmobile',
-  teamImage: `${baseUrl}vercel-team.png`,
-  inviteLink: 'https://vercel.com/teams/invite/foo',
-  inviteFromIp: '123.45.678.910',
-  inviteFromLocation: 'Gotham City'
-} as VercelInviteUserEmailProps;
-
-export default VercelInviteUserEmail;

@@ -1,53 +1,8 @@
 import { Body, Button, Container, Head, Html, Img, Link, Preview, Section, Text } from 'jsx-email';
-import * as React from 'react';
 
 interface GithubAccessTokenEmailProps {
   username?: string;
 }
-
-const baseUrl = 'https://jsx.email/assets/demo/';
-
-export const GithubAccessTokenEmail = ({ username }: GithubAccessTokenEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>A fine-grained personal access token has been added to your account</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Img src={`${baseUrl}github.png`} width="32" height="32" alt="Github" />
-
-        <Text style={title}>
-          <strong>@{username}</strong>, a personal access was created on your account.
-        </Text>
-
-        <Section style={section}>
-          <Text style={text}>
-            Hey <strong>{username}</strong>!
-          </Text>
-          <Text style={text}>
-            A fine-grained personal access token (<Link>resend</Link>) was recently added to your
-            account.
-          </Text>
-
-          <Button style={button}>View your token</Button>
-        </Section>
-        <Text style={links}>
-          <Link style={link}>Your security audit log</Link> ・{' '}
-          <Link style={link}>Contact support</Link>
-        </Text>
-
-        <Text style={footer}>
-          GitHub, Inc. ・88 Colin P Kelly Jr Street ・San Francisco, CA 94107
-        </Text>
-      </Container>
-    </Body>
-  </Html>
-);
-
-GithubAccessTokenEmail.PreviewProps = {
-  username: 'Batman'
-} as GithubAccessTokenEmailProps;
-
-export default GithubAccessTokenEmail;
 
 const main = {
   backgroundColor: '#ffffff',
@@ -103,3 +58,47 @@ const footer = {
   textAlign: 'center' as const,
   marginTop: '60px'
 };
+
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  username: 'Batman'
+} as GithubAccessTokenEmailProps;
+
+export const TemplateName = 'Github Access Token';
+
+export const Template = ({ username }: GithubAccessTokenEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>A fine-grained personal access token has been added to your account</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img src={`${baseUrl}github.png`} width="32" height="32" alt="Github" />
+
+        <Text style={title}>
+          <strong>@{username}</strong>, a personal access was created on your account.
+        </Text>
+
+        <Section style={section}>
+          <Text style={text}>
+            Hey <strong>{username}</strong>!
+          </Text>
+          <Text style={text}>
+            A fine-grained personal access token (<Link>resend</Link>) was recently added to your
+            account.
+          </Text>
+
+          <Button style={button}>View your token</Button>
+        </Section>
+        <Text style={links}>
+          <Link style={link}>Your security audit log</Link> ・{' '}
+          <Link style={link}>Contact support</Link>
+        </Text>
+
+        <Text style={footer}>
+          GitHub, Inc. ・88 Colin P Kelly Jr Street ・San Francisco, CA 94107
+        </Text>
+      </Container>
+    </Body>
+  </Html>
+);

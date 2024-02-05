@@ -1,5 +1,29 @@
 # jsx-email ChangeLog
 
+## v1.10.9
+
+_2024-02-02_
+
+### Bugfixes
+
+- jsx-email: assert media query for Tailwind dark mode variants (#167)
+
+## v1.10.8
+
+_2024-01-31_
+
+### Bugfixes
+
+- jsx-email: correct nested build output (#165)
+
+## v1.10.7
+
+_2024-01-31_
+
+### Bugfixes
+
+- jsx-email: cli build nested files (#164)
+
 ## v1.10.6
 
 _2024-01-29_

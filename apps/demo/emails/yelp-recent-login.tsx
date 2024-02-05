@@ -21,8 +21,6 @@ interface YelpRecentLoginEmailProps {
   loginIp?: string;
 }
 
-const baseUrl = 'https://jsx.email/assets/demo/';
-
 const main = {
   backgroundColor: '#fff',
   fontFamily:
@@ -67,7 +65,19 @@ const containerImageFooter = {
   padding: '45px 0 0 0'
 };
 
-export const YelpRecentLoginEmail = ({
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  userFirstName: 'Bruce',
+  loginDate: new Date('September 7, 2022, 10:58 am'),
+  loginDevice: 'Chrome on Mac OS X',
+  loginLocation: 'Gotham City, United States',
+  loginIp: '12.345.67.891'
+} as YelpRecentLoginEmailProps;
+
+export const TemplateName = 'Yelp Recent Login';
+
+export const Template = ({
   userFirstName,
   loginDate,
   loginDevice,
@@ -171,13 +181,3 @@ export const YelpRecentLoginEmail = ({
     </Html>
   );
 };
-
-YelpRecentLoginEmail.PreviewProps = {
-  userFirstName: 'Bruce',
-  loginDate: new Date('September 7, 2022, 10:58 am'),
-  loginDevice: 'Chrome on Mac OS X',
-  loginLocation: 'Gotham City, United States',
-  loginIp: '12.345.67.891'
-} as YelpRecentLoginEmailProps;
-
-export default YelpRecentLoginEmail;

@@ -230,7 +230,9 @@ const walletLinkText = {
   textDecoration: 'none'
 };
 
-export const AppleReceiptEmail = () => (
+export const TemplateName = 'Apple Receipt';
+
+export const Template = () => (
   <Html>
     <Head />
     <Preview>Apple Receipt</Preview>
@@ -473,5 +475,3 @@ export const AppleReceiptEmail = () => (
     </Body>
   </Html>
 );
-
-export default AppleReceiptEmail;

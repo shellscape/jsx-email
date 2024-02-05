@@ -49,7 +49,12 @@ const getUno = (config: ConfigBase, production: boolean) => {
     config.theme = { ...config.theme, ...extend };
   }
 
-  const presets = [...(config.presets || []), presetTypography(), presetUno(), presetWind()];
+  const presets = [
+    ...(config.presets || []),
+    presetTypography(),
+    presetUno({ dark: 'media' }),
+    presetWind()
+  ];
   const uno = createGenerator({
     ...(config as any),
     presets,

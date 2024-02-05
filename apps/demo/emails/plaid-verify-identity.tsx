@@ -1,42 +1,8 @@
 import { Body, Container, Head, Heading, Html, Img, Link, Section, Text } from 'jsx-email';
-import * as React from 'react';
 
 interface PlaidVerifyIdentityEmailProps {
   validationCode?: string;
 }
-
-const baseUrl = 'https://jsx.email/assets/demo/';
-
-export const PlaidVerifyIdentityEmail = ({ validationCode }: PlaidVerifyIdentityEmailProps) => (
-  <Html>
-    <Head />
-    <Body style={main}>
-      <Container style={container}>
-        <Img src={`${baseUrl}plaid-logo.png`} width="212" height="88" alt="Plaid" style={logo} />
-        <Text style={tertiary}>Verify Your Identity</Text>
-        <Heading style={secondary}>Enter the following code to finish linking Venmo.</Heading>
-        <Section style={codeContainer}>
-          <Text style={code}>{validationCode}</Text>
-        </Section>
-        <Text style={paragraph}>Not expecting this email?</Text>
-        <Text style={paragraph}>
-          Contact{' '}
-          <Link href="mailto:login@plaid.com" style={link}>
-            login@plaid.com
-          </Link>{' '}
-          if you did not request this code.
-        </Text>
-      </Container>
-      <Text style={footer}>Securely powered by Plaid.</Text>
-    </Body>
-  </Html>
-);
-
-PlaidVerifyIdentityEmail.PreviewProps = {
-  validationCode: '144833'
-} as PlaidVerifyIdentityEmailProps;
-
-export default PlaidVerifyIdentityEmail;
 
 const main = {
   backgroundColor: '#ffffff',
@@ -134,3 +100,36 @@ const footer = {
   textAlign: 'center' as const,
   textTransform: 'uppercase' as const
 };
+
+const baseUrl = 'https://jsx.email/assets/demo/';
+
+export const PreviewProps = {
+  validationCode: '144833'
+} as PlaidVerifyIdentityEmailProps;
+
+export const TemplateName = 'Plaid Verify Identity';
+
+export const Template = ({ validationCode }: PlaidVerifyIdentityEmailProps) => (
+  <Html>
+    <Head />
+    <Body style={main}>
+      <Container style={container}>
+        <Img src={`${baseUrl}plaid-logo.png`} width="212" height="88" alt="Plaid" style={logo} />
+        <Text style={tertiary}>Verify Your Identity</Text>
+        <Heading style={secondary}>Enter the following code to finish linking Venmo.</Heading>
+        <Section style={codeContainer}>
+          <Text style={code}>{validationCode}</Text>
+        </Section>
+        <Text style={paragraph}>Not expecting this email?</Text>
+        <Text style={paragraph}>
+          Contact{' '}
+          <Link href="mailto:login@plaid.com" style={link}>
+            login@plaid.com
+          </Link>{' '}
+          if you did not request this code.
+        </Text>
+      </Container>
+      <Text style={footer}>Securely powered by Plaid.</Text>
+    </Body>
+  </Html>
+);
