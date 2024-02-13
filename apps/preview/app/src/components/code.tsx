@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { getHighlighter } from 'shikiji';
+import { getHighlighter } from 'shiki';
 
 export type PreviewLanguage = 'html' | 'jsx' | 'plain';
 

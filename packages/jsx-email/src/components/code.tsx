@@ -1,6 +1,5 @@
-import mem from 'p-memoize';
 import { Suspense } from 'react';
-import { type BuiltinLanguage } from 'shikiji';
+import { type BuiltinLanguage } from 'shiki';
 
 import { debug } from '../debug';
 import { useData } from '../render/jsx-to-string';
@@ -16,22 +15,15 @@ export interface CodeProps extends RootProps {
 
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/code' } : {};
 
-const getHighlighter = mem(async (language?: string, theme = 'nord') => {
-  const { getHighlighter: getHighBro } = await import('shikiji');
-  const shiki = await getHighBro({
-    langs: language ? [language] : [],
-    themes: [theme]
-  });
-
-  return shiki;
-});
-
 const Renderer = (props: React.PropsWithChildren<CodeProps>) => {
   const { children, language, style, theme = 'nord', ...rest } = props;
-  const highlighter = useData(props, () => getHighlighter(language, theme));
-
   const code = children as string;
-  const html = highlighter.codeToHtml(code, { lang: language, theme });
+  const highlight = async () => {
+    const { codeToHtml } = await import('shiki');
+    const html = await codeToHtml(code, { lang: language, theme });
+    return html;
+  };
+  const html = useData(props, highlight);
 
   return <div {...rest} {...debugProps} style={style} dangerouslySetInnerHTML={{ __html: html }} />;
 };

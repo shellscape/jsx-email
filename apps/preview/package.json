@@ -36,16 +36,15 @@
     "@radix-ui/react-slot": "1.0.2",
     "@radix-ui/react-toggle-group": "1.0.4",
     "@vitejs/plugin-react": "^4.1.0",
-    "classnames": "2.3.2",
-    "framer-motion": "10.16.16",
+    "classnames": "2.5.1",
+    "framer-motion": "11.0.5",
     "micromatch": "^4.0.5",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.20.1",
-    "shikiji": "^0.8.0",
-    "tailwindcss": "3.4.0",
+    "react-router-dom": "6.22.0",
+    "shiki": "^1.1.2",
+    "tailwindcss": "3.4.1",
     "titleize": "^4.0.0",
-    "vite": "^4.4.9",
-    "vite-plugin-node-polyfills": "^0.16.0"
+    "vite": "^4.4.9"
   },
   "optimizeDeps": [
     "micromatch"

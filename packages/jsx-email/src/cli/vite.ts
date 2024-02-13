@@ -88,7 +88,6 @@ export const getViteConfig = async (templatesPath: string) => {
         'deepmerge',
         'escape-string-regexp',
         'extend',
-        'p-memoize',
         'parse5',
         'pretty',
         'react-dom',
