@@ -1,9 +1,7 @@
-import { create } from 'superstruct';
 import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 import { render, renderPlainText } from 'jsx-email';
 
 import { Error } from './error.tsx';
-import { warn } from './helpers';
 import { Home } from './home.tsx';
 import { Preview } from './preview.tsx';
 import { gather, getNestedStructure } from './templates';
@@ -19,18 +17,11 @@ const getRoutes = async (templates: TemplateData[]) => {
   const templateParts = getNestedStructure(templates);
 
   const routes = templates.map(async (template) => {
-    const { Name, PreviewProps, Template, TemplateStruct } = template;
+    const { previewProps, templateName, Template } = template;
     let props: any;
 
-    if (TemplateStruct) props = create({}, TemplateStruct);
-    else if (typeof PreviewProps === 'function') props = PreviewProps();
-    else if (PreviewProps) props = PreviewProps;
-    else if ((Template as any).PreviewProps) {
-      warn(
-        `jsx-email: ${Name} → PreviewProps as a property of a component is deprecated. Please used a named export.`
-      );
-      props = (Template as any).PreviewProps;
-    }
+    if (typeof previewProps === 'function') props = await previewProps();
+    else if (previewProps) props = previewProps;
 
     const [html, plainText] = await Promise.all([
       render(<Template {...props} />, { minify: false, pretty: true }),
@@ -44,7 +35,7 @@ const getRoutes = async (templates: TemplateData[]) => {
             jsx: template.jsx,
             plainText,
             templateParts,
-            title: template.Name || template.path.replace('.tsx', '')
+            title: templateName || template.path.replace('.tsx', '')
           }}
         />
       </Layout>

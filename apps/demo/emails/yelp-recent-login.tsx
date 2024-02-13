@@ -67,7 +67,7 @@ const containerImageFooter = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   userFirstName: 'Bruce',
   loginDate: new Date('September 7, 2022, 10:58 am'),
   loginDevice: 'Chrome on Mac OS X',

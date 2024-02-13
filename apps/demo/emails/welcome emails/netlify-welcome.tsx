@@ -82,21 +82,19 @@ export const Template = ({
       <Tailwind
         config={{
           theme: {
-            extend: {
-              colors: {
-                brand: '#2250f4',
-                offwhite: '#fafbfb'
-              },
-              spacing: {
-                0: '0px',
-                20: '20px',
-                45: '45px'
-              }
+            colors: {
+              brand: '#2250f4',
+              offwhite: '#fafbfb'
+            },
+            spacing: {
+              0: '0px',
+              20: '20px',
+              45: '45px'
             }
           }
         }}
       >
-        <Body className="bg-offwhite text-base font-sans">
+        <Body className="bg-offwhite font-sans text-base">
           <Img
             src={`${baseUrl}netlify-logo.png`}
             width="184"
@@ -104,8 +102,8 @@ export const Template = ({
             alt="Netlify"
             className="mx-auto my-20"
           />
-          <Container className="bg-white p-45">
-            <Heading className="text-center my-0">Welcome to Netlify</Heading>
+          <Container className="p-45 bg-white">
+            <Heading className="my-0 text-center">Welcome to Netlify</Heading>
 
             <Section>
               <Row>
@@ -121,7 +119,7 @@ export const Template = ({
             <ul>{steps?.map(({ Description }) => Description)}</ul>
 
             <Section className="text-center">
-              <Button className="bg-brand text-white rounded-lg py-[18px] px-3">
+              <Button className="bg-brand rounded-lg px-3 py-[18px] text-white">
                 Go to your dashboard
               </Button>
             </Section>
@@ -130,7 +128,7 @@ export const Template = ({
               <Row>
                 {links?.map((link) => (
                   <Column>
-                    <Link className="text-black underline font-bold">{link}</Link>{' '}
+                    <Link className="font-bold text-black underline">{link}</Link>{' '}
                     <span className="text-green-500">→</span>
                   </Column>
                 ))}
@@ -141,7 +139,7 @@ export const Template = ({
           <Container className="mt-20">
             <Section>
               <Row>
-                <Column className="text-right px-20">
+                <Column className="px-20 text-right">
                   <Link>Unsubscribe</Link>
                 </Column>
                 <Column className="text-left">
@@ -149,7 +147,7 @@ export const Template = ({
                 </Column>
               </Row>
             </Section>
-            <Text className="text-center text-gray-400 mb-45">
+            <Text className="mb-45 text-center text-gray-400">
               Netlify, 44 Montgomery Street, Suite 300 San Francisco, CA
             </Text>
           </Container>

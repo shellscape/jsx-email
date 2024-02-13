@@ -6,7 +6,7 @@ import { render } from '../../src/render';
 import { Template as AirbnbEmail } from '../../../../apps/demo/emails/airbnb-review';
 import { Template as PlaidEmail } from '../../../../apps/demo/emails/plaid-verify-identity';
 
-import { Preview } from './fixtures/preview';
+import { Template as PreviewTemplate } from './fixtures/preview';
 import { Template } from './fixtures/template';
 import { Template as TailwindTemplate } from './fixtures/tailwind';
 
@@ -27,12 +27,12 @@ describe('render', () => {
   });
 
   it('converts to plain text and removes reserved ID', async () => {
-    const result = await render(<Preview />, { plainText: true });
+    const result = await render(<PreviewTemplate />, { plainText: true });
     expect(result).toMatchSnapshot();
   });
 
   it('converts to plain text using options', async () => {
-    const result = await render(<Preview />, { plainText: { selectors: [] } });
+    const result = await render(<PreviewTemplate />, { plainText: { selectors: [] } });
     expect(result).toMatchSnapshot();
   });
 

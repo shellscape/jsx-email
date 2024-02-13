@@ -44,17 +44,16 @@ export const gather = async () => {
     await Promise.all(
       Object.entries(sortedModules).map<Promise<TemplateData>>(async ([path, mod]) => {
         const component = mod as TemplateExports;
-        const Template = component.Template || (component as any).default;
+        const { previewProps, templateName, Template } = component;
 
         if (!Template) return null;
 
         const result: TemplateData = {
           jsx: sources[path],
-          Name: component.Name || parseName(path),
           path: pathLookup[path],
-          PreviewProps: component.PreviewProps || Template.PreviewProps,
+          previewProps,
           Template,
-          TemplateStruct: component.TemplateStruct
+          templateName
         };
         return result;
       })

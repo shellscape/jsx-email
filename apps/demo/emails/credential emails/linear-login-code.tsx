@@ -90,7 +90,7 @@ const code = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   validationCode: 'tt226-5398x'
 } as LinearLoginCodeEmailProps;
 

@@ -1,5 +1,3 @@
-import { type Struct } from 'superstruct';
-
 export enum Views {
   Desktop = 'desktop',
   Html = 'html',
@@ -9,10 +7,9 @@ export enum Views {
 }
 
 export interface TemplateExports {
-  Name?: string;
-  PreviewProps?: () => any;
   Template: React.ExoticComponent;
-  TemplateStruct?: Struct;
+  previewProps?: () => any;
+  templateName?: string;
 }
 
 export interface TemplateData extends TemplateExports {

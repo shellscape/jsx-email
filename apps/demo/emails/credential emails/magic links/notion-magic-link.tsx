@@ -62,7 +62,7 @@ const code = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   loginCode: 'sparo-ndigo-amurt-secan'
 } as NotionMagicLinkEmailProps;
 

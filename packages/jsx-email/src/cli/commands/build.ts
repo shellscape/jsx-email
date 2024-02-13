@@ -64,38 +64,18 @@ export const build = async (path: string, argv: BuildOptions, outputBasePath?: s
   const platformPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
   const template = await import(platformPath);
   // proper named export
-  let componentExport: TemplateFn = template.Template;
+  const componentExport: TemplateFn = template.Template;
 
-  // Note: This is silly, but necessary to parse all the whacky ways things may be exported
-  if (!componentExport) {
-    if (typeof template.default === 'function') {
-      // export default Template
-      componentExport = template.default;
-    } else if (typeof template.default.Template === 'function') {
-      // weird CJS edge case for export default Template
-      componentExport = template.default.Template;
-    } else if (typeof template.default.default === 'function') {
-      // super weird edge case for CJS as ESM default exports I ran into with ts-node
-      componentExport = template.default.default;
-    }
-  }
-
-  if (typeof componentExport !== 'function')
+  if (typeof componentExport !== 'function') {
     error(
-      chalk`{red Template Export Problem:} ${basename(
-        path
-      )} doesn't export Template or export a Template as default. If you feel this is a bug, please open a new issue.`
+      chalk`{red Template Export Problem:} ${path} doesn't have an export  of a JSX Element named \`Template\`. If you feel this is a bug, please open a new issue.`
     );
+    process.exit(1);
+  }
 
   const extension = plain ? '.txt' : '.html';
   const renderImport = 'jsx-email';
-  // eslint-disable-next-line import/no-extraneous-dependencies
   const { render } = await import(renderImport);
-
-  if (!componentExport) {
-    error(`${path} does not contain a named \`Template\` or default export of a JSX Element`);
-    process.exit(1);
-  }
 
   await mkdir(out!, { recursive: true });
 

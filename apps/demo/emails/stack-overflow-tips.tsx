@@ -166,7 +166,7 @@ const PropDefaults: StackOverflowTipsEmailProps = {
   ]
 };
 
-export const PreviewProps = {
+export const previewProps = {
   tips: PropDefaults.tips
 } as StackOverflowTipsEmailProps;
 

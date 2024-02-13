@@ -139,9 +139,6 @@ importers:
       shikiji:
         specifier: ^0.8.0
         version: 0.8.7
-      superstruct:
-        specifier: ^1.0.3
-        version: 1.0.3
       tailwindcss:
         specifier: 3.4.0
         version: 3.4.0(ts-node@10.9.1)

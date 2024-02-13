@@ -51,7 +51,7 @@ const footer = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   userFirstname: 'Bruce'
 } as KoalaWelcomeEmailProps;
 
