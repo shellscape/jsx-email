@@ -35,6 +35,11 @@ tasks:
     options:
       cache: false
 
+  copy.templates:
+    command: cp -r ../../assets/templates dist/generators
+    options:
+      cache: false
+
   tsc:
     command: tsc --project tsconfig.json
     inputs:

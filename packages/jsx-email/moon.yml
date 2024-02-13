@@ -11,8 +11,8 @@ tasks:
     deps:
       - ~:clean.dist
       - ~:compile
-      - ~:copy.assets
       - ~:copy.readme
+      - ~:copy.templates
     inputs:
       - src
       - package.json
@@ -36,8 +36,8 @@ tasks:
     options:
       runDepsInParallel: false
 
-  copy.assets:
-    command: cp -r src/cli/assets dist
+  copy.templates:
+    command: cp -r ../../assets/templates dist
     options:
       cache: false
 
