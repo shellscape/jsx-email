@@ -1,0 +1,79 @@
+{
+  "name": "@jsx-email/minify-preset",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A rehype-minify preset for jsx-email",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/minify-preset"
+  },
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "https://jsx.email/",
+  "bugs": "https://github.com/rehypejs/rehype-minify/issues",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "email",
+    "html",
+    "jsx",
+    "jsx-email",
+    "mangle",
+    "min",
+    "minify",
+    "plugin",
+    "preset",
+    "react",
+    "rehype",
+    "rehype-plugin",
+    "unified"
+  ],
+  "dependencies": {
+    "rehype-minify-attribute-whitespace": "^4.0.0",
+    "rehype-minify-css-style": "^4.0.0",
+    "rehype-minify-enumerated-attribute": "^5.0.0",
+    "rehype-minify-media-attribute": "^4.0.0",
+    "rehype-minify-meta-color": "^4.0.0",
+    "rehype-minify-meta-content": "^4.0.0",
+    "rehype-minify-style-attribute": "^4.0.0",
+    "rehype-minify-whitespace": "^6.0.0",
+    "rehype-normalize-attribute-value-case": "^4.0.0",
+    "rehype-remove-comments": "^6.0.0",
+    "rehype-remove-duplicate-attribute-values": "^4.0.0",
+    "rehype-remove-empty-attribute": "^4.0.0",
+    "rehype-remove-external-script-content": "^4.0.0",
+    "rehype-remove-meta-http-equiv": "^4.0.0",
+    "rehype-remove-style-type-css": "^4.0.0",
+    "rehype-sort-attribute-values": "^5.0.0",
+    "rehype-sort-attributes": "^5.0.0",
+    "unified": "^11.0.0"
+  },
+  "types": "dist/index.d.mts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
+  "sideEffects": false
+}

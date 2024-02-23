@@ -383,6 +383,63 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
 
+  packages/minify-preset:
+    dependencies:
+      rehype-minify-attribute-whitespace:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-minify-css-style:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-minify-enumerated-attribute:
+        specifier: ^5.0.0
+        version: 5.0.0
+      rehype-minify-media-attribute:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-minify-meta-color:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-minify-meta-content:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-minify-style-attribute:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-minify-whitespace:
+        specifier: ^6.0.0
+        version: 6.0.0
+      rehype-normalize-attribute-value-case:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-remove-comments:
+        specifier: ^6.0.0
+        version: 6.0.0
+      rehype-remove-duplicate-attribute-values:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-remove-empty-attribute:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-remove-external-script-content:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-remove-meta-http-equiv:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-remove-style-type-css:
+        specifier: ^4.0.0
+        version: 4.0.0
+      rehype-sort-attribute-values:
+        specifier: ^5.0.0
+        version: 5.0.0
+      rehype-sort-attributes:
+        specifier: ^5.0.0
+        version: 5.0.0
+      unified:
+        specifier: ^11.0.0
+        version: 11.0.4
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
