@@ -25,7 +25,7 @@ export const processHtml = async ({ html, minify, pretty }: ProcessOptions) => {
   }
 
   function rehypeMoveStyle() {
-    return function (tree: Root) {
+    return function moveStyle(tree: Root) {
       const matches: ElementWithParent[] = [];
       let head: Element | undefined;
 

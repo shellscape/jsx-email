@@ -16,19 +16,19 @@ tasks:
     options:
       cache: false
 
-  playwright:
+  run:
     command: playwright test -x --config playwright.dev.ts
     deps:
-    - ~:install
+      - ~:install
     options:
       cache: false
       runDepsInParallel: false
 
-  playwright.ci:
+  run.ci:
     command: playwright test -x
     deps:
-    - ~:install
-    - ~:setup.ci
+      - ~:install
+      - ~:setup.ci
     options:
       cache: false
       runDepsInParallel: false

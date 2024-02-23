@@ -41,14 +41,6 @@ jobs:
           corepack prepare pnpm@latest --activate
           pnpm config set script-shell "/usr/bin/bash"
 
-      - name: ESLint Cache
-        uses: actions/cache@v3
-        with:
-          path: ./.eslintcache
-          key: ${{ runner.os }}-eslintcache-${{ hashFiles('./eslintcache') }}
-          restore-keys: |
-            ${{ runner.os }}-eslintcache-
-
       - name: Setup Moon
         uses: moonrepo/setup-toolchain@v0
 
@@ -63,10 +55,12 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
 
-      - name: Build Projects
-        run: |
-          moon jsx-email:build
-          moon create-jsx-email:build
+      - name: Package Tests
+        run: moon run :test --affected --concurrency 1 --remote
 
-      - name: Lint Monorepo
-        run: moon run repo:lint
+      - name: Smoke Test
+        # Note: We're running `pnpm i` again so that pnpm places the `email` bin in root node_modules
+        # We'll need that for the preview tests below
+        run: |
+          pnpm i
+          moon smoke:run.ci

@@ -7,7 +7,7 @@ workspace:
 
 tasks:
   build:
-    command: rm -f tsconfig.json
+    command: echo "Build Complete ✓"
     deps:
       - ~:clean.dist
       - ~:compile
@@ -31,8 +31,6 @@ tasks:
     inputs:
       - src
       - package.json
-    deps:
-      - ~:tsconfig.link
     options:
       runDepsInParallel: false
 

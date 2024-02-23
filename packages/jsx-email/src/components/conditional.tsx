@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 
-import { jsxToString, useData } from '../render/jsx-to-string';
+import { jsxToString } from '../renderer/jsx-to-string';
+import { useData } from '../renderer/suspense';
 import type { JsxEmailComponent } from '../types';
 
 export interface ConditionalProps {

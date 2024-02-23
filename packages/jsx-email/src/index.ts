@@ -18,5 +18,7 @@ export * from './components/row';
 export * from './components/section';
 export * from './components/tailwind/tailwind';
 export * from './components/text';
-export * from './render';
+export * from './renderer/render';
+export * from './renderer/jsx-to-string';
+export { useData } from './renderer/suspense';
 export * from './types';

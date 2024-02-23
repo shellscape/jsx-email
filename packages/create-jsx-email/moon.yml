@@ -7,7 +7,7 @@ workspace:
 
 tasks:
   build:
-    command: rm -f tsconfig.json
+    command: echo "Build Complete ✓"
     inputs:
       - starter
       - src
@@ -24,7 +24,6 @@ tasks:
       - starter
       - src
     deps:
-      - ~:tsconfig.link
       - ~:tsc
       - ~:copy
     options:

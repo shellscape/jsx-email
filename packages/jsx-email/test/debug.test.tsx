@@ -1,5 +1,5 @@
 import { d, debug } from '../src/debug';
-import { render } from '../src/render';
+import { render } from '../src/renderer/render';
 
 d.enable('jsx-email:*');
 

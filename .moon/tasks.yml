@@ -24,10 +24,3 @@ tasks:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
-
-  tsconfig.link:
-    command: ln -sf ../../shared/tsconfig.default.json tsconfig.json
-    options:
-      cache: false
-      outputStyle: 'stream'
-    platform: system

@@ -5,6 +5,7 @@ projects:
   globs:
     - 'apps/*'
     - 'packages/*'
+    - 'test/*'
   sources:
     root: '.'
 vcs:

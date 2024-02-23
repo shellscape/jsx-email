@@ -3,7 +3,6 @@
     "outDir": "dist",
     "target": "ES2015"
   },
-  "exclude": ["dist", "node_modules", "**/*.spec.tsx", "**/*.spec.ts"],
   "extends": "../../shared/tsconfig.base.json",
   "include": ["src"]
 }

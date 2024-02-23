@@ -1,7 +1,7 @@
 // @ts-ignore
 import React from 'react';
 
-import { render } from '../../src/render';
+import { render } from '../../src/renderer/render';
 
 import { Template as AirbnbEmail } from '../../../../apps/demo/emails/airbnb-review';
 import { Template as PlaidEmail } from '../../../../apps/demo/emails/plaid-verify-identity';

@@ -4,130 +4,10 @@
  */
 
 import type { FC, ReactNode } from 'react';
-import hash from 'hash-it';
 
+import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants';
 import { escapeString } from './escape-string';
 import { stringifyStyles } from './stringify-styles';
-
-const ATTR_ALIASES = {
-  acceptCharset: 'acceptcharset',
-  accessKey: 'accesskey',
-  allowFullScreen: 'allowfullscreen',
-  autoCapitalize: 'autocapitalize',
-  autoComplete: 'autocomplete',
-  autoCorrect: 'autocorrect',
-  autoFocus: 'autofocus',
-  autoPlay: 'autoplay',
-  charSet: 'charset',
-  className: 'class',
-  colSpan: 'colspan',
-  contentEditable: 'contenteditable',
-  crossOrigin: 'crossorigin',
-  dateTime: 'datetime',
-  defaultChecked: 'checked',
-  defaultSelected: 'selected',
-  defaultValue: 'value',
-  htmlFor: 'for',
-  httpEquiv: 'http-equiv',
-  longDesc: 'longdesc',
-  maxLength: 'maxlength',
-  minLength: 'minlength',
-  noModule: 'nomodule',
-  noValidate: 'novalidate',
-  readOnly: 'readonly',
-  referrerPolicy: 'referrerpolicy',
-  rowSpan: 'rowspan',
-  spellCheck: 'spellcheck',
-  tabIndex: 'tabindex',
-  useMap: 'usemap'
-};
-
-// <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes>
-const BOOLEAN_ATTRS = new Set([
-  'async',
-  'allowfullscreen',
-  'allowpaymentrequest',
-  'autofocus',
-  'autoplay',
-  'checked',
-  'controls',
-  'default',
-  'defer',
-  'disabled',
-  'formnovalidate',
-  'hidden',
-  'ismap',
-  'multiple',
-  'muted',
-  'novalidate',
-  'nowrap',
-  'open',
-  'readonly',
-  'required',
-  'reversed',
-  'selected'
-]);
-
-// https://www.w3.org/TR/html/syntax.html#void-elements
-const VOID_ELEMENTS = new Set([
-  'area',
-  'base',
-  'br',
-  'col',
-  'embed',
-  'hr',
-  'img',
-  'input',
-  'link',
-  'meta',
-  'param',
-  'source',
-  'track',
-  'wbr'
-]);
-
-const EMPTY_OBJECT = Object.freeze({});
-
-const promiseMap = new Map();
-
-const wrapPromise = <TPromise extends Promise<any>>(promise: TPromise) => {
-  let status = 'pending';
-  let result: Awaited<TPromise>;
-  const suspender = promise.then(
-    (r) => {
-      status = 'success';
-      result = r;
-    },
-    (e) => {
-      status = 'error';
-      result = e;
-    }
-  );
-  return {
-    // eslint-disable-next-line consistent-return
-    read() {
-      if (status === 'pending') {
-        throw suspender;
-      } else if (status === 'error') {
-        throw result;
-      } else if (status === 'success') {
-        return result;
-      }
-    }
-  };
-};
-
-export const useData = <TData>(props: any, cb: () => Promise<TData>): TData => {
-  const key = hash(props);
-  let dataPromise;
-  if (promiseMap.has(key)) {
-    dataPromise = promiseMap.get(key);
-  } else {
-    dataPromise = wrapPromise(cb());
-    promiseMap.set(key, dataPromise);
-  }
-  return dataPromise.read();
-};
 
 const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
   try {
@@ -174,7 +54,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
   }
 
   const { type } = element;
-  const props = element.props || EMPTY_OBJECT;
+  const props = element.props || EmptyObject;
 
   if (typeof type === 'string') {
     let html = `<${type}`;
@@ -196,9 +76,9 @@ export async function jsxToString(element: ReactNode): Promise<string> {
         // eslint-disable-next-line no-underscore-dangle
         innerHTML = value.__html;
       } else {
-        const name = ATTR_ALIASES[prop as keyof typeof ATTR_ALIASES] || prop;
+        const name = AttributeAliases[prop as keyof typeof AttributeAliases] || prop;
 
-        if (BOOLEAN_ATTRS.has(name)) {
+        if (BooleanAttributes.has(name)) {
           html += value ? ` ${name}` : '';
         } else if (typeof value === 'string') {
           html += ` ${name}="${escapeString(value)}"`;
@@ -210,7 +90,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
       }
     }
 
-    if (VOID_ELEMENTS.has(type)) {
+    if (VoidElements.has(type)) {
       html += '/>';
     } else {
       html += '>';

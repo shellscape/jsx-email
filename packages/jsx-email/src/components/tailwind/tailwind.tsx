@@ -13,7 +13,8 @@ import { postcssVarReplace } from 'postcss-var-replace';
 import { Suspense } from 'react';
 
 import { debug } from '../../debug';
-import { jsxToString, useData } from '../../render/jsx-to-string';
+import { jsxToString } from '../../renderer/jsx-to-string';
+import { useData } from '../../renderer/suspense';
 
 import { plugin as colorFunctions } from './color-functions';
 

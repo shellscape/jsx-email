@@ -2,7 +2,8 @@
 import React from 'react';
 
 import { Tailwind, type TailwindProps } from '../../dist';
-import { jsxToString, render } from '../../src/render';
+import { render } from '../../src/renderer/render';
+import { jsxToString } from '../../src/renderer/jsx-to-string';
 import { Hr } from '../../src/components/hr';
 import { Head } from '../../src/components/head';
 import { Html } from '../../src/components/html';

@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { type BuiltinLanguage } from 'shiki';
 
 import { debug } from '../debug';
-import { useData } from '../render/jsx-to-string';
+import { useData } from '../renderer/suspense';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 type RootProps = BaseProps<'pre'>;

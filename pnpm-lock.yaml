@@ -149,34 +149,6 @@ importers:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.6.2)
 
-  apps/test:
-    dependencies:
-      '@playwright/test':
-        specifier: ^1.40.1
-        version: 1.40.1
-      dedent:
-        specifier: ^1.5.1
-        version: 1.5.1
-      diffable-html:
-        specifier: ^5.0.0
-        version: 5.0.0
-      jsx-email:
-        specifier: workspace:*
-        version: link:../../packages/jsx-email
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      superstruct:
-        specifier: ^1.0.3
-        version: 1.0.3
-    devDependencies:
-      '@types/diffable-html':
-        specifier: ^5.0.2
-        version: 5.0.2
-      '@types/node':
-        specifier: 20.10.5
-        version: 20.10.5
-
   apps/web:
     devDependencies:
       '@octokit/rest':
@@ -382,6 +354,34 @@ importers:
       hast:
         specifier: ^1.0.0
         version: 1.0.0
+
+  test/smoke:
+    dependencies:
+      '@playwright/test':
+        specifier: ^1.40.1
+        version: 1.41.2
+      dedent:
+        specifier: ^1.5.1
+        version: 1.5.1
+      diffable-html:
+        specifier: ^5.0.0
+        version: 5.0.0
+      jsx-email:
+        specifier: workspace:*
+        version: link:../../packages/jsx-email
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      superstruct:
+        specifier: ^1.0.3
+        version: 1.0.3
+    devDependencies:
+      '@types/diffable-html':
+        specifier: ^5.0.2
+        version: 5.0.2
+      '@types/node':
+        specifier: 20.10.5
+        version: 20.10.5
 
 packages:
 
@@ -1622,12 +1622,12 @@ packages:
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
     dev: false
 
-  /@playwright/test@1.40.1:
-    resolution: {integrity: sha512-EaaawMTOeEItCRvfmkI9v6rBkF1svM8wjl/YPRrg2N2Wmp+4qJYkWtJsbew1szfKKDm6fPLy4YAanBhIlf9dWw==}
+  /@playwright/test@1.41.2:
+    resolution: {integrity: sha512-qQB9h7KbibJzrDpkXkYvsmiDJK14FULCCZgEcoe2AvFAS64oCirWTwzTlAYEbKaRxWs5TFesE1Na6izMv3HfGg==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright: 1.40.1
+      playwright: 1.41.2
     dev: false
 
   /@radix-ui/colors@3.0.0:
@@ -6420,18 +6420,18 @@ packages:
       pathe: 1.1.1
     dev: true
 
-  /playwright-core@1.40.1:
-    resolution: {integrity: sha512-+hkOycxPiV534c4HhpfX6yrlawqVUzITRKwHAmYfmsVreltEl6fAZJ3DPfLMOODw0H3s1Itd6MDCWmP1fl/QvQ==}
+  /playwright-core@1.41.2:
+    resolution: {integrity: sha512-VaTvwCA4Y8kxEe+kfm2+uUUw5Lubf38RxF7FpBxLPmGe5sdNkSg5e3ChEigaGrX7qdqT3pt2m/98LiyvU2x6CA==}
     engines: {node: '>=16'}
     hasBin: true
     dev: false
 
-  /playwright@1.40.1:
-    resolution: {integrity: sha512-2eHI7IioIpQ0bS1Ovg/HszsN/XKNwEG1kbzSDDmADpclKc7CyqkHw7Mg2JCz/bbCxg25QUPcjksoMW7JcIFQmw==}
+  /playwright@1.41.2:
+    resolution: {integrity: sha512-v0bOa6H2GJChDL8pAeLa/LZC4feoAMbSQm1/jF/ySsWWoaNItvrMP7GEkvEEFyCTUYKMxjQKaTSg5up7nR6/8A==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright-core: 1.40.1
+      playwright-core: 1.41.2
     optionalDependencies:
       fsevents: 2.3.2
     dev: false
