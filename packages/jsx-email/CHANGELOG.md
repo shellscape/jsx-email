@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.10.10
+
+_2024-02-23_
+
+### Bugfixes
+
+- jsx-email: use custom minify preset (#173)
+
 ## v1.10.9
 
 _2024-02-02_
