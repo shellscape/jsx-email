@@ -43,7 +43,7 @@ const importPlugins = async () => {
     rehypeRemoveStyleTypeCss,
     rehypeSortAttributeValues,
     rehypeSortAttributes
-  ] as Pluggable[];
+  ].map((mod) => mod.default) as Pluggable[];
 };
 
 const settings = {
