@@ -1,3 +1,4 @@
+import { minifyPreset } from '@jsx-email/minify-preset';
 // Note: For some reason CI has a hard time with this, even though the dependency is installed, and
 // it builds locally fine
 // @ts-ignore
@@ -57,11 +58,7 @@ export const processHtml = async ({ html, minify, pretty }: ProcessOptions) => {
   }
 
   let processor = rehype().data('settings', settings).use(rehypeMoveStyle);
-
-  if (minify) {
-    const { default: rehypeMinify } = await import('rehype-preset-minify');
-    processor = processor.use(rehypeMinify);
-  }
+  if (minify) processor = processor.use(await minifyPreset());
 
   const doc = await processor
     .use(stringify, {
