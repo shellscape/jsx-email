@@ -46,6 +46,10 @@ describe('render', () => {
     expect(await render(<PlaidEmail />, { pretty: true })).toMatchSnapshot();
   });
 
+  it('renders with minifying', async () => {
+    expect(await render(<PlaidEmail />, { minify: true })).toMatchSnapshot();
+  });
+
   it('renders without minifying', async () => {
     expect(await render(<PlaidEmail />, { minify: false })).toMatchSnapshot();
   });

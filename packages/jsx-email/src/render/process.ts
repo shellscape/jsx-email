@@ -26,7 +26,7 @@ export const processHtml = async ({ html, minify, pretty }: ProcessOptions) => {
   }
 
   function rehypeMoveStyle() {
-    return function (tree: Root) {
+    return function moveStyle(tree: Root) {
       const matches: ElementWithParent[] = [];
       let head: Element | undefined;
 
@@ -58,7 +58,10 @@ export const processHtml = async ({ html, minify, pretty }: ProcessOptions) => {
   }
 
   let processor = rehype().data('settings', settings).use(rehypeMoveStyle);
-  if (minify) processor = processor.use(await minifyPreset());
+  if (minify) {
+    const preset = await minifyPreset();
+    processor = processor.use(preset);
+  }
 
   const doc = await processor
     .use(stringify, {

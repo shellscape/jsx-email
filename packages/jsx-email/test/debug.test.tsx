@@ -1,3 +1,6 @@
+// @ts-ignore
+import React from 'react';
+
 import { d, debug } from '../src/debug';
 import { render } from '../src/render';
 
