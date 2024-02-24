@@ -71,49 +71,57 @@ export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) =>
 const run = async () => {
   log(intro);
 
+  const skip = process.argv.some((arg) => arg === '--yes');
   const argTargetDir = formatTargetDir(process.argv[2]);
   let targetPath = argTargetDir || defaultTargetDir;
   let result: prompts.Answers<'projectName' | 'projectType' | 'overwrite'>;
+  const defaults: typeof result = {
+    overwrite: true,
+    projectName: defaultTargetDir,
+    projectType: 'TypeScript'
+  };
 
   try {
-    result = await prompts(
-      [
-        {
-          initial: defaultTargetDir,
-          message: 'Project name:',
-          name: 'projectName',
-          onState: (state) => {
-            targetPath = formatTargetDir(state.value) || defaultTargetDir;
-          },
-          type: argTargetDir ? null : 'text'
-        },
-        {
-          choices: [
-            { title: 'TypeScript', value: 'TypeScript' },
-            { title: 'JavaScript', value: 'JavaScript' }
+    result = skip
+      ? defaults
+      : await prompts(
+          [
+            {
+              initial: defaultTargetDir,
+              message: 'Project name:',
+              name: 'projectName',
+              onState: (state) => {
+                targetPath = formatTargetDir(state.value) || defaultTargetDir;
+              },
+              type: argTargetDir ? null : 'text'
+            },
+            {
+              choices: [
+                { title: 'TypeScript', value: 'TypeScript' },
+                { title: 'JavaScript', value: 'JavaScript' }
+              ],
+              message: 'TypeScript or JavaScript:',
+              name: 'projectType',
+              type: 'select'
+            },
+            {
+              message: () =>
+                targetPath === '.'
+                  ? 'Current directory'
+                  : `Target directory "${targetPath}" is not empty. Remove existing files and continue?`,
+              name: 'overwrite',
+              type: () => (!existsSync(targetPath) || isEmpty(targetPath) ? null : 'confirm')
+            },
+            {
+              name: 'overwriteChecker',
+              type: (_, { overwrite }: { overwrite?: boolean }) => {
+                if (overwrite === false) cancelled();
+                return null;
+              }
+            }
           ],
-          message: 'TypeScript or JavaScript:',
-          name: 'projectType',
-          type: 'select'
-        },
-        {
-          message: () =>
-            targetPath === '.'
-              ? 'Current directory'
-              : `Target directory "${targetPath}" is not empty. Remove existing files and continue?`,
-          name: 'overwrite',
-          type: () => (!existsSync(targetPath) || isEmpty(targetPath) ? null : 'confirm')
-        },
-        {
-          name: 'overwriteChecker',
-          type: (_, { overwrite }: { overwrite?: boolean }) => {
-            if (overwrite === false) cancelled();
-            return null;
-          }
-        }
-      ],
-      { onCancel: cancelled }
-    );
+          { onCancel: cancelled }
+        );
   } catch (cancelled: any) {
     log(cancelled.message);
     return;
