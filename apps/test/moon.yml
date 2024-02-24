@@ -15,11 +15,12 @@ tasks:
     command: playwright install --with-deps
     options:
       cache: false
+      outputStyle: 'stream'
 
   playwright:
     command: playwright test -x --config playwright.dev.ts
     deps:
-    - ~:install
+      - ~:install
     options:
       cache: false
       runDepsInParallel: false
@@ -27,16 +28,18 @@ tasks:
   playwright.ci:
     command: playwright test -x
     deps:
-    - ~:install
-    - ~:setup.ci
+      - ~:install
+      - ~:setup.ci
     options:
       cache: false
+      outputStyle: 'stream'
       runDepsInParallel: false
 
   setup.ci:
     command: ./scripts/ci-preview-setup.sh
     options:
       cache: false
+      outputStyle: 'stream'
       runFromWorkspaceRoot: true
     platform: system
 
@@ -44,5 +47,6 @@ tasks:
     command: ./scripts/ci-preview-start.sh
     options:
       cache: false
+      outputStyle: 'stream'
       runFromWorkspaceRoot: true
     platform: system

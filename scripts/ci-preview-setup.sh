@@ -8,11 +8,20 @@
 
 rm -rf /tmp/jsx-email-test
 REPO_DIR=$(pwd)
-pnpm exec create-jsx-email jsx-email-test
+pnpm exec create-jsx-email jsx-email-test --yes
 mv -f jsx-email-test /tmp
 cd /tmp/jsx-email-test
 pnpm i
+
+# The dependencies below are required for fixtures
+pnpm add unocss
+
+# The dependencies below have to be pointed back to the repo
 pnpm add "@jsx-email/app-preview@file:$REPO_DIR/apps/preview"
-pnpm add "jsx-email@file:$REPO_DIR/packages/jsx-email"
+pnpm add "@jsx-email/minify-preset@file:$REPO_DIR/packages/minify-preset"
+
+# We have to link this due to the workspace dependency
+pnpm link "$REPO_DIR/packages/jsx-email"
+
 rm -rf templates
 cp -r $REPO_DIR/apps/test/fixtures .
