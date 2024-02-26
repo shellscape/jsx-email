@@ -24,7 +24,7 @@ export const Container: JsxEmailComponent<ContainerProps> = ({
   >
     <tbody>
       <tr style={disableDefaultStyle ? {} : { width: '100%' }}>
-        <td>{children}</td>
+        <td align="center">{children}</td>
       </tr>
     </tbody>
   </table>
