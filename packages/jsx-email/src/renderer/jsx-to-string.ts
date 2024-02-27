@@ -3,7 +3,7 @@
  * @license MIT
  */
 
-import type { FC, ReactNode } from 'react';
+import type {FC, ReactNode} from 'react';
 
 import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants';
 import { escapeString } from './escape-string';
@@ -107,7 +107,12 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return html;
   } else if (type) {
     if (typeof type === 'function') {
-      return jsxToString((type as FC)(props));
+      const renderedFC = await jsxToString((type as FC)(props));
+      const sym = ((type as { $$typeof?: symbol })).$$typeof;
+      if(sym && Symbol.keyFor(sym) == 'react.provider') {
+        (type as any as {context: any[]}).context.pop()
+      }
+      return renderedFC;
     } else if (typeof type === 'symbol') {
       const key = Symbol.keyFor(type);
       // is this react fragment?
