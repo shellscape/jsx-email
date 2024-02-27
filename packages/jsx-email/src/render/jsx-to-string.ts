@@ -3,7 +3,7 @@
  * @license MIT
  */
 
-import type { FC, ReactNode } from 'react';
+import React, { type FC, type ReactNode } from 'react';
 import hash from 'hash-it';
 
 import { escapeString } from './escape-string';
