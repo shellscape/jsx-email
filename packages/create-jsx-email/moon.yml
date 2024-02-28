@@ -9,8 +9,10 @@ tasks:
   build:
     command: echo "Build Complete ✓"
     inputs:
-      - starter
+      - generators
       - src
+      - package.json
+      - tsconfig.json
     deps:
       - ~:compile
     options:
@@ -31,11 +33,6 @@ tasks:
 
   copy:
     command: cp -r generators dist
-    options:
-      cache: false
-
-  copy.templates:
-    command: cp -r ../../assets/templates dist/generators
     options:
       cache: false
 
