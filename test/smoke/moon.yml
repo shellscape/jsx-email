@@ -10,11 +10,13 @@ tasks:
     command: email preview fixtures/templates
     options:
       cache: false
+      outputStyle: 'stream'
 
   install:
     command: playwright install --with-deps
     options:
       cache: false
+      outputStyle: 'stream'
 
   run:
     command: playwright test -x --config playwright.dev.ts
@@ -22,6 +24,7 @@ tasks:
       - ~:install
     options:
       cache: false
+      outputStyle: 'stream'
       runDepsInParallel: false
 
   run.ci:
@@ -31,12 +34,14 @@ tasks:
       - ~:setup.ci
     options:
       cache: false
+      outputStyle: 'stream'
       runDepsInParallel: false
 
   setup.ci:
     command: ./scripts/ci-preview-setup.sh
     options:
       cache: false
+      outputStyle: 'stream'
       runFromWorkspaceRoot: true
     platform: system
 
@@ -44,5 +49,6 @@ tasks:
     command: ./scripts/ci-preview-start.sh
     options:
       cache: false
+      outputStyle: 'stream'
       runFromWorkspaceRoot: true
     platform: system

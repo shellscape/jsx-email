@@ -1,5 +1,29 @@
 # jsx-email ChangeLog
 
+## v1.10.12
+
+_2024-02-24_
+
+### Bugfixes
+
+- jsx-email,create-jsx-email: deal with node:fs/promise imports in preview (#177)
+
+## v1.10.11
+
+_2024-02-23_
+
+### Bugfixes
+
+- jsx-email: bump minify-preset, add tests (51304c8)
+
+## v1.10.10
+
+_2024-02-23_
+
+### Bugfixes
+
+- jsx-email: use custom minify preset (#173)
+
 ## v1.10.9
 
 _2024-02-02_

@@ -14,7 +14,7 @@ import {
 
 export const TemplateName = 'Reproduction';
 
-export const previewProps = {
+export const PreviewProps = {
   email: 'batman@example.com',
   name: 'Bruce Wayne'
 };

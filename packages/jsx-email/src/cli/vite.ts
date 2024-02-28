@@ -109,6 +109,7 @@ export const getViteConfig = async (templatesPath: string) => {
     ],
     resolve: {
       alias: {
+        'node:fs/promises': 'node-stdlib-browser/mock/empty',
         path: 'path-browserify',
         postcss: 'https://jspm.dev/postcss@8.4.31',
         rehype: 'https://jspm.dev/rehype@13.0.1',

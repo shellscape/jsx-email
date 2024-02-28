@@ -3,42 +3,26 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['build', 'compile', 'test']
+    exclude: ['compile']
 
 tasks:
   build:
     command: echo "Build Complete ✓"
+    deps:
+      - ~:clean.dist
+      - ~:compile
     inputs:
-      - generators
       - src
       - package.json
-      - tsconfig.json
-    deps:
-      - ~:compile
     options:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
 
   compile:
-    command: echo "Compile compelete"
+    command: tsup --config tsup.config.ts
     inputs:
-      - starter
       - src
-    deps:
-      - ~:tsc
-      - ~:copy
+      - package.json
     options:
       runDepsInParallel: false
-
-  copy:
-    command: cp -r generators dist
-    options:
-      cache: false
-
-  tsc:
-    command: tsc --project tsconfig.json
-    inputs:
-      - src
-    options:
-      cache: false
