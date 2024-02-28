@@ -1,6 +1,6 @@
-import { createContext, useContext } from '../../../src/renderer/compat/context';
+import { createContext, useContext } from 'react';
+
 import { jsxToString } from '../../../src';
-// import {Template} from "../fixtures/async-template";
 
 describe('context', () => {
   it('renders the Provider', async () => {
@@ -56,21 +56,27 @@ describe('context', () => {
     const results = [0, 0, 0];
     await jsxToString(
       <>
-        <context.Consumer>{(val) => {
-          results[0] = val;
-          return val
-        }}</context.Consumer>
+        <context.Consumer>
+          {(val) => {
+            results[0] = val;
+            return val;
+          }}
+        </context.Consumer>
         <context.Provider value={456}>
-          <context.Consumer>{(val) => {
-            results[1] = val;
-            return val
-          }}</context.Consumer>
+          <context.Consumer>
+            {(val) => {
+              results[1] = val;
+              return val;
+            }}
+          </context.Consumer>
         </context.Provider>
         <context.Provider value={789}>
-          <context.Consumer>{(val) => {
-            results[2] = val;
-            return val
-          }}</context.Consumer>
+          <context.Consumer>
+            {(val) => {
+              results[2] = val;
+              return val;
+            }}
+          </context.Consumer>
         </context.Provider>
       </>
     );
@@ -106,5 +112,4 @@ describe('context', () => {
     expect(results[3]).toEqual(456);
     expect(results[4]).toEqual(123);
   });
-
 });

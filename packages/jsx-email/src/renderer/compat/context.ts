@@ -1,13 +1,21 @@
-import type {Consumer, ConsumerProps, Context, ProviderExoticComponent, ProviderProps} from 'react';
+import type {
+  Consumer,
+  ConsumerProps,
+  Context,
+  ProviderExoticComponent,
+  ProviderProps
+} from 'react';
 
-type EmailContextValue<T> = T[]
+type EmailContextValue<T> = T[];
 
-interface EmailContext<T> extends Context<T> {
-  _value: EmailContextValue<T>
+interface JsxEmailContext<TValue> extends Context<TValue> {
+  internalValue: EmailContextValue<TValue>;
 }
 
-function _Provider<T>(ctx: EmailContextValue<T>): ProviderExoticComponent<ProviderProps<T>> {
-  const provider = ({ children, value }: ProviderProps<T>) => {
+function InternalProvider<TValue>(
+  ctx: EmailContextValue<TValue>
+): ProviderExoticComponent<ProviderProps<TValue>> {
+  const provider = ({ children, value }: ProviderProps<TValue>) => {
     ctx.push(value);
     return children;
   };
@@ -16,30 +24,28 @@ function _Provider<T>(ctx: EmailContextValue<T>): ProviderExoticComponent<Provid
   return provider;
 }
 
-function _Consumer<T>(ctx: EmailContextValue<T>): Consumer<T> {
-  const consumer = ({ children }: ConsumerProps<T>) => {
-    return children(ctx[ctx.length - 1]);
-  };
+const InternalConsumer = <TValue>(ctx: EmailContextValue<TValue>): Consumer<TValue> => {
+  const consumer = ({ children }: ConsumerProps<TValue>) => children(ctx[ctx.length - 1]);
   consumer.$$typeof = Symbol.for('react.consumer');
   return consumer;
-}
+};
 
-export function createContext<T>(defaultValue: T): Context<T> {
+export const createContext = <TValue>(defaultValue: TValue): Context<TValue> => {
+  const value = [defaultValue];
 
-  let value = [
-    defaultValue
-  ]
-
-  const context: EmailContext<T> = {
-    Provider: _Provider(value),
-    Consumer: _Consumer(value),
-    _value: value,
+  const context: JsxEmailContext<TValue> = {
+    Consumer: InternalConsumer(value),
+    internalValue: value,
+    Provider: InternalProvider(value)
   };
 
   return context;
-}
+};
 
-export function useContext<T>(context: Context<T>) {
-  const ctx = (context as EmailContext<T>)._value;
+export const useContext = <TValue>(context: Context<TValue>) => {
+  const ctx = (context as JsxEmailContext<TValue>).internalValue;
   return ctx[ctx.length - 1];
-}
+};
+
+export const readContext = <TValue>(context: Context<TValue>) =>
+  (context as JsxEmailContext<TValue>).internalValue;

@@ -3,15 +3,18 @@
  * @license MIT
  */
 
-import type {FC, ReactNode} from 'react';
+import type { FC, ReactNode } from 'react';
 
+import { restoreReact, shimReact } from './compat/react';
 import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants';
 import { escapeString } from './escape-string';
 import { stringifyStyles } from './stringify-styles';
 
-const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
+shimReact();
+
+const renderSuspense = async (children: ReactNode[]): ReturnType<typeof renderJsx> => {
   try {
-    const result = await jsxToString(children);
+    const result = await renderJsx(children);
     return result;
   } catch (error) {
     if (error instanceof Promise) {
@@ -30,7 +33,14 @@ const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToStr
  * @param element The JSX element to convert to a string
  * @returns The string representation of the JSX element
  */
-export async function jsxToString(element: ReactNode): Promise<string> {
+export const jsxToString = async (element: ReactNode): Promise<string> => {
+  shimReact();
+  const result = await renderJsx(element);
+  restoreReact();
+  return result;
+};
+
+async function renderJsx(element: ReactNode): Promise<string> {
   if (element == null) {
     return '';
   }
@@ -44,7 +54,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     let html = '';
     for (const child of element) {
       // eslint-disable-next-line no-await-in-loop
-      html += await jsxToString(child);
+      html += await renderJsx(child);
     }
     return html;
   }
@@ -98,7 +108,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
       if (innerHTML) {
         html += innerHTML;
       } else {
-        html += await jsxToString(props.children);
+        html += await renderJsx(props.children);
       }
 
       html += `</${type}>`;
@@ -107,23 +117,25 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return html;
   } else if (type) {
     if (typeof type === 'function') {
-      const renderedFC = await jsxToString((type as FC)(props));
-      const sym = ((type as { $$typeof?: symbol })).$$typeof;
-      if(sym && Symbol.keyFor(sym) == 'react.provider') {
-        (type as any as {context: any[]}).context.pop()
+      const renderedFC = await renderJsx((type as FC)(props));
+      const sym = (type as { $$typeof?: symbol }).$$typeof;
+
+      if (sym && Symbol.keyFor(sym) === 'react.provider') {
+        (type as any as { context: any[] }).context.pop();
       }
+
       return renderedFC;
     } else if (typeof type === 'symbol') {
       const key = Symbol.keyFor(type);
       // is this react fragment?
       if (key === 'react.fragment') {
-        return jsxToString(props.children);
+        return renderJsx(props.children);
       } else if (key === 'react.suspense') {
         const suspenseResult = await renderSuspense(props.children);
         return suspenseResult;
       }
     } else if (isReactForwardRef(type)) {
-      return jsxToString(
+      return renderJsx(
         (type as { render: (props: unknown, ref: unknown) => ReactNode }).render(props, props.ref)
       );
     }
