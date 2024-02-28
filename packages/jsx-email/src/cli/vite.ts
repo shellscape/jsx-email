@@ -104,7 +104,11 @@ export const getViteConfig = async (templatesPath: string) => {
           'rehype-preset-minify/': `export default {};`
         }
       }),
-      nodePolyfills(),
+      nodePolyfills({
+        globals: {
+          Buffer: true
+        }
+      }),
       react()
     ],
     resolve: {
