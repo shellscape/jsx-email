@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v1.1.1
+
+_2024-02-24_
+
+### Bugfixes
+
+- jsx-email,create-jsx-email: deal with node:fs/promise imports in preview (#177)
+
 ## v1.1.0
 
 _2024-02-05_

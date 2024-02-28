@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`context > renders the Consumer 1`] = `"123"`;
+
+exports[`context > renders the Provider 1`] = `""`;

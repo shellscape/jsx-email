@@ -10,6 +10,7 @@ dist
 .env
 .nojekyll
 **/.vitepress/cache
+.idea/
 
 packages/jsx-email/README.md
 
