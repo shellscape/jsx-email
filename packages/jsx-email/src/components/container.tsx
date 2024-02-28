@@ -1,18 +1,21 @@
 import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
-export interface ContainerProps extends BaseProps<'table'> {}
+export interface ContainerProps extends Omit<BaseProps<'table'>, 'align'> {
+  alignment?: 'center' | 'left' | 'right';
+}
 
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/container' } : {};
 
 export const Container: JsxEmailComponent<ContainerProps> = ({
+  alignment = 'center',
   children,
   disableDefaultStyle,
   style,
   ...props
 }) => (
   <table
-    align="center"
+    align={alignment}
     width="100%"
     {...props}
     {...debugProps}
@@ -24,7 +27,7 @@ export const Container: JsxEmailComponent<ContainerProps> = ({
   >
     <tbody>
       <tr style={disableDefaultStyle ? {} : { width: '100%' }}>
-        <td>{children}</td>
+        <td align={alignment}>{children}</td>
       </tr>
     </tbody>
   </table>

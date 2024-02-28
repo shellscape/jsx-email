@@ -7,7 +7,7 @@ workspace:
 
 tasks:
   dev:
-    command: email preview fixtures/templates
+    command: email preview fixtures
     options:
       cache: false
       outputStyle: 'stream'
