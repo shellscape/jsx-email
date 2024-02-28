@@ -36,4 +36,14 @@ describe('<Container> component', async () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  it('renders alternate alignment', async () => {
+    const container = await jsxToString(
+      <Container alignment="right">
+        <button>Hi</button>
+      </Container>
+    );
+
+    expect(container).toMatchSnapshot();
+  });
 });
