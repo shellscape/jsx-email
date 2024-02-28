@@ -2,19 +2,18 @@
  * Note: Parts of this file are derived from [Hyperons](https://github.com/i-like-robots/hyperons).
  * @license MIT
  */
-
+import chalk from 'chalk';
 import type { FC, ReactNode } from 'react';
 
-import { restoreReact, shimReact } from './compat/react';
 import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants';
 import { escapeString } from './escape-string';
 import { stringifyStyles } from './stringify-styles';
 
-shimReact();
+const { error: logError } = console;
 
-const renderSuspense = async (children: ReactNode[]): ReturnType<typeof renderJsx> => {
+const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
   try {
-    const result = await renderJsx(children);
+    const result = await jsxToString(children);
     return result;
   } catch (error) {
     if (error instanceof Promise) {
@@ -33,14 +32,7 @@ const renderSuspense = async (children: ReactNode[]): ReturnType<typeof renderJs
  * @param element The JSX element to convert to a string
  * @returns The string representation of the JSX element
  */
-export const jsxToString = async (element: ReactNode): Promise<string> => {
-  shimReact();
-  const result = await renderJsx(element);
-  restoreReact();
-  return result;
-};
-
-async function renderJsx(element: ReactNode): Promise<string> {
+export async function jsxToString(element: ReactNode): Promise<string> {
   if (element == null) {
     return '';
   }
@@ -54,13 +46,14 @@ async function renderJsx(element: ReactNode): Promise<string> {
     let html = '';
     for (const child of element) {
       // eslint-disable-next-line no-await-in-loop
-      html += await renderJsx(child);
+      html += await jsxToString(child);
     }
     return html;
   }
 
   if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
-    throw new Error('Unsupported JSX element:', element as any);
+    logError(chalk`{red Unsupported JSX element}:`, element);
+    throw new Error(`Unsupported JSX element`);
   }
 
   const { type } = element;
@@ -108,7 +101,7 @@ async function renderJsx(element: ReactNode): Promise<string> {
       if (innerHTML) {
         html += innerHTML;
       } else {
-        html += await renderJsx(props.children);
+        html += await jsxToString(props.children);
       }
 
       html += `</${type}>`;
@@ -117,7 +110,7 @@ async function renderJsx(element: ReactNode): Promise<string> {
     return html;
   } else if (type) {
     if (typeof type === 'function') {
-      const renderedFC = await renderJsx((type as FC)(props));
+      const renderedFC = await jsxToString((type as FC)(props));
       const sym = (type as { $$typeof?: symbol }).$$typeof;
 
       if (sym && Symbol.keyFor(sym) === 'react.provider') {
@@ -129,18 +122,26 @@ async function renderJsx(element: ReactNode): Promise<string> {
       const key = Symbol.keyFor(type);
       // is this react fragment?
       if (key === 'react.fragment') {
-        return renderJsx(props.children);
+        return jsxToString(props.children);
       } else if (key === 'react.suspense') {
         const suspenseResult = await renderSuspense(props.children);
         return suspenseResult;
       }
     } else if (isReactForwardRef(type)) {
-      return renderJsx(
+      return jsxToString(
         (type as { render: (props: unknown, ref: unknown) => ReactNode }).render(props, props.ref)
       );
+    } else if ((type as { $$typeof?: symbol }).$$typeof) {
+      const key = Symbol.keyFor((type as { $$typeof: symbol }).$$typeof);
+      if (key === 'react.provider') {
+        (type as any as { context: any[] }).context.pop();
+      } else if (key === 'react.context') {
+        return jsxToString(props.children);
+      }
     }
 
-    throw new Error(`Unsupported JSX element type: ${String(type)}`);
+    logError(chalk`{red Unsupported JSX element}:`, type);
+    throw new Error(`Unsupported JSX element type`);
   }
   return '';
 }

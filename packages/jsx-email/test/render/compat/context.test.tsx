@@ -1,6 +1,6 @@
-import { createContext, useContext } from 'react';
+import React from 'react';
 
-import { jsxToString } from '../../../src';
+import { createContext, jsxToString, useContext } from '../../../src';
 
 describe('context', () => {
   it('renders the Provider', async () => {
@@ -16,6 +16,7 @@ describe('context', () => {
   });
 
   it('provides default value with useContext hook', async () => {
+    console.log(createContext.toString());
     const context = createContext(123);
     let result = 0;
     const HookConsumer = () => {
