@@ -65,6 +65,7 @@ jobs:
 
       - name: Build Projects
         run: |
+          moon minify-preset:build
           moon jsx-email:build
           moon create-jsx-email:build
 
