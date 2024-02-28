@@ -27,5 +27,6 @@
     "strictNullChecks": true,
     "target": "ESNext"
   },
-  "exclude": ["**/dist", "**/node_modules"]
+  "exclude": ["**/dist", "**/node_modules"],
+  "include": ["."]
 }

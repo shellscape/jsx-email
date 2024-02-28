@@ -1,4 +1,4 @@
-name: Validate Monorepo
+name: Run Tests
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    name: Validate
+    name: Run Tests
 
     steps:
       - name: Checkout Commit

@@ -66,10 +66,6 @@ export const getViteConfig = async (templatesPath: string) => {
   });
   const tsConfigRoot = foundRoot ? dirname(foundRoot) : void 0;
 
-  console.log();
-  console.log({ foundRoot, templatesPath, tsConfigRoot });
-  console.log();
-
   return defineConfig({
     clearScreen: false,
     customLogger: logger,

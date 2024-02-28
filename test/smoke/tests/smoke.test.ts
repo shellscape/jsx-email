@@ -21,23 +21,36 @@ test('landing', async ({ page }) => {
 
   await page.goto('/');
   await expect(page).toHaveTitle('JSX Email');
-  await page.getByText('JSX Email Preview');
 
-  const landing = await page.locator('#landing');
+  page.getByText('JSX Email Preview');
+
+  const landing = page.locator('#landing');
+
   expect(await landing.innerHTML({ timeout: 10e3 })).toMatchSnapshot();
-
-  await expect(page.locator('#link-Base')).toBeVisible();
+  expect(page.locator('#Templates-link-Base')).toBeTruthy();
 });
 
 test('templates', async ({ page }) => {
   test.setTimeout(30e3);
 
-  const selector = '#sidebar-tree a';
+  const allLinksSel = '#sidebar-tree a';
+  const templatesButtonSel = '#Templates-sidebar-tree > button';
+  const propsButtonSel = '#Props-sidebar-tree > button';
 
   await page.goto('/');
-  await page.waitForSelector(selector, timeout);
+  await page.waitForSelector(templatesButtonSel, timeout);
 
-  const links = await page.locator(selector);
+  const templateButton = page.locator(templatesButtonSel);
+  templateButton.click();
+
+  await page.waitForSelector(templatesButtonSel, timeout);
+
+  const propsButton = page.locator(propsButtonSel);
+  propsButton.click();
+
+  await page.waitForSelector(allLinksSel, timeout);
+
+  const links = page.locator(allLinksSel);
 
   for (const link of await links.all()) {
     const name = await link.getAttribute('data-name');
