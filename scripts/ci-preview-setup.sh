@@ -36,5 +36,6 @@ pnpm link "$REPO_DIR/packages/jsx-email"
 
 # Remove the templates that were created for us
 rm -rf templates
+
 # Copy our test fixtures to the temp smoke-test
 cp -r $REPO_DIR/test/smoke/fixtures .

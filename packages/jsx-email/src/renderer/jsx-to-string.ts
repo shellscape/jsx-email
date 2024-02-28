@@ -2,12 +2,14 @@
  * Note: Parts of this file are derived from [Hyperons](https://github.com/i-like-robots/hyperons).
  * @license MIT
  */
-
+import chalk from 'chalk';
 import type { FC, ReactNode } from 'react';
 
 import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants';
 import { escapeString } from './escape-string';
 import { stringifyStyles } from './stringify-styles';
+
+const { error: logError } = console;
 
 const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
   try {
@@ -50,7 +52,8 @@ export async function jsxToString(element: ReactNode): Promise<string> {
   }
 
   if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
-    throw new Error('Unsupported JSX element:', element as any);
+    logError(chalk`{red Unsupported JSX element}:`, element);
+    throw new Error(`Unsupported JSX element`);
   }
 
   const { type } = element;
@@ -107,7 +110,14 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return html;
   } else if (type) {
     if (typeof type === 'function') {
-      return jsxToString((type as FC)(props));
+      const renderedFC = await jsxToString((type as FC)(props));
+      const sym = (type as { $$typeof?: symbol }).$$typeof;
+
+      if (sym && Symbol.keyFor(sym) === 'react.provider') {
+        (type as any as { context: any[] }).context.pop();
+      }
+
+      return renderedFC;
     } else if (typeof type === 'symbol') {
       const key = Symbol.keyFor(type);
       // is this react fragment?
@@ -121,9 +131,17 @@ export async function jsxToString(element: ReactNode): Promise<string> {
       return jsxToString(
         (type as { render: (props: unknown, ref: unknown) => ReactNode }).render(props, props.ref)
       );
+    } else if ((type as { $$typeof?: symbol }).$$typeof) {
+      const key = Symbol.keyFor((type as { $$typeof: symbol }).$$typeof);
+      if (key === 'react.provider') {
+        (type as any as { context: any[] }).context.pop();
+      } else if (key === 'react.context') {
+        return jsxToString(props.children);
+      }
     }
 
-    throw new Error(`Unsupported JSX element type: ${String(type)}`);
+    logError(chalk`{red Unsupported JSX element}:`, type);
+    throw new Error(`Unsupported JSX element type`);
   }
   return '';
 }
