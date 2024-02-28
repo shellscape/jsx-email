@@ -55,6 +55,11 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
 
+      - name: Build Projects
+        run: |
+          moon jsx-email:build
+          moon create-jsx-email:build
+
       - name: Package Tests
         run: moon run :test --affected --concurrency 1 --remote
 

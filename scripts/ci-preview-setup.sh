@@ -15,4 +15,4 @@ pnpm i
 pnpm add "@jsx-email/app-preview@file:$REPO_DIR/apps/preview"
 pnpm add "jsx-email@file:$REPO_DIR/packages/jsx-email"
 rm -rf templates
-cp -r $REPO_DIR/apps/test/fixtures .
+cp -r $REPO_DIR/test/smoke/fixtures .
