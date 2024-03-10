@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { Cross1Icon } from '@radix-ui/react-icons';
+
 import type { TemplatePart } from '../types';
 
 import { Logo } from './logo';
@@ -11,11 +13,13 @@ type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
 
 interface SidebarProps extends RootProps {
+  closeNav: () => void;
   templateParts: TemplatePart[];
   title?: string;
 }
 
 interface SidebarSectionProps {
+  closeNav: () => void;
   currentPageTitle: string;
   isSubSection?: boolean;
   templateParts: TemplatePart[];
@@ -80,7 +84,8 @@ const FileName = () => (
   </svg>
 );
 
-const SidebarSection = ({
+export const SidebarSection = ({
+  closeNav,
   templateParts,
   currentPageTitle,
   isSubSection,
@@ -140,6 +145,7 @@ const SidebarSection = ({
                   return isParent ? (
                     <div className="pl-4" key={item.name}>
                       <SidebarSection
+                        closeNav={closeNav}
                         templateParts={item.children}
                         currentPageTitle={currentPageTitle}
                         title={item.name}
@@ -156,6 +162,7 @@ const SidebarSection = ({
                       }
                       key={item.name}
                       to={`/${item.path}`}
+                      onClick={closeNav}
                     >
                       <span
                         className={classnames(
@@ -187,11 +194,21 @@ const SidebarSection = ({
 };
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  ({ className, templateParts, title, ...props }, forwardedRef) => (
+  ({ className, templateParts, closeNav, title, ...props }, forwardedRef) => (
     <aside ref={forwardedRef} className={className} {...props}>
-      <nav className="h-full p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-dark-bg-border">
-        <Logo />
+      <nav className="h-full p-6 w-screen lg:w-full lg:min-w-[275px] lg:max-w-[275px] flex flex-col gap-4 border-r border-dark-bg-border">
+        <div className="flex items-center justify-between">
+          <Logo />
+          <button
+            onClick={closeNav}
+            className="inlne-block lg:hidden w-5 h-5"
+            aria-label="Toggle nav menu"
+          >
+            <Cross1Icon className="w-5 h-5" />
+          </button>
+        </div>
         <SidebarSection
+          closeNav={closeNav}
           templateParts={templateParts}
           currentPageTitle={title}
           title="Email Templates"

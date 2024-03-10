@@ -18,12 +18,13 @@ interface ShellProps extends RootProps {
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
   ({ title, templateParts, children, html, activeView, setActiveView }, forwardedRef) => {
-    const [showNav] = React.useState(false);
+    const [showNav, setShowNav] = React.useState(false);
     return (
       <div className="flex flex-col h-screen overflow-x-hidden">
         <div ref={forwardedRef} className="flex justify-between h-full">
           <Sidebar
-            className={classNames('w-screen max-w-full md:max-w-[275px]', {
+            closeNav={() => setShowNav(false)}
+            className={classNames('w-screen max-w-full lg:max-w-[275px]', {
               'translate-x-[-100%] lg:translate-x-0 absolute lg:relative': !showNav,
               'translate-x-0': showNav
             })}
@@ -36,14 +37,13 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
               'w-screen lg:w-[calc(100%_-_275px)]': !showNav
             })}
           >
-            {title && (
-              <Nav
-                title={title}
-                activeView={activeView}
-                setActiveView={setActiveView}
-                markup={html}
-              />
-            )}
+            <Nav
+              title={title}
+              activeView={activeView}
+              setActiveView={setActiveView}
+              markup={html}
+              openNav={() => setShowNav(true)}
+            />
             <div className="relative h-[calc(100vh_-_70px)] overflow-auto">
               <div className="mx-auto">{children}</div>
             </div>
