@@ -67,7 +67,7 @@
     "html-to-text": "9.0.5",
     "import-local": "^3.1.0",
     "magic-string": "^0.30.5",
-    "md-to-react-email": "5.0.0",
+    "md-to-react-email": "5.0.2",
     "mustache": "^4.2.0",
     "p-memoize": "4.0.4",
     "postcss": "^8.4.32",
