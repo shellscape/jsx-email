@@ -1,7 +1,8 @@
+import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
 import type { Pluggable, Preset, Settings } from 'unified';
 
 // Note: rehype is all ESM-only, so for CJS compat we're dynamically importing
-// No, we're not going to force ESM on users'
+// No, we're not going to force ESM on users
 const importPlugins = async () => {
   const rehypeMinifyAttributeWhitespace = await import('rehype-minify-attribute-whitespace');
   const rehypeMinifyCssStyle = await import('rehype-minify-css-style');
@@ -64,8 +65,12 @@ const settings = {
   tightSelfClosing: true
 } as Settings;
 
-export const minifyPreset = async (): Promise<Preset> => {
-  const plugins = await importPlugins();
+export const plugin: JsxEmailPlugin = {
+  name: 'root/minify',
+  process: async (): Promise<Preset> => {
+    const plugins = await importPlugins();
 
-  return { plugins, settings };
+    return { plugins, settings };
+  },
+  symbol: pluginSymbol
 };

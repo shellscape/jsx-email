@@ -1,8 +1,10 @@
+import * as config from '../config';
 import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
 export interface HrProps extends BaseProps<'hr'> {}
 
+const configDds = config.current.render.disableDefaultStyle;
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/hr' } : {};
 
 export const Hr: JsxEmailComponent<HrProps> = ({ disableDefaultStyle, style, ...props }) => (
@@ -10,7 +12,7 @@ export const Hr: JsxEmailComponent<HrProps> = ({ disableDefaultStyle, style, ...
     {...props}
     {...debugProps}
     style={{
-      ...(disableDefaultStyle
+      ...(configDds || disableDefaultStyle
         ? {}
         : {
             border: 'none',

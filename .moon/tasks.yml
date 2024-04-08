@@ -10,11 +10,32 @@ fileGroups:
     - 'tests/**/*.test.*'
 
 tasks:
+  build:
+    command: echo "Build Complete ✓"
+    deps:
+      - ~:clean.dist
+      - ~:compile
+    inputs:
+      - src
+      - package.json
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
   clean.dist:
     command: rm -rf dist
     inputs:
       - src
       - package.json
+
+  compile:
+    command: tsup --config ../shared/tsup.base.ts
+    inputs:
+      - src
+      - package.json
+    options:
+      runDepsInParallel: false
 
   release:
     command: versioner --target $projectRoot

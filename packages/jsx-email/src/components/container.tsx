@@ -1,3 +1,4 @@
+import * as config from '../config';
 import { debug } from '../debug';
 import type { BaseProps, JsxEmailComponent } from '../types';
 
@@ -5,6 +6,7 @@ export interface ContainerProps extends Omit<BaseProps<'table'>, 'align'> {
   alignment?: 'center' | 'left' | 'right';
 }
 
+const configDds = config.current.render.disableDefaultStyle;
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/container' } : {};
 
 export const Container: JsxEmailComponent<ContainerProps> = ({
@@ -23,10 +25,10 @@ export const Container: JsxEmailComponent<ContainerProps> = ({
     cellSpacing="0"
     cellPadding="0"
     border={0}
-    style={{ ...(disableDefaultStyle ? {} : { maxWidth: '37.5em' }), ...style }}
+    style={{ ...(configDds || disableDefaultStyle ? {} : { maxWidth: '37.5em' }), ...style }}
   >
     <tbody>
-      <tr style={disableDefaultStyle ? {} : { width: '100%' }}>
+      <tr style={configDds || disableDefaultStyle ? {} : { width: '100%' }}>
         <td align={alignment}>{children}</td>
       </tr>
     </tbody>
