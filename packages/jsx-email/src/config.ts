@@ -1,9 +1,13 @@
 import chalk from 'chalk';
 import { lilconfig } from 'lilconfig';
+import type { MethodFactoryLevels } from 'loglevelnext';
 
-import { pluginSymbol, type JsxEmailPlugin, type RenderOptions } from './types';
+import { getPluginLog, log } from './log';
+import { pluginSymbol, type JsxEmailPlugin, type PluginInternal } from './plugins';
+import type { RenderOptions } from './types';
 
 export interface JsxEmailConfig {
+  logLevel?: MethodFactoryLevels;
   plugins: JsxEmailPlugin[];
   render: RenderOptions;
 }
@@ -13,9 +17,9 @@ export type AnyPluginConfig = JsxEmailConfig & {
 export type JsxEmailConfigFn = () => Promise<Partial<AnyPluginConfig>>;
 export type DefinedConfig = Partial<AnyPluginConfig> | JsxEmailConfigFn;
 
-const { error, warn } = console;
 const configSymbol = Symbol.for('jsx-email/config');
 export const defaults: AnyPluginConfig = {
+  logLevel: 'info',
   plugins: [],
   render: { disableDefaultStyle: false, minify: false, plainText: false, pretty: false }
 };
@@ -35,7 +39,7 @@ const checkSymbol = (plugin: JsxEmailPlugin, source?: string) => {
     ? chalk`{red jsx-email}: A plugin imported from '${source}' ${oops}`
     : chalk`{red jsx-email}: The plugin named '${plugin.name}' ${oops}`;
 
-  if (plugin.symbol !== pluginSymbol) error(message);
+  if (plugin.symbol !== pluginSymbol) log.error(message);
 
   process.exit(1);
 };
@@ -46,7 +50,7 @@ const checkName = (plugin: JsxEmailPlugin, source?: string) => {
     ? chalk`{red jsx-email}: A plugin imported from '${source}' ${oops}`
     : chalk`{red jsx-email}: A plugin added to the config ${oops}`;
 
-  if (!plugin.name) error(message);
+  if (!plugin.name) log.error(message);
 
   process.exit(1);
 };
@@ -68,12 +72,12 @@ export const defineConfig = async (config: DefinedConfig): Promise<JsxEmailConfi
     if (config.render?.minify) mods.plugins.push(plugins.minify);
     if (config.render?.pretty) mods.plugins.push(plugins.pretty);
     if (config.render?.minify && config.render.pretty) {
-      warn(
+      log.warn(
         chalk`{yellow jsx-email}: Both minify and pretty options are true. Please choose only one.`
       );
     }
     if ((config.render?.minify || config.render?.pretty) && config.render?.plainText) {
-      warn(
+      log.warn(
         chalk`{yellow jsx-email}: plaintText has been enabled, minify and pretty will have no effect.`
       );
 
@@ -99,14 +103,14 @@ export const defineConfig = async (config: DefinedConfig): Promise<JsxEmailConfi
           checkName(assumed, plugin);
 
           if (!assumed.name) {
-            error(
+            log.error(
               chalk`{red jsx-email}: A plugin imported from '${plugin}' did not have the required 'name' property`
             );
           }
 
           process.exit(1);
-        } catch (err) {
-          error(
+        } catch (_) {
+          log.error(
             chalk`{red jsx-email}: Tried to import a plugin from '${plugin}' but it wasn't found`
           );
           process.exit(1);
@@ -115,6 +119,8 @@ export const defineConfig = async (config: DefinedConfig): Promise<JsxEmailConfi
         checkSymbol(assumed);
         checkName(assumed);
       }
+
+      (assumed as PluginInternal).log = getPluginLog(assumed.name);
 
       return [assumed.name, assumed];
     })
@@ -130,14 +136,19 @@ export const loadConfig = async (): Promise<JsxEmailConfig> => {
   if ((globalThis as any)[globalConfigSymbol]) return (globalThis as any)[globalConfigSymbol];
 
   const result = await lilconfig('jsx-email').search();
-  const { config } = result || {};
+  const { config: exports } = result || {};
+  const { config } = exports || {};
 
   if (config.symbol === configSymbol) {
     (globalThis as any)[globalConfigSymbol] = config;
     return config;
   }
 
-  (globalThis as any)[globalConfigSymbol] = await defineConfig(config);
+  const definedConfig = await defineConfig(config);
 
-  return (globalThis as any)[globalConfigSymbol];
+  process.env.DOT_LOG_LEVEL = definedConfig.logLevel || 'info';
+
+  (globalThis as any)[globalConfigSymbol] = definedConfig;
+
+  return definedConfig;
 };

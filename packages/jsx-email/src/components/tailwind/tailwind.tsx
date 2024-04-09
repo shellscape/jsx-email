@@ -13,12 +13,11 @@ import { postcssVarReplace } from 'postcss-var-replace';
 import { Suspense } from 'react';
 
 import { debug } from '../../debug';
+import { log } from '../../log';
 import { jsxToString } from '../../renderer/jsx-to-string';
 import { useData } from '../../renderer/suspense';
 
 import { plugin as colorFunctions } from './color-functions';
-
-const { warn } = console;
 
 export interface TailwindProps {
   config?: Pick<
@@ -42,8 +41,8 @@ const getUno = (config: ConfigBase, production: boolean) => {
     );
 
   if ((config?.theme as any)?.extend) {
-    warn(
-      'jsx-email → Tailwind: Use of `theme.extend` is not necessary. `theme.extend` has been merged into `theme`'
+    log.warn(
+      'Tailwind: Use of `theme.extend` is not necessary. `theme.extend` has been merged into `theme`'
     );
     const { extend } = config.theme as any;
     delete (config.theme as any).extend;

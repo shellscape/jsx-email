@@ -44,6 +44,7 @@
   "peerDependencies": {
     "@jsx-email/app-preview": "workspace:^",
     "@jsx-email/plugin-inline": "workspace:^",
+    "@jsx-email/plugin-minify": "workspace:^",
     "@jsx-email/plugin-pretty": "workspace:^",
     "@jsx-email/plugin-style": "workspace:^",
     "react": "^18.2.0"

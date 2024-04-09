@@ -5,11 +5,11 @@
 import chalk from 'chalk';
 import type { FC, ReactNode } from 'react';
 
+import { log } from '../log';
+
 import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants';
 import { escapeString } from './escape-string';
 import { stringifyStyles } from './stringify-styles';
-
-const { error: logError } = console;
 
 const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
   try {
@@ -52,7 +52,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
   }
 
   if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
-    logError(chalk`{red Unsupported JSX element}:`, element);
+    log.error(chalk`{red Unsupported JSX element}:`, element);
     throw new Error(`Unsupported JSX element`);
   }
 
@@ -140,8 +140,8 @@ export async function jsxToString(element: ReactNode): Promise<string> {
       }
     }
 
-    logError(chalk`{red Unsupported JSX element}:`, type);
-    throw new Error(`Unsupported JSX element type`);
+    log.error(chalk`{red Unsupported JSX element}:`, type);
+    throw new Error(`Unsupported JSX element type ${JSON.stringify(type)}`);
   }
   return '';
 }

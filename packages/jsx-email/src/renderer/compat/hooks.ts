@@ -1,10 +1,11 @@
 import chalk from 'chalk';
 
+import { log } from '../../log';
+
 const noop = () => {};
-const { warn } = console;
 const logWarning = (hook: string) =>
-  warn(
-    chalk`{yellow jsx-email}: ${hook} is present for React compatibility but is not fully supported. Email is not reactive.`
+  log.warn(
+    chalk`${hook} is present for React compatibility but is not fully supported. Email is not reactive.`
   );
 
 export const useCallback = (fn: Function) => {

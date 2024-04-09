@@ -6,6 +6,8 @@ import type { Infer } from 'superstruct';
 import { assert, boolean, number, object, optional, string, union } from 'superstruct';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
+import { log } from '../../log';
+
 import type { CommandFn } from './types';
 
 const PreviewOptionsStruct = object({
@@ -18,7 +20,6 @@ const PreviewOptionsStruct = object({
 
 type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
 
-const { error, info } = console;
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
 export const help = chalk`
@@ -50,7 +51,7 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
   const targetPath = resolve(target);
 
   if (!existsSync(targetPath)) {
-    error(chalk`\n{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
+    log.error(chalk`\n{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
     return true;
   }
 
@@ -116,7 +117,7 @@ const start = async (targetPath: string, argv: PreviewOptions) => {
 
   const server = await createServer(config);
 
-  info(chalk`\n  🚀 {yellow jsx-email} Preview\n`);
+  log.info(chalk`\n  🚀 {yellow jsx-email} Preview\n`);
 
   await server.listen();
 

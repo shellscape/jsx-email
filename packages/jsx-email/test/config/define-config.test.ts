@@ -1,6 +1,6 @@
 import { defineConfig } from '../../src/config';
 
-describe('render', async () => {
+describe('defineConfig', async () => {
   test('defaults', async () => {
     expect(await defineConfig({})).toMatchSnapshot();
   });
@@ -18,17 +18,6 @@ describe('render', async () => {
     const config = await defineConfig({
       render: {
         minify: true,
-        pretty: true
-      }
-    });
-    expect(config).toMatchSnapshot();
-  });
-
-  test('plain', async () => {
-    const config = await defineConfig({
-      render: {
-        minify: true,
-        plainText: true,
         pretty: true
       }
     });

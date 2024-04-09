@@ -11,11 +11,10 @@ import { isWindows } from 'std-env';
 import type { Infer } from 'superstruct';
 import { assert, boolean, object, optional, string } from 'superstruct';
 
+import { log } from '../../log';
 import { formatBytes, gmailByteLimit } from '../helpers';
 
 import type { CommandFn, TemplateFn } from './types';
-
-const { error, log } = console;
 
 const BuildOptionsStruct = object({
   minify: optional(boolean()),
@@ -67,7 +66,7 @@ export const build = async (path: string, argv: BuildOptions, outputBasePath?: s
   const componentExport: TemplateFn = template.Template;
 
   if (typeof componentExport !== 'function') {
-    error(
+    log.error(
       chalk`{red Template Export Problem:} ${path} doesn't have an export  of a JSX Element named \`Template\`. If you feel this is a bug, please open a new issue.`
     );
     process.exit(1);
@@ -126,9 +125,9 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
   const outputPath = resolve(out);
   let largeCount = 0;
 
-  log(chalk`{cyan Found}`, targetFiles.length, 'files:');
-  log('  ', targetFiles.join('\n  '));
-  log(chalk`\n{blue Starting build...}`);
+  log.info(chalk`{cyan Found}`, targetFiles.length, 'files:');
+  log.info('  ', targetFiles.join('\n  '));
+  log.info(chalk`\n{blue Starting build...}`);
 
   const compiledFiles = await compile(targetFiles, esbuildOutPath);
 
@@ -145,7 +144,7 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
 
         if (bytes > gmailByteLimit) largeCount += 1;
 
-        log(`  ${result.fileName} → HTML: ${htmlSize}`);
+        log.info(`  ${result.fileName} → HTML: ${htmlSize}`);
       }
 
       return result;
@@ -153,9 +152,9 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
   );
 
   if (showStats && largeCount > 0)
-    log(chalk`\n{yellow Warning:} ${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
-  if (writeToFile) log(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
-  else log(chalk`\n{green Build complete}`);
+    log.warn(chalk`\n${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
+  if (writeToFile) log.info(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
+  else log.info(chalk`\n{green Build complete}`);
 
   return result;
 };
@@ -165,8 +164,8 @@ export const command: CommandFn = async (argv: BuildOptions, input) => {
 
   const [target] = input;
 
-  if (!(await existsSync(target))) {
-    error(chalk`{red The provided build target '${target}' does not exist}`);
+  if (!existsSync(target)) {
+    log.error(chalk`{red The provided build target '${target}' does not exist}`);
     process.exit(1);
   }
 

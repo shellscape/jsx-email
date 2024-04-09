@@ -209,6 +209,9 @@ importers:
       '@jsx-email/plugin-inline':
         specifier: workspace:^
         version: link:../plugin-inline
+      '@jsx-email/plugin-minify':
+        specifier: workspace:^
+        version: link:../plugin-minify
       '@jsx-email/plugin-pretty':
         specifier: workspace:^
         version: link:../plugin-pretty
