@@ -11,6 +11,12 @@
       name="supported-color-schemes"
       content="normal"
     >
+    <style>
+      :root {
+      color-scheme: normal;
+      supported-color-schemes: normal;
+    }
+    </style>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=yes"
@@ -20,12 +26,6 @@
       name="format-detection"
       content="telephone=no, date=no, address=no, email=no, url=no"
     >  
-    <style>
-      :root {
-      color-scheme: normal;
-      supported-color-schemes: normal;
-    }
-    </style>
     <meta
       http-equiv="Content-Type"
       content="text/html; charset=UTF-8"
