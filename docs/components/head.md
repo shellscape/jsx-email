@@ -32,4 +32,19 @@ const Email = () => {
 
 ## Component Props
 
-This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'head'>`.
+```tsx
+export interface HeadProps extends BaseProps<'head'> {
+  enableFormatDetection?: boolean;
+}
+```
+
+```tsx
+enableFormatDetection?: boolean;
+```
+
+This is used to disable the `format-detection` meta (will be useful for some very specific use-cases)
+Default value is `false`
+
+:::tip
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'head'>`.
+:::
