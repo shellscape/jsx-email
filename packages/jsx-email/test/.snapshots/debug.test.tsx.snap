@@ -6,6 +6,9 @@ exports[`render > renders with debug attributes 1`] = `
 
   <head data-type=\\"jsx-email/head\\">
     <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\">
+    <meta name=\\"x-apple-disable-message-reformatting\\">
+    <meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\">
   </head>
 
   <body data-type=\\"jsx-email/body\\" style=\\"background-color:#ffffff;font-family:HelveticaNeue,Helvetica,Arial,sans-serif\\">
