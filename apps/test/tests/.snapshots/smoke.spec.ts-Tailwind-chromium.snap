@@ -8,13 +8,13 @@
     }
 
     .px-3 {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
+      padding-left: 12px;
+      padding-right: 12px;
     }
 
     .py-2 {
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      padding-top: 8px;
+      padding-bottom: 8px;
     }
 
     .text-white {
@@ -26,7 +26,7 @@
     }
 
     .leading-4 {
-      line-height: 1rem;
+      line-height: 16px;
     }
     </style>
   </head>
