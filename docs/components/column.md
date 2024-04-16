@@ -29,4 +29,25 @@ const Email = () => {
 
 ## Component Props
 
-This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.
+```tsx
+export interface ColumnProps extends BaseProps<'td'> {
+  bgColor?: string;
+  bgImage?: string;
+}
+```
+
+```tsx
+bgColor: string;
+```
+
+To set background color in html email, it wraps the `bgcolor` prop of `<td>` tags
+
+```tsx
+bgImage: string;
+```
+
+To set background images in html email, it wraps the `background` prop of `<td>` tags
+
+:::tip
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.
+:::
