@@ -42,7 +42,7 @@
     }
 
     .rounded {
-      border-radius: 0.25rem;
+      border-radius: 4px;
     }
 
     .border-solid {

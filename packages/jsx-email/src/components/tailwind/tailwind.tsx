@@ -3,6 +3,7 @@ import { createGenerator, type ConfigBase } from '@unocss/core';
 import { presetTypography } from '@unocss/preset-typography';
 import { presetWind } from '@unocss/preset-wind';
 import { presetUno } from '@unocss/preset-uno';
+import { presetRemToPx } from '@unocss/preset-rem-to-px';
 import transformerCompileClass from '@unocss/transformer-compile-class';
 import transformerVariantGroup from '@unocss/transformer-variant-group';
 import MagicString from 'magic-string';
@@ -51,6 +52,8 @@ const getUno = (config: ConfigBase, production: boolean) => {
 
   const presets = [
     ...(config.presets || []),
+    // Convert all `rem` values to `px`
+    presetRemToPx(),
     presetTypography(),
     presetUno({ dark: 'media' }),
     presetWind()

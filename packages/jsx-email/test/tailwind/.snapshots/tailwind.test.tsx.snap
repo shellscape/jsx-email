@@ -8,10 +8,10 @@ exports[`<Tailwind> component > should preserve mso styles 1`] = `
 .sm\\\\:bg-red-50{background-color:rgb(254,242,242);}
 @media (min-width: 640px){
 .sm\\\\:bg-red-50{background-color:rgb(254,242,242);}}
-.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem;}
+.sm\\\\:text-sm{font-size:14px;line-height:20px;}
 }
 @media (min-width: 768px){
-.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem;}
+.md\\\\:text-lg{font-size:18px;line-height:28px;}
 }</style></head>"
 `;
 
@@ -38,14 +38,14 @@ exports[`<Tailwind> component > should work with calc() with + sign 1`] = `
 "<head><div class=\\"max-h-[calc(50px+3rem)] bg-red-100\\"><div class=\\"h-[200px]\\">something tall</div></div><style tailwind>/* layer: preflights */
 /* layer: default */
 .h-\\\\[200px\\\\]{height:200px;}
-.max-h-\\\\[calc\\\\(50px\\\\+3rem\\\\)\\\\]{max-height:calc(50px + 3rem);}
+.max-h-\\\\[calc\\\\(50px\\\\+3rem\\\\)\\\\]{max-height:calc(50px + 48px);}
 .bg-red-100{background-color:rgb(254,226,226);}</style></head>"
 `;
 
 exports[`Custom theme config > should be able to use custom border radius 1`] = `
 "<head><div class=\\"rounded-4xl\\"></div><style tailwind>/* layer: preflights */
 /* layer: default */
-.rounded-4xl{border-radius:2rem;}</style></head>"
+.rounded-4xl{border-radius:32px;}</style></head>"
 `;
 
 exports[`Custom theme config > should be able to use custom colors 1`] = `
@@ -65,7 +65,7 @@ exports[`Custom theme config > should be able to use custom fonts 1`] = `
 exports[`Custom theme config > should be able to use custom spacing 1`] = `
 "<head><div class=\\"m-8xl\\"></div><style tailwind>/* layer: preflights */
 /* layer: default */
-.m-8xl{margin:96rem;}</style></head>"
+.m-8xl{margin:1536px;}</style></head>"
 `;
 
 exports[`Custom theme config > should be able to use custom text alignment 1`] = `
@@ -77,7 +77,7 @@ exports[`Custom theme config > should be able to use custom text alignment 1`] =
 exports[`Production mode > should generate class names with a prefix 1`] = `
 "<head><html lang=\\"en\\" dir=\\"ltr\\"><div class=\\"je-5wyw0k\\"></div></html><style tailwind>/* layer: preflights */
 /* layer: shortcuts */
-.je-5wyw0k{background-color:rgb(254,226,226);font-size:0.875rem;line-height:1.25rem;}</style></head>"
+.je-5wyw0k{background-color:rgb(254,226,226);font-size:14px;line-height:20px;}</style></head>"
 `;
 
 exports[`Responsive styles > should add css to <head/> 1`] = `
@@ -152,7 +152,7 @@ exports[`Tailwind component > Inline styles > should render children with inline
 "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><html><head><style tailwind>/* layer: preflights */
 /* layer: default */
 .bg-white{background-color:rgb(255,255,255);}
-.text-sm{font-size:0.875rem;line-height:1.25rem;}</style></head><body><div class=\\"bg-white text-sm\\"></div></body></html>"
+.text-sm{font-size:14px;line-height:20px;}</style></head><body><div class=\\"bg-white text-sm\\"></div></body></html>"
 `;
 
 exports[`Tailwind component > should be able to use background image 1`] = `
@@ -164,7 +164,7 @@ exports[`Tailwind component > should be able to use background image 1`] = `
 exports[`Tailwind component > should preserve component inline styles with Tailwind styles 1`] = `
 "<head><hr class=\\"!w-12\\" style=\\"border:none;border-top:1px solid #eaeaea;width:100%\\"/><style tailwind>/* layer: preflights */
 /* layer: default */
-.\\\\!w-12{width:3rem !important;}</style></head>"
+.\\\\!w-12{width:48px !important;}</style></head>"
 `;
 
 exports[`Tailwind component > should preserve inline styles with Tailwind classes 1`] = `
