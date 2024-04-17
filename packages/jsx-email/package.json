@@ -1,6 +1,6 @@
 {
   "name": "jsx-email",
-  "version": "1.10.12",
+  "version": "1.11.0",
   "publishConfig": {
     "access": "public"
   },

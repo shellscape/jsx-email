@@ -1,5 +1,14 @@
 # jsx-email ChangeLog
 
+## v1.11.0
+
+_2024-04-17_
+
+### Features
+
+- jsx-email: add meta tags to `head` and update test suite (#187)
+- jsx-email: add `rem-to-px` preset to `unoconfig` (#189)
+
 ## v1.10.12
 
 _2024-02-24_
