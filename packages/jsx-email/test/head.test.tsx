@@ -16,6 +16,12 @@ describe('<Head> component', async () => {
     expect(html).toContain(testMessage);
   });
 
+  it('renders meta tags correctly', async () => {
+    const testMessage = 'Test message';
+    const html = await jsxToString(<Head>{testMessage}</Head>);
+    expect(html).toContain(testMessage);
+  });
+
   it('renders correctly', async () => {
     const actualOutput = await jsxToString(<Head />);
     expect(actualOutput).toMatchSnapshot();
@@ -32,5 +38,11 @@ describe('<Head> component', async () => {
       </Head>
     );
     expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('renders meta format-detection conditionally', async () => {
+    const testMessage = 'Test message';
+    const html = await jsxToString(<Head enableFormatDetection>{testMessage}</Head>);
+    expect(html).toContain(testMessage);
   });
 });
