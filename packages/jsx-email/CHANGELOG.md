@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.12.0
+
+_2024-04-19_
+
+### Features
+
+- jsx-email: add `bgImage` and `bgColor` props to `<Column>` (#188)
+
 ## v1.11.0
 
 _2024-04-17_
