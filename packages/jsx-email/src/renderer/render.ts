@@ -3,6 +3,7 @@ import { htmlToText } from 'html-to-text';
 import type { PlainTextOptions, RenderOptions } from '../types';
 
 import { defineConfig, loadConfig } from '../config';
+import { getMovePlugin } from './move-style';
 import { callHook, callProcessHook } from '../plugins';
 
 import { jsxToString } from './jsx-to-string';
@@ -53,9 +54,10 @@ export const processHtml = async (html: string) => {
   const { default: stringify } = await import('rehype-stringify');
   const docType =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+  const movePlugin = await getMovePlugin();
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
-  const processor = rehype().data('settings', settings);
+  const processor = rehype().data('settings', settings).use(movePlugin);
 
   await callProcessHook(processor);
 

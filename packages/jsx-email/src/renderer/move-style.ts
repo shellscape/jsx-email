@@ -1,4 +1,3 @@
-import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
 import type { Element, Parents, Root } from 'hast';
 import type { Plugin } from 'unified';
 
@@ -7,12 +6,11 @@ interface ElementWithParent extends Element {
   parent: Parents;
 }
 
-export const plugin: JsxEmailPlugin = {
-  name: 'root/style',
-  process: async () => {
-    const { visit } = await import('unist-util-visit');
+export const getMovePlugin = async () => {
+  const { visit } = await import('unist-util-visit');
 
-    return function moveStyle(tree: Root) {
+  return function moveStylePlugin() {
+    return function move(tree: Root) {
       const matches: ElementWithParent[] = [];
       let head: Element | undefined;
 
@@ -40,8 +38,6 @@ export const plugin: JsxEmailPlugin = {
           node.parent.children.splice(node.index, 1);
         }
       }
-    } as Plugin;
-  },
-
-  symbol: pluginSymbol
+    };
+  };
 };

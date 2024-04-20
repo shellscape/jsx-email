@@ -22,6 +22,8 @@ tasks:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
+    outputs:
+      - dist
 
   clean.dist:
     command: rm -rf dist

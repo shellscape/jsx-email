@@ -1,3 +1,5 @@
+import 'source-map-support/register';
+
 import chalk from 'chalk';
 import type { Plugin, Preset, Processor } from 'unified';
 

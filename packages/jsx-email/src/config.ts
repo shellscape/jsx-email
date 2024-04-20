@@ -11,14 +11,11 @@ export interface JsxEmailConfig {
   plugins: JsxEmailPlugin[];
   render: RenderOptions;
 }
-export type AnyPluginConfig = JsxEmailConfig & {
-  plugins: Array<JsxEmailPlugin | string>;
-};
-export type JsxEmailConfigFn = () => Promise<Partial<AnyPluginConfig>>;
-export type DefinedConfig = Partial<AnyPluginConfig> | JsxEmailConfigFn;
+export type JsxEmailConfigFn = () => Promise<Partial<JsxEmailConfig>>;
+export type DefineConfigOptions = Partial<JsxEmailConfig> | JsxEmailConfigFn;
 
 const configSymbol = Symbol.for('jsx-email/config');
-export const defaults: AnyPluginConfig = {
+export const defaults: JsxEmailConfig = {
   logLevel: 'info',
   plugins: [],
   render: { disableDefaultStyle: false, minify: false, plainText: false, pretty: false }
@@ -29,8 +26,7 @@ export const current: JsxEmailConfig = (globalThis as any)[globalConfigSymbol];
 const plugins = {
   inline: '@jsx-email/plugin-inline',
   minify: '@jsx-email/plugin-minify',
-  pretty: '@jsx-email/plugin-pretty',
-  style: '@jsx-email/plugin-style'
+  pretty: '@jsx-email/plugin-pretty'
 };
 
 const checkSymbol = (plugin: JsxEmailPlugin, source?: string) => {
@@ -55,7 +51,22 @@ const checkName = (plugin: JsxEmailPlugin, source?: string) => {
   process.exit(1);
 };
 
-export const defineConfig = async (config: DefinedConfig): Promise<JsxEmailConfig> => {
+const importPlugin = async (name: string) => {
+  try {
+    const { plugin } = (await import(name)) as { plugin: JsxEmailPlugin };
+
+    checkSymbol(plugin, name);
+    checkName(plugin, name);
+
+    return plugin;
+  } catch (_) {
+    log.error(chalk`{red jsx-email}: Tried to import a plugin '${name}' but it wasn't found`);
+  }
+
+  return null;
+};
+
+export const defineConfig = async (config: DefineConfigOptions): Promise<JsxEmailConfig> => {
   if (typeof config === 'function') {
     const intermediate = await config();
     return defineConfig(intermediate);
@@ -67,10 +78,19 @@ export const defineConfig = async (config: DefinedConfig): Promise<JsxEmailConfi
   if (!config.render?.plainText) {
     // Note: The order of plugins here actually matters for how the doc gets
     // transformed. Changing this ordering may produce undesirable html
-    mods.plugins.push(plugins.style, plugins.inline);
+    const inline = await importPlugin(plugins.inline);
+    if (inline) mods.plugins.push(inline);
 
-    if (config.render?.minify) mods.plugins.push(plugins.minify);
-    if (config.render?.pretty) mods.plugins.push(plugins.pretty);
+    if (config.render?.minify) {
+      const minify = await importPlugin(plugins.minify);
+      if (minify) mods.plugins.push(minify);
+    }
+
+    if (config.render?.pretty) {
+      const pretty = await importPlugin(plugins.minify);
+      if (pretty) mods.plugins.push(pretty);
+    }
+
     if (config.render?.minify && config.render.pretty) {
       log.warn(
         chalk`{yellow jsx-email}: Both minify and pretty options are true. Please choose only one.`
@@ -82,51 +102,17 @@ export const defineConfig = async (config: DefinedConfig): Promise<JsxEmailConfi
       );
 
       mods.plugins = mods.plugins.filter(
-        (plugin) =>
-          (plugin as unknown as string) !== plugins.minify &&
-          (plugin as unknown as string) !== plugins.pretty
+        ({ name }) => name !== plugins.minify && name !== plugins.pretty
       );
     }
   }
 
   const result = merge(config, mods as any) as JsxEmailConfig;
-  const pairs = await Promise.all(
-    result.plugins.map<Promise<[string, JsxEmailPlugin]>>(async (plugin) => {
-      let assumed: JsxEmailPlugin = plugin as any;
 
-      if (typeof plugin === 'string') {
-        try {
-          const { plugin: imports } = (await import(plugin)) as { plugin: JsxEmailPlugin };
-          assumed = imports;
+  for (const plugin of result.plugins) {
+    (plugin as PluginInternal).log = getPluginLog(plugin.name);
+  }
 
-          checkSymbol(assumed, plugin);
-          checkName(assumed, plugin);
-
-          if (!assumed.name) {
-            log.error(
-              chalk`{red jsx-email}: A plugin imported from '${plugin}' did not have the required 'name' property`
-            );
-          }
-
-          process.exit(1);
-        } catch (_) {
-          log.error(
-            chalk`{red jsx-email}: Tried to import a plugin from '${plugin}' but it wasn't found`
-          );
-          process.exit(1);
-        }
-      } else {
-        checkSymbol(assumed);
-        checkName(assumed);
-      }
-
-      (assumed as PluginInternal).log = getPluginLog(assumed.name);
-
-      return [assumed.name, assumed];
-    })
-  );
-
-  result.plugins = [...new Map(pairs.filter(Boolean)).values()];
   (result as any).symbol = configSymbol;
 
   return result;
