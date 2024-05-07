@@ -379,9 +379,9 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
     devDependencies:
-      hast:
-        specifier: ^1.0.0
-        version: 1.0.0
+      '@types/hast':
+        specifier: ^3.0.0
+        version: 3.0.1
       unified:
         specifier: ^11.0.4
         version: 11.0.4
@@ -454,6 +454,10 @@ importers:
       pretty:
         specifier: 2.0.0
         version: 2.0.0
+    devDependencies:
+      '@types/pretty':
+        specifier: ^2.0.1
+        version: 2.0.1
 
   packages/plugin-style:
     dependencies:
@@ -464,9 +468,9 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
     devDependencies:
-      hast:
-        specifier: ^1.0.0
-        version: 1.0.0
+      '@types/hast':
+        specifier: ^3.0.0
+        version: 3.0.1
       unified:
         specifier: ^11.0.4
         version: 11.0.4
@@ -2897,7 +2901,6 @@ packages:
     resolution: {integrity: sha512-hs/iBJx2aydugBQx5ETV3ZgeSS0oIreQrFJ4bjBl0XvM4wAmDjFEALY7p0rTSLt2eL+ibjRAAs9dTPiCLtmbqQ==}
     dependencies:
       '@types/unist': 3.0.0
-    dev: false
 
   /@types/html-minifier-terser@7.0.0:
     resolution: {integrity: sha512-hw3bhStrg5e3FQT8qZKCJTrzt/UbEaunU1xRWJ+aNOTmeBMvE3S4Ml2HiiNnZgL8izu0LFVkHUoPFXL1s5QNpQ==}
@@ -5836,11 +5839,6 @@ packages:
     dependencies:
       '@types/hast': 3.0.1
     dev: false
-
-  /hast@1.0.0:
-    resolution: {integrity: sha512-vFUqlRV5C+xqP76Wwq2SrM0kipnmpxJm7OfvVXpB35Fp+Fn4MV+ozr+JZr5qFvyR1q/U+Foim2x+3P+x9S1PLA==}
-    deprecated: Renamed to rehype
-    dev: true
 
   /hastscript@8.0.0:
     resolution: {integrity: sha512-dMOtzCEd3ABUeSIISmrETiKuyydk1w0pa+gE/uormcTpSYuaNJPbX1NU3JLyscSLjwAQM8bWMhhIlnCqnRvDTw==}

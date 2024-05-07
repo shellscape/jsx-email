@@ -37,7 +37,7 @@ export const plugin: JsxEmailPlugin = {
         head.children.push(...matches);
 
         for (const node of matches) {
-          node.parent.children.splice(node.index, 1);
+          (node as any).parent.children.splice(node.index, 1);
         }
       }
     } as Plugin;
