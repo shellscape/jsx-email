@@ -102,7 +102,7 @@ export const build = async (path: string, argv: BuildOptions, outputBasePath?: s
   const buildProps = JSON.parse(props);
   const component = componentExport(buildProps);
   const writePath = outputBasePath
-    ? join(out!, path.replace(outputBasePath, '').replace(extname(path), extension))
+    ? join(out!, resolve(path).replace(outputBasePath, '').replace(extname(path), extension))
     : join(out!, basename(path).replace(extname(path), extension));
 
   await mkdir(dirname(writePath), { recursive: true });
