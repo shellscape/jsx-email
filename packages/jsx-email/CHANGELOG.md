@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v1.12.1
+
+_2024-05-09_
+
+### Bugfixes
+
+- jsx-email: build process broken on Windows, fixes #194 (#195)
+
 ## v1.12.0
 
 _2024-04-19_
