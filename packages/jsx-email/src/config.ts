@@ -121,7 +121,20 @@ export const defineConfig = async (config: DefineConfigOptions): Promise<JsxEmai
 export const loadConfig = async (): Promise<JsxEmailConfig> => {
   if ((globalThis as any)[globalConfigSymbol]) return (globalThis as any)[globalConfigSymbol];
 
-  const result = await lilconfig('jsx-email').search();
+  const name = 'jsx-email';
+  const result = await lilconfig(name, {
+    searchPlaces: [
+      `.${name}rc.js`,
+      `.${name}rc.cjs`,
+      `.${name}rc.mjs`,
+      `.config/${name}rc.js`,
+      `.config/${name}rc.cjs`,
+      `.config/${name}rc.mjs`,
+      `${name}.config.js`,
+      `${name}.config.cjs`,
+      `${name}.config.mjs`
+    ]
+  }).search();
   const { config: exports } = result || {};
   const { config } = exports || {};
 

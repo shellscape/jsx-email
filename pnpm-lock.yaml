@@ -215,9 +215,6 @@ importers:
       '@jsx-email/plugin-pretty':
         specifier: workspace:^
         version: link:../plugin-pretty
-      '@jsx-email/plugin-style':
-        specifier: workspace:^
-        version: link:../plugin-style
       '@radix-ui/react-slot':
         specifier: 1.0.2
         version: 1.0.2(@types/react@18.2.22)(react@18.2.0)
@@ -326,6 +323,9 @@ importers:
       titleize:
         specifier: ^4.0.0
         version: 4.0.0
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
       vite:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.6.2)
@@ -457,22 +457,6 @@ importers:
       pretty:
         specifier: 2.0.0
         version: 2.0.0
-
-  packages/plugin-style:
-    dependencies:
-      jsx-email:
-        specifier: workspace:^
-        version: link:../jsx-email
-      unist-util-visit:
-        specifier: ^5.0.0
-        version: 5.0.0
-    devDependencies:
-      hast:
-        specifier: ^1.0.0
-        version: 1.0.0
-      unified:
-        specifier: ^11.0.4
-        version: 11.0.4
 
   test/smoke:
     dependencies:
