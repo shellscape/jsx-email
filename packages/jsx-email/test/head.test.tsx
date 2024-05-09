@@ -1,7 +1,7 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/renderer/jsx-to-string';
+import { jsxToString } from '../src/render';
 import { Head } from '../src';
 
 describe('<Head> component', async () => {
@@ -11,6 +11,12 @@ describe('<Head> component', async () => {
   });
 
   it('renders children correctly', async () => {
+    const testMessage = 'Test message';
+    const html = await jsxToString(<Head>{testMessage}</Head>);
+    expect(html).toContain(testMessage);
+  });
+
+  it('renders meta tags correctly', async () => {
     const testMessage = 'Test message';
     const html = await jsxToString(<Head>{testMessage}</Head>);
     expect(html).toContain(testMessage);
@@ -32,5 +38,11 @@ describe('<Head> component', async () => {
       </Head>
     );
     expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('renders meta format-detection conditionally', async () => {
+    const testMessage = 'Test message';
+    const html = await jsxToString(<Head enableFormatDetection>{testMessage}</Head>);
+    expect(html).toContain(testMessage);
   });
 });
