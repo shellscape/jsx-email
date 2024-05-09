@@ -11,6 +11,8 @@ dist
 .nojekyll
 **/.vitepress/cache
 .idea/
+.tshy
+.tshy-build
 
 packages/jsx-email/README.md
 

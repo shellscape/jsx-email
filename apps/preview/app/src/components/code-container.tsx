@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { Views } from '../types';
+import { Views } from '../types.js';
 
 import { Code, type PreviewLanguage } from './code';
 import { IconButton, IconCheck, IconClipboard, IconDownload } from './icons';

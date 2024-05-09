@@ -1,6 +1,6 @@
 import micromatch from 'micromatch';
 
-import { config } from './config';
+import { config } from './config.js';
 import { parseName } from './helpers';
 import type { TemplatePart, TemplateData, TemplateExports } from './types.ts';
 

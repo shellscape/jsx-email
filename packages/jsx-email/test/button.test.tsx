@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/renderer/jsx-to-string';
-import { Button } from '../src';
+import { jsxToString } from '../src/renderer/jsx-to-string.js';
+import { Button } from '../src/index.js';
 
 describe('<Button> component', async () => {
   beforeEach(() => {

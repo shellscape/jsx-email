@@ -13,20 +13,20 @@
   },
   "author": "Andrew Powell <andrew@shellscape.org>",
   "homepage": "https://jsx.email/",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "./dist/commonjs/index.js",
+  "type": "module",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
       }
-    },
-    "./package.json": "./package.json"
+    }
   },
   "engines": {
     "node": ">=18.0.0"
@@ -60,10 +60,16 @@
     "hast": "^1.0.0",
     "unified": "^11.0.4"
   },
-  "types": "dist/index.d.mts",
+  "types": "./dist/commonjs/index.d.ts",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  }
 }

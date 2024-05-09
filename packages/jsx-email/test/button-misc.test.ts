@@ -1,5 +1,5 @@
-import { pxToPt } from '../src/components/button/button';
-import { convertToPx, parsePadding } from '../src/components/button/padding';
+import { pxToPt } from '../src/components/button/button.js';
+import { convertToPx, parsePadding } from '../src/components/button/padding.js';
 
 describe('convertToPx', () => {
   it('converts "10px" to 10', () => {
@@ -65,7 +65,7 @@ describe('parsePadding', () => {
   });
 
   it('handles undefined input as zeros', () => {
-    const result = parsePadding({ padding: undefined });
+    const result = parsePadding({ padding: void 0 });
     expect(result).toEqual(void 0);
   });
 
@@ -107,7 +107,7 @@ describe('pxToPt', () => {
   });
 
   it('returns null for undefined input', () => {
-    const result = pxToPt(undefined as unknown as number);
+    const result = pxToPt(void 0 as unknown as number);
     expect(result).toBeNull();
   });
 });

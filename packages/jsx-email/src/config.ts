@@ -2,9 +2,9 @@ import chalk from 'chalk';
 import { lilconfig } from 'lilconfig';
 import type { MethodFactoryLevels } from 'loglevelnext';
 
-import { getPluginLog, log } from './log';
-import { pluginSymbol, type JsxEmailPlugin, type PluginInternal } from './plugins';
-import type { RenderOptions } from './types';
+import { getPluginLog, log } from './log.js';
+import { pluginSymbol, type JsxEmailPlugin, type PluginInternal } from './plugins.js';
+import type { RenderOptions } from './types.js';
 
 export interface JsxEmailConfig {
   logLevel?: MethodFactoryLevels;

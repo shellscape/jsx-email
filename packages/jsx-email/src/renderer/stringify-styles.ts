@@ -5,7 +5,7 @@
 
 import type { CSSProperties } from 'react';
 
-import { escapeString } from './escape-string';
+import { escapeString } from './escape-string.js';
 
 const UPPERCASE = /([A-Z])/g;
 

@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/renderer/jsx-to-string';
-import { Code } from '../src';
+import { jsxToString } from '../src/renderer/jsx-to-string.js';
+import { Code } from '../src/index.js';
 
 describe('<Code> component', () => {
   beforeEach(() => {

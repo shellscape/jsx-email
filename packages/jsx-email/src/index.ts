@@ -1,31 +1,31 @@
 // components
-export * from './components/body';
-export * from './components/button/button';
-export * from './components/code';
-export * from './components/color-scheme';
-export * from './components/column';
-export * from './components/conditional';
-export * from './components/container';
-export * from './components/font';
-export * from './components/head';
-export * from './components/heading';
-export * from './components/hr';
-export * from './components/html';
-export * from './components/img';
-export * from './components/link';
-export * from './components/markdown';
-export * from './components/preview';
-export * from './components/row';
-export * from './components/section';
-export * from './components/tailwind/tailwind';
-export * from './components/text';
+export * from './components/body.js';
+export * from './components/button/button.js';
+export * from './components/code.js';
+export * from './components/color-scheme.js';
+export * from './components/column.js';
+export * from './components/conditional.js';
+export * from './components/container.js';
+export * from './components/font.js';
+export * from './components/head.js';
+export * from './components/heading.js';
+export * from './components/hr.js';
+export * from './components/html.js';
+export * from './components/img.js';
+export * from './components/link.js';
+export * from './components/markdown.js';
+export * from './components/preview.js';
+export * from './components/row.js';
+export * from './components/section.js';
+export * from './components/tailwind/tailwind.js';
+export * from './components/text.js';
 
 // renderer
-export * from './renderer/compat/context';
-export * from './renderer/compat/hooks';
-export * from './renderer/jsx-to-string';
-export * from './renderer/render';
-export { useData } from './renderer/suspense';
+export * from './renderer/compat/context.js';
+export * from './renderer/compat/hooks.js';
+export * from './renderer/jsx-to-string.js';
+export * from './renderer/render.js';
+export { useData } from './renderer/suspense.js';
 
-export * from './plugins';
-export * from './types';
+export * from './plugins.js';
+export * from './types.js';

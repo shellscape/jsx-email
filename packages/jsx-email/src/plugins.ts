@@ -1,9 +1,10 @@
 import 'source-map-support/register';
 
 import chalk from 'chalk';
+// @ts-ignore
 import type { Plugin, Preset, Processor } from 'unified';
 
-import { loadConfig } from './config';
+import { loadConfig } from './config.js';
 
 export interface RenderHookParams {
   chalk: typeof chalk;

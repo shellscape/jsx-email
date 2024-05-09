@@ -4,6 +4,7 @@
   "private": true,
   "description": "A project to demo and test the `email preview` CLI command",
   "license": "MIT",
+  "type": "module",
   "peerDependencies": {
     "react": "^18.2.0"
   },
@@ -12,7 +13,6 @@
     "dedent": "^1.5.1",
     "diffable-html": "^5.0.0",
     "jsx-email": "workspace:*",
-    "superstruct": "^1.0.3",
     "unocss": "^0.58.5"
   },
   "devDependencies": {

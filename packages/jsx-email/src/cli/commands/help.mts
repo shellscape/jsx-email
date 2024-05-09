@@ -2,11 +2,11 @@ import chalk from 'chalk';
 
 import pkg from '../../../package.json';
 
-import type { CommandFn } from './types';
-import { help as build } from './build';
-import { help as check } from './check';
-import { help as create } from './create';
-import { help as preview } from './preview';
+import type { CommandFn } from './types.mjs';
+import { help as build } from './build.mjs';
+import { help as check } from './check.mjs';
+import { help as create } from './create.mjs';
+import { help as preview } from './preview.mjs';
 
 const { log } = console;
 
@@ -46,8 +46,8 @@ export const command: CommandFn = async (_, inputs) => {
     return true;
   }
 
-  const [command] = inputs;
-  const commandHelp = commands[command] || helpMessage;
+  const [lecommand] = inputs;
+  const commandHelp = commands[lecommand] || helpMessage;
 
   log(commandHelp);
 

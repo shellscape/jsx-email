@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { log } from '../../log';
+import { log } from '../../log.js';
 
 const noop = () => {};
 const logWarning = (hook: string) =>

@@ -5,7 +5,7 @@ import { Error } from './error.tsx';
 import { Home } from './home.tsx';
 import { Preview } from './preview.tsx';
 import { gather, getNestedStructure } from './templates';
-import type { TemplateData } from './types';
+import type { TemplateData } from './types.js';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <div className="bg-dark-bg text-dark-bg-text">

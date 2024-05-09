@@ -1,6 +1,10 @@
+// Note: tshy has some bugs with dual-mode package importing in the cjs build https://github.com/isaacs/tshy/issues/50
+// @ts-ignore
 import { parse } from '@adobe/css-tools';
+// @ts-ignore
 import type { Root } from 'hast';
 import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
+// @ts-ignore
 import type { Plugin } from 'unified';
 
 export const plugin: JsxEmailPlugin = {

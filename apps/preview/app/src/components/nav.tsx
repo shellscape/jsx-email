@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { LayoutGroup } from 'framer-motion';
 import * as React from 'react';
 
-import { Views } from '../types';
+import { Views } from '../types.js';
 
 import { NavButton } from './nav-button';
 

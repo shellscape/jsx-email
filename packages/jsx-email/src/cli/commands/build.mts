@@ -8,13 +8,13 @@ import chalk from 'chalk';
 import esbuild from 'esbuild';
 import globby from 'globby';
 import { isWindows } from 'std-env';
-import type { Infer } from 'superstruct';
-import { assert, boolean, object, optional, string } from 'superstruct';
+import type { Output as Infer } from 'valibot';
+import { parse as assert, boolean, object, optional, string } from 'valibot';
 
-import { log } from '../../log';
-import { formatBytes, gmailByteLimit } from '../helpers';
+import { log } from '../../log.js';
+import { formatBytes, gmailByteLimit } from '../helpers.mjs';
 
-import type { CommandFn, TemplateFn } from './types';
+import type { CommandFn, TemplateFn } from './types.mjs';
 
 const BuildOptionsStruct = object({
   minify: optional(boolean()),
@@ -133,21 +133,21 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
 
   const result = await Promise.all(
     compiledFiles.map(async (filePath, index) => {
-      const result = {
+      const res = {
         fileName: targetFiles[index],
         html: await build(filePath, { ...options, out: outputPath }, esbuildOutPath)
       };
 
       if (showStats) {
-        const bytes = Buffer.byteLength(result.html, 'utf8');
+        const bytes = Buffer.byteLength(res.html, 'utf8');
         const htmlSize = formatBytes(bytes);
 
         if (bytes > gmailByteLimit) largeCount += 1;
 
-        log.info(`  ${result.fileName} → HTML: ${htmlSize}`);
+        log.info(`  ${res.fileName} → HTML: ${htmlSize}`);
       }
 
-      return result;
+      return res;
     })
   );
 
@@ -169,7 +169,7 @@ export const command: CommandFn = async (argv: BuildOptions, input) => {
     process.exit(1);
   }
 
-  assert(argv, BuildOptionsStruct);
+  assert(BuildOptionsStruct, argv);
 
   await buildTemplates(target, argv);
 

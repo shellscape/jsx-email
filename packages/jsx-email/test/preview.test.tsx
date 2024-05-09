@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/renderer/jsx-to-string';
-import { Preview, renderWhiteSpace } from '../src';
+import { jsxToString } from '../src/renderer/jsx-to-string.js';
+import { Preview, renderWhiteSpace } from '../src/index.js';
 
 describe('<Preview> component', async () => {
   beforeEach(() => {

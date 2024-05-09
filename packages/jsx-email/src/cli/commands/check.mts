@@ -2,12 +2,12 @@ import { lstat } from 'node:fs/promises';
 
 import { doIUseEmail } from '@jsx-email/doiuse-email';
 import chalk from 'chalk';
-import { assert, object, type Infer } from 'superstruct';
+import { parse as assert, object, type Output as Infer } from 'valibot';
 
-import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers';
+import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.mjs';
 
-import { buildTemplates } from './build';
-import { type CommandFn } from './types';
+import { buildTemplates } from './build.mjs';
+import { type CommandFn } from './types.mjs';
 
 const { error, log } = console;
 
@@ -32,7 +32,7 @@ const combine = (lines: string[]) => {
 
   const result = lines.reduce<Record<string, string[]>>((prev, curr) => {
     const matches = curr.match(rePreamble);
-    const preamble = matches![0];
+    const [preamble] = matches!;
 
     prev[preamble] = (prev[preamble] || []).concat(curr.replace(rePreamble, '').replace(/`/g, ''));
 
@@ -126,7 +126,7 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
     return false;
   }
 
-  assert(argv, CheckOptionsStruct);
+  assert(CheckOptionsStruct, argv);
 
   log(chalk`{blue Checking email template for Client Compatibility...}\n`);
 

@@ -1,6 +1,6 @@
-import * as config from '../config';
-import { debug } from '../debug';
-import type { BaseProps, JsxEmailComponent } from '../types';
+import * as config from '../config.js';
+import { debug } from '../debug.js';
+import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 type RootProps = BaseProps<'a'>;
 

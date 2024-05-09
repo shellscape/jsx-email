@@ -48,8 +48,8 @@ describe('color functions', () => {
         expect(reFunction.test(css)).toBe(true);
 
         const replaced = css.replaceAll(reReplace, (_, name, __, r, g, b, a) => {
-          const values = [r, g, b, !!a && a !== '1' ? a : ''].filter(Boolean).join(',');
-          return `${name}(${values})`;
+          const res = [r, g, b, !!a && a !== '1' ? a : ''].filter(Boolean).join(',');
+          return `${name}(${res})`;
         });
 
         expect(replaced).toMatchSnapshot();

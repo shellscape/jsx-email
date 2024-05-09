@@ -2,7 +2,7 @@
 
 import { test, expect } from '@playwright/test';
 
-import { getHTML } from './helpers/html';
+import { getHTML } from './helpers/html.js';
 
 // TODO: Wire up tests for:
 // - Mobile View

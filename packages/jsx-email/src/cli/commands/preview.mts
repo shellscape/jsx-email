@@ -2,13 +2,21 @@ import { existsSync } from 'fs';
 import { relative, resolve, win32, posix } from 'path';
 
 import chalk from 'chalk';
-import type { Infer } from 'superstruct';
-import { assert, boolean, number, object, optional, string, union } from 'superstruct';
+import {
+  parse as assert,
+  boolean,
+  number,
+  object,
+  optional,
+  string,
+  union,
+  type Output as Infer
+} from 'valibot';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
-import { log } from '../../log';
+import { log } from '../../log.js';
 
-import type { CommandFn } from './types';
+import type { CommandFn } from './types.mjs';
 
 const PreviewOptionsStruct = object({
   buildPath: optional(string()),
@@ -45,7 +53,7 @@ Starts the preview server for a directory of email templates
 export const command: CommandFn = async (argv: PreviewOptions, input) => {
   if (input.length < 1) return false;
 
-  assert(argv, PreviewOptionsStruct);
+  assert(PreviewOptionsStruct, argv);
 
   const [target] = input;
   const targetPath = resolve(target);
@@ -62,7 +70,7 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
 
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { exclude, host = false, port = 55420 } = argv;
-  const { getViteConfig } = await import('../vite');
+  const { getViteConfig } = await import('../vite.mjs');
   const viteConfig = await getViteConfig(targetPath);
   // Note: The trailing slash is required
   const relativePath = `${normalizePath(relative(viteConfig.root!, targetPath))}/`;

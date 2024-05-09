@@ -1,14 +1,14 @@
 // @ts-ignore
 import React from 'react';
 
-import { render } from '../../src/renderer/render';
+import { render } from '../../src/renderer/render.js';
 
-import { Template as AirbnbEmail } from '../../../../apps/demo/emails/airbnb-review';
-import { Template as PlaidEmail } from '../../../../apps/demo/emails/plaid-verify-identity';
+import { Template as AirbnbEmail } from '../../../../apps/demo/emails/airbnb-review.js';
+import { Template as PlaidEmail } from '../../../../apps/demo/emails/plaid-verify-identity.js';
 
-import { Template as PreviewTemplate } from './fixtures/preview';
-import { Template } from './fixtures/template';
-import { Template as TailwindTemplate } from './fixtures/tailwind';
+import { Template as PreviewTemplate } from './fixtures/preview.js';
+import { Template } from './fixtures/template.js';
+import { Template as TailwindTemplate } from './fixtures/tailwind.js';
 
 describe('render', () => {
   beforeEach(() => {

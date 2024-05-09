@@ -2,11 +2,11 @@
 import React from 'react';
 
 import { Tailwind, type TailwindProps } from '../../dist';
-import { render } from '../../src/renderer/render';
-import { jsxToString } from '../../src/renderer/jsx-to-string';
-import { Hr } from '../../src/components/hr';
-import { Head } from '../../src/components/head';
-import { Html } from '../../src/components/html';
+import { render } from '../../src/renderer/render.js';
+import { jsxToString } from '../../src/renderer/jsx-to-string.js';
+import { Hr } from '../../src/components/hr.js';
+import { Head } from '../../src/components/head.js';
+import { Html } from '../../src/components/html.js';
 
 type TailwindConfig = Partial<TailwindProps['config']>;
 

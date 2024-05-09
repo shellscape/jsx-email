@@ -1,4 +1,6 @@
 import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
+// Note: tshy has some bugs with dual-mode package importing in the cjs build https://github.com/isaacs/tshy/issues/50
+// @ts-ignore
 import type { Pluggable, Preset, Settings } from 'unified';
 
 // Note: rehype is all ESM-only, so for CJS compat we're dynamically importing

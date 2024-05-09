@@ -1,5 +1,5 @@
-import { debug } from '../debug';
-import type { BaseProps, JsxEmailComponent } from '../types';
+import { debug } from '../debug.js';
+import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 export interface HeadProps extends BaseProps<'head'> {
   enableFormatDetection?: boolean;

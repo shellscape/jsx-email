@@ -27,7 +27,8 @@ tasks:
       cache: false
 
   compile:
-    command: tsup --config tsup.config.ts
+    # command: tsup --config tsup.config.ts
+    command: tshy
     inputs:
       - src
       - package.json

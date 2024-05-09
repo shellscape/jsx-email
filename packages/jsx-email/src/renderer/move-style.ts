@@ -1,5 +1,4 @@
 import type { Element, Parents, Root } from 'hast';
-import type { Plugin } from 'unified';
 
 interface ElementWithParent extends Element {
   index: number;

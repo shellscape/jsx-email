@@ -3,9 +3,9 @@ import { join, resolve } from 'path';
 
 import chalk from 'chalk';
 import mustache from 'mustache';
-import { assert, boolean, object, optional, string, type Infer } from 'superstruct';
+import { parse as assert, boolean, object, optional, string, type Output as Infer } from 'valibot';
 
-import { type CommandFn } from './types';
+import { type CommandFn } from './types.mjs';
 
 const { log } = console;
 
@@ -36,7 +36,7 @@ Creates a new jsx-email template
 export const command: CommandFn = async (argv: CreateOptions, input) => {
   if (input.length < 1) return false;
 
-  assert(argv, CreateOptionsStruct);
+  assert(CreateOptionsStruct, argv);
 
   const [name] = input;
   const { jsx, out } = argv;

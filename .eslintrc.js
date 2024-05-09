@@ -51,6 +51,30 @@ module.exports = {
         varsIgnorePattern: '^_'
       }
     ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        cjs: 'never',
+        cts: 'never',
+        js: 'never',
+        jsx: 'never',
+        mjs: 'never',
+        mts: 'never',
+        ts: 'never',
+        tsx: 'never'
+      }
+    ],
     'no-console': 'error'
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.cjs', '.js', '.json', '.jsx', '.mjs', '.ts', '.tsx']
+      },
+      typescript: {
+        alwaysTryTypes: true
+      }
+    }
   }
 };

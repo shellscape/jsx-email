@@ -5,11 +5,11 @@
 import chalk from 'chalk';
 import type { FC, ReactNode } from 'react';
 
-import { log } from '../log';
+import { log } from '../log.js';
 
-import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants';
-import { escapeString } from './escape-string';
-import { stringifyStyles } from './stringify-styles';
+import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants.js';
+import { escapeString } from './escape-string.js';
+import { stringifyStyles } from './stringify-styles.js';
 
 const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
   try {

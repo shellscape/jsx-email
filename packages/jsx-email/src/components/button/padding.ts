@@ -27,7 +27,7 @@ export function convertToPx(value: paddingType) {
 
   if (matches && matches.length === 3) {
     const numValue = parseFloat(matches[1]);
-    const unit = matches[2];
+    const [, , unit] = matches;
 
     switch (unit) {
       case 'px':

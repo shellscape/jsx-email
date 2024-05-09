@@ -5,14 +5,14 @@ import importLocal from 'import-local';
 import yargs from 'yargs-parser';
 
 import pkg from '../../package.json';
-import { debug } from '../debug';
+import { debug } from '../debug.js';
 
-import { command as build } from './commands/build';
-import { command as check } from './commands/check';
-import { command as create } from './commands/create';
-import { command as help } from './commands/help';
-import { command as preview } from './commands/preview';
-import type { CommandFn } from './commands/types';
+import { command as build } from './commands/build.mjs';
+import { command as check } from './commands/check.mjs';
+import { command as create } from './commands/create.mjs';
+import { command as help } from './commands/help.mjs';
+import { command as preview } from './commands/preview.mjs';
+import type { CommandFn } from './commands/types.mjs';
 
 const commands: Record<string, CommandFn> = { build, check, create, help, preview };
 

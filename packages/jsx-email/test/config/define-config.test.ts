@@ -1,4 +1,4 @@
-import { defineConfig } from '../../src/config';
+import { defineConfig } from '../../src/config.js';
 
 describe('defineConfig', async () => {
   test('defaults', async () => {

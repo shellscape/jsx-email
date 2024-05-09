@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 
-import { jsxToString } from '../renderer/jsx-to-string';
-import { useData } from '../renderer/suspense';
-import type { JsxEmailComponent } from '../types';
+import { jsxToString } from '../renderer/jsx-to-string.js';
+import { useData } from '../renderer/suspense.js';
+import type { JsxEmailComponent } from '../types.js';
 
 export interface ConditionalProps {
   children?: React.ReactNode;

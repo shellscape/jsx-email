@@ -1,4 +1,4 @@
-import { loadConfig } from '../../../../src/config';
+import { loadConfig } from '../../../../src/config.js';
 
 describe('loadConfig → mjs-json', async () => {
   test('loadConfig', async () => {

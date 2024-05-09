@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createContext, jsxToString, useContext } from '../../../src';
+import { createContext, jsxToString, useContext } from '../../../src/index.js';
 
 describe('context', () => {
   it('renders the Provider', async () => {

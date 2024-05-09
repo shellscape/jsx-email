@@ -1,12 +1,11 @@
 import { htmlToText } from 'html-to-text';
 
-import type { PlainTextOptions, RenderOptions } from '../types';
+import { defineConfig, loadConfig } from '../config.js';
+import { callHook, callProcessHook } from '../plugins.js';
+import type { PlainTextOptions, RenderOptions } from '../types.js';
 
-import { defineConfig, loadConfig } from '../config';
-import { getMovePlugin } from './move-style';
-import { callHook, callProcessHook } from '../plugins';
-
-import { jsxToString } from './jsx-to-string';
+import { jsxToString } from './jsx-to-string.js';
+import { getMovePlugin } from './move-style.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 

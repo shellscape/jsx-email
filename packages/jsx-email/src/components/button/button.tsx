@@ -1,9 +1,9 @@
 import React from 'react';
 
-import type { BaseProps, JsxEmailComponent } from '../../types';
-import { debug } from '../../debug';
+import type { BaseProps, JsxEmailComponent } from '../../types.js';
+import { debug } from '../../debug.js';
 
-import { parsePadding } from './padding';
+import { parsePadding } from './padding.js';
 
 type RootProps = BaseProps<'a'>;
 
