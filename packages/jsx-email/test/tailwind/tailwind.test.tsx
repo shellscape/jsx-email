@@ -1,7 +1,7 @@
 // @ts-ignore
 import React from 'react';
 
-import { Tailwind, type TailwindProps } from '../../dist';
+import { Tailwind, type TailwindProps } from '../../dist/esm';
 import { render } from '../../src/renderer/render.js';
 import { jsxToString } from '../../src/renderer/jsx-to-string.js';
 import { Hr } from '../../src/components/hr.js';

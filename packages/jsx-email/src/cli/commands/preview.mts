@@ -50,24 +50,6 @@ Starts the preview server for a directory of email templates
   $ email preview ./src/templates --build-path /tmp/email-preview
 `;
 
-export const command: CommandFn = async (argv: PreviewOptions, input) => {
-  if (input.length < 1) return false;
-
-  assert(PreviewOptionsStruct, argv);
-
-  const [target] = input;
-  const targetPath = resolve(target);
-
-  if (!existsSync(targetPath)) {
-    log.error(chalk`\n{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
-    return true;
-  }
-
-  if (argv.buildPath) await build(targetPath, argv);
-  else await start(targetPath, argv);
-  return true;
-};
-
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { exclude, host = false, port = 55420 } = argv;
   const { getViteConfig } = await import('../vite.mjs');
@@ -132,4 +114,22 @@ const start = async (targetPath: string, argv: PreviewOptions) => {
   // TODO: bind CLI shortcuts. this hasn't landed in Vite yet, will be released with 5.0
   if (open) server.openBrowser();
   server.printUrls();
+};
+
+export const command: CommandFn = async (argv: PreviewOptions, input) => {
+  if (input.length < 1) return false;
+
+  assert(PreviewOptionsStruct, argv);
+
+  const [target] = input;
+  const targetPath = resolve(target);
+
+  if (!existsSync(targetPath)) {
+    log.error(chalk`\n{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
+    return true;
+  }
+
+  if (argv.buildPath) await build(targetPath, argv);
+  else await start(targetPath, argv);
+  return true;
 };

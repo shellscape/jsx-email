@@ -3,7 +3,7 @@ import React from 'react';
 
 import { render } from '../src/renderer/render.js';
 import { jsxToString } from '../src/renderer/jsx-to-string.js';
-import { Conditional } from '../dist';
+import { Conditional } from '../dist/esm';
 
 describe('<Conditional> component', async () => {
   beforeEach(() => {

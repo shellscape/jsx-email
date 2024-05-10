@@ -1,5 +1,7 @@
-import { defineConfig } from 'jsx-email';
+import { defineConfig } from 'jsx-email/config';
 
-export const config = defineConfig({
+const conf = {
   render: { minify: true }
-});
+};
+
+export const config = defineConfig(conf);

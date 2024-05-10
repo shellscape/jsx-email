@@ -69,7 +69,10 @@ tasks:
       cache: false
 
   test:
-    command: vitest test/config/define-config.test.ts --config ../../shared/vitest.config.ts
+    command: vitest --config ../../shared/vitest.config.ts
+    # command: vitest test/config/define-config.test.ts --config ../../shared/vitest.config.ts
+    # command: vitest test/config/load/mjs/load-mjs.test.ts --config ../../shared/vitest.config.ts
+    # command: vitest test/config/load/mjs-json/load-mjs-json.test.ts --config ../../shared/vitest.config.ts
     deps:
       - ~:build
     inputs:

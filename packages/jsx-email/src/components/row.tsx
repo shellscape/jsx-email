@@ -4,7 +4,6 @@ import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 export interface RowProps extends BaseProps<'table'> {}
 
-const configDds = config.current.render.disableDefaultStyle;
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/row' } : {};
 
 export const Row: JsxEmailComponent<RowProps> = ({
@@ -12,22 +11,26 @@ export const Row: JsxEmailComponent<RowProps> = ({
   disableDefaultStyle,
   style,
   ...props
-}) => (
-  <table
-    align="center"
-    width="100%"
-    {...props}
-    {...debugProps}
-    style={style}
-    role="presentation"
-    cellSpacing="0"
-    cellPadding="0"
-    border={0}
-  >
-    <tbody style={configDds || disableDefaultStyle ? {} : { width: '100%' }}>
-      <tr style={configDds || disableDefaultStyle ? {} : { width: '100%' }}>{children}</tr>
-    </tbody>
-  </table>
-);
+}) => {
+  const configDds = config.current().render.disableDefaultStyle;
+
+  return (
+    <table
+      align="center"
+      width="100%"
+      {...props}
+      {...debugProps}
+      style={style}
+      role="presentation"
+      cellSpacing="0"
+      cellPadding="0"
+      border={0}
+    >
+      <tbody style={configDds || disableDefaultStyle ? {} : { width: '100%' }}>
+        <tr style={configDds || disableDefaultStyle ? {} : { width: '100%' }}>{children}</tr>
+      </tbody>
+    </table>
+  );
+};
 
 Row.displayName = 'Row';

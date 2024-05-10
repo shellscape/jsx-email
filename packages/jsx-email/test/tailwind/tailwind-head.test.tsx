@@ -1,7 +1,7 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString, render, Head, Html, Tailwind } from '../../dist';
+import { jsxToString, render, Head, Html, Tailwind } from '../../dist/esm';
 
 const Component = () => (
   <Html>

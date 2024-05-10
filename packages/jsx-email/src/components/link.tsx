@@ -6,7 +6,6 @@ type RootProps = BaseProps<'a'>;
 
 export interface LinkProps extends RootProps {}
 
-const configDds = config.current.render.disableDefaultStyle;
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/link' } : {};
 
 export const Link: JsxEmailComponent<LinkProps> = ({
@@ -14,16 +13,20 @@ export const Link: JsxEmailComponent<LinkProps> = ({
   style,
   target,
   ...props
-}) => (
-  <a
-    {...props}
-    {...debugProps}
-    target={target}
-    style={{
-      ...(configDds || disableDefaultStyle ? {} : { color: '#067df7', textDecoration: 'none' }),
-      ...style
-    }}
-  />
-);
+}) => {
+  const configDds = config.current().render.disableDefaultStyle;
+
+  return (
+    <a
+      {...props}
+      {...debugProps}
+      target={target}
+      style={{
+        ...(configDds || disableDefaultStyle ? {} : { color: '#067df7', textDecoration: 'none' }),
+        ...style
+      }}
+    />
+  );
+};
 
 Link.displayName = 'Link';

@@ -1,4 +1,5 @@
-import 'source-map-support/register';
+// eslint-disable-next-line
+import 'source-map-support/register.js';
 
 import chalk from 'chalk';
 // @ts-ignore

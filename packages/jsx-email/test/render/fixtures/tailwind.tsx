@@ -14,7 +14,7 @@ import {
   Section,
   Tailwind,
   Text
-} from '../../../dist';
+} from '../../../dist/esm';
 
 export const Template = () => (
   <Html>
