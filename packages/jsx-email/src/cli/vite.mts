@@ -4,6 +4,7 @@ import childProcess from 'node:child_process';
 
 import { getDeps } from '@jsx-email/app-preview';
 import react from '@vitejs/plugin-react';
+import { findUp } from 'find-up';
 import { createLogger, defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -15,9 +16,6 @@ import hypothetical from 'rollup-plugin-hypothetical';
 const exec = promisify(childProcess.exec);
 const logger = createLogger();
 const { warnOnce: og } = logger;
-const root = join(dirname(require.resolve('@jsx-email/app-preview')), 'app');
-
-process.chdir(root);
 
 logger.warnOnce = (message, options) => {
   // Note: ignore `Sourcemap for "${file}" points to missing source files` errors
@@ -58,7 +56,10 @@ const envDefine = Object.keys(process.env)
 const previewDeps = getDeps();
 
 export const getViteConfig = async (templatesPath: string) => {
-  const { findUp } = await import('find-up');
+  const root = join(dirname(import.meta.resolve('@jsx-email/app-preview')), 'app');
+
+  process.chdir(root);
+
   const gitRoot = await getGitRoot();
   const foundRoot = await findUp(['jsconfig.json', 'tsconfig.json'], {
     cwd: templatesPath,

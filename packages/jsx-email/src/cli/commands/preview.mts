@@ -12,9 +12,10 @@ import {
   union,
   type Output as Infer
 } from 'valibot';
-import type { InlineConfig } from 'vite';
+import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
+import { getViteConfig } from '../vite.mjs';
 
 import type { CommandFn } from './types.mjs';
 
@@ -52,7 +53,6 @@ Starts the preview server for a directory of email templates
 
 const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   const { exclude, host = false, port = 55420 } = argv;
-  const { getViteConfig } = await import('../vite.mjs');
   const viteConfig = await getViteConfig(targetPath);
   // Note: The trailing slash is required
   const relativePath = `${normalizePath(relative(viteConfig.root!, targetPath))}/`;
@@ -76,8 +76,6 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
 };
 
 const build = async (targetPath: string, argv: PreviewOptions) => {
-  const { build: viteBuild } = await import('vite');
-
   const { buildPath } = argv;
   const config = await getConfig(targetPath, argv);
 
@@ -104,7 +102,6 @@ const build = async (targetPath: string, argv: PreviewOptions) => {
 };
 
 const start = async (targetPath: string, argv: PreviewOptions) => {
-  const { createServer } = await import('vite');
   const config = await getConfig(targetPath, argv);
   const { open = true } = argv;
 
