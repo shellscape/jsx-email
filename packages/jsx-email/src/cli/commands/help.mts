@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import pkg from '../../../package.json';
+import pkg from '../../../package.json' assert { type: 'json' };
 
 import type { CommandFn } from './types.mjs';
 import { help as build } from './build.mjs';

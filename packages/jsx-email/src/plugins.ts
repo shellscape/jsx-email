@@ -1,11 +1,11 @@
-// eslint-disable-next-line
-import 'source-map-support/register.js';
-
 import chalk from 'chalk';
+import sourceMapSupport from 'source-map-support';
 // @ts-ignore
 import type { Plugin, Preset, Processor } from 'unified';
 
 import { loadConfig } from './config.js';
+
+sourceMapSupport.install();
 
 export interface RenderHookParams {
   chalk: typeof chalk;

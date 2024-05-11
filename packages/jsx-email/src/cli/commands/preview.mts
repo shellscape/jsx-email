@@ -12,7 +12,7 @@ import {
   union,
   type Output as Infer
 } from 'valibot';
-import { build as viteBuild, createServer, type InlineConfig } from 'vite';
+import type { InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
 
@@ -76,10 +76,12 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
 };
 
 const build = async (targetPath: string, argv: PreviewOptions) => {
+  const { build: viteBuild } = await import('vite');
+
   const { buildPath } = argv;
   const config = await getConfig(targetPath, argv);
 
-  delete (config.define as any)['process.env'];
+  delete config.define!['process.env'];
 
   await viteBuild({
     ...config,
@@ -102,6 +104,7 @@ const build = async (targetPath: string, argv: PreviewOptions) => {
 };
 
 const start = async (targetPath: string, argv: PreviewOptions) => {
+  const { createServer } = await import('vite');
   const config = await getConfig(targetPath, argv);
   const { open = true } = argv;
 

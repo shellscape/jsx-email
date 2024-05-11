@@ -11,6 +11,7 @@ tasks:
     deps:
       - ~:clean.dist
       - ~:compile
+      - ~:copy.package
       - ~:copy.readme
       - ~:copy.templates
     inputs:
@@ -34,6 +35,13 @@ tasks:
       - package.json
     options:
       runDepsInParallel: false
+
+  # Note: https://github.com/isaacs/tshy/issues/61
+  # For all the things that tshy solves, it creates new problems
+  copy.package:
+    command: cp -r ./package.json dist
+    options:
+      cache: false
 
   copy.templates:
     command: cp -r ../../assets/templates dist
