@@ -36,7 +36,9 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
   const renderOptions = { render: options };
 
   if (options) {
-    config = await defineConfig(merge(config as any, renderOptions));
+    // Note: structuredClone chokes on symbols
+    const { symbol: _, ...cloneTarget } = config as any;
+    config = await defineConfig(merge(cloneTarget, renderOptions));
   }
 
   let html = await jsxToString(component);

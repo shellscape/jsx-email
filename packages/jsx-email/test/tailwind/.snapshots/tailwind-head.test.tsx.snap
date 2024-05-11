@@ -1,20 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Tailwind + Head > should not clobber <Head> content 1`] = `"<html lang=\\"en\\" dir=\\"ltr\\"><head><head><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><title>test title</title></head><style tailwind>/* layer: preflights */</style></head></html>"`;
+exports[`Tailwind + Head > should not clobber <Head> content 1`] = `"<html lang=\\"en\\" dir=\\"ltr\\"><head><head><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\"/><title>test title</title></head><style tailwind>/* layer: preflights */</style></head></html>"`;
 
-exports[`Tailwind + Head > should not clobber <Head> content 2`] = `
-"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\">
-<html lang=\\"en\\" dir=\\"ltr\\">
-
-  <head>
-    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
-    <title>test title</title>
-    <style tailwind>
-      /* layer: preflights */
-    </style>
-  </head>
-
-  <body></body>
-
-</html>"
-`;
+exports[`Tailwind + Head > should not clobber <Head> content 2`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><html lang=\\"en\\" dir=\\"ltr\\"><head><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\"><meta name=\\"x-apple-disable-message-reformatting\\"><meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\"><title>test title</title><style tailwind>/* layer: preflights */</style></head><body></body></html>"`;
