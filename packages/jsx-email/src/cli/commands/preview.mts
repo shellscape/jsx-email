@@ -1,8 +1,11 @@
 import { existsSync } from 'node:fs';
 import { mkdir, realpath, rmdir } from 'node:fs/promises';
 import os from 'node:os';
-import { join, relative, resolve, win32, posix } from 'path';
+import { dirname, join, relative, resolve, win32, posix } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+// import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import chalk from 'chalk';
 import {
   parse as assert,
@@ -17,7 +20,7 @@ import {
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
-import { getViteConfig } from '../vite.mjs';
+// import { getViteConfig } from '../vite.mjs';
 
 import { buildTemplates } from './build.mjs';
 import type { CommandFn } from './types.mjs';
@@ -68,41 +71,68 @@ Starts the preview server for a directory of email templates
 const buildForPreview = async ({ buildPath, exclude, targetPath }: BuildForPreviewParams) => {
   if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
   await mkdir(buildPath, { recursive: true });
-  await buildTemplates({
-    buildOptions: {
-      exclude,
-      minify: false,
-      out: buildPath,
-      pretty: true,
-      showStats: false,
-      usePreviewProps: true
-    },
-    targetPath
-  });
+
+  log.info(chalk`\n{blue Starting build...}`);
+
+  await Promise.all([
+    buildTemplates({
+      buildOptions: {
+        exclude,
+        minify: false,
+        out: buildPath,
+        pretty: true,
+        showStats: false,
+        silent: true,
+        usePreviewProps: true
+      },
+      targetPath
+    }),
+    buildTemplates({
+      buildOptions: {
+        exclude,
+        minify: false,
+        out: buildPath,
+        plain: true,
+        showStats: false,
+        silent: true,
+        usePreviewProps: true
+      },
+      targetPath
+    })
+  ]);
 };
 
 const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
+  const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
   const tmpdir = await realpath(os.tmpdir());
   const buildPath = join(tmpdir, 'jsx-email-preview');
   const { exclude, host = false, port = 55420 } = argv;
-  const viteConfig = await getViteConfig(targetPath);
+  // const viteConfig = await getViteConfig(targetPath);
   // Note: The trailing slash is required
-  const relativePath = `${normalizePath(relative(viteConfig.root!, targetPath))}/`;
+  const relativePath = `${normalizePath(relative(root, targetPath))}/`;
 
   await buildForPreview({ buildPath, exclude, targetPath });
 
-  process.env.VITE_JSXE_RELATIVE_PATH = relativePath;
+  process.env.VITE_JSXEMAIL_BUILD_PATH = `${normalizePath(relative(root, buildPath))}/`;
+  process.env.VITE_JSXEMAIL_RELATIVE_PATH = relativePath;
+
+  // Note: If we don't do this, vite won't know where to run from.
+  // And apparently there's a tailwind bug if we set the `root` config property
+  process.chdir(root);
 
   const config = {
+    clearScreen: false,
     configFile: false,
-    ...viteConfig,
+    plugins: [react()],
+    // ...viteConfig,
     resolve: {
       alias: {
         '@jsxemailbuild': buildPath,
-        '@jsxemailsrc': targetPath,
-        ...viteConfig.resolve?.alias
+        '@jsxemailsrc': targetPath
+        // ...viteConfig.resolve?.alias
       }
     },
+    // root,
     server: { fs: { strict: false }, host, port: parseInt(port.toString(), 10) }
   } satisfies InlineConfig;
 
@@ -112,8 +142,6 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
 const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
   const { buildPath } = argv;
   const config = await getConfig({ argv, targetPath });
-
-  delete config.define!['process.env'];
 
   await viteBuild({
     ...config,
@@ -129,8 +157,8 @@ const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
       watch: void 0
     },
     define: {
-      'process.env': '{}',
-      ...config.define
+      'process.env': '{}'
+      // ...config.define
     },
     mode: 'development'
   });
@@ -139,7 +167,6 @@ const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
 const start = async ({ targetPath, argv }: PreviewCommonParams) => {
   const config = await getConfig({ argv, targetPath });
   const { open = true } = argv;
-
   const server = await createServer(config);
 
   log.info(chalk`\n  🚀 {yellow jsx-email} Preview\n`);

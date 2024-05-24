@@ -27,6 +27,7 @@ const BuildCommandOptionsStruct = object({
   plain: optional(boolean()),
   pretty: optional(boolean()),
   props: optional(string()),
+  silent: optional(boolean()),
   usePreviewProps: optional(boolean()),
   useTemplateName: optional(boolean()),
   writeToFile: optional(boolean())
@@ -137,7 +138,7 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
 
   // Note: niave check that will probably get us into some edge cases
   const isFile = targetPath.endsWith('.tsx') || targetPath.endsWith('.jsx');
-  const { exclude, out = '.rendered', showStats = true, writeToFile = true } = buildOptions;
+  const { exclude, out = '.rendered', showStats = true, silent, writeToFile = true } = buildOptions;
   const glob = isFile ? targetPath : join(targetPath, '**/*.{jsx,tsx}');
   const outputPath = resolve(out);
   let largeCount = 0;
@@ -145,9 +146,11 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
 
   if (exclude) targetFiles = targetFiles.filter((path) => !micromatch.isMatch(path, exclude));
 
-  log.info(chalk`{cyan Found}`, targetFiles.length, 'files:');
-  log.info('  ', targetFiles.join('\n  '));
-  log.info(chalk`\n{blue Starting build...}`);
+  if (!silent) {
+    log.info(chalk`{cyan Found}`, targetFiles.length, 'files:');
+    log.info('  ', targetFiles.join('\n  '));
+    log.info(chalk`\n{blue Starting build...}`);
+  }
 
   const compiledFiles = await compile(targetFiles, esbuildOutPath);
 
@@ -175,10 +178,12 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
     })
   );
 
-  if (showStats && largeCount > 0)
-    log.warn(chalk`\n${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
-  if (writeToFile) log.info(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
-  else log.info(chalk`\n{green Build complete}`);
+  if (!silent) {
+    if (showStats && largeCount > 0)
+      log.warn(chalk`\n${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
+    if (writeToFile) log.info(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
+    else log.info(chalk`\n{green Build complete}`);
+  }
 
   return result;
 };

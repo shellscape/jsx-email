@@ -6,28 +6,36 @@ export const gather = async () => {
   const relativePath = config.relativePath.endsWith('/')
     ? config.relativePath
     : `${config.relativePath}/`;
+  const buildPath = config.buildPath.endsWith('/') ? config.buildPath : `${config.buildPath}/`;
 
-  const htmlFiles = import.meta.glob(`@jsxemailbuild/**/*.html`, { as: 'raw', eager: true });
-  const plainFiles = import.meta.glob(`@jsxemailbuild/**/*.txt`, { as: 'raw', eager: true });
-  const sourceFiles = import.meta.glob(`@jsxeemailsrc/**/*.{jsx,tsx}`, { as: 'raw', eager: true });
+  const htmlFiles = import.meta.glob(`@jsxemailbuild/**/*.html`, {
+    eager: true,
+    import: 'default',
+    query: '?raw'
+  });
+  const plainFiles = import.meta.glob(`@jsxemailbuild/**/*.txt`, {
+    eager: true,
+    import: 'default',
+    query: '?raw'
+  });
+  const sourceFiles = import.meta.glob(`@jsxemailsrc/**/*.{jsx,tsx}`, {
+    eager: true,
+    import: 'default',
+    query: '?raw'
+  });
 
   const fileKeys = Object.keys(sourceFiles);
   const templateFiles: Record<string, TemplateData> = fileKeys.reduce((acc, path) => {
-    const basePath = path.replace(/\.(jsx|tsx)$/, '');
+    const basePath = path.replace(relativePath, buildPath).replace(/\.(jsx|tsx)$/, '');
     return {
       ...acc,
       [path]: {
         html: htmlFiles[`${basePath}.html`],
-        path: pathLookup[path],
-        place: plainFiles[`${basePath}.txt`],
+        path: path.replace(relativePath, ''),
+        plain: plainFiles[`${basePath}.txt`],
         source: sourceFiles[path]
       }
     };
-  }, {});
-
-  const pathLookup = Object.keys(templateFiles).reduce((acc, path) => {
-    acc[path] = path.replace(relativePath, '');
-    return acc;
   }, {});
 
   const sortedPaths = Object.keys(templateFiles).sort((a, b) => {

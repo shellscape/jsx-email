@@ -1,19 +1,19 @@
-/* eslint-disable import/first */
-import './globals.css';
-
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
+import './index.css';
 import { setup } from './app';
 import { getRouter } from './routes';
 
 setup();
 
 const router = await getRouter();
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+root.render(
+  <StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </StrictMode>
 );

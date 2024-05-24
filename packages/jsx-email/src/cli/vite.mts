@@ -12,7 +12,7 @@ import { createLogger, defineConfig } from 'vite';
 
 // @ts-ignore
 // eslint-disable-next-line
-import hypothetical from 'rollup-plugin-hypothetical';
+// import hypothetical from 'rollup-plugin-hypothetical';
 
 // const exec = promisify(childProcess.exec);
 const logger = createLogger();
@@ -70,7 +70,7 @@ export const getViteConfig = async (_templatesPath: string) => {
 
   return defineConfig({
     clearScreen: false,
-    customLogger: logger,
+    // customLogger: logger,
     // define: {
     //   'process.env': 'import.meta.env',
     //   // Note: vite appears to use a bottom-up (or reverse) strategy for applying defines. If the
