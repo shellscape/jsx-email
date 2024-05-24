@@ -130,7 +130,10 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
 
   log(chalk`{blue Checking email template for Client Compatibility...}\n`);
 
-  const [file] = await buildTemplates(input[0], { showStats: false, writeToFile: false });
+  const [file] = await buildTemplates({
+    buildOptions: { showStats: false, writeToFile: false },
+    targetPath: input[0]
+  });
 
   log();
 

@@ -46,7 +46,7 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@8.11.0",
+  "packageManager": "pnpm@9.1.1",
   "pnpm": {
     "overrides": {
       "@types/react": "18.2.22",

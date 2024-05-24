@@ -1,5 +1,4 @@
 import { createBrowserRouter, type RouteObject } from 'react-router-dom';
-import { render, renderPlainText } from 'jsx-email';
 
 import { Error } from './error.tsx';
 import { Home } from './home.tsx';
@@ -17,25 +16,17 @@ const getRoutes = async (templates: TemplateData[]) => {
   const templateParts = getNestedStructure(templates);
 
   const routes = templates.map(async (template) => {
-    const { previewProps, templateName, Template } = template;
-    let props: any;
+    const { html, path, plain, source } = template;
 
-    if (typeof previewProps === 'function') props = await previewProps();
-    else if (previewProps) props = previewProps;
-
-    const [html, plainText] = await Promise.all([
-      render(<Template {...props} />, { minify: false, pretty: true }),
-      renderPlainText(<Template {...props} />)
-    ]);
     const element = (
       <Layout>
         <Preview
           {...{
             html,
-            jsx: template.jsx,
-            plainText,
+            jsx: source,
+            plainText: plain,
             templateParts,
-            title: templateName || template.path.replace('.tsx', '')
+            title: path.replace('.tsx', '')
           }}
         />
       </Layout>
@@ -49,7 +40,7 @@ const getRoutes = async (templates: TemplateData[]) => {
 
 export const getRouter = async () => {
   const templates = await gather();
-  const { routes, templateParts } = await getRoutes(templates);
+  const { routes, templateParts } = await getRoutes(Object.values(templates));
   const router = createBrowserRouter([
     {
       element: (

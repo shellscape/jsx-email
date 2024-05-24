@@ -1,5 +1,7 @@
-import { existsSync } from 'fs';
-import { relative, resolve, win32, posix } from 'path';
+import { existsSync } from 'node:fs';
+import { mkdir, realpath, rmdir } from 'node:fs/promises';
+import os from 'node:os';
+import { join, relative, resolve, win32, posix } from 'path';
 
 import chalk from 'chalk';
 import {
@@ -17,9 +19,10 @@ import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 import { log } from '../../log.js';
 import { getViteConfig } from '../vite.mjs';
 
+import { buildTemplates } from './build.mjs';
 import type { CommandFn } from './types.mjs';
 
-const PreviewOptionsStruct = object({
+const PreviewCommandOptionsStruct = object({
   buildPath: optional(string()),
   exclude: optional(string()),
   host: optional(boolean()),
@@ -27,7 +30,18 @@ const PreviewOptionsStruct = object({
   port: optional(union([number(), string()]))
 });
 
-type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
+type PreviewCommandOptions = Infer<typeof PreviewCommandOptionsStruct>;
+
+interface PreviewCommonParams {
+  argv: PreviewCommandOptions;
+  targetPath: string;
+}
+
+interface BuildForPreviewParams {
+  buildPath: string;
+  exclude?: string;
+  targetPath: string;
+}
 
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
@@ -51,13 +65,32 @@ Starts the preview server for a directory of email templates
   $ email preview ./src/templates --build-path /tmp/email-preview
 `;
 
-const getConfig = async (targetPath: string, argv: PreviewOptions) => {
+const buildForPreview = async ({ buildPath, exclude, targetPath }: BuildForPreviewParams) => {
+  if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
+  await mkdir(buildPath, { recursive: true });
+  await buildTemplates({
+    buildOptions: {
+      exclude,
+      minify: false,
+      out: buildPath,
+      pretty: true,
+      showStats: false,
+      usePreviewProps: true
+    },
+    targetPath
+  });
+};
+
+const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
+  const tmpdir = await realpath(os.tmpdir());
+  const buildPath = join(tmpdir, 'jsx-email-preview');
   const { exclude, host = false, port = 55420 } = argv;
   const viteConfig = await getViteConfig(targetPath);
   // Note: The trailing slash is required
   const relativePath = `${normalizePath(relative(viteConfig.root!, targetPath))}/`;
 
-  process.env.VITE_JSXE_FILTER_GLOB = exclude;
+  await buildForPreview({ buildPath, exclude, targetPath });
+
   process.env.VITE_JSXE_RELATIVE_PATH = relativePath;
 
   const config = {
@@ -65,7 +98,8 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
     ...viteConfig,
     resolve: {
       alias: {
-        '@jsxe': targetPath,
+        '@jsxemailbuild': buildPath,
+        '@jsxemailsrc': targetPath,
         ...viteConfig.resolve?.alias
       }
     },
@@ -75,9 +109,9 @@ const getConfig = async (targetPath: string, argv: PreviewOptions) => {
   return config;
 };
 
-const build = async (targetPath: string, argv: PreviewOptions) => {
+const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
   const { buildPath } = argv;
-  const config = await getConfig(targetPath, argv);
+  const config = await getConfig({ argv, targetPath });
 
   delete config.define!['process.env'];
 
@@ -102,8 +136,8 @@ const build = async (targetPath: string, argv: PreviewOptions) => {
   });
 };
 
-const start = async (targetPath: string, argv: PreviewOptions) => {
-  const config = await getConfig(targetPath, argv);
+const start = async ({ targetPath, argv }: PreviewCommonParams) => {
+  const config = await getConfig({ argv, targetPath });
   const { open = true } = argv;
 
   const server = await createServer(config);
@@ -117,10 +151,10 @@ const start = async (targetPath: string, argv: PreviewOptions) => {
   server.printUrls();
 };
 
-export const command: CommandFn = async (argv: PreviewOptions, input) => {
+export const command: CommandFn = async (argv: PreviewCommandOptions, input) => {
   if (input.length < 1) return false;
 
-  assert(PreviewOptionsStruct, argv);
+  assert(PreviewCommandOptionsStruct, argv);
 
   const [target] = input;
   const targetPath = resolve(target);
@@ -130,7 +164,7 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
     return true;
   }
 
-  if (argv.buildPath) await build(targetPath, argv);
-  else await start(targetPath, argv);
+  if (argv.buildPath) await buildDeployable({ argv, targetPath });
+  else await start({ argv, targetPath });
   return true;
 };

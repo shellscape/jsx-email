@@ -7,6 +7,10 @@ import { pathToFileURL } from 'url';
 import chalk from 'chalk';
 import esbuild from 'esbuild';
 import globby from 'globby';
+// @ts-ignore
+// eslint-disable-next-line
+import { render } from 'jsx-email';
+import micromatch from 'micromatch';
 import { isWindows } from 'std-env';
 import type { Output as Infer } from 'valibot';
 import { parse as assert, boolean, object, optional, string } from 'valibot';
@@ -16,19 +20,28 @@ import { formatBytes, gmailByteLimit } from '../helpers.mjs';
 
 import type { CommandFn, TemplateFn } from './types.mjs';
 
-const BuildOptionsStruct = object({
+const BuildCommandOptionsStruct = object({
+  exclude: optional(string()),
   minify: optional(boolean()),
   out: optional(string()),
   plain: optional(boolean()),
   pretty: optional(boolean()),
   props: optional(string()),
+  usePreviewProps: optional(boolean()),
+  useTemplateName: optional(boolean()),
   writeToFile: optional(boolean())
 });
 
-type BuildOptions = Infer<typeof BuildOptionsStruct>;
+type BuildCommandOptions = Infer<typeof BuildCommandOptionsStruct>;
 
-interface BuildOptionsInternal extends BuildOptions {
+interface BuildCommandOptionsInternal extends BuildCommandOptions {
   showStats?: boolean;
+}
+
+interface BuildOptions {
+  argv: BuildCommandOptions;
+  outputBasePath?: string;
+  path: string;
 }
 
 export const help = chalk`
@@ -40,6 +53,7 @@ Builds a template and saves the result
   $ email build <template file or dir path> [...options]
 
 {underline Options}
+  --exclude     A micromatch glob pattern that specifies files to exclude from the build
   --minify      Minify the rendered template before saving
   --out         File path to save the rendered template
   --plain       Emit template as plain text
@@ -58,8 +72,9 @@ Builds a template and saves the result
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
 // FIXME: in v2 change the signature to an object
-export const build = async (path: string, argv: BuildOptions, outputBasePath?: string) => {
-  const { out, plain, props = '{}', writeToFile = true } = argv;
+export const build = async (options: BuildOptions) => {
+  const { argv, outputBasePath, path } = options;
+  const { out, plain, props = '{}', usePreviewProps, useTemplateName, writeToFile = true } = argv;
   const platformPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
   const template = await import(platformPath);
   // proper named export
@@ -73,16 +88,14 @@ export const build = async (path: string, argv: BuildOptions, outputBasePath?: s
   }
 
   const extension = plain ? '.txt' : '.html';
-  const renderImport = 'jsx-email';
-  const { render } = await import(renderImport);
-
-  await mkdir(out!, { recursive: true });
-
-  const buildProps = JSON.parse(props);
-  const component = componentExport(buildProps);
+  const renderProps = usePreviewProps ? template.previewProps || {} : JSON.parse(props);
+  const fileExt = extname(path);
+  const templateName = useTemplateName ? template.templateName : basename(path, fileExt);
+  const component = componentExport(renderProps);
+  const baseDir = dirname(path);
   const writePath = outputBasePath
-    ? join(out!, path.replace(outputBasePath, '').replace(extname(path), extension))
-    : join(out!, basename(path).replace(extname(path), extension));
+    ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)
+    : join(out!, templateName + extension);
 
   await mkdir(dirname(writePath), { recursive: true });
 
@@ -113,17 +126,24 @@ const compile = async (files: string[], outDir: string) => {
   return globby([normalizePath(join(outDir, '**/*.js'))]);
 };
 
-export const buildTemplates = async (target: string, options: BuildOptionsInternal) => {
+interface BuildTemplateParams {
+  buildOptions: BuildCommandOptionsInternal;
+  targetPath: string;
+}
+
+export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplateParams) => {
   const tmpdir = await realpath(os.tmpdir());
   const esbuildOutPath = join(tmpdir, 'jsx-email', Date.now().toString());
 
   // Note: niave check that will probably get us into some edge cases
-  const isFile = target.endsWith('.tsx') || target.endsWith('.jsx');
-  const { out = '.rendered', showStats = true, writeToFile = true } = options;
-  const glob = isFile ? target : join(target, '**/*.{jsx,tsx}');
-  const targetFiles = await globby([normalizePath(glob)]);
+  const isFile = targetPath.endsWith('.tsx') || targetPath.endsWith('.jsx');
+  const { exclude, out = '.rendered', showStats = true, writeToFile = true } = buildOptions;
+  const glob = isFile ? targetPath : join(targetPath, '**/*.{jsx,tsx}');
   const outputPath = resolve(out);
   let largeCount = 0;
+  let targetFiles = await globby([normalizePath(glob)]);
+
+  if (exclude) targetFiles = targetFiles.filter((path) => !micromatch.isMatch(path, exclude));
 
   log.info(chalk`{cyan Found}`, targetFiles.length, 'files:');
   log.info('  ', targetFiles.join('\n  '));
@@ -135,7 +155,11 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
     compiledFiles.map(async (filePath, index) => {
       const res = {
         fileName: targetFiles[index],
-        html: await build(filePath, { ...options, out: outputPath }, esbuildOutPath)
+        html: await build({
+          argv: { ...buildOptions, out: outputPath },
+          outputBasePath: esbuildOutPath,
+          path: filePath
+        })
       };
 
       if (showStats) {
@@ -159,19 +183,19 @@ export const buildTemplates = async (target: string, options: BuildOptionsIntern
   return result;
 };
 
-export const command: CommandFn = async (argv: BuildOptions, input) => {
+export const command: CommandFn = async (argv: BuildCommandOptions, input) => {
   if (input.length < 1) return false;
 
-  const [target] = input;
+  const [targetPath] = input;
 
-  if (!existsSync(target)) {
-    log.error(chalk`{red The provided build target '${target}' does not exist}`);
+  if (!existsSync(targetPath)) {
+    log.error(chalk`{red The provided build target '${targetPath}' does not exist}`);
     process.exit(1);
   }
 
-  assert(BuildOptionsStruct, argv);
+  assert(BuildCommandOptionsStruct, argv);
 
-  await buildTemplates(target, argv);
+  await buildTemplates({ buildOptions: argv, targetPath });
 
   return true;
 };

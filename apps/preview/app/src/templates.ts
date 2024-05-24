@@ -1,64 +1,49 @@
-import micromatch from 'micromatch';
-
 import { config } from './config.js';
 import { parseName } from './helpers';
-import type { TemplatePart, TemplateData, TemplateExports } from './types.ts';
+import type { TemplatePart, TemplateData } from './types.ts';
 
 export const gather = async () => {
   const relativePath = config.relativePath.endsWith('/')
     ? config.relativePath
     : `${config.relativePath}/`;
 
-  const allModules = import.meta.glob(`@jsxe/**/*.{jsx,tsx}`, { eager: true });
-  const sources = import.meta.glob(`@jsxe/**/*.{jsx,tsx}`, { as: 'raw', eager: true });
+  const htmlFiles = import.meta.glob(`@jsxemailbuild/**/*.html`, { as: 'raw', eager: true });
+  const plainFiles = import.meta.glob(`@jsxemailbuild/**/*.txt`, { as: 'raw', eager: true });
+  const sourceFiles = import.meta.glob(`@jsxeemailsrc/**/*.{jsx,tsx}`, { as: 'raw', eager: true });
 
-  const modules = config.excludeGlob
-    ? Object.keys(allModules).reduce((acc, path) => {
-        if (!micromatch.isMatch(path.replace(relativePath, ''), config.excludeGlob))
-          acc[path] = allModules[path];
-        return acc;
-      }, {})
-    : allModules;
+  const fileKeys = Object.keys(sourceFiles);
+  const templateFiles: Record<string, TemplateData> = fileKeys.reduce((acc, path) => {
+    const basePath = path.replace(/\.(jsx|tsx)$/, '');
+    return {
+      ...acc,
+      [path]: {
+        html: htmlFiles[`${basePath}.html`],
+        path: pathLookup[path],
+        place: plainFiles[`${basePath}.txt`],
+        source: sourceFiles[path]
+      }
+    };
+  }, {});
 
-  const pathLookup = Object.keys(modules).reduce((acc, path) => {
+  const pathLookup = Object.keys(templateFiles).reduce((acc, path) => {
     acc[path] = path.replace(relativePath, '');
     return acc;
   }, {});
 
-  const sortedModules = Object.keys(modules)
-    .sort((a, b) => {
-      const aa = a.split('/').length;
-      const bb = b.split('/').length;
+  const sortedPaths = Object.keys(templateFiles).sort((a, b) => {
+    const aa = a.split('/').length;
+    const bb = b.split('/').length;
 
-      if (aa > bb) return -1;
-      if (aa === bb) return 0;
-      if (aa < bb) return 1;
+    if (aa > bb) return -1;
+    if (aa === bb) return 0;
+    if (aa < bb) return 1;
 
-      return 0;
-    })
-    .reduce((acc, curr) => {
-      return { ...acc, [curr]: modules[curr] };
-    }, {});
+    return 0;
+  });
 
-  const templates = (
-    await Promise.all(
-      Object.entries(sortedModules).map<Promise<TemplateData>>(async ([path, mod]) => {
-        const component = mod as TemplateExports;
-        const { previewProps, templateName, Template } = component;
-
-        if (!Template) return null;
-
-        const result: TemplateData = {
-          jsx: sources[path],
-          path: pathLookup[path],
-          previewProps,
-          Template,
-          templateName
-        };
-        return result;
-      })
-    )
-  ).filter(Boolean);
+  const templates: Record<string, TemplateData> = sortedPaths.reduce((acc, path) => {
+    return { ...acc, [path]: templateFiles[path] };
+  }, {});
 
   return templates;
 };

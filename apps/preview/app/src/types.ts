@@ -6,15 +6,11 @@ export enum Views {
   Plain = 'plain'
 }
 
-export interface TemplateExports {
-  Template: React.ExoticComponent;
-  previewProps?: () => any;
-  templateName?: string;
-}
-
-export interface TemplateData extends TemplateExports {
-  jsx: string;
+export interface TemplateData {
+  html: string;
   path?: string;
+  plain: string;
+  source: string;
 }
 
 export interface TemplatePart {
