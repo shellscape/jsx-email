@@ -1,6 +1,7 @@
-import { promisify } from 'node:util';
-import { dirname, join } from 'node:path';
 import childProcess from 'node:child_process';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
 
 import { getDeps } from '@jsx-email/app-preview';
 import react from '@vitejs/plugin-react';
@@ -56,7 +57,7 @@ const envDefine = Object.keys(process.env)
 const previewDeps = getDeps();
 
 export const getViteConfig = async (templatesPath: string) => {
-  const root = join(dirname(import.meta.resolve('@jsx-email/app-preview')), 'app');
+  const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
 
   process.chdir(root);
 

@@ -91,7 +91,8 @@ const build = async (targetPath: string, argv: PreviewOptions) => {
           manualChunks: {}
         }
       },
-      target: 'esnext'
+      target: 'esnext',
+      watch: void 0
     },
     define: {
       'process.env': '{}',
