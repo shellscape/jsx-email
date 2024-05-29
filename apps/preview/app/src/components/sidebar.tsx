@@ -180,7 +180,7 @@ export const SidebarSection = ({
                           </span>
                         )}
                         <FileName />
-                        {item.name}
+                        {item.template.templateName}
                       </span>
                     </Link>
                   );

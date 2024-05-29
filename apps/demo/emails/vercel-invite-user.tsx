@@ -42,7 +42,7 @@ export const previewProps = {
   inviteFromLocation: 'Gotham City'
 } as VercelInviteUserEmailProps;
 
-export const TemplateName = 'Vercel Invite User';
+export const templateName = 'Vercel Invite User';
 
 export const Template = ({
   username,

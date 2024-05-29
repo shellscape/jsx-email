@@ -66,7 +66,7 @@ export const previewProps = {
   loginCode: 'sparo-ndigo-amurt-secan'
 } as NotionMagicLinkEmailProps;
 
-export const TemplateName = 'Notion Magic Link';
+export const templateName = 'Notion Magic Link';
 
 export const Template = ({ loginCode }: NotionMagicLinkEmailProps) => (
   <Html>

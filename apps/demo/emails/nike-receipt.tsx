@@ -186,7 +186,7 @@ const footer = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const TemplateName = 'Nike Receipt';
+export const templateName = 'Nike Receipt';
 
 export const Template = () => (
   <Html>

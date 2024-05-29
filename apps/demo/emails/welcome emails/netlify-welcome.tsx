@@ -69,7 +69,7 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const TemplateName = 'Netlify Welcome';
+export const templateName = 'Netlify Welcome';
 
 export const Template = ({
   steps = PropDefaults.steps,

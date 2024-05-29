@@ -11,6 +11,7 @@ export interface TemplateData {
   path?: string;
   plain: string;
   source: string;
+  templateName: string;
 }
 
 export interface TemplatePart {

@@ -7,6 +7,7 @@ export const gather = async () => {
     ? config.relativePath
     : `${config.relativePath}/`;
   const buildPath = config.buildPath.endsWith('/') ? config.buildPath : `${config.buildPath}/`;
+  const absBuildPath = `/${buildPath.replace(/(\.\.\/)+/, '')}`;
 
   const htmlFiles = import.meta.glob(`@jsxemailbuild/**/*.html`, {
     eager: true,
@@ -23,17 +24,24 @@ export const gather = async () => {
     import: 'default',
     query: '?raw'
   });
+  // @ts-ignore
+  const { default: templateNameMap } = await import(`@jsxemailbuild/template-name-map.json`);
 
   const fileKeys = Object.keys(sourceFiles);
   const templateFiles: Record<string, TemplateData> = fileKeys.reduce((acc, path) => {
     const basePath = path.replace(relativePath, buildPath).replace(/\.(jsx|tsx)$/, '');
+    const absHtmlPath = `${path
+      .replace(relativePath, absBuildPath)
+      .replace(/\.(jsx|tsx)$/, '')}.html`;
+    const templateName = templateNameMap[absHtmlPath];
     return {
       ...acc,
       [path]: {
         html: htmlFiles[`${basePath}.html`],
         path: path.replace(relativePath, ''),
         plain: plainFiles[`${basePath}.txt`],
-        source: sourceFiles[path]
+        source: sourceFiles[path],
+        templateName
       }
     };
   }, {});

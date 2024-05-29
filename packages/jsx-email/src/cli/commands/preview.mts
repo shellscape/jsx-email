@@ -78,11 +78,12 @@ const buildForPreview = async ({ buildPath, exclude, targetPath }: BuildForPrevi
     buildTemplates({
       buildOptions: {
         exclude,
+        internalForPreview: true,
         minify: false,
         out: buildPath,
         pretty: true,
-        showStats: false,
-        silent: true,
+        // showStats: false,
+        // silent: true,
         usePreviewProps: true
       },
       targetPath

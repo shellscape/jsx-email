@@ -22,6 +22,7 @@ import type { CommandFn, TemplateFn } from './types.mjs';
 
 const BuildCommandOptionsStruct = object({
   exclude: optional(string()),
+  internalForPreview: optional(boolean()),
   minify: optional(boolean()),
   out: optional(string()),
   plain: optional(boolean()),
@@ -29,7 +30,6 @@ const BuildCommandOptionsStruct = object({
   props: optional(string()),
   silent: optional(boolean()),
   usePreviewProps: optional(boolean()),
-  useTemplateName: optional(boolean()),
   writeToFile: optional(boolean())
 });
 
@@ -72,10 +72,9 @@ Builds a template and saves the result
 // Credit: https://github.com/rollup/plugins/blob/master/packages/pluginutils/src/normalizePath.ts#L5
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
-// FIXME: in v2 change the signature to an object
 export const build = async (options: BuildOptions) => {
   const { argv, outputBasePath, path } = options;
-  const { out, plain, props = '{}', usePreviewProps, useTemplateName, writeToFile = true } = argv;
+  const { out, plain, props = '{}', usePreviewProps, writeToFile = true } = argv;
   const platformPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
   const template = await import(platformPath);
   // proper named export
@@ -91,7 +90,7 @@ export const build = async (options: BuildOptions) => {
   const extension = plain ? '.txt' : '.html';
   const renderProps = usePreviewProps ? template.previewProps || {} : JSON.parse(props);
   const fileExt = extname(path);
-  const templateName = useTemplateName ? template.templateName : basename(path, fileExt);
+  const templateName = basename(path, fileExt);
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
   const writePath = outputBasePath
@@ -103,14 +102,14 @@ export const build = async (options: BuildOptions) => {
   if (plain) {
     const plainText = await render(component, { plainText: plain });
     if (writeToFile) await writeFile(writePath, plainText, 'utf8');
-    return plainText;
+    return { html: null, plainText, templateName: template.templateName, writePath };
   }
 
   const html = await render(component, argv as any);
 
   if (writeToFile) await writeFile(writePath, html, 'utf8');
 
-  return html;
+  return { html, plainText: null, templateName: template.templateName, writePath };
 };
 
 const compile = async (files: string[], outDir: string) => {
@@ -138,7 +137,14 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
 
   // Note: niave check that will probably get us into some edge cases
   const isFile = targetPath.endsWith('.tsx') || targetPath.endsWith('.jsx');
-  const { exclude, out = '.rendered', showStats = true, silent, writeToFile = true } = buildOptions;
+  const {
+    exclude,
+    internalForPreview,
+    out = '.rendered',
+    showStats = true,
+    silent,
+    writeToFile = true
+  } = buildOptions;
   const glob = isFile ? targetPath : join(targetPath, '**/*.{jsx,tsx}');
   const outputPath = resolve(out);
   let largeCount = 0;
@@ -153,25 +159,31 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
   }
 
   const compiledFiles = await compile(targetFiles, esbuildOutPath);
+  const templateNameMap: Record<string, string> = {};
 
   const result = await Promise.all(
     compiledFiles.map(async (filePath, index) => {
+      const buildResult = await build({
+        argv: { ...buildOptions, out: outputPath },
+        outputBasePath: esbuildOutPath,
+        path: filePath
+      });
       const res = {
         fileName: targetFiles[index],
-        html: await build({
-          argv: { ...buildOptions, out: outputPath },
-          outputBasePath: esbuildOutPath,
-          path: filePath
-        })
+        ...buildResult
       };
 
       if (showStats) {
-        const bytes = Buffer.byteLength(res.html, 'utf8');
+        const bytes = Buffer.byteLength(res.html ?? res.plainText, 'utf8');
         const htmlSize = formatBytes(bytes);
 
         if (bytes > gmailByteLimit) largeCount += 1;
 
         log.info(`  ${res.fileName} → HTML: ${htmlSize}`);
+      }
+
+      if (internalForPreview && buildResult.templateName) {
+        templateNameMap[buildResult.writePath] = buildResult.templateName;
       }
 
       return res;
@@ -183,6 +195,14 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
       log.warn(chalk`\n${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
     if (writeToFile) log.info(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
     else log.info(chalk`\n{green Build complete}`);
+  }
+
+  if (internalForPreview) {
+    await writeFile(
+      join(outputPath, 'template-name-map.json'),
+      JSON.stringify(templateNameMap),
+      'utf8'
+    );
   }
 
   return result;

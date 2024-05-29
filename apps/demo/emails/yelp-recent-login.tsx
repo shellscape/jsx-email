@@ -75,7 +75,7 @@ export const previewProps = {
   loginIp: '12.345.67.891'
 } as YelpRecentLoginEmailProps;
 
-export const TemplateName = 'Yelp Recent Login';
+export const templateName = 'Yelp Recent Login';
 
 export const Template = ({
   userFirstName,

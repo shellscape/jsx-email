@@ -66,7 +66,7 @@ export const previewProps = {
   magicLink: 'https://raycast.com'
 } as RaycastMagicLinkEmailProps;
 
-export const TemplateName = 'Raycast Magic Link';
+export const templateName = 'Raycast Magic Link';
 
 export const Template = ({ magicLink }: RaycastMagicLinkEmailProps) => (
   <Html>
