@@ -2,7 +2,7 @@ import { AssertionError } from 'assert';
 
 import chalk from 'chalk';
 import { lilconfig } from '@shellscape/lilconfig';
-import type { MethodFactoryLevels } from 'loglevelnext';
+import type { MethodFactoryLevels } from '@dot/log';
 
 import { getPluginLog, log } from './log.js';
 // @ts-ignore
