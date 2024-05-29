@@ -109,9 +109,11 @@
     "@types/html-to-text": "^9.0.2",
     "@types/import-local": "^3.1.2",
     "@types/micromatch": "^4.0.7",
+    "@types/mustache": "^4.2.3",
     "@types/pretty": "^2.0.1",
     "@types/source-map-support": "^0.5.10",
     "@types/yargs-parser": "^21.0.3",
+    "hast": "^1.0.0",
     "unified": "^11.0.4"
   },
   "types": "./dist/commonjs/index.d.ts",
