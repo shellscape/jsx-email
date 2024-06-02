@@ -385,6 +385,9 @@ importers:
       '@types/yargs-parser':
         specifier: ^21.0.3
         version: 21.0.3
+      chart.js:
+        specifier: ^4.4.3
+        version: 4.4.3
       hast:
         specifier: ^1.0.0
         version: 1.0.0
@@ -1769,6 +1772,10 @@ packages:
       micromatch: 4.0.5
       style-to-object: 1.0.4
     dev: false
+
+  /@kurkle/color@0.3.2:
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: true
 
   /@moonrepo/cli@1.17.3:
     resolution: {integrity: sha512-PuW/R9PeA71OsSZGhadhqTsn3E4tmbTDM3Q7t1GUTeQEjwdDt5WlM/deJ7dxX7D+ItgdMvaUiLhEMMbL8MkOLw==}
@@ -4146,6 +4153,13 @@ packages:
   /character-entities-legacy@3.0.0:
     resolution: {integrity: sha512-RpPp0asT/6ufRm//AJVwpViZbGM/MkjQFxJccQRHmISF/22NBtsHqAWmL+/pmkPWoIUJdWyeVleTl1wydHATVQ==}
     dev: false
+
+  /chart.js@4.4.3:
+    resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
+    engines: {pnpm: '>=8'}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: true
 
   /check-error@1.0.3:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}

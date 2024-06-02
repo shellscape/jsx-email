@@ -69,7 +69,7 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
     ...(textColor ? { color: textColor } : {})
   };
 
-  const jsxButton = (
+  const baseButton = (
     <a
       href={href}
       style={{
@@ -114,7 +114,7 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
               }}
             />
           )}
-          {/* Final fallback for outlook clients when nested in a `Background` component, because mso doesn't work well with nested VML elements */}
+          {/* Final fallback for outlook clients when nested in za `Background` component, because mso doesn't work well with nested VML elements */}
           {withBackground ? (
             <table
               align={align}
@@ -138,12 +138,12 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
                     width
                   }}
                 >
-                  {jsxButton}
+                  {baseButton}
                 </td>
               </tr>
             </table>
           ) : (
-            jsxButton
+            baseButton
           )}
         </td>
       </tr>
