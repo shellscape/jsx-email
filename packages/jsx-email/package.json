@@ -97,6 +97,7 @@
     "@types/pretty": "^2.0.1",
     "@types/source-map-support": "^0.5.10",
     "@types/yargs-parser": "^21.0.3",
+    "chart.js": "^4.4.3",
     "hast": "^1.0.0"
   },
   "types": "dist/index.d.mts",
