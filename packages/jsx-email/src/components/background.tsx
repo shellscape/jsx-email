@@ -16,7 +16,7 @@ export interface BackgroundProps
   width?: number;
 }
 
-const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/container' } : {};
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/background' } : {};
 
 const Renderer = (props: BackgroundProps) => {
   const { children, width, height, bgColor, src, bgRepeat } = props;

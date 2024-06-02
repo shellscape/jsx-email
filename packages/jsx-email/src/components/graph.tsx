@@ -12,7 +12,7 @@ export interface GraphProps {
   width?: number;
 }
 
-const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/html' } : {};
+const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/graph' } : {};
 
 export const Graph: JsxEmailComponent<GraphProps> = ({
   config,
