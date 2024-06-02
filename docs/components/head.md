@@ -9,7 +9,7 @@ type: component
 <!--@include: @/include/header.md-->
 
 ::: tip
-This component is required for adding elements such as `<style>` and `meta` directly to the document
+This component is required VML in outlook compatibility for adding elements such as `<style>` and `meta` directly to the document
 :::
 
 <!--@include: @/include/install.md-->
