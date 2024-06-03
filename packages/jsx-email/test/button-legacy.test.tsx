@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { jsxToString } from '../src/render';
-import { Button } from '../src';
+import { ButtonLegacy as Button } from '../src/components/button-legacy/button-legacy';
 
 describe('<Button> component', async () => {
   beforeEach(() => {

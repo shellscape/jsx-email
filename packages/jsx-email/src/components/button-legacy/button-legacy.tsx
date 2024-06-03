@@ -46,7 +46,12 @@ const buttonTextStyle = (pb?: number) => {
   };
 };
 
-export const Button: JsxEmailComponent<ButtonProps> = ({ children, style, target, ...props }) => {
+export const ButtonLegacy: JsxEmailComponent<ButtonProps> = ({
+  children,
+  style,
+  target,
+  ...props
+}) => {
   const parsedPadding = parsePadding(style || {});
   let textRaiseTop = '';
   let textRaiseBottom: number | undefined;
@@ -84,4 +89,4 @@ export const Button: JsxEmailComponent<ButtonProps> = ({ children, style, target
   );
 };
 
-Button.displayName = 'Button';
+ButtonLegacy.displayName = 'Button';
