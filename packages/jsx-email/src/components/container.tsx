@@ -21,7 +21,7 @@ export const Container: JsxEmailComponent<ContainerProps> = ({
       {/* For Outlook versions < 2013: we need a table wrapper width set to `max-width` */}
       <span
         dangerouslySetInnerHTML={{
-          __html: `<!--[if mso]><table align=${alignment} width=${containerWidth} style="border-spacing: 0; width:${containerWidth}px;" role="presentation"><tr><td><![endif]-->`
+          __html: `<!--[if mso]><table align="${alignment}" width="${containerWidth}" style="border-spacing: 0; width:${containerWidth}px;" role="presentation"><tr><td><![endif]-->`
         }}
       />
       <table
