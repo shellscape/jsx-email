@@ -19,6 +19,15 @@ describe('<Conditional> component', async () => {
     expect(html).toMatchSnapshot();
   });
 
+  it('renders with head: true', async () => {
+    const html = await jsxToString(
+      <Conditional head={true} mso>
+        <h1>batman</h1>
+      </Conditional>
+    );
+    expect(html).toMatchSnapshot();
+  });
+
   it('renders mso: true', async () => {
     const html = await render(
       <Conditional mso={true}>
