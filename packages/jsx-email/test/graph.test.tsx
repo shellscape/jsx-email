@@ -30,7 +30,6 @@ describe('<Hr> component', () => {
         }}
       />
     );
-    console.log(html);
     expect(html).toContain('width="300"');
     expect(html).toContain('height="300"');
     expect(html).toContain('src="https://quickchart.io/chart?');
