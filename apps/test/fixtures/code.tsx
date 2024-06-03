@@ -5,7 +5,10 @@ export const CodeEmail = () => (
     <Head />
     <Tailwind>
       <Body className="bg-white my-auto mx-auto font-sans">
-        <Container className="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
+        <Container
+          containerWidth={465}
+          className="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px]"
+        >
           <Code language="js">
             {`
     import { batman } from 'superheros';
