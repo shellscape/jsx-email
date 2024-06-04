@@ -1,7 +1,5 @@
 import { htmlToText } from 'html-to-text';
 
-import type { Settings } from 'unified';
-
 import { defineConfig, loadConfig } from '../config.js';
 import { callHook, callProcessHook } from '../plugins.js';
 import type { PlainTextOptions, RenderOptions } from '../types.js';
@@ -58,8 +56,9 @@ export const processHtml = async (html: string) => {
   const docType =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();
-  const settings = { emitParseErrors: true } as Settings;
+  const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
+  // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings).use(movePlugin);
 
   await callProcessHook(processor);
