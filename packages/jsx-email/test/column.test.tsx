@@ -30,4 +30,14 @@ describe('<Column> component', () => {
     const actualOutput = await jsxToString(<Column>Lorem ipsum</Column>);
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it('renders correctly with background color', async () => {
+    const actualOutput = await jsxToString(<Column bgColor="#000000">Lorem ipsum</Column>);
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('renders correctly with background image', async () => {
+    const actualOutput = await jsxToString(<Column bgImage="link-to-image">Lorem ipsum</Column>);
+    expect(actualOutput).toMatchSnapshot();
+  });
 });

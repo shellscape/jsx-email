@@ -59,7 +59,7 @@ export interface FontProps {
 fallbackFontFamily: FallbackFont | FallbackFont[];
 ```
 
-The fallback font family the system should you, if web fonts are not supported or the chosen font is not installed on the system.
+The fallback font family the system should use, if web fonts are not supported or the chosen font is not installed on the system.
 
 ```ts
 fontFamily: string;

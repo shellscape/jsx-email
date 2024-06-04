@@ -17,9 +17,9 @@ describe('<Container> component', async () => {
   });
 
   it('passes style and other props correctly', async () => {
-    const style = { backgroundColor: 'red', maxWidth: 300 };
+    const style = { backgroundColor: 'red' };
     const html = await jsxToString(
-      <Container style={style} data-testid="container-test">
+      <Container containerWidth={300} style={style} data-testid="container-test">
         Test
       </Container>
     );
@@ -29,7 +29,7 @@ describe('<Container> component', async () => {
 
   it('renders correctly', async () => {
     const container = await jsxToString(
-      <Container style={{ maxWidth: '300px' }}>
+      <Container containerWidth={300}>
         <button>Hi</button>
       </Container>
     );

@@ -32,7 +32,15 @@ export const Template = () => (
     <Body>
       <Container>
         <Section>
-          <Button href="https://jsx.email">Button Content</Button>
+          <Button
+            width={200}
+            height={40}
+            backgroundColor="#FFFFFF"
+            textColor="#000000"
+            href="https://jsx.email"
+          >
+            Button Content
+          </Button>
           <Font
             fontFamily="Roboto"
             fallbackFontFamily="Verdana"

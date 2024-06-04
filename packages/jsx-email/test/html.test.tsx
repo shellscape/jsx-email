@@ -23,6 +23,18 @@ describe('<Html> component', async () => {
     expect(html).toContain('data-testid="html-test"');
   });
 
+  it('renders with VML attributes', async () => {
+    const html = await jsxToString(<Html />);
+    expect(html).toContain('xmlns:v="urn:schemas-microsoft-com:vml"');
+    expect(html).toContain('xmlns:o="urn:schemas-microsoft-com:office:office"');
+  });
+
+  it('disables VML attributes', async () => {
+    const html = await jsxToString(<Html enableVML={false} />);
+    expect(html).not.toContain('xmlns:v="urn:schemas-microsoft-com:vml"');
+    expect(html).not.toContain('xmlns:o="urn:schemas-microsoft-com:office:office"');
+  });
+
   it('renders correctly', async () => {
     const actualOutput = await jsxToString(<Html />);
     expect(actualOutput).toMatchSnapshot();

@@ -42,7 +42,7 @@ Minify the HTML for rendered templates
 plainText?: boolean  | PlainTextOptions;
 ```
 
-If `true` or an `object`, renders the target email(s) to plain text. If the need to modify how the target is rendered to plain text, an `object` representing [`html-to-text` options](https://github.com/html-to-text/node-html-to-text/blob/master/packages/html-to-text/README.md#options) should be used.
+If `true` or an `object`, renders the target email(s) to plain text. If you need to modify how the target is rendered to plain text, an `object` representing [`html-to-text` options](https://github.com/html-to-text/node-html-to-text/blob/master/packages/html-to-text/README.md#options) should be used.
 
 ```ts
 pretty?: boolean;

@@ -1,11 +1,11 @@
 import { Body, Code, Container, Head, Html, Tailwind } from 'jsx-email';
 
-export const Template = () => (
+export const CodeEmail = () => (
   <Html>
     <Head />
     <Tailwind>
-      <Body className="mx-auto my-auto bg-white font-sans">
-        <Container className="mx-auto my-[40px] w-[465px] border-separate rounded border border-solid border-[#eaeaea] p-[20px]">
+      <Body className="bg-white my-auto mx-auto font-sans">
+        <Container className="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
           <Code language="js">
             {`
     import { batman } from 'superheros';
@@ -22,3 +22,6 @@ export const Template = () => (
     </Tailwind>
   </Html>
 );
+
+// eslint-disable-next-line
+export default CodeEmail;
