@@ -53,6 +53,9 @@
   "dependencies": {
     "pretty": "2.0.0"
   },
+  "devDependencies": {
+    "@types/pretty": "^2.0.1"
+  },
   "types": "./dist/commonjs/index.d.ts",
   "funding": {
     "type": "github",

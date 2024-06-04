@@ -58,6 +58,7 @@ export const processHtml = async (html: string) => {
   const movePlugin = await getMovePlugin();
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
+  // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings).use(movePlugin);
 
   await callProcessHook(processor);
