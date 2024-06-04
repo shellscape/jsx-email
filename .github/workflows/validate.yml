@@ -40,15 +40,6 @@ jobs:
           corepack enable
           corepack prepare pnpm@latest --activate
           pnpm config set script-shell "/usr/bin/bash"
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-
-      - name: pnpm Cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
 
       - name: ESLint Cache
         uses: actions/cache@v3
@@ -74,19 +65,9 @@ jobs:
 
       - name: Build Projects
         run: |
-          moon minify-preset:build
           moon jsx-email:build
           moon create-jsx-email:build
+          moon run :build --query "project~plugin-*"
 
       - name: Lint Monorepo
         run: moon run repo:lint
-
-      - name: Run Tests
-        run: moon run :test --affected --concurrency 1 --remote
-
-      - name: Run Preview Test
-        # Note: We're running `pnpm i` again so that pnpm places the `email` bin in root node_modules
-        # We'll need that for the preview tests below
-        run: |
-          pnpm i
-          moon app-test:playwright.ci

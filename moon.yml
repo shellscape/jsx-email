@@ -7,7 +7,7 @@ project:
 
 workspace:
   inheritedTasks:
-    exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
+    exclude: ['build', 'compile', 'release', 'test']
 
 tasks:
   build.all:

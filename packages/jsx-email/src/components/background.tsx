@@ -1,8 +1,9 @@
 import React, { Suspense } from 'react';
 
-import { debug } from '../debug';
+import { debug } from '../debug.js';
 
-import { jsxToString, useData } from '../render';
+import { jsxToString } from '../renderer/jsx-to-string.js';
+import { useData } from '../renderer/suspense.js';
 
 export interface BackgroundProps
   extends Omit<React.ComponentPropsWithoutRef<'td'>, 'height' | 'width' | 'bgcolor'> {

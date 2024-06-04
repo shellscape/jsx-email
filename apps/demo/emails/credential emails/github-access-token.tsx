@@ -61,11 +61,11 @@ const footer = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   username: 'Batman'
 } as GithubAccessTokenEmailProps;
 
-export const TemplateName = 'Github Access Token';
+export const templateName = 'Github Access Token';
 
 export const Template = ({ username }: GithubAccessTokenEmailProps) => (
   <Html>

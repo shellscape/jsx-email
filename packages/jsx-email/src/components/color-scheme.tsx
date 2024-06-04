@@ -1,4 +1,4 @@
-import type { JsxEmailComponent } from '../types';
+import type { JsxEmailComponent } from '../types.js';
 
 export type ColorSchemeMode =
   | 'dark'

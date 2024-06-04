@@ -166,11 +166,11 @@ const PropDefaults: StackOverflowTipsEmailProps = {
   ]
 };
 
-export const PreviewProps = {
+export const previewProps = {
   tips: PropDefaults.tips
 } as StackOverflowTipsEmailProps;
 
-export const TemplateName = 'StackOverflow Tips';
+export const templateName = 'StackOverflow Tips';
 
 export const Template = ({ tips = [] }: StackOverflowTipsEmailProps) => (
   <Html>

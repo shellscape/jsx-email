@@ -8,8 +8,7 @@
     "react": "^18.2.0"
   },
   "dependencies": {
-    "jsx-email": "workspace:*",
-    "superstruct": "^1.0.3"
+    "jsx-email": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "20.10.5"

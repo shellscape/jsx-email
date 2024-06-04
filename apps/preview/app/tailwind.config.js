@@ -23,12 +23,7 @@ const iOsHeight = plugin(({ addUtilities }) => {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    // app content
-    `src/**/*.{js,ts,jsx,tsx}`,
-    // include packages if not transpiling
-    '../../../packages/**/*.{js,ts,jsx,tsx}'
-  ],
+  content: ['index.html', './src/**/*.{js,jsx,ts,tsx,vue,html}'],
   plugins: [iOsHeight],
   theme: {
     colors: {

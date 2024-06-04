@@ -1,6 +1,6 @@
 interface PreviewProps {}
 
-export const Preview: React.FC<Readonly<PreviewProps>> = () => (
+export const Template: React.FC<Readonly<PreviewProps>> = () => (
   <>
     <div data-skip="true">This should be hidden from plain text</div>
     <span
@@ -14,6 +14,3 @@ export const Preview: React.FC<Readonly<PreviewProps>> = () => (
     </head>
   </>
 );
-
-// eslint-disable-next-line import/no-default-export
-export default Preview;

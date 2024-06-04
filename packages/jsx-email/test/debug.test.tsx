@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { d, debug } from '../src/debug';
-import { render } from '../src/render';
+import { d, debug } from '../src/debug.js';
+import { render } from '../src/renderer/render.js';
 
 d.enable('jsx-email:*');
 

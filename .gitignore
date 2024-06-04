@@ -10,8 +10,10 @@ dist
 .env
 .nojekyll
 **/.vitepress/cache
+.idea/
+.tshy
+.tshy-build
 
-packages/**/tsconfig.json
 packages/jsx-email/README.md
 
 test-results

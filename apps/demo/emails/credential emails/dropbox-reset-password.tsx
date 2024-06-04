@@ -44,12 +44,12 @@ const anchor = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   userFirstname: 'Bruce',
   resetPasswordLink: 'https://dropbox.com'
 } as DropboxResetPasswordEmailProps;
 
-export const TemplateName = 'Dropbox Reset Password';
+export const templateName = 'Dropbox Reset Password';
 
 export const Template = ({ userFirstname, resetPasswordLink }: DropboxResetPasswordEmailProps) => {
   return (

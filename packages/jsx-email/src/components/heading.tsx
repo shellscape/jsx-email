@@ -1,8 +1,8 @@
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
 
-import { debug } from '../debug';
-import type { BaseProps, JsxEmailComponent } from '../types';
+import { debug } from '../debug.js';
+import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 export type PresentAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 

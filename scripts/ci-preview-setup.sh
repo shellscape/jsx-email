@@ -6,11 +6,21 @@
 # up in a separate directory alleviates those differences and more closesly represents a user's machine
 # which provides a more accurate test environment
 
-rm -rf /tmp/jsx-email-test
+TESTS_DIR="$TMPDIR"jsx-email-tests
+echo "Tests Directory: $TESTS_DIR"
+
+rm -rf $TESTS_DIR
+mkdir -p $TESTS_DIR
+
 REPO_DIR=$(pwd)
-pnpm exec create-jsx-email jsx-email-test --yes
-mv -f jsx-email-test /tmp
-cd /tmp/jsx-email-test
+echo "Repo Directory: $REPO_DIR"
+
+pnpm exec create-jsx-email smoke-test --yes
+
+echo "Moving smoke-test to $TESTS_DIR/smoke-test"
+mv -f smoke-test $TESTS_DIR
+
+cd $TESTS_DIR/smoke-test
 pnpm i
 
 # The dependencies below are required for fixtures
@@ -19,9 +29,13 @@ pnpm add unocss
 # The dependencies below have to be pointed back to the repo
 pnpm add "@jsx-email/app-preview@file:$REPO_DIR/apps/preview"
 pnpm add "@jsx-email/minify-preset@file:$REPO_DIR/packages/minify-preset"
+pnpm add "jsx-email@file:$REPO_DIR/packages/jsx-email"
 
 # We have to link this due to the workspace dependency
 pnpm link "$REPO_DIR/packages/jsx-email"
 
+# Remove the templates that were created for us
 rm -rf templates
-cp -r $REPO_DIR/apps/test/fixtures .
+
+# Copy our test fixtures to the temp smoke-test
+cp -r $REPO_DIR/test/smoke/fixtures .

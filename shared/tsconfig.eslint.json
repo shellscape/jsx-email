@@ -5,11 +5,11 @@
   "extends": "./tsconfig.base.json",
   "include": [
     "../**/.eslintrc.js",
-    "../**/ava.config.js",
     "../apps",
     "../packages",
     "../scripts",
     "../shared",
+    "../test",
     "../vitest.config.ts",
     "../vitest.workspace.ts"
   ]

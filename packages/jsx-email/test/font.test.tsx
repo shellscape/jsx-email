@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/render';
-import { Font } from '../src';
+import { jsxToString } from '../src/renderer/jsx-to-string.js';
+import { Font } from '../src/index.js';
 
 describe('<Font> component', async () => {
   beforeEach(() => {

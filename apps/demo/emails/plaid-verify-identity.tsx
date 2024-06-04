@@ -103,11 +103,11 @@ const footer = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   validationCode: '144833'
 } as PlaidVerifyIdentityEmailProps;
 
-export const TemplateName = 'Plaid Verify Identity';
+export const templateName = 'Plaid Verify Identity';
 
 export const Template = ({ validationCode }: PlaidVerifyIdentityEmailProps) => (
   <Html>

@@ -81,60 +81,24 @@ exports[`Production mode > should generate class names with a prefix 1`] = `
 `;
 
 exports[`Responsive styles > should add css to <head/> 1`] = `
-"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\">
-<html>
-
-  <head>
-    <style tailwind>
-      /* layer: preflights */
-      /* layer: default */
-      .bg-red-200 {
-        background-color: rgb(254, 202, 202);
-      }
-
-      @media (min-width: 640px) {
-        .sm\\\\:bg-red-300 {
-          background-color: rgb(252, 165, 165);
-        }
-
-        @media (min-width: 640px) {
-          .sm\\\\:bg-red-300 {
-            background-color: rgb(252, 165, 165);
-          }
-        }
-      }
-
-      @media (min-width: 768px) {
-        .md\\\\:bg-red-400 {
-          background-color: rgb(248, 113, 113);
-        }
-
-        @media (min-width: 768px) {
-          .md\\\\:bg-red-400 {
-            background-color: rgb(248, 113, 113);
-          }
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .lg\\\\:bg-red-500 {
-          background-color: rgb(239, 68, 68);
-        }
-
-        @media (min-width: 1024px) {
-          .lg\\\\:bg-red-500 {
-            background-color: rgb(239, 68, 68);
-          }
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class=\\"bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500\\"></div>
-  </body>
-
-</html>"
+"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><html><head><style tailwind>/* layer: preflights */
+/* layer: default */
+.bg-red-200{background-color:rgb(254,202,202);}
+@media (min-width: 640px){
+.sm\\\\:bg-red-300{background-color:rgb(252,165,165);}
+@media (min-width: 640px){
+.sm\\\\:bg-red-300{background-color:rgb(252,165,165);}}
+}
+@media (min-width: 768px){
+.md\\\\:bg-red-400{background-color:rgb(248,113,113);}
+@media (min-width: 768px){
+.md\\\\:bg-red-400{background-color:rgb(248,113,113);}}
+}
+@media (min-width: 1024px){
+.lg\\\\:bg-red-500{background-color:rgb(239,68,68);}
+@media (min-width: 1024px){
+.lg\\\\:bg-red-500{background-color:rgb(239,68,68);}}
+}</style></head><body><div class=\\"bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500\\"></div></body></html>"
 `;
 
 exports[`Responsive styles > should persist exsisting <head/> elements 1`] = `

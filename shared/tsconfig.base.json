@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -9,9 +10,9 @@
     "inlineSources": false,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "lib": ["ES2023"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "lib": ["ES2023", "ESNext"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

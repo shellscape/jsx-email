@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { render } from '../../src/render';
-import { jsxToString } from '../../src/render/jsx-to-string';
+import { render } from '../../src/renderer/render.js';
+import { jsxToString } from '../../src/renderer/jsx-to-string.js';
 
 import { Template } from './fixtures/async-template';
 

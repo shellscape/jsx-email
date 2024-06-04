@@ -202,7 +202,7 @@ const footerLink = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const TemplateName = 'Codepen Challengers';
+export const templateName = 'Codepen Challengers';
 
 export const Template = () => (
   <Html>

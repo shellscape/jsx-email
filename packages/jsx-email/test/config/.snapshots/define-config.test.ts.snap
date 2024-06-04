@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`defineConfig > basic set 1`] = `
+{
+  "logLevel": "info",
+  "plugins": [],
+  "render": {
+    "disableDefaultStyle": false,
+    "minify": true,
+    "plainText": false,
+    "pretty": false,
+  },
+  "symbol": Symbol(jsx-email/config),
+}
+`;
+
+exports[`defineConfig > defaults 1`] = `
+{
+  "logLevel": "info",
+  "plugins": [],
+  "render": {
+    "disableDefaultStyle": false,
+    "minify": false,
+    "plainText": false,
+    "pretty": false,
+  },
+  "symbol": Symbol(jsx-email/config),
+}
+`;
+
+exports[`defineConfig > minify and pretty 1`] = `
+{
+  "logLevel": "info",
+  "plugins": [],
+  "render": {
+    "disableDefaultStyle": false,
+    "minify": true,
+    "plainText": false,
+    "pretty": true,
+  },
+  "symbol": Symbol(jsx-email/config),
+}
+`;
+
+exports[`defineConfig > plain 1`] = `
+{
+  "logLevel": "info",
+  "plugins": [],
+  "render": {
+    "disableDefaultStyle": false,
+    "minify": true,
+    "plainText": true,
+    "pretty": true,
+  },
+  "symbol": Symbol(jsx-email/config),
+}
+`;

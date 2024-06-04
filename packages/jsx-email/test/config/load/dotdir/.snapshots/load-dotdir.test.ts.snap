@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`loadConfig → dotdir > loadConfig 1`] = `
+{
+  "logLevel": "info",
+  "plugins": [],
+  "render": {
+    "disableDefaultStyle": false,
+    "minify": true,
+    "plainText": false,
+    "pretty": false,
+  },
+  "symbol": Symbol(jsx-email/config),
+}
+`;

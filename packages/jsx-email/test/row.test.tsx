@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/render';
-import { Row } from '../src';
+import { jsxToString } from '../src/renderer/jsx-to-string.js';
+import { Row } from '../src/index.js';
 
 describe('<Row> component', async () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('<Row> component', async () => {
   });
 
   it('renders correctly', async () => {
-    const actualOutput = await jsxToString(<Row children={undefined} />);
+    const actualOutput = await jsxToString(<Row children={void 0} />);
     expect(actualOutput).toMatchSnapshot();
   });
 });
