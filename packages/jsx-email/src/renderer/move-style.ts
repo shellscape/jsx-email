@@ -34,7 +34,7 @@ export const getMovePlugin = async () => {
         head.children.push(...matches);
 
         for (const node of matches) {
-          node.parent.children.splice(node.index, 1);
+          (node.parent as Element).children.splice(node.index, 1);
         }
       }
     };
