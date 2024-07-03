@@ -1,13 +1,5 @@
 # @jsx-email/app-preview ChangeLog
 
-## v1.2.6
-
-_2024-04-20_
-
-### Bugfixes
-
-- app-preview: add logic for mobile sidebar and update ui (#190)
-
 ## v1.2.5
 
 _2024-01-24_
