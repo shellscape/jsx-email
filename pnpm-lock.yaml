@@ -176,9 +176,6 @@ importers:
 
   packages/create-jsx-email:
     dependencies:
-      '@types/mustache':
-        specifier: ^4.2.3
-        version: 4.2.3
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -198,6 +195,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.2
         version: 11.0.2
+      '@types/mustache':
+        specifier: ^4.2.5
+        version: 4.2.5
       '@types/prompts':
         specifier: ^2.4.8
         version: 2.4.8
@@ -228,9 +228,6 @@ importers:
       '@shellscape/lilconfig':
         specifier: ^3.2.1
         version: 3.2.1
-      '@types/hast':
-        specifier: ^3.0.4
-        version: 3.0.4
       '@unocss/core':
         specifier: ^0.60.0
         version: 0.60.4
@@ -358,6 +355,9 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
+      '@types/hast':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/html-minifier-terser':
         specifier: ^7.0.0
         version: 7.0.2
@@ -371,7 +371,7 @@ importers:
         specifier: ^4.0.7
         version: 4.0.7
       '@types/mustache':
-        specifier: ^4.2.3
+        specifier: ^4.2.5
         version: 4.2.5
       '@types/pretty':
         specifier: ^2.0.1
@@ -2095,9 +2095,6 @@ packages:
 
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
-
-  '@types/mustache@4.2.3':
-    resolution: {integrity: sha512-MG+oI3oelPKLN2gpkel08v6Tp6zU2zZQRq+eSpRsFtLNTd2kxZolOHQTmQQs0wqXTLOqs+ri3tRUaagH5u0quw==}
 
   '@types/mustache@4.2.5':
     resolution: {integrity: sha512-PLwiVvTBg59tGFL/8VpcGvqOu3L4OuveNvPi0EYbWchRdEVP++yRUXJPFl+CApKEq13017/4Nf7aQ5lTtHUNsA==}
@@ -7089,8 +7086,6 @@ snapshots:
   '@types/minimist@1.2.5': {}
 
   '@types/ms@0.7.34': {}
-
-  '@types/mustache@4.2.3': {}
 
   '@types/mustache@4.2.5': {}
 
