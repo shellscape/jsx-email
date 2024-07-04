@@ -51,9 +51,10 @@ const checkSymbol = (plugin: JsxEmailPlugin, source?: string) => {
     ? chalk`{red jsx-email}: A plugin imported from '${source}' ${oops}`
     : chalk`{red jsx-email}: The plugin named '${plugin.name}' ${oops}`;
 
-  if (plugin.symbol !== pluginSymbol) log.error(message);
-
-  throw new AssertionError({ message });
+  if (plugin.symbol !== pluginSymbol) {
+    log.error(message);
+    throw new AssertionError({ message });
+  }
 };
 
 const checkName = (plugin: JsxEmailPlugin, source?: string) => {
@@ -64,9 +65,10 @@ const checkName = (plugin: JsxEmailPlugin, source?: string) => {
     ? chalk`{red jsx-email}: A plugin imported from '${source}' ${oops}`
     : chalk`{red jsx-email}: A plugin added to the config ${oops}`;
 
-  if (!plugin.name) log.error(message);
-
-  process.exit(1);
+  if (!plugin.name) {
+    log.error(message);
+    process.exit(1);
+  }
 };
 
 const importPlugin = async (name: string) => {
@@ -77,8 +79,12 @@ const importPlugin = async (name: string) => {
     checkName(plugin, name);
 
     return plugin;
-  } catch (_) {
-    log.error(chalk`{red jsx-email}: Tried to import a plugin '${name}' but it wasn't found`);
+  } catch (error) {
+    if ((error as any).code === 'ERR_MODULE_NOT_FOUND') {
+      log.error(chalk`{red jsx-email}: Tried to import a plugin '${name}' but it wasn't found`);
+    } else {
+      log.error(error);
+    }
   }
 
   return null;
@@ -90,7 +96,6 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
     return defineConfig(intermediate);
   }
 
-  const { default: merge } = await import('defaults');
   const mods = structuredClone(defaults);
 
   if (!config.render?.plainText) {
@@ -125,7 +130,7 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
     }
   }
 
-  const result = merge(config, mods as any) as JsxEmailConfig;
+  const result = await mergeConfig(config, mods);
 
   for (const plugin of result.plugins || []) {
     (plugin as PluginInternal).log = getPluginLog(plugin.name);
@@ -174,4 +179,23 @@ export const loadConfig = async (startDir?: string): Promise<JsxEmailConfig> => 
   (globalThis as any)[globalConfigSymbol] = definedConfig;
 
   return definedConfig;
+};
+
+// Note: This helps avoid issues with `merge ` because it uses structuredClone and doesn't play nice
+// with complex objects'
+export const mergeConfig = async (a: Partial<JsxEmailConfig>, b: Partial<JsxEmailConfig>) => {
+  const { default: merge } = await import('defaults');
+  const aPlugins = a.plugins || [];
+  const bPlugins = b.plugins || [];
+
+  /* eslint-disable no-param-reassign */
+  delete (a as any).plugins;
+  delete (b as any).plugins;
+
+  const result = {
+    ...merge(a, b),
+    plugins: [...aPlugins, ...bPlugins]
+  } as JsxEmailConfig;
+
+  return result;
 };

@@ -1,6 +1,6 @@
 import { htmlToText } from 'html-to-text';
 
-import { defineConfig, loadConfig } from '../config.js';
+import { defineConfig, loadConfig, mergeConfig } from '../config.js';
 import { callHook, callProcessHook } from '../plugins.js';
 import type { PlainTextOptions, RenderOptions } from '../types.js';
 
@@ -32,13 +32,12 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
       typeof options?.plainText === 'object' ? options.plainText : {}
     );
 
-  const { default: merge } = await import('defaults');
   const renderOptions = { render: options };
 
   if (options) {
     // Note: structuredClone chokes on symbols
     const { symbol: _, ...cloneTarget } = config as any;
-    config = await defineConfig(merge(cloneTarget, renderOptions));
+    config = await defineConfig(await mergeConfig(cloneTarget, renderOptions));
   }
 
   let html = await jsxToString(component);
@@ -59,7 +58,9 @@ export const processHtml = async (html: string) => {
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
-  const processor = rehype().data('settings', settings).use(movePlugin);
+  const processor = rehype().data('settings', settings);
+
+  processor.use(movePlugin);
 
   await callProcessHook(processor);
 
