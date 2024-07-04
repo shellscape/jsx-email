@@ -1,20 +1,5 @@
 <html>
   <head>
-    <style tailwind>
-      /* layer: preflights */
-    /* layer: default */
-    .me {
-      margin-inline-end: 16px;
-    }
-
-    .font-medium {
-      font-weight: 500;
-    }
-
-    .leading-4 {
-      line-height: 16px;
-    }
-    </style>
   </head>
   <body>
     <table
@@ -30,16 +15,16 @@
           <td align="left">
             <span>
               <!--[if mso]>
-          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="0%"  strokeweight="1px" fillcolor=#007291>
-          <w:anchorlock/>
-          <center style="font-size:16px;color:#FFFFFF;">
-          Click me
-          </center></v:roundrect>
-          <![endif]-->
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="0%"  strokeweight="1px" fillcolor=#007291>
+<w:anchorlock/>
+<center style="font-size:16px;color:#FFFFFF;">
+Click me
+</center></v:roundrect>
+<![endif]-->
             </span>
             <a
               href="https://example.com"
-              style="-webkit-text-size-adjust:none;border-radius:0;display:inline-block;font-size:16px;line-height:38px;max-width:200px;text-align:center;text-decoration:none;width:100%;background-color:#007291;color:#FFFFFF;mso-hide:all"
+              style="-webkit-text-size-adjust:none;border-radius:0;display:inline-block;font-size:16px;line-height:38px;max-width:200px;text-align:center;text-decoration:none;width:100%;background-color:#007291;color:#FFFFFF;mso-hide:all;font-weight:500;line-height:16px;"
               class="font-medium leading-4"
             >
               Click me
