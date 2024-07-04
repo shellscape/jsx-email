@@ -8,4 +8,4 @@ export const Template = ({ test }: { test: string }) => (
   </Html>
 );
 
-Template.PreviewProps = { test: 'batman' };
+export const previewProps = { test: 'batman' };

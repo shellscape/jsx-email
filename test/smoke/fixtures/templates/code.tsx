@@ -1,6 +1,6 @@
 import { Body, Code, Container, Head, Html, Tailwind } from 'jsx-email';
 
-export const CodeEmail = () => (
+export const Template = () => (
   <Html>
     <Head />
     <Tailwind>
@@ -22,6 +22,3 @@ export const CodeEmail = () => (
     </Tailwind>
   </Html>
 );
-
-// eslint-disable-next-line
-export default CodeEmail;

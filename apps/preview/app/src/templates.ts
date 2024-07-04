@@ -33,7 +33,7 @@ export const gather = async () => {
     const absHtmlPath = `${path
       .replace(relativePath, absBuildPath)
       .replace(/\.(jsx|tsx)$/, '')}.html`;
-    const templateName = templateNameMap[absHtmlPath];
+    const templateName = templateNameMap[absHtmlPath] || basePath.split('/').at(-1);
     return {
       ...acc,
       [path]: {
