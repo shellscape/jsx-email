@@ -7,6 +7,7 @@ import type { JsxEmailComponent } from '../types.js';
 export interface ConditionalProps {
   children?: React.ReactNode;
   expression?: string;
+  head?: boolean;
   mso?: boolean;
 }
 
@@ -15,7 +16,7 @@ const notMso = (html: string) => `<!--[if !mso]><!-->${html}<!--<![endif]-->`;
 const comment = (expression: string, html: string) => `<!--[if ${expression}]>${html}<![endif]-->`;
 
 const Renderer = (props: ConditionalProps) => {
-  const { children, mso } = props;
+  const { children, mso, head } = props;
   let { expression } = props;
   const html = useData(props, () => jsxToString(<>{children}</>));
   let innerHtml = '';
@@ -24,9 +25,11 @@ const Renderer = (props: ConditionalProps) => {
   else if (mso === true && !expression) expression = 'mso';
   if (expression) innerHtml = comment(expression, html);
 
+  const Component = head ? 'head' : 'jsx-email-cond';
+
   // @ts-ignore
   // Note: This is perfectly valid. TS just expects lowercase tag names to match a specific type
-  return <jsx-email-cond dangerouslySetInnerHTML={{ __html: innerHtml }} />;
+  return <Component dangerouslySetInnerHTML={{ __html: innerHtml }} />;
 };
 
 export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {

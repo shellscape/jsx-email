@@ -1,8 +1,8 @@
 import { Html } from 'jsx-email';
 
-import { TestBody } from '@components/test-body';
+import { Template as TestBody } from '@components/test-body';
 
-export const TemplateName = 'local-assets';
+export const templateName = 'paths';
 
 // eslint-disable-next-line arrow-body-style
 export const Template = () => {

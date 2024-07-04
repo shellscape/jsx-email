@@ -1,6 +1,8 @@
 <html
   lang="en"
   dir="ltr"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:v="urn:schemas-microsoft-com:vml"
 >
   <head>
   </head>
@@ -8,16 +10,16 @@
     <img
       id="image"
       alt="Cat"
-      src="http://localhost:55420/@fs/<path-removed>/fixtures/static/cat.jpeg"
+      src="../staticcat.jpeg"
       width="200"
       height="200"
       style="border:none;display:block;outline:none;text-decoration:none"
     >
     <a
-      href="http://localhost:55420/@fs/<path-removed>/fixtures/static/cat.jpeg"
+      href="../staticcat.jpeg"
       style="color:#067df7;text-decoration:none"
     >
-      http://localhost:55420/@fs/<path-removed>/fixtures/static/cat.jpeg
+      ../staticcat.jpeg
     </a>
   </body>
 </html>

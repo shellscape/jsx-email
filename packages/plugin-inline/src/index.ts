@@ -14,31 +14,35 @@ export const plugin: JsxEmailPlugin = {
     const { toString } = await import('hast-util-to-string');
     const { remove } = await import('unist-util-remove');
 
-    return function inlineCss(tree: Root) {
-      const stylesheet = selectAll('style', tree).map(toString).join('\n');
-      const cast = parse(stylesheet);
-      for (const rule of cast.stylesheet?.rules ?? []) {
-        if ('selectors' in rule) {
-          for (const selector of rule.selectors ?? []) {
-            const elems = selectAll(selector, tree);
-            for (const elem of elems) {
-              for (const declaration of rule.declarations ?? []) {
-                if ('property' in declaration) {
-                  elem.properties ??= {};
-                  elem.properties.style ??= '';
-                  if (/[^;]\s*$/.test(elem.properties.style as string)) {
-                    elem.properties.style += ';';
+    return function inlineCssPlugin() {
+      return function inline(tree: Root) {
+        if (!tree) return null;
+
+        const stylesheet = selectAll('style', tree).map(toString).join('\n');
+        const cast = parse(stylesheet);
+        for (const rule of cast.stylesheet?.rules ?? []) {
+          if ('selectors' in rule) {
+            for (const selector of rule.selectors ?? []) {
+              const elems = selectAll(selector, tree);
+              for (const elem of elems) {
+                for (const declaration of rule.declarations ?? []) {
+                  if ('property' in declaration) {
+                    elem.properties ??= {};
+                    elem.properties.style ??= '';
+                    if (/[^;]\s*$/.test(elem.properties.style as string)) {
+                      elem.properties.style += ';';
+                    }
+                    elem.properties.style += `${declaration.property}:${declaration.value};`;
                   }
-                  elem.properties.style += `${declaration.property}:${declaration.value};`;
                 }
               }
             }
           }
         }
-      }
 
-      return remove(tree, { tagName: 'style' });
-    } as Plugin;
+        return remove(tree, { tagName: 'style' });
+      };
+    } as unknown as Plugin;
   },
   symbol: pluginSymbol
 };

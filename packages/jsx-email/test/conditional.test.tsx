@@ -3,7 +3,7 @@ import React from 'react';
 
 import { render } from '../src/renderer/render.js';
 import { jsxToString } from '../src/renderer/jsx-to-string.js';
-import { Conditional } from '../dist/esm';
+import { Conditional } from '../src/index.js';
 
 describe('<Conditional> component', async () => {
   beforeEach(() => {
@@ -14,6 +14,15 @@ describe('<Conditional> component', async () => {
   it('renders with jsxToString', async () => {
     const html = await jsxToString(
       <Conditional mso={true}>
+        <h1>batman</h1>
+      </Conditional>
+    );
+    expect(html).toMatchSnapshot();
+  });
+
+  it('renders with head: true', async () => {
+    const html = await jsxToString(
+      <Conditional head={true} mso>
         <h1>batman</h1>
       </Conditional>
     );

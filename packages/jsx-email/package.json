@@ -64,6 +64,7 @@
     "@radix-ui/react-slot": "1.0.2",
     "@shellscape/lilconfig": "^3.2.1",
     "@unocss/core": "^0.60.0",
+    "@unocss/preset-rem-to-px": "^0.59.3",
     "@unocss/preset-typography": "^0.60.0",
     "@unocss/preset-uno": "^0.60.0",
     "@unocss/preset-wind": "^0.60.0",

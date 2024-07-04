@@ -35,6 +35,8 @@ const getUno = async (config: ConfigBase, production: boolean) => {
   // @ts-ignore
   const { presetUno } = await import('@unocss/preset-uno');
   // @ts-ignore
+  const { presetRemToPx } = await import('@unocss/preset-rem-to-px');
+  // @ts-ignore
   const { default: transformerCompileClass } = await import('@unocss/transformer-compile-class');
   // @ts-ignore
   const { default: transformerVariantGroup } = await import('@unocss/transformer-variant-group');
@@ -60,6 +62,8 @@ const getUno = async (config: ConfigBase, production: boolean) => {
 
   const presets = [
     ...(config.presets || []),
+    // Convert all `rem` values to `px`
+    presetRemToPx(),
     presetTypography(),
     presetUno({ dark: 'media' }),
     presetWind()

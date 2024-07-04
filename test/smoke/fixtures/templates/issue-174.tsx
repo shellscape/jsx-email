@@ -10,7 +10,7 @@ export const preset = definePreset(() => {
   };
 });
 
-export const TemplateName = 'Issue174';
+export const templateName = 'Issue174';
 
 export const Template = () => (
   <Tailwind config={{ presets: [preset] }}>

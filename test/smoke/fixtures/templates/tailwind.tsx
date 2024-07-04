@@ -13,8 +13,12 @@ export const Template = () => (
     }}
   >
     <Button
+      width={200}
+      height={40}
+      textColor="#FFFFFF"
+      backgroundColor="#007291"
       href="https://example.com"
-      className="px-3 py-2 font-medium leading-4 text-white bg-brand"
+      className="font-medium leading-4"
     >
       Click me
     </Button>

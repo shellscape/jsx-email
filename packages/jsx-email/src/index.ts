@@ -1,12 +1,14 @@
 // components
+export * from './components/background.js';
 export * from './components/body.js';
-export * from './components/button/button.js';
+export * from './components/button.js';
 export * from './components/code.js';
 export * from './components/color-scheme.js';
 export * from './components/column.js';
 export * from './components/conditional.js';
 export * from './components/container.js';
 export * from './components/font.js';
+export * from './components/graph.js';
 export * from './components/head.js';
 export * from './components/heading.js';
 export * from './components/hr.js';

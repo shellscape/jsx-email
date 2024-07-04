@@ -1,50 +1,37 @@
 <html>
   <head>
-    <style tailwind>
-      /* layer: preflights */
-    /* layer: default */
-    .bg-brand {
-      background-color: rgb(0, 114, 145);
-    }
-
-    .px-3 {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-
-    .py-2 {
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-    }
-
-    .text-white {
-      color: rgb(255, 255, 255);
-    }
-
-    .font-medium {
-      font-weight: 500;
-    }
-
-    .leading-4 {
-      line-height: 1rem;
-    }
-    </style>
   </head>
   <body>
-    <a
-      href="https://example.com"
-      class="px-3 py-2 font-medium leading-4 text-white bg-brand"
-      style="display:inline-block;line-height:100%;max-width:100%;text-decoration:none"
+    <table
+      width="100%"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      style="border-collapse:collapse"
+      role="presentation"
     >
-      <span>
-        <!--[if mso]><i style="mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->
-      </span>
-      <span style="display:inline-block;line-height:120%;max-width:100%;mso-padding-alt:0px;mso-text-raise:0">
-        Click me
-      </span>
-      <span>
-        <!--[if mso]><i style="mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->
-      </span>
-    </a>
+      <tbody>
+        <tr>
+          <td align="left">
+            <span>
+              <!--[if mso]>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="0%"  strokeweight="1px" fillcolor=#007291>
+<w:anchorlock/>
+<center style="font-size:16px;color:#FFFFFF;">
+Click me
+</center></v:roundrect>
+<![endif]-->
+            </span>
+            <a
+              href="https://example.com"
+              style="-webkit-text-size-adjust:none;border-radius:0;display:inline-block;font-size:16px;line-height:38px;max-width:200px;text-align:center;text-decoration:none;width:100%;background-color:#007291;color:#FFFFFF;mso-hide:all;font-weight:500;line-height:16px;"
+              class="font-medium leading-4"
+            >
+              Click me
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>

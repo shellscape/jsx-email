@@ -43,6 +43,14 @@ describe('<Head> component', async () => {
   it('renders meta format-detection conditionally', async () => {
     const testMessage = 'Test message';
     const html = await jsxToString(<Head enableFormatDetection>{testMessage}</Head>);
+    console.log(html);
     expect(html).toContain(testMessage);
+  });
+
+  it('renders mso-conditional statement correctly', async () => {
+    const msoConditional =
+      '<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->';
+    const html = await jsxToString(<Head enableFormatDetection />);
+    expect(html).toContain(msoConditional);
   });
 });

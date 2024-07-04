@@ -1,6 +1,6 @@
 import { createContext, useContext, Body, Html } from 'jsx-email';
 
-export const TemplateName = 'local-assets';
+export const templateName = 'context';
 
 const context = createContext(123);
 
