@@ -62,6 +62,8 @@ jobs:
           moon run :build --query "project~plugin-*"
 
       - name: Package Tests
+        env:
+          FORCE_COLOR: 1
         run: moon run :test --affected --concurrency 1 --remote
 
       - name: Smoke Test
