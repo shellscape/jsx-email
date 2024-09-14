@@ -25,7 +25,6 @@
     "lint-staged": "14.0.1",
     "ts-node": "10.9.1",
     "tshy": "^1.14.0",
-    "tsup": "^7.2.0",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   },

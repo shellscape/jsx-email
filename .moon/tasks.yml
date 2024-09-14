@@ -32,7 +32,6 @@ tasks:
       - package.json
 
   compile:
-    # command: tsup --config ../shared/tsup.base.ts
     command: tshy
     inputs:
       - src

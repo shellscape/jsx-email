@@ -137,7 +137,7 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
 
   log();
 
-  runCheck(file.fileName, file.html);
+  runCheck(file.fileName, file.html!);
 
   return true;
 };

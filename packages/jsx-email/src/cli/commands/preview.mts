@@ -3,6 +3,7 @@ import { mkdir, realpath, rmdir } from 'node:fs/promises';
 import os from 'node:os';
 import { dirname, join, relative, resolve, win32, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import watcher from '@parcel/watcher';
 import react from '@vitejs/plugin-react-swc';
 import chalk from 'chalk';
@@ -16,9 +17,10 @@ import {
   union,
   type Output as Infer
 } from 'valibot';
-import { build as viteBuild, createServer, type InlineConfig, ViteDevServer } from 'vite';
+import { build as viteBuild, createServer, type InlineConfig, type ViteDevServer } from 'vite';
 
 import { log } from '../../log.js';
+
 import { buildTemplates } from './build.mjs';
 import type { CommandFn } from './types.mjs';
 
@@ -44,6 +46,7 @@ interface BuildForPreviewParams {
   targetPath: string;
 }
 
+// eslint-disable-next-line no-console
 const newline = () => console.log('');
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
@@ -110,6 +113,7 @@ const getTempBuildPath = async () => {
 };
 
 const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
+  // @ts-ignore
   const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
   const buildPath = await getTempBuildPath();
   const { exclude, host = false, port = 55420 } = argv;
@@ -135,15 +139,12 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
     clearScreen: false,
     configFile: false,
     plugins: [react()],
-    // ...viteConfig,
     resolve: {
       alias: {
         '@jsxemailbuild': buildPath,
         '@jsxemailsrc': targetPath
-        // ...viteConfig.resolve?.alias
       }
     },
-    // root,
     server: { fs: { strict: false }, host, port: parseInt(port.toString(), 10) }
   } satisfies InlineConfig;
 
@@ -169,7 +170,6 @@ const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
     },
     define: {
       'process.env': '{}'
-      // ...config.define
     },
     mode: 'development'
   });

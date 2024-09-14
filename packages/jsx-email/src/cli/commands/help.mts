@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 
+// @ts-ignore
 import pkg from '../../../package.json' assert { type: 'json' };
 
 import type { CommandFn } from './types.mjs';
