@@ -61,6 +61,7 @@
   "dependencies": {
     "@dot/log": "^0.1.5",
     "@jsx-email/doiuse-email": "^1.0.1",
+    "@parcel/watcher": "^2.4.1",
     "@radix-ui/react-slot": "1.0.2",
     "@shellscape/lilconfig": "^3.2.1",
     "@unocss/core": "^0.60.0",
