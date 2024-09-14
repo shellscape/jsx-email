@@ -135,7 +135,8 @@ const run = async () => {
   const outputPath = join(root, 'templates');
   const templateData = { name: projectName, typeDep: jsx ? '' : typeDep };
 
-  log(chalk`\n{blue Creating Project} at: {dim ${root}}`);
+  log('');
+  log(chalk`{blue Creating Project} at: {dim ${root}}`);
 
   if (overwrite && existsSync(root)) clearDirectory(root);
 

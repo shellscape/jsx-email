@@ -5,10 +5,11 @@ import { RouterProvider } from 'react-router-dom';
 import './index.css';
 import { setup } from './app';
 import { getRouter } from './routes';
+import { gather } from './templates';
 
 setup();
 
-const router = await getRouter();
+const router = getRouter(await gather());
 const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
 

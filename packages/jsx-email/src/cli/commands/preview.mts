@@ -3,8 +3,7 @@ import { mkdir, realpath, rmdir } from 'node:fs/promises';
 import os from 'node:os';
 import { dirname, join, relative, resolve, win32, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-// import react from '@vitejs/plugin-react';
+import watcher from '@parcel/watcher';
 import react from '@vitejs/plugin-react-swc';
 import chalk from 'chalk';
 import {
@@ -17,11 +16,9 @@ import {
   union,
   type Output as Infer
 } from 'valibot';
-import { build as viteBuild, createServer, type InlineConfig } from 'vite';
+import { build as viteBuild, createServer, type InlineConfig, ViteDevServer } from 'vite';
 
 import { log } from '../../log.js';
-// import { getViteConfig } from '../vite.mjs';
-
 import { buildTemplates } from './build.mjs';
 import type { CommandFn } from './types.mjs';
 
@@ -43,9 +40,11 @@ interface PreviewCommonParams {
 interface BuildForPreviewParams {
   buildPath: string;
   exclude?: string;
+  quiet?: boolean;
   targetPath: string;
 }
 
+const newline = () => console.log('');
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
 export const help = chalk`
@@ -68,12 +67,12 @@ Starts the preview server for a directory of email templates
   $ email preview ./src/templates --build-path /tmp/email-preview
 `;
 
-const buildForPreview = async ({ buildPath, exclude, targetPath }: BuildForPreviewParams) => {
-  if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
-  await mkdir(buildPath, { recursive: true });
-
-  log.info(chalk`\n{blue Starting build...}`);
-
+const buildForPreview = async ({
+  buildPath,
+  exclude,
+  quiet = false,
+  targetPath
+}: BuildForPreviewParams) => {
   await Promise.all([
     buildTemplates({
       buildOptions: {
@@ -82,8 +81,8 @@ const buildForPreview = async ({ buildPath, exclude, targetPath }: BuildForPrevi
         minify: false,
         out: buildPath,
         pretty: true,
-        // showStats: false,
-        // silent: true,
+        showStats: !quiet,
+        silent: quiet,
         usePreviewProps: true
       },
       targetPath
@@ -103,15 +102,26 @@ const buildForPreview = async ({ buildPath, exclude, targetPath }: BuildForPrevi
   ]);
 };
 
-const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
-  const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
+const getTempBuildPath = async () => {
   const tmpdir = await realpath(os.tmpdir());
   const buildPath = join(tmpdir, 'jsx-email-preview');
+
+  return buildPath;
+};
+
+const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
+  const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
+  const buildPath = await getTempBuildPath();
   const { exclude, host = false, port = 55420 } = argv;
   // const viteConfig = await getViteConfig(targetPath);
   // Note: The trailing slash is required
   const relativePath = `${normalizePath(relative(root, targetPath))}/`;
 
+  newline();
+  log.info(chalk`{blue Starting build...}`);
+
+  if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
+  await mkdir(buildPath, { recursive: true });
   await buildForPreview({ buildPath, exclude, targetPath });
 
   process.env.VITE_JSXEMAIL_BUILD_PATH = `${normalizePath(relative(root, buildPath))}/`;
@@ -170,13 +180,39 @@ const start = async ({ targetPath, argv }: PreviewCommonParams) => {
   const { open = true } = argv;
   const server = await createServer(config);
 
-  log.info(chalk`\n  🚀 {yellow jsx-email} Preview\n`);
+  newline();
+  log.info(chalk` 🚀 {yellow jsx-email} Preview\n`);
 
   await server.listen();
-
-  // TODO: bind CLI shortcuts. this hasn't landed in Vite yet, will be released with 5.0
+  server.bindCLIShortcuts();
   if (open) server.openBrowser();
   server.printUrls();
+
+  return server;
+};
+
+const watch = async (server: ViteDevServer, { argv, targetPath }: PreviewCommonParams) => {
+  newline();
+  log.info(chalk`{blue Starting watcher...}\n`);
+
+  const subscription = await watcher.subscribe(targetPath, async (_, events) => {
+    const templates = events
+      .map((e) => e.path)
+      .filter((path) => path.endsWith('.tsx') || path.endsWith('.jsx'));
+
+    if (!templates.length) return;
+
+    log.info(chalk`{cyan Rebuilding}`, templates.length, 'files:');
+    log.info('  ', templates.join('\n  '), '\n');
+
+    const buildPath = await getTempBuildPath();
+    const { exclude } = argv;
+    templates.forEach((path) =>
+      buildForPreview({ buildPath, exclude, quiet: true, targetPath: path })
+    );
+  });
+
+  server.httpServer!.on('close', () => subscription.unsubscribe);
 };
 
 export const command: CommandFn = async (argv: PreviewCommandOptions, input) => {
@@ -188,11 +224,17 @@ export const command: CommandFn = async (argv: PreviewCommandOptions, input) => 
   const targetPath = resolve(target);
 
   if (!existsSync(targetPath)) {
-    log.error(chalk`\n{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
+    newline();
+    log.error(chalk`{red D'oh} The directory provided ({dim ${targetPath}}) doesn't exist`);
     return true;
   }
 
-  if (argv.buildPath) await buildDeployable({ argv, targetPath });
-  else await start({ argv, targetPath });
+  const params = { argv, targetPath };
+
+  if (argv.buildPath) await buildDeployable(params);
+  else {
+    const server = await start(params);
+    await watch(server, params);
+  }
   return true;
 };

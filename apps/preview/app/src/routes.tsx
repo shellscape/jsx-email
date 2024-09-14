@@ -3,7 +3,7 @@ import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 import { Error } from './error.tsx';
 import { Home } from './home.tsx';
 import { Preview } from './preview.tsx';
-import { gather, getNestedStructure } from './templates';
+import { getNestedStructure } from './templates';
 import type { TemplateData } from './types.js';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
@@ -12,10 +12,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const getRoutes = async (templates: TemplateData[]) => {
+const getRoutes = (templates: TemplateData[]) => {
   const templateParts = getNestedStructure(templates);
 
-  const routes = templates.map(async (template) => {
+  const routes = templates.map((template) => {
     const { html, path, plain, source } = template;
 
     const element = (
@@ -38,9 +38,8 @@ const getRoutes = async (templates: TemplateData[]) => {
   return { routes, templateParts };
 };
 
-export const getRouter = async () => {
-  const templates = await gather();
-  const { routes, templateParts } = await getRoutes(Object.values(templates));
+export const getRouter = (templates: Record<string, TemplateData>) => {
+  const { routes, templateParts } = getRoutes(Object.values(templates));
   const router = createBrowserRouter([
     {
       element: (
@@ -51,7 +50,7 @@ export const getRouter = async () => {
       errorElement: <Error />,
       path: '/'
     },
-    ...(await Promise.all(routes))
+    ...routes
   ]);
 
   return router;

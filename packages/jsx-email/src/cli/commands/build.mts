@@ -154,8 +154,8 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
 
   if (!silent) {
     log.info(chalk`{cyan Found}`, targetFiles.length, 'files:');
-    log.info('  ', targetFiles.join('\n  '));
-    log.info(chalk`\n{blue Starting build...}`);
+    log.info('  ', targetFiles.join('\n  '), '\n');
+    log.info(chalk`{blue Starting build...}`);
   }
 
   const compiledFiles = await compile(targetFiles, esbuildOutPath);
@@ -191,10 +191,17 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
   );
 
   if (!silent) {
-    if (showStats && largeCount > 0)
-      log.warn(chalk`\n${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
-    if (writeToFile) log.info(chalk`\n{green Build complete}. File(s) written to:`, outputPath);
-    else log.info(chalk`\n{green Build complete}`);
+    if (showStats && largeCount > 0) {
+      log.warn('');
+      log.warn(chalk`${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
+    }
+    if (writeToFile) {
+      log.info('');
+      log.info(chalk`{green Build complete}. File(s) written to:`, outputPath);
+    } else {
+      log.info('');
+      log.info(chalk`{green Build complete}`);
+    }
   }
 
   if (internalForPreview) {
