@@ -1,8 +1,6 @@
 ---
 title: 'Button'
 description: A JSX email component which styles an anchor element to appear as a button
-slug: button
-type: component
 ---
 
 <!--@include: @/include/header.md-->

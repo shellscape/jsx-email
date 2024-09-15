@@ -1,8 +1,6 @@
 ---
 title: Markdown
 description: Converts markdown input to valid HTML for email
-slug: markdown
-type: component
 ---
 
 <!--@include: @/include/header.md-->

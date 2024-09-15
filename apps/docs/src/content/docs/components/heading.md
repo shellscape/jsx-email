@@ -1,8 +1,6 @@
 ---
 title: Heading
 description: A stylable heading (h1, h2, etc) element
-slug: heading
-type: component
 ---
 
 <!--@include: @/include/header.md-->

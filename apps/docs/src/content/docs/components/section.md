@@ -1,8 +1,6 @@
 ---
 title: 'Section'
 description: 'Creates section bordaries that can be formatted with columns and rows'
-slug: section
-type: component
 ---
 
 <!--@include: @/include/header.md-->

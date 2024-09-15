@@ -1,8 +1,6 @@
 ---
 title: Preview
 description: Renders a preview viewable in recipient email clients
-slug: preview
-type: component
 ---
 
 <!--@include: @/include/header.md-->

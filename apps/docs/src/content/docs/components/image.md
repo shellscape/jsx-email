@@ -1,8 +1,6 @@
 ---
 title: Image
 description: Displays an image
-slug: img
-type: component
 ---
 
 <!--@include: @/include/header.md-->

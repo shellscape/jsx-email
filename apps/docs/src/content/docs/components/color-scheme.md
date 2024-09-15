@@ -1,8 +1,6 @@
 ---
 title: 'ColorScheme'
 description: A JSX email component which provides meta and style foundations for color scheme support
-slug: color-scheme
-type: component
 ---
 
 <!--@include: @/include/header.md-->

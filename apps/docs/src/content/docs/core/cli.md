@@ -1,9 +1,6 @@
 ---
 title: 'CLI'
 description: 'The Command Line Interface and developer tooling for JSX email'
-params: -D
-slug: cli
-type: package
 ---
 
 <!--@include: @/include/header.md-->

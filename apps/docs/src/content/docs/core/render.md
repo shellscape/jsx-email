@@ -1,9 +1,6 @@
 ---
 title: 'Render'
 description: 'Render JSX email components to HTML email'
-params: -D
-slug: render
-type: package
 ---
 
 <!--@include: @/include/header.md-->

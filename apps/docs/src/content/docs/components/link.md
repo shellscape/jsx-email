@@ -1,8 +1,6 @@
 ---
-title: Hr
-description: Creates divider (horizontal rule) that separates content
-slug: hr
-type: component
+title: Link
+description: Renders a hyperlink to an external resource
 ---
 
 <!--@include: @/include/header.md-->
@@ -14,10 +12,10 @@ type: component
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Hr } from 'jsx-email';
+import { Link } from 'jsx-email';
 
 const Email = () => {
-  return <Hr />;
+  return <Link href="https://example.com">Example</Link>;
 };
 ```
 
@@ -29,6 +27,18 @@ disableDefaultStyle?: boolean;
 
 If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
+```ts
+href: string;
+```
+
+Link to be triggered when the button is clicked.
+
+```ts
+target?: string;
+```
+
+Specify the target attribute for the button link.
+
 ::: tip
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'hr'>`.
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
 :::

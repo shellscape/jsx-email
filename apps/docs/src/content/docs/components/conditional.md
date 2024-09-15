@@ -1,8 +1,6 @@
 ---
 title: 'Conditional'
 description: Use HTML conditional comments effortlessly
-slug: conditional
-type: component
 ---
 
 <!--@include: @/include/header.md-->

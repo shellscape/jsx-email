@@ -1,8 +1,6 @@
 ---
 title: Row
 description: Separates content boundaries horizontally
-slug: row
-type: component
 ---
 
 <!--@include: @/include/header.md-->
