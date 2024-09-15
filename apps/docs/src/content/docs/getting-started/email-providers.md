@@ -1,6 +1,8 @@
 ---
 title: 'Email Provider Integrations'
 description: 'Use JSX email with an Email Provider of your choice'
+sidebar:
+  order: 3
 ---
 
 <!--@include: @/include/header.md-->

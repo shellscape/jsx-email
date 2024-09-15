@@ -1,6 +1,8 @@
 ---
 title: 'Common Questions'
 description: 'You know the drill. Questions that get asked oodles'
+sidebar:
+  order: 4
 ---
 
 <!--@include: @/include/header.md-->

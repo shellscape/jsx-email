@@ -1,6 +1,8 @@
 ---
 title: 'Quick Start'
 description: 'Quick Start'
+sidebar:
+  order: 2
 ---
 
 ## Quick Start

@@ -1,6 +1,8 @@
 ---
 title: 'Introduction'
 description: 'Build and send emails using React and TypeScript.'
+sidebar:
+  order: 1
 ---
 
 ## Welcome!

@@ -1,10 +1,15 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import svelte from '@astrojs/svelte';
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://jsx.email/',
   integrations: [
+    svelte(),
+    tailwind(),
     starlight({
       title: 'JSX email',
       social: {
@@ -13,7 +18,7 @@ export default defineConfig({
       },
       logo: {
         replacesTitle: true,
-        src: '@assets/logo.svg'
+        src: '@assets/logo-hor.svg'
       },
       editLink: {
         baseUrl: 'https://github.com/shellscape/jsx-email/edit/main/'
@@ -23,6 +28,8 @@ export default defineConfig({
           label: 'Getting started',
           autogenerate: { directory: 'getting-started' }
         },
+        { label: 'Email Samples', link: 'http://samples.jsx.email/' },
+        { label: 'Changelog', link: '/changelog' },
         {
           label: 'Core',
           autogenerate: { directory: 'core' }
@@ -32,7 +39,51 @@ export default defineConfig({
           autogenerate: { directory: 'components' }
         }
       ],
-      credits: true
+      credits: true,
+      head: [
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:image',
+            content: 'https://jsx.email/og.png'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:site_name',
+            content: 'JSX email'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'twitter:card',
+            content: 'summary_large_image'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'twitter:description',
+            content: 'Develop standards compliant emails with JSX or TSX'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'twitter:image',
+            content: 'https://jsx.email/og.png'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'twitter:title',
+            content: 'JSX email Docs'
+          }
+        }
+      ]
     })
   ]
 });
