@@ -3,9 +3,39 @@ title: 'CLI'
 description: 'The Command Line Interface and developer tooling for JSX email'
 ---
 
-{/*@include: @/include/header.md*/}
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Image } from "astro:assets";
+import Preview_1 from "@assets/preview-1.png"
+import Preview_2 from "@assets/preview-2.png"
+import Preview_3 from "@assets/preview-3.png"
+import Preview_4 from "@assets/preview-4.png"
 
-{/*@include: @/include/install.md*/}
+## Install
+
+Install JSX email from your command line:
+
+<Tabs syncKey="install">
+  <TabItem label="pnpm">
+    ```sh
+    pnpm add jsx-email
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```sh
+    npm install jsx-email
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```sh
+    yarn add jsx-email
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```sh
+    bun add jsx-email
+    ```
+  </TabItem>
+</Tabs>
 
 Nearly all installations of this package will want it installed into `devDependencies` so please make sure to add the `-D` flag.
 
@@ -51,15 +81,15 @@ To view help for specific commands, use `email help <command>`. e.g. `email help
 The `build` command compiles and renders an email template to HTML for use with an email provider. The command takes a directory or single file as input:
 
 ```console
-$ cd ~/code/email-app
-$ email build ./emails
+cd ~/code/email-app
+email build ./emails
 ```
 
 Or for a single file:
 
 ```console
-$ cd ~/code/email-app
-$ email build ./emails/Batman.tsx
+cd ~/code/email-app
+email build ./emails/Batman.tsx
 ```
 
 ## Check
@@ -67,7 +97,7 @@ $ email build ./emails/Batman.tsx
 `jsx-email` can run a client compatibility check on any template, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client incompatibility issues. This check is incredibly helpful in diagnosing and debugging display issues between multiple email clients.
 
 ```console
-$ email check ./emails/Batman.tsx
+email check ./emails/Batman.tsx
 ```
 
 Example output:
@@ -113,23 +143,24 @@ JSX email ships with a Preview Tool as part of the CLI. Our Preview is fast, sim
 To use the Preview Tool, open your terminal and navigate to your project. We're assuming you've already installed the CLI as shown above, and that you've already run `email create` to create an email in an `emails` directory.
 
 ```console
-$ cd ~/code/email-app
-$ email preview ./emails
+cd ~/code/email-app
+email preview ./emails
 ```
 
 The Preview Tool will start up and open a new window in your browser, and you'll be presented with a page that looks like:
 
-![Preview 1](/preview-1.png)<br/><br/>
-![Preview 1](/preview-2.png)<br/><br/>
-![Preview 1](/preview-3.png)<br/><br/>
-![Preview 1](/preview-4.png)
+<Image src={Preview_1} alt="Preview_1" />
+<Image src={Preview_2} alt="Preview_2" />
+<Image src={Preview_3} alt="Preview_3" />
+<Image src={Preview_4} alt="Preview_4" />
+
 
 ## Deploying Your Preview App
 
 As part of the CLI, users have the ability to build their templates into a deployable preview app. The resulting app can be deployed anywhere, not just select service providers. To build templates into a deployable app, run:
 
 ```console
-$ email preview <templates-path> --build-path <build-path>
+email preview <templates-path> --build-path <build-path>
 ```
 
 where `<build-path>` is the path you want the build output files placed.

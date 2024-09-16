@@ -1,15 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import svelte from '@astrojs/svelte';
-import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jsx.email/',
   integrations: [
-    svelte(),
-    tailwind(),
     starlight({
       title: 'JSX email',
       social: {

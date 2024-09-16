@@ -5,9 +5,13 @@ sidebar:
   order: 3
 ---
 
-{/*@include: @/include/header.md*/}
+Use JSX email with an Email Provider of your choice.
 
-Using JSX email with email providers or integrations is as simple as rendering the template you've already built. Rendering transforms your template from JSX/TSX into HTML, and optionally plain text. That's accomplished with the [jsx-email `render`](/docs/core/render) method. _We're going to assume that you've made it through the [Quick Start Guide](/docs/quick-start) before arriving here, and have an email template to use._
+Using JSX email with email providers or integrations is as simple as rendering the template you've already built. Rendering transforms your template from JSX/TSX into HTML, and optionally plain text. That's accomplished with the [jsx-email `render`](/docs/core/render) method.
+
+:::note
+We're going to assume that you've made it through the [Quick Start Guide](/docs/quick-start) before arriving here, and have an email template to use._
+:::
 
 While JSX email can be used with just about any email provider that takes a string for content input, this page will demonstrate use with a few popular providers.
 
@@ -115,7 +119,7 @@ client.sendEmail({
 
 ## Resend
 
-::: tip
+:::tip
 The `resend` package ships with support for `react-email` with its `react` property on `sendEmail`. However, `react-email` is fairly far behind `jsx-email` in terms of functionality, and its render method cannot process the advanced features in `jsx-email`. Because of that, users should run jsx-email's `render` method as shown below, to render html first, and pass that to the `sendEmail` function.
 :::
 

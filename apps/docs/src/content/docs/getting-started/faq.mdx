@@ -81,14 +81,16 @@ import { myEmailAction } from './myEmailAction';
 export async function Page() {
   return <MyForm action={myEmailAction} />;
 }
-
+```
+```jsx
 // MyForm.jsx
 'use client';
 export function MyForm({ action }) {
   // Note the passing of `action` as a prop
   return <form action={action}>...</form>;
 }
-
+```
+```jsx
 // myEmailAction.js
 'use server';
 import { render } from 'jsx-email';
