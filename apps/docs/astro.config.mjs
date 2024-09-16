@@ -24,8 +24,7 @@ export default defineConfig({
           label: 'Getting started',
           autogenerate: { directory: 'getting-started' }
         },
-        { label: 'Email Samples', link: 'http://samples.jsx.email/' },
-        { label: 'Changelog', link: '/changelog' },
+        { label: 'Email Samples', link: 'https://samples.jsx.email/' },
         {
           label: 'Core',
           autogenerate: { directory: 'core' }
