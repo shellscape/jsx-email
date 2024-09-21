@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "./shared/bootstrap.sh",
+    "build-docs": "pnpm --filter {apps/web} build",
     "prepare": "husky install"
   },
   "devDependencies": {
