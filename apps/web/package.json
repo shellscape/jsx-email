@@ -1,17 +1,20 @@
 {
-  "name": "app-web",
-  "version": "0.0.0",
-  "private": true,
-  "description": "jsx.email",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
+  "name": "docs",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "astro": "astro",
+    "build": "astro check && astro build",
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "start": "astro dev"
   },
-  "devDependencies": {
-    "@octokit/rest": "^20.0.2",
-    "globby": "11.0.4",
-    "titleize": "^4.0.0",
-    "vitepress": "1.0.0-rc.20",
-    "vue": "3.3.4"
+  "dependencies": {
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/starlight": "^0.27.1",
+    "@octokit/rest": "21.0.2",
+    "astro": "^4.15.6",
+    "sharp": "^0.32.6",
+    "typescript": "^5.6.2"
   }
 }

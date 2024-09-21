@@ -1,0 +1,36 @@
+---
+title: Welcome to JSX email
+description: Build emails with a delightful Developer Experience
+template: splash
+sidebar:
+  hidden: true
+hero:
+  tagline: Develop standards compliant emails with JSX or TSX — compatible with the most popular email clients
+  image:
+    file: "@assets/logo-vert.svg"
+  actions:
+    - text: Explore the docs!
+      link: /getting-started/introduction
+      icon: right-arrow
+    - text: View the Github repo
+      link: https://github.com/shellscape/jsx-email
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Create Email Templates" icon="pencil">
+    Use React components and JSX syntax to build responsive email templates.
+  </Card>
+  <Card title="Preview and Test" icon="laptop">
+    Utilize the built-in preview server for real-time development and testing.
+  </Card>
+  <Card title="Ensure Compatibility" icon="approve-check-circle">
+    JSX Email handles compatibility across various email clients for consistent rendering.
+  </Card>
+  <Card title="Build and Send" icon="email">
+    Use the CLI tool to build templates into HTML, then send via your preferred email service.
+  </Card>
+</CardGrid>
