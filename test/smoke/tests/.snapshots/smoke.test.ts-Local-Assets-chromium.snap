@@ -1,0 +1,25 @@
+<html
+  lang="en"
+  dir="ltr"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+>
+  <head>
+  </head>
+  <body>
+    <img
+      id="image"
+      alt="Cat"
+      src="../staticcat.jpeg"
+      width="200"
+      height="200"
+      style="border:none;display:block;outline:none;text-decoration:none"
+    >
+    <a
+      href="../staticcat.jpeg"
+      style="color:#067df7;text-decoration:none"
+    >
+      ../staticcat.jpeg
+    </a>
+  </body>
+</html>

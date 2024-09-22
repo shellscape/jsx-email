@@ -67,7 +67,7 @@ const footer = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const TemplateName = 'Stripe Welcome';
+export const templateName = 'Stripe Welcome';
 
 export const Template = () => (
   <Html>

@@ -1,0 +1,75 @@
+{
+  "name": "@jsx-email/plugin-inline",
+  "version": "2.0.0-rc2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A plugin for jsx-email that inlines CSS classes to style attributes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/plugin-style"
+  },
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "https://jsx.email/",
+  "main": "./dist/commonjs/index.js",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "email",
+    "html",
+    "jsx",
+    "jsx-email",
+    "style",
+    "plugin",
+    "preset",
+    "react",
+    "rehype",
+    "rehype-plugin",
+    "unified"
+  ],
+  "peerDependencies": {
+    "jsx-email": "workspace:^"
+  },
+  "dependencies": {
+    "@adobe/css-tools": "^4.3.3",
+    "hast-util-select": "^6.0.2",
+    "hast-util-to-string": "^3.0.0",
+    "unist-util-remove": "^4.0.0"
+  },
+  "devDependencies": {
+    "hast": "^1.0.0",
+    "unified": "^11.0.4"
+  },
+  "types": "./dist/commonjs/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
+  "sideEffects": false,
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  }
+}

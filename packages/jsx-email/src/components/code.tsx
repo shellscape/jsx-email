@@ -1,10 +1,10 @@
-import mem from 'p-memoize';
 import { Suspense } from 'react';
-import { type BuiltinLanguage } from 'shikiji';
+// @ts-ignore
+import { type BuiltinLanguage } from 'shiki';
 
-import { debug } from '../debug';
-import { useData } from '../render/jsx-to-string';
-import type { BaseProps, JsxEmailComponent } from '../types';
+import { debug } from '../debug.js';
+import { useData } from '../renderer/suspense.js';
+import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 type RootProps = BaseProps<'pre'>;
 
@@ -16,22 +16,17 @@ export interface CodeProps extends RootProps {
 
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/code' } : {};
 
-const getHighlighter = mem(async (language?: string, theme = 'nord') => {
-  const { getHighlighter: getHighBro } = await import('shikiji');
-  const shiki = await getHighBro({
-    langs: language ? [language] : [],
-    themes: [theme]
-  });
-
-  return shiki;
-});
-
 const Renderer = (props: React.PropsWithChildren<CodeProps>) => {
   const { children, language, style, theme = 'nord', ...rest } = props;
-  const highlighter = useData(props, () => getHighlighter(language, theme));
-
   const code = children as string;
-  const html = highlighter.codeToHtml(code, { lang: language, theme });
+  const highlight = async () => {
+    // Note: When building CJS with thsy, tsc thinks that this isn't already dynamic
+    // @ts-ignore
+    const { codeToHtml } = await import('shiki');
+    const html = await codeToHtml(code, { lang: language, theme });
+    return html;
+  };
+  const html = useData(props, highlight);
 
   return <div {...rest} {...debugProps} style={style} dangerouslySetInnerHTML={{ __html: html }} />;
 };

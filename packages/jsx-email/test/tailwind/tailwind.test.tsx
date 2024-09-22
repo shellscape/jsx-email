@@ -1,11 +1,12 @@
 // @ts-ignore
 import React from 'react';
 
-import { Tailwind, type TailwindProps } from '../../dist';
-import { jsxToString, render } from '../../src/render';
-import { Hr } from '../../src/components/hr';
-import { Head } from '../../src/components/head';
-import { Html } from '../../src/components/html';
+import { Tailwind, type TailwindProps } from '../../dist/esm';
+import { render } from '../../src/renderer/render.js';
+import { jsxToString } from '../../src/renderer/jsx-to-string.js';
+import { Hr } from '../../src/components/hr.js';
+import { Head } from '../../src/components/head.js';
+import { Html } from '../../src/components/html.js';
 
 type TailwindConfig = Partial<TailwindProps['config']>;
 
@@ -105,10 +106,8 @@ describe('Custom theme config', async () => {
   it('should be able to use custom colors', async () => {
     const config: TailwindConfig = {
       theme: {
-        extend: {
-          colors: {
-            custom: '#1fb6ff'
-          }
+        colors: {
+          custom: '#1fb6ff'
         }
       }
     };
@@ -125,11 +124,9 @@ describe('Custom theme config', async () => {
   it('should be able to use custom fonts', async () => {
     const config: TailwindConfig = {
       theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Graphik', 'sans-serif'],
-            serif: ['Merriweather', 'serif']
-          }
+        fontFamily: {
+          sans: ['Graphik', 'sans-serif'],
+          serif: ['Merriweather', 'serif']
         }
       }
     };
@@ -147,10 +144,8 @@ describe('Custom theme config', async () => {
   it('should be able to use custom spacing', async () => {
     const config: TailwindConfig = {
       theme: {
-        extend: {
-          spacing: {
-            '8xl': '96rem'
-          }
+        spacing: {
+          '8xl': '96rem'
         }
       }
     };
@@ -165,10 +160,8 @@ describe('Custom theme config', async () => {
   it('should be able to use custom border radius', async () => {
     const config: TailwindConfig = {
       theme: {
-        extend: {
-          borderRadius: {
-            '4xl': '2rem'
-          }
+        borderRadius: {
+          '4xl': '2rem'
         }
       }
     };
@@ -183,12 +176,10 @@ describe('Custom theme config', async () => {
   it('should be able to use custom text alignment', async () => {
     const config: TailwindConfig = {
       theme: {
-        extend: {
-          textAlign: {
-            justify: 'justify'
-          }
-        } as any
-      }
+        textAlign: {
+          justify: 'justify'
+        }
+      } as any
     };
 
     const actualOutput = await jsxToString(
@@ -212,7 +203,7 @@ describe('<Tailwind> component', async () => {
               __html: `<!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->`
             }}
           />
-          <div className="bg-white sm:bg-red-50 sm:text-sm md:text-lg custom-class" />
+          <div className="custom-class bg-white sm:bg-red-50 sm:text-sm md:text-lg" />
         </Html>
       </Tailwind>
     );
@@ -266,7 +257,7 @@ describe('Production mode', async () => {
     const actualOutput = await jsxToString(
       <Tailwind production>
         <Html>
-          <div className="text-sm bg-red-100" />
+          <div className="bg-red-100 text-sm" />
         </Html>
       </Tailwind>
     );

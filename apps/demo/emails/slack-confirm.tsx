@@ -95,11 +95,11 @@ const text = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   validationCode: 'DJZ-TLX'
 } as SlackConfirmEmailProps;
 
-export const TemplateName = 'Slack Confirm';
+export const templateName = 'Slack Confirm';
 
 export const Template = ({ validationCode }: SlackConfirmEmailProps) => (
   <Html>

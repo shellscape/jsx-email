@@ -10,11 +10,34 @@ fileGroups:
     - 'tests/**/*.test.*'
 
 tasks:
+  build:
+    command: echo "Build Complete ✓"
+    deps:
+      - ~:clean.dist
+      - ~:compile
+    inputs:
+      - src
+      - package.json
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+    outputs:
+      - dist
+
   clean.dist:
     command: rm -rf dist
     inputs:
       - src
       - package.json
+
+  compile:
+    command: tshy
+    inputs:
+      - src
+      - package.json
+    options:
+      runDepsInParallel: false
 
   release:
     command: versioner --target $projectRoot
@@ -24,10 +47,3 @@ tasks:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
-
-  tsconfig.link:
-    command: ln -sf ../../shared/tsconfig.default.json tsconfig.json
-    options:
-      cache: false
-      outputStyle: 'stream'
-    platform: system

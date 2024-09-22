@@ -3,16 +3,17 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['compile', 'release']
+    exclude: ['build', 'compile', 'release']
 
 tasks:
   build:
-    command: rm -f tsconfig.json
+    command: echo "Build Complete ✓"
     deps:
       - ~:clean.dist
       - ~:compile
-      - ~:copy.assets
+      - ~:copy.package
       - ~:copy.readme
+      - ~:copy.templates
     inputs:
       - src
       - package.json
@@ -27,17 +28,22 @@ tasks:
       cache: false
 
   compile:
-    command: tsup --config tsup.config.ts
+    command: tshy
     inputs:
       - src
       - package.json
-    deps:
-      - ~:tsconfig.link
     options:
       runDepsInParallel: false
 
-  copy.assets:
-    command: cp -r src/cli/assets dist
+  # Note: https://github.com/isaacs/tshy/issues/61
+  # For all the things that tshy solves, it creates new problems
+  copy.package:
+    command: cp -r ./package.json dist
+    options:
+      cache: false
+
+  copy.templates:
+    command: cp -r ../../assets/templates dist
     options:
       cache: false
 
@@ -71,6 +77,9 @@ tasks:
 
   test:
     command: vitest --config ../../shared/vitest.config.ts
+    # command: vitest test/config/define-config.test.ts --config ../../shared/vitest.config.ts
+    # command: vitest test/config/load/mjs/load-mjs.test.ts --config ../../shared/vitest.config.ts
+    # command: vitest test/config/load/mjs-json/load-mjs-json.test.ts --config ../../shared/vitest.config.ts
     deps:
       - ~:build
     inputs:

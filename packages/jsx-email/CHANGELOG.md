@@ -1,30 +1,5 @@
 # jsx-email ChangeLog
 
-## v1.12.1
-
-_2024-05-09_
-
-### Bugfixes
-
-- jsx-email: build process broken on Windows, fixes #194 (#195)
-
-## v1.12.0
-
-_2024-04-19_
-
-### Features
-
-- jsx-email: add `bgImage` and `bgColor` props to `<Column>` (#188)
-
-## v1.11.0
-
-_2024-04-17_
-
-### Features
-
-- jsx-email: add meta tags to `head` and update test suite (#187)
-- jsx-email: add `rem-to-px` preset to `unoconfig` (#189)
-
 ## v1.10.12
 
 _2024-02-24_

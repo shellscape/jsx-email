@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { JsxEmailComponent } from '../types';
+import type { JsxEmailComponent } from '../types.js';
 
 type FallbackFont =
   | 'Arial'

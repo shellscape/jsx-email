@@ -7,7 +7,7 @@ import type { FC, ReactNode } from 'react';
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../../src/render/jsx-to-string';
+import { jsxToString } from '../../src/renderer/jsx-to-string.js';
 
 const Template: FC<{
   firstName: string;

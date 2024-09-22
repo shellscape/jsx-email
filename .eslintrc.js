@@ -28,7 +28,6 @@ module.exports = {
       files: ['apps/demo/emails/**/*.tsx', 'apps/demo/staged/**/*.tsx'],
       rules: {
         'arrow-body-style': 'off',
-        'import/no-default-export': 'off',
         'no-use-before-define': 'off',
         'sort-keys': 'off',
         'typescript-sort-keys/interface': 'off'
@@ -52,6 +51,30 @@ module.exports = {
         varsIgnorePattern: '^_'
       }
     ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        cjs: 'never',
+        cts: 'never',
+        js: 'never',
+        jsx: 'never',
+        mjs: 'never',
+        mts: 'never',
+        ts: 'never',
+        tsx: 'never'
+      }
+    ],
     'no-console': 'error'
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.cjs', '.js', '.json', '.jsx', '.mjs', '.ts', '.tsx']
+      },
+      typescript: {
+        alwaysTryTypes: true
+      }
+    }
   }
 };

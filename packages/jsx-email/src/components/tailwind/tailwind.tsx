@@ -1,11 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { createGenerator, type ConfigBase } from '@unocss/core';
-import { presetTypography } from '@unocss/preset-typography';
-import { presetWind } from '@unocss/preset-wind';
-import { presetUno } from '@unocss/preset-uno';
-import { presetRemToPx } from '@unocss/preset-rem-to-px';
-import transformerCompileClass from '@unocss/transformer-compile-class';
-import transformerVariantGroup from '@unocss/transformer-variant-group';
+// @ts-ignore
+import type { ConfigBase } from '@unocss/core';
 import MagicString from 'magic-string';
 import postcss from 'postcss';
 // @ts-ignore
@@ -13,12 +8,12 @@ import postcss from 'postcss';
 import { postcssVarReplace } from 'postcss-var-replace';
 import { Suspense } from 'react';
 
-import { debug } from '../../debug';
-import { jsxToString, useData } from '../../render/jsx-to-string';
+import { debug } from '../../debug.js';
+import { log } from '../../log.js';
+import { jsxToString } from '../../renderer/jsx-to-string.js';
+import { useData } from '../../renderer/suspense.js';
 
-import { plugin as colorFunctions } from './color-functions';
-
-const { warn } = console;
+import { plugin as colorFunctions } from './color-functions.js';
 
 export interface TailwindProps {
   config?: Pick<
@@ -30,7 +25,22 @@ export interface TailwindProps {
 
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/tailwind' } : {};
 
-const getUno = (config: ConfigBase, production: boolean) => {
+const getUno = async (config: ConfigBase, production: boolean) => {
+  // @ts-ignore
+  const { createGenerator } = await import('@unocss/core');
+  // @ts-ignore
+  const { presetTypography } = await import('@unocss/preset-typography');
+  // @ts-ignore
+  const { presetWind } = await import('@unocss/preset-wind');
+  // @ts-ignore
+  const { presetUno } = await import('@unocss/preset-uno');
+  // @ts-ignore
+  const { presetRemToPx } = await import('@unocss/preset-rem-to-px');
+  // @ts-ignore
+  const { default: transformerCompileClass } = await import('@unocss/transformer-compile-class');
+  // @ts-ignore
+  const { default: transformerVariantGroup } = await import('@unocss/transformer-variant-group');
+
   const transformers = [transformerVariantGroup()];
 
   if (production)
@@ -42,8 +52,8 @@ const getUno = (config: ConfigBase, production: boolean) => {
     );
 
   if ((config?.theme as any)?.extend) {
-    warn(
-      'jsx-email → Tailwind: Use of `theme.extend` is not necessary. `theme.extend` has been merged into `theme`'
+    log.warn(
+      'Tailwind: Use of `theme.extend` is not necessary. `theme.extend` has been merged into `theme`'
     );
     const { extend } = config.theme as any;
     delete (config.theme as any).extend;
@@ -72,7 +82,7 @@ const render = async ({
   config = {},
   production = false
 }: React.PropsWithChildren<TailwindProps>) => {
-  const uno = getUno(config, production);
+  const uno = await getUno(config, production);
   const html = await jsxToString(<>{children}</>);
   const code = production ? html.replace(/class="/g, 'class=":jsx: ') : html;
   const s = new MagicString(code);

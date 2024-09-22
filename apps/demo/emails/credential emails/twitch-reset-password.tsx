@@ -72,12 +72,12 @@ const link = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   username: 'Batman',
   updatedDate: new Date('June 23, 2022 4:06:00 pm UTC')
 } as TwitchResetPasswordEmailProps;
 
-export const TemplateName = 'Twitch Reset Password';
+export const templateName = 'Twitch Reset Password';
 
 export const Template = ({ username, updatedDate }: TwitchResetPasswordEmailProps) => {
   const formattedDate = new Intl.DateTimeFormat('en', {

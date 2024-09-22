@@ -51,11 +51,11 @@ const footer = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const PreviewProps = {
+export const previewProps = {
   userFirstname: 'Bruce'
 } as KoalaWelcomeEmailProps;
 
-export const TemplateName = 'Koala Welcome';
+export const templateName = 'Koala Welcome';
 
 export const Template = ({ userFirstname }: KoalaWelcomeEmailProps) => (
   <Html>

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import type { TemplatePart, Views } from '../types';
+import type { TemplatePart, Views } from '../types.js';
 
 import { Sidebar } from './sidebar';
 import { Nav } from './nav';

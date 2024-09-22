@@ -22,9 +22,7 @@ Gmail is one of the more restrictive email clients when it comes to CSS classes.
 
 ## Monorepo Setup
 
-`jsx-email` works out of the box with moden monorepo tools, and most monorepo configurations. There are no additional or exhaustive setup steps to perform. Enjoy!
-
-_Do note that the number of monorepo configurations are nearly limitless, and while we've crafted the project to perform well in monorepos, there are surely configurations that may pose challenges. In that case, we're here to help._
+`jsx-email` works out of the box with every monorepo setup. There are no additional or exhaustive setup steps to perform. Enjoy!
 
 ## Next.js `import` or `export` Errors
 

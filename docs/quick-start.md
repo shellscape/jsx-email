@@ -63,10 +63,6 @@ This command will create a new template named `BatmanEmail.tsx` in the `./emails
 If you'd rather create a `.jsx` file, use the `--jsx` flag
 :::
 
-## Superstruct
-
-[Superstruct](https://docs.superstructjs.org/) is a fantastic validation package that predates `zod` and `yup`. It's smaller and faster than alternatives and uses a delightful API without chaining or cruft. JSX email uses it as an option for defining `prop` types and creating props for use in email previews.
-
 ## Email Previews
 
 One of the major benefits of JSX email over alternatives is our incredibly slim and fast preview server, which requires no additional dependency installation, complex mounting, or difficult setup rules for monorepos. To run the preview server, run the following command in your terminal:

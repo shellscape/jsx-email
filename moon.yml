@@ -7,13 +7,20 @@ project:
 
 workspace:
   inheritedTasks:
-    exclude: ['build', 'compile', 'release', 'tsconfig.link', 'test']
+    exclude: ['build', 'compile', 'release', 'test']
 
 tasks:
+  build.deps:
+    deps:
+      - plugin-inline:build
+      - plugin-minify:build
+      - plugin-pretty:build
+      - create-jsx-email:build
+
   build.all:
+    command: moon repo:build.deps
     deps:
       - jsx-email:build
-      - create-jsx-email:build
 
   build.samples:
     command: email preview ./apps/demo/emails --build-path /tmp/samples.jsx.email

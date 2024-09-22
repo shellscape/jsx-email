@@ -1,0 +1,71 @@
+{
+  "name": "@jsx-email/plugin-pretty",
+  "version": "2.0.0-rc2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A prettifying plugin for jsx-email",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/plugin-pretty"
+  },
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "https://jsx.email/",
+  "main": "./dist/commonjs/index.js",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "email",
+    "html",
+    "jsx",
+    "jsx-email",
+    "pretty",
+    "plugin",
+    "preset",
+    "react",
+    "rehype",
+    "rehype-plugin",
+    "unified"
+  ],
+  "peerDependencies": {
+    "jsx-email": "workspace:^"
+  },
+  "dependencies": {
+    "pretty": "2.0.0"
+  },
+  "devDependencies": {
+    "@types/pretty": "^2.0.1"
+  },
+  "types": "./dist/commonjs/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
+  "sideEffects": false,
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  }
+}

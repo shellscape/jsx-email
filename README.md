@@ -20,6 +20,10 @@
   <br/>
 </div>
 
+## Version 2.0.0
+
+The `main` branch currently represents the pending v2.0.0. To browse the source code for v1.12.1 please [click here](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
+
 ## Getting Started
 
 Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs/introduction). Please give that a read and let us know if there's anything we can help with.

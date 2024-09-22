@@ -1,7 +1,7 @@
 import { type StylesType, parseMarkdownToJSX } from 'md-to-react-email';
 import React from 'react';
 
-import { debug } from '../debug';
+import { debug } from '../debug.js';
 
 export interface MarkdownProps extends React.PropsWithChildren {
   children: string;

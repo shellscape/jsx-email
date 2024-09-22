@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/render';
-import { Html } from '../src';
+import { jsxToString } from '../src/renderer/jsx-to-string.js';
+import { Html } from '../src/index.js';
 
 describe('<Html> component', async () => {
   beforeEach(() => {
@@ -21,6 +21,18 @@ describe('<Html> component', async () => {
     expect(html).toContain('lang="fr"');
     expect(html).toContain('dir="rtl"');
     expect(html).toContain('data-testid="html-test"');
+  });
+
+  it('renders with VML attributes', async () => {
+    const html = await jsxToString(<Html />);
+    expect(html).toContain('xmlns:v="urn:schemas-microsoft-com:vml"');
+    expect(html).toContain('xmlns:o="urn:schemas-microsoft-com:office:office"');
+  });
+
+  it('disables VML attributes', async () => {
+    const html = await jsxToString(<Html enableVML={false} />);
+    expect(html).not.toContain('xmlns:v="urn:schemas-microsoft-com:vml"');
+    expect(html).not.toContain('xmlns:o="urn:schemas-microsoft-com:office:office"');
   });
 
   it('renders correctly', async () => {

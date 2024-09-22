@@ -76,7 +76,7 @@ const hr = {
 
 const baseUrl = 'https://jsx.email/assets/demo/';
 
-export const TemplateName = 'Google Play Policy Update';
+export const templateName = 'Google Play Policy Update';
 
 export const Template = () => (
   <Html>

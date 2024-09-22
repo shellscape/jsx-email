@@ -2,7 +2,7 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import classnames from 'classnames';
 import { motion } from 'framer-motion';
 
-import type { Views } from '../types';
+import type { Views } from '../types.js';
 
 const button = 'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative';
 const motionSpan = 'absolute left-0 right-0 top-0 bottom-0 bg-cta-bg';

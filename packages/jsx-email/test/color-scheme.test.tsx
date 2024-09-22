@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { jsxToString } from '../src/render';
-import { ColorScheme, type ColorSchemeMode } from '../src';
+import { jsxToString } from '../src/renderer/jsx-to-string.js';
+import { ColorScheme, type ColorSchemeMode } from '../src/index.js';
 
 describe('<ColorScheme> component', async () => {
   beforeEach(() => {

@@ -11,6 +11,7 @@ export type JsxEmailComponent<TProps extends BaseProps<any>> = React.FC<Readonly
 export type PlainTextOptions = HtmlToTextOptions;
 
 export interface RenderOptions {
+  disableDefaultStyle?: boolean;
   minify?: boolean;
   plainText?: boolean | PlainTextOptions;
   pretty?: boolean;

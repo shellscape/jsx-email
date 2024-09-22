@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { Cross1Icon } from '@radix-ui/react-icons';
 
-import type { TemplatePart } from '../types';
+import type { TemplatePart } from '../types.js';
 
 import { Logo } from './logo';
 
@@ -180,7 +180,7 @@ export const SidebarSection = ({
                           </span>
                         )}
                         <FileName />
-                        {item.name}
+                        {item.template.templateName}
                       </span>
                     </Link>
                   );
