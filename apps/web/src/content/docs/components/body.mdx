@@ -1,14 +1,33 @@
 ---
-title: Body
-description: A JSX email component for using a React `Body` component to wrap email content
-type: component
+title: 'Body'
+description: 'A JSX email component for using a React `Body` component to wrap email content'
 ---
-import Install from "@components/Install.mdx"
-import BodyContent from "@docs/components/Body.mdx"
 
-{ frontmatter.description }
-<br />
+{/*@include: @/include/header.md*/}
 
-<Install type={frontmatter.type}/>
+{/*@include: @/include/install.md*/}
 
-<BodyContent />
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Body, Column, Html, Section } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Body style={{ backgroundColor: '#61dafb' }}>
+        <Section>
+          <Column style={{ width: '50%' }}>{/* First column */}</Column>
+          <Column style={{ width: '50%' }}>{/* Second column */}</Column>
+        </Section>
+      </Body>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'body'>`.

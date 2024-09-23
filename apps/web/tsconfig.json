@@ -1,11 +1,11 @@
+// @ts-check
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@docs/*": ["../../docs/*"]
+      "@components/*": ["src/components/*"]
     }
   }
 }
