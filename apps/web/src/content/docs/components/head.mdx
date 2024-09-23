@@ -1,16 +1,17 @@
 ---
-title: 'Head'
-description: |
-  A JSX email component which creates an HTML head element
+title: Head
+description: A JSX email component which creates an HTML head element
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-::: tip
+:::tip
 This component is required for adding elements such as `<style>` and `meta` directly to the document
 :::
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 

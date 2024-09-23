@@ -1,11 +1,13 @@
 ---
-title: 'Container'
+title: Container
 description: Horizontally center child components and content
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 
@@ -33,6 +35,6 @@ disableDefaultStyle?: boolean;
 
 If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
-::: tip
+:::tip
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
 :::

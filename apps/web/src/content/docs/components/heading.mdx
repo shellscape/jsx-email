@@ -1,11 +1,13 @@
 ---
 title: Heading
 description: A stylable heading (h1, h2, etc) element
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 

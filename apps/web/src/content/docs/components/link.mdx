@@ -1,11 +1,13 @@
 ---
 title: Link
 description: Renders a hyperlink to an external resource
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 
@@ -39,6 +41,6 @@ target?: string;
 
 Specify the target attribute for the button link.
 
-::: tip
+:::tip
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
 :::

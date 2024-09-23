@@ -1,11 +1,13 @@
 ---
 title: Markdown
 description: Converts markdown input to valid HTML for email
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 
@@ -65,6 +67,6 @@ markdownCustomStyles?: StylesType;
 
 Provide custom styles for the corresponding html element (p, h1, h2, etc.)
 
-::: tip
+:::tip
 Note: Passing a custom style for an element overrides the default styles.
 :::

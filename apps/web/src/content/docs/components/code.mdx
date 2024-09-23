@@ -1,11 +1,13 @@
 ---
 title: Code
-description: A JSX email component which displays a syntax-highlighted code block using <a href="https://shiki.matsu.io/">Shiki</a>
+description: A JSX email component which displays a syntax-highlighted code block using Shiki
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>A JSX email component which displays a syntax-highlighted code block using [Shiki](https://shiki.matsu.io/)</p>
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 
@@ -45,6 +47,6 @@ theme?: string;
 
 _Optional_. Defaults to `'nord'`. Specifies the theme to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/themes.md) for more information on supported themes, modifying themes, and how to make your own.
 
-::: tip
+:::tip
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'pre'>`.
 :::

@@ -1,11 +1,13 @@
 ---
-title: 'Conditional'
+title: Conditional
 description: Use HTML conditional comments effortlessly
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 

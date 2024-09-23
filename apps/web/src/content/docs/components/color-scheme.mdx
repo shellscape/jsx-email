@@ -1,15 +1,17 @@
 ---
-title: 'ColorScheme'
+title: ColorScheme
 description: A JSX email component which provides meta and style foundations for color scheme support
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-::: tip
+:::tip
 Please be sure to read our FAQ about Dark Mode in the context of email templates: https://jsx.email/docs/faq#dark-and-light-mode
 :::
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 

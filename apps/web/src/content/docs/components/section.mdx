@@ -1,11 +1,13 @@
 ---
-title: 'Section'
-description: 'Creates section bordaries that can be formatted with columns and rows'
+title: Section
+description: Creates section bordaries that can be formatted with columns and rows
+type: component
 ---
+import Install from "@components/Install.mdx"
 
-{/*@include: @/include/header.md*/}
+<p>{ frontmatter.description }</p>
 
-{/*@include: @/include/install.md*/}
+<Install type={frontmatter.type}/>
 
 ## Usage
 
