@@ -26,6 +26,10 @@ export default defineConfig({
         },
         { label: 'Email Samples', link: 'https://samples.jsx.email/', badge: 'link' },
         {
+          label: 'Upgrade to',
+          autogenerate: { directory: 'upgrade' }
+        },
+        {
           label: 'Core',
           autogenerate: { directory: 'core' }
         },
