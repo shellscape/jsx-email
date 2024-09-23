@@ -50,6 +50,11 @@ expression?: string;
 If provided, the string will be used as the conditional expression within the HTML comment. e.g. a value of `lt ie 10` would result in a conditional comment block starting with `<!--[if lt ie 10]>`.
 
 ```ts
+head?: boolean;
+```
+If `true`, the conditional expression will be placed in the `head` section of your email template.
+
+```ts
 mso?: boolean;
 ```
 
