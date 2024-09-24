@@ -1,11 +1,12 @@
 import { existsSync } from 'node:fs';
-import { mkdir, rmdir, writeFile } from 'node:fs/promises';
-import { dirname, join, relative, resolve } from 'node:path';
+import { mkdir, readFile, rmdir } from 'node:fs/promises';
+import { dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import watcher from '@parcel/watcher';
 import react from '@vitejs/plugin-react-swc';
 import chalk from 'chalk';
+import globby from 'globby';
 import {
   parse as assert,
   boolean,
@@ -74,36 +75,34 @@ const buildForPreview = async ({
   quiet = false,
   targetPath
 }: BuildForPreviewParams) => {
-  const htmlBuild = buildTemplates({
-    buildOptions: {
-      exclude,
-      minify: false,
-      out: buildPath,
-      pretty: true,
-      showStats: !quiet,
-      silent: quiet,
-      usePreviewProps: true
-    },
-    targetPath
-  });
-
-  const plainBuild = buildTemplates({
-    buildOptions: {
-      exclude,
-      minify: false,
-      out: buildPath,
-      plain: true,
-      pretty: true,
-      showStats: false,
-      silent: true,
-      usePreviewProps: true
-    },
-    targetPath
-  });
-
-  const [htmlFiles] = await Promise.all([htmlBuild, plainBuild]);
-
-  return htmlFiles;
+  await Promise.all([
+    buildTemplates({
+      buildOptions: {
+        exclude,
+        internalForPreview: true,
+        minify: false,
+        out: buildPath,
+        pretty: true,
+        showStats: !quiet,
+        silent: quiet,
+        usePreviewProps: true
+      },
+      targetPath,
+      writeMeta: true
+    }),
+    buildTemplates({
+      buildOptions: {
+        exclude,
+        minify: false,
+        out: buildPath,
+        plain: true,
+        showStats: false,
+        silent: true,
+        usePreviewProps: true
+      },
+      targetPath
+    })
+  ]);
 };
 
 const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
@@ -111,6 +110,7 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
   const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
   const buildPath = await getTempPath('preview');
   const { exclude, host = false, port = 55420 } = argv;
+  // const viteConfig = await getViteConfig(targetPath);
   // Note: The trailing slash is required
   const relativePath = `${normalizePath(relative(root, targetPath))}/`;
 
@@ -119,19 +119,7 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
 
   if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
   await mkdir(buildPath, { recursive: true });
-  const htmlFiles = await buildForPreview({ buildPath, exclude, targetPath });
-
-  const templateNameMap: Record<string, string> = {};
-
-  for (const file of htmlFiles) {
-    if (file.templateName) templateNameMap[file.writePath] = file.templateName;
-  }
-
-  await writeFile(
-    join(buildPath, 'template-name-map.json'),
-    JSON.stringify(templateNameMap),
-    'utf8'
-  );
+  await buildForPreview({ buildPath, exclude, targetPath });
 
   process.env.VITE_JSXEMAIL_BUILD_PATH = `${normalizePath(relative(root, buildPath))}/`;
   process.env.VITE_JSXEMAIL_RELATIVE_PATH = relativePath;
@@ -162,7 +150,6 @@ const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
 
   await viteBuild({
     ...config,
-    base: '/',
     build: {
       minify: false,
       outDir: buildPath,
@@ -201,24 +188,45 @@ const watch = async (server: ViteDevServer, { argv, targetPath }: PreviewCommonP
   newline();
   log.info(chalk`{blue Starting watcher...}\n`);
 
-  const subscription = await watcher.subscribe(targetPath, async (_, events) => {
-    const templates = events
-      .map((e) => e.path)
-      .filter((path) => path.endsWith('.tsx') || path.endsWith('.jsx'));
+  const buildPath = await getTempPath('build');
+  const previewPath = await getTempPath('preview');
+  const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
+  const templateDeps = new Map<string, string>();
+  const metaPaths = await globby([normalizePath(join(buildPath, '**/*.meta.json'))]);
+  const metaReads = metaPaths.map((path) => readFile(path, 'utf-8'));
+  const metaFiles = await Promise.all(metaReads);
+  const allMetas: { deps: string[] }[] = metaFiles.map((contents) => JSON.parse(contents));
+
+  const handler: watcher.SubscribeCallback = async (_, events) => {
+    const files = events.map((e) => e.path).filter((path) => extensions.includes(extname(path)));
+    const templates = files.map((file) => templateDeps.get(file)).filter(Boolean) as string[];
 
     if (!templates.length) return;
 
     log.info(chalk`{cyan Rebuilding}`, templates.length, 'files:');
     log.info('  ', templates.join('\n  '), '\n');
 
-    const buildPath = await getTempPath('preview');
     const { exclude } = argv;
     templates.forEach((path) =>
-      buildForPreview({ buildPath, exclude, quiet: true, targetPath: path })
+      buildForPreview({ buildPath: previewPath, exclude, quiet: false, targetPath: path })
     );
-  });
+  };
 
-  server.httpServer!.on('close', () => subscription.unsubscribe);
+  for (const meta of allMetas) {
+    if (meta.deps.length) {
+      const [templateFile] = meta.deps;
+      for (const dep of meta.deps) templateDeps.set(dep, templateFile);
+      meta.deps = meta.deps.map((path) => dirname(path));
+    }
+  }
+
+  const allPaths = [...new Set([targetPath, ...allMetas.flatMap(({ deps }) => deps)])];
+  const subOps = allPaths.map((path) => watcher.subscribe(path, handler));
+  const subscriptions = await Promise.all(subOps);
+
+  server.httpServer!.on('close', () => {
+    subscriptions.forEach((sub) => sub.unsubscribe());
+  });
 };
 
 export const command: CommandFn = async (argv: PreviewCommandOptions, input) => {
