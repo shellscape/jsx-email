@@ -58,4 +58,11 @@ describe('render', () => {
     expect(await render(<TailwindTemplate />)).toMatchSnapshot();
     expect(await render(<TailwindTemplate />, { pretty: true })).toMatchSnapshot();
   });
+
+  it('inlining', async () => {
+    const withh = await render(<TailwindTemplate />, { inlineCss: true, pretty: true });
+    const without = await render(<TailwindTemplate />, { pretty: true });
+    expect(withh).toMatchSnapshot();
+    expect(without).toMatchSnapshot();
+  });
 });

@@ -1,3 +1,47 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`render > renders with debug attributes 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><html data-type=\\"jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\"><head data-type=\\"jsx-email/head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\"><meta name=\\"x-apple-disable-message-reformatting\\"><meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\"><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\"><meta name=\\"x-apple-disable-message-reformatting\\"><meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\"><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]--></head><body data-type=\\"jsx-email/body\\" style=\\"background-color:#ffffff;font-family:HelveticaNeue,Helvetica,Arial,sans-serif\\"><div data-type=\\"jsx-email/container\\" style=\\"table-layout:fixed;width:100%\\"><div style=\\"margin:0 auto;max-width:600px\\"><span><!--[if mso]><table align=\\"center\\" width=\\"600\\" style=\\"border-spacing: 0; width:600px;\\" role=\\"presentation\\"><tr><td><![endif]--></span><table align=\\"center\\" width=\\"100%\\" role=\\"presentation\\" cellspacing=\\"0\\" cellpadding=\\"0\\" border=\\"0\\" style=\\"max-width:600px;background-color:#ffffff;border:1px solid #eee;border-radius:5px;box-shadow:0 5px 10px rgba(20,50,70,.2);margin-top:20px;width:360px;margin:0 auto;padding:68px 0 130px\\"><tbody><tr style=\\"width:100%\\"><td align=\\"center\\"><img data-type=\\"jsx-email/img\\" alt=\\"Plaid\\" src=\\"https://jsx.email/assets/demo/plaid-logo.png\\" width=\\"212\\" height=\\"88\\" style=\\"border:none;display:block;outline:none;text-decoration:none;margin:0 auto\\"><p data-type=\\"jsx-email/text\\" style=\\"font-size:11px;line-height:16px;margin:16px 8px 8px 8px;color:#0a85ea;font-weight:700;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;height:16px;letter-spacing:0;text-transform:uppercase;text-align:center\\">Verify Your Identity</p><h1 data-type=\\"jsx-email/heading\\" style=\\"color:#000;display:inline-block;font-family:HelveticaNeue-Medium,Helvetica,Arial,sans-serif;font-size:20px;font-weight:500;line-height:24px;margin-bottom:0;margin-top:0;text-align:center\\">Enter the following code to finish linking Venmo.</h1><table align=\\"center\\" width=\\"100%\\" data-type=\\"jsx-email/section\\" style=\\"background:rgba(0,0,0,.05);border-radius:4px;margin:16px auto 14px;vertical-align:middle;width:280px\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\"><tbody><tr><td><p data-type=\\"jsx-email/text\\" style=\\"font-size:32px;line-height:40px;margin:0 auto;color:#000;display:inline-block;font-family:HelveticaNeue-Bold;font-weight:700;letter-spacing:6px;padding-bottom:8px;padding-top:8px;width:100%;text-align:center\\"></p></td></tr></tbody></table><p data-type=\\"jsx-email/text\\" style=\\"font-size:15px;line-height:23px;margin:0;color:#444;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;letter-spacing:0;padding:0 40px;text-align:center\\">Not expecting this email?</p><p data-type=\\"jsx-email/text\\" style=\\"font-size:15px;line-height:23px;margin:0;color:#444;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;letter-spacing:0;padding:0 40px;text-align:center\\">Contact <a href=\\"mailto:login@plaid.com\\" data-type=\\"jsx-email/link\\" style=\\"color:#444;text-decoration:underline\\">login@plaid.com</a> if you did not request this code.</p></td></tr></tbody></table><span><!--[if mso]></td></tr></table><![endif]--></span></div></div><p data-type=\\"jsx-email/text\\" style=\\"font-size:12px;line-height:23px;margin:0;color:#000;font-weight:800;letter-spacing:0;margin-top:20px;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;text-align:center;text-transform:uppercase\\">Securely powered by Plaid.</p></body></html>"`;
+exports[`render > renders with debug attributes 1`] = `
+"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\">
+<html data-type=\\"jsx-email/html\\" lang=\\"en\\" dir=\\"ltr\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\">
+
+  <head data-type=\\"jsx-email/head\\">
+    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\">
+    <meta name=\\"x-apple-disable-message-reformatting\\">
+    <meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\">
+    <meta name=\\"x-apple-disable-message-reformatting\\">
+    <meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\"><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+  </head>
+
+  <body data-type=\\"jsx-email/body\\" style=\\"background-color:#ffffff;font-family:HelveticaNeue,Helvetica,Arial,sans-serif\\">
+    <div data-type=\\"jsx-email/container\\" style=\\"table-layout:fixed;width:100%\\">
+      <div style=\\"margin:0 auto;max-width:600px\\"><span><!--[if mso]><table align=\\"center\\" width=\\"600\\" style=\\"border-spacing: 0; width:600px;\\" role=\\"presentation\\"><tr><td><![endif]--></span>
+        <table align=\\"center\\" width=\\"100%\\" role=\\"presentation\\" cellspacing=\\"0\\" cellpadding=\\"0\\" border=\\"0\\" style=\\"max-width:600px;background-color:#ffffff;border:1px solid #eee;border-radius:5px;box-shadow:0 5px 10px rgba(20,50,70,.2);margin-top:20px;width:360px;margin:0 auto;padding:68px 0 130px\\">
+          <tbody>
+            <tr style=\\"width:100%\\">
+              <td align=\\"center\\"><img data-type=\\"jsx-email/img\\" alt=\\"Plaid\\" src=\\"https://jsx.email/assets/demo/plaid-logo.png\\" width=\\"212\\" height=\\"88\\" style=\\"border:none;display:block;outline:none;text-decoration:none;margin:0 auto\\">
+                <p data-type=\\"jsx-email/text\\" style=\\"font-size:11px;line-height:16px;margin:16px 8px 8px 8px;color:#0a85ea;font-weight:700;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;height:16px;letter-spacing:0;text-transform:uppercase;text-align:center\\">Verify Your Identity</p>
+                <h1 data-type=\\"jsx-email/heading\\" style=\\"color:#000;display:inline-block;font-family:HelveticaNeue-Medium,Helvetica,Arial,sans-serif;font-size:20px;font-weight:500;line-height:24px;margin-bottom:0;margin-top:0;text-align:center\\">Enter the following code to finish linking Venmo.</h1>
+                <table align=\\"center\\" width=\\"100%\\" data-type=\\"jsx-email/section\\" style=\\"background:rgba(0,0,0,.05);border-radius:4px;margin:16px auto 14px;vertical-align:middle;width:280px\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p data-type=\\"jsx-email/text\\" style=\\"font-size:32px;line-height:40px;margin:0 auto;color:#000;display:inline-block;font-family:HelveticaNeue-Bold;font-weight:700;letter-spacing:6px;padding-bottom:8px;padding-top:8px;width:100%;text-align:center\\"></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p data-type=\\"jsx-email/text\\" style=\\"font-size:15px;line-height:23px;margin:0;color:#444;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;letter-spacing:0;padding:0 40px;text-align:center\\">Not expecting this email?</p>
+                <p data-type=\\"jsx-email/text\\" style=\\"font-size:15px;line-height:23px;margin:0;color:#444;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;letter-spacing:0;padding:0 40px;text-align:center\\">Contact <a href=\\"mailto:login@plaid.com\\" data-type=\\"jsx-email/link\\" style=\\"color:#444;text-decoration:underline\\">login@plaid.com</a> if you did not request this code.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table><span><!--[if mso]></td></tr></table><![endif]--></span>
+      </div>
+    </div>
+    <p data-type=\\"jsx-email/text\\" style=\\"font-size:12px;line-height:23px;margin:0;color:#000;font-weight:800;letter-spacing:0;margin-top:20px;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;text-align:center;text-transform:uppercase\\">Securely powered by Plaid.</p>
+  </body>
+
+</html>"
+`;
