@@ -13,6 +13,7 @@ export const plugin: JsxEmailPlugin = {
     const { selectAll } = await import('hast-util-select');
     const { toString } = await import('hast-util-to-string');
     const { remove } = await import('unist-util-remove');
+    const { visit } = await import('unist-util-visit');
 
     return function inlineCssPlugin() {
       return function inline(tree: Root) {
@@ -40,7 +41,12 @@ export const plugin: JsxEmailPlugin = {
           }
         }
 
-        return remove(tree, { tagName: 'style' });
+        remove(tree, { tagName: 'style' });
+        // eslint-disable-next-line
+        return visit(tree, 'element', function visitHandler(node) {
+          // eslint-disable-next-line no-param-reassign
+          node.properties.className = void 0;
+        });
       };
     } as unknown as Plugin;
   },

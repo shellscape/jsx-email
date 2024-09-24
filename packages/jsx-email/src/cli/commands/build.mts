@@ -22,6 +22,7 @@ import type { CommandFn, TemplateFn } from './types.mjs';
 
 const BuildCommandOptionsStruct = object({
   exclude: optional(string()),
+  inlineCss: optional(boolean()),
   minify: optional(boolean()),
   out: optional(string()),
   plain: optional(boolean()),
@@ -54,6 +55,7 @@ Builds a template and saves the result
 
 {underline Options}
   --exclude     A micromatch glob pattern that specifies files to exclude from the build
+  --inline-css  Inlines all CSS classes as style attributes on elements
   --minify      Minify the rendered template before saving
   --out         File path to save the rendered template
   --plain       Emit template as plain text

@@ -1,6 +1,6 @@
 import { htmlToText } from 'html-to-text';
 
-import { defineConfig, loadConfig, mergeConfig, setConfig } from '../config.js';
+import { defineConfig, loadConfig, mergeConfig, type JsxEmailConfig } from '../config.js';
 import { callHook, callProcessHook } from '../plugins.js';
 import type { PlainTextOptions, RenderOptions } from '../types.js';
 
@@ -40,18 +40,17 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
     const merged = await mergeConfig(cloneTarget, renderOptions);
 
     config = await defineConfig(merged);
-    setConfig(config);
   }
 
   let html = await jsxToString(component);
 
-  html = await callHook('beforeRender', html);
-  html = await processHtml(html);
-  html = await callHook('afterRender', html);
+  html = await callHook({ config, hookType: 'beforeRender', html });
+  html = await processHtml(config, html);
+  html = await callHook({ config, hookType: 'afterRender', html });
   return html;
 };
 
-export const processHtml = async (html: string) => {
+export const processHtml = async (config: JsxEmailConfig, html: string) => {
   const { rehype } = await import('rehype');
   const { default: stringify } = await import('rehype-stringify');
   const docType =
@@ -64,7 +63,7 @@ export const processHtml = async (html: string) => {
 
   processor.use(movePlugin);
 
-  await callProcessHook(processor);
+  await callProcessHook({ config, processor });
 
   const doc = await processor
     .use(stringify, {
