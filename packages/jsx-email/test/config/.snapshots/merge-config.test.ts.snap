@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`defineConfig > baseline 1`] = `
+{
+  "logLevel": "info",
+  "plugins": [],
+  "render": {
+    "disableDefaultStyle": false,
+    "exclude": undefined,
+    "minify": false,
+    "out": "/private/var/folders/07/ywbfgwc57_z4yx4m8vzhr8580000gp/T/jsx-email/preview",
+    "plainText": false,
+    "pretty": true,
+    "showStats": true,
+    "silent": false,
+    "usePreviewProps": true,
+  },
+}
+`;

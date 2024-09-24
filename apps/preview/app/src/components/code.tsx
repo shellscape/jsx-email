@@ -1,5 +1,10 @@
 import classnames from 'classnames';
-import { getHighlighter } from 'shiki';
+import { createHighlighterCoreSync } from 'shiki/core';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import js from 'shiki/langs/javascript.mjs';
+import html from 'shiki/langs/html.mjs';
+import tsx from 'shiki/langs/tsx.mjs';
+import darkPlus from 'shiki/themes/dark-plus.mjs';
 
 export type PreviewLanguage = 'html' | 'jsx' | 'plain';
 
@@ -10,9 +15,10 @@ interface CodeProps {
 }
 
 const theme = 'dark-plus';
-const shiki = await getHighlighter({
-  langs: ['html', 'tsx'],
-  themes: [theme]
+const shiki = createHighlighterCoreSync({
+  engine: createJavaScriptRegexEngine(),
+  langs: [html, js, tsx],
+  themes: [darkPlus]
 });
 
 export const Code = ({ children: value, language = 'html' }: CodeProps) => {

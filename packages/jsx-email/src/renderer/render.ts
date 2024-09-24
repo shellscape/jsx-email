@@ -1,6 +1,6 @@
 import { htmlToText } from 'html-to-text';
 
-import { defineConfig, loadConfig, mergeConfig } from '../config.js';
+import { defineConfig, loadConfig, mergeConfig, setConfig } from '../config.js';
 import { callHook, callProcessHook } from '../plugins.js';
 import type { PlainTextOptions, RenderOptions } from '../types.js';
 
@@ -37,7 +37,10 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
   if (options) {
     // Note: structuredClone chokes on symbols
     const { symbol: _, ...cloneTarget } = config as any;
-    config = await defineConfig(await mergeConfig(cloneTarget, renderOptions));
+    const merged = await mergeConfig(cloneTarget, renderOptions);
+
+    config = await defineConfig(merged);
+    setConfig(config);
   }
 
   let html = await jsxToString(component);
@@ -45,7 +48,6 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
   html = await callHook('beforeRender', html);
   html = await processHtml(html);
   html = await callHook('afterRender', html);
-
   return html;
 };
 

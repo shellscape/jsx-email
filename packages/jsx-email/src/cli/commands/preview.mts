@@ -1,7 +1,6 @@
 import { existsSync } from 'node:fs';
-import { mkdir, realpath, rmdir } from 'node:fs/promises';
-import os from 'node:os';
-import { dirname, join, relative, resolve, win32, posix } from 'node:path';
+import { mkdir, rmdir, writeFile } from 'node:fs/promises';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import watcher from '@parcel/watcher';
@@ -21,7 +20,7 @@ import { build as viteBuild, createServer, type InlineConfig, type ViteDevServer
 
 import { log } from '../../log.js';
 
-import { buildTemplates } from './build.mjs';
+import { buildTemplates, getTempPath, normalizePath } from './build.mjs';
 import type { CommandFn } from './types.mjs';
 
 const PreviewCommandOptionsStruct = object({
@@ -48,7 +47,6 @@ interface BuildForPreviewParams {
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
-const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 
 export const help = chalk`
 {blue email preview}
@@ -76,48 +74,43 @@ const buildForPreview = async ({
   quiet = false,
   targetPath
 }: BuildForPreviewParams) => {
-  await Promise.all([
-    buildTemplates({
-      buildOptions: {
-        exclude,
-        internalForPreview: true,
-        minify: false,
-        out: buildPath,
-        pretty: true,
-        showStats: !quiet,
-        silent: quiet,
-        usePreviewProps: true
-      },
-      targetPath
-    }),
-    buildTemplates({
-      buildOptions: {
-        exclude,
-        minify: false,
-        out: buildPath,
-        plain: true,
-        showStats: false,
-        silent: true,
-        usePreviewProps: true
-      },
-      targetPath
-    })
-  ]);
-};
+  const htmlBuild = buildTemplates({
+    buildOptions: {
+      exclude,
+      minify: false,
+      out: buildPath,
+      pretty: true,
+      showStats: !quiet,
+      silent: quiet,
+      usePreviewProps: true
+    },
+    targetPath
+  });
 
-const getTempBuildPath = async () => {
-  const tmpdir = await realpath(os.tmpdir());
-  const buildPath = join(tmpdir, 'jsx-email-preview');
+  const plainBuild = buildTemplates({
+    buildOptions: {
+      exclude,
+      minify: false,
+      out: buildPath,
+      plain: true,
+      pretty: true,
+      showStats: false,
+      silent: true,
+      usePreviewProps: true
+    },
+    targetPath
+  });
 
-  return buildPath;
+  const [htmlFiles] = await Promise.all([htmlBuild, plainBuild]);
+
+  return htmlFiles;
 };
 
 const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
   // @ts-ignore
   const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
-  const buildPath = await getTempBuildPath();
+  const buildPath = await getTempPath('preview');
   const { exclude, host = false, port = 55420 } = argv;
-  // const viteConfig = await getViteConfig(targetPath);
   // Note: The trailing slash is required
   const relativePath = `${normalizePath(relative(root, targetPath))}/`;
 
@@ -126,7 +119,19 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
 
   if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
   await mkdir(buildPath, { recursive: true });
-  await buildForPreview({ buildPath, exclude, targetPath });
+  const htmlFiles = await buildForPreview({ buildPath, exclude, targetPath });
+
+  const templateNameMap: Record<string, string> = {};
+
+  for (const file of htmlFiles) {
+    if (file.templateName) templateNameMap[file.writePath] = file.templateName;
+  }
+
+  await writeFile(
+    join(buildPath, 'template-name-map.json'),
+    JSON.stringify(templateNameMap),
+    'utf8'
+  );
 
   process.env.VITE_JSXEMAIL_BUILD_PATH = `${normalizePath(relative(root, buildPath))}/`;
   process.env.VITE_JSXEMAIL_RELATIVE_PATH = relativePath;
@@ -157,6 +162,7 @@ const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
 
   await viteBuild({
     ...config,
+    base: '/',
     build: {
       minify: false,
       outDir: buildPath,
@@ -205,7 +211,7 @@ const watch = async (server: ViteDevServer, { argv, targetPath }: PreviewCommonP
     log.info(chalk`{cyan Rebuilding}`, templates.length, 'files:');
     log.info('  ', templates.join('\n  '), '\n');
 
-    const buildPath = await getTempBuildPath();
+    const buildPath = await getTempPath('preview');
     const { exclude } = argv;
     templates.forEach((path) =>
       buildForPreview({ buildPath, exclude, quiet: true, targetPath: path })
