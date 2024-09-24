@@ -25,7 +25,13 @@ const configSymbol = Symbol.for('jsx-email/config');
 export const defaults: JsxEmailConfig = {
   logLevel: 'info',
   plugins: [],
-  render: { disableDefaultStyle: false, minify: false, plainText: false, pretty: false }
+  render: {
+    disableDefaultStyle: false,
+    inlineCss: false,
+    minify: false,
+    plainText: false,
+    pretty: false
+  }
 };
 export const globalConfigSymbol = Symbol.for('jsx-email/global/config');
 export const current = (): JsxEmailConfig => {
@@ -101,8 +107,10 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
   if (!config.render?.plainText) {
     // Note: The order of plugins here actually matters for how the doc gets
     // transformed. Changing this ordering may produce undesirable html
-    const inline = await importPlugin(plugins.inline);
-    if (inline) mods.plugins.push(inline);
+    if (config.render?.inlineCss) {
+      const inline = await importPlugin(plugins.inline);
+      if (inline) mods.plugins.push(inline);
+    }
 
     if (config.render?.minify) {
       const minify = await importPlugin(plugins.minify);
@@ -110,7 +118,7 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
     }
 
     if (config.render?.pretty) {
-      const pretty = await importPlugin(plugins.minify);
+      const pretty = await importPlugin(plugins.pretty);
       if (pretty) mods.plugins.push(pretty);
     }
 
@@ -130,7 +138,13 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
     }
   }
 
-  const result = await mergeConfig(config, mods);
+  const result = await mergeConfig(mods, config);
+  const pluginMap = new Map<string, JsxEmailPlugin>();
+
+  // Note: make sure we don't have duplicate plugins
+  for (const plugin of result.plugins || []) pluginMap.set(plugin.name, plugin);
+
+  result.plugins = Array.from(pluginMap, ([, value]) => value);
 
   for (const plugin of result.plugins || []) {
     (plugin as PluginInternal).log = getPluginLog(plugin.name);
@@ -176,15 +190,18 @@ export const loadConfig = async (startDir?: string): Promise<JsxEmailConfig> => 
 
   process.env.DOT_LOG_LEVEL = definedConfig.logLevel || 'info';
 
-  (globalThis as any)[globalConfigSymbol] = definedConfig;
+  setConfig(definedConfig);
 
   return definedConfig;
 };
 
+export const setConfig = (config: JsxEmailConfig) =>
+  ((globalThis as any)[globalConfigSymbol] = config);
+
 // Note: This helps avoid issues with `merge ` because it uses structuredClone and doesn't play nice
 // with complex objects'
+// Keeping this async in case we need it for the future
 export const mergeConfig = async (a: Partial<JsxEmailConfig>, b: Partial<JsxEmailConfig>) => {
-  const { default: merge } = await import('defaults');
   const aPlugins = a.plugins || [];
   const bPlugins = b.plugins || [];
 
@@ -193,8 +210,10 @@ export const mergeConfig = async (a: Partial<JsxEmailConfig>, b: Partial<JsxEmai
   delete (b as any).plugins;
 
   const result = {
-    ...merge(a, b),
-    plugins: [...aPlugins, ...bPlugins]
+    ...a,
+    ...b,
+    plugins: [...aPlugins, ...bPlugins],
+    render: { ...a.render, ...b.render }
   } as JsxEmailConfig;
 
   return result;

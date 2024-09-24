@@ -3,7 +3,7 @@ import sourceMapSupport from 'source-map-support';
 // @ts-ignore
 import type { Plugin, Preset, Processor } from 'unified';
 
-import { loadConfig } from './config.js';
+import type { JsxEmailConfig } from './config.js';
 
 sourceMapSupport.install();
 
@@ -40,9 +40,18 @@ export interface PluginInternal extends JsxEmailPlugin {
 
 type HookType = 'afterRender' | 'beforeRender';
 
-export const callHook = async (hookType: HookType, html: string) => {
-  const config = await loadConfig();
+interface CallHookArgs {
+  config: JsxEmailConfig;
+  hookType: HookType;
+  html: string;
+}
 
+interface CallProcessHookArgs {
+  config: JsxEmailConfig;
+  processor: Processor<any, any, any, any, any>;
+}
+
+export const callHook = async ({ config, hookType, html }: CallHookArgs) => {
   for (const plugin of config.plugins as PluginInternal[]) {
     const { log } = plugin;
     const hookFn = plugin[hookType];
@@ -53,9 +62,7 @@ export const callHook = async (hookType: HookType, html: string) => {
   return html;
 };
 
-export const callProcessHook = async (processor: Processor<any, any, any, any, any>) => {
-  const config = await loadConfig();
-
+export const callProcessHook = async ({ config, processor }: CallProcessHookArgs) => {
   for (const { log, process } of config.plugins as PluginInternal[]) {
     if (process) {
       // eslint-disable-next-line no-await-in-loop

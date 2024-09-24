@@ -20,82 +20,6 @@ exports[`defineConfig > basic set 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/inline[22m {{level}} ",
-            "time": [Function],
-          },
-          "ready": {
-            "promise": Promise {},
-            "reject": [Function],
-            "resolve": [Function],
-          },
-          Symbol(log-instance): [Circular],
-          Symbol(log-levels): {
-            "DEBUG": 1,
-            "ERROR": 4,
-            "INFO": 2,
-            "SILENT": 5,
-            "TRACE": 0,
-            "WARN": 3,
-          },
-        },
-        "name": "dot-log:[1m∵ root/inline[22m",
-        "options": {
-          "factory": LogFactory {
-            "options": {
-              "level": [Function],
-              "name": [Function],
-              "ready": {
-                "promise": Promise {},
-                "reject": [Function],
-                "resolve": [Function],
-              },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/inline[22m {{level}} ",
-              "time": [Function],
-            },
-            "ready": {
-              "promise": Promise {},
-              "reject": [Function],
-              "resolve": [Function],
-            },
-            Symbol(log-instance): [Circular],
-            Symbol(log-levels): {
-              "DEBUG": 1,
-              "ERROR": 4,
-              "INFO": 2,
-              "SILENT": 5,
-              "TRACE": 0,
-              "WARN": 3,
-            },
-          },
-          "id": "dot-log:[1m∵ root/inline[22m",
-          "level": "info",
-          "name": "dot-log:[1m∵ root/inline[22m",
-          "prefix": undefined,
-        },
-        "trace": [Function],
-        "type": "LogLevel",
-        "warn": [Function],
-      },
-      "name": "root/inline",
-      "process": [Function],
-      "symbol": Symbol(jsx-email/plugin),
-    },
-    {
-      "log": LogLevel {
-        "currentLevel": 2,
-        "debug": [Function],
-        "error": [Function],
-        "info": [Function],
-        "log": [Function],
-        "methodFactory": LogFactory {
-          "options": {
-            "level": [Function],
-            "name": [Function],
-            "ready": {
-              "promise": Promise {},
-              "reject": [Function],
-              "resolve": [Function],
-            },
             "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
             "time": [Function],
           },
@@ -159,6 +83,7 @@ exports[`defineConfig > basic set 1`] = `
   ],
   "render": {
     "disableDefaultStyle": false,
+    "inlineCss": false,
     "minify": true,
     "plainText": false,
     "pretty": false,
@@ -167,7 +92,7 @@ exports[`defineConfig > basic set 1`] = `
 }
 `;
 
-exports[`defineConfig > defaults 1`] = `
+exports[`defineConfig > de-dupe plugins 1`] = `
 {
   "logLevel": "info",
   "plugins": [
@@ -187,7 +112,7 @@ exports[`defineConfig > defaults 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/inline[22m {{level}} ",
+            "template": "[{{time}}] [34mjsx-email[39m [1m∵ batman[22m {{level}} ",
             "time": [Function],
           },
           "ready": {
@@ -205,7 +130,7 @@ exports[`defineConfig > defaults 1`] = `
             "WARN": 3,
           },
         },
-        "name": "dot-log:[1m∵ root/inline[22m",
+        "name": "dot-log:[1m∵ batman[22m",
         "options": {
           "factory": LogFactory {
             "options": {
@@ -216,7 +141,7 @@ exports[`defineConfig > defaults 1`] = `
                 "reject": [Function],
                 "resolve": [Function],
               },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/inline[22m {{level}} ",
+              "template": "[{{time}}] [34mjsx-email[39m [1m∵ batman[22m {{level}} ",
               "time": [Function],
             },
             "ready": {
@@ -234,22 +159,37 @@ exports[`defineConfig > defaults 1`] = `
               "WARN": 3,
             },
           },
-          "id": "dot-log:[1m∵ root/inline[22m",
+          "id": "dot-log:[1m∵ batman[22m",
           "level": "info",
-          "name": "dot-log:[1m∵ root/inline[22m",
+          "name": "dot-log:[1m∵ batman[22m",
           "prefix": undefined,
         },
         "trace": [Function],
         "type": "LogLevel",
         "warn": [Function],
       },
-      "name": "root/inline",
-      "process": [Function],
+      "name": "batman",
       "symbol": Symbol(jsx-email/plugin),
     },
   ],
   "render": {
     "disableDefaultStyle": false,
+    "inlineCss": false,
+    "minify": false,
+    "plainText": false,
+    "pretty": false,
+  },
+  "symbol": Symbol(jsx-email/config),
+}
+`;
+
+exports[`defineConfig > defaults 1`] = `
+{
+  "logLevel": "info",
+  "plugins": [],
+  "render": {
+    "disableDefaultStyle": false,
+    "inlineCss": false,
     "minify": false,
     "plainText": false,
     "pretty": false,
@@ -278,82 +218,6 @@ exports[`defineConfig > minify and pretty 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/inline[22m {{level}} ",
-            "time": [Function],
-          },
-          "ready": {
-            "promise": Promise {},
-            "reject": [Function],
-            "resolve": [Function],
-          },
-          Symbol(log-instance): [Circular],
-          Symbol(log-levels): {
-            "DEBUG": 1,
-            "ERROR": 4,
-            "INFO": 2,
-            "SILENT": 5,
-            "TRACE": 0,
-            "WARN": 3,
-          },
-        },
-        "name": "dot-log:[1m∵ root/inline[22m",
-        "options": {
-          "factory": LogFactory {
-            "options": {
-              "level": [Function],
-              "name": [Function],
-              "ready": {
-                "promise": Promise {},
-                "reject": [Function],
-                "resolve": [Function],
-              },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/inline[22m {{level}} ",
-              "time": [Function],
-            },
-            "ready": {
-              "promise": Promise {},
-              "reject": [Function],
-              "resolve": [Function],
-            },
-            Symbol(log-instance): [Circular],
-            Symbol(log-levels): {
-              "DEBUG": 1,
-              "ERROR": 4,
-              "INFO": 2,
-              "SILENT": 5,
-              "TRACE": 0,
-              "WARN": 3,
-            },
-          },
-          "id": "dot-log:[1m∵ root/inline[22m",
-          "level": "info",
-          "name": "dot-log:[1m∵ root/inline[22m",
-          "prefix": undefined,
-        },
-        "trace": [Function],
-        "type": "LogLevel",
-        "warn": [Function],
-      },
-      "name": "root/inline",
-      "process": [Function],
-      "symbol": Symbol(jsx-email/plugin),
-    },
-    {
-      "log": LogLevel {
-        "currentLevel": 2,
-        "debug": [Function],
-        "error": [Function],
-        "info": [Function],
-        "log": [Function],
-        "methodFactory": LogFactory {
-          "options": {
-            "level": [Function],
-            "name": [Function],
-            "ready": {
-              "promise": Promise {},
-              "reject": [Function],
-              "resolve": [Function],
-            },
             "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
             "time": [Function],
           },
@@ -415,6 +279,7 @@ exports[`defineConfig > minify and pretty 1`] = `
       "symbol": Symbol(jsx-email/plugin),
     },
     {
+      "afterRender": [Function],
       "log": LogLevel {
         "currentLevel": 2,
         "debug": [Function],
@@ -430,7 +295,7 @@ exports[`defineConfig > minify and pretty 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
+            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/pretty[22m {{level}} ",
             "time": [Function],
           },
           "ready": {
@@ -448,7 +313,7 @@ exports[`defineConfig > minify and pretty 1`] = `
             "WARN": 3,
           },
         },
-        "name": "dot-log:[1m∵ root/minify[22m",
+        "name": "dot-log:[1m∵ root/pretty[22m",
         "options": {
           "factory": LogFactory {
             "options": {
@@ -459,7 +324,7 @@ exports[`defineConfig > minify and pretty 1`] = `
                 "reject": [Function],
                 "resolve": [Function],
               },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
+              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/pretty[22m {{level}} ",
               "time": [Function],
             },
             "ready": {
@@ -477,22 +342,22 @@ exports[`defineConfig > minify and pretty 1`] = `
               "WARN": 3,
             },
           },
-          "id": "dot-log:[1m∵ root/minify[22m",
+          "id": "dot-log:[1m∵ root/pretty[22m",
           "level": "info",
-          "name": "dot-log:[1m∵ root/minify[22m",
+          "name": "dot-log:[1m∵ root/pretty[22m",
           "prefix": undefined,
         },
         "trace": [Function],
         "type": "LogLevel",
         "warn": [Function],
       },
-      "name": "root/minify",
-      "process": [Function],
+      "name": "root/pretty",
       "symbol": Symbol(jsx-email/plugin),
     },
   ],
   "render": {
     "disableDefaultStyle": false,
+    "inlineCss": false,
     "minify": true,
     "plainText": false,
     "pretty": true,
@@ -507,6 +372,7 @@ exports[`defineConfig > plain 1`] = `
   "plugins": [],
   "render": {
     "disableDefaultStyle": false,
+    "inlineCss": false,
     "minify": true,
     "plainText": true,
     "pretty": true,

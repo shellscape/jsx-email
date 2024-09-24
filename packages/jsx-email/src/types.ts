@@ -12,6 +12,7 @@ export type PlainTextOptions = HtmlToTextOptions;
 
 export interface RenderOptions {
   disableDefaultStyle?: boolean;
+  inlineCss?: boolean;
   minify?: boolean;
   plainText?: boolean | PlainTextOptions;
   pretty?: boolean;

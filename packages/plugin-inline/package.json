@@ -54,7 +54,8 @@
     "@adobe/css-tools": "^4.3.3",
     "hast-util-select": "^6.0.2",
     "hast-util-to-string": "^3.0.0",
-    "unist-util-remove": "^4.0.0"
+    "unist-util-remove": "^4.0.0",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "hast": "^1.0.0",
