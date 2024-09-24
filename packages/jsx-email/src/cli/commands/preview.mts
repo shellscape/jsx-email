@@ -221,6 +221,51 @@ const watch = async (server: ViteDevServer, { argv, targetPath }: PreviewCommonP
   server.httpServer!.on('close', () => subscription.unsubscribe);
 };
 
+// const watch = async (server: ViteDevServer, { argv, targetPath }: PreviewCommonParams) => {
+//   newline();
+//   log.info(chalk`{blue Starting watcher...}\n`);
+
+//   const buildPath = await getTempPath('build');
+//   const previewPath = await getTempPath('preview');
+//   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
+//   const templateDeps = new Map<string, string>();
+//   const metaPaths = await globby([normalizePath(join(buildPath, '**/*.meta.json'))]);
+//   const metaReads = metaPaths.map((path) => readFile(path, 'utf-8'));
+//   const metaFiles = await Promise.all(metaReads);
+//   const allMetas: { deps: string[] }[] = metaFiles.map((contents) => JSON.parse(contents));
+
+//   const handler: watcher.SubscribeCallback = async (_, events) => {
+//     const files = events.map((e) => e.path).filter((path) => extensions.includes(extname(path)));
+//     const templates = files.map((file) => templateDeps.get(file)).filter(Boolean) as string[];
+
+//     if (!templates.length) return;
+
+//     log.info(chalk`{cyan Rebuilding}`, templates.length, 'files:');
+//     log.info('  ', templates.join('\n  '), '\n');
+
+//     const { exclude } = argv;
+//     templates.forEach((path) =>
+//       buildForPreview({ buildPath: previewPath, exclude, quiet: false, targetPath: path })
+//     );
+//   };
+
+//   for (const meta of allMetas) {
+//     if (meta.deps.length) {
+//       const [templateFile] = meta.deps;
+//       for (const dep of meta.deps) templateDeps.set(dep, templateFile);
+//       meta.deps = meta.deps.map((path) => dirname(path));
+//     }
+//   }
+
+//   const allPaths = [...new Set([targetPath, ...allMetas.flatMap(({ deps }) => deps)])];
+//   const subOps = allPaths.map((path) => watcher.subscribe(path, handler));
+//   const subscriptions = await Promise.all(subOps);
+
+//   server.httpServer!.on('close', () => {
+//     subscriptions.forEach((sub) => sub.unsubscribe());
+//   });
+// };
+
 export const command: CommandFn = async (argv: PreviewCommandOptions, input) => {
   if (input.length < 1) return false;
 
