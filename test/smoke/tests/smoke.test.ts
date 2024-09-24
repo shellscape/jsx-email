@@ -20,7 +20,7 @@ test('landing', async ({ page }) => {
   });
 
   await page.goto('/');
-  await expect(page).toHaveTitle('JSX Email');
+  await expect(page).toHaveTitle('JSX email');
 
   page.getByText('JSX Email Preview');
 
