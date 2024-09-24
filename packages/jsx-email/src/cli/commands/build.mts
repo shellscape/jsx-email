@@ -36,7 +36,14 @@ const BuildCommandOptionsStruct = object({
 type BuildCommandOptions = Infer<typeof BuildCommandOptionsStruct>;
 
 interface BuildCommandOptionsInternal extends BuildCommandOptions {
+  metafile?: boolean;
   showStats?: boolean;
+}
+
+interface BuildTemplateParams {
+  buildOptions: BuildCommandOptionsInternal;
+  targetPath: string;
+  writeMeta?: boolean;
 }
 
 interface BuildOptions {
@@ -70,7 +77,14 @@ Builds a template and saves the result
 `;
 
 // Credit: https://github.com/rollup/plugins/blob/master/packages/pluginutils/src/normalizePath.ts#L5
-const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
+export const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
+
+export const getTempPath = async (type: 'build' | 'preview') => {
+  const tmpdir = await realpath(os.tmpdir());
+  const buildPath = join(tmpdir, `jsx-email/${type}`);
+
+  return buildPath;
+};
 
 export const build = async (options: BuildOptions) => {
   const { argv, outputBasePath, path } = options;
@@ -112,28 +126,54 @@ export const build = async (options: BuildOptions) => {
   return { html, plainText: null, templateName: template.templateName, writePath };
 };
 
-const compile = async (files: string[], outDir: string) => {
-  await esbuild.build({
+interface CompileOptions {
+  files: string[];
+  outDir: string;
+  writeMeta: boolean;
+}
+
+const compile = async ({ files, outDir, writeMeta }: CompileOptions) => {
+  const { metafile } = await esbuild.build({
     bundle: true,
     entryPoints: files,
     jsx: 'automatic',
     logLevel: 'error',
+    metafile: writeMeta,
     outdir: outDir,
     platform: 'node',
     write: true
   });
 
+  if (writeMeta && metafile) {
+    const cwd = process.cwd();
+    const metafiles: string[] = [];
+    const { outputs } = metafile;
+    const ops = Object.entries(outputs).map(async ([path, { inputs }]) => {
+      const fileExt = extname(path);
+      const fileName = basename(path, fileExt);
+      const writePath = join(outDir, `${fileName}.meta.json`);
+      const deps = Object.keys(inputs)
+        .filter((input) => !input.includes('/node_modules'))
+        .map((input) => resolve(cwd, input));
+
+      const json = JSON.stringify({ deps });
+
+      await writeFile(writePath, json, 'utf8');
+      metafiles.push(writePath);
+    });
+
+    await Promise.all(ops);
+  }
+
   return globby([normalizePath(join(outDir, '**/*.js'))]);
 };
 
-interface BuildTemplateParams {
-  buildOptions: BuildCommandOptionsInternal;
-  targetPath: string;
-}
-
-export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplateParams) => {
-  const tmpdir = await realpath(os.tmpdir());
-  const esbuildOutPath = join(tmpdir, 'jsx-email', Date.now().toString());
+export const buildTemplates = async ({
+  buildOptions,
+  targetPath,
+  writeMeta = false
+}: BuildTemplateParams) => {
+  const esbuildOutPath = await getTempPath('build');
 
   // Note: niave check that will probably get us into some edge cases
   const isFile = targetPath.endsWith('.tsx') || targetPath.endsWith('.jsx');
@@ -158,8 +198,11 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
     log.info(chalk`{blue Starting build...}`);
   }
 
-  const compiledFiles = await compile(targetFiles, esbuildOutPath);
+  const compiledFiles = await compile({ files: targetFiles, outDir: esbuildOutPath, writeMeta });
   const templateNameMap: Record<string, string> = {};
+
+  // eslint-disable-next-line no-param-reassign
+  buildOptions.metafile = writeMeta;
 
   const result = await Promise.all(
     compiledFiles.map(async (filePath, index) => {
