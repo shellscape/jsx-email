@@ -55,17 +55,20 @@ export const watch = async (args: WatchArgs) => {
   });
   const metaDeps = (await Promise.all(metaReads)).filter(Boolean);
   const depsArr = metaDeps.filter(Boolean).flatMap((meta) => meta) as string[][];
-  const templateDeps = new Map<string, string>();
+  const templateDeps = new Map<string, Set<string>>();
   const depPaths = new Set<string>();
 
   const handler: watcher.SubscribeCallback = async (_, events) => {
-    const templates = events
-      .map((e) => e.path)
-      .filter((path) => extensions.includes(extname(path)));
+    const files = events.map((e) => e.path).filter((path) => extensions.includes(extname(path)));
+    const templates = files.flatMap((file) => [...(templateDeps.get(file) || [])]).filter(Boolean);
+
+    log.debug('Changed Files:', files);
+    log.debug('Target Templates:', templates);
 
     if (!templates.length) return;
 
-    log.info(chalk`{cyan Rebuilding}`, templates.length, 'files:');
+    const suffix = templates.length === 1 ? '' : 's';
+    log.info(chalk`{cyan Rebuilding}`, templates.length, `file${suffix}:`);
     log.info('  ', templates.join('\n  '), '\n');
 
     const buildPath = await getTempPath('preview');
@@ -79,7 +82,9 @@ export const watch = async (args: WatchArgs) => {
     if (deps.length) {
       const [templateFile] = deps;
       for (const dep of deps) {
-        templateDeps.set(dep, templateFile);
+        const set = templateDeps.get(dep) ?? new Set<string>();
+        set.add(templateFile);
+        templateDeps.set(dep, set);
         depPaths.add(dirname(dep));
       }
     }
