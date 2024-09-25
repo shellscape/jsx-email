@@ -109,17 +109,6 @@ const sectionPro = {
 
 const imagePro = { margin: '0 auto 30px auto' };
 
-const button = {
-  background: '#2138c6',
-  color: '#fff',
-  border: '0',
-  fontSize: '15px',
-  lineHeight: '18px',
-  cursor: 'pointer',
-  borderRadius: '4px',
-  padding: '12px 12px'
-};
-
 const resourcesTitle = {
   fontWeight: '900',
   lineHeight: '1.1',
@@ -171,16 +160,6 @@ const textCard = {
 const goToChallenge = {
   margin: '40px 0 120px 0',
   textAlign: 'center' as const
-};
-
-const footerButton = {
-  fontSize: '26px',
-  color: '#15c',
-  background: '#222',
-  borderRadius: '4px',
-  fontWeight: 'bold',
-  padding: '15px 30px',
-  cursor: 'pointer'
 };
 
 const footer = {
@@ -267,8 +246,13 @@ export const Template = () => (
               CodePen PRO combines a bunch of features that can help any front-end designer or
               developer at any experience level.
             </Text>
-
-            <Button style={button}>
+            <Button
+              height={42}
+              width={108}
+              textColor="#fff"
+              fontSize={15}
+              backgroundColor="#2138c6"
+            >
               <strong>Learn More</strong>
             </Button>
           </Section>
@@ -366,7 +350,16 @@ export const Template = () => (
         </Section>
 
         <Section style={goToChallenge}>
-          <Button style={footerButton}>Go to Challenge Page</Button>
+          <Button
+            width={330}
+            height={62}
+            fontSize={26}
+            backgroundColor="#222"
+            color="#15c"
+            borderRadius={4}
+          >
+            Go to Challenge Page
+          </Button>
         </Section>
 
         <Section style={footer}>

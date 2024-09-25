@@ -41,16 +41,6 @@ const containerButton = {
   width: '100%'
 };
 
-const button = {
-  backgroundColor: '#e00707',
-  borderRadius: 3,
-  color: '#FFF',
-  fontWeight: 'bold',
-  border: '1px solid rgb(0,0,0, 0.1)',
-  cursor: 'pointer',
-  padding: '12px 30px'
-};
-
 const content = {
   border: '1px solid rgb(0,0,0, 0.1)',
   borderRadius: '3px',
@@ -158,7 +148,17 @@ export const Template = ({
             </Row>
             <Row style={{ ...boxInfos, paddingTop: '0' }}>
               <Column style={containerButton} colSpan={2}>
-                <Button style={button}>Learn More</Button>
+                <Button
+                  width={150}
+                  height={46}
+                  backgroundColor="#e00707"
+                  borderRadius={3}
+                  textColor="#fff"
+                  borderSize={1}
+                  borderColor="rgb(0,0,0, 0.1)"
+                >
+                  Learn More
+                </Button>
               </Column>
             </Row>
           </Section>

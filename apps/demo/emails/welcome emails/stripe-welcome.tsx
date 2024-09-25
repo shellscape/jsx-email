@@ -46,19 +46,6 @@ const anchor = {
   color: '#556cd6'
 };
 
-const button = {
-  backgroundColor: '#656ee8',
-  borderRadius: '5px',
-  color: '#fff',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  width: '100%',
-  padding: '10px'
-};
-
 const footer = {
   color: '#8898aa',
   fontSize: '12px',
@@ -86,7 +73,15 @@ export const Template = () => (
             You can view your payments and a variety of other information about your account right
             from your dashboard.
           </Text>
-          <Button style={button} href="https://dashboard.stripe.com/login">
+          <Button
+            align="center"
+            backgroundColor="#656ee8"
+            borderRadius={5}
+            textColor="#fff"
+            width={300}
+            height={40}
+            href="https://dashboard.stripe.com/login"
+          >
             View your Stripe Dashboard
           </Button>
           <Hr style={hr} />
