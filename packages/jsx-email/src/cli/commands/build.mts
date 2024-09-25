@@ -45,6 +45,21 @@ interface BuildOptions {
   path: string;
 }
 
+export interface BuildResult {
+  compiledPath: string;
+  html: string | null;
+  metaPath?: string;
+  plainText: string | null;
+  templateName: string | null;
+  writePath: string;
+}
+
+interface CompileOptions {
+  files: string[];
+  outDir: string;
+  writeMeta: boolean;
+}
+
 export const help = chalk`
 {blue email build}
 
@@ -80,11 +95,11 @@ export const getTempPath = async (type: 'build' | 'preview') => {
   return normalizePath(buildPath);
 };
 
-export const build = async (options: BuildOptions) => {
+export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const { argv, outputBasePath, path } = options;
   const { out, plain, props = '{}', usePreviewProps, writeToFile = true } = argv;
-  const platformPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
-  const template = await import(platformPath);
+  const compiledPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
+  const template = await import(compiledPath);
   // proper named export
   const componentExport: TemplateFn = template.Template;
 
@@ -110,17 +125,25 @@ export const build = async (options: BuildOptions) => {
   if (plain) {
     const plainText = await render(component, { plainText: plain });
     if (writeToFile) await writeFile(writePath, plainText, 'utf8');
-    return { html: null, plainText, templateName: template.templateName, writePath };
+    return { compiledPath, html: null, plainText, templateName: template.templateName, writePath };
   }
 
   const html = await render(component, argv as any);
 
   if (writeToFile) await writeFile(writePath, html, 'utf8');
 
-  return { html, plainText: null, templateName: template.templateName, writePath };
+  return {
+    compiledPath,
+    html,
+    metaPath: compiledPath.replace(/(\.js)$/, '.meta.json'),
+    plainText: null,
+    templateName: template.templateName,
+    writePath
+  };
 };
 
-const compile = async (files: string[], outDir: string) => {
+const compile = async (options: CompileOptions) => {
+  const { files, outDir, writeMeta } = options;
   const { metafile } = await esbuild.build({
     bundle: true,
     entryNames: '[dir]/[name]-[hash]',
@@ -135,6 +158,17 @@ const compile = async (files: string[], outDir: string) => {
 
   const affectedFiles = Object.keys(metafile.outputs);
   const affectedPaths = affectedFiles.map((file) => resolve('/', file));
+
+  if (metafile && writeMeta) {
+    const { outputs } = metafile;
+    const ops = Object.entries(outputs).map(async ([path]) => {
+      const fileName = basename(path, extname(path));
+      const writePath = join(outDir, `${fileName}.meta.json`);
+      const json = JSON.stringify(metafile);
+      await writeFile(writePath, json, 'utf8');
+    });
+    await Promise.all(ops);
+  }
 
   return affectedPaths;
 };
@@ -164,7 +198,11 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
     log.info(chalk`{blue Starting build...}`);
   }
 
-  const compiledFiles = await compile(targetFiles, esbuildOutPath);
+  const compiledFiles = await compile({
+    files: targetFiles,
+    outDir: esbuildOutPath,
+    writeMeta: !buildOptions.plain
+  });
 
   const result = await Promise.all(
     compiledFiles.map(async (filePath, index) => {
@@ -179,7 +217,7 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
       };
 
       if (showStats) {
-        const bytes = Buffer.byteLength(res.html ?? res.plainText, 'utf8');
+        const bytes = Buffer.byteLength(res.html ?? res.plainText!, 'utf8');
         const htmlSize = formatBytes(bytes);
 
         if (bytes > gmailByteLimit) largeCount += 1;
