@@ -55,18 +55,6 @@ const buttonContainer = {
   padding: '27px 0 27px'
 };
 
-const button = {
-  backgroundColor: '#5e6ad2',
-  borderRadius: '3px',
-  fontWeight: '600',
-  color: '#fff',
-  fontSize: '15px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  padding: '11px 23px'
-};
-
 const reportLink = {
   fontSize: '14px',
   color: '#b4becc'
@@ -105,7 +93,15 @@ export const Template = ({ validationCode }: LinearLoginCodeEmailProps) => (
         <Img src={`${baseUrl}linear-logo.png`} width="42" height="42" alt="Linear" style={logo} />
         <Heading style={heading}>Your login code for Linear</Heading>
         <Section style={buttonContainer}>
-          <Button style={button} href="https://linear.app">
+          <Button
+            width={152}
+            height={40}
+            backgroundColor="#5e6ad2"
+            borderRadius={3}
+            textColor="#fff"
+            fontSize={15}
+            href="https://linear.app"
+          >
             Login to Linear
           </Button>
         </Section>

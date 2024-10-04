@@ -43,7 +43,6 @@ describe('<Head> component', async () => {
   it('renders meta format-detection conditionally', async () => {
     const testMessage = 'Test message';
     const html = await jsxToString(<Head enableFormatDetection>{testMessage}</Head>);
-    console.log(html);
     expect(html).toContain(testMessage);
   });
 

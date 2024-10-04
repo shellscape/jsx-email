@@ -28,17 +28,6 @@ const btnContainer = {
   textAlign: 'center' as const
 };
 
-const button = {
-  backgroundColor: '#5F51E8',
-  borderRadius: '3px',
-  color: '#fff',
-  fontSize: '16px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  padding: '12px'
-};
-
 const hr = {
   borderColor: '#cccccc',
   margin: '20px 0'
@@ -70,7 +59,14 @@ export const Template = ({ userFirstname }: KoalaWelcomeEmailProps) => (
           and close deals faster.
         </Text>
         <Section style={btnContainer}>
-          <Button style={button} href="https://getkoala.com">
+          <Button
+            width={106}
+            height={44}
+            backgroundColor="#5F51E8"
+            borderRadius={3}
+            textColor="#fff"
+            href="https://getkoala.com"
+          >
             Get started
           </Button>
         </Section>

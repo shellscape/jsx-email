@@ -104,7 +104,12 @@ export const Template = ({
             </Section>
             <Section className="mb-[32px] mt-[32px] text-center">
               <Button
-                className="rounded bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
+                backgroundColor="#000000"
+                width={120}
+                height={38}
+                borderRadius={4}
+                textColor="#fff"
+                align="center"
                 href={inviteLink}
               >
                 Join the team

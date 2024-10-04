@@ -25,19 +25,6 @@ const text = {
   lineHeight: '26px'
 };
 
-const button = {
-  backgroundColor: '#007ee6',
-  borderRadius: '4px',
-  color: '#fff',
-  fontFamily: "'Open Sans', 'Helvetica Neue', Arial",
-  fontSize: '15px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  width: '210px',
-  padding: '14px 7px'
-};
-
 const anchor = {
   textDecoration: 'underline'
 };
@@ -65,7 +52,15 @@ export const Template = ({ userFirstname, resetPasswordLink }: DropboxResetPassw
               Someone recently requested a password change for your Dropbox account. If this was
               you, you can set a new password here:
             </Text>
-            <Button style={button} href={resetPasswordLink}>
+            <Button
+              backgroundColor="#007ee6"
+              borderRadius={4}
+              textColor="#fff"
+              fontSize={15}
+              width={210}
+              height={42}
+              href={resetPasswordLink}
+            >
               Reset password
             </Button>
             <Text style={text}>
