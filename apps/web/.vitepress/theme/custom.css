@@ -66,9 +66,9 @@ main h2 {
 .content-container main {
   background: #343233;
 }
-.header-anchor {
+/* .header-anchor {
   visibility: hidden;
-}
+} */
 img.brackets {
   display: none;
 }
@@ -170,6 +170,11 @@ img.clients {
   border-left: 2px solid #786f6333;
   padding-left: 14px;
 }
+
+.VPSidebarItem.level-0 {
+  padding-bottom: 0 !important;
+}
+
 .VPSidebarItem.level-1 .text {
   font-weight: 400 !important;
 }

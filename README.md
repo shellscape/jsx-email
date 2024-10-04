@@ -20,9 +20,11 @@
   <br/>
 </div>
 
-## Version 2.0.0
+## Migrating to Version 2.0.0
 
-The `main` branch currently represents the pending v2.0.0. To browse the source code for v1.12.1 please [click here](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
+Version 2 represents a big leap forward for the project, but it's not without a few bumps. As with most major version releases in the Node ecosystem, there are a few breaking changes (nothing major) and steps to be performed. Please read our [Migration Guide](https://jsx.email/docs/v2/migration).
+
+To browse the source code and documentation markdown for v1.12.1 please [click here](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
 
 ## Getting Started
 

@@ -11,9 +11,9 @@ description: 'Plugins'
 
 By default, `jsx-email` ships with `peerDependencies` on several plugins:
 
-- [`plugin-inline`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline)
-- [`plugin-minify`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify)
-- [`plugin-pretty`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty)
+- [`plugin-inline`](/docs/plugins/inline)
+- [`plugin-minify`](/docs/plugins/minify)
+- [`plugin-pretty`](/docs/plugins/pretty)
 
 ### Authoring Plugins
 
