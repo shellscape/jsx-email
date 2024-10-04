@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.4
+
+_2024-10-04_
+
+### Bugfixes
+
+- jsx-email: use regular react vite plugin (a428d50)
+
 ## v2.0.3
 
 _2024-10-04_
