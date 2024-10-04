@@ -4,7 +4,7 @@ import { mkdir, rmdir, writeFile } from 'node:fs/promises';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import chalk from 'chalk';
 import { parse as assert } from 'valibot';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
@@ -92,6 +92,9 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
   const config = {
     clearScreen: false,
     configFile: false,
+    optimizeDeps: {
+      include: ['react-dom', 'react-dom/client']
+    },
     plugins: [react()],
     resolve: {
       alias: {

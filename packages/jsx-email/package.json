@@ -72,7 +72,6 @@
     "@unocss/transformer-compile-class": "^0.60.0",
     "@unocss/transformer-variant-group": "^0.60.0",
     "@vitejs/plugin-react": "^4.3.0",
-    "@vitejs/plugin-react-swc": "^3.7.0",
     "autoprefixer": "^10.4.16",
     "chalk": "4.1.2",
     "classnames": "2.5.1",

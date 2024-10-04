@@ -246,9 +246,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.0
         version: 4.3.0(vite@5.2.12(@types/node@20.10.5))
-      '@vitejs/plugin-react-swc':
-        specifier: ^3.7.0
-        version: 3.7.0(@swc/helpers@0.5.2)(vite@5.2.12(@types/node@20.10.5))
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.19(postcss@8.4.38)
@@ -2646,11 +2643,6 @@ packages:
     resolution: {integrity: sha512-p4o1XNX1rvjmoUqSSdua8XyWNg/d+YUChDd2L/xEty+6j2qv0wUaohs3UQ87vWlv632/UmgdX+2MbrgtqthCtw==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
-
-  '@vitejs/plugin-react-swc@3.7.0':
-    resolution: {integrity: sha512-yrknSb3Dci6svCd/qhHqhFPDSw0QtjumcqdKMoNNzmOl5lMXTTiqzjWtG4Qask2HdvvzaNgSunbQGet8/GrKdA==}
-    peerDependencies:
-      vite: ^4 || ^5
 
   '@vitejs/plugin-react@4.3.0':
     resolution: {integrity: sha512-KcEbMsn4Dpk+LIbHMj7gDPRKaTMStxxWRkRmxsg/jVdFdJCZWt1SchZcf0M4t8lIKdwwMsEyzhrcOXRrDPtOBw==}
@@ -7484,6 +7476,7 @@ snapshots:
       '@swc/core-win32-ia32-msvc': 1.5.24
       '@swc/core-win32-x64-msvc': 1.5.24
       '@swc/helpers': 0.5.2
+    optional: true
 
   '@swc/counter@0.1.3': {}
 
@@ -7962,13 +7955,6 @@ snapshots:
       vite: 5.2.12(@types/node@20.10.5)
     transitivePeerDependencies:
       - rollup
-
-  '@vitejs/plugin-react-swc@3.7.0(@swc/helpers@0.5.2)(vite@5.2.12(@types/node@20.10.5))':
-    dependencies:
-      '@swc/core': 1.5.24(@swc/helpers@0.5.2)
-      vite: 5.2.12(@types/node@20.10.5)
-    transitivePeerDependencies:
-      - '@swc/helpers'
 
   '@vitejs/plugin-react@4.3.0(vite@5.2.12(@types/node@20.10.5))':
     dependencies:
