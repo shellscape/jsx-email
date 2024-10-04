@@ -3,7 +3,7 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['build', 'compile', 'release']
+    exclude: ['build', 'compile']
 
 tasks:
   build:
@@ -51,24 +51,6 @@ tasks:
     command: cp -r ../../README.md README.md
     options:
       cache: false
-
-  release:
-    command: rm README.md
-    deps:
-      - ~:release.actual
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
-
-  release.actual:
-    command: versioner --target $projectRoot
-    deps:
-      - ~:build
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
 
   start.preview:
     command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
