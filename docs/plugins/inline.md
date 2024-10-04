@@ -9,7 +9,7 @@ The `@jsx-email/plugin-inline` package provides a plugin to [Inline CSS](https:/
 
 Browse this plugin's [soure code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline)
 
-### Why
+## Why
 
 This can be extremely useful when working with email clients like Gmail, which do not keep `<style>` elements when forwarding or replying to emails. Using inline CSS will assert that the style and visuals of the email remain the same in replies and forwards. For example, it will take HTML that looks like this:
 

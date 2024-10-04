@@ -9,6 +9,6 @@ The `@jsx-email/plugin-pretty` package provides a plugin to format an email's HT
 
 Browse this plugin's [soure code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty)
 
-### Why
+## Why
 
 Mostly useful for debugging, and in preview environments, prettifying code in general makes it easy to read, nagivate, and look for problems. We don't recommend using this for production, but it's very handy for development.

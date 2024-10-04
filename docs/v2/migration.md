@@ -7,7 +7,7 @@ description: 'Migrating to Version 2.0.0'
 
 Version 2.0.0 of `jsx-email` brings a lot of changes to the package, specifically breaking changes. There are also a whole host of new features.
 
-### New Features
+## New Features
 
 Among the new features that our new version ships with are configuration file support, component updates, and plugins. Below you'll find links to the relevant documentation for each of the new features and component updates:
 
@@ -15,13 +15,13 @@ Among the new features that our new version ships with are configuration file su
 - [`Button`](/docs/components/button) Updates
 - [`Graph`](/docs/components/graph) ⭐️ New
 
-#### Configuration File Support
+### Configuration File Support
 
 One request we recieved often was a way to disable the default styles for every component across a render. Many of those requests suggested using a config file or supporting a config file for other reasons. Well, we heard you and we've implemented support for that. Configuration files will allow setting properties for rendering in a single location, setting the log level for the rendering process, and specifying plugins.
 
 Please see the [Configuration](/docs/core/config) documentation for more details.
 
-#### Plugins!
+### Plugins!
 
 Setting `jsx-email` apart from any other available email templating tool is the availability of plugins. Plugins are meant to run before, during, or after the core rendering process at different stages, and provide functions like minifaction, inlining CSS, and prettifying the output. Plugins do this via new lifecycle hooks, which provide ultimate flexibility for creating a rendering pipeline for your solutions.
 
@@ -29,9 +29,11 @@ Additionally, the core functionality that was previously within `jsx-email` for 
 
 Please see the [Plugins](/docs/core/plugins) documentation for more details.
 
-### Breaking Changes
+## Breaking Changes
 
-#### Named Exports
+As with most major releases in the Node ecosystem, this one comes with a few bumps that need attending to when updating.
+
+### Named Exports
 
 `jsx-email` has moved to only supporting [named exports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#description) from templates. This impacts the template component itself, the template name, and default props values for the preview.
 
@@ -64,7 +66,7 @@ export const Template = ({ ... }) => {
 
 For consistency, only the template is Capital-cased to indicate that it's a template. This ditches an odd design choice that we inherited from react-email when we forked, and gets us to a place with template exports that moreso match the ecosystem norms, and simplifies the process of asserting that a template has what we need to render it.
 
-#### `Button` Updates
+### `Button` Updates
 
 ::: info
 Please see the separate [migration guide for `Button`](/docs/v2/button) for additional usage and comparison to the v1 `Button`.
@@ -76,7 +78,7 @@ However, one big potentially breaking change is around the `style` property. If 
 
 All that said, if the upgrade is too much heavy lifting, we're shipping the deprecated `Butan` and cheeky component which provides a fast find-and-replace path for continuing to use the original `Button` component. This component won't be documented beyond mentioning the legacy behavior and rendering, and will be removed in the next major version.
 
-#### Preview Updates
+### Preview Updates
 
 We've made a lot of changes to how the preview works, which should ultimately make it faster and more flexible. Rather than running the `render` within the preview's web app at runtime, we're pre-rendering and providing the output to the preview app. We're also running a watcher behind the scenes so if the preview app is running and a template is updated, those updates are immediately shown within the preview app. This works _faster and more reliably_, and removes dependency restrictions and optimization issues that Vite would frequently complain about.
 
@@ -84,6 +86,6 @@ One downside to these updates, which is a breaking change, is that local, relati
 
 On the flip side, we've add the ability to exclude files from the preview app, which was often requested.
 
-### ESM / CJS Exports
+## ESM / CJS Exports
 
 We've moved to [`tshy`](https://github.com/isaacs/tshy) for building the packages. We've done _a lot_ of testing to try and ensure the export changes don't cause any unintended side-effects. That said, if you run into any, please [open an issue](https://github.com/shellscape/jsx-email/issues/new/choose).
