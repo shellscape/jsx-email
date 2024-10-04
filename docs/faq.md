@@ -22,37 +22,9 @@ Gmail is one of the more restrictive email clients when it comes to CSS classes.
 
 ## Monorepo Setup
 
-`jsx-email` works out of the box with every monorepo setup. There are no additional or exhaustive setup steps to perform. Enjoy!
+`jsx-email` works out of the box with _nearly_ every monorepo setup. There are no additional or exhaustive setup steps to perform. Enjoy!
 
-## Next.js `import` or `export` Errors
-
-If you're a Next.js user, and you're trying to run `jsx-email` in a server action (or `use server`) and running into an error which looks like this:
-
-```
-./node_modules/shikiji/dist/index.mjs
-export 'getHighlighterCore' (reexported as 'getHighlighterCore') was not found in './core.mjs' (module has no exports)
-```
-
-Then congratulations, you've been affected by Next.js using webpack and webpack not handling `.mjs` files correctly. Luckily, there's a quick fix to get around this limitation. Please follow the [instructions on this issue](https://github.com/antfu/shikiji/issues/13#issuecomment-1749588964). The issue has more information, but the workaround entails adding the following to your `next.config.js` file:
-
-```js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.m?js$/,
-      type: 'javascript/auto',
-      resolve: {
-        fullySpecified: false
-      }
-    });
-
-    return config;
-  }
-};
-
-module.exports = nextConfig;
-```
+As an aside, `Nx` is just awful for monorepo tooling. Highly suggest using [Moon](https://moonrepo.dev/), [Turborepo](https://turbo.build/), or straight up [pnpm Workspaces](https://pnpm.io/workspaces).
 
 ## Next.js `x await isn't allowed in non-async function` Build Errors
 
