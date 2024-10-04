@@ -31,7 +31,6 @@ export interface JsxEmailPlugin {
 
 To instruct a render to use plugins, utilize a [Configuration File](/docs/core/config) and specify the `plugins` property:
 
-
 ```js
 import { defineConfig } from 'jsx-email/config';
 import { somePlugin } from './plugins/some-plugin';
@@ -87,5 +86,6 @@ interface ProcessHookParams {
   log: any;
 }
 
-(params: ProcessHookParams) => RehypePlugin | RehypePreset | Promise<RehypePlugin> | Promise<RehypePreset>;
+(params: ProcessHookParams) =>
+  RehypePlugin | RehypePreset | Promise<RehypePlugin> | Promise<RehypePreset>;
 ```
