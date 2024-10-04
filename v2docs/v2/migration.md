@@ -66,6 +66,10 @@ For consistency, only the template is Capital-cased to indicate that it's a temp
 
 #### `Button` Updates
 
+::: info
+Please see the separate [migration guide for `Button`](/docs/v2/button) for additional usage and comparison to the v1 `Button`.
+:::
+
 The [`Button`](/docs/components/button) component received a mountain of updates thanks to [@lordelogos](https://github.com/lordelogos). Amoung the updates was a complete refactoring of the component source and the HTML that it generates. This was done to address nagging and persistent issues with rendering buttons effectively across many clients. No surprise, Outlook was the worst offender. While these updates provide a lot of new props, the `Button` component remains backwards compatible in most situations.
 
 However, one big potentially breaking change is around the `style` property. If you're using the `style` or `class` properties to style your buttons, there may be some visual differences. The updates to `Button` provide direct props for most of the styles that we've seen people use on buttons, in an effort to get to maximum compatibility across email clients. _This is something you won't find in other email templating tools!_ Please see the [props](/docs/components/button#component-props) documentation for more info.

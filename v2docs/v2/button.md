@@ -1,6 +1,11 @@
+---
+title: 'Button v2 Migration'
+description: 'Migrating to the v2 Button Component'
+---
+
 ## Migrating to the new `Button` component
 
-The new `Button` component in v2 is a big upgrade from the classic button which is now available as [`Butan`]()
+The new `Button` component in v2 is a big upgrade from the classic button which is now available as [`Butan`](/docs/components/butan).
 
 > Note: The Butan component is now deprecated and will be removed in the next major version. We strongly recommend migrating to the new Button component to ensure future compatibility.
 

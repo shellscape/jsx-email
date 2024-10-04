@@ -24,6 +24,8 @@ const html = await render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />)
 
 ```ts
 export interface Options {
+  disableDefaultStyle?: boolean;
+  inlineCss?: boolean;
   minify?: boolean;
   plainText?: boolean | PlainTextOptions;
   pretty?: boolean;
@@ -33,10 +35,22 @@ export interface Options {
 ### Options
 
 ```ts
+disableDefaultStyle?: boolean;
+```
+
+If `true`, disables all of the default styles for all components for the rendering operation.
+
+```ts
+inline?: boolean;
+```
+
+If `true`, converts any elements with CSS class names to use style attributes with the combined CSS styles from the class names on the element. This option loads the [`plugin-inline`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline) plugin.
+
+```ts
 minify?: boolean;
 ```
 
-Minify the HTML for rendered templates
+If `true`, minifies the HTML for rendered templates. This option loads the [`plugin-minify`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) plugin.
 
 ```ts
 plainText?: boolean  | PlainTextOptions;
@@ -48,7 +62,7 @@ If `true` or an `object`, renders the target email(s) to plain text. If you need
 pretty?: boolean;
 ```
 
-Beautify the HTML output for each target email
+If `true`, beautifies the HTML output for each target email. This option loads the [`plugin-pretty`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty) plugin.
 
 ## Debugging
 
