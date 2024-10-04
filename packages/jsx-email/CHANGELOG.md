@@ -1,5 +1,21 @@
 # jsx-email ChangeLog
 
+## v1.13.0
+
+_2024-10-04_
+
+### Bugfixes
+
+- jsx-email: watch all template imports for preview (#210)
+
+### Features
+
+- jsx-email,app-preview,create-jsx-email,plugin-inline,plugin-minify,plugin-pretty: version 2.0.0 (#206)
+
+### Updates
+
+- jsx-email: improve build, preview, mergeConfig, de-dupe plugins (#208)
+
 ## v1.10.12
 
 _2024-02-24_
