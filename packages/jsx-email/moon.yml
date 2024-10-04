@@ -12,7 +12,6 @@ tasks:
       - ~:clean.dist
       - ~:compile
       - ~:copy.package
-      - ~:copy.readme
       - ~:copy.templates
     inputs:
       - src
@@ -44,11 +43,6 @@ tasks:
 
   copy.templates:
     command: cp -r ../../assets/templates dist
-    options:
-      cache: false
-
-  copy.readme:
-    command: cp -r ../../README.md README.md
     options:
       cache: false
 
