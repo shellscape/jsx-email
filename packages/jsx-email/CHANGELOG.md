@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.3
+
+_2024-10-04_
+
+### Updates
+
+- jsx-email: reverse symlink for readme (648c9ba)
+
 ## v2.0.2
 
 _2024-10-04_
