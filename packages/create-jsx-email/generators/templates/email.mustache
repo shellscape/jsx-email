@@ -47,15 +47,8 @@ const anchor = {
 };
 
 const button = {
-  backgroundColor: '#777',
-  borderRadius: '5px',
-  color: '#fff',
-  display: 'block',
-  fontSize: '16px',
   fontWeight: 'bold',
-  textAlign: 'center' as const,
   textDecoration: 'none',
-  width: '100%',
   padding: '10px'
 };
 
@@ -74,7 +67,16 @@ export const Template = ({ email, name }{{ propsType }}) => (
       <Container style={container}>
         <Section style={box}>
           <Text style={paragraph}>This is our email body text</Text>
-          <Button style={button} href="https://example.com">
+          <Button
+            style={button}
+            href="https://example.com"
+            width={'100%'}
+            align={'center'}
+            backgroundColor={'#777'}
+            borderRadius={'5px'}
+            fontSize={16}
+            textColor={'#fff'}
+          >
             Action Button
           </Button>
           <Hr style={hr} />
