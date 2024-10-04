@@ -28,7 +28,9 @@ pnpm add unocss
 
 # The dependencies below have to be pointed back to the repo
 pnpm add "@jsx-email/app-preview@file:$REPO_DIR/apps/preview"
-pnpm add "@jsx-email/minify-preset@file:$REPO_DIR/packages/minify-preset"
+pnpm add "@jsx-email/plugin-inline@file:$REPO_DIR/packages/plugin-inline"
+pnpm add "@jsx-email/plugin-minify@file:$REPO_DIR/packages/plugin-minify"
+pnpm add "@jsx-email/plugin-pretty@file:$REPO_DIR/packages/plugin-pretty"
 pnpm add "jsx-email@file:$REPO_DIR/packages/jsx-email"
 
 # We have to link this due to the workspace dependency

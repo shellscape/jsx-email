@@ -34,15 +34,6 @@ const text = {
   textAlign: 'left' as const
 };
 
-const button = {
-  fontSize: '14px',
-  backgroundColor: '#28a745',
-  color: '#fff',
-  lineHeight: 1.5,
-  borderRadius: '0.5em',
-  padding: '12px 24px'
-};
-
 const links = {
   textAlign: 'center' as const
 };
@@ -88,7 +79,16 @@ export const Template = ({ username }: GithubAccessTokenEmailProps) => (
             account.
           </Text>
 
-          <Button style={button}>View your token</Button>
+          <Button
+            width={152}
+            height={42}
+            fontSize={14}
+            backgroundColor="#28a745"
+            textColor="#fff"
+            borderRadius={8}
+          >
+            View your token
+          </Button>
         </Section>
         <Text style={links}>
           <Link style={link}>Your security audit log</Link> ・{' '}

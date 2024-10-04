@@ -119,7 +119,13 @@ export const Template = ({
             <ul>{steps?.map(({ Description }) => Description)}</ul>
 
             <Section className="text-center">
-              <Button className="bg-brand rounded-lg px-3 py-[18px] text-white">
+              <Button
+                width={182}
+                height={56}
+                backgroundColor="#2250f4"
+                borderRadius={8}
+                textColor="#fff"
+              >
                 Go to your dashboard
               </Button>
             </Section>

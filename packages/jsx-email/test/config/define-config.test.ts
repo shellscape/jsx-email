@@ -1,4 +1,5 @@
 import { defineConfig } from '../../src/config.js';
+import { pluginSymbol } from '../../src/plugins.js';
 
 describe('defineConfig', async () => {
   test('defaults', async () => {
@@ -31,6 +32,14 @@ describe('defineConfig', async () => {
         plainText: true,
         pretty: true
       }
+    });
+    expect(config).toMatchSnapshot();
+  });
+
+  test('de-dupe plugins', async () => {
+    const plugin = { name: 'batman', symbol: pluginSymbol };
+    const config = await defineConfig({
+      plugins: [plugin as any, plugin]
     });
     expect(config).toMatchSnapshot();
   });

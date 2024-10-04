@@ -67,18 +67,6 @@ const review = {
   borderRadius: '4px'
 };
 
-const button = {
-  backgroundColor: '#ff5a5f',
-  borderRadius: '3px',
-  color: '#fff',
-  fontSize: '18px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  width: '100%',
-  padding: '19px 0px'
-};
-
 const link = {
   ...paragraph,
   color: '#ff5a5f',
@@ -131,8 +119,16 @@ export const Template = ({ authorName, authorImage, reviewText }: AirbnbReviewEm
                   While it’s too late to write a review of your own, you can send your feedback to{' '}
                   {authorName} using your Airbnb message thread.
                 </Text>
-
-                <Button style={button} href="https://airbnb.com/">
+                <Button
+                  width={300}
+                  height={60}
+                  align="center"
+                  backgroundColor={'#ff5a5f'}
+                  borderRadius={3}
+                  textColor="#fff"
+                  fontSize={18}
+                  href="https://airbnb.com/"
+                >
                   Send My Feedback
                 </Button>
               </Row>

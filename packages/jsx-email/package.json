@@ -77,7 +77,6 @@
     "chalk": "4.1.2",
     "classnames": "2.5.1",
     "debug": "^4.3.4",
-    "defaults": "^3.0.0",
     "esbuild": "^0.21.1",
     "find-up": "^7.0.0",
     "globby": "11.0.4",
