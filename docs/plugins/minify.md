@@ -7,7 +7,7 @@ description: 'The Minify Plugin'
 
 The `@jsx-email/plugin-minify` package provides a plugin to [minify](<https://en.wikipedia.org/wiki/Minification_(programming)>) an email's HTML output. This plugin is a `peerDependency` of `jsx-email` and is loaded automatically if the [`minify` render option](https://jsx.email/docs/core/render#method-options) is set.
 
-Browse this plugin's [soure code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify)
+Browse this plugin's [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify)
 
 ## Why
 

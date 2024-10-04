@@ -7,7 +7,7 @@ description: 'The Inline CSS Plugin'
 
 The `@jsx-email/plugin-inline` package provides a plugin to [Inline CSS](https://www.codecademy.com/article/html-inline-styles). That is to say, converting classes defined in the `class` attribute of an HTML element, to the appropriate CSS declarations appended to a `style` attribute. This plugin is a `peerDependency` of `jsx-email` and is loaded automatically if the [`inline` render option](https://jsx.email/docs/core/render#method-options) is set.
 
-Browse this plugin's [soure code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline)
+Browse this plugin's [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline)
 
 ## Why
 
