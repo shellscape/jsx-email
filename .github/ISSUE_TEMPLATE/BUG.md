@@ -28,7 +28,8 @@ about: Something went awry and you'd like to tell us about it.
 
   Please provide one by:
   1. Using the StackBlitz reproduction template at https://stackblitz.com/fork/jsx-email-repro
-  2. Provide a minimal repository link (Read https://gist.github.com/Rich-Harris/88c5fc2ac6dc941b22e7996af05d70ff for instructions).
+  2. Using the Codesandbox reproduction template at https://codesandbox.io/p/devbox/rkdf4r
+  3. Provide a minimal repository link (Read https://gist.github.com/Rich-Harris/88c5fc2ac6dc941b22e7996af05d70ff for instructions).
      Please use NPM for installing dependencies!
      These may take more time to triage than the other options.
 
