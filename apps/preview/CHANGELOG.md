@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v2.0.2
+
+_2024-10-04_
+
+### Bugfixes
+
+- app-preview: include missing tailwind dependency, remove superfluous (84c8108)
+
 ## v2.0.1
 
 _2024-10-04_
