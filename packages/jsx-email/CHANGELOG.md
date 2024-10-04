@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.1
+
+_2024-10-04_
+
+### Updates
+
+- jsx-email: revert version number to prep for major (dd7cd2c)
+
 ## v1.13.0
 
 _2024-10-04_
