@@ -48,7 +48,7 @@ export interface ButtonProps extends BaseProps<'a'> {
 ```
 
 :::tip
-It is **highly reccommended** to use the component props to set these values rather than css for **optimal email client compatibility** especially in Outlook clients
+It's **highly reccommended** for **optimal email client compatibility** to use the component props below to set styles, rather than CSS, the `style` property, or [`Tailwind`](/docs/components/tailwind) classes. This is especially important for Outlook.
 :::
 
 ```ts

@@ -2,6 +2,7 @@
 export * from './components/background.js';
 export * from './components/body.js';
 export * from './components/button.js';
+export * from './components/butan.js';
 export * from './components/code.js';
 export * from './components/color-scheme.js';
 export * from './components/column.js';

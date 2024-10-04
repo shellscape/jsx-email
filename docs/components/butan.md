@@ -1,11 +1,15 @@
 ---
-title: 'Button'
-description: A JSX email component which styles an anchor element to appear as a button
-slug: button
+title: 'Butan'
+description: Deprecated. The v1 Button component. Please upgrade to the new Button component.
+slug: butan
 type: component
 ---
 
 <!--@include: @/include/header.md-->
+
+::: warning
+This component is DEPRECATED and serves as a fallback for folks still wanting to use the v1 Button component. Please upgrade your templates to use the v2 Button. `Butan` will be removed in a future release.
+:::
 
 ::: tip
 Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
@@ -18,13 +22,13 @@ Semantics: Quite often in the email world we talk about buttons when we actually
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from 'jsx-email';
+import { Butan } from 'jsx-email';
 
 const Email = () => {
   return (
-    <Button href="https://example.com" style={{ color: '#61dafb', padding: '10px 20px' }}>
+    <Butan href="https://example.com" style={{ color: '#61dafb', padding: '10px 20px' }}>
       Click me
-    </Button>
+    </Butan>
   );
 };
 ```
