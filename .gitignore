@@ -14,8 +14,6 @@ dist
 .tshy
 .tshy-build
 
-packages/jsx-email/README.md
-
 test-results
 playwright-report
 blob-report
