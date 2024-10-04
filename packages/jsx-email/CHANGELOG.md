@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.2
+
+_2024-10-04_
+
+### Updates
+
+- jsx-email: restore jsx-email package REAMDE (7486b4d)
+
 ## v2.0.1
 
 _2024-10-04_
