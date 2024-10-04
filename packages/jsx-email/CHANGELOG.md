@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.5
+
+_2024-10-04_
+
+### Bugfixes
+
+- jsx-email: add classnames to optimized deps for vite preview (0be455b)
+
 ## v2.0.4
 
 _2024-10-04_
