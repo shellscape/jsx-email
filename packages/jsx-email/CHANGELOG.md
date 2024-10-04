@@ -7,10 +7,7 @@ _2024-10-04_
 ### Updates
 
 - jsx-email: revert version number to prep for major (dd7cd2c)
-
-## v1.13.0
-
-_2024-10-04_
+- jsx-email: improve build, preview, mergeConfig, de-dupe plugins (#208)
 
 ### Bugfixes
 
@@ -20,9 +17,30 @@ _2024-10-04_
 
 - jsx-email,app-preview,create-jsx-email,plugin-inline,plugin-minify,plugin-pretty: version 2.0.0 (#206)
 
-### Updates
+## v1.12.1
 
-- jsx-email: improve build, preview, mergeConfig, de-dupe plugins (#208)
+_2024-05-09_
+
+### Bugfixes
+
+- jsx-email: build process broken on Windows, fixes #194 (#195)
+
+## v1.12.0
+
+_2024-04-19_
+
+### Features
+
+- jsx-email: add `bgImage` and `bgColor` props to `<Column>` (#188)
+
+## v1.11.0
+
+_2024-04-17_
+
+### Features
+
+- jsx-email: add meta tags to `head` and update test suite (#187)
+- jsx-email: add `rem-to-px` preset to `unoconfig` (#189)
 
 ## v1.10.12
 
