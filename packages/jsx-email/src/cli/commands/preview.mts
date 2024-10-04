@@ -93,7 +93,7 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
     clearScreen: false,
     configFile: false,
     optimizeDeps: {
-      include: ['react-dom', 'react-dom/client']
+      include: ['classnames', 'react-dom', 'react-dom/client']
     },
     plugins: [react()],
     resolve: {
