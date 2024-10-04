@@ -1,5 +1,17 @@
 # create-jsx-email ChangeLog
 
+## v2.0.0
+
+_2024-10-04_
+
+### Breaking Changes
+
+- create-jsx-email!: prepare for v2 (ae6e967)
+
+### Features
+
+- jsx-email,app-preview,create-jsx-email,plugin-inline,plugin-minify,plugin-pretty: version 2.0.0 (#206)
+
 ## v1.1.1
 
 _2024-02-24_
