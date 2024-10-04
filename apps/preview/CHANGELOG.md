@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v2.0.1
+
+_2024-10-04_
+
+### Bugfixes
+
+- app-preview: remove errant html element (2c30956)
+
 ## v2.0.0
 
 _2024-10-04_
