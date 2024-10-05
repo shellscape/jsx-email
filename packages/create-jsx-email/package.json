@@ -39,6 +39,7 @@
     "@types/prompts": "^2.4.8"
   },
   "types": "dist/src/index.d.ts",
+  "bump": "1",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
