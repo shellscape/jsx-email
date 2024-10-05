@@ -60,6 +60,12 @@ const middleware = async (params: MiddlwareParams) => {
     server.middlewares.use(async (req, res, next) => {
       const base = req.originalUrl ?? '';
       const pathName = new URL(base, `http://${req.headers.host}`).pathname.slice(1);
+
+      if (!pathName) {
+        next();
+        return;
+      }
+
       const filePath = files.find(
         (path) => path.endsWith(pathName) || path.endsWith(decodeURIComponent(pathName))
       );
