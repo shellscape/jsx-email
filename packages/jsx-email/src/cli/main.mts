@@ -24,7 +24,7 @@ const run = async () => {
   const [commandName] = positionals;
   let command = commands[commandName];
 
-  globalThis.jsxEmail = { isPreview: false };
+  globalThis.isJsxEmailPreview = false;
 
   debug.cli(`Command Name: \`${commandName}\``);
 

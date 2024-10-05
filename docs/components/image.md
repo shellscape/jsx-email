@@ -36,7 +36,7 @@ reference them with a URL.
 ```jsx
 import { Img } from 'jsx-email';
 
-const baseUrl = import.meta.jsxEmail.isPreview ?
+const baseUrl = import.meta.isJsxEmailPreview ?
   ? '/assets/'
   : 'https://assets.example.com/';
 

@@ -19,7 +19,7 @@ interface AirbnbReviewEmailProps {
   reviewText?: string;
 }
 
-const baseUrl = import.meta.jsxEmail.isPreview ? '/static/' : 'https://jsx.email/assets/demo/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/demo/';
 
 export const previewProps = {
   authorName: 'Joker',

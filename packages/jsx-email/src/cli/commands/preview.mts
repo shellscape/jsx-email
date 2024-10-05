@@ -173,7 +173,7 @@ export const command: CommandFn = async (argv: PreviewCommandOptions, input) => 
     return true;
   }
 
-  globalThis.jsxEmail.isPreview = true;
+  globalThis.isJsxEmailPreview = true;
 
   const { htmlFiles, server } = await start(common);
   await watch({ common, htmlFiles, server });

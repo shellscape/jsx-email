@@ -1,17 +1,13 @@
 /* eslint-disable no-var, vars-on-top */
 
-export interface JsxEmailMeta {
-  jsxEmail: {
-    isPreview: boolean;
-  };
-}
-
 declare global {
   namespace globalThis {
-    var jsxEmail: JsxEmailMeta['jsxEmail'];
+    var isJsxEmailPreview: boolean;
   }
 
-  interface ImportMeta extends JsxEmailMeta {}
+  interface ImportMeta {
+    isJsxEmailPreview: boolean;
+  }
 }
 
 export {};
