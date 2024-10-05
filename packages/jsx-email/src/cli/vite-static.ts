@@ -94,6 +94,8 @@ export const staticPlugin = (options: ViteStaticOptions): PluginOption => {
       const result = await middleware({ options, server });
       return result;
     },
+    // Note: another tshy problem https://github.com/isaacs/tshy/issues/96
+    // @ts-ignore
     name: 'jsx-email-static'
   };
 };
