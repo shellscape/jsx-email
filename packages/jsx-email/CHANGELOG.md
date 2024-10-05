@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.6
+
+_2024-10-05_
+
+### Bugfixes
+
+- jsx-email: restore local static assets for preview (#212)
+
 ## v2.0.5
 
 _2024-10-04_
