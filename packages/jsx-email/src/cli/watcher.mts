@@ -1,7 +1,9 @@
 import { access, readFile } from 'node:fs/promises';
 import { dirname, extname, relative, resolve } from 'node:path';
 
-import watcher from '@parcel/watcher';
+// Note: Keep the star here. There are environments (ahem, Stackblitz) which
+// can't seem to handle the psuedo default export
+import * as watcher from '@parcel/watcher';
 import chalk from 'chalk';
 import type { Metafile } from 'esbuild';
 import { type ViteDevServer } from 'vite';

@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk';
 import { parse as assert } from 'valibot';
+import { DynamicPublicDirectory } from 'vite-multiple-assets';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
@@ -95,7 +96,7 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
     optimizeDeps: {
       include: ['classnames', 'react-dom', 'react-dom/client']
     },
-    plugins: [react()],
+    plugins: [DynamicPublicDirectory([join(targetPath, '**')], { ssr: false }), react()],
     resolve: {
       alias: {
         '@jsxemailbuild': buildPath,
@@ -153,6 +154,8 @@ export const command: CommandFn = async (argv: PreviewCommandOptions, input) => 
   if (input.length < 1) return false;
 
   assert(PreviewCommandOptionsStruct, argv);
+
+  globalThis.jsxEmail.isPreview = true;
 
   const [target] = input;
   const targetPath = resolve(target);

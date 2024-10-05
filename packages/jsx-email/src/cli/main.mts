@@ -24,6 +24,8 @@ const run = async () => {
   const [commandName] = positionals;
   let command = commands[commandName];
 
+  globalThis.jsxEmail = { isPreview: false };
+
   debug.cli(`Command Name: \`${commandName}\``);
 
   if (flags.version) {
