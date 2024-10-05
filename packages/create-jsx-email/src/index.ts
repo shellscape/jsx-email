@@ -122,8 +122,8 @@ const run = async () => {
           ],
           { onCancel: cancelled }
         );
-  } catch (cancelled: any) {
-    log(cancelled.message);
+  } catch (error: any) {
+    log(error.message);
     return;
   }
 

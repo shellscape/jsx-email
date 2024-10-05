@@ -146,6 +146,9 @@ const compile = async (options: CompileOptions) => {
   const { files, outDir, writeMeta } = options;
   const { metafile } = await esbuild.build({
     bundle: true,
+    define: {
+      'import.meta.isJsxEmailPreview': JSON.stringify(globalThis.isJsxEmailPreview || false)
+    },
     entryNames: '[dir]/[name]-[hash]',
     entryPoints: files,
     jsx: 'automatic',

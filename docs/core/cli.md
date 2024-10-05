@@ -47,9 +47,11 @@ Examples
   $ email preview ./src/templates
 ```
 
-To view help for specific commands, use `email help <command>`. e.g. `email help build`.
-
 ## Build
+
+::: tip
+To view info, flags, and options for the `build` command, run `email help build`.
+:::
 
 The `build` command compiles and renders an email template to HTML for use with an email provider. The command takes a directory or single file as input:
 
@@ -66,6 +68,10 @@ $ email build ./emails/Batman.tsx
 ```
 
 ## Check
+
+::: tip
+To view info, flags, and options for the `check` command, run `email help check`.
+:::
 
 `jsx-email` can run a client compatibility check on any template, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client incompatibility issues. This check is incredibly helpful in diagnosing and debugging display issues between multiple email clients.
 
@@ -111,7 +117,13 @@ Check Complete: 14 error(s), 20 warning(s)
 
 ## Preview
 
+::: tip
+To view info, flags, and options for the `preview` command, run `email help preview`.
+:::
+
 JSX email ships with a Preview Tool as part of the CLI. Our Preview is fast, simple, and smooth. It doesn't require installing any crazy dependencies, downloading additional "clients," or copying your project's dependencies. It just works. And the best part: it works with monorepos out of the box.
+
+The preview also supports static local assets. For a good example of how to handle local assets like images, please have a look at [the demo AirBnB template](https://github.com/shellscape/jsx-email/blob/main/apps/demo/emails/airbnb-review.tsx). Notice that `baseUrl` is set using a condition on `import.meta.isJsxEmailPreview`. That `import.meta` property is specific to `jsx-email` and will be replaced appropriately at build time. Local assets are served from the templates root directory, in this case `apps/demos/emails`, at the server root. So a `apps/demos/emails/batman.png` file would be served at `/batman.png` in the browser. We recommend using a `static` or `assets` directory in your templates root directory, so it's clear where files are being served from when viewing in the Preview Tool.
 
 To use the Preview Tool, open your terminal and navigate to your project. We're assuming you've already installed the CLI as shown above, and that you've already run `email create` to create an email in an `emails` directory.
 

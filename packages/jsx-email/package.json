@@ -84,6 +84,7 @@
     "magic-string": "^0.30.5",
     "md-to-react-email": "5.0.2",
     "micromatch": "^4.0.5",
+    "mime-types": "^2.1.35",
     "mustache": "^4.2.0",
     "postcss": "^8.4.32",
     "postcss-var-replace": "^1.0.0",
@@ -99,8 +100,6 @@
     "unist-util-visit": "^5.0.0",
     "valibot": "^0.30.0",
     "vite": "^5.2.11",
-    "vite-plugin-node-polyfills": "0.21.0",
-    "vite-tsconfig-paths": "^4.3.1",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
@@ -110,6 +109,7 @@
     "@types/html-to-text": "^9.0.2",
     "@types/import-local": "^3.1.2",
     "@types/micromatch": "^4.0.7",
+    "@types/mime-types": "^2.1.4",
     "@types/mustache": "^4.2.5",
     "@types/pretty": "^2.0.1",
     "@types/source-map-support": "^0.5.10",

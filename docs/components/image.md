@@ -29,15 +29,15 @@ Email](https://www.caniemail.com/features/image-svg/) for more information.
 :::
 
 ::: tip
-To use local images during development, you can resolve the path with node.
+To use local images during development, place the images in your templates directory. We recommend using a `assets/` or `static/` subdirectory. Images can then be accessed from the server root.
 Just remember, for production, you'll need to host the images somewhere and
 reference them with a URL.
 
 ```jsx
 import { Img } from 'jsx-email';
 
-const baseUrl = import.meta.env.DEV
-  ? import.meta.resolve('../assets/')
+const baseUrl = import.meta.isJsxEmailPreview ?
+  ? '/assets/'
   : 'https://assets.example.com/';
 
 const Email = () => {

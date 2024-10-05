@@ -1,5 +1,8 @@
 module.exports = {
   extends: ['shellscape/typescript', 'plugin:import/typescript'],
+  globals: {
+    globalThis: 'writable'
+  },
   overrides: [
     {
       files: ['*.d.ts'],

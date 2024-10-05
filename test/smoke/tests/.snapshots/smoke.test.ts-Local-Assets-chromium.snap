@@ -10,16 +10,16 @@
     <img
       id="image"
       alt="Cat"
-      src="../staticcat.jpeg"
+      src="/static/cat.jpeg"
       width="200"
       height="200"
       style="border:none;display:block;outline:none;text-decoration:none"
     >
     <a
-      href="../staticcat.jpeg"
+      href="/static/cat.jpeg"
       style="color:#067df7;text-decoration:none"
     >
-      ../staticcat.jpeg
+      /static/cat.jpeg
     </a>
   </body>
 </html>

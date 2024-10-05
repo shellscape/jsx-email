@@ -50,7 +50,7 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
   return html;
 };
 
-export const processHtml = async (config: JsxEmailConfig, html: string) => {
+const processHtml = async (config: JsxEmailConfig, html: string) => {
   const { rehype } = await import('rehype');
   const { default: stringify } = await import('rehype-stringify');
   const docType =

@@ -7,10 +7,12 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk';
 import { parse as assert } from 'valibot';
+// import { DynamicPublicDirectory } from 'vite-multiple-assets';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
 import { buildForPreview } from '../helpers.mjs';
+import { staticPlugin } from '../vite-static.js';
 import { watch } from '../watcher.mjs';
 
 import { getTempPath, normalizePath } from './build.mjs';
@@ -95,7 +97,8 @@ const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
     optimizeDeps: {
       include: ['classnames', 'react-dom', 'react-dom/client']
     },
-    plugins: [react()],
+    // plugins: [DynamicPublicDirectory([join(targetPath, '**')], { ssr: false }), react()],
+    plugins: [staticPlugin({ paths: [join(targetPath, '**')] }), react()],
     resolve: {
       alias: {
         '@jsxemailbuild': buildPath,
@@ -169,6 +172,8 @@ export const command: CommandFn = async (argv: PreviewCommandOptions, input) => 
     await buildDeployable(common);
     return true;
   }
+
+  globalThis.isJsxEmailPreview = true;
 
   const { htmlFiles, server } = await start(common);
   await watch({ common, htmlFiles, server });
