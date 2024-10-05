@@ -28,11 +28,17 @@ tasks:
     deps:
       - ~:tsc
       - ~:copy
+      - ~:copy.templates
     options:
       runDepsInParallel: false
 
   copy:
     command: cp -r generators dist
+    options:
+      cache: false
+
+  copy.templates:
+    command: rm -rf dist/generators/templates && cp -r ../../assets/templates dist/generators
     options:
       cache: false
 

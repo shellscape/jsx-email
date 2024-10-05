@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v2.0.2
+
+_2024-10-05_
+
+### Bugfixes
+
+- create-jsx-email: use linked email template, correct button props (#213)
+
 ## v2.0.1
 
 _2024-10-05_
