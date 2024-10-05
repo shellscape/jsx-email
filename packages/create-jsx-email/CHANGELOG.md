@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v2.0.1
+
+_2024-10-05_
+
+### Bugfixes
+
+- create-jsx-email: persist correct jsx-email version (3e06772)
+
 ## v2.0.0
 
 _2024-10-04_
