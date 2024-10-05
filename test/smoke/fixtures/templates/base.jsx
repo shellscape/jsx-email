@@ -14,7 +14,6 @@ import {
   Link,
   Markdown,
   Preview,
-  // QrCode,
   Row,
   Section,
   Text
@@ -66,7 +65,6 @@ export const Template = () => (
               padding: '12px'
             }}
           >{`# Hello, World!`}</Markdown>
-          {/* <QrCode src="https://example.com" alt="QR Code" size={300} correctionLevel="H" /> */}
           <Row>
             <Column>Column</Column>
           </Row>
