@@ -1,0 +1,2 @@
+#!/usr/bin/env -S node --enable-source-maps --no-warnings=ExperimentalWarning
+import './../dist/esm/cli/main.mjs';

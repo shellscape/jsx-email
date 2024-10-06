@@ -1,6 +1,6 @@
 {
   "name": "jsx-email",
-  "version": "2.0.6",
+  "version": "2.0.6-gildas.2",
   "publishConfig": {
     "access": "public"
   },
@@ -15,7 +15,7 @@
   "homepage": "https://jsx.email/",
   "main": "./dist/commonjs/index.js",
   "bin": {
-    "email": "./dist/esm/cli/index.mjs"
+    "email": "./bin/email"
   },
   "type": "module",
   "exports": {
@@ -45,6 +45,7 @@
     "node": ">=18.0.0"
   },
   "files": [
+    "bin/**",
     "dist/**"
   ],
   "keywords": [
