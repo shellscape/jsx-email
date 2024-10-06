@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.7
+
+_2024-10-06_
+
+### Bugfixes
+
+- jsx-email: linux bin execution bug (#214)
+
 ## v2.0.6
 
 _2024-10-05_
