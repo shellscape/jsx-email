@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 
-// @ts-ignore
-import pkg from '../../../package.json' assert { type: 'json' };
+import { name, version } from '../../package-info.cjs';
 
 import type { CommandFn } from './types.mjs';
 import { help as build } from './build.mjs';
@@ -12,7 +11,7 @@ import { help as preview } from './preview.mjs';
 const { log } = console;
 
 export const helpMessage = chalk`
-{blue ${pkg.name}} v${pkg.version}
+{blue ${name}} v${version}
 
 The jsx-email CLI. Build, Check, Create and View email templates
 

@@ -1,7 +1,7 @@
 import sourceMapSupport from 'source-map-support';
 import yargs from 'yargs-parser';
 
-import pkg from '../../package.json' assert { type: 'json' };
+import { name, version } from '../package-info.cjs';
 
 import { debug } from '../debug.js';
 
@@ -29,7 +29,7 @@ const run = async () => {
   debug.cli(`Command Name: \`${commandName}\``);
 
   if (flags.version) {
-    log(`${pkg.name} v${pkg.version}\n`);
+    log(`${name} v${version}\n`);
     return;
   }
 
