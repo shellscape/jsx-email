@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.8
+
+_2024-10-13_
+
+### Bugfixes
+
+- jsx-email: change how package.json is read so it doesn't break with recent node versions (#215)
+
 ## v2.0.7
 
 _2024-10-06_
