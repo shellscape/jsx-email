@@ -59,7 +59,7 @@ const settings = {
   closeEmptyElements: true,
   collapseEmptyAttributes: true,
   omitOptionalTags: true,
-  preferUnquoted: true,
+  preferUnquoted: false,
   quoteSmart: true,
   tightAttributes: true,
   tightCommaSeparatedLists: true,
