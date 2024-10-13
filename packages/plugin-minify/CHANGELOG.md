@@ -1,5 +1,13 @@
 # @jsx-email/plugin-minify ChangeLog
 
+## v1.0.1
+
+_2024-10-13_
+
+### Bugfixes
+
+- plugin-minify: turn off aggressive quote removal. fixes #216 (#218)
+
 ## v1.0.0
 
 _2024-10-04_
