@@ -12,14 +12,11 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "lib": ["ES2023", "ESNext"],
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "paths": {
-      "@components/*": ["./components/*"]
-    },
     "preserveSymlinks": true,
     "preserveWatchOutput": true,
     "resolveJsonModule": true,

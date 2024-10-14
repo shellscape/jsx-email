@@ -14,6 +14,9 @@ interface BuildForPreviewParams {
 export const gmailByteLimit = 102e3;
 export const gmailBytesSafe = 102e3 - 20e3;
 
+// Note: after server start we change the root directory to trick vite
+export const originalCwd = process.cwd();
+
 export const buildForPreview = async ({
   buildPath,
   exclude,

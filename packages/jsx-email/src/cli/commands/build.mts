@@ -16,7 +16,7 @@ import type { Output as Infer } from 'valibot';
 import { parse as assert, boolean, object, optional, string } from 'valibot';
 
 import { log } from '../../log.js';
-import { formatBytes, gmailByteLimit } from '../helpers.mjs';
+import { formatBytes, gmailByteLimit, originalCwd } from '../helpers.mjs';
 
 import type { CommandFn, TemplateFn } from './types.mjs';
 
@@ -166,8 +166,11 @@ const compile = async (options: CompileOptions) => {
     const { outputs } = metafile;
     const ops = Object.entries(outputs).map(async ([path]) => {
       const fileName = basename(path, extname(path));
-      const writePath = join(outDir, `${fileName}.meta.json`);
+      const metaPath = join(dirname(path), `${fileName}.meta.json`);
+      const writePath = resolve(originalCwd, metaPath);
       const json = JSON.stringify(metafile);
+
+      log.debug('meta writePath:', writePath);
       await writeFile(writePath, json, 'utf8');
     });
     await Promise.all(ops);

@@ -1,4 +1,3 @@
-import sourceMapSupport from 'source-map-support';
 import yargs from 'yargs-parser';
 
 import { name, version } from '../package-info.cjs';
@@ -12,7 +11,11 @@ import { command as help } from './commands/help.mjs';
 import { command as preview } from './commands/preview.mjs';
 import type { CommandFn } from './commands/types.mjs';
 
-sourceMapSupport.install();
+// Note: I'm not a huge fan of importing this here, but it guarantees that we capture
+// the cwd before anything else futzes with it
+// @ts-expect-error
+// eslint-disable-next-line
+import { originalCwd } from './helpers.mjs';
 
 const commands: Record<string, CommandFn> = { build, check, create, help, preview };
 

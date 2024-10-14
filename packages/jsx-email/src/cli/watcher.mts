@@ -12,7 +12,7 @@ import { log } from '../log.js';
 
 import { getTempPath, type BuildResult } from './commands/build.mjs';
 import { type PreviewCommonParams } from './commands/types.mjs';
-import { buildForPreview } from './helpers.mjs';
+import { buildForPreview, originalCwd } from './helpers.mjs';
 
 interface WatchArgs {
   common: PreviewCommonParams;
@@ -25,8 +25,7 @@ const exists = (path: string) =>
     () => true,
     () => false
   );
-// Note: after server start we change the root directory to trick vite
-const originalCwd = process.cwd();
+
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
 const removeChildPaths = (paths: string[]): string[] =>
@@ -41,24 +40,40 @@ export const watch = async (args: WatchArgs) => {
   const { common, htmlFiles, server } = args;
   const { argv } = common;
   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
+  let watchPaths: string[] = [];
+
   const metaReads = htmlFiles.map(async ({ metaPath }) => {
+    // log.debug({ exists: await exists(metaPath ?? ''), metaPath });
+
     if (!metaPath || !(await exists(metaPath))) return null;
     const contents = await readFile(metaPath, 'utf-8');
     const metafile = JSON.parse(contents) as Metafile;
     const { outputs } = metafile;
-    const result = Object.entries(outputs).map(([, { inputs }]) => {
-      const deps = Object.keys(inputs)
-        .filter((input) => !input.includes('/node_modules'))
-        .map((input) => resolve(originalCwd, input));
-      return deps;
+    const result = new Map<string, Set<string>>();
+
+    Object.entries(outputs).forEach(([_, meat]) => {
+      const { entryPoint, inputs } = meat;
+      const resolvedEntry = resolve(originalCwd, entryPoint!);
+      watchPaths.push(resolvedEntry);
+
+      for (const dep of Object.keys(inputs)) {
+        const resolvedDepPath = resolve(originalCwd, dep);
+        const set = result.get(resolvedDepPath) ?? new Set();
+
+        watchPaths.push(resolvedDepPath);
+        set.add(resolvedEntry);
+        result.set(resolvedDepPath, set);
+      }
     });
 
     return result;
   });
   const metaDeps = (await Promise.all(metaReads)).filter(Boolean);
-  const depsArr = metaDeps.filter(Boolean).flatMap((meta) => meta) as string[][];
   const templateDeps = new Map<string, Set<string>>();
-  const depPaths = new Set<string>();
+
+  for (const map of metaDeps) {
+    map!.forEach((value, key) => templateDeps.set(key, value));
+  }
 
   const handler: watcher.SubscribeCallback = async (_, events) => {
     const files = events.map((e) => e.path).filter((path) => extensions.includes(extname(path)));
@@ -70,8 +85,13 @@ export const watch = async (args: WatchArgs) => {
     if (!templates.length) return;
 
     const suffix = templates.length === 1 ? '' : 's';
-    log.info(chalk`{cyan Rebuilding}`, templates.length, `file${suffix}:`);
-    log.info('  ', templates.join('\n  '), '\n');
+    log.info(
+      chalk`{cyan Rebuilding}`,
+      templates.length,
+      `file${suffix}:`,
+      templates.join('\n  '),
+      '\n'
+    );
 
     const buildPath = await getTempPath('preview');
     const { exclude } = argv;
@@ -80,21 +100,12 @@ export const watch = async (args: WatchArgs) => {
     );
   };
 
-  for (const deps of depsArr) {
-    if (deps.length) {
-      const [templateFile] = deps;
-      for (const dep of deps) {
-        const set = templateDeps.get(dep) ?? new Set<string>();
-        set.add(templateFile);
-        templateDeps.set(dep, set);
-        depPaths.add(dirname(dep));
-      }
-    }
-  }
+  const watchPathSet = new Set([
+    ...watchPaths.filter((path) => !path.includes('/node_modules/')).map((path) => dirname(path))
+  ]);
+  watchPaths = removeChildPaths([...watchPathSet]);
 
-  const watchPaths = removeChildPaths([...depPaths]);
-
-  log.debug('Watching Paths:', watchPaths);
+  log.debug('Watching Paths:', watchPaths.sort());
 
   const subPromises = watchPaths.map((path) => watcher.subscribe(path, handler));
   const subscriptions = await Promise.all(subPromises);

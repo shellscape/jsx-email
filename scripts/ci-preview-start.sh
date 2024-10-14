@@ -9,4 +9,4 @@
 TESTS_DIR="$TMPDIR"jsx-email-tests/smoke-test
 SMOKE_DIR=$(readlink -f $TESTS_DIR)
 cd $SMOKE_DIR
-pnpm exec email preview fixtures
+pnpm exec email preview fixtures/templates
