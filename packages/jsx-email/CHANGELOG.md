@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.9
+
+_2024-10-15_
+
+### Bugfixes
+
+- jsx-email: create command esm fix (#222)
+
 ## v2.0.8
 
 _2024-10-13_
