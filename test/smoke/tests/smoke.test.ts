@@ -74,7 +74,7 @@ test('watcher', async ({ page }) => {
 
   await writeFile(targetFilePath, contents.replace('test', 'batman'), 'utf8');
 
-  await page.waitForTimeout(5e3);
+  await page.waitForTimeout(timeout.timeout);
   await page.waitForSelector('#link-Local-Assets', timeout);
 
   page.locator('#link-Local-Assets').click();
