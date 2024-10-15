@@ -13,31 +13,35 @@ While JSX email can be used with just about any email provider that takes a stri
 
 ```tsx
 import { render } from 'jsx-email';
-import { SES } from '@aws-sdk/client-ses';
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 
 import { BatmanTemplate } from './emails/Batman.tsx';
 
-const ses = new SES({ region: process.env.AWS_SES_REGION });
-const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const ses = new SESv2Client({ region: process.env.AWS_SES_REGION });
+const html = await render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
 
-await ses.sendEmail({
-  Source: 'penguin@joker.us',
-  Destination: {
-    ToAddresses: ['bruce@wayneinc.com']
-  },
-  Message: {
-    Body: {
-      Html: {
-        Charset: 'UTF-8',
-        Data: html
-      }
+await ses.send(
+  new SendEmailCommand({
+    FromEmailAddress: 'penguin@joker.us',
+    Destination: {
+      ToAddresses: ['bruce@wayneinc.com']
     },
-    Subject: {
-      Charset: 'UTF-8',
-      Data: 'Did you get that thing I sent you?'
+    Content: {
+      Simple: {
+        Body: {
+          Html: {
+            Charset: 'UTF-8',
+            Data: html
+          }
+        },
+        Subject: {
+          Charset: 'UTF-8',
+          Data: 'Did you get that thing I sent you?'
+        }
+      }
     }
-  }
-});
+  })
+);
 ```
 
 ## Mailersend
