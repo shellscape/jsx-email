@@ -9,13 +9,13 @@ export const Section: JsxEmailComponent<SectionProps> = ({ children, style, ...p
   <table
     align="center"
     width="100%"
-    {...props}
-    {...debugProps}
     style={style}
     border={0}
     cellPadding="0"
     cellSpacing="0"
     role="presentation"
+    {...props}
+    {...debugProps}
   >
     <tbody>
       <tr>

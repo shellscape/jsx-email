@@ -30,11 +30,11 @@ export const Container: JsxEmailComponent<ContainerProps> = ({
         <table
           align={alignment}
           width="100%"
-          {...props}
           role="presentation"
           cellSpacing="0"
           cellPadding="0"
           border={0}
+          {...props}
           style={{
             ...(configDds || disableDefaultStyle ? {} : { maxWidth: `${containerWidth}px` }),
             ...style

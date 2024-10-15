@@ -18,13 +18,13 @@ export const Row: JsxEmailComponent<RowProps> = ({
     <table
       align="center"
       width="100%"
-      {...props}
-      {...debugProps}
       style={style}
       role="presentation"
       cellSpacing="0"
       cellPadding="0"
       border={0}
+      {...props}
+      {...debugProps}
     >
       <tbody style={configDds || disableDefaultStyle ? {} : { width: '100%' }}>
         <tr style={configDds || disableDefaultStyle ? {} : { width: '100%' }}>{children}</tr>
