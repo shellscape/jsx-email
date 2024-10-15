@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.10
+
+_2024-10-15_
+
+### Bugfixes
+
+- jsx-email: rework watcher for preview. add smoke test. fixes #217 (#219)
+
 ## v2.0.9
 
 _2024-10-15_
