@@ -1,6 +1,6 @@
 ---
 title: 'Section'
-description: 'Creates section bordaries that can be formatted with columns and rows'
+description: 'Creates section boundaries that can be formatted with columns and rows'
 slug: section
 type: component
 ---
@@ -40,6 +40,10 @@ const Email = () => {
 };
 ```
 
+::: info
+Though the `Section` component wraps a `<table>` element, it's not designed to mimic a `table` and has a specific use for email client compatibility and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Section` as a table, please consider using a `<table>` element. If using `Row` and `Column` with a `Section` and the need arises to set either `cellPadding` or `cellSpacing`, please set those properties on the appropriate `Row` component(s).
+:::
+
 ## Component Props
 
-This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for `cellPadding` and `cellSpacing`.

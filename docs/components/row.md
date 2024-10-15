@@ -33,6 +33,10 @@ const Email = () => {
 };
 ```
 
+::: info
+Though the `Row` component wraps a `table` element, it is not designed to identically mimic a `table`, rather provide a visual row element that has maximum email client compatibility. Setting `cellPadding` or `cellSpacing` on a `Row` component can achieve similar results to using a custom `table` element, but it's not recommended. For custom behavior and for needs like `cellPadding` it's recommended to use a `table` element instead of `Row`.
+:::
+
 ## Component Props
 
 ```ts
