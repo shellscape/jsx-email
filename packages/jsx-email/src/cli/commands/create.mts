@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { join, resolve } from 'path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import chalk from 'chalk';
 import mustache from 'mustache';
@@ -7,8 +8,10 @@ import { parse as assert, boolean, object, optional, string, type Output as Infe
 
 import { type CommandFn } from './types.mjs';
 
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const { log } = console;
-
 const CreateOptionsStruct = object({
   jsx: optional(boolean()),
   out: optional(string())
@@ -40,12 +43,10 @@ export const command: CommandFn = async (argv: CreateOptions, input) => {
 
   const [name] = input;
   const { jsx, out } = argv;
-  const template = await readFile(join(__dirname, '../templates/email.mustache'), 'utf8');
+  const template = await readFile(join(__dirname, '../../../templates/email.mustache'), 'utf8');
   const data = {
     name,
-    propsType: jsx ? '' : ': TemplateProps',
-    typeInfer: jsx ? '' : ', type Infer',
-    typeProps: jsx ? '' : '\nexport type TemplateProps = Infer<typeof TemplateStruct>;'
+    propsType: jsx ? '' : ': typeof previewProps'
   };
   const newContent = mustache.render(template, data);
   const outPath = resolve(out || process.cwd());
