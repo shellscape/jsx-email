@@ -1,4 +1,7 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop, no-underscore-dangle */
+import { readFile, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { test, expect } from '@playwright/test';
 
@@ -10,8 +13,13 @@ import { getHTML } from './helpers/html.js';
 // - HTML View
 // - Copy and Download buttons on code views
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const { error } = console;
 const timeout = { timeout: 15e3 };
+const propsButtonSel = '#Props-sidebar-tree > button';
+
+test.describe.configure({ mode: 'serial' });
 
 test('landing', async ({ page }) => {
   page.on('pageerror', (exception) => {
@@ -34,16 +42,9 @@ test('templates', async ({ page }) => {
   test.setTimeout(30e3);
 
   const allLinksSel = '#sidebar-tree a';
-  const templatesButtonSel = '#Templates-sidebar-tree > button';
-  const propsButtonSel = '#Props-sidebar-tree > button';
 
   await page.goto('/');
-  await page.waitForSelector(templatesButtonSel, timeout);
-
-  const templateButton = page.locator(templatesButtonSel);
-  templateButton.click();
-
-  await page.waitForSelector(templatesButtonSel, timeout);
+  await page.waitForSelector(propsButtonSel, timeout);
 
   const propsButton = page.locator(propsButtonSel);
   propsButton.click();
@@ -64,4 +65,39 @@ test('templates', async ({ page }) => {
       expect(html).toMatchSnapshot({ name: `${name}.snap` });
     });
   }
+});
+
+test('watcher', async ({ page }) => {
+  test.setTimeout(120e3);
+
+  await page.goto('/');
+  await page.waitForSelector(propsButtonSel, timeout);
+
+  const isLocal = process.env.LOCAL_SMOKE === 'true';
+  const targetFilePath = isLocal
+    ? join(__dirname, '../fixtures/components/text.tsx')
+    : '/home/runner/work/jsx-email/jsx-email/jsx-email-tests/smoke-test/fixtures/components/text.tsx';
+
+  console.log({ isLocal, targetFilePath });
+
+  const contents = await readFile(targetFilePath, 'utf8');
+
+  console.log({ contents });
+
+  await writeFile(targetFilePath, contents.replace('test', 'batman'), 'utf8');
+
+  console.log('after write:', await readFile(targetFilePath, 'utf8'));
+
+  await page.waitForTimeout(45e3);
+  await page.waitForSelector('#link-Local-Assets', timeout);
+
+  page.locator('#link-Local-Assets').click();
+
+  const iframe = await page.frameLocator('#preview-frame');
+  const html = await getHTML(iframe.locator('html'), { deep: true });
+
+  expect(html).toMatchSnapshot({ name: `watcher.snap` });
+
+  // Note: so we don't have dirty files when running smoketest locally
+  await writeFile(targetFilePath, contents.replace('batman', 'test'), 'utf8');
 });

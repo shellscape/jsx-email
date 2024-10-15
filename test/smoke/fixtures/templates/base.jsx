@@ -19,6 +19,8 @@ import {
   Text
 } from 'jsx-email';
 
+import { TextComponent } from '../components/text.js';
+
 export const Template = () => (
   <Html>
     <ColorScheme />
@@ -29,6 +31,7 @@ export const Template = () => (
     </Head>
     <Preview>Preview Content</Preview>
     <Body>
+      <TextComponent />
       <Container>
         <Section>
           <Button

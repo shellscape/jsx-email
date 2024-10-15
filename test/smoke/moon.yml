@@ -7,7 +7,7 @@ workspace:
 
 tasks:
   dev:
-    command: email preview fixtures
+    command: email preview fixtures/templates
     options:
       cache: false
       outputStyle: 'stream'
@@ -32,6 +32,8 @@ tasks:
     deps:
       - ~:install
       - ~:setup.ci
+    env:
+      DOT_LOG_LEVEL: debug
     options:
       cache: false
       outputStyle: 'stream'

@@ -12,7 +12,7 @@
     "@playwright/test": "^1.40.1",
     "dedent": "^1.5.1",
     "diffable-html": "^5.0.0",
-    "jsx-email": "workspace:*",
+    "jsx-email": "workspace:^",
     "unocss": "^0.58.5"
   },
   "devDependencies": {
