@@ -11,8 +11,6 @@ import {
   Text
 } from 'jsx-email';
 
-{{{ typeProps }}}
-
 const main = {
   backgroundColor: '#f6f9fc',
   fontFamily:
@@ -52,10 +50,10 @@ const button = {
   padding: '10px'
 };
 
-export const defaultProps = {
+export const previewProps = {
   email: 'batman@example.com',
   name: 'Bruce Wayne'
-} as TemplateProps;
+};
 
 export const templateName = '{{name}}';
 
