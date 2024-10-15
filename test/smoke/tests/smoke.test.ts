@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop, no-underscore-dangle */
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { test, expect } from '@playwright/test';
 
@@ -68,20 +68,27 @@ test('templates', async ({ page }) => {
 });
 
 test('watcher', async ({ page }) => {
+  test.setTimeout(120e3);
+
   await page.goto('/');
   await page.waitForSelector(propsButtonSel, timeout);
 
-  const targetFilePath = join(__dirname, '../fixtures/components/text.tsx');
+  const isLocal = process.env.LOCAL_SMOKE === 'true';
+  const targetFilePath = isLocal
+    ? join(__dirname, '../fixtures/components/text.tsx')
+    : '/home/runner/work/jsx-email/jsx-email/jsx-email-tests/smoke-test/fixtures/components/text.tsx';
+
+  console.log({ isLocal, targetFilePath });
+
   const contents = await readFile(targetFilePath, 'utf8');
 
-  console.log({ targetFilePath });
   console.log({ contents });
 
   await writeFile(targetFilePath, contents.replace('test', 'batman'), 'utf8');
 
   console.log('after write:', await readFile(targetFilePath, 'utf8'));
 
-  await page.waitForTimeout(25e3);
+  await page.waitForTimeout(45e3);
   await page.waitForSelector('#link-Local-Assets', timeout);
 
   page.locator('#link-Local-Assets').click();
