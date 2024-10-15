@@ -97,7 +97,7 @@ export const watch = async (args: WatchArgs) => {
     log.info(
       chalk`{cyan Rebuilding}`,
       templates.length,
-      `file${suffix}:`,
+      `file${suffix}:\n `,
       templates.join('\n  '),
       '\n'
     );

@@ -32,6 +32,8 @@ tasks:
     deps:
       - ~:install
       - ~:setup.ci
+    env:
+      DOT_LOG_LEVEL: debug
     options:
       cache: false
       outputStyle: 'stream'

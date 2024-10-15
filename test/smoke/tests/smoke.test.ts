@@ -19,6 +19,8 @@ const { error } = console;
 const timeout = { timeout: 15e3 };
 const propsButtonSel = '#Props-sidebar-tree > button';
 
+test.describe.configure({ mode: 'serial' });
+
 test('landing', async ({ page }) => {
   page.on('pageerror', (exception) => {
     console.log(`Uncaught exception: "${exception}"`);
@@ -72,9 +74,14 @@ test('watcher', async ({ page }) => {
   const targetFilePath = join(__dirname, '../fixtures/components/text.tsx');
   const contents = await readFile(targetFilePath, 'utf8');
 
+  console.log({ targetFilePath });
+  console.log({ contents });
+
   await writeFile(targetFilePath, contents.replace('test', 'batman'), 'utf8');
 
-  await page.waitForTimeout(timeout.timeout);
+  console.log('after write:', await readFile(targetFilePath, 'utf8'));
+
+  await page.waitForTimeout(25e3);
   await page.waitForSelector('#link-Local-Assets', timeout);
 
   page.locator('#link-Local-Assets').click();

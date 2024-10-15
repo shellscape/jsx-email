@@ -8,7 +8,7 @@
   </head>
   <body>
     <p style="font-size:14px;line-height:24px;margin:16px 0">
-      component batman
+      component test
     </p>
     <img
       id="image"

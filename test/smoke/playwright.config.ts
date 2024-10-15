@@ -28,6 +28,8 @@ export default defineConfig({
       ENV_TEST_VALUE: 'joker'
     },
     reuseExistingServer: !process.env.CI,
+    stderr: 'pipe',
+    stdout: 'pipe',
     url: 'http://localhost:55420'
   },
   workers: process.env.CI ? 1 : void 0
