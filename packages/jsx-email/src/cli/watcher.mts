@@ -76,8 +76,17 @@ export const watch = async (args: WatchArgs) => {
   }
 
   const handler: watcher.SubscribeCallback = async (_, events) => {
-    const files = events.map((e) => e.path).filter((path) => extensions.includes(extname(path)));
+    const files = events
+      .filter((event) => event.type !== 'create' && event.type !== 'delete')
+      .map((e) => e.path)
+      .filter((path) => extensions.includes(extname(path)));
     const templates = files.flatMap((file) => [...(templateDeps.get(file) || [])]).filter(Boolean);
+
+    if (events.some(({ type }) => type === 'create' || type === 'delete')) {
+      log.warn(
+        `Please restart the preview app for new or deleted files to take effect. This will be automatic in a future version`
+      );
+    }
 
     log.debug('Changed Files:', files);
     log.debug('Target Templates:', templates);
