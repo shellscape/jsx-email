@@ -1,4 +1,4 @@
-name: Run Tests
+name: Smoke Tests
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    name: Run Tests
+    name: Smoke Tests
 
     steps:
       - name: Checkout Commit
@@ -61,7 +61,9 @@ jobs:
           moon create-jsx-email:build
           moon run :build --query "project~plugin-*"
 
-      - name: Package Tests
-        env:
-          FORCE_COLOR: 1
-        run: moon run :test --affected --concurrency 1 --remote
+      - name: Smoke Test
+        # Note: We're running `pnpm i` again so that pnpm places the `email` bin in root node_modules
+        # We'll need that for the preview tests below
+        run: |
+          pnpm i
+          moon smoke:run.ci
