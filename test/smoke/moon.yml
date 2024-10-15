@@ -34,6 +34,7 @@ tasks:
       - ~:setup.ci
     env:
       DOT_LOG_LEVEL: debug
+      LOCAL_SMOKE: 'true'
     options:
       cache: false
       outputStyle: 'stream'

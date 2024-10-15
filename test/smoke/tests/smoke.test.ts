@@ -73,7 +73,7 @@ test('watcher', async ({ page }) => {
   await page.goto('/');
   await page.waitForSelector(propsButtonSel, timeout);
 
-  const isLocal = process.env.LOCAL_SMOKE === 'true';
+  const isLocal = process.env.CI !== 'true';
   const targetFilePath = isLocal
     ? join(__dirname, '../fixtures/components/text.tsx')
     : '/home/runner/work/jsx-email/jsx-email/jsx-email-tests/smoke-test/fixtures/components/text.tsx';

@@ -1,5 +1,6 @@
 import * as config from '../config.js';
 import { debug } from '../debug.js';
+import { log } from '../log.js';
 import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 export interface RowProps extends BaseProps<'table'> {}
@@ -13,6 +14,12 @@ export const Row: JsxEmailComponent<RowProps> = ({
   ...props
 }) => {
   const configDds = config.current().render.disableDefaultStyle;
+
+  if (props.cellPadding || props.cellSpacing) {
+    log.warn(
+      'Use of the `cellPadding` and `cellSpacing` properties are discouraged due to inconsistencies between email clients'
+    );
+  }
 
   return (
     <table

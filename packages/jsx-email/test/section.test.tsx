@@ -61,4 +61,13 @@ describe('<Section> component', async () => {
     const tdChildrenArr = actualOutput.match(/<td\s*.*?>.*?<\/td>/g);
     expect(tdChildrenArr).toHaveLength(1);
   });
+
+  it(`doesn't override cellPadding and cellSpacing`, async () => {
+    const actualOutput = await jsxToString(
+      <Section cellPadding={10} cellSpacing={10}>
+        <td>Lorem ipsum</td>
+      </Section>
+    );
+    expect(actualOutput).toMatchSnapshot();
+  });
 });

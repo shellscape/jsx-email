@@ -31,4 +31,11 @@ describe('<Row> component', async () => {
     const actualOutput = await jsxToString(<Row children={void 0} />);
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it(`doesn't override cellPadding and cellSpacing`, async () => {
+    const actualOutput = await jsxToString(
+      <Row cellPadding={10} cellSpacing={10} children={void 0} />
+    );
+    expect(actualOutput).toMatchSnapshot();
+  });
 });
