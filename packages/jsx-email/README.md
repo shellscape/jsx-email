@@ -50,9 +50,11 @@ A list of available components can be found on the [`jsx-email` Documentation](h
 The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. As such, we feel that `jsx-email` has a number of improvements and advantages over `react-email`. Those include:
 
 - [Email Client Compatibility Checking](https://jsx.email/docs/core/cli#client-compatibility-check)
+- Exclusive Components
+- Optional Configuration Files
+- Plugins
 - Crazy fast Tailwind support
 - Support for `<Suspense>` and `async` within Components
-- Exclusive Components
 - Enhanced Developer Experience (DX)
 - Better Command Line tools
 - Works with Monorepos out of the box. No exhaustive setup needed.
