@@ -28,7 +28,7 @@ const Email = () => {
 ```
 
 ::: info
-Though the `Container` component wraps a `<table>` element, it has a specific use-case and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Container` as a table, please consider using a `<table>` element or a combination of `Row` and `Column`.
+Though the `Container` component wraps a `<table>` element, it has a specific use-case and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Container` as a table, please consider using a `Section` component or a combination of `Row` and `Column`.
 :::
 
 ## Component Props
