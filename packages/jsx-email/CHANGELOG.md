@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.0.11
+
+_2024-10-16_
+
+### Bugfixes
+
+- jsx-email: prevent cellPadding, cellSpacing override (#223)
+
 ## v2.0.10
 
 _2024-10-15_
