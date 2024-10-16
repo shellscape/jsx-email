@@ -1,7 +1,7 @@
 import { debug } from '../debug.js';
 import type { BaseProps, JsxEmailComponent } from '../types.js';
 
-export interface SectionProps extends BaseProps<'table'> {}
+export interface SectionProps extends Omit<BaseProps<'table'>, 'cellPadding' | 'cellSpacing'> {}
 
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/section' } : {};
 

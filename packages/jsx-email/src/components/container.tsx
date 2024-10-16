@@ -2,7 +2,8 @@ import * as config from '../config.js';
 import { debug } from '../debug.js';
 import type { BaseProps, JsxEmailComponent } from '../types.js';
 
-export interface ContainerProps extends Omit<BaseProps<'table'>, 'align' | 'width'> {
+export interface ContainerProps
+  extends Omit<BaseProps<'table'>, 'align' | 'cellPadding' | 'cellSpacing' | 'width'> {
   alignment?: 'center' | 'left' | 'right';
   containerWidth?: number;
 }
@@ -30,11 +31,11 @@ export const Container: JsxEmailComponent<ContainerProps> = ({
         <table
           align={alignment}
           width="100%"
-          {...props}
           role="presentation"
           cellSpacing="0"
           cellPadding="0"
           border={0}
+          {...props}
           style={{
             ...(configDds || disableDefaultStyle ? {} : { maxWidth: `${containerWidth}px` }),
             ...style

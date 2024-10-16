@@ -46,4 +46,13 @@ describe('<Container> component', async () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  it(`doesn't override cellPadding and cellSpacing`, async () => {
+    const actualOutput = await jsxToString(
+      <Container cellPadding={10} cellSpacing={10} containerWidth={300}>
+        <button>Hi</button>
+      </Container>
+    );
+    expect(actualOutput).toMatchSnapshot();
+  });
 });

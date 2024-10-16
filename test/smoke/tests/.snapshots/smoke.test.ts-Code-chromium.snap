@@ -92,11 +92,11 @@
         <table
           align="center"
           width="100%"
-          class="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]"
           role="presentation"
           cellspacing="0"
           cellpadding="0"
           border="0"
+          class="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]"
           style="max-width:600px"
         >
           <tbody>
