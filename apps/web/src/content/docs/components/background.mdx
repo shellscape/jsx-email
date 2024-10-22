@@ -10,9 +10,12 @@ import Install from "@components/Install.mdx"
 <Install type={frontmatter.type}/>
 
 ## Usage
+
 Add the background component to your email template.
+
 ```jsx
 import { Body, Column, Html, Section } from 'jsx-email';
+
 const Email = () => {
   return (
     <Html lang="en">
@@ -27,7 +30,9 @@ const Email = () => {
   );
 };
 ```
+
 ## Component Props
+
 ```tsx
 interface BackgroundProps
   extends Omit<React.ComponentPropsWithoutRef<'td'>, 'height' | 'width' | 'bgcolor'> {
@@ -38,24 +43,34 @@ interface BackgroundProps
   width?: number;
 }
 ```
+
 ```tsx
 src: string;
 ```
+
 The path to the image
+
 ```tsx
 bgColor?: string;
 ```
+
 The hex code that represents the fallback `background-color` incase the image doesn't load
+
 ```tsx
 bgRepeat?: 'repeat' | 'no-repeat';
 ```
+
 A string that represents the value of `background-repeat`.
 Default value is `no-repeat`
+
 ```tsx
 height?: number;
 ```
+
 The `height` of the container in pixels
+
 ```tsx
 width?: number;
 ```
+
 The `width` of the container in pixels

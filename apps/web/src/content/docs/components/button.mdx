@@ -46,9 +46,11 @@ export interface ButtonProps extends BaseProps<'a'> {
   withBackground?: boolean;
 }
 ```
+
 :::tip
-It is **highly reccommended** to use the component props to set these values rather than css for **optimal email client compatibility** especially in Outlook clients
+It's **highly reccommended** for **optimal email client compatibility** to use the component props below to set styles, rather than CSS, the `style` property, or [`Tailwind`](/docs/components/tailwind) classes. This is especially important for Outlook.
 :::
+
 ```ts
 href?: string;
 ```
@@ -58,15 +60,21 @@ The url to navigate to when the button is clicked.
 ```ts
 width: number;
 ```
+
 Specifies the `width` of the Button in pixels
+
 ```ts
 height: number;
 ```
+
 Specifies the `height` of the Button in pixels
+
 ```ts
 align?: 'left' | 'center' | 'right';
 ```
+
 Specifies the horizontal alignment of the Button in the container. Default value is `left`
+
 ```ts
 target?: string;
 ```
@@ -76,30 +84,43 @@ Specifies the value of the `"target"` attribute for the button `target`.
 ```ts
 backgroundColor?: string;
 ```
+
 Specifies the hex value for the `background-color` of the button
+
 ```ts
 borderColor?: string;
 ```
+
 Specifies the hex value `border-color` for the button
+
 ```ts
 borderRadius?: number;
 ```
+
 Specifies the `border-radius` value for the button in pixels
+
 ```ts
 borderSize?: number;
 ```
+
 Specifies the `border-width` value in pixels
+
 ```ts
 fontSize?: number;
 ```
+
 Specifies the `font-size` value in pixels
+
 ```ts
 textColor?: string;
 ```
+
 Specifies the hex value for the `color` of the text
+
 ```ts
 withBackground?: boolean;
 ```
+
 Set to `true` if `Button` is nested in a `Background` component. Neccessary for good Outlook compatibility.
 
 :::tip

@@ -14,9 +14,12 @@ This component is wrapper around [QuickChart API](https://quickchart.io/) for ge
 <Install type={frontmatter.type}/>
 
 ## Usage
+
 Add the graph component to your email template.
+
 ```jsx
 import { Html, Body, Section, Graph } from 'jsx-email';
+
 const Email = () => {
   return (
     <Html lang="en">
@@ -44,31 +47,45 @@ const Email = () => {
   );
 };
 ```
+
 ## Component Props
+
 ```tsx
 config: ChartConfiguration & Record<string, any>;
 ```
+
 An object that contains the chart configuration settings, combining [ChartConfiguration](https://www.chartjs.org/docs/2.9.4/charts/) properties.
+
 :::tip
 You can play around with your chart configuration in this [playground](https://quickchart.io/sandbox)
 :::
+
 ```tsx
 title: string;
 ```
+
 This is a required string that provides the title of the graph.
+
 ```tsx
 background?: string;
 ```
+
 An optional string that sets the background color of the graph.
+
 ```tsx
 className?: string;
 ```
+
 This is optional string that applies a custom CSS class to the graph component for additional styling.
+
 ```tsx
 height?: number;
 ```
+
 This is an optional number that specifies the height of the graph in pixels.
+
 ```tsx
 width?: number;
 ```
+
 This is an optional number that specifies the width of the graph in pixels.
