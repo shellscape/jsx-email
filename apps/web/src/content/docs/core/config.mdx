@@ -5,7 +5,7 @@ description: 'Configuration'
 
 ## Configuring jsx-email
 
-When running `email` from the command line or programmatically using the [`render`](/docs/core/render) function, jsx-email will attempt to find and use a `jsx-email.config` file. jsx-email will traverse a directory structure looking for config files until it reaches a git repository root directory, or the OS's home directory. This is quite fast, and allows for scoping your configuration file at the filesystem level you'd like to. By default, jsx-email looks for configuration files with the following file extensions and locations:
+When running `email` from the command line or programmatically using the [`render`](/core/render) function, jsx-email will attempt to find and use a `jsx-email.config` file. jsx-email will traverse a directory structure looking for config files until it reaches a git repository root directory, or the OS's home directory. This is quite fast, and allows for scoping your configuration file at the filesystem level you'd like to. By default, jsx-email looks for configuration files with the following file extensions and locations:
 
 ```
 .config/jsx-emailrc.js
@@ -22,7 +22,7 @@ jsx-email.config.cjs
 jsx-email.config.mjs
 ```
 
-::: info
+:::info
 jsx-email does not currently support TypeScript, YAML, or JSON files.
 :::
 
@@ -88,7 +88,7 @@ _Optional_. Default: `info`. The level at which logs for jsx-email will appear i
 plugins?: JsxEmailPlugin[];
 ```
 
-_Optional_. An array of plugins; objects which contain a valid [`JsxEmailPlugin` definition](/docs/core/plugins).
+_Optional_. An array of plugins; objects which contain a valid [`JsxEmailPlugin` definition](/core/plugins).
 
 ```ts
 render?: RenderOptions;

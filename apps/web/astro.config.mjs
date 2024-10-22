@@ -34,6 +34,14 @@ export default defineConfig({
           autogenerate: { directory: 'core' }
         },
         {
+          label: 'Upgrade',
+          autogenerate: { directory: 'upgrade' }
+        },
+        {
+          label: 'Plugins',
+          autogenerate: { directory: 'plugins' }
+        },
+        {
           label: 'Components',
           autogenerate: { directory: 'components' }
         }

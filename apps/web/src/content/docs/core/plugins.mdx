@@ -11,9 +11,9 @@ description: 'Plugins'
 
 By default, `jsx-email` ships with `peerDependencies` on several plugins:
 
-- [`plugin-inline`](/docs/plugins/inline)
-- [`plugin-minify`](/docs/plugins/minify)
-- [`plugin-pretty`](/docs/plugins/pretty)
+- [`plugin-inline`](/plugins/inline)
+- [`plugin-minify`](/plugins/minify)
+- [`plugin-pretty`](/plugins/pretty)
 
 ### Authoring Plugins
 
@@ -29,7 +29,7 @@ export interface JsxEmailPlugin {
 }
 ```
 
-To instruct a render to use plugins, utilize a [Configuration File](/docs/core/config) and specify the `plugins` property:
+To instruct a render to use plugins, utilize a [Configuration File](/core/config) and specify the `plugins` property:
 
 ```js
 import { defineConfig } from 'jsx-email/config';
