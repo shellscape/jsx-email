@@ -5,13 +5,9 @@ sidebar:
   order: 3
 ---
 
-Use JSX email with an Email Provider of your choice.
+<p>{ frontmatter.description }</p>
 
-Using JSX email with email providers or integrations is as simple as rendering the template you've already built. Rendering transforms your template from JSX/TSX into HTML, and optionally plain text. That's accomplished with the [jsx-email `render`](/docs/core/render) method.
-
-:::note
-We're going to assume that you've made it through the [Quick Start Guide](/docs/quick-start) before arriving here, and have an email template to use._
-:::
+Using JSX email with email providers or integrations is as simple as rendering the template you've already built. Rendering transforms your template from JSX/TSX into HTML, and optionally plain text. That's accomplished with the [jsx-email `render`](/docs/core/render) method. _We're going to assume that you've made it through the [Quick Start Guide](/docs/quick-start) before arriving here, and have an email template to use._
 
 While JSX email can be used with just about any email provider that takes a string for content input, this page will demonstrate use with a few popular providers.
 
@@ -19,31 +15,35 @@ While JSX email can be used with just about any email provider that takes a stri
 
 ```tsx
 import { render } from 'jsx-email';
-import { SES } from '@aws-sdk/client-ses';
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 
 import { BatmanTemplate } from './emails/Batman.tsx';
 
-const ses = new SES({ region: process.env.AWS_SES_REGION });
-const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const ses = new SESv2Client({ region: process.env.AWS_SES_REGION });
+const html = await render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
 
-await ses.sendEmail({
-  Source: 'penguin@joker.us',
-  Destination: {
-    ToAddresses: ['bruce@wayneinc.com']
-  },
-  Message: {
-    Body: {
-      Html: {
-        Charset: 'UTF-8',
-        Data: html
-      }
+await ses.send(
+  new SendEmailCommand({
+    FromEmailAddress: 'penguin@joker.us',
+    Destination: {
+      ToAddresses: ['bruce@wayneinc.com']
     },
-    Subject: {
-      Charset: 'UTF-8',
-      Data: 'Did you get that thing I sent you?'
+    Content: {
+      Simple: {
+        Body: {
+          Html: {
+            Charset: 'UTF-8',
+            Data: html
+          }
+        },
+        Subject: {
+          Charset: 'UTF-8',
+          Data: 'Did you get that thing I sent you?'
+        }
+      }
     }
-  }
-});
+  })
+);
 ```
 
 ## Mailersend
@@ -119,7 +119,7 @@ client.sendEmail({
 
 ## Resend
 
-:::tip
+::: tip
 The `resend` package ships with support for `react-email` with its `react` property on `sendEmail`. However, `react-email` is fairly far behind `jsx-email` in terms of functionality, and its render method cannot process the advanced features in `jsx-email`. Because of that, users should run jsx-email's `render` method as shown below, to render html first, and pass that to the `sendEmail` function.
 :::
 

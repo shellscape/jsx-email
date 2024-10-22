@@ -1,13 +1,22 @@
 ---
-title: Introduction
+title: Introduction to JSX-email
 description: Build and send emails using React and TypeScript.
 sidebar:
   order: 1
+  label: Introduction
 ---
+
+<p>{ frontmatter.description }</p>
 
 JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients.
 
 The components handle the heavy lifting of compatibility and client inconsistency so designers and developers can focus on building impactful and engaging templates.
+
+## Migrating to Version 2.0.0
+
+Version 2 represents a big leap forward for the project, but it's not without a few bumps. As with most major version releases in the Node ecosystem, there are a few breaking changes (nothing major) and steps to be performed. Please read our [Migration Guide](https://jsx.email/docs/v2/migration).
+
+To browse the source code and documentation markdown for v1.12.1 please [click here](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
 
 ## Getting Started
 
@@ -17,14 +26,27 @@ Everything to know about the components, props, and usage is available within ou
 
 The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+
 
+<div>
+  <br/>
+	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/clients.svg" alt="JSX email" class="clients"/><br/>
+  Compatible with all modern email services
+  <br/><br/>
+</div>
+
+## Components
+
+A list of available components can be found on the [`jsx-email` Documentation](https://jsx.email/docs/introduction)
+
 ## Advantages Over `react-email`
 
 The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. As such, we feel that `jsx-email` has a number of improvements and advantages over `react-email`. Those include:
 
 - [Email Client Compatibility Checking](https://jsx.email/docs/core/cli#client-compatibility-check)
+- Exclusive Components
+- Optional Configuration Files
+- Plugins
 - Crazy fast Tailwind support
 - Support for `<Suspense>` and `async` within Components
-- Exclusive Components
 - Enhanced Developer Experience (DX)
 - Better Command Line tools
 - Works with Monorepos out of the box. No exhaustive setup needed.
