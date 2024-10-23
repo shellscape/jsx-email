@@ -5,24 +5,15 @@ type: core
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Image } from "astro:assets";
-import Preview_1 from "@assets/preview-1.png"
-import Preview_2 from "@assets/preview-2.png"
-import Preview_3 from "@assets/preview-3.png"
-import Preview_4 from "@assets/preview-4.png"
 import Install from "@components/Install.mdx"
 
 <p>{ frontmatter.description }</p>
 
 <Install type={frontmatter.type}/>
 
-Nearly all installations of this package will want it installed into `devDependencies` so please make sure to add the `-D` flag.
+## Command Line Interface
 
-## Usage
-
-Installing this package will add an `email` binary, which will be available to `pnpm exec`, `npx`, and `yarn`.
-
-Invoking the CLI without parameters or flags will produce help information in the console. From there, all of the functions of the CLI can be viewed, along with any applicable parameters and flags:
+The package provides an `email` CLI command that becomes available through package managers (`pnpm exec`, `npx`, or `yarn`). Here's the basic command structure:
 
 ```console
 → pnpm exec email
@@ -53,104 +44,73 @@ Examples
   $ email preview ./src/templates
 ```
 
-## Build
+## Available Commands
+
+### Build Command
+
+Build and compile email templates to HTML format:
+
+```console
+# Build entire directory
+email build ./emails
+
+# Build single template
+email build ./emails/Welcome.tsx
+```
 
 :::tip
 To view info, flags, and options for the `build` command, run `email help build`.
 :::
 
-The `build` command compiles and renders an email template to HTML for use with an email provider. The command takes a directory or single file as input:
+### Check Command
+
+Verify email client compatibility using [caniuse.com](https://caniemail.com/) data:
 
 ```console
-cd ~/code/email-app
-email build ./emails
+email check ./emails/Welcome.tsx
 ```
 
-Or for a single file:
-
+Example output shows compatibility issues:
 ```console
-cd ~/code/email-app
-email build ./emails/Batman.tsx
-```
+Checking email template for Client Compatibility...
 
-## Check
+Found 1 files:
+   ./emails/Welcome.tsx
+
+[...]
+
+Check Complete: 14 error(s), 20 warning(s)
+```
 
 :::tip
 To view info, flags, and options for the `check` command, run `email help check`.
 :::
 
-`jsx-email` can run a client compatibility check on any template, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client incompatibility issues. This check is incredibly helpful in diagnosing and debugging display issues between multiple email clients.
+### Preview Command
 
+Launch a development server to preview your email templates with these features:
+- Fast and lightweight preview environment
+- Built-in support for monorepos
+- Local static asset serving
+- Hot-reloading
+
+For a good example of how to handle local assets like images, please have a look at [the demo AirBnB template](https://github.com/shellscape/jsx-email/blob/main/apps/demo/emails/airbnb-review.tsx). Notice that `baseUrl` is set using a condition on `import.meta.isJsxEmailPreview`. That `import.meta` property is specific to `jsx-email` and will be replaced appropriately at build time. Local assets are served from the templates root directory, in this case `apps/demos/emails`, at the server root. So a `apps/demos/emails/batman.png` file would be served at `/batman.png` in the browser. We recommend using a `static` or `assets` directory in your templates root directory, so it's clear where files are being served from when viewing in the Preview Tool.
+
+Launch the preview server:
 ```console
-email check ./emails/Batman.tsx
+email preview ./emails
 ```
-
-Example output:
-
-```console
-Checking email template for Client Compatibility...
-
-Found 1 files:
-   ./emails/Batman.tsx
-
-Starting build...
-
-Build complete
-
-./emails/Batman.tsx
-
-  error  Class selector is not supported by:
-           gmail.mobile-webmail
-           protonmail.desktop-webmail
-           protonmail.ios
-
-  error  border-radius is not supported by:
-           outlook.windows
-           outlook.windows-mail
-
-  ...
-
-  warn  target attribute is only partially supported by:
-          apple-mail.macos
-          apple-mail.ios
-          outlook.windows
-          outlook.windows-mail
-          outlook.ios
-          outlook.android
-
-Check Complete: 14 error(s), 20 warning(s)
-```
-
-## Preview
 
 :::tip
 To view info, flags, and options for the `preview` command, run `email help preview`.
 :::
 
-JSX email ships with a Preview Tool as part of the CLI. Our Preview is fast, simple, and smooth. It doesn't require installing any crazy dependencies, downloading additional "clients," or copying your project's dependencies. It just works. And the best part: it works with monorepos out of the box.
+### Deploying Preview App
 
-The preview also supports static local assets. For a good example of how to handle local assets like images, please have a look at [the demo AirBnB template](https://github.com/shellscape/jsx-email/blob/main/apps/demo/emails/airbnb-review.tsx). Notice that `baseUrl` is set using a condition on `import.meta.isJsxEmailPreview`. That `import.meta` property is specific to `jsx-email` and will be replaced appropriately at build time. Local assets are served from the templates root directory, in this case `apps/demos/emails`, at the server root. So a `apps/demos/emails/batman.png` file would be served at `/batman.png` in the browser. We recommend using a `static` or `assets` directory in your templates root directory, so it's clear where files are being served from when viewing in the Preview Tool.
-
-To use the Preview Tool, open your terminal and navigate to your project. We're assuming you've already installed the CLI as shown above, and that you've already run `email create` to create an email in an `emails` directory.
-
-```console
-cd ~/code/email-app
-email preview ./emails
-```
-
-The Preview Tool will start up and open a new window in your browser, and you'll be presented with a page that looks like:
-
-<Image src={Preview_1} alt="Preview_1" />
-<Image src={Preview_2} alt="Preview_2" />
-<Image src={Preview_3} alt="Preview_3" />
-<Image src={Preview_4} alt="Preview_4" />
-
-## Deploying Your Preview App
-
-As part of the CLI, users have the ability to build their templates into a deployable preview app. The resulting app can be deployed anywhere, not just select service providers. To build templates into a deployable app, run:
+Create a deployable version of your preview environment:
 
 ```console
 email preview <templates-path> --build-path <build-path>
 ```
 
-where `<build-path>` is the path you want the build output files placed.
+This generates a standalone app that can be deployed to any hosting platform.

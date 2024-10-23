@@ -1,23 +1,31 @@
 ---
-title: 'Plugins'
-description: 'Plugins'
+title: Plugins
+description: Extend JSX-email functionality with plugins
+type: core
 ---
 
-## Plugins
+<p>{ frontmatter.description }</p>
 
-`jsx-email` supports plugins to modify the rendering pipeline according to need. A plugin might provide custom minifcation after rendering, or replace tokens in a template before rendering, for example. For implementation examples, please see the Core Plugins below.
+## Overview
 
-### Core Plugins
+JSX-email supports plugins to modify the rendering pipeline. Plugins can:
+- Provide custom minification after rendering
+- Replace tokens in templates before rendering
+- Modify HTML during processing
 
-By default, `jsx-email` ships with `peerDependencies` on several plugins:
+## Core Plugins
+
+JSX-email includes these plugins as `peerDependencies`:
 
 - [`plugin-inline`](/plugins/inline)
 - [`plugin-minify`](/plugins/minify)
 - [`plugin-pretty`](/plugins/pretty)
 
-### Authoring Plugins
+## Creating Plugins
 
-Plugins are extremely flexible in how they're provided to `jsx-email`. They can be the result of a local function, a file export, or a package export. Regardless of how a plugin is provided, all plugins are defined by a straightforward interface:
+### Plugin Interface
+
+All plugins must implement this interface:
 
 ```ts
 export interface JsxEmailPlugin {
@@ -29,7 +37,9 @@ export interface JsxEmailPlugin {
 }
 ```
 
-To instruct a render to use plugins, utilize a [Configuration File](/core/config) and specify the `plugins` property:
+### Using Plugins
+
+Add plugins in your [configuration file](/core/config):
 
 ```js
 import { defineConfig } from 'jsx-email/config';
@@ -40,45 +50,44 @@ export const config = defineConfig({
 });
 ```
 
-### Lifecycle Hooks
+## Hooks
 
-Plugins can affect a template at several different stages throughout the rendering process. The following hooks are supported, and are executed in the following order:
+### Hook Lifecycle
 
-- `afterRender`
-- `process`
-- `beforeRender`
+Plugins can interact with templates at different stages, executed in this order:
+1. `afterRender`
+2. `process`
+3. `beforeRender`
 
-Implemented hooks within plugins can be synchronous or asynchrounous and return a `Promise`. All hooks are exexcuted _after_ JSX is converted to HTML.
+All hooks:
+- Run after JSX to HTML conversion
+- Can be synchronous or asynchronous
+- Receive utility parameters:
+  ```ts
+  interface RenderHookParams {
+    chalk: typeof chalk;  // for colored console output
+    html: string;        // the template HTML
+    log: any;           // logging utility
+  }
+  ```
 
-Function definitions for both `afterRender` and `beforeRender` should match:
+### Hook Types
+
+Both `afterRender` and `beforeRender` use this function signature:
 
 ```ts
 (params: RenderHookParams) => string | Promise<string>;
 ```
 
-The `params` argument provided to these two hooks match the following definition:
+#### afterRender
+Runs after processing completes but before writing to disk. Useful for:
+- Final HTML modifications
+- Cleanup operations
+- Post-processing tasks
 
-```ts
-interface RenderHookParams {
-  chalk: typeof chalk;
-  html: string;
-  log: any;
-}
-```
+#### process
 
-As a convenience, all hooks are provided a `chalk` instance and a `log` utility for providing user feedback in the console.
-
-#### `afterRender`
-
-As the name suggests, this hook is run after the other hooks and after `render` is considered to be complete, but before the resulting HTML is written to disk.
-
-#### `beforeRender`
-
-This hook is run just before the HTML processing step is begun. It can be handy for replacing tokens in the HTML that may have an effect in the processing step or `afterRender` hooks.
-
-#### `process`
-
-The `process` hook is unique in that the return result from the hook function should return a [`rehype` Plugin](https://unifiedjs.com/learn/guide/create-a-rehype-plugin/). `jsx-email` uses [`rehype`](https://github.com/rehypejs/rehype) for compliant and _fast_ HTML processing and modification. The [`plugin-minify` Core Plugin](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) provides an example of such a `rehype` plugin. This hook runs between `beforeRender` and `afterRender`. The function definition for this hook should match:
+The `process` hook creates a [`rehype`](https://github.com/rehypejs/rehype) plugin for HTML processing:
 
 ```ts
 interface ProcessHookParams {
@@ -89,3 +98,11 @@ interface ProcessHookParams {
 (params: ProcessHookParams) =>
   RehypePlugin | RehypePreset | Promise<RehypePlugin> | Promise<RehypePreset>;
 ```
+
+See the [`plugin-minify`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) for an implementation example.
+
+#### beforeRender
+Runs before HTML processing begins. Useful for:
+- Token replacement
+- HTML preprocessing
+- Setup operations

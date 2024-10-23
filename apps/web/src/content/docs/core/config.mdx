@@ -1,13 +1,20 @@
 ---
-title: 'Configuration'
-description: 'Configuration'
+title: Configuration
+description: Configure JSX-email for your project
+type: core
 ---
 
-## Configuring jsx-email
+<p>{ frontmatter.description }</p>
 
-When running `email` from the command line or programmatically using the [`render`](/core/render) function, jsx-email will attempt to find and use a `jsx-email.config` file. jsx-email will traverse a directory structure looking for config files until it reaches a git repository root directory, or the OS's home directory. This is quite fast, and allows for scoping your configuration file at the filesystem level you'd like to. By default, jsx-email looks for configuration files with the following file extensions and locations:
+## Configuration File
 
-```
+JSX-email looks for a configuration file when running the `email` CLI command or using the [`render`](/core/render) function. The search starts from the current directory and moves up until it finds either a git repository root directory or the OS's home directory.
+
+### Supported File Names
+
+Configuration files can use any of these names and locations:
+
+```console
 .config/jsx-emailrc.js
 .config/jsx-emailrc.cjs
 .config/jsx-emailrc.mjs
@@ -26,14 +33,18 @@ jsx-email.config.mjs
 jsx-email does not currently support TypeScript, YAML, or JSON files.
 :::
 
-### Config File
+## Usage
 
-The most basic configuration file might look like this:
+### Basic Configuration
+
+Create a configuration file with the required `config` export:
 
 ```ts
 import { defineConfig } from 'jsx-email/config';
 
 export const config = defineConfig({
+  logLevel: 'info',
+  plugins: [],
   render: { minify: true }
 });
 ```
@@ -42,7 +53,7 @@ The named export `config` is required regardless of how the file is constructed.
 
 ### Intellisense
 
-Since jsx-email ships with TypeScript typings, you can leverage your IDE's intellisense with jsdoc type hints:
+Enable IDE intellisense using JSDoc type hints:
 
 ```ts
 /** @type {import('jsx-email/config').JsxEmailConfig} */
@@ -51,7 +62,7 @@ export const config = { ... };
 
 ### Async Configuration
 
-The `config` export inherently supports `Promise`. This is helpful when needing to perform other async operations before returning a value to the export. This can be done in a few ways:
+The configuration supports async operations in several ways:
 
 ```ts
 export const config = (async () => { ... })();
@@ -69,29 +80,36 @@ Alternatively, when using the `defineConfig` function, an async function may be 
 export const config = defineConfig(async () => {
   const data = await asyncFunction()
   return {
-    ...
+    // configuration options
   }
 });
 ```
 
-### Available Properties
+## Configuration Options
 
-jsx-email configuration files support the following properties:
+### Log Level (optional)
+Control the verbosity of console output:
 
 ```ts
 logLevel?: 'debug' | 'info' | 'warn' | 'error';
 ```
 
-_Optional_. Default: `info`. The level at which logs for jsx-email will appear in the terminal / console.
+Default: `info`
+
+### Plugins (optional)
+Add plugins to extend functionality:
 
 ```ts
 plugins?: JsxEmailPlugin[];
 ```
 
-_Optional_. An array of plugins; objects which contain a valid [`JsxEmailPlugin` definition](/core/plugins).
+See [`JsxEmailPlugin` documentation](/core/plugins) for more details.
+
+### Render (optional)
+Configure rendering behavior:
 
 ```ts
 render?: RenderOptions;
 ```
 
-_Optional_. The value specified will be merged with the [`render` function options](https://jsx.email/docs/core/render#method-options) when a render takes place. Please see the [`render` documentation](https://jsx.email/docs/core/render#method-options) for more details.
+These options merge with the [`render` function options](/core/render#method-options).
