@@ -1,0 +1,22 @@
+{
+	"name": "cloudflare",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"cf-typegen": "wrangler types",
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev ./src/index.tsx",
+		"start": "wrangler dev",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"jsx-email": "^2.0.11"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.5.2",
+		"@cloudflare/workers-types": "^4.20241011.0",
+		"typescript": "^5.5.2",
+		"vitest": "2.0.5",
+		"wrangler": "^3.60.3"
+	}
+}
