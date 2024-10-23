@@ -6,43 +6,66 @@ sidebar:
   label: FAQ
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 <p>{ frontmatter.description }</p>
 
 ## Dark and Light Mode
 
-Handling dark and light mode in emails is tricky, and doesn't work exactly like one would expect with relevant experience handling modes on the web. Gmail and Outlook on Windows in particular, have essentially no support for color switching. There's a lot of information (and misinformation) out there about dark and light mode when authoring emails, but we recommend taking a look at the following articles, which hit most of the important bits of info for authoring emails:
+Email clients handle dark/light mode differently than web browsers. Key considerations:
+- Gmail and Outlook Windows have limited color-switching support
+- Different handling than web development
 
-- https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers
-- https://web.dev/articles/color-scheme (crucial web development related dark mode info)
+Recommended resources:
+- [Ultimate Guide to Dark Mode for Email](https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers)
+- [Color Scheme Web Development Guide](https://web.dev/articles/color-scheme)
 
-## Deploying Your Preview App
+## Preview App Deployment
 
-Can I deploy my own preview app? Absolutely! The CLI has the ability to build a custom, deployable preview app using your templates. Please see [the documentation](/core/cli#deploying-your-preview-app) for more information.
+Yes, you can deploy your own preview app! Use the CLI to build a custom, deployable preview app with your templates.
+
+See [CLI Documentation](/core/cli#deploying-your-preview-app) for details.
 
 ## Gmail and Tailwind
 
-Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind/>` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail's rules.
+Gmail has strict CSS class restrictions. When using the `<Tailwind/>` component:
 
-## Monorepo Setup
+```jsx
+<Tailwind production={true}>
+  {/* Your email content */}
+</Tailwind>
+```
 
-`jsx-email` works out of the box with _nearly_ every monorepo setup. There are no additional or exhaustive setup steps to perform. Enjoy!
+Setting `production: true` ensures Gmail compatibility by hashing and combining class names.
 
-As an aside, `Nx` is just awful for monorepo tooling. Highly suggest using [Moon](https://moonrepo.dev/), [Turborepo](https://turbo.build/), or straight up [pnpm Workspaces](https://pnpm.io/workspaces).
+## Monorepo Support
 
-## Next.js `x await isn't allowed in non-async function` Build Errors
+JSX-email works natively with most monorepo setups without additional configuration.
 
-If you're a Next.js user and encountering an error when building your project which looks similar to:
+:::tip[Recommended Tools]
+Consider using:
+- [Moon](https://moonrepo.dev/)
+- [Turborepo](https://turbo.build/)
+- [pnpm Workspaces](https://pnpm.io/workspaces)
+:::
 
+## Next.js Build Issues
+
+### Error Description
+
+If you encounter this error during Next.js builds:
 ```
 8058.js from Terser
   x await isn't allowed in non-async function
 ```
 
-Then congratulations, you've been affected by Next.js using webpack, and some naughty configuration within Next.js. This is a [known issue with Next.js and Webpack](https://github.com/vercel/next.js/discussions/57535), and this may happen when a server action (or `use server`) is directly imported into a client component. To workaround this, there are two options:
+This is a [known issue with Next.js and Webpack](https://github.com/vercel/next.js/discussions/57535) related to server actions in client components.
 
-### I. Change imports
+### Solutions
 
-You can import the server action into a server component first, and then pass it into your client component as a prop. For example:
+#### Option 1: Restructure Imports
+
+Pass server actions through props:
 
 ```jsx
 // page.jsx
@@ -52,14 +75,18 @@ import { myEmailAction } from './myEmailAction';
 export async function Page() {
   return <MyForm action={myEmailAction} />;
 }
+```
 
+```jsx
 // MyForm.jsx
 'use client';
 export function MyForm({ action }) {
   // Note the passing of `action` as a prop
   return <form action={action}>...</form>;
 }
+```
 
+```jsx
 // myEmailAction.js
 'use server';
 import { render } from 'jsx-email';
@@ -67,13 +94,13 @@ import { MyEmail } from '@/emails/MyEmail';
 
 export async function myEmailAction() {
   const body = await render(<MyEmail />);
-  ...
+  // ...
 }
 ```
 
-### II. Disable ESM Externals
+#### Option 2: Disable ESM Externals
 
-Alternatively, you can also turn off `esmExternals` in `next.config.js` which will allow you to keep importing server actions which use `jsx-email` into client components:
+Modify `next.config.js`:
 
 ```js
 /** @type {import('next').NextConfig} */
@@ -86,17 +113,25 @@ const nextConfig = {
 module.exports = nextConfig;
 ```
 
-## I have another question that isn't answered here!
+## Need More Help?
 
-If you have a question that isn't answered here, please [open an issue](https://github.com/shellscape/jsx-email/issues), start a [Discussion](https://github.com/shellscape/jsx-email/discussions), or [join our friendly Discord](https://discord.gg/FywZN57mTg) and ask away!
+If your question isn't covered here:
 
-If your question relates to a bug or code issue, we really do need you to create a minimal reproduction. Without a reproduction it is nearly impossible for us to work out what whether the problem might be in your code, your individual setup, or a bug in JSX email! The reproduction helps everyone by ensuring we're all working with the same information.
+<Steps>
 
-The reproduction should be a small, self-contained project. Try and narrow it down to just demonstrating what is causing the issue.
+1. Check these resources:
+   - [Open an issue](https://github.com/shellscape/jsx-email/issues)
+   - [Start a Discussion](https://github.com/shellscape/jsx-email/discussions)
+   - [Join our Discord](https://discord.gg/FywZN57mTg)
 
-It's easy to do, and you can either:
+2. For code issues, provide a reproduction:
+   - Use [jsx-email-repro template](https://stackblitz.com/fork/jsx-email-repro)
+   - Or create a [minimal repository](https://gist.github.com/Rich-Harris/88c5fc2ac6dc941b22e7996af05d70ff)
 
-- Use the [`jsx-email-repro` StackBlitz reproduction template](https://stackblitz.com/fork/jsx-email-repro); or
-- Provide a minimal repository link. Read [this gist](https://gist.github.com/Rich-Harris/88c5fc2ac6dc941b22e7996af05d70ff) for instructions.
+3. Include reproduction link with your question
 
-Include the reproduction link with your question, and we'll be happy to help!
+</Steps>
+
+:::tip
+A minimal reproduction helps us identify if the issue is in your code, setup, or JSX-email itself.
+:::

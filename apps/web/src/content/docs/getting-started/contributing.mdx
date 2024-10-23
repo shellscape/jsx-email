@@ -5,57 +5,106 @@ sidebar:
   order: 5
 ---
 
-## Contributing in this repository
+import { Steps } from '@astrojs/starlight/components';
 
-We 💛 contributions! The rules for contributing to this org are few:
+<p>{ frontmatter.description }</p>
 
-1. Don't be a jerk
-1. Search issues before opening a new one
-1. Lint and run tests locally before submitting a PR
-1. Adhere to the code style the project has chosen
+## Guidelines
 
-## Repo Info
+We 💛 contributions! Please follow these basic rules:
 
-The `jsx-email` repository is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) that uses two primary tools; [`pnpm`](https://pnpm.io/) and [`Moon`](https://moonrepo.dev/). `pnpm` is used for package management and [workspace management](https://pnpm.io/workspaces) of the repo. `Moon` is used as our task runner for the repo - all commands to work with the packages and code in the repo go through `Moon`. We also assume that you have Node.js installed, because this is a project that leverages React.
+1. Be respectful and professional
+2. Search existing issues before creating new ones
+3. Test and lint code locally before submitting
+4. Follow the project's code style
 
-### Getting Started
+## Repository Setup
 
-If you're new to either `pnpm` or `Moon` you'll want to run the `bootstrap.sh` script first. It will install everything you'll need to get started, and bootstrap your environment:
+JSX-email uses a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) structure with:
+- [`pnpm`](https://pnpm.io/) for package and workspace management
+- [`Moon`](https://moonrepo.dev/) for task running and build orchestration
 
-```console
-./shared/bootstrap.sh
-```
+### Prerequisites
 
-Next we'll want to get dependencies installed, and get everything built. _(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don't technically have to install dependencies first)_:
+- Node.js v18.0.0 or higher ([NVM](https://github.com/creationix/nvm) recommended)
+- Basic familiarity with React
 
-```console
-pnpm install
-```
+### Development Setup
 
-Then build all the things:
+<Steps>
 
-```console
-moon repo:build.all
-```
+1. Bootstrap your environment:
 
-## Before Committing
+    ```console
+    ./shared/bootstrap.sh
+    ```
 
-1. Use at least Node.js v18.0.0 or higher. [NVM](https://github.com/creationix/nvm) can be handy for switching between Node versions.
-1. Lint your changes via `moon run repo:lint`. Fix any errors and warnings before committing.
-1. Test your changes via `moon run repo:test`. Only Pull Requests with passing tests will be accepted.
+2. Install dependencies:
 
-## Submitting Code
+    ```console
+    pnpm install
+    ```
 
-Any code change should be submitted as a pull request. Our guidelines for Pull Requests:
+3. Build all packages:
 
-- Please fill in our template in its entirety. Please don't reformat it or modify it
-- The description should explain what the code does and give steps to execute it
-- The pull request should also contain tests
-- Before submitting your Pull Request, please lint your changes by running `moon run repo:lint` in the root directory
-- If any checks fail for your Pull Request, please resolve them. Always feel free to ask for help if unable to resolve issues with checks
+    ```console
+    moon repo:build.all
+    ```
 
-## Code Review Process
+</Steps>
 
-The bigger the pull request, the longer it will take to review and merge. Try to break down large pull requests in smaller chunks that are easier to review and merge.
+## Development Workflow
 
-It is also always helpful to have some context for your pull request. What was the purpose? Why does it matter to you? Does it resolve any known Github issues? Adding a line "resolves #&lt;issue number&gt;" (e.g. "resolves #23") to the description of your pull request or of a specific commit will automatically close this issue once the pull request is merged.
+### Before Committing
+
+<Steps>
+
+1. Lint your changes:
+
+    ```console
+    moon run repo:lint
+    ```
+
+2. Run tests:
+
+    ```console
+    moon run repo:test
+    ```
+
+3. Fix any errors or warnings before committing
+
+</Steps>
+
+## Pull Requests
+
+### Submission Guidelines
+
+1. **Template Usage**
+   - Fill in the PR template completely
+   - Don't modify the template format
+
+2. **Description**
+   - Explain what the code does
+   - Provide steps to test/execute
+   - Include relevant test cases
+
+3. **Quality Checks**
+   - Ensure all tests pass
+   - Fix any lint errors
+   - Resolve failing checks
+
+4. **Issue Resolution**
+   - Link related issues using "resolves #[issue number]"
+   - Example: "resolves #23"
+
+### Review Process
+
+For faster reviews:
+- Break large changes into smaller PRs
+- Provide clear context and motivation
+- Explain why the change matters
+- Link to relevant issues or discussions
+
+:::tip
+Smaller, focused pull requests are typically reviewed and merged faster than large ones.
+:::

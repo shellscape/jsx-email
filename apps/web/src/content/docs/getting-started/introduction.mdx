@@ -1,6 +1,6 @@
 ---
 title: Introduction to JSX-email
-description: Build and send emails using React and TypeScript.
+description: Build and send emails using React and TypeScript
 sidebar:
   order: 1
   label: Introduction
@@ -8,71 +8,90 @@ sidebar:
 
 <p>{ frontmatter.description }</p>
 
-JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients.
+## Overview
 
-The components handle the heavy lifting of compatibility and client inconsistency so designers and developers can focus on building impactful and engaging templates.
+JSX-email provides React components and helpers for building responsive email templates. Key features:
+- Modern email client compatibility
+- Handles cross-client inconsistencies
+- Focus on developer experience
+- Compatible with all modern email services
 
-## Migrating to Version 2
-
-Version 2 represents a big leap forward for the project, but it's not without a few bumps. As with most major version releases in the Node ecosystem, there are a few breaking changes (nothing major) and steps to be performed. Please read our [Migration Guide](upgrade/v2).
-
-To browse the source code and documentation markdown for v1.12.1 please [click here](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
-
-## Getting Started
-
-Everything to know about the components, props, and usage is available within our [Documentation Site](/introduction). Please give that a read and let us know if there's anything we can help with.
+<div>
+	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/clients.svg" alt="JSX email" class="clients"/>
+</div>
 
 ## Requirements
 
-The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+
+- Node.js: [LTS version](https://github.com/nodejs/Release) (v18.0.0+)
+- React: v18.2.0+
 
-<div>
-  <br/>
-	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/clients.svg" alt="JSX email" class="clients"/><br/>
-  Compatible with all modern email services
-  <br/><br/>
-</div>
+## Version 2 Migration
 
-## Components
+Version 2 introduces significant improvements with some breaking changes. See our [Migration Guide](/upgrade/v2) for:
+- Upgrade steps
+- Breaking changes
+- New features
 
-A list of available components can be found on the [`jsx-email` Documentation](/introduction)
+:::note
+For v1.12.1 documentation, see the [legacy documentation](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
+:::
 
-## Advantages Over `react-email`
+## Key Features
 
-The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. As such, we feel that `jsx-email` has a number of improvements and advantages over `react-email`. Those include:
+### Client Compatibility
+- [Email client compatibility checking](/core/cli#check)
+- Cross-client style consistency
+- Modern email service support
 
-- [Email Client Compatibility Checking](/core/cli#check)
-- Exclusive Components
-- Optional Configuration Files
-- Plugins
-- Crazy fast Tailwind support
-- Support for `<Suspense>` and `async` within Components
-- Enhanced Developer Experience (DX)
-- Better Command Line tools
-- Works with Monorepos out of the box. No exhaustive setup needed.
-- Less complex, smoother Preview Server
-- Faster improvements, feature development, and releases
-- Community-driven maintenance rather than company-planning priority
-- No vendor lock-in for tools. `jsx-email` uses only generic components and tools
+### Developer Experience
+- Optional configuration files
+- Plugin system
+- Fast Tailwind support
+- `<Suspense>` and `async` component support
+- Enhanced CLI tools
+- Native monorepo support
+- Streamlined preview server
 
-## Service Integrations
+### Community Focus
+- Community-driven maintenance
+- Rapid feature development
+- No vendor lock-in
+- Generic components and tools
 
-Email built and rendered with JSX email can be used with any email provider that provides an API for sending email as a `String`.
-This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), [Plunk](https://www.useplunk.com/), and [SendGrid](https://sendgrid.com). See our documentation on [Email Providers](/email-providers) for more info and example usage.
+## Service Integration
 
-## Contributing, Working With This Repo
+JSX-email works with any email provider accepting HTML string content:
 
-We 💛 contributions! After all, this is a community-driven project. We have no corporate sponsorship or backing. The maintainers and users keep this project going!
+- [AWS SES](https://aws.amazon.com/ses)
+- [Loops](https://loops.so)
+- [Nodemailer](https://nodemailer.com)
+- [Postmark](https://postmarkapp.com)
+- [Resend](https://resend.com)
+- [Plunk](https://www.useplunk.com/)
+- [SendGrid](https://sendgrid.com)
 
-Please check out our [Contribution Guide](https://github.com/shellscape/jsx-email/blob/main/CONTRIBUTING.md).
+See [Email Providers](/getting-started/email-providers) for implementation examples.
+
+## Contributing
+
+We 💛 contributions! This is a community-driven project with:
+- No corporate sponsorship
+- Community-maintained codebase
+- User-driven development
+
+To contribute, see our [contribution guide](/getting-started/contributing)!
 
 ## Attribution 🧡
 
-This project was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
+JSX-email is a fork of `react-email`, originally created by:
+- Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
+- Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
 
-`jsx-email` is a fork of `react-email`.
-
-We (the maintainers) use JSX email daily. This fork was originally created as a canary channel for fixes from pull requests and issues that had been left unaddressed. JSX email grew faster, and the upstream team didn't give the project the love we felt it needed. When our help wasn't accepted, we felt a new direction was warranted.
+### Fork History
+This fork began as a canary channel for unaddressed fixes and evolved into a separate project due to:
+- Need for faster improvements
+- Community-driven development focus
+- Different maintenance priorities
 
 ## License
 
