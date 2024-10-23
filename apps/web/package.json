@@ -1,20 +1,17 @@
 {
   "name": "docs",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "astro": "astro",
     "build": "astro check && astro build",
     "dev": "astro dev",
-    "preview": "astro preview",
-    "start": "astro dev"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/starlight": "^0.27.1",
-    "@octokit/rest": "21.0.2",
     "astro": "^4.15.6",
-    "sharp": "^0.32.6",
     "typescript": "^5.6.2"
   }
 }
