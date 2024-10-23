@@ -1,0 +1,40 @@
+---
+title: Inline CSS Plugin
+description: Convert CSS classes to inline styles for better email client compatibility
+type: plugin
+---
+
+<p>{ frontmatter.description }</p>
+
+## Overview
+
+The `@jsx-email/plugin-inline` plugin converts CSS classes to inline styles, ensuring consistent styling across email clients.
+
+:::note[Automatic Loading]
+This plugin is a `peerDependency` of `jsx-email` and loads automatically when the [`inline` render option](/core/render#method-options) is enabled.
+:::
+
+## How It Works
+
+Converts class-based styles to inline styles:
+
+```html title="Before"
+<style>
+  .batman { border: 1px solid black; }
+</style>
+<div class="batman">batcave</div>
+```
+
+```html title="After"
+<div style="border: 1px solid black">batcave</div>
+```
+
+## Performance Considerations
+
+:::caution[Size Impact]
+Inlined CSS increases HTML size significantly. Monitor console output for size warnings to avoid email clipping in clients like Gmail.
+:::
+
+## Resources
+- [Source Code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline)
+- [Understanding Inline Styles](https://www.codecademy.com/article/html-inline-styles)
