@@ -2,10 +2,10 @@
 title: V2 Upgrade guide
 description: Upgrading to v2
 sidebar:
-  label: V2
+  label: Version 2
 ---
 
-Version 2.0.0 of `jsx-email` brings a lot of changes to the package, specifically breaking changes. There are also a whole host of new features.
+Version 2 of `jsx-email` brings a lot of changes to the package, specifically breaking changes. There are also a whole host of new features.
 
 ## New Features
 
@@ -76,7 +76,8 @@ However, one big potentially breaking change is around the `style` property. If 
 
 All that said, if the upgrade is too much heavy lifting, we're shipping the deprecated `Butan` and cheeky component which provides a fast find-and-replace path for continuing to use the original `Button` component. This component won't be documented beyond mentioning the legacy behavior and rendering, and will be removed in the next major version.
 
-:::note: The Butan component is now deprecated and will be removed in the next major version. We strongly recommend migrating to the new Button component to ensure future compatibility.
+:::note
+The Butan component is now deprecated and will be removed in the next major version. We strongly recommend migrating to the new Button component to ensure future compatibility.
 :::
 
 To take full advantage of the new Button, we strongly recommend using the provided component props (see the Button docs or the details below) to set styles. Avoid using `CSS`, the `style` property, or `Tailwind` classes, as this ensures better compatibility with Outlook and older email clients.
