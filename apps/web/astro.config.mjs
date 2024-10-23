@@ -19,6 +19,10 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/shellscape/jsx-email/edit/main/'
       },
+      tableOfContents: {
+        minHeadingLevel: 1,
+        maxHeadingLevel: 4
+      },
       sidebar: [
         {
           label: 'Getting started',
@@ -32,10 +36,6 @@ export default defineConfig({
         {
           label: 'Core',
           autogenerate: { directory: 'core' }
-        },
-        {
-          label: 'Upgrade',
-          autogenerate: { directory: 'upgrade' }
         },
         {
           label: 'Plugins',
