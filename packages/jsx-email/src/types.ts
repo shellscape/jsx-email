@@ -1,3 +1,4 @@
+import type { BuildOptions } from 'esbuild';
 import type { HtmlToTextOptions } from 'html-to-text';
 import type React from 'react';
 
@@ -5,6 +6,10 @@ export type BaseProps<TElement extends React.ElementType> =
   React.ComponentPropsWithoutRef<TElement> & {
     disableDefaultStyle?: boolean;
   };
+
+export interface ESBuildOptions {
+  plugins: BuildOptions['plugins'];
+}
 
 export type JsxEmailComponent<TProps extends BaseProps<any>> = React.FC<Readonly<TProps>>;
 
