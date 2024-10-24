@@ -79,6 +79,18 @@ export const config = defineConfig(async () => {
 jsx-email configuration files support the following properties:
 
 ```ts
+esbuild?: {
+  plugins?: Plugin[]
+}
+```
+
+_Optional_. Default: `undefined`. Allows the configuration file to specify [ESBuild Plugins](https://esbuild.github.io/plugins) to use during the initial transform from JSX/TSX to JavaScript for the `build` and `preview` commands.
+
+::: note
+ESBuild plugins are only run when using the CLI's `build` or `preview` commands. ESBuild, and by extension the `esbuild` configuration option, are not used when using `render` directly in code
+:::
+
+```ts
 logLevel?: 'debug' | 'info' | 'warn' | 'error';
 ```
 

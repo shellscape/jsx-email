@@ -16,6 +16,7 @@ import type { CommandFn } from './commands/types.mjs';
 // @ts-expect-error
 // eslint-disable-next-line
 import { originalCwd } from './helpers.mjs';
+import { loadConfig } from '../config.js';
 
 const commands: Record<string, CommandFn> = { build, check, create, help, preview };
 
@@ -38,6 +39,7 @@ const run = async () => {
 
   if (!command) command = help;
 
+  await loadConfig();
   const input = (positionals.slice(1) as string[]) || [];
   const result = await command(flags, input);
 

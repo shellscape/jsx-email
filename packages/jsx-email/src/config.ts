@@ -7,9 +7,10 @@ import type { MethodFactoryLevels } from '@dot/log';
 import { getPluginLog, log } from './log.js';
 // @ts-ignore
 import { pluginSymbol, type JsxEmailPlugin, type PluginInternal } from './plugins.js';
-import type { RenderOptions } from './types.js';
+import type { ESBuildOptions, RenderOptions } from './types.js';
 
 export interface JsxEmailConfig {
+  esbuild?: ESBuildOptions;
   logLevel?: MethodFactoryLevels;
   plugins: JsxEmailPlugin[];
   render: RenderOptions;
@@ -176,6 +177,8 @@ export const loadConfig = async (startDir?: string): Promise<JsxEmailConfig> => 
     ],
     ...(startDir ? { startDir } : {})
   }).search();
+
+  log.debug('loadConfig →', { cwd: process.cwd(), searchResult, startDir });
 
   const exports: ConfigExports = searchResult?.config ?? {};
   const intermediate = exports.config instanceof Promise ? await exports.config : exports.config;

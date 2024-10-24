@@ -19,6 +19,7 @@ import { log } from '../../log.js';
 import { formatBytes, gmailByteLimit, originalCwd } from '../helpers.mjs';
 
 import type { CommandFn, TemplateFn } from './types.mjs';
+import { loadConfig } from '../../config.js';
 
 const BuildCommandOptionsStruct = object({
   exclude: optional(string()),
@@ -143,6 +144,10 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
 };
 
 const compile = async (options: CompileOptions) => {
+  const config = await loadConfig();
+
+  console.log({ config });
+
   const { files, outDir, writeMeta } = options;
   const { metafile } = await esbuild.build({
     bundle: true,
@@ -156,7 +161,8 @@ const compile = async (options: CompileOptions) => {
     metafile: true,
     outdir: outDir,
     platform: 'node',
-    write: true
+    write: true,
+    ...config.esbuild
   });
 
   const affectedFiles = Object.keys(metafile.outputs);
