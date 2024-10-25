@@ -7,17 +7,16 @@ import Install from "@components/Install.mdx"
 
 <p>{ frontmatter.description }</p>
 
-:::tip
-This component is required VML in outlook compatibility for adding elements such as `<style>` and `meta` directly to the document
-:::
-
 <Install type={frontmatter.type}/>
+
+:::note[Outlook Compatibility]
+Required for VML compatibility in Outlook when using elements like `<style>` and `<meta>`.
+:::
 
 ## Usage
 
-Add the component to your email template. Include children tags where needed.
-
-```jsx
+```jsx "Head"
+// HeadExample.jsx
 import { Head } from 'jsx-email';
 
 const Email = () => {
@@ -29,21 +28,27 @@ const Email = () => {
 };
 ```
 
-## Component Props
+:::tip[Common Usage]
+Place metadata, styles, and format detection settings in the `Head` component.
+:::
 
+## Props
+
+### TypeScript Interface
 ```tsx
 export interface HeadProps extends BaseProps<'head'> {
   enableFormatDetection?: boolean;
 }
 ```
 
-```tsx
+### Optional Props
+
+#### enableFormatDetection
+```ts
 enableFormatDetection?: boolean;
 ```
+Controls the `format-detection` meta tag. Defaults to `false`.
 
-This is used to disable the `format-detection` meta (will be useful for some very specific use-cases)
-Default value is `false`
+### Additional Props
 
-:::tip
 This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'head'>`.
-:::
