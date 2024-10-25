@@ -7,17 +7,16 @@ import Install from "@components/Install.mdx"
 
 <p>{ frontmatter.description }</p>
 
-:::tip
-This component is wrapper around [QuickChart API](https://quickchart.io/) for generating email compatible charts
-:::
-
 <Install type={frontmatter.type}/>
+
+:::note[API Integration]
+This component uses [QuickChart API](https://quickchart.io/) to generate email-compatible charts.
+:::
 
 ## Usage
 
-Add the graph component to your email template.
-
-```jsx
+```jsx "Graph"
+// GraphExample.jsx
 import { Html, Body, Section, Graph } from 'jsx-email';
 
 const Email = () => {
@@ -48,44 +47,48 @@ const Email = () => {
 };
 ```
 
-## Component Props
-
-```tsx
-config: ChartConfiguration & Record<string, any>;
-```
-
-An object that contains the chart configuration settings, combining [ChartConfiguration](https://www.chartjs.org/docs/2.9.4/charts/) properties.
-
-:::tip
-You can play around with your chart configuration in this [playground](https://quickchart.io/sandbox)
+:::tip[Chart Configuration]
+Test your chart configurations in the [QuickChart playground](https://quickchart.io/sandbox).
 :::
 
-```tsx
+## Props
+
+### Required Props
+
+#### config
+```ts
+config: ChartConfiguration & Record<string, any>;
+```
+Chart configuration object following [Chart.js v2.9.4](https://www.chartjs.org/docs/2.9.4/charts/) format.
+
+#### title
+```ts
 title: string;
 ```
+Graph title.
 
-This is a required string that provides the title of the graph.
+### Optional Props
 
-```tsx
+#### background
+```ts
 background?: string;
 ```
+Graph background color.
 
-An optional string that sets the background color of the graph.
-
-```tsx
+#### className
+```ts
 className?: string;
 ```
+Custom CSS class for additional styling.
 
-This is optional string that applies a custom CSS class to the graph component for additional styling.
-
-```tsx
+#### height
+```ts
 height?: number;
 ```
+Graph height in pixels.
 
-This is an optional number that specifies the height of the graph in pixels.
-
-```tsx
+#### width
+```ts
 width?: number;
 ```
-
-This is an optional number that specifies the width of the graph in pixels.
+Graph width in pixels.
