@@ -11,42 +11,50 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
-import { Button, Html } from 'jsx-email';
+```jsx "Html"
+// HtmlExample.jsx
+import { Body, Head, Html } from 'jsx-email';
 
 const Email = () => {
   return (
     <Html lang="en" dir="ltr">
-      <Button href="https://example.com" style={{ color: '#61dafb' }}>
-        Click me
-      </Button>
+      <Head>
+        <title>Email Title</title>
+      </Head>
+      <Body>
+        Email content
+      </Body>
     </Html>
   );
 };
 ```
 
-## Component Props
+:::note[VML Support]
+By default, includes VML namespace attributes for Outlook compatibility.
+:::
 
-```ts
-lang?: string;
-```
+## Props
 
-Identify the language of text content on the email
+### Optional Props
 
+#### dir
 ```ts
 dir?: string;
 ```
+Text direction for email content.
 
-Identify the direction of text content on the email
+#### lang
+```ts
+lang?: string;
+```
+Language identifier for email content.
 
+#### enableVML
 ```ts
 enableVML?: boolean;
 ```
-This is used the `xmlns:o` and `xmlns:v` attributes to the `html` element for maximum VML compatibility
-Default value is `true`
+Controls VML namespace attributes. Defaults to `true`.
 
-:::tip
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.
-:::
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.
