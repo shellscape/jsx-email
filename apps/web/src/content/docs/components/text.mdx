@@ -11,9 +11,8 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
+```jsx "Text"
+// TextExample.jsx
 import { Text } from 'jsx-email';
 
 const Email = () => {
@@ -21,14 +20,16 @@ const Email = () => {
 };
 ```
 
-## Component Props
+## Props
 
+### Optional Props
+
+#### disableDefaultStyle
 ```ts
 disableDefaultStyle?: boolean;
 ```
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
 
-If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+### Additional Props
 
-:::tip
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'p'>`.
-:::
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'p'>`.
