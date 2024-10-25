@@ -1,6 +1,6 @@
 ---
-title: Image
-description: Displays an image
+title: Img (Image)
+description: Displays an image in email templates
 type: component
 ---
 import Install from "@components/Install.mdx"
@@ -11,73 +11,69 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
+```jsx "Img"
+// ImgExample.jsx
 import { Img } from 'jsx-email';
 
-const Email = () => {
-  return <Img src="cat.jpg" alt="Cat" width="300" height="300" />;
-};
-```
-
-:::tip
-All email clients can display `.png`, `.gif`, and `.jpg` images.
-Unfortunately, `.svg` images are not well supported, regardless of how they're
-referenced, so avoid using these. See [Can I
-Email](https://www.caniemail.com/features/image-svg/) for more information.
-:::
-
-:::tip
-To use local images during development, place the images in your templates directory. We recommend using a `assets/` or `static/` subdirectory. Images can then be accessed from the server root.
-Just remember, for production, you'll need to host the images somewhere and
-reference them with a URL.
-
-```jsx
-import { Img } from 'jsx-email';
-
-const baseUrl = import.meta.isJsxEmailPreview ?
+const baseUrl = import.meta.isJsxEmailPreview
   ? '/assets/'
   : 'https://assets.example.com/';
 
 const Email = () => {
-  return <Img src={`${baseUrl}cat.jpg`} alt="Cat" width="300" height="300" />;
+  return (
+    <Img 
+      src={`${baseUrl}cat.jpg`} 
+      alt="Cat picture" 
+      width="300" 
+      height="300" 
+    />
+  );
 };
 ```
+
+:::caution[Image Format Support]
+- Supported: `.png`, `.gif`, `.jpg`
+- Not supported: `.svg` - [see compatibility](https://www.caniemail.com/features/image-svg/)
 :::
 
-## Component Props
+:::tip[Local Development]
+Place images in an `assets/` or `static/` directory within your templates folder. For production, use hosted image URLs.
+:::
 
-```ts
-alt?: string;
-```
+## Props
 
-Alternate description for an image
+### Optional Props
 
-```ts
-disableDefaultStyle?: boolean;
-```
-
-If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
-
-```ts
-height?: string;
-```
-
-The height of an image in pixels
-
+#### src
 ```ts
 src?: string;
 ```
+Path or URL to the image.
 
-The path to the image
+#### alt
+```ts
+alt?: string;
+```
+Alternative text description for accessibility.
 
+#### disableDefaultStyle
+```ts
+disableDefaultStyle?: boolean;
+```
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+#### height
+```ts
+height?: string;
+```
+Image height in pixels.
+
+#### width
 ```ts
 width?: string;
 ```
+Image width in pixels.
 
-The width of an image in pixels
+### Additional Props
 
-:::tip
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`.
-:::
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`.
