@@ -11,42 +11,45 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
+```jsx "Code"
+// CodeExample.jsx
 import { Code } from 'jsx-email';
 
 const Email = () => {
   return (
-    <Code>
+    <Code language="javascript">
       {`
-      import { batman } from 'superheros';
-      import { joker } from 'villains';
+        import { batman } from 'superheros';
+        import { joker } from 'villains';
 
-      const henchmen = joker.help();
+        const henchmen = joker.help();
 
-      batman.fight(henchmen);
-      batman.arrest(joker);
-    `}
+        batman.fight(henchmen);
+        batman.arrest(joker);
+      `}
     </Code>
   );
 };
 ```
 
-## Component Props
+## Props
 
+### Required Props
+
+#### language
 ```ts
 language: string;
 ```
+Syntax highlighting language. See [`shiki` supported languages](https://github.com/shikijs/shiki/blob/main/docs/languages.md).
 
-Specifies the language to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/languages.md) for more information on supported languages.
+### Optional Props
 
+#### theme
 ```ts
 theme?: string;
 ```
+Color theme for syntax highlighting. Defaults to `'nord'`. See [`shiki` themes documentation](https://github.com/shikijs/shiki/blob/main/docs/themes.md).
 
-_Optional_. Defaults to `'nord'`. Specifies the theme to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/themes.md) for more information on supported themes, modifying themes, and how to make your own.
+### Additional Props
 
-:::tip
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'pre'>`.
-:::
