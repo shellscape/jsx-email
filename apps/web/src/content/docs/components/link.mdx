@@ -11,36 +11,43 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
+```jsx "Link"
+// LinkExample.jsx
 import { Link } from 'jsx-email';
 
 const Email = () => {
-  return <Link href="https://example.com">Example</Link>;
+  return (
+    <>
+      <Link href="https://example.com">Website Link</Link>
+    </>
+  );
 };
 ```
 
-## Component Props
+## Props
 
-```ts
-disableDefaultStyle?: boolean;
-```
+### Required Props
 
-If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
-
+#### href
 ```ts
 href: string;
 ```
+URL for the link.
 
-Link to be triggered when the button is clicked.
+### Optional Props
 
+#### disableDefaultStyle
+```ts
+disableDefaultStyle?: boolean;
+```
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+#### target
 ```ts
 target?: string;
 ```
+Link target attribute (e.g., '_blank').
 
-Specify the target attribute for the button link.
+### Additional Props
 
-:::tip
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
-:::
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
