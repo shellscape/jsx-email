@@ -11,36 +11,38 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
-import { Html, Markdown } from 'jsx-email';
+```jsx "Markdown"
+// MarkdownExample.jsx
+import { Markdown } from 'jsx-email';
 
 const Email = () => {
   return (
-    <Html lang="en" dir="ltr">
-      <Markdown
-        markdownCustomStyles={{
-          h1: { color: 'red' },
-          h2: { color: 'blue' },
-          codeInline: { background: 'grey' }
-        }}
-        markdownContainerStyles={{
-          padding: '12px',
-          border: 'solid 1px black'
-        }}
-      >{`# Hello, World!`}</Markdown>
+    <Markdown
+      markdownCustomStyles={{
+        h1: { color: 'red' },
+        h2: { color: 'blue' },
+        codeInline: { background: 'grey' }
+      }}
+      markdownContainerStyles={{
+        padding: '12px',
+        border: 'solid 1px black'
+      }}
+    >{`# Hello, World!`}</Markdown>
 
-      {/* OR */}
+    {/* OR */}
 
-      <Markdown children={`# This is a ~~strikethrough~~`} />
-    </Html>
+    <Markdown children={`# This is a ~~strikethrough~~`} />
   );
 };
 ```
 
-## Component Props
+:::note[Style Override]
+Custom styles override default styles for their respective elements.
+:::
 
+## Props
+
+### TypeScript Interface
 ```ts
 export interface MarkdownProps {
   children: string;
@@ -49,24 +51,24 @@ export interface MarkdownProps {
 }
 ```
 
+### Required Props
+
+#### children
 ```ts
 children: string | string[];
 ```
+Markdown content to render in the email.
 
-Contains the markdown content that will be rendered in the email template
+### Optional Props
 
+#### markdownContainerStyles
 ```ts
 markdownContainerStyles?: React.CSSProperties;
 ```
+Custom styles for the markdown container div.
 
-Provide custom styles for the containing div that wraps the markdown content
-
+#### markdownCustomStyles
 ```ts
 markdownCustomStyles?: StylesType;
 ```
-
-Provide custom styles for the corresponding html element (p, h1, h2, etc.)
-
-:::tip
-Note: Passing a custom style for an element overrides the default styles.
-:::
+Custom styles for specific markdown elements.
