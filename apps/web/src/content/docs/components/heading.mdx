@@ -11,18 +11,27 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
+```jsx "Heading"
+// HeadingExample.jsx
 import { Heading } from 'jsx-email';
 
 const Email = () => {
-  return <Heading as="h2">Lorem ipsum</Heading>;
+  return (
+    <>
+      <Heading as="h1" mt={20} mb={10}>
+        Main Title
+      </Heading>
+      <Heading as="h2" my={15}>
+        Subtitle
+      </Heading>
+    </>
+  );
 };
 ```
 
-## Component Props
+## Props
 
+### TypeScript Interface
 ```ts
 export interface Margin {
   m?: number | string;
@@ -39,54 +48,26 @@ export type PresentAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type HeadingProps = Margin & { as?: PresentAs };
 ```
 
+### Optional Props
+
+#### as
 ```ts
-as?: string;
+as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 ```
+HTML heading level to render.
 
-Render component as `h1`, `h2`, `h3`, `h4`, `h5` or `h6`.
-
+#### Margin Props
 ```ts
-m?: number | string;
+m?: number | string;    // margin
+mx?: number | string;   // margin-left + margin-right
+my?: number | string;   // margin-top + margin-bottom
+mt?: number | string;   // margin-top
+mr?: number | string;   // margin-right
+mb?: number | string;   // margin-bottom
+ml?: number | string;   // margin-left
 ```
+Margin shorthand properties. Accept pixel values (number) or CSS units (string).
 
-A shortcut for `margin` CSS property.
+### Additional Props
 
-```ts
-mx?: number | string;
-```
-
-A shortcut for `margin-left` and `margin-right` CSS properties.
-
-```ts
-my?: number | string;
-```
-
-A shortcut for `margin-top` and `margin-bottom` CSS properties.
-
-```ts
-mt?: number | string;
-```
-
-A shortcut for `margin-top` CSS property.
-
-```ts
-mr?: number | string;
-```
-
-A shortcut for `margin-right` CSS property.
-
-```ts
-mb?: number | string;
-```
-
-A shortcut for `margin-bottom` CSS property.
-
-```ts
-ml?: number | string;
-```
-
-A shortcut for `margin-left` CSS property.
-
-:::tip
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.
-:::
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.
