@@ -11,24 +11,30 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
+```jsx "Conditional"
+// ConditionalExample.jsx
 import { Conditional, Head } from 'jsx-email';
 
 const Email = () => {
   return (
     <Head>
+      {/* MSO-specific content */}
       <Conditional mso={true}>
-        <meta content="batman" />
+        <meta content="mso-content" />
+      </Conditional>
+
+      {/* Custom conditional */}
+      <Conditional expression="lt ie 10">
+        <meta content="legacy-ie" />
       </Conditional>
     </Head>
   );
 };
 ```
 
-## Component Props
+## Props
 
+### TypeScript Interface
 ```ts
 interface ConditionalProps {
   children?: React.ReactNode;
@@ -37,25 +43,33 @@ interface ConditionalProps {
 }
 ```
 
-:::info
-The `expression` prop or the `mso` prop must be defined, but not both.
+:::caution[Props Usage]
+Either `expression` or `mso` must be defined, but not both simultaneously.
 :::
 
-### Props
+### Optional Props
 
+#### expression
 ```ts
 expression?: string;
 ```
+Custom conditional expression for HTML comment. Example: `'lt ie 10'` produces `<!--[if lt ie 10]>`.
 
-If provided, the string will be used as the conditional expression within the HTML comment. e.g. a value of `lt ie 10` would result in a conditional comment block starting with `<!--[if lt ie 10]>`.
-
+#### head
 ```ts
 head?: boolean;
 ```
-If `true`, the conditional expression will be placed in the `head` section of your email template.
+Places the conditional in the email template's `head` section.
 
+#### mso
 ```ts
 mso?: boolean;
 ```
+- When `true`: Outputs `<!--[if mso]>`
+- When `false`: Outputs `<!--[if !mso]><!--> ... <!--<![endif]-->`
 
-If `true`, the conditional comment begins with `<!--[if mso]>`. If `false`, the conditional comment block uses a common hack and appears as `<!--[if !mso]><!--> ... <!--<![endif]-->`.
+### Children Props
+```ts
+children?: React.ReactNode;
+```
+Content to be wrapped in the conditional comment.
