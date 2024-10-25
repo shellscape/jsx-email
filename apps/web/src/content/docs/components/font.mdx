@@ -9,13 +9,14 @@ import Install from "@components/Install.mdx"
 
 <Install type={frontmatter.type}/>
 
+:::caution[Web Font Support]
+Not all email clients support web fonts. Check [email client compatibility](https://www.caniemail.com/features/css-at-font-face/) before implementation.
+:::
+
 ## Usage
 
-Add the component to your email template. This applies your font to all tags inside your email.
-Note, that not all email clients supports web fonts, this is why it is important to configure your `fallbackFontFamily`.
-To view all email clients that supports web fonts [see](https://www.caniemail.com/features/css-at-font-face/)
-
-```jsx
+```jsx "Font"
+// FontExample.jsx
 import { Font, Head, Html } from 'jsx-email';
 
 const Email = () => {
@@ -38,8 +39,9 @@ const Email = () => {
 };
 ```
 
-## Component Props
+## Props
 
+### TypeScript Interface
 ```ts
 export interface FontProps {
   fallbackFontFamily: FallbackFont | FallbackFont[];
@@ -53,41 +55,47 @@ export interface FontProps {
 }
 ```
 
-### Props
+### Required Props
 
-```ts
-fallbackFontFamily: FallbackFont | FallbackFont[];
-```
-
-The fallback font family the system should use, if web fonts are not supported or the chosen font is not installed on the system.
-
+#### fontFamily
 ```ts
 fontFamily: string;
 ```
+The primary font family name. Should match webFont name if using web fonts.
 
-The font family you want to use. If the webFont property is configured, this should contain the name of that font. Note: Do not insert multiple fonts here, use `fallbackFontFamily` for that\_
-
+#### fallbackFontFamily
 ```ts
-fontStyle?: FontStyle;`
+fallbackFontFamily: FallbackFont | FallbackFont[];
 ```
+Fallback font(s) to use when web fonts aren't supported or primary font is unavailable.
 
-Default: `'normal'`<br/>
+### Optional Props
 
-The style of the font.
-
+#### fontStyle
 ```ts
-fontWeight?: FontWeight;`
+fontStyle?: FontStyle;
 ```
+Font style variation. Defaults to `'normal'`.
 
-Default: `400`<br/>
+#### fontWeight
+```ts
+fontWeight?: FontWeight;
+```
+Font weight value. Defaults to `400`.
 
-The weight of the font.
-
+#### webFont
 ```ts
 webFont?: {
   format: FontFormat;
   url: string;
 }
 ```
+Web font configuration:
+- `format`: Font file format (e.g., 'woff2')
+- `url`: URL to font file
 
-The webFont the supported email client should use. _Note: Not all clients support web fonts. For support check: [https://www.caniemail.com/features/css-at-font-face](https://www.caniemail.com/features/css-at-font-face)_
+:::note[Usage Tips]
+- Use `fallbackFontFamily` for multiple fallback fonts
+- Ensure web font URLs are publicly accessible
+- Consider using system fonts for better compatibility
+:::
