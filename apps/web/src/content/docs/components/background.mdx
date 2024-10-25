@@ -11,16 +11,19 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the background component to your email template.
-
-```jsx
-import { Body, Column, Html, Section } from 'jsx-email';
+```jsx "Background"
+// BackgroundExample.jsx
+import { Background, Body, Column, Html, Row, Section } from 'jsx-email';
 
 const Email = () => {
   return (
     <Html lang="en">
       <Body>
-        <Background src="link-to-image" bgColor="#FFFFFF" width={600}>
+        <Background 
+          src="https://example.com/image.jpg" 
+          bgColor="#FFFFFF" 
+          width={600}
+        >
           <Row>
             <Column>Content goes here</Column>
           </Row>
@@ -31,9 +34,10 @@ const Email = () => {
 };
 ```
 
-## Component Props
+## Props
 
-```tsx
+### TypeScript Interface
+```ts
 interface BackgroundProps
   extends Omit<React.ComponentPropsWithoutRef<'td'>, 'height' | 'width' | 'bgcolor'> {
   src: string;
@@ -44,33 +48,36 @@ interface BackgroundProps
 }
 ```
 
-```tsx
+### Required Props
+
+#### src
+```ts
 src: string;
 ```
+The path to the background image.
 
-The path to the image
+### Optional Props
 
-```tsx
+#### bgColor
+```ts
 bgColor?: string;
 ```
+Fallback background color (hex code) if the image fails to load.
 
-The hex code that represents the fallback `background-color` incase the image doesn't load
-
-```tsx
+#### bgRepeat
+```ts
 bgRepeat?: 'repeat' | 'no-repeat';
 ```
+Background repeat behavior, uses `background-repeat`. Defaults to `no-repeat`.
 
-A string that represents the value of `background-repeat`.
-Default value is `no-repeat`
-
-```tsx
+#### height
+```ts
 height?: number;
 ```
+Container height in pixels.
 
-The `height` of the container in pixels
-
-```tsx
+#### width
+```ts
 width?: number;
 ```
-
-The `width` of the container in pixels
+Container width in pixels.
