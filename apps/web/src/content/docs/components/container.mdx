@@ -11,15 +11,18 @@ import Install from "@components/Install.mdx"
 
 ## Usage
 
-Add the component to your email template. Include styles where needed.
-
-```jsx
+```jsx "Container"
+// ContainerExample.jsx
 import { Button, Container } from 'jsx-email';
 
 const Email = () => {
   return (
     <Container>
-      <Button href="https://example.com" style={{ color: '#61dafb' }}>
+      <Button 
+        width={200}
+        height={40}
+        href="https://example.com"
+      >
         Click me
       </Button>
     </Container>
@@ -27,18 +30,22 @@ const Email = () => {
 };
 ```
 
-:::info
-Though the `Container` component wraps a `<table>` element, it has a specific use-case and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Container` as a table, please consider using a `Section` component or a combination of `Row` and `Column`.
+:::caution[Table Usage]
+While `Container` uses a `<table>` element internally, it's designed for centering content. For table layouts, use [`Section`](/components/section) or [`Row`](/components/row) with [`Column`](/components/column).
 :::
 
-## Component Props
+## Props
 
+### Optional Props
+
+#### disableDefaultStyle
 ```ts
 disableDefaultStyle?: boolean;
 ```
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
 
-If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+### Additional Props
 
-:::tip
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for `cellPadding` and `cellSpacing`.
-:::
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for:
+- `cellPadding`
+- `cellSpacing`
