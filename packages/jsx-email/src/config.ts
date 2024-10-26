@@ -78,20 +78,53 @@ const checkName = (plugin: JsxEmailPlugin, source?: string) => {
   }
 };
 
-const importPlugin = async (name: string) => {
+interface PluginImport {
+  plugin: JsxEmailPlugin;
+}
+
+const handleImportError = (error: any, name: string) => {
+  if (error.code === 'ERR_MODULE_NOT_FOUND') {
+    log.error(chalk`{red jsx-email}: Tried to import plugin '${name}' but it wasn't found`);
+  } else {
+    log.error(error);
+  }
+};
+
+// Note: We have to be verbose here so that bundlers pick up on the imports.
+// Most of them can't handle dynamically importing these plugins from variables containing
+// their names without additional config, and we don't want that burden on users
+const importInlinePlugin = async () => {
   try {
-    const { plugin } = (await import(name)) as { plugin: JsxEmailPlugin };
-
-    checkSymbol(plugin, name);
-    checkName(plugin, name);
-
+    // Note: tshy up to bullshit again with compile errors where there are none
+    // @ts-ignore
+    const { plugin } = (await import('@jsx-email/plugin-inline')) as unknown as PluginImport;
     return plugin;
   } catch (error) {
-    if ((error as any).code === 'ERR_MODULE_NOT_FOUND') {
-      log.error(chalk`{red jsx-email}: Tried to import a plugin '${name}' but it wasn't found`);
-    } else {
-      log.error(error);
-    }
+    handleImportError(error, '@jsx-email/plugin-inline');
+  }
+
+  return null;
+};
+
+const importMinifyPlugin = async () => {
+  try {
+    // @ts-ignore
+    const { plugin } = (await import('@jsx-email/plugin-minify')) as unknown as PluginImport;
+    return plugin;
+  } catch (error) {
+    handleImportError(error, '@jsx-email/plugin-minify');
+  }
+
+  return null;
+};
+
+const importPrettyPlugin = async () => {
+  try {
+    // @ts-ignore
+    const { plugin } = (await import('@jsx-email/plugin-pretty')) as unknown as PluginImport;
+    return plugin;
+  } catch (error) {
+    handleImportError(error, '@jsx-email/plugin-pretty');
   }
 
   return null;
@@ -109,17 +142,17 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
     // Note: The order of plugins here actually matters for how the doc gets
     // transformed. Changing this ordering may produce undesirable html
     if (config.render?.inlineCss) {
-      const inline = await importPlugin(plugins.inline);
+      const inline = await importInlinePlugin();
       if (inline) mods.plugins.push(inline);
     }
 
     if (config.render?.minify) {
-      const minify = await importPlugin(plugins.minify);
+      const minify = await importMinifyPlugin();
       if (minify) mods.plugins.push(minify);
     }
 
     if (config.render?.pretty) {
-      const pretty = await importPlugin(plugins.pretty);
+      const pretty = await importPrettyPlugin();
       if (pretty) mods.plugins.push(pretty);
     }
 
@@ -148,6 +181,8 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
   result.plugins = Array.from(pluginMap, ([, value]) => value);
 
   for (const plugin of result.plugins || []) {
+    checkName(plugin);
+    checkSymbol(plugin);
     (plugin as PluginInternal).log = getPluginLog(plugin.name);
   }
 
