@@ -1,5 +1,17 @@
 # jsx-email ChangeLog
 
+## v2.1.0
+
+_2024-10-26_
+
+### Bugfixes
+
+- jsx-email: modify core plugin imports for bundler resolution (#230)
+
+### Features
+
+- jsx-email: add config support for ESBuild plugins (#229)
+
 ## v2.0.11
 
 _2024-10-16_
