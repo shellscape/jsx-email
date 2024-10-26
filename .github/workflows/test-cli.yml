@@ -1,0 +1,69 @@
+name: CLI Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - edited
+      - opened
+      - synchronize
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: CLI Tests
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+
+      # Needed for https://github.com/moonrepo/moon/issues/1060
+      - name: Force Update Main
+        run: |
+          git fetch origin
+          git branch -f main origin/main
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+
+      - name: Setup Moon
+        uses: moonrepo/setup-toolchain@v0
+
+      - name: Sanity Check
+        run: |
+          echo git `git version`;
+          echo branch `git branch --show-current`;
+          echo node `node -v`;
+          echo pnpm `pnpm -v`
+          echo `moon --version`
+
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Projects
+        run: |
+          moon jsx-email:build
+          moon create-jsx-email:build
+          moon run :build --query "project~plugin-*"
+
+      - name: Run Tests
+        # Note: We're running `pnpm i` again so that pnpm places the `email` bin in root node_modules
+        # We'll need that for the preview tests below
+        run: |
+          pnpm i
+          moon repo:test.cli

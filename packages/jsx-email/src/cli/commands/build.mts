@@ -146,8 +146,6 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
 const compile = async (options: CompileOptions) => {
   const config = await loadConfig();
 
-  console.log({ config });
-
   const { files, outDir, writeMeta } = options;
   const { metafile } = await esbuild.build({
     bundle: true,
