@@ -1,7 +1,7 @@
 import { AssertionError } from 'assert';
 
 import chalk from 'chalk';
-import { lilconfig } from '@shellscape/lilconfig';
+import { lilconfig } from 'lilconfig';
 import type { MethodFactoryLevels } from '@dot/log';
 
 import { getPluginLog, log } from './log.js';
@@ -209,9 +209,8 @@ export const loadConfig = async (startDir?: string): Promise<JsxEmailConfig> => 
       `${name}.config.js`,
       `${name}.config.cjs`,
       `${name}.config.mjs`
-    ],
-    ...(startDir ? { startDir } : {})
-  }).search();
+    ]
+  }).search(startDir);
 
   log.debug('loadConfig →', { cwd: process.cwd(), searchResult, startDir });
 
