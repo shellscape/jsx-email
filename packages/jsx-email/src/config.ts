@@ -1,7 +1,7 @@
 import { AssertionError } from 'assert';
 
 import chalk from 'chalk';
-import { lilconfig } from '@shellscape/lilconfig';
+import { lilconfig } from 'lilconfig';
 import type { MethodFactoryLevels } from '@dot/log';
 
 import { getPluginLog, log } from './log.js';
@@ -191,11 +191,36 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
   return result;
 };
 
+const moduleImport = async (id: string) => {
+  try {
+    const mod = await import(id);
+    return mod;
+  } catch (e) {
+    try {
+      return require(id);
+    } catch (error) {
+      if (
+        (error as any).code === 'ERR_REQUIRE_ESM' ||
+        (error instanceof SyntaxError &&
+          error.toString().includes('Cannot use import statement outside a module'))
+      ) {
+        throw e;
+      }
+      throw error;
+    }
+  }
+};
+
 export const loadConfig = async (startDir?: string): Promise<JsxEmailConfig> => {
   if ((globalThis as any)[globalConfigSymbol]) return (globalThis as any)[globalConfigSymbol];
 
   const name = 'jsx-email';
   const searchResult = await lilconfig(name, {
+    loaders: {
+      '.cjs': moduleImport,
+      '.js': moduleImport,
+      '.mjs': moduleImport
+    },
     searchPlaces: [
       `.config/${name}rc.js`,
       `.config/${name}rc.cjs`,
@@ -209,9 +234,8 @@ export const loadConfig = async (startDir?: string): Promise<JsxEmailConfig> => 
       `${name}.config.js`,
       `${name}.config.cjs`,
       `${name}.config.mjs`
-    ],
-    ...(startDir ? { startDir } : {})
-  }).search();
+    ]
+  }).search(startDir);
 
   log.debug('loadConfig →', { cwd: process.cwd(), searchResult, startDir });
 
