@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.1.1
+
+_2024-10-26_
+
+### Bugfixes
+
+- jsx-email: use upstream lilconfig, upstream next fix (#231)
+
 ## v2.1.0
 
 _2024-10-26_
