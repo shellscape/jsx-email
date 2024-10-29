@@ -14,7 +14,8 @@ export default defineConfig({
       },
       logo: {
         replacesTitle: true,
-        src: '@assets/logo-hor.svg'
+        light: '@assets/logo-hor-dark.svg',
+        dark: '@assets/logo-hor-light.svg'
       },
       editLink: {
         baseUrl: 'https://github.com/shellscape/jsx-email/edit/main/'
