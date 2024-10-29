@@ -66,6 +66,19 @@ export const Template = ({ ... }) => {
 
 For consistency, only the template is Capital-cased to indicate that it's a template. This ditches an odd design choice that we inherited from react-email when we forked, and gets us to a place with template exports that moreso match the ecosystem norms, and simplifies the process of asserting that a template has what we need to render it.
 
+Importing templates would then resemble:
+
+```tsx
+import { Template } from './template';
+```
+
+And in the case where multiple templates are being imported in the same module, import aliases would need to be used:
+
+```tsx
+import { Template as BatmanTemplate } from './batman';
+import { Template as JokerTemplate } from './joker';
+```
+
 ### `Button` Updates
 
 ::: info

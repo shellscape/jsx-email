@@ -15,9 +15,9 @@ type: package
 ```jsx
 import { render } from 'jsx-email';
 
-import { BatmanTemplate } from './emails/Batman';
+import { Template } from './emails/Batman';
 
-const html = await render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
 ```
 
 ## Method Options

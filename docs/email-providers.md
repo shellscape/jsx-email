@@ -15,10 +15,10 @@ While JSX email can be used with just about any email provider that takes a stri
 import { render } from 'jsx-email';
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 
-import { BatmanTemplate } from './emails/Batman.tsx';
+import { Template } from './emails/Batman.tsx';
 
 const ses = new SESv2Client({ region: process.env.AWS_SES_REGION });
-const html = await render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
 
 await ses.send(
   new SendEmailCommand({
@@ -50,13 +50,13 @@ await ses.send(
 import { render } from 'jsx-email';
 import { MailerSend, EmailParams, Sender, Recipient } from 'mailersend';
 
-import { BatmanTemplate } from './emails/Batman.tsx';
+import { Template } from './emails/Batman.tsx';
 
 const mailerSend = new MailerSend({
   apiKey: process.env.MAILERSEND_API_KEY || ''
 });
 
-const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
 const sentFrom = new Sender('penguin@joker.us', 'Copperpot');
 const recipients = [new Recipient('bruce@wayneinc.com', 'Bruce Wayne')];
 
@@ -75,9 +75,9 @@ mailerSend.email.send(params);
 import { render } from 'jsx-email';
 import nodemailer from 'nodemailer';
 
-import { BatmanTemplate } from './emails/Batman.tsx';
+import { Template } from './emails/Batman.tsx';
 
-const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
 const transport = nodemailer.createTransport({
   host: 'smtp.forwardemail.net',
   port: 465,
@@ -102,10 +102,10 @@ await transport.sendMail({
 import { render } from 'jsx-email';
 import { ServerClient } from 'postmark';
 
-import { BatmanTemplate } from './emails/Batman.tsx';
+import { Template } from './emails/Batman.tsx';
 
 const client = new ServerClient(process.env.POSTMARK_API_KEY);
-const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
 
 client.sendEmail({
   From: 'penguin@joker.us',
@@ -125,10 +125,10 @@ The `resend` package ships with support for `react-email` with its `react` prope
 import { render } from 'jsx-email';
 import { Resend } from 'resend';
 
-import { BatmanTemplate } from './emails/Batman.tsx';
+import { Template } from './emails/Batman.tsx';
 
 const resend = new Resend('re_123456789');
-const template = <BatmanTemplate firstName="Bruce" lastName="Wayne" />;
+const template = <Template firstName="Bruce" lastName="Wayne" />;
 const html = await render(template);
 
 resend.sendEmail({
@@ -145,11 +145,11 @@ resend.sendEmail({
 import { render } from 'jsx-email';
 import sendgrid from '@sendgrid/mail';
 
-import { BatmanTemplate } from './emails/Batman.tsx';
+import { Template } from './emails/Batman.tsx';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
-const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
 
 sendgrid.send({
   from: 'penguin@joker.us',
@@ -165,11 +165,11 @@ sendgrid.send({
 import { render } from 'jsx-email';
 import Plunk from '@plunk/node';
 
-import { BatmanTemplate } from './emails/Batman.tsx';
+import { Template } from './emails/Batman.tsx';
 
 const plunk = new Plunk(process.env.PLUNK_API_KEY);
 
-const html = render(<BatmanTemplate firstName="Bruce" lastName="Wayne" />);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
 
 plunk.emails.send({
   from: 'penguin@joker.us',
