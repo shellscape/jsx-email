@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v2.0.3
+
+_2024-10-29_
+
+### Bugfixes
+
+- jsx-email,create-jsx-email: dangling width on button in generator (#232)
+
 ## v2.0.2
 
 _2024-10-05_
