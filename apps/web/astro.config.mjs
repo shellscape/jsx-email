@@ -28,7 +28,14 @@ export default defineConfig({
           label: 'Getting started',
           autogenerate: { directory: 'getting-started' }
         },
-        { label: 'Email Samples', link: 'https://samples.jsx.email/', badge: 'link' },
+        {
+          label: 'Email Samples',
+          link: 'https://samples.jsx.email/',
+          badge: {
+            variant: 'tip',
+            text: 'External link'
+          }
+        },
         {
           label: 'Upgrade to',
           autogenerate: { directory: 'upgrade' }
@@ -39,7 +46,11 @@ export default defineConfig({
         },
         {
           label: 'Plugins',
-          autogenerate: { directory: 'plugins' }
+          autogenerate: { directory: 'plugins' },
+          badge: {
+            variant: 'success',
+            text: 'New'
+          }
         },
         {
           label: 'Components',
