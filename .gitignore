@@ -3,6 +3,7 @@
 .moon/cache
 .eslintcache
 .rendered
+.test
 node_modules
 dist
 .DS_Store

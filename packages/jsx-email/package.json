@@ -123,6 +123,7 @@
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
   },
+  "generatorsBump": "0",
   "sideEffects": false,
   "tshy": {
     "exports": {
