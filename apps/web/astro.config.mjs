@@ -23,6 +23,7 @@ export default defineConfig({
         minHeadingLevel: 1,
         maxHeadingLevel: 4
       },
+      customCss: ['@css/style.css', '@fontsource/inter/400.css'],
       sidebar: [
         {
           label: 'Getting started',
