@@ -66,4 +66,4 @@ jobs:
         # We'll need that for the preview tests below
         run: |
           pnpm i
-          moon test-cli:test
+          moon test-cli:test.run

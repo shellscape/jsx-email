@@ -2,7 +2,7 @@
 
 import { existsSync, readdirSync, rmSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { basename, dirname, join, resolve, win32, posix } from 'path';
+import { basename, dirname, join, relative, resolve, win32, posix } from 'path';
 import { fileURLToPath } from 'node:url';
 
 import chalk from 'chalk-template';
@@ -48,10 +48,10 @@ const isEmpty = (path: string) => {
 const { log } = console;
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 const typeDep = ',\n"@types/react": "^18.2.0",\n"typescript": "^5.2.2"';
-const typeProps = `\nexport type TemplateProps = {
+const typeProps = `\ninterface TemplateProps {
   email: string;
   name: string;
-}`;
+}\n`;
 const argv = yargs(process.argv.slice(2), { configuration: { 'strip-dashed': true } });
 const argTargetDir: string = argv._[0] as string;
 
@@ -67,9 +67,10 @@ export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) =>
   const fileName = basename(templatePath)
     .replace('_', '')
     .replace('.mustache', jsx ? '.jsx' : '.tsx');
-  const outPath = join(outputPath, fileName);
+  const relativePath = relative(process.cwd(), outputPath);
+  const outPath = join(relativePath, fileName);
 
-  log('Creating a new template at', outPath);
+  log(chalk`{blue Creating a new template} at: {cyan ${outPath}}`);
 
   await writeFile(outPath, contents, 'utf8');
 
@@ -141,9 +142,10 @@ const run = async () => {
   const templates = await globby([normalizePath(join(generatorsPath, '/*.*'))]);
   const outputPath = join(root, 'templates');
   const templateData = { name: projectName, typeDep: jsx ? '' : typeDep };
+  const relativePath = relative(process.cwd(), outputPath);
 
   log('');
-  log(chalk`{blue Creating Project} at: {dim ${root}}`);
+  log(chalk`{blue Creating Project} at: {dim ${relativePath}}`);
 
   if (overwrite && existsSync(root)) clearDirectory(root);
 
@@ -163,7 +165,7 @@ const run = async () => {
 
   await createEmail({ jsx, name: projectName, outputPath });
 
-  const packageManager = await detect();
+  const packageManager = process.env.IS_CLI_TEST ? 'pnpm' : await detect();
   const install =
     packageManager === 'yarn'
       ? `  $ yarn\n  $ yarn dev`
