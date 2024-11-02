@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.1.3
+
+_2024-11-02_
+
+### Updates
+
+- jsx-email: update unocss (tailwind) dependencies (#233)
+
 ## v2.1.2
 
 _2024-10-29_
