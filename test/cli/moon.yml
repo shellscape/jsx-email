@@ -1,0 +1,16 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'release', 'test']
+
+tasks:
+  test:
+    command: vitest --config ../../shared/vitest.config.ts . --no-threads
+    inputs:
+      - ./**.*.test.ts
+      - package.json
+    options:
+      cache: false
+      outputStyle: 'stream'

@@ -81,16 +81,3 @@ tasks:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
-
-  test.cli:
-    command: vitest --config ./shared/vitest.config.ts test/cli --no-threads
-    deps:
-      - jsx-email:build
-      - plugin-inline:build
-      - plugin-minify:build
-      - plugin-pretty:build
-    inputs:
-      - test/cli
-    options:
-      cache: false
-      outputStyle: 'stream'

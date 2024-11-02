@@ -2,7 +2,6 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { execa } from 'execa';
-import { describe, expect, test } from 'vitest';
 import strip from 'strip-ansi';
 
 process.chdir(__dirname);

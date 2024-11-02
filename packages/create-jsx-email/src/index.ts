@@ -1,16 +1,20 @@
-#!/usr/bin/env node
-/* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop, no-underscore-dangle */
+
 import { existsSync, readdirSync, rmSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { basename, dirname, join, resolve, win32, posix } from 'path';
+import { fileURLToPath } from 'node:url';
 
-import chalk from 'chalk';
+import chalk from 'chalk-template';
+// Note: https://github.com/egoist/detect-package-manager/issues/18
+// @ts-ignore
 import { detect } from 'detect-package-manager';
-import globby from 'globby';
+import { globby } from 'globby';
 import mustache from 'mustache';
 import prompts from 'prompts';
+import yargs from 'yargs-parser';
 
-import pkg from '../package.json';
+import * as pkg from './package-info.cjs';
 
 interface CreateEmailArgs {
   jsx: boolean;
@@ -18,6 +22,8 @@ interface CreateEmailArgs {
   outputPath: string;
 }
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const cancelled = () => {
   throw new Error(chalk`{red ✖} Operation cancelled`);
 };
@@ -46,6 +52,8 @@ const typeProps = `\nexport type TemplateProps = {
   email: string;
   name: string;
 }`;
+const argv = yargs(process.argv.slice(2), { configuration: { 'strip-dashed': true } });
+const argTargetDir: string = argv._[0] as string;
 
 export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) => {
   const data = {
@@ -72,7 +80,6 @@ const run = async () => {
   log(intro);
 
   const skip = process.argv.some((arg) => arg === '--yes');
-  const argTargetDir = formatTargetDir(process.argv[2]);
   let targetPath = argTargetDir || defaultTargetDir;
   let result: prompts.Answers<'projectName' | 'projectType' | 'overwrite'>;
   const defaults: typeof result = {

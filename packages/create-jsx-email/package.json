@@ -11,14 +11,17 @@
     "url": "https://github.com/shellscape/jsx-email.git",
     "directory": "packages/create-jsx-email"
   },
+  "homepage": "https://jsx.email/",
   "main": "dist/src/index.js",
   "bin": {
-    "create-jsx-email": "./dist/src/index.js"
+    "create-jsx-email": "./bin/create-jsx-email"
   },
+  "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
   "files": [
+    "bin/**",
     "dist/**"
   ],
   "keywords": [
@@ -27,11 +30,12 @@
     "email"
   ],
   "dependencies": {
-    "chalk": "4.1.2",
+    "chalk-template": "^1.1.0",
     "detect-package-manager": "^3.0.1",
-    "globby": "11.0.4",
+    "globby": "14.0.2",
     "mustache": "^4.2.0",
-    "prompts": "^2.4.2"
+    "prompts": "^2.4.2",
+    "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.2",
