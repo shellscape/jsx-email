@@ -30,6 +30,7 @@
     "email"
   ],
   "dependencies": {
+    "@types/yargs-parser": "^21.0.3",
     "chalk-template": "^1.1.0",
     "detect-package-manager": "^3.0.1",
     "globby": "14.0.2",
