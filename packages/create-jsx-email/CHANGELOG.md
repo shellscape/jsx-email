@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v2.0.4
+
+_2024-11-04_
+
+### Updates
+
+- create-jsx-email: use esm, add tests (#234)
+
 ## v2.0.3
 
 _2024-10-29_
