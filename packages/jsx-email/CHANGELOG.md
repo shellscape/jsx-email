@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.1.4
+
+_2024-11-04_
+
+### Bugfixes
+
+- jsx-email: dont declare exports for cjs build. fixes #235 (#236)
+
 ## v2.1.3
 
 _2024-11-02_
