@@ -1,0 +1,13 @@
+{
+  "name": "test-cli",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "create-jsx-email": "workspace:^",
+    "execa": "^9.4.1",
+    "globby": "^14.0.2",
+    "jsx-email": "workspace:^",
+    "strip-ansi": "^7.1.0"
+  }
+}
