@@ -239,8 +239,9 @@ export const loadConfig = async (startDir?: string): Promise<JsxEmailConfig> => 
 
   log.debug('loadConfig →', { cwd: process.cwd(), searchResult, startDir });
 
-  const exports: ConfigExports = searchResult?.config ?? {};
-  const intermediate = exports.config instanceof Promise ? await exports.config : exports.config;
+  const configExports: ConfigExports = searchResult?.config ?? {};
+  const intermediate =
+    configExports.config instanceof Promise ? await configExports.config : configExports.config;
   const config = intermediate ?? { ...defaults };
 
   if ((config as any).symbol === configSymbol) {
