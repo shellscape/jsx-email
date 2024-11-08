@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v2.0.5
+
+_2024-11-08_
+
+### Bugfixes
+
+- create-jsx-email: update template path in create-jsx-email script (#238)
+
 ## v2.0.4
 
 _2024-11-04_
