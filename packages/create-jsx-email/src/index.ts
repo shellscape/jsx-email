@@ -61,7 +61,7 @@ export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) =>
     propsType: jsx ? '' : ': TemplateProps',
     typeProps: jsx ? '' : typeProps
   };
-  const templatePath = resolve(__dirname, '../generators/templates/email.mustache');
+  const templatePath = resolve(__dirname, '../dist/generators/templates/email.mustache');
   const template = await readFile(templatePath, 'utf8');
   const contents = mustache.render(template, data);
   const fileName = basename(templatePath)
