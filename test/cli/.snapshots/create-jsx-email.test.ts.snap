@@ -80,7 +80,7 @@ const button = {
   textDecoration: 'none'
 };
 
-export const previewProps = {
+export const previewProps: TemplateProps = {
   email: 'batman@example.com',
   name: 'Bruce Wayne'
 };

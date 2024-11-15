@@ -37,7 +37,7 @@ const paragraph = {
   color: '#777',
   fontSize: '16px',
   lineHeight: '24px',
-  textAlign: 'left' as const
+  textAlign: 'left'{{ asConst }}
 };
 
 const anchor = {
@@ -50,7 +50,7 @@ const button = {
   textDecoration: 'none'
 };
 
-export const previewProps = {
+export const previewProps{{ propsType }} = {
   email: 'batman@example.com',
   name: 'Bruce Wayne'
 };

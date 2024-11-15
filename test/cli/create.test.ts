@@ -21,7 +21,7 @@ describe('cli', async () => {
     expect(plain).toContain('Creating a new template at ');
     expect(plain).toContain('Template BatmanEmail.tsx created');
 
-    const contents = readFile(join(__dirname, '.test/emails/BatmanEmail.tsx'), 'utf8');
+    const contents = await readFile(join(__dirname, '.test/emails/BatmanEmail.tsx'), 'utf8');
     expect(contents).toMatchSnapshot();
   });
 });
