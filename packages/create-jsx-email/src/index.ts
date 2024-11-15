@@ -137,7 +137,7 @@ const run = async () => {
 
   const { overwrite, projectName, projectType } = result;
   const root = join(process.cwd(), targetPath);
-  const generatorsPath = resolve(__dirname, '../generators');
+  const generatorsPath = resolve(__dirname, '../dist/generators');
   const jsx = projectType === 'JavaScript';
   const templates = await globby([normalizePath(join(generatorsPath, '/*.*'))]);
   const outputPath = join(root, 'templates');
