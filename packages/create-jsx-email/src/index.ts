@@ -47,6 +47,7 @@ const isEmpty = (path: string) => {
 };
 const { log } = console;
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
+const asConst = ' as const';
 const typeDep = ',\n"@types/react": "^18.2.0",\n"typescript": "^5.2.2"';
 const typeProps = `\ninterface TemplateProps {
   email: string;
@@ -57,6 +58,7 @@ const argTargetDir: string = argv._[0] as string;
 
 export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) => {
   const data = {
+    asConst: jsx ? '' : asConst,
     name,
     propsType: jsx ? '' : ': TemplateProps',
     typeProps: jsx ? '' : typeProps

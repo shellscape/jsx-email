@@ -16,6 +16,11 @@ const CreateOptionsStruct = object({
   jsx: optional(boolean()),
   out: optional(string())
 });
+const asConst = ' as const';
+const typeProps = `\ninterface TemplateProps {
+  email: string;
+  name: string;
+}\n`;
 
 type CreateOptions = Infer<typeof CreateOptionsStruct>;
 
@@ -45,8 +50,10 @@ export const command: CommandFn = async (argv: CreateOptions, input) => {
   const { jsx, out } = argv;
   const template = await readFile(join(__dirname, '../../../templates/email.mustache'), 'utf8');
   const data = {
+    asConst: jsx ? '' : asConst,
     name,
-    propsType: jsx ? '' : ': typeof previewProps'
+    propsType: jsx ? '' : ': TemplateProps',
+    typeProps: jsx ? '' : typeProps
   };
   const newContent = mustache.render(template, data);
   const outPath = resolve(out || process.cwd());
