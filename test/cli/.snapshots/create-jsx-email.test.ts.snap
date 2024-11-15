@@ -2,7 +2,7 @@
 
 exports[`create-jsx-email > command 1`] = `
 "
-create-jsx-email v2.0.4
+create-jsx-email 
 
 The fastest way to get started with JSX Email
 
@@ -126,6 +126,7 @@ export const Template = ({ email, name }: TemplateProps) => (
 
 exports[`create-jsx-email > command 3`] = `
 [
+  ".test/new/.gitignore",
   ".test/new/README.md",
   ".test/new/package.json",
   ".test/new/tsconfig.json",
