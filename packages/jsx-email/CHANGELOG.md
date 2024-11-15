@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.1.5
+
+_2024-11-15_
+
+### Bugfixes
+
+- jsx-email,create-jsx-email: consolidate and fix TS types in template (#242)
+
 ## v2.1.4
 
 _2024-11-04_
