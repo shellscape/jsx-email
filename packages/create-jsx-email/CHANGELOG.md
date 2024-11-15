@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v2.0.6
+
+_2024-11-15_
+
+### Bugfixes
+
+- create-jsx-email: update generators path for new project setup (#240)
+
 ## v2.0.5
 
 _2024-11-08_
