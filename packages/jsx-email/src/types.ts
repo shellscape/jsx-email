@@ -26,3 +26,14 @@ export interface RenderOptions {
 export interface ProcessOptions extends Required<Omit<RenderOptions, 'plainText'>> {
   html: string;
 }
+
+declare global {
+  namespace globalThis {
+    // eslint-disable-next-line vars-on-top, no-var
+    var isJsxEmailPreview: boolean;
+  }
+
+  interface ImportMeta {
+    isJsxEmailPreview: boolean;
+  }
+}

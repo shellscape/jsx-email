@@ -221,3 +221,13 @@ img.clients {
     height: auto;
   }
 }
+
+table.recipes {
+  border-collapse: collapse;
+}
+
+table.recipes td {
+  border: 0 !important;
+  padding: 0 10px 0 0 !important;
+  white-space: nowrap;
+}

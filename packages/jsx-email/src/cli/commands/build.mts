@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { mkdir, realpath, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import { dirname, basename, extname, join, resolve, win32, posix } from 'path';
 import { pathToFileURL } from 'url';
@@ -17,9 +17,9 @@ import { parse as assert, boolean, object, optional, string } from 'valibot';
 
 import { log } from '../../log.js';
 import { formatBytes, gmailByteLimit, originalCwd } from '../helpers.mjs';
+import { loadConfig } from '../../config.js';
 
 import type { CommandFn, TemplateFn } from './types.mjs';
-import { loadConfig } from '../../config.js';
 
 const BuildCommandOptionsStruct = object({
   exclude: optional(string()),
@@ -143,6 +143,17 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
   };
 };
 
+const cssPlugin: esbuild.Plugin = {
+  name: 'jsx-email/css-plugin',
+  setup(builder) {
+    builder.onLoad({ filter: /\.css$/ }, async (args) => {
+      const buffer = await readFile(args.path);
+      const css = await esbuild.transform(buffer, { loader: 'css', minify: false });
+      return { contents: css.code, loader: 'text' };
+    });
+  }
+};
+
 const compile = async (options: CompileOptions) => {
   const config = await loadConfig();
 
@@ -159,6 +170,7 @@ const compile = async (options: CompileOptions) => {
     metafile: true,
     outdir: outDir,
     platform: 'node',
+    plugins: [cssPlugin],
     write: true,
     ...config.esbuild
   });

@@ -38,6 +38,7 @@ export const sidebar = [
     items: [
       { text: 'Introduction', link: '/docs/introduction' },
       { text: 'Quick Start', link: '/docs/quick-start' },
+      { text: 'Recipes', link: '/docs/recipes' },
       { text: 'Email Providers', link: '/docs/email-providers' },
       { text: 'Email Samples', link: 'https://samples.jsx.email' },
       { text: 'FAQ', link: '/docs/faq' },
