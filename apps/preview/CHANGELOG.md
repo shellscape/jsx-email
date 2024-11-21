@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v2.0.3
+
+_2024-11-21_
+
+### Bugfixes
+
+- app-preview: change favicon color for the preview app (530bebe)
+
 ## v2.0.2
 
 _2024-10-04_
