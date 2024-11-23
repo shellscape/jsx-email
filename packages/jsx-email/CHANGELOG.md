@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.2.0
+
+_2024-11-23_
+
+### Features
+
+- jsx-email: import css in templates (#244)
+
 ## v2.1.5
 
 _2024-11-15_
