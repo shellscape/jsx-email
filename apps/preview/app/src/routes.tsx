@@ -48,7 +48,7 @@ export const getRouter = (templates: Record<string, TemplateData>) => {
         </Layout>
       ),
       errorElement: <Error />,
-      path: '/'
+      path: import.meta.env.VITE_JSXEMAIL_BASE_PATH || '/'
     },
     ...routes
   ]);
