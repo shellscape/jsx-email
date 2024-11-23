@@ -1,23 +1,20 @@
 import { existsSync } from 'node:fs';
-import { mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
+import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import { dirname, basename, extname, join, resolve, win32, posix } from 'path';
 import { pathToFileURL } from 'url';
 
 import chalk from 'chalk';
-import esbuild from 'esbuild';
 import globby from 'globby';
-// @ts-ignore
-// eslint-disable-next-line
-import { render } from 'jsx-email';
 import micromatch from 'micromatch';
 import { isWindows } from 'std-env';
 import type { Output as Infer } from 'valibot';
 import { parse as assert, boolean, object, optional, string } from 'valibot';
 
 import { log } from '../../log.js';
-import { formatBytes, gmailByteLimit, originalCwd } from '../helpers.mjs';
-import { loadConfig } from '../../config.js';
+import { formatBytes, gmailByteLimit } from '../helpers.mjs';
+import { compile } from '../../renderer/compile.js';
+import { render } from '../../renderer/render.js';
 
 import type { CommandFn, TemplateFn } from './types.mjs';
 
@@ -40,6 +37,11 @@ interface BuildCommandOptionsInternal extends BuildCommandOptions {
   showStats?: boolean;
 }
 
+interface BuildTemplateParams {
+  buildOptions: BuildCommandOptionsInternal;
+  targetPath: string;
+}
+
 interface BuildOptions {
   argv: BuildCommandOptions;
   outputBasePath?: string;
@@ -53,12 +55,6 @@ export interface BuildResult {
   plainText: string | null;
   templateName: string | null;
   writePath: string;
-}
-
-interface CompileOptions {
-  files: string[];
-  outDir: string;
-  writeMeta: boolean;
 }
 
 export const help = chalk`
@@ -142,63 +138,6 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
     writePath
   };
 };
-
-const cssPlugin: esbuild.Plugin = {
-  name: 'jsx-email/css-plugin',
-  setup(builder) {
-    builder.onLoad({ filter: /\.css$/ }, async (args) => {
-      const buffer = await readFile(args.path);
-      const css = await esbuild.transform(buffer, { loader: 'css', minify: false });
-      return { contents: css.code, loader: 'text' };
-    });
-  }
-};
-
-const compile = async (options: CompileOptions) => {
-  const config = await loadConfig();
-
-  const { files, outDir, writeMeta } = options;
-  const { metafile } = await esbuild.build({
-    bundle: true,
-    define: {
-      'import.meta.isJsxEmailPreview': JSON.stringify(globalThis.isJsxEmailPreview || false)
-    },
-    entryNames: '[dir]/[name]-[hash]',
-    entryPoints: files,
-    jsx: 'automatic',
-    logLevel: 'error',
-    metafile: true,
-    outdir: outDir,
-    platform: 'node',
-    plugins: [cssPlugin],
-    write: true,
-    ...config.esbuild
-  });
-
-  const affectedFiles = Object.keys(metafile.outputs);
-  const affectedPaths = affectedFiles.map((file) => resolve('/', file));
-
-  if (metafile && writeMeta) {
-    const { outputs } = metafile;
-    const ops = Object.entries(outputs).map(async ([path]) => {
-      const fileName = basename(path, extname(path));
-      const metaPath = join(dirname(path), `${fileName}.meta.json`);
-      const writePath = resolve(originalCwd, metaPath);
-      const json = JSON.stringify(metafile);
-
-      log.debug('meta writePath:', writePath);
-      await writeFile(writePath, json, 'utf8');
-    });
-    await Promise.all(ops);
-  }
-
-  return affectedPaths;
-};
-
-interface BuildTemplateParams {
-  buildOptions: BuildCommandOptionsInternal;
-  targetPath: string;
-}
 
 export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplateParams) => {
   const esbuildOutPath = await getTempPath('build');

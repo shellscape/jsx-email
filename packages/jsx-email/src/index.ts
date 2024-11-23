@@ -1,3 +1,5 @@
+import './helpers.js';
+
 // components
 export * from './components/background.js';
 export * from './components/body.js';
@@ -26,6 +28,7 @@ export * from './components/text.js';
 // renderer
 export * from './renderer/compat/context.js';
 export * from './renderer/compat/hooks.js';
+export * from './renderer/compile.js';
 export * from './renderer/jsx-to-string.js';
 export * from './renderer/render.js';
 export { useData } from './renderer/suspense.js';
