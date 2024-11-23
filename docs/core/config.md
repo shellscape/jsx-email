@@ -86,7 +86,7 @@ esbuild?: {
 
 _Optional_. Default: `undefined`. Allows the configuration file to specify [ESBuild Plugins](https://esbuild.github.io/plugins) to use during the initial transform from JSX/TSX to JavaScript for the `build` and `preview` commands.
 
-::: note
+::: tip
 ESBuild plugins are only run when using the CLI's `build` or `preview` commands. ESBuild, and by extension the `esbuild` configuration option, are not used when using `render` directly in code
 :::
 

@@ -3,6 +3,8 @@ import prettyBytes from 'pretty-bytes';
 
 import { buildTemplates } from './commands/build.mjs';
 
+export { originalCwd } from '../helpers.js';
+
 interface BuildForPreviewParams {
   buildPath: string;
   exclude?: string;
@@ -13,9 +15,6 @@ interface BuildForPreviewParams {
 // 102kb
 export const gmailByteLimit = 102e3;
 export const gmailBytesSafe = 102e3 - 20e3;
-
-// Note: after server start we change the root directory to trick vite
-export const originalCwd = process.cwd();
 
 export const buildForPreview = async ({
   buildPath,

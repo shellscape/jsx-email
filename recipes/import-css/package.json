@@ -1,0 +1,19 @@
+{
+  "name": "email-project",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A simple starter for jsx-email",
+  "scripts": {
+    "build": "email build ./templates",
+    "create": "email create",
+    "dev": "email preview ./templates"
+  },
+  "dependencies": {
+    "jsx-email": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "react": "^18.2.0",
+    "typescript": "^5.2.2"
+  }
+}
