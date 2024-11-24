@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.3.1
+
+_2024-11-24_
+
+### Bugfixes
+
+- jsx-email: export compile method in separate path (#249)
+
 ## v2.3.0
 
 _2024-11-24_
