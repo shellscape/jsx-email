@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.3.0
+
+_2024-11-24_
+
+### Features
+
+- jsx-email,app-preview: --base-path flag, deploy preview to sub path (#247)
+
 ## v2.2.0
 
 _2024-11-23_
