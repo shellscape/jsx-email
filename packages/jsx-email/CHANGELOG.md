@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.3.3
+
+_2024-11-24_
+
+### Bugfixes
+
+- jsx-email: configure tshy to stop removing compile export (7635846)
+
 ## v2.3.2
 
 _2024-11-24_
