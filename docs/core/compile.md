@@ -16,7 +16,7 @@ type: package
 import { readFile } from 'node:fs/promises;';
 import { resolve } from 'node:path';
 
-import { compile } from 'jsx-email';
+import { compile } from 'jsx-email/compile';
 
 const templatePath = resolve(__dirname, './emails/Batman');
 const outputDir = resolve(__dirname, '.compiled');
