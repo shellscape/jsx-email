@@ -35,6 +35,7 @@ Starts the preview server for a directory of email templates
   $ email preview <template dir path> [...options]
 
 {underline Options}
+  --base-path   Default: /. Defines the path on a server that the preview app will be deployed to or available at
   --build-path  An absolute path. When set, builds the preview as a deployable app and saves to disk
   --exclude     A micromatch glob pattern that specifies files to exclude from the preview
   --host        Allow thew preview server to listen on all addresses (0.0.0.0)
@@ -46,15 +47,15 @@ Starts the preview server for a directory of email templates
   $ email preview ./src/templates --build-path /tmp/email-preview
 `;
 
-const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
-  const { buildPath } = argv;
+const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
+  const { basePath = '/', buildPath } = argv;
   const common = { argv, targetPath };
   await prepareBuild(common);
   const config = await getConfig(common);
 
   await viteBuild({
     ...config,
-    base: '/',
+    base: basePath,
     build: {
       minify: false,
       outDir: buildPath,
@@ -73,17 +74,18 @@ const buildDeployable = async ({ targetPath, argv }: PreviewCommonParams) => {
   });
 };
 
-const getConfig = async ({ targetPath, argv }: PreviewCommonParams) => {
+const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
   const buildPath = await getTempPath('preview');
   // @ts-ignore
   const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
-  const { host = false, port = 55420 } = argv;
+  const { basePath = '/', host = false, port = 55420 } = argv;
   // Note: The trailing slash is required
   const relativePath = `${normalizePath(relative(root, targetPath))}/`;
 
   newline();
   log.info(chalk`{blue Starting build...}`);
 
+  process.env.VITE_JSXEMAIL_BASE_PATH = basePath;
   process.env.VITE_JSXEMAIL_BUILD_PATH = `${normalizePath(relative(root, buildPath))}/`;
   process.env.VITE_JSXEMAIL_RELATIVE_PATH = relativePath;
 
