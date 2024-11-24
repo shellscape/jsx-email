@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.3.2
+
+_2024-11-24_
+
+### Bugfixes
+
+- jsx-email: correct package.json (7c58d46)
+
 ## v2.3.1
 
 _2024-11-24_

@@ -1,6 +1,6 @@
 {
   "name": "jsx-email",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "publishConfig": {
     "access": "public"
   },
@@ -28,16 +28,6 @@
       "require": {
         "types": "./dist/commonjs/index.d.ts",
         "default": "./dist/commonjs/index.js"
-      }
-    },
-    "./compile": {
-      "import": {
-        "types": "./dist/esm/compile.d.ts",
-        "default": "./dist/esm/compile.js"
-      },
-      "require": {
-        "types": "./dist/commonjs/compile.d.ts",
-        "default": "./dist/commonjs/compile.js"
       }
     },
     "./config": {
