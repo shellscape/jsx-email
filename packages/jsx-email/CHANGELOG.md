@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.3.4
+
+_2024-11-25_
+
+### Bugfixes
+
+- jsx-email: update unocss/tailwind support (#250)
+
 ## v2.3.3
 
 _2024-11-24_
