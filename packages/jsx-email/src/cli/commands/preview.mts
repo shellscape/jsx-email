@@ -12,7 +12,7 @@ import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
 import { buildForPreview } from '../helpers.mjs';
-import { staticPlugin } from '../vite-static.js';
+import { staticPlugin } from '../vite-static.mjs';
 import { watch } from '../watcher.mjs';
 
 import { getTempPath, normalizePath } from './build.mjs';

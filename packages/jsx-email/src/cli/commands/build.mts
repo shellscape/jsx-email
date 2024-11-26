@@ -5,10 +5,10 @@ import { dirname, basename, extname, join, resolve, win32, posix } from 'path';
 import { pathToFileURL } from 'url';
 
 import chalk from 'chalk';
-import globby from 'globby';
+import { globby } from 'globby';
 import micromatch from 'micromatch';
 import { isWindows } from 'std-env';
-import type { Output as Infer } from 'valibot';
+import type { InferOutput as Infer } from 'valibot';
 import { parse as assert, boolean, object, optional, string } from 'valibot';
 
 import { log } from '../../log.js';

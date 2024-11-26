@@ -1,5 +1,13 @@
 import type React from 'react';
-import { boolean, number, object, optional, string, union, type Output as Infer } from 'valibot';
+import {
+  boolean,
+  number,
+  object,
+  optional,
+  string,
+  union,
+  type InferOutput as Infer
+} from 'valibot';
 
 export type Flags = Record<string, string | boolean | undefined>;
 

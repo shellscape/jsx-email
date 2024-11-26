@@ -2,7 +2,7 @@ import { lstat } from 'node:fs/promises';
 
 import { doIUseEmail } from '@jsx-email/doiuse-email';
 import chalk from 'chalk';
-import { parse as assert, object, type Output as Infer } from 'valibot';
+import { parse as assert, object, type InferOutput as Infer } from 'valibot';
 
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.mjs';
 

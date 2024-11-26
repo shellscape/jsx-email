@@ -4,7 +4,14 @@ import { fileURLToPath } from 'node:url';
 
 import chalk from 'chalk';
 import mustache from 'mustache';
-import { parse as assert, boolean, object, optional, string, type Output as Infer } from 'valibot';
+import {
+  parse as assert,
+  boolean,
+  object,
+  optional,
+  string,
+  type InferOutput as Infer
+} from 'valibot';
 
 import { type CommandFn } from './types.mjs';
 
