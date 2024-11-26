@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 
-import globby from 'globby';
+import { globby } from 'globby';
 import mime from 'mime-types';
 // Note: another tshy problem https://github.com/isaacs/tshy/issues/96
 // @ts-ignore
