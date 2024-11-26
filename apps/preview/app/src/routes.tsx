@@ -40,18 +40,23 @@ const getRoutes = (templates: TemplateData[]) => {
 
 export const getRouter = (templates: Record<string, TemplateData>) => {
   const { routes, templateParts } = getRoutes(Object.values(templates));
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    [
+      {
+        element: (
+          <Layout>
+            <Home templateParts={templateParts} />
+          </Layout>
+        ),
+        errorElement: <Error />,
+        path: '/'
+      },
+      ...routes
+    ],
     {
-      element: (
-        <Layout>
-          <Home templateParts={templateParts} />
-        </Layout>
-      ),
-      errorElement: <Error />,
-      path: import.meta.env.VITE_JSXEMAIL_BASE_PATH || '/'
-    },
-    ...routes
-  ]);
+      basename: import.meta.env.VITE_JSXEMAIL_BASE_PATH
+    }
+  );
 
   return router;
 };
