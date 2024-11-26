@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.3.5
+
+_2024-11-26_
+
+### Updates
+
+- jsx-email: update dependencies (#251)
+
 ## v2.3.4
 
 _2024-11-25_
