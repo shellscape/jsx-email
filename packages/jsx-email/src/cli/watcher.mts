@@ -16,7 +16,8 @@ import { buildForPreview, originalCwd } from './helpers.mjs';
 
 interface WatchArgs {
   common: PreviewCommonParams;
-  htmlFiles: BuildResult[];
+  // htmlFiles: BuildResult[];
+  files: BuildResult[];
   server: ViteDevServer;
 }
 
@@ -37,12 +38,14 @@ export const watch = async (args: WatchArgs) => {
   newline();
   log.info(chalk`{blue Starting watcher...}\n`);
 
-  const { common, htmlFiles, server } = args;
+  // const { common, htmlFiles, server } = args;
+  const { common, files, server } = args;
   const { argv } = common;
   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
   let watchPaths: string[] = [];
 
-  const metaReads = htmlFiles.map(async ({ metaPath }) => {
+  // const metaReads = htmlFiles.map(async ({ metaPath }) => {
+  const metaReads = files.map(async ({ metaPath }) => {
     // log.debug({ exists: await exists(metaPath ?? ''), metaPath });
 
     if (!metaPath || !(await exists(metaPath))) return null;
@@ -76,11 +79,13 @@ export const watch = async (args: WatchArgs) => {
   }
 
   const handler: watcher.SubscribeCallback = async (_, events) => {
-    const files = events
+    const changedFiles = events
       .filter((event) => event.type !== 'create' && event.type !== 'delete')
       .map((e) => e.path)
       .filter((path) => extensions.includes(extname(path)));
-    const templates = files.flatMap((file) => [...(templateDeps.get(file) || [])]).filter(Boolean);
+    const templates = changedFiles
+      .flatMap((file) => [...(templateDeps.get(file) || [])])
+      .filter(Boolean);
 
     if (events.some(({ type }) => type === 'create' || type === 'delete')) {
       log.warn(

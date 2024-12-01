@@ -1,3 +1,12 @@
+// Note: This should match the same declaration in jsx-email/src/cli/preview.mts
+export interface PreviewImportContent {
+  html: string;
+  plain: string;
+  source: string;
+  sourceFile: string;
+  templateName: string;
+}
+
 export enum Views {
   Desktop = 'desktop',
   Html = 'html',

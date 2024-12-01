@@ -20,6 +20,7 @@ import type { CommandFn, TemplateFn } from './types.mjs';
 
 const BuildCommandOptionsStruct = object({
   exclude: optional(string()),
+  html: optional(boolean()),
   inlineCss: optional(boolean()),
   minify: optional(boolean()),
   out: optional(string()),
@@ -46,6 +47,7 @@ interface BuildOptions {
   argv: BuildCommandOptions;
   outputBasePath?: string;
   path: string;
+  sourceFile: string;
 }
 
 export interface BuildResult {
@@ -53,6 +55,7 @@ export interface BuildResult {
   html: string | null;
   metaPath?: string;
   plainText: string | null;
+  sourceFile: string;
   templateName: string | null;
   writePath: string;
 }
@@ -69,6 +72,7 @@ Builds a template and saves the result
   --exclude     A micromatch glob pattern that specifies files to exclude from the build
   --inline-css  Inlines all CSS classes as style attributes on elements
   --minify      Minify the rendered template before saving
+  --no-html     Disable rendering the HTML for a template. Useful for when only needing plain text
   --out         File path to save the rendered template
   --plain       Emit template as plain text
   --pretty      Oututs HTML in a pretty-print format. Note: Don't use this for production.
@@ -93,8 +97,8 @@ export const getTempPath = async (type: 'build' | 'preview') => {
 };
 
 export const build = async (options: BuildOptions): Promise<BuildResult> => {
-  const { argv, outputBasePath, path } = options;
-  const { out, plain, props = '{}', usePreviewProps, writeToFile = true } = argv;
+  const { argv, outputBasePath, path, sourceFile } = options;
+  const { html = true, out, plain, props = '{}', usePreviewProps, writeToFile = true } = argv;
   const compiledPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
   const template = await import(compiledPath);
   // proper named export
@@ -107,33 +111,46 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
     process.exit(1);
   }
 
-  const extension = plain ? '.txt' : '.html';
+  // const extension = plain ? '.txt' : '.html';
   const renderProps = usePreviewProps ? template.previewProps || {} : JSON.parse(props);
   const fileExt = extname(path);
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
   const writePath = outputBasePath
-    ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)
-    : join(out!, templateName + extension);
+    ? join(out!, baseDir.replace(outputBasePath, ''), templateName)
+    : join(out!, templateName);
+  // const writePath = outputBasePath
+  //   ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)
+  //   : join(out!, templateName + extension);
+  let plainText: string | null = null;
 
   await mkdir(dirname(writePath), { recursive: true });
 
   if (plain) {
-    const plainText = await render(component, { plainText: plain });
-    if (writeToFile) await writeFile(writePath, plainText, 'utf8');
-    return { compiledPath, html: null, plainText, templateName: template.templateName, writePath };
+    plainText = await render(component, { plainText: plain });
+    if (writeToFile) await writeFile(`${writePath}.txt`, plainText, 'utf8');
+    if (!html)
+      return {
+        compiledPath,
+        html: null,
+        plainText,
+        sourceFile,
+        templateName: template.templateName,
+        writePath
+      };
   }
 
-  const html = await render(component, argv as any);
+  const htmlText = await render(component, argv as any);
 
-  if (writeToFile) await writeFile(writePath, html, 'utf8');
+  if (writeToFile) await writeFile(`${writePath}.html`, htmlText, 'utf8');
 
   return {
     compiledPath,
-    html,
+    html: htmlText,
     metaPath: compiledPath.replace(/(\.js)$/, '.meta.json'),
-    plainText: null,
+    plainText,
+    sourceFile,
     templateName: template.templateName,
     writePath
   };
@@ -166,11 +183,12 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
   });
 
   const result = await Promise.all(
-    compiledFiles.map(async (filePath, index) => {
+    compiledFiles.map(async ({ entryPoint, path }, index) => {
       const buildResult = await build({
         argv: { ...buildOptions, out: outputPath },
         outputBasePath: esbuildOutPath,
-        path: filePath
+        path,
+        sourceFile: entryPoint
       });
       const res = {
         fileName: targetFiles[index],

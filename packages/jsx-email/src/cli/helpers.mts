@@ -22,20 +22,34 @@ export const buildForPreview = async ({
   quiet = false,
   targetPath
 }: BuildForPreviewParams) => {
-  const htmlBuild = buildTemplates({
-    buildOptions: {
-      exclude,
-      minify: false,
-      out: buildPath,
-      pretty: true,
-      showStats: !quiet,
-      silent: quiet,
-      usePreviewProps: true
-    },
-    targetPath
-  });
+  // const htmlBuild = buildTemplates({
+  //   buildOptions: {
+  //     exclude,
+  //     minify: false,
+  //     out: buildPath,
+  //     pretty: true,
+  //     showStats: !quiet,
+  //     silent: quiet,
+  //     usePreviewProps: true
+  //   },
+  //   targetPath
+  // });
 
-  const plainBuild = buildTemplates({
+  // const plainBuild = buildTemplates({
+  //   buildOptions: {
+  //     exclude,
+  //     minify: false,
+  //     out: buildPath,
+  //     plain: true,
+  //     pretty: true,
+  //     showStats: false,
+  //     silent: true,
+  //     usePreviewProps: true
+  //   },
+  //   targetPath
+  // });
+
+  const files = await buildTemplates({
     buildOptions: {
       exclude,
       minify: false,
@@ -43,15 +57,15 @@ export const buildForPreview = async ({
       plain: true,
       pretty: true,
       showStats: false,
-      silent: true,
-      usePreviewProps: true
+      silent: quiet,
+      usePreviewProps: true,
+      writeToFile: false
     },
     targetPath
   });
+  // const [htmlFiles] = await Promise.all([htmlBuild, plainBuild]);
 
-  const [htmlFiles] = await Promise.all([htmlBuild, plainBuild]);
-
-  return htmlFiles;
+  return files;
 };
 
 export const formatBytes = (bytes: number) => {
