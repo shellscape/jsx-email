@@ -15,6 +15,8 @@ export const reloadPlugin = (options: ViteReloadOptions): PluginOption => {
 
   return {
     apply: 'serve',
+    // Note: and yet another tshy problem
+    // @ts-ignore
     config({ server }) {
       /* eslint-disable no-param-reassign */
       if (!server) server = {};
