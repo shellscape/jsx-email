@@ -1,46 +1,23 @@
-import { config } from './config.js';
 import { parseName } from './helpers';
-import type { TemplatePart, TemplateData } from './types.ts';
+import type { PreviewImportContent, TemplatePart, TemplateData } from './types.ts';
 
 export const gather = async () => {
-  const relativePath = config.relativePath.endsWith('/')
-    ? config.relativePath
-    : `${config.relativePath}/`;
-  const buildPath = config.buildPath.endsWith('/') ? config.buildPath : `${config.buildPath}/`;
-  const absBuildPath = `/${buildPath.replace(/(\.\.\/)+/, '')}`;
+  const imports = import.meta.glob<PreviewImportContent>(`@jsxemailbuild/**/*.js`, {
+    import: 'default'
+  });
+  const builtFiles = await Promise.all(Object.values(imports).map((imp) => imp()));
+  const dirParts = builtFiles[0].sourceFile.split('/');
+  const baseDir = dirParts.length ? dirParts[0] : '';
+  const templateFiles: Record<string, TemplateData> = builtFiles.reduce((acc, file) => {
+    const templateName = file.templateName || file.sourceFile.split('/').at(-1);
 
-  const htmlFiles = import.meta.glob(`@jsxemailbuild/**/*.html`, {
-    eager: true,
-    import: 'default',
-    query: '?raw'
-  });
-  const plainFiles = import.meta.glob(`@jsxemailbuild/**/*.txt`, {
-    eager: true,
-    import: 'default',
-    query: '?raw'
-  });
-  const sourceFiles = import.meta.glob(`@jsxemailsrc/**/*.{jsx,tsx}`, {
-    eager: true,
-    import: 'default',
-    query: '?raw'
-  });
-  // @ts-ignore
-  const { default: templateNameMap } = await import(`@jsxemailbuild/template-name-map.json`);
-
-  const fileKeys = Object.keys(sourceFiles);
-  const templateFiles: Record<string, TemplateData> = fileKeys.reduce((acc, path) => {
-    const basePath = path.replace(relativePath, buildPath).replace(/\.(jsx|tsx)$/, '');
-    const absHtmlPath = `${path
-      .replace(relativePath, absBuildPath)
-      .replace(/\.(jsx|tsx)$/, '')}.html`;
-    const templateName = templateNameMap[absHtmlPath] || basePath.split('/').at(-1);
     return {
       ...acc,
-      [path]: {
-        html: htmlFiles[`${basePath}.html`],
-        path: path.replace(relativePath, ''),
-        plain: plainFiles[`${basePath}.txt`],
-        source: sourceFiles[path],
+      [file.sourceFile]: {
+        html: file.html,
+        path: file.sourceFile.replace(`${baseDir}/`, ''),
+        plain: file.plain,
+        source: file.source,
         templateName
       }
     };

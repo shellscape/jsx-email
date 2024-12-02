@@ -9,6 +9,12 @@ import { gather } from './templates';
 
 setup();
 
+// if (import.meta.hot) {
+//   import.meta.hot.accept((mod) => {
+//     console.log(mod);
+//   });
+// }
+
 const router = getRouter(await gather());
 const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
