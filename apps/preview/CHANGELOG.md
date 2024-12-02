@@ -1,5 +1,13 @@
 # @jsx-email/app-preview ChangeLog
 
+## v3.0.0
+
+_2024-12-02_
+
+### Breaking Changes
+
+- app-preview!: improve performance, fix nav animation (#254)
+
 ## v2.1.0
 
 _2024-11-24_
