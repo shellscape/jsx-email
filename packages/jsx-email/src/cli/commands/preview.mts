@@ -4,8 +4,10 @@ import { mkdir, rmdir } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { version as previewVersion } from '@jsx-email/app-preview';
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk';
+import semver from 'semver';
 import { parse as assert } from 'valibot';
 // TODO: re-enable this plugin to provide multiple paths for template assets
 // import { DynamicPublicDirectory } from 'vite-multiple-assets';
@@ -13,6 +15,7 @@ import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
 import { buildForPreview, writePreviewDataFiles } from '../helpers.mjs';
+import { peerDependencies } from '../../package-info.cjs';
 import { reloadPlugin } from '../vite-reload.mjs';
 import { staticPlugin } from '../vite-static.mjs';
 import { watch } from '../watcher.mjs';
@@ -74,6 +77,20 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
     },
     mode: 'development'
   });
+};
+
+const checkDepVersion = () => {
+  let wantedRange = peerDependencies['@jsx-email/app-preview'];
+
+  if (wantedRange === 'workspace:^') wantedRange = '^3.0.0';
+
+  log.debug({ previewVersion, wantedRange });
+  if (semver.satisfies(previewVersion, wantedRange)) return;
+
+  log.error(
+    chalk`The {bold preview} command requires @jsx-email/app-preview@{bold {magenta ${wantedRange}}}. {underline Please install a compatible version to continue}. {dim Package managers sometimes get this wrong, or hold onto old versions}`
+  );
+  process.exit(1);
 };
 
 const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
@@ -145,6 +162,8 @@ const start = async ({ targetPath, argv }: PreviewCommonParams) => {
 
 export const command: CommandFn = async (argv: PreviewCommandOptions, input) => {
   if (input.length < 1) return false;
+
+  checkDepVersion();
 
   assert(PreviewCommandOptionsStruct, argv);
 
