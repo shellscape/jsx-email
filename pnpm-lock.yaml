@@ -373,6 +373,9 @@ importers:
       '@types/pretty':
         specifier: ^2.0.1
         version: 2.0.3
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
       '@types/source-map-support':
         specifier: ^0.5.10
         version: 0.5.10
