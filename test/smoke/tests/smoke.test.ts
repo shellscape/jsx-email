@@ -28,9 +28,9 @@ test('landing', async ({ page }) => {
   });
 
   await page.goto('/');
-  await expect(page).toHaveTitle('JSX email');
+  await expect(page).toHaveTitle('jsx-email');
 
-  page.getByText('JSX Email Preview');
+  page.getByText('jsx-email Preview');
 
   const landing = page.locator('#landing');
 

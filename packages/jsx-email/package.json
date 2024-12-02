@@ -89,6 +89,7 @@
     "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.16",
     "chalk": "4.1.2",
+    "classnames": "2.5.1",
     "debug": "^4.3.4",
     "esbuild": "^0.24.0",
     "find-up": "^7.0.0",

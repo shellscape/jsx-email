@@ -7,6 +7,6 @@ workspace:
 
 tasks:
   dev:
-    command: email preview /Users/powella/code/jsx-email/apps/demo/emails
+    command: email preview emails
     options:
       cache: false

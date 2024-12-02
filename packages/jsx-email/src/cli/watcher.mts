@@ -160,9 +160,10 @@ export const watch = async (args: WatchArgs) => {
       '\n'
     );
 
-    changedTemplates.forEach((path) =>
-      buildForPreview({ buildPath, exclude, quiet: true, targetPath: path })
-    );
+    changedTemplates.forEach(async (path) => {
+      const results = await buildForPreview({ buildPath, exclude, quiet: true, targetPath: path });
+      await writePreviewDataFiles(results);
+    });
   };
 
   const watchPathSet = new Set([

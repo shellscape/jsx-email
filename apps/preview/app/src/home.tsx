@@ -7,7 +7,7 @@ import { Shell } from './components/shell';
 
 export const Home = ({ templateParts }: { templateParts: any }) => {
   React.useEffect(() => {
-    document.title = 'JSX email';
+    document.title = 'jsx-email Preview';
   }, []);
 
   return (
@@ -16,7 +16,7 @@ export const Home = ({ templateParts }: { templateParts: any }) => {
         id="landing"
         className="bg-dark-bg max-w-md border border-dark-bg-border m-auto mt-56 rounded-md p-8"
       >
-        <h2 className="font-medium">JSX Email Preview</h2>
+        <h2 className="font-medium">jsx-email Preview</h2>
         <SlotPrimitive.Slot className="mt-2 mb-4 text-sm">
           <SlotPrimitive.Slottable>
             <p>
