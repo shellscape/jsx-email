@@ -14,18 +14,22 @@ interface NavButtonProps extends React.ComponentPropsWithoutRef<'header'> {
   label: string;
 }
 
+const variants = {
+  active: { opacity: 1 },
+  inactive: { opacity: 0 }
+};
+
 export const NavButton = ({ activeView, addClassNames, label }: NavButtonProps) => (
   <ToggleGroup.Item value={label}>
     <motion.div className={classnames(button, addClassNames)}>
-      {activeView === label && (
-        <motion.span
-          layoutId="topbar"
-          className={motionSpan}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        />
-      )}
+      <motion.span
+        animate={activeView === label ? 'active' : 'inactive'}
+        initial={'inactive'}
+        variants={variants}
+        layoutId="topbar"
+        className={motionSpan}
+        exit={'inactive'}
+      />
       <span className={classnames(span, { 'text-cta-text': activeView === label })}>{label}</span>
     </motion.div>
   </ToggleGroup.Item>

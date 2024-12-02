@@ -1,4 +1,4 @@
-import { createBrowserRouter, type RouteObject } from 'react-router-dom';
+import { createHashRouter, type RouteObject } from 'react-router-dom';
 
 import { Error } from './error.tsx';
 import { Home } from './home.tsx';
@@ -40,7 +40,7 @@ const getRoutes = (templates: TemplateData[]) => {
 
 export const getRouter = (templates: Record<string, TemplateData>) => {
   const { routes, templateParts } = getRoutes(Object.values(templates));
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       element: (
         <Layout>
