@@ -20,6 +20,7 @@ interface PreviewDataContent {
   plain: string;
   source: string;
   sourceFile: string;
+  sourcePath: string;
   templateName: string;
 }
 
@@ -68,6 +69,7 @@ export const writePreviewDataFiles = async (files: BuildTempatesResult[]) => {
         plain: file.plainText,
         source: await readFile(normalizePath(file.fileName), 'utf8'),
         sourceFile: file.sourceFile,
+        sourcePath: file.fileName,
         templateName: file.templateName
       } as PreviewDataContent,
       null,

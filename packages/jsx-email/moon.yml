@@ -12,6 +12,7 @@ tasks:
       - ~:clean.dist
       - ~:compile
       - ~:copy.package
+      - ~:copy.preview
       - ~:copy.templates
     inputs:
       - src
@@ -38,6 +39,11 @@ tasks:
   # For all the things that tshy solves, it creates new problems
   copy.package:
     command: cp -r ./package.json dist
+    options:
+      cache: false
+
+  copy.preview:
+    command: cp -r ../../apps/preview/app dist/preview
     options:
       cache: false
 

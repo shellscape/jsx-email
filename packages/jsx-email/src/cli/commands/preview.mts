@@ -1,13 +1,11 @@
 /* eslint-disable no-use-before-define */
 import { existsSync } from 'node:fs';
 import { mkdir, rmdir } from 'node:fs/promises';
-import { dirname, join, resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { version as previewVersion } from '@jsx-email/app-preview';
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk';
-import semver from 'semver';
 import { parse as assert } from 'valibot';
 // TODO: re-enable this plugin to provide multiple paths for template assets
 // import { DynamicPublicDirectory } from 'vite-multiple-assets';
@@ -15,7 +13,6 @@ import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
 import { buildForPreview, writePreviewDataFiles } from '../helpers.mjs';
-import { peerDependencies } from '../../package-info.cjs';
 import { reloadPlugin } from '../vite-reload.mjs';
 import { staticPlugin } from '../vite-static.mjs';
 import { watch } from '../watcher.mjs';
@@ -53,7 +50,7 @@ Starts the preview server for a directory of email templates
 `;
 
 const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
-  const { basePath = '/', buildPath } = argv;
+  const { basePath = './', buildPath } = argv;
   const common = { argv, targetPath };
   await prepareBuild(common);
   const config = await getConfig(common);
@@ -79,30 +76,19 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
   });
 };
 
-const checkDepVersion = () => {
-  let wantedRange = peerDependencies['@jsx-email/app-preview'];
-
-  if (wantedRange === 'workspace:^') wantedRange = '^3.0.0';
-
-  log.debug({ previewVersion, wantedRange });
-  if (semver.satisfies(previewVersion, wantedRange)) return;
-
-  log.error(
-    chalk`The {bold preview} command requires @jsx-email/app-preview@{bold {magenta ${wantedRange}}}. {underline Please install a compatible version to continue}. {dim Package managers sometimes get this wrong, or hold onto old versions}`
-  );
-  process.exit(1);
-};
-
 const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
   const buildPath = await getTempPath('preview');
   // @ts-ignore
-  const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
+  const root = fileURLToPath(import.meta.resolve('../../../preview'));
   const { basePath = '/', host = false, port = 55420 } = argv;
+
+  log.debug(`Vite Root: ${root}`);
 
   newline();
   log.info(chalk`{blue Starting build...}`);
 
   process.env.VITE_JSXEMAIL_BASE_PATH = basePath;
+  process.env.VITE_JSXEMAIL_TARGET_PATH = targetPath;
 
   // Note: If we don't do this, vite won't know where to run from.
   // And apparently there's a tailwind bug if we set the `root` config property
@@ -162,8 +148,6 @@ const start = async ({ targetPath, argv }: PreviewCommonParams) => {
 
 export const command: CommandFn = async (argv: PreviewCommandOptions, input) => {
   if (input.length < 1) return false;
-
-  checkDepVersion();
 
   assert(PreviewCommandOptionsStruct, argv);
 
