@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.4.0
+
+_2024-12-02_
+
+### Features
+
+- jsx-email: improve preview speed, hot reload, routing (#253)
+
 ## v2.3.5
 
 _2024-11-26_
