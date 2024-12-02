@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.4.1
+
+_2024-12-02_
+
+### Bugfixes
+
+- jsx-email: optimize cookie, set-cookie-parser for vite (#256)
+
 ## v2.4.0
 
 _2024-12-02_
