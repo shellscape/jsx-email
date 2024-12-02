@@ -39,12 +39,17 @@ const cssPlugin: esbuild.Plugin = {
   }
 };
 
+interface CompileResult {
+  entryPoint: string;
+  path: string;
+}
+
 /**
  * @desc Compiles a JSX/TSX template file using esbuild
  * @param options CompileOptions
- * @returns string[] An array of files affected by the compilation
+ * @returns Promise<CompileResult[]> An array of files affected by the compilation
  */
-export const compile = async (options: CompileOptions) => {
+export const compile = async (options: CompileOptions): Promise<CompileResult[]> => {
   const config = await loadConfig();
 
   const { files, hashFiles = true, outDir, writeMeta = false } = options;
@@ -65,11 +70,22 @@ export const compile = async (options: CompileOptions) => {
     ...config.esbuild
   });
 
-  const affectedFiles = Object.keys(metafile.outputs);
-  const affectedPaths = affectedFiles.map((file) => resolve('/', file));
+  const { outputs } = metafile;
+  const outputPaths = Object.keys(outputs);
+  const affectedFiles = outputPaths
+    .map((path) => {
+      const { entryPoint } = metafile.outputs[path];
+      if (!entryPoint) return null;
+      return {
+        entryPoint,
+        path: resolve('/', path)
+      };
+    })
+    .filter<CompileResult>(Boolean as any);
+
+  // log.debug({ affectedFiles });
 
   if (metafile && writeMeta) {
-    const { outputs } = metafile;
     const ops = Object.entries(outputs).map(async ([path]) => {
       const fileName = basename(path, extname(path));
       const metaPath = join(dirname(path), `${fileName}.meta.json`);
@@ -82,5 +98,5 @@ export const compile = async (options: CompileOptions) => {
     await Promise.all(ops);
   }
 
-  return affectedPaths;
+  return affectedFiles;
 };

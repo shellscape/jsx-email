@@ -6,8 +6,7 @@ export const gather = async () => {
     import: 'default'
   });
   const builtFiles = await Promise.all(Object.values(imports).map((imp) => imp()));
-  const dirParts = builtFiles[0].sourceFile.split('/');
-  const baseDir = dirParts.length ? dirParts[0] : '';
+  const targetPath = import.meta.env.VITE_JSXEMAIL_TARGET_PATH;
   const templateFiles: Record<string, TemplateData> = builtFiles.reduce((acc, file) => {
     const templateName = file.templateName || file.sourceFile.split('/').at(-1);
 
@@ -15,7 +14,7 @@ export const gather = async () => {
       ...acc,
       [file.sourceFile]: {
         html: file.html,
-        path: file.sourceFile.replace(`${baseDir}/`, ''),
+        path: file.sourcePath.replace(`${targetPath}/`, ''),
         plain: file.plain,
         source: file.source,
         templateName

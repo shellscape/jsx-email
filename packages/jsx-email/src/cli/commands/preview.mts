@@ -1,21 +1,23 @@
 /* eslint-disable no-use-before-define */
 import { existsSync } from 'node:fs';
-import { mkdir, rmdir, writeFile } from 'node:fs/promises';
-import { dirname, join, relative, resolve } from 'node:path';
+import { mkdir, rmdir } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk';
 import { parse as assert } from 'valibot';
+// TODO: re-enable this plugin to provide multiple paths for template assets
 // import { DynamicPublicDirectory } from 'vite-multiple-assets';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
-import { buildForPreview } from '../helpers.mjs';
+import { buildForPreview, writePreviewDataFiles } from '../helpers.mjs';
+import { reloadPlugin } from '../vite-reload.mjs';
 import { staticPlugin } from '../vite-static.mjs';
 import { watch } from '../watcher.mjs';
 
-import { getTempPath, normalizePath } from './build.mjs';
+import { getTempPath } from './build.mjs';
 import {
   type CommandFn,
   type PreviewCommandOptions,
@@ -48,7 +50,7 @@ Starts the preview server for a directory of email templates
 `;
 
 const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
-  const { basePath = '/', buildPath } = argv;
+  const { basePath = './', buildPath } = argv;
   const common = { argv, targetPath };
   await prepareBuild(common);
   const config = await getConfig(common);
@@ -77,17 +79,16 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
 const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
   const buildPath = await getTempPath('preview');
   // @ts-ignore
-  const root = join(dirname(fileURLToPath(import.meta.resolve('@jsx-email/app-preview'))), 'app');
+  const root = fileURLToPath(import.meta.resolve('../../../preview'));
   const { basePath = '/', host = false, port = 55420 } = argv;
-  // Note: The trailing slash is required
-  const relativePath = `${normalizePath(relative(root, targetPath))}/`;
+
+  log.debug(`Vite Root: ${root}`);
 
   newline();
   log.info(chalk`{blue Starting build...}`);
 
   process.env.VITE_JSXEMAIL_BASE_PATH = basePath;
-  process.env.VITE_JSXEMAIL_BUILD_PATH = `${normalizePath(relative(root, buildPath))}/`;
-  process.env.VITE_JSXEMAIL_RELATIVE_PATH = relativePath;
+  process.env.VITE_JSXEMAIL_TARGET_PATH = targetPath;
 
   // Note: If we don't do this, vite won't know where to run from.
   // And apparently there's a tailwind bug if we set the `root` config property
@@ -100,11 +101,14 @@ const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
       include: ['classnames', 'react-dom', 'react-dom/client']
     },
     // plugins: [DynamicPublicDirectory([join(targetPath, '**')], { ssr: false }), react()],
-    plugins: [staticPlugin({ paths: [join(targetPath, '**')] }), react()],
+    plugins: [
+      reloadPlugin({ globs: [join(buildPath, '**/*.js')] }),
+      staticPlugin({ paths: [join(targetPath, '**')] }),
+      react()
+    ],
     resolve: {
       alias: {
-        '@jsxemailbuild': buildPath,
-        '@jsxemailsrc': targetPath
+        '@jsxemailbuild': buildPath
       }
     },
     server: { fs: { strict: false }, host, port: parseInt(port.toString(), 10) }
@@ -119,26 +123,14 @@ const prepareBuild = async ({ targetPath, argv }: PreviewCommonParams) => {
 
   if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
   await mkdir(buildPath, { recursive: true });
-  const htmlFiles = await buildForPreview({ buildPath, exclude, targetPath });
-
-  const templateNameMap: Record<string, string> = {};
-
-  for (const file of htmlFiles) {
-    if (file.templateName) templateNameMap[file.writePath] = file.templateName;
-  }
-
-  await writeFile(
-    join(buildPath, 'template-name-map.json'),
-    JSON.stringify(templateNameMap),
-    'utf8'
-  );
-
-  return { htmlFiles, templateNameMap };
+  const files = await buildForPreview({ buildPath, exclude, targetPath });
+  await writePreviewDataFiles(files);
+  return files;
 };
 
 const start = async ({ targetPath, argv }: PreviewCommonParams) => {
   const common = { argv, targetPath };
-  const { htmlFiles } = await prepareBuild(common);
+  const files = await prepareBuild(common);
   const config = await getConfig(common);
   const { open = true } = argv;
   const server = await createServer(config);
@@ -151,7 +143,7 @@ const start = async ({ targetPath, argv }: PreviewCommonParams) => {
   if (open) server.openBrowser();
   server.printUrls();
 
-  return { htmlFiles, server };
+  return { files, server };
 };
 
 export const command: CommandFn = async (argv: PreviewCommandOptions, input) => {
@@ -177,8 +169,8 @@ export const command: CommandFn = async (argv: PreviewCommandOptions, input) => 
 
   globalThis.isJsxEmailPreview = true;
 
-  const { htmlFiles, server } = await start(common);
-  await watch({ common, htmlFiles, server });
+  const { files, server } = await start(common);
+  await watch({ common, files, server });
 
   return true;
 };
