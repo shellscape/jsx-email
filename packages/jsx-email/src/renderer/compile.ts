@@ -83,9 +83,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
     })
     .filter<CompileResult>(Boolean as any);
 
-  log.debug({ affectedFiles });
-  // console.log(metafile.outputs[affectedFiles[0]].entryPoint);
-  // const affectedPaths = affectedFiles.map((file) => resolve('/', file));
+  // log.debug({ affectedFiles });
 
   if (metafile && writeMeta) {
     const ops = Object.entries(outputs).map(async ([path]) => {
@@ -101,5 +99,4 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
   }
 
   return affectedFiles;
-  // return affectedPaths;
 };

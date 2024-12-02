@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import { existsSync } from 'node:fs';
-import { mkdir, readFile, rmdir, writeFile } from 'node:fs/promises';
+import { mkdir, rmdir } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,26 +12,18 @@ import { parse as assert } from 'valibot';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
-import { buildForPreview } from '../helpers.mjs';
+import { buildForPreview, writePreviewDataFiles } from '../helpers.mjs';
+import { reloadPlugin } from '../vite-reload.mjs';
 import { staticPlugin } from '../vite-static.mjs';
 import { watch } from '../watcher.mjs';
 
-import { getTempPath, normalizePath } from './build.mjs';
+import { getTempPath } from './build.mjs';
 import {
   type CommandFn,
   type PreviewCommandOptions,
   type PreviewCommonParams,
   PreviewCommandOptionsStruct
 } from './types.mjs';
-
-// Note: This should match the same declaration in @jsx-email/app-preview
-interface PreviewImportContent {
-  html: string;
-  plain: string;
-  source: string;
-  sourceFile: string;
-  templateName: string;
-}
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
@@ -106,7 +98,11 @@ const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
       include: ['classnames', 'react-dom', 'react-dom/client']
     },
     // plugins: [DynamicPublicDirectory([join(targetPath, '**')], { ssr: false }), react()],
-    plugins: [staticPlugin({ paths: [join(targetPath, '**')] }), react()],
+    plugins: [
+      reloadPlugin({ globs: [join(buildPath, '**/*.js')] }),
+      staticPlugin({ paths: [join(targetPath, '**')] }),
+      react()
+    ],
     resolve: {
       alias: {
         '@jsxemailbuild': buildPath
@@ -125,23 +121,7 @@ const prepareBuild = async ({ targetPath, argv }: PreviewCommonParams) => {
   if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
   await mkdir(buildPath, { recursive: true });
   const files = await buildForPreview({ buildPath, exclude, targetPath });
-  const writes = files.map(async (file) => {
-    const content = JSON.stringify(
-      {
-        html: file.html,
-        plain: file.plainText,
-        source: await readFile(normalizePath(file.sourceFile), 'utf8'),
-        sourceFile: file.sourceFile,
-        templateName: file.templateName
-      } as PreviewImportContent,
-      null,
-      2
-    );
-    const code = `export default ${content};`;
-    await writeFile(`${file.writePath}.js`, code, 'utf8');
-  });
-
-  await Promise.all(writes);
+  await writePreviewDataFiles(files);
   return files;
 };
 

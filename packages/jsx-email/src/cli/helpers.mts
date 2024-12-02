@@ -1,7 +1,9 @@
+import { readFile, writeFile } from 'node:fs/promises';
+
 import chalk from 'chalk';
 import prettyBytes from 'pretty-bytes';
 
-import { buildTemplates } from './commands/build.mjs';
+import { buildTemplates, normalizePath, type BuildTempatesResult } from './commands/build.mjs';
 
 export { originalCwd } from '../helpers.js';
 
@@ -10,6 +12,15 @@ interface BuildForPreviewParams {
   exclude?: string;
   quiet?: boolean;
   targetPath: string;
+}
+
+// Note: This should match the same declaration in @jsx-email/app-preview
+interface PreviewDataContent {
+  html: string;
+  plain: string;
+  source: string;
+  sourceFile: string;
+  templateName: string;
 }
 
 // 102kb
@@ -22,33 +33,6 @@ export const buildForPreview = async ({
   quiet = false,
   targetPath
 }: BuildForPreviewParams) => {
-  // const htmlBuild = buildTemplates({
-  //   buildOptions: {
-  //     exclude,
-  //     minify: false,
-  //     out: buildPath,
-  //     pretty: true,
-  //     showStats: !quiet,
-  //     silent: quiet,
-  //     usePreviewProps: true
-  //   },
-  //   targetPath
-  // });
-
-  // const plainBuild = buildTemplates({
-  //   buildOptions: {
-  //     exclude,
-  //     minify: false,
-  //     out: buildPath,
-  //     plain: true,
-  //     pretty: true,
-  //     showStats: false,
-  //     silent: true,
-  //     usePreviewProps: true
-  //   },
-  //   targetPath
-  // });
-
   const files = await buildTemplates({
     buildOptions: {
       exclude,
@@ -63,7 +47,6 @@ export const buildForPreview = async ({
     },
     targetPath
   });
-  // const [htmlFiles] = await Promise.all([htmlBuild, plainBuild]);
 
   return files;
 };
@@ -75,4 +58,24 @@ export const formatBytes = (bytes: number) => {
   else if (bytes > gmailBytesSafe - 20e3) return chalk.red(pretty);
 
   return chalk.green(pretty);
+};
+
+export const writePreviewDataFiles = async (files: BuildTempatesResult[]) => {
+  const writes = files.map(async (file) => {
+    const content = JSON.stringify(
+      {
+        html: file.html,
+        plain: file.plainText,
+        source: await readFile(normalizePath(file.fileName), 'utf8'),
+        sourceFile: file.sourceFile,
+        templateName: file.templateName
+      } as PreviewDataContent,
+      null,
+      2
+    );
+    const code = `export default ${content};`;
+    await writeFile(`${file.writePathBase}.js`, code, 'utf8');
+  });
+
+  await Promise.all(writes);
 };

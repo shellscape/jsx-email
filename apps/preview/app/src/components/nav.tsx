@@ -42,7 +42,7 @@ export const Nav = React.forwardRef<React.ElementRef<'header'>, Readonly<NavProp
             </div>
           )}
         </div>
-
+        {/* <div>activeView: {activeView}</div> */}
         {!!title && (
           <div className="flex flex-row items-center gap-4">
             <Popover.Root>

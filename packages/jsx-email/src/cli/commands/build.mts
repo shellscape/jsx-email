@@ -57,7 +57,11 @@ export interface BuildResult {
   plainText: string | null;
   sourceFile: string;
   templateName: string | null;
-  writePath: string;
+  writePathBase: string;
+}
+
+export interface BuildTempatesResult extends BuildResult {
+  fileName: string;
 }
 
 export const help = chalk`
@@ -137,7 +141,7 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
         plainText,
         sourceFile,
         templateName: template.templateName,
-        writePath
+        writePathBase: writePath
       };
   }
 
@@ -152,7 +156,7 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
     plainText,
     sourceFile,
     templateName: template.templateName,
-    writePath
+    writePathBase: writePath
   };
 };
 
@@ -179,7 +183,7 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
   const compiledFiles = await compile({
     files: targetFiles,
     outDir: esbuildOutPath,
-    writeMeta: !buildOptions.plain
+    writeMeta: buildOptions.html ?? true
   });
 
   const result = await Promise.all(
@@ -222,7 +226,7 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
     }
   }
 
-  return result;
+  return result as BuildTempatesResult[];
 };
 
 export const command: CommandFn = async (argv: BuildCommandOptions, input) => {
