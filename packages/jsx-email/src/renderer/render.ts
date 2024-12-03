@@ -58,11 +58,12 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const movePlugin = await getMovePlugin();
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
+
+  // const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
 
   processor.use(movePlugin);
-
   await callProcessHook({ config, processor });
 
   const doc = await processor
@@ -77,6 +78,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   result = result.replace(reJsxTags, '');
+  result = result.replace(/<jsx-email-raw><!--\s*(.*?)\s*--><\/jsx-email-raw>/, '$1');
 
   return result;
 };
