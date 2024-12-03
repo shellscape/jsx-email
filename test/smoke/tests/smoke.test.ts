@@ -75,8 +75,8 @@ test('watcher', async ({ page }) => {
 
   const isLocal = process.env.CI !== 'true';
   const targetFilePath = isLocal
-    ? join(__dirname, '../fixtures/components/text.tsx')
-    : '/home/runner/work/jsx-email/jsx-email/jsx-email-tests/smoke-test/fixtures/components/text.tsx';
+    ? join(__dirname, '../fixtures/templates/base.jsx')
+    : '/home/runner/work/jsx-email/jsx-email/jsx-email-tests/smoke-test/fixtures/templates/base.jsx';
 
   console.log({ isLocal, targetFilePath });
 
@@ -84,14 +84,14 @@ test('watcher', async ({ page }) => {
 
   console.log({ contents });
 
-  await writeFile(targetFilePath, contents.replace('test', 'batman'), 'utf8');
+  await writeFile(targetFilePath, contents.replace('Text Content', 'Removed Content'), 'utf8');
 
   console.log('after write:', await readFile(targetFilePath, 'utf8'));
 
   await page.waitForTimeout(45e3);
   await page.waitForSelector('#link-Local-Assets', timeout);
 
-  page.locator('#link-Local-Assets').click();
+  page.locator('#link-Base').click();
 
   const iframe = await page.frameLocator('#preview-frame');
   const html = await getHTML(iframe.locator('html'), { deep: true });
@@ -99,5 +99,5 @@ test('watcher', async ({ page }) => {
   expect(html).toMatchSnapshot({ name: `watcher.snap` });
 
   // Note: so we don't have dirty files when running smoketest locally
-  await writeFile(targetFilePath, contents.replace('batman', 'test'), 'utf8');
+  await writeFile(targetFilePath, contents.replace('Removed Content', 'Text Content'), 'utf8');
 });
