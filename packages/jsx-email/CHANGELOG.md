@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.4.2
+
+_2024-12-03_
+
+### Bugfixes
+
+- jsx-email: rollback the watcher to only watch entrypoint directories (#258)
+
 ## v2.4.1
 
 _2024-12-02_
