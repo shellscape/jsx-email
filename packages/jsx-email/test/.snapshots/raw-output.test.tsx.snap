@@ -1,3 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`<RawOutput> component > Should preserve content on plainText render 1`] = `"<#if firstname & lastname>Ola!</#if>"`;
+
 exports[`<RawOutput> component > Should render not escaped value 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><html><body><#if firstname & lastname>Ola!</#if></body></html>"`;

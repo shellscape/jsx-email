@@ -13,12 +13,29 @@ export const renderPlainText = async (
   component: React.ReactElement,
   options?: PlainTextOptions
 ) => {
+  const { formatters, selectors } = options || {};
+
   const result = await jsxToString(component);
   return htmlToText(result, {
+    formatters: {
+      rawOutput: (elem, _walk, builder) => {
+        if (elem.children.length && elem.children[0].type === 'comment') {
+          builder.addInline(elem.children[0].data!.trim());
+        }
+      },
+      ...formatters
+    },
+
     selectors: [
       { format: 'skip', selector: 'img' },
       { format: 'skip', selector: '[data-skip="true"]' },
-      { options: { linkBrackets: false }, selector: 'a' }
+      { options: { linkBrackets: false }, selector: 'a' },
+      {
+        format: 'rawOutput',
+        options: {},
+        selector: 'jsx-email-raw'
+      },
+      ...(selectors || [])
     ],
     ...options
   });
@@ -78,7 +95,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   result = result.replace(reJsxTags, '');
-  result = result.replace(/<jsx-email-raw><!--\s*(.*?)\s*--><\/jsx-email-raw>/, '$1');
+  result = result.replace(/<jsx-email-raw><!--\s*(.*?)\s*--><\/jsx-email-raw>/g, '$1');
 
   return result;
 };

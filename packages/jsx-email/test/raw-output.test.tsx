@@ -11,7 +11,27 @@ describe('<RawOutput> component', async () => {
   });
 
   it('Should render not escaped value', async () => {
-    const html = await render(<RawOutput content={`<#if firstname & lastname>Ola!</#if>`} />);
-    expect(html).toMatchSnapshot();
+    const actual = await render(
+      <>
+        <RawOutput content={`<#if firstname & lastname>`} />
+        Ola!
+        <RawOutput content={`</#if>`} />
+      </>
+    );
+    expect(actual).toMatchSnapshot();
+  });
+
+  it('Should preserve content on plainText render', async () => {
+    const actual = await render(
+      <>
+        <RawOutput content={`<#if firstname & lastname>`} />
+        Ola!
+        <RawOutput content={`</#if>`} />
+      </>,
+      {
+        plainText: true
+      }
+    );
+    expect(actual).toMatchSnapshot();
   });
 });
