@@ -77,7 +77,6 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
 
-  // const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
 
