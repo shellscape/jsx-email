@@ -6,6 +6,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
+import { unescapeForRawComponent } from './raw.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -20,7 +21,7 @@ export const renderPlainText = async (
     formatters: {
       rawOutput: (elem, _walk, builder) => {
         if (elem.children.length && elem.children[0].type === 'comment') {
-          builder.addInline(elem.children[0].data!.trim());
+          builder.addInline(unescapeForRawComponent(elem.children[0].data!.trim()));
         }
       },
       ...formatters
@@ -95,7 +96,9 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   result = result.replace(reJsxTags, '');
-  result = result.replace(/<jsx-email-raw><!--\s*(.*?)\s*--><\/jsx-email-raw>/g, '$1');
+  result = result.replace(/<jsx-email-raw.*?><!--(.*?)--><\/jsx-email-raw>/g, (_, p1) =>
+    unescapeForRawComponent(p1)
+  );
 
   return result;
 };
