@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.5.0
+
+_2024-12-08_
+
+### Features
+
+- jsx-email: `Raw` component (#259)
+
 ## v2.4.2
 
 _2024-12-03_
