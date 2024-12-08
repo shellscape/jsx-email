@@ -26,16 +26,18 @@ const hero = true;
 
 const HeroOrVillain = () => {
   return (
-    <Raw content={`<#if ${production}>`}/>
-      <b>Batman's a hero</b>
-    <Raw content={`</#if>`}/>
+    <>
+      <Raw content={`<#if ${hero}>`}/>
+        <b>Batman's a hero</b>
+      <Raw content={`</#if>`}/>
+    </>
   );
 };
 ```
 
 Which if used in a template, would yield the following when rendered:
 
-```
+```html
 <#if true>
   <b>Batman's a hero</b>
 </#if>
