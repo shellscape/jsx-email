@@ -14,13 +14,13 @@ declare global {
 
 export interface RawProps {
   content: string;
-  disableOutputToPlainText?: boolean;
+  disablePlainTextOutput?: boolean;
 }
 
 export const Raw: JsxEmailComponent<RawProps> = (props) => (
   <>
     <jsx-email-raw
-      data-skip={props.disableOutputToPlainText ? 'true' : undefined}
+      data-skip={props.disablePlainTextOutput ? 'true' : void 0}
       dangerouslySetInnerHTML={{ __html: `<!--${escapeForRawComponent(props.content)}-->` }}
     />
   </>
