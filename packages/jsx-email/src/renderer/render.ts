@@ -6,6 +6,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
+import { unescapeForRawComponent } from './raw.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -13,12 +14,29 @@ export const renderPlainText = async (
   component: React.ReactElement,
   options?: PlainTextOptions
 ) => {
+  const { formatters, selectors } = options || {};
+
   const result = await jsxToString(component);
   return htmlToText(result, {
+    formatters: {
+      raw: (elem, _walk, builder) => {
+        if (elem.children.length && elem.children[0].type === 'comment') {
+          builder.addInline(unescapeForRawComponent(elem.children[0].data!.trim()));
+        }
+      },
+      ...formatters
+    },
+
     selectors: [
       { format: 'skip', selector: 'img' },
       { format: 'skip', selector: '[data-skip="true"]' },
-      { options: { linkBrackets: false }, selector: 'a' }
+      { options: { linkBrackets: false }, selector: 'a' },
+      {
+        format: 'raw',
+        options: {},
+        selector: 'jsx-email-raw'
+      },
+      ...(selectors || [])
     ],
     ...options
   });
@@ -58,11 +76,11 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const movePlugin = await getMovePlugin();
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
+
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
 
   processor.use(movePlugin);
-
   await callProcessHook({ config, processor });
 
   const doc = await processor
@@ -77,6 +95,9 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   result = result.replace(reJsxTags, '');
+  result = result.replace(/<jsx-email-raw.*?><!--(.*?)--><\/jsx-email-raw>/g, (_, p1) =>
+    unescapeForRawComponent(p1)
+  );
 
   return result;
 };
