@@ -12,12 +12,12 @@ declare global {
   }
 }
 
-export interface RawOutputProps {
+export interface RawProps {
   content: string;
   disableOutputToPlainText?: boolean;
 }
 
-export const Raw: JsxEmailComponent<RawOutputProps> = (props) => (
+export const Raw: JsxEmailComponent<RawProps> = (props) => (
   <>
     <jsx-email-raw
       data-skip={props.disableOutputToPlainText ? 'true' : undefined}

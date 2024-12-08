@@ -19,7 +19,7 @@ export const renderPlainText = async (
   const result = await jsxToString(component);
   return htmlToText(result, {
     formatters: {
-      rawOutput: (elem, _walk, builder) => {
+      raw: (elem, _walk, builder) => {
         if (elem.children.length && elem.children[0].type === 'comment') {
           builder.addInline(unescapeForRawComponent(elem.children[0].data!.trim()));
         }
@@ -32,7 +32,7 @@ export const renderPlainText = async (
       { format: 'skip', selector: '[data-skip="true"]' },
       { options: { linkBrackets: false }, selector: 'a' },
       {
-        format: 'rawOutput',
+        format: 'raw',
         options: {},
         selector: 'jsx-email-raw'
       },
