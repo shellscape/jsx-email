@@ -46,13 +46,13 @@ describe('<Raw> component', async () => {
     expect(actual).toMatchSnapshot();
   });
 
-  describe('disableOutputToPlainText', () => {
+  describe('disablePlainTextOutput', () => {
     it('Should not output to the plain text when enabled', async () => {
       const actual = await render(
         <>
-          <Raw disableOutputToPlainText={true} content={`<!--[if !mso]><!-->`} />
+          <Raw disablePlainTextOutput={true} content={`<!--[if !mso]><!-->`} />
           Ola!
-          <Raw disableOutputToPlainText={true} content={`<!--<![endif]-->`} />
+          <Raw disablePlainTextOutput={true} content={`<!--<![endif]-->`} />
         </>,
         { plainText: true }
       );
@@ -62,9 +62,9 @@ describe('<Raw> component', async () => {
     it('Should output to html when enabled', async () => {
       const actual = await render(
         <>
-          <Raw disableOutputToPlainText={true} content={`<!--[if !mso]><!-->`} />
+          <Raw disablePlainTextOutput={true} content={`<!--[if !mso]><!-->`} />
           Ola!
-          <Raw disableOutputToPlainText={true} content={`<!--<![endif]-->`} />
+          <Raw disablePlainTextOutput={true} content={`<!--<![endif]-->`} />
         </>
       );
       expect(actual).toMatchSnapshot();
