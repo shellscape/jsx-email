@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.5.1
+
+_2024-12-08_
+
+### Bugfixes
+
+- jsx-email: correct the disable prop of the Raw component, add docs (#260)
+
 ## v2.5.0
 
 _2024-12-08_
