@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.5.2
+
+_2024-12-09_
+
+### Bugfixes
+
+- jsx-email: export Raw component + docs fixes (#261)
+
 ## v2.5.1
 
 _2024-12-08_
