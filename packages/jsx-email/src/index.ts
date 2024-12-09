@@ -24,6 +24,7 @@ export * from './components/row.js';
 export * from './components/section.js';
 export * from './components/tailwind/tailwind.js';
 export * from './components/text.js';
+export * from './components/raw.js';
 
 // renderer
 export * from './renderer/compat/context.js';

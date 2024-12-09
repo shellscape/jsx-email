@@ -20,16 +20,16 @@ It's important to understand that the values set as `content` will be placed int
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import {Raw } from 'jsx-email';
+import { Raw } from 'jsx-email';
 
 const hero = true;
 
 const HeroOrVillain = () => {
   return (
     <>
-      <Raw content={`<#if ${hero}>`}/>
-        <b>Batman's a hero</b>
-      <Raw content={`</#if>`}/>
+      <Raw content={`<#if ${hero}>`} />
+      <b>Batman's a hero</b>
+      <Raw content={`</#if>`} />
     </>
   );
 };
@@ -44,20 +44,6 @@ Which if used in a template, would yield the following when rendered:
 ```
 
 ## Component Props
-
-```ts
-interface ConditionalProps {
-  children?: React.ReactNode;
-  expression?: string;
-  mso?: boolean;
-}
-```
-
-::: info
-The `expression` prop or the `mso` prop must be defined, but not both.
-:::
-
-### Props
 
 ```ts
 content?: string;
