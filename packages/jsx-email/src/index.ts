@@ -21,10 +21,10 @@ export * from './components/link.js';
 export * from './components/markdown.js';
 export * from './components/preview.js';
 export * from './components/row.js';
+export * from './components/raw.js';
 export * from './components/section.js';
 export * from './components/tailwind/tailwind.js';
 export * from './components/text.js';
-export * from './components/raw.js';
 
 // renderer
 export * from './renderer/compat/context.js';
