@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.5.3
+
+_2024-12-09_
+
+### Bugfixes
+
+- jsx-email: deprecate the `base-path` flag (#262)
+
 ## v2.5.2
 
 _2024-12-09_
