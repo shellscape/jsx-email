@@ -83,6 +83,14 @@ const nextConfig = {
 module.exports = nextConfig;
 ```
 
+## How do I use React context?
+
+Import context helpers from jsx-email instead of from React.
+
+```js
+import { createContext, useContext } from 'jsx-email';
+```
+
 ## I have another question that isn't answered here!
 
 If you have a question that isn't answered here, please [open an issue](https://github.com/shellscape/jsx-email/issues), start a [Discussion](https://github.com/shellscape/jsx-email/discussions), or [join our friendly Discord](https://discord.gg/FywZN57mTg) and ask away!
