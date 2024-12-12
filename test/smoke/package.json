@@ -13,7 +13,7 @@
     "dedent": "^1.5.1",
     "diffable-html": "^5.0.0",
     "jsx-email": "workspace:^",
-    "unocss": "^0.58.5"
+    "unocss": "^0.65.1"
   },
   "devDependencies": {
     "@types/diffable-html": "^5.0.2",
