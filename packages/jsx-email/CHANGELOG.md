@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.5.4
+
+_2024-12-12_
+
+### Bugfixes
+
+- jsx-email: update unocss for Tailwind component (#265)
+
 ## v2.5.3
 
 _2024-12-09_
