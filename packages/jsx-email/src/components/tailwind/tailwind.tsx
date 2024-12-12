@@ -68,7 +68,7 @@ const getUno = async (config: ConfigBase, production: boolean) => {
     presetUno({ dark: 'media' }),
     presetWind()
   ];
-  const uno = createGenerator({
+  const uno = await createGenerator({
     ...(config as any),
     presets,
     transformers
