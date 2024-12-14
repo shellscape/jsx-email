@@ -27,6 +27,7 @@ import {
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
+const { JSX_DEV_LOCAL = false } = process.env;
 
 export const help = chalk`
 {blue email preview}
@@ -83,9 +84,13 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
 
 const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
   const buildPath = await getTempPath('preview');
-  // @ts-ignore
-  const root = fileURLToPath(import.meta.resolve('../../../preview'));
+  const root = JSX_DEV_LOCAL
+    ? fileURLToPath(import.meta.resolve('../../../../../../apps/preview/app'))
+    : fileURLToPath(import.meta.resolve('../../../preview'));
   const { basePath = '/', host = false, port = 55420 } = argv;
+
+  if (JSX_DEV_LOCAL)
+    log.warn(chalk`{yellow JSX_DEV_LOCAL is set}. using preview source from ${root}`);
 
   log.debug(`Vite Root: ${root}`);
 
