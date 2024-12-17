@@ -17,10 +17,10 @@ Convert JSX email templates to HTML:
 
 ```jsx
 import { render } from 'jsx-email';
-import { BatmanTemplate } from './emails/Batman';
+import { Template } from './emails/Batman';
 
 const html = await render(
-  <BatmanTemplate firstName="Bruce" lastName="Wayne" />
+  <Template firstName="Bruce" lastName="Wayne" />
 );
 ```
 
