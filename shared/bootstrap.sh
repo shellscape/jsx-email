@@ -25,8 +25,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash 
 $SHELL -c "source $SHELL_PROFILE"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-echo -e $(date "+\n[%H:%M:%S]")"${BLUE} Installing Node v18...\n${RESET}"
-nvm install 18 >/dev/null
+echo -e $(date "+\n[%H:%M:%S]")"${BLUE} Installing Node v20...\n${RESET}"
+nvm install 20 >/dev/null
 
 # install pnpm
 echo -e $(date "+\n[%H:%M:%S]")"${BLUE} Installing PNPM...\n${RESET}"

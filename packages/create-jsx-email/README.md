@@ -20,7 +20,7 @@
 
 ## Requirements
 
-This package requires an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
+This package requires Node v20.10.0+ and React v18.2.0+.
 
 ## Getting started
 

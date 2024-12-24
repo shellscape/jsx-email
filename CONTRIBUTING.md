@@ -33,7 +33,7 @@ $ moon repo:build.all
 
 ## Before Committing
 
-1. Use at least Node.js v18.0.0 or higher. [NVM](https://github.com/creationix/nvm) can be handy for switching between Node versions.
+1. Use at least Node.js v20.10.0 or higher. [NVM](https://github.com/creationix/nvm) can be handy for switching between Node versions.
 1. Lint your changes via `moon run repo:lint`. Fix any errors and warnings before committing.
 1. Test your changes via `moon run repo:test`. Only Pull Requests with passing tests will be accepted.
 
