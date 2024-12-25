@@ -32,6 +32,7 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
   fontSize = 16,
   align = 'left',
   withBackground = false,
+  rel,
   ...props
 }) => {
   // Logic for arcsize
@@ -71,12 +72,27 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
 
   const baseButton = (
     <a
+      rel={rel}
       href={href}
       style={{
         ...baseStyles,
         ...propStyles,
         ...style,
         ...(withBackground ? {} : { msoHide: 'all' })
+      }}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+  const vmlFallbackLinkContents = (
+    <a
+      rel={rel}
+      href={href}
+      style={{
+        color: textColor,
+        ...baseStyles,
+        ...style
       }}
       {...props}
     >
@@ -101,14 +117,16 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
             <span
               dangerouslySetInnerHTML={{
                 __html: `<!--[if mso]>
-            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:${height}px;v-text-anchor:middle;width:${width}px;" arcsize="${arcsize}%" ${
+            <v:roundrect ${
+              rel ? `rel="${rel}" ` : ''
+            }href="${href}" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:${height}px;v-text-anchor:middle;width:${width}px;" arcsize="${arcsize}%" ${
                   borderColor ? `strokecolor=${borderColor}` : ''
                 } ${borderSize ? `strokeweight="${borderSize}px"` : `stroke="false"`} ${
                   backgroundColor ? `fillcolor=${backgroundColor}` : `fill="false"`
                 }>
             <w:anchorlock/>
             <center style="font-size:${fontSize}px;${textColor ? `color:${textColor};` : ''}">
-            ${children}
+            ${vmlFallbackLinkContents}
             </center></v:roundrect>
             <![endif]-->`
               }}
