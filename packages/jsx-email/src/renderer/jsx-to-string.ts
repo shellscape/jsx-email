@@ -3,13 +3,14 @@
  * @license MIT
  */
 import chalk from 'chalk';
-import { isValidElement, type FC, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { log } from '../log.js';
 
 import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants.js';
 import { escapeString } from './escape-string.js';
 import { stringifyStyles } from './stringify-styles.js';
+import { isValidElement } from './is-valid-element.js';
 
 const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
   try {
@@ -62,7 +63,6 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return jsxToString(resolvedElement);
   }
 
-  // Use isValidElement for proper type checking
   if (!isValidElement(element)) {
     log.error(chalk`{red Unsupported JSX element}:`, element);
     throw new Error(`Unsupported JSX element`);
@@ -86,7 +86,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
       } else if (prop === 'class' || prop === 'className') {
         // This condition is here because it is the most common attribute
         // and short-circuiting results in a ~5% performance boost.
-        html += value ? ` class="${escapeString(value)}"` : '';
+        html += value ? ` class="${escapeString(value as string)}"` : '';
       } else if (prop === 'style') {
         html += ` style="${stringifyStyles(value)}"`;
       } else if (prop === 'dangerouslySetInnerHTML') {
