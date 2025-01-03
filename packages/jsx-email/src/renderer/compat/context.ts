@@ -3,7 +3,8 @@ import type {
   ConsumerProps,
   Context,
   ProviderExoticComponent,
-  ProviderProps
+  ProviderProps,
+  ReactNode
 } from 'react';
 
 type EmailContextValue<T> = T[];
@@ -33,11 +34,23 @@ const InternalConsumer = <TValue>(ctx: EmailContextValue<TValue>): Consumer<TVal
 export const createContext = <TValue>(defaultValue: TValue): Context<TValue> => {
   const value = [defaultValue];
 
-  const context: JsxEmailContext<TValue> = {
+  // Create the base function that will be enhanced with properties
+  const contextFunction = (props: ProviderProps<TValue>): ReactNode => props.children;
+
+  // Enhance the function with context properties
+  const context = Object.assign(contextFunction, {
+    $$typeof: Symbol.for('react.context'),
     Consumer: InternalConsumer(value),
     internalValue: value,
     Provider: InternalProvider(value)
-  };
+  }) as JsxEmailContext<TValue>;
+
+  // const context: JsxEmailContext<TValue> = {
+  //   $$typeof: Symbol.for('react.context'),
+  //   Consumer: InternalConsumer(value),
+  //   internalValue: value,
+  //   Provider: InternalProvider(value)
+  // };
 
   return context;
 };
