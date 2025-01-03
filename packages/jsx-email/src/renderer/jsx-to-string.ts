@@ -3,7 +3,7 @@
  * @license MIT
  */
 import chalk from 'chalk';
-import type { FC, ReactNode } from 'react';
+import { isValidElement, type FC, type ReactNode } from 'react';
 
 import { log } from '../log.js';
 
@@ -51,7 +51,19 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return html;
   }
 
-  if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
+  // if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
+  //   log.error(chalk`{red Unsupported JSX element}:`, element);
+  //   throw new Error(`Unsupported JSX element`);
+  // }
+
+  // Handle Promise case
+  if (element instanceof Promise) {
+    const resolvedElement = await element;
+    return jsxToString(resolvedElement);
+  }
+
+  // Use isValidElement for proper type checking
+  if (!isValidElement(element)) {
     log.error(chalk`{red Unsupported JSX element}:`, element);
     throw new Error(`Unsupported JSX element`);
   }
@@ -64,7 +76,9 @@ export async function jsxToString(element: ReactNode): Promise<string> {
 
     let innerHTML = '';
 
-    for (const prop of Object.keys(props) as ReadonlyArray<keyof typeof props & string>) {
+    for (const prop of Object.keys(props) as unknown as ReadonlyArray<
+      keyof typeof props & string
+    >) {
       const value = props[prop];
 
       if (prop === 'children' || prop === 'key' || prop === 'ref' || value == null) {
@@ -77,7 +91,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
         html += ` style="${stringifyStyles(value)}"`;
       } else if (prop === 'dangerouslySetInnerHTML') {
         // eslint-disable-next-line no-underscore-dangle
-        innerHTML = value.__html;
+        innerHTML = (value as { __html: string }).__html;
       } else {
         const name = AttributeAliases[prop as keyof typeof AttributeAliases] || prop;
 
@@ -101,7 +115,7 @@ export async function jsxToString(element: ReactNode): Promise<string> {
       if (innerHTML) {
         html += innerHTML;
       } else {
-        html += await jsxToString(props.children);
+        html += await jsxToString((props as { children?: ReactNode }).children);
       }
 
       html += `</${type}>`;
@@ -110,7 +124,11 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return html;
   } else if (type) {
     if (typeof type === 'function') {
-      const renderedFC = await jsxToString((type as FC)(props));
+      // const renderedFC = await jsxToString((type as FC)(props));
+      const result = (type as FC)(props);
+      const renderedFC = await (result instanceof Promise
+        ? result.then(jsxToString)
+        : jsxToString(result));
       const sym = (type as { $$typeof?: symbol }).$$typeof;
 
       if (sym && Symbol.keyFor(sym) === 'react.provider') {
@@ -122,21 +140,24 @@ export async function jsxToString(element: ReactNode): Promise<string> {
       const key = Symbol.keyFor(type);
       // is this react fragment?
       if (key === 'react.fragment') {
-        return jsxToString(props.children);
+        return jsxToString((props as { children?: ReactNode }).children);
       } else if (key === 'react.suspense') {
-        const suspenseResult = await renderSuspense(props.children);
+        const suspenseResult = await renderSuspense((props as { children: ReactNode[] }).children);
         return suspenseResult;
       }
     } else if (isReactForwardRef(type)) {
       return jsxToString(
-        (type as { render: (props: unknown, ref: unknown) => ReactNode }).render(props, props.ref)
+        (type as { render: (props: unknown, ref: unknown) => ReactNode }).render(
+          props,
+          (props as { ref: unknown }).ref
+        )
       );
     } else if ((type as { $$typeof?: symbol }).$$typeof) {
       const key = Symbol.keyFor((type as { $$typeof: symbol }).$$typeof);
       if (key === 'react.provider') {
         (type as any as { context: any[] }).context.pop();
       } else if (key === 'react.context') {
-        return jsxToString(props.children);
+        return jsxToString((props as { children?: ReactNode }).children);
       }
     }
 
