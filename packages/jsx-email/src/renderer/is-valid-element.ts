@@ -1,6 +1,3 @@
-// export const REACT_ELEMENT_TYPE: symbol = Symbol.for('react.element');
-// const REACT_ELEMENT_TYPE = Symbol.for('react.element');
-
 interface ReactElementLike {
   $$typeof: symbol;
   key: string | null;

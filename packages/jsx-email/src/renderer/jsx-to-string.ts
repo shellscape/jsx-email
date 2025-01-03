@@ -52,11 +52,6 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return html;
   }
 
-  // if (typeof (element as { $$typeof?: symbol }).$$typeof !== 'symbol') {
-  //   log.error(chalk`{red Unsupported JSX element}:`, element);
-  //   throw new Error(`Unsupported JSX element`);
-  // }
-
   // Handle Promise case
   if (element instanceof Promise) {
     const resolvedElement = await element;
@@ -124,7 +119,6 @@ export async function jsxToString(element: ReactNode): Promise<string> {
     return html;
   } else if (type) {
     if (typeof type === 'function') {
-      // const renderedFC = await jsxToString((type as FC)(props));
       const result = (type as FC)(props);
       const renderedFC = await (result instanceof Promise
         ? result.then(jsxToString)

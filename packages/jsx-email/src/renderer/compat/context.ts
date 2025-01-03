@@ -45,13 +45,6 @@ export const createContext = <TValue>(defaultValue: TValue): Context<TValue> => 
     Provider: InternalProvider(value)
   }) as JsxEmailContext<TValue>;
 
-  // const context: JsxEmailContext<TValue> = {
-  //   $$typeof: Symbol.for('react.context'),
-  //   Consumer: InternalConsumer(value),
-  //   internalValue: value,
-  //   Provider: InternalProvider(value)
-  // };
-
   return context;
 };
 
