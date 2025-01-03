@@ -9,7 +9,7 @@
     "react": "^18.2.0 || ^19"
   },
   "dependencies": {
-    "@playwright/test": "^1.40.1",
+    "@playwright/test": "^1.49.1",
     "dedent": "^1.5.1",
     "diffable-html": "^5.0.0",
     "jsx-email": "workspace:^",
