@@ -1,3 +1,7 @@
+/**
+  src: https://github.com/facebook/react/blob/3b009b4cd58d382cfde2a72232c87df1a34d56d5/packages/react/src/jsx/ReactJSXElement.js#L993
+ */
+
 const REACT_ELEMENT_TYPE = Symbol.for('react.element');
 
 interface ReactElementLike {
