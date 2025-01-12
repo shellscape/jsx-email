@@ -1,5 +1,13 @@
 # create-jsx-email ChangeLog
 
+## v2.1.0
+
+_2025-01-12_
+
+### Features
+
+- jsx-email,create-jsx-email: add support for React 19 (#275)
+
 ## v2.0.7
 
 _2024-11-15_
