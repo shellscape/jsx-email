@@ -109,7 +109,7 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
               cellSpacing={0}
               role="presentation"
               style={{
-                border: `${borderSize}px solid ${borderColor}`,
+                border: `${borderSize ?? '0'}px solid ${borderColor ?? 'inherit'}`,
                 borderRadius
               }}
             >
