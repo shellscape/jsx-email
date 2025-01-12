@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.5.5
+
+_2025-01-08_
+
+### Bugfixes
+
+- jsx-email: add link href to vml for outlook buttons (#274)
+
 ## v2.5.4
 
 _2024-12-12_

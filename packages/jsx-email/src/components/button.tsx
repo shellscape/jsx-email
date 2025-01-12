@@ -101,7 +101,7 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
             <span
               dangerouslySetInnerHTML={{
                 __html: `<!--[if mso]>
-            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:${height}px;v-text-anchor:middle;width:${width}px;" arcsize="${arcsize}%" ${
+            <v:roundrect href="${href}" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:${height}px;v-text-anchor:middle;width:${width}px;" arcsize="${arcsize}%" ${
                   borderColor ? `strokecolor=${borderColor}` : ''
                 } ${borderSize ? `strokeweight="${borderSize}px"` : `stroke="false"`} ${
                   backgroundColor ? `fillcolor=${backgroundColor}` : `fill="false"`
