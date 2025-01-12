@@ -69,21 +69,6 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
     ...(textColor ? { color: textColor } : {})
   };
 
-  const baseButton = (
-    <a
-      href={href}
-      style={{
-        ...baseStyles,
-        ...propStyles,
-        ...style,
-        ...(withBackground ? {} : { msoHide: 'all' })
-      }}
-      {...props}
-    >
-      {children}
-    </a>
-  );
-
   return (
     <table
       {...debugProps}
@@ -123,6 +108,10 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
               cellPadding={0}
               cellSpacing={0}
               role="presentation"
+              style={{
+                border: `${borderSize}px solid ${borderColor}`,
+                borderRadius
+              }}
             >
               <tr>
                 <td
@@ -138,12 +127,35 @@ export const Button: JsxEmailComponent<ButtonProps> = ({
                     width
                   }}
                 >
-                  {baseButton}
+                  <a
+                    href={href}
+                    style={{
+                      ...baseStyles,
+                      ...(backgroundColor ? { backgroundColor } : {}),
+                      ...(textColor ? { color: textColor } : {}),
+                      ...style,
+                      ...(withBackground ? {} : { msoHide: 'all' })
+                    }}
+                    {...props}
+                  >
+                    {children}
+                  </a>
                 </td>
               </tr>
             </table>
           ) : (
-            baseButton
+            <a
+              href={href}
+              style={{
+                ...baseStyles,
+                ...propStyles,
+                ...style,
+                ...(withBackground ? {} : { msoHide: 'all' })
+              }}
+              {...props}
+            >
+              {children}
+            </a>
           )}
         </td>
       </tr>
