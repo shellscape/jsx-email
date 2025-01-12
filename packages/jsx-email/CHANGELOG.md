@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.6.1
+
+_2025-01-12_
+
+### Bugfixes
+
+- jsx-email: border not showing up in outlook using `withBackground` (#278)
+
 ## v2.6.0
 
 _2025-01-12_
