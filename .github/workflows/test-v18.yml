@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests (React v18)
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    name: Run Tests
+    name: Run Tests (React v18)
 
     steps:
       - name: Checkout Commit
@@ -54,13 +54,6 @@ jobs:
 
       - name: pnpm install
         run: pnpm install --frozen-lockfile
-
-      - name: Install React v18
-        run: |
-          cd packages/jsx-email
-          pnpm add react@^18
-          cd ../create-jsx-email
-          pnpm add react@^18
 
       - name: Build Projects
         run: |

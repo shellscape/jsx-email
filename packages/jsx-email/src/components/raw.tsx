@@ -3,11 +3,18 @@ import React from 'react';
 import type { JsxEmailComponent } from '../types.js';
 import { escapeForRawComponent } from '../renderer/raw.js';
 
-declare global {
+declare module 'react/jsx-runtime' {
   namespace JSX {
     interface IntrinsicElements {
-      // magic custom element post-processed in render function
-      'jsx-email-raw': React.DetailedHTMLProps<React.HTMLProps<HTMLElement>, HTMLElement>;
+      'jsx-email-raw': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & {
+          dangerouslySetInnerHTML?: {
+            __html: string;
+          };
+          'data-skip'?: string;
+        },
+        HTMLElement
+      >;
     }
   }
 }

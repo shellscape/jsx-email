@@ -1,4 +1,4 @@
-name: Smoke Tests
+name: Smoke Test
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    name: Smoke Tests
+    name: Smoke Test
 
     steps:
       - name: Checkout Commit

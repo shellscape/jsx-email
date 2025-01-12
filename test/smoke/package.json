@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0 || ^19"
   },
   "dependencies": {
     "@playwright/test": "^1.49.1",
