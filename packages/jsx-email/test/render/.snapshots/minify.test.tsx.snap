@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Button> component > minifies outlook xml properly 1`] = `
+"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><head><table border=\\"0\\"cellpadding=\\"0\\"cellspacing=\\"0\\"role=\\"presentation\\"style=\\"border-collapse:collapse\\"width=\\"100%\\"><tr><td align=\\"left\\"><span><!--[if mso]>
+            <v:roundrect href=\\"undefined\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:w=\\"urn:schemas-microsoft-com:office:word\\" style=\\"height:40px;v-text-anchor:middle;width:200px;\\" arcsize=\\"0%\\"  strokeweight=\\"1px\\" fill=\\"false\\">
+            <w:anchorlock/>
+            <center style=\\"font-size:16px;\\">
+            Test message
+            </center></v:roundrect>
+            <![endif]--></span><a style=\\"-webkit-text-size-adjust:none;border-radius:0;display:inline-block;font-size:16px;line-height:38px;max-width:200px;text-align:center;text-decoration:none;width:100%;mso-hide:all\\">Test message</a></table>"
+`;
