@@ -106,7 +106,7 @@
     "postcss": "^8.4.32",
     "postcss-var-replace": "^1.0.0",
     "pretty-bytes": "^6.1.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19",
     "react-router-dom": "7.0.1",
     "rehype": "^13.0.1",
     "rehype-stringify": "^10.0.0",
