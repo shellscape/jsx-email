@@ -1,5 +1,13 @@
 # @jsx-email/plugin-minify ChangeLog
 
+## v1.0.2
+
+_2025-01-17_
+
+### Bugfixes
+
+- jsx-email,plugin-minify: bogusComment setting corrupting vml comments. fixes #271 (#279)
+
 ## v1.0.1
 
 _2024-10-13_

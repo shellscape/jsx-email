@@ -51,7 +51,6 @@ const importPlugins = async () => {
 
 const settings = {
   allowParseErrors: true,
-  bogusComments: true,
   characterReferences: {
     omitOptionalSemicolons: true,
     useShortestReferences: true
