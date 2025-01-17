@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.6.3
+
+_2025-01-17_
+
+### Bugfixes
+
+- jsx-email: remove react/jsx-runtime from jsx-email bundle (#282)
+
 ## v2.6.2
 
 _2025-01-17_
