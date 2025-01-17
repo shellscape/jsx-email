@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vitest/globals"]
+  },
+  "extends": "../../../shared/tsconfig.base.json",
+  "include": ["**/*.ts", "**/*.tsx"]
+}
