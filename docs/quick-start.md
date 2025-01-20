@@ -34,7 +34,7 @@ $ npm create jsx-email
 
 This command will install and execute `create-jsx-email`, create a `email-project` directory, and add a starter template.
 
-While the _Existing Projects_ section below can be safely skipped, the information beneath it is useful and worth giving a read before working with JSX email, as it contains infmroation on the project and template that was just created.
+While the _Existing Projects_ section below can be safely skipped, the information beneath it is useful and worth giving a read before working with JSX email, as it contains information on the project and template that was just created.
 
 ## Existing Projects
 
