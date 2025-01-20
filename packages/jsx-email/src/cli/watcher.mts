@@ -56,49 +56,52 @@ const getEntrypoints = async (files: BuildTempatesResult[]) => {
   return Array.from(entrypoints).filter(Boolean);
 };
 
-const getWatchPaths = async (files: BuildTempatesResult[]) => {
+const getWatchDirectories = async (files: BuildTempatesResult[], depPaths: string[]) => {
   const entrypoints = await getEntrypoints(files);
-  const paths = entrypoints.map((path) => dirname(path));
+  const paths = [
+    ...entrypoints.map((path) => dirname(path)),
+    ...depPaths.map((path) => dirname(path))
+  ];
   const uniquePaths = Array.from(new Set(paths));
   const watchPaths = removeChildPaths(uniquePaths);
 
   log.debug({ watchPaths });
 
-  return watchPaths;
+  return { entrypoints, watchPaths };
 };
 
-// const mapDeps = async (files: BuildTempatesResult[]) => {
-//   const depPaths: string[] = [];
-//   const metaReads = files.map(async ({ metaPath }) => {
-//     log.debug({ exists: await exists(metaPath ?? ''), metaPath });
+const mapDeps = async (files: BuildTempatesResult[]) => {
+  const depPaths: string[] = [];
+  const metaReads = files.map(async ({ metaPath }) => {
+    log.debug({ exists: await exists(metaPath ?? ''), metaPath });
 
-//     if (!metaPath || !(await exists(metaPath))) return null;
-//     const contents = await readFile(metaPath, 'utf-8');
-//     const metafile = JSON.parse(contents) as Metafile;
-//     const { outputs } = metafile;
-//     const result = new Map<string, Set<string>>();
+    if (!metaPath || !(await exists(metaPath))) return null;
+    const contents = await readFile(metaPath, 'utf-8');
+    const metafile = JSON.parse(contents) as Metafile;
+    const { outputs } = metafile;
+    const result = new Map<string, Set<string>>();
 
-//     Object.entries(outputs).forEach(([_, meat]) => {
-//       const { entryPoint, inputs } = meat;
-//       const resolvedEntry = resolve(originalCwd, entryPoint!);
-//       depPaths.push(resolvedEntry);
+    Object.entries(outputs).forEach(([_, meat]) => {
+      const { entryPoint, inputs } = meat;
+      const resolvedEntry = resolve(originalCwd, entryPoint!);
+      depPaths.push(resolvedEntry);
 
-//       for (const dep of Object.keys(inputs)) {
-//         const resolvedDepPath = resolve(originalCwd, dep);
-//         const set = result.get(resolvedDepPath) ?? new Set();
+      for (const dep of Object.keys(inputs)) {
+        const resolvedDepPath = resolve(originalCwd, dep);
+        const set = result.get(resolvedDepPath) ?? new Set();
 
-//         depPaths.push(resolvedDepPath);
-//         set.add(resolvedEntry);
-//         result.set(resolvedDepPath, set);
-//       }
-//     });
+        depPaths.push(resolvedDepPath);
+        set.add(resolvedEntry);
+        result.set(resolvedDepPath, set);
+      }
+    });
 
-//     return result;
-//   });
-//   const deps = (await Promise.all(metaReads)).filter(Boolean);
+    return result;
+  });
+  const deps = (await Promise.all(metaReads)).filter(Boolean);
 
-//   return { depPaths, deps };
-// };
+  return { depPaths, deps };
+};
 
 export const watch = async (args: WatchArgs) => {
   newline();
@@ -107,22 +110,40 @@ export const watch = async (args: WatchArgs) => {
   const { common, files, server } = args;
   const { argv } = common;
   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
-  const watchPaths = await getWatchPaths(files);
+  const { depPaths, deps: metaDeps } = await mapDeps(files);
+  const dependencyPaths = depPaths.filter((path) => !path.includes('/node_modules/'));
+  const { entrypoints, watchPaths: watchDirectories } = await getWatchDirectories(
+    files,
+    dependencyPaths
+  );
+  const templateDeps = new Map<string, Set<string>>();
+  const validFiles = Array.from(new Set([...entrypoints, ...dependencyPaths]));
 
-  // const { depPaths, deps: metaDeps } = await mapDeps(files);
-  // const templateDeps = new Map<string, Set<string>>();
+  for (const map of metaDeps) {
+    map!.forEach((value, key) => templateDeps.set(key, value));
+  }
 
-  // for (const map of metaDeps) {
-  //   map!.forEach((value, key) => templateDeps.set(key, value));
-  // }
+  log.info({ validFiles });
 
-  const handler: watcher.SubscribeCallback = async (_, events) => {
+  const handler: watcher.SubscribeCallback = async (_, incoming) => {
+    // Note: We perform this filter in case someone has a dependency of a template,
+    // or has templates, at a path that includes node_modules. We also don't any
+    // non-template files having builds attempted on them, so check to make sure
+    // the event path is in the set of files we want to watch, unless it's a create
+    // event
+    const events = incoming.filter((event) => {
+      if (event.path.includes('/node_modules/')) return false;
+      if (event.type !== 'create') return validFiles.includes(event.path);
+      return true;
+    });
+
     const changedFiles = events
       .filter((event) => event.type !== 'create' && event.type !== 'delete')
       .map((e) => e.path)
       .filter((path) => extensions.includes(extname(path)));
-    const templateFileNames = files.map((file) => file.fileName);
-    const changedTemplates = changedFiles.filter((file) => templateFileNames.includes(file));
+    const changedTemplates = changedFiles
+      .flatMap((file) => [...(templateDeps.get(file) || [])])
+      .filter(Boolean);
     const createdFiles = events
       .filter((event) => event.type === 'create')
       .map((e) => e.path)
@@ -149,13 +170,16 @@ export const watch = async (args: WatchArgs) => {
       );
 
       deletedFiles.forEach((path) => {
-        const index = files.findIndex(({ fileName }) => path === fileName);
+        let index: any = files.findIndex(({ fileName }) => path === fileName);
         if (index === -1) return;
         const file = files[index];
         files.splice(index, 1);
         // Note: Don't await either, we don't need to
         unlink(file.compiledPath);
         unlink(`${file.writePathBase}.js`);
+
+        index = validFiles.find((fileName) => path === fileName);
+        if (index > -1) validFiles.splice(index, 1);
       });
     }
 
@@ -177,7 +201,11 @@ export const watch = async (args: WatchArgs) => {
             targetPath: path
           });
 
+          const mappedDeps = await mapDeps(results);
           files.push(...results);
+          validFiles.push(
+            ...[path, ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))]
+          );
 
           await writePreviewDataFiles(results);
         })
@@ -200,14 +228,9 @@ export const watch = async (args: WatchArgs) => {
     });
   };
 
-  // const watchPathSet = new Set([
-  //   ...depPaths.filter((path) => !path.includes('/node_modules/')).map((path) => dirname(path))
-  // ]);
-  // const watchPaths = removeChildPaths([...watchPathSet]);
+  log.debug('Watching Paths:', watchDirectories.sort());
 
-  log.debug('Watching Paths:', watchPaths.sort());
-
-  const subPromises = watchPaths.map((path) => watcher.subscribe(path, handler));
+  const subPromises = watchDirectories.map((path) => watcher.subscribe(path, handler));
   const subscriptions = await Promise.all(subPromises);
 
   server.httpServer!.on('close', () => {
