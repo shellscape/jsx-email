@@ -41,7 +41,7 @@ disableDefaultStyle?: boolean;
 If `true`, disables all of the default styles for all components for the rendering operation.
 
 ```ts
-inline?: boolean;
+inlineCss?: boolean;
 ```
 
 If `true`, converts any elements with CSS class names to use style attributes with the combined CSS styles from the class names on the element. This option loads the [`plugin-inline`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline) plugin.
