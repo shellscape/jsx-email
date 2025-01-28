@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.0
+
+_2025-01-28_
+
+### Features
+
+- jsx-email: reimplement template dependency watching in preview (#286)
+
 ## v2.6.3
 
 _2025-01-17_
