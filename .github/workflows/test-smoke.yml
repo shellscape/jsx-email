@@ -34,12 +34,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Enable Corepack
-        id: pnpm-setup
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm config set script-shell "/usr/bin/bash"
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
 
       - name: Setup Moon
         uses: moonrepo/setup-toolchain@v0
