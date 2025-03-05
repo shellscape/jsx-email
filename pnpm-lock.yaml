@@ -19,8 +19,8 @@ importers:
         specifier: ^0.3.4
         version: 0.3.4
       '@moonrepo/cli':
-        specifier: ^1.17.3
-        version: 1.17.3
+        specifier: 1.30.0
+        version: 1.30.0
       '@swc/core':
         specifier: ^1.3.91
         version: 1.3.91(@swc/helpers@0.5.2)
@@ -44,7 +44,7 @@ importers:
         version: 3.1.2
       eslint-config-shellscape:
         specifier: ^6.0.2
-        version: 6.0.2(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(typescript@5.2.2)
+        version: 6.0.2(eslint-import-resolver-typescript@3.6.1)(typescript@5.2.2)
       eslint-import-resolver-typescript:
         specifier: ^3.6.1
         version: 3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0)
@@ -138,7 +138,7 @@ importers:
         version: 1.18.0
       tailwindcss:
         specifier: 3.4.15
-        version: 3.4.15(ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.2.2))
+        version: 3.4.15(ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.4.5))
       titleize:
         specifier: ^4.0.0
         version: 4.0.0
@@ -1426,42 +1426,42 @@ packages:
     resolution: {integrity: sha512-PeiQhXTXSbYpR4uuXsaSDX6KwNUgRu9I7utaMSEYysXjDvKFx19bjwzS/sJttl8dJ4kfzVSWFeyUFwdKcWqhiw==}
     engines: {node: '>=18.0.0'}
 
-  '@moonrepo/cli@1.17.3':
-    resolution: {integrity: sha512-PuW/R9PeA71OsSZGhadhqTsn3E4tmbTDM3Q7t1GUTeQEjwdDt5WlM/deJ7dxX7D+ItgdMvaUiLhEMMbL8MkOLw==}
+  '@moonrepo/cli@1.30.0':
+    resolution: {integrity: sha512-NX90mw3uMbos47EMMCycovSFNsGm6tlVhh/4/YyCWzm/wy4pKsH+onJvAWV40HA+cXf8nUlA8EVIEZZWIWVT4w==}
     hasBin: true
 
-  '@moonrepo/core-linux-arm64-gnu@1.25.2':
-    resolution: {integrity: sha512-yUp9C3AwtqgSsp5GOjN8aG3qGhQM9QKOU5DmmoptXe2Dw1rKeCX1uYWkcaXiTEOf1k9J4Mh4bD42ueiypgzr3Q==}
+  '@moonrepo/core-linux-arm64-gnu@1.30.0':
+    resolution: {integrity: sha512-ifMh7n37KlpUrE9SHpeV38e/dj1V6HdLwAoNuq1e8MuEhxQIgxKhmxEjJy4N50pQM3mlIP3ae0MJP9jZ/2VlBQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@moonrepo/core-linux-arm64-musl@1.25.2':
-    resolution: {integrity: sha512-b5Ykj5ZVrrJHOcQIi1JbkLJf2dYl69i4nJWpimhdB33hMPk4HidH8VPaXooIeWhjgTsUoRihB+55JXRGzrcisA==}
+  '@moonrepo/core-linux-arm64-musl@1.30.0':
+    resolution: {integrity: sha512-IAv7V6XpKYxbd7Npc8/o4+RHDNRQ3s0sZGXYvH0pc9BmgX83CYWI+Mf0BC7y8rZwQrF7AADXxE32r+hQ2yLApw==}
     cpu: [arm64]
     os: [linux]
 
-  '@moonrepo/core-linux-x64-gnu@1.25.2':
-    resolution: {integrity: sha512-FVrlcO0Yc+Anyx/alY9ftnUZiIfyzrk3GKb8ZwwqAOWn3UPhlNo15Z3rFD/XQnhhkPeMY2kcQB1N4ORu2VrZcg==}
+  '@moonrepo/core-linux-x64-gnu@1.30.0':
+    resolution: {integrity: sha512-Fp9adnbUsySC1CPgMc1lJvUxKQsYNfR+RzgZA/Mzt/WvTAh8gfH/N5pcpo1Jo3tVDZwLzqcYmkCpIdw0QKqxEA==}
     cpu: [x64]
     os: [linux]
 
-  '@moonrepo/core-linux-x64-musl@1.25.2':
-    resolution: {integrity: sha512-RIY1WeamFDxEGzONd0Gkv/X/YjfDrDYgnS5pr0zOn2SkprdwHSg9hJ3602VDntjWzmi4MdU6uJFDim7Z8x7u8Q==}
+  '@moonrepo/core-linux-x64-musl@1.30.0':
+    resolution: {integrity: sha512-p9D0BfbP9r6tKii1vc98Zv6ym1ZgRVzBUG45jWit6iwfWJZDOVJhvMueULSqdB4U7YIv49N2nLVHNQRyTlUZlw==}
     cpu: [x64]
     os: [linux]
 
-  '@moonrepo/core-macos-arm64@1.25.2':
-    resolution: {integrity: sha512-iwEqz5wqzwumznIElbCrxsDCBeli4gCxhmhOgpF8aQmha/oZcVWdiH0BKeBniKeVcJF+nC1M2SO9zP458q0o/w==}
+  '@moonrepo/core-macos-arm64@1.30.0':
+    resolution: {integrity: sha512-qB3gbd5Qp456SwPcQ401HNC3ceNnutXrsOtadTOUztr0r8h7KGEcARyrlet1EWjz0jXD+60k4DIbFpCBfkAUSA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@moonrepo/core-macos-x64@1.25.2':
-    resolution: {integrity: sha512-9THsV8t4EccdRwTG96SqS1EJVG3BGPUa9Rur76tCOfggMRl3fkwFkUZQKMwWZUN8MKh8/Qg6nYl76S7z95MurA==}
+  '@moonrepo/core-macos-x64@1.30.0':
+    resolution: {integrity: sha512-48c76Gu1wzThBf8+8h3rMvBa1Z/Yl12Ij3IQp6iQl8yGJPnvDixoX31P/Tky5ZOJj94EHiPkmWnqioMR+0hTvg==}
     cpu: [x64]
     os: [darwin]
 
-  '@moonrepo/core-windows-x64-msvc@1.25.2':
-    resolution: {integrity: sha512-LNiPiL5g7+T5y6gAWW/fc0wvfF3sZCCMPgfXTXsDUAiK+Lq1uTtfT6JkZyKTj7wH4urER8JI0b634Bp5CrNmLg==}
+  '@moonrepo/core-windows-x64-msvc@1.30.0':
+    resolution: {integrity: sha512-bNl86LZHIXGH54dEMDDb13WzthP9mdhAUR+7mkWVbp3dgsq/vTYU+i5If+b8wJLYajH/ehu9SnXNRRHF/+C9Ug==}
     cpu: [x64]
     os: [win32]
 
@@ -6551,37 +6551,37 @@ snapshots:
       micromatch: 4.0.7
       style-to-object: 1.0.6
 
-  '@moonrepo/cli@1.17.3':
+  '@moonrepo/cli@1.30.0':
     dependencies:
       detect-libc: 2.0.3
     optionalDependencies:
-      '@moonrepo/core-linux-arm64-gnu': 1.25.2
-      '@moonrepo/core-linux-arm64-musl': 1.25.2
-      '@moonrepo/core-linux-x64-gnu': 1.25.2
-      '@moonrepo/core-linux-x64-musl': 1.25.2
-      '@moonrepo/core-macos-arm64': 1.25.2
-      '@moonrepo/core-macos-x64': 1.25.2
-      '@moonrepo/core-windows-x64-msvc': 1.25.2
+      '@moonrepo/core-linux-arm64-gnu': 1.30.0
+      '@moonrepo/core-linux-arm64-musl': 1.30.0
+      '@moonrepo/core-linux-x64-gnu': 1.30.0
+      '@moonrepo/core-linux-x64-musl': 1.30.0
+      '@moonrepo/core-macos-arm64': 1.30.0
+      '@moonrepo/core-macos-x64': 1.30.0
+      '@moonrepo/core-windows-x64-msvc': 1.30.0
 
-  '@moonrepo/core-linux-arm64-gnu@1.25.2':
+  '@moonrepo/core-linux-arm64-gnu@1.30.0':
     optional: true
 
-  '@moonrepo/core-linux-arm64-musl@1.25.2':
+  '@moonrepo/core-linux-arm64-musl@1.30.0':
     optional: true
 
-  '@moonrepo/core-linux-x64-gnu@1.25.2':
+  '@moonrepo/core-linux-x64-gnu@1.30.0':
     optional: true
 
-  '@moonrepo/core-linux-x64-musl@1.25.2':
+  '@moonrepo/core-linux-x64-musl@1.30.0':
     optional: true
 
-  '@moonrepo/core-macos-arm64@1.25.2':
+  '@moonrepo/core-macos-arm64@1.30.0':
     optional: true
 
-  '@moonrepo/core-macos-x64@1.25.2':
+  '@moonrepo/core-macos-x64@1.30.0':
     optional: true
 
-  '@moonrepo/core-windows-x64-msvc@1.25.2':
+  '@moonrepo/core-windows-x64-msvc@1.30.0':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -8695,12 +8695,12 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-shellscape@6.0.2(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(typescript@5.2.2):
+  eslint-config-shellscape@6.0.2(eslint-import-resolver-typescript@3.6.1)(typescript@5.2.2):
     dependencies:
       '@typescript-eslint/eslint-plugin': 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint@8.57.0)(typescript@5.2.2)
       '@typescript-eslint/parser': 7.12.0(eslint@8.57.0)(typescript@5.2.2)
       eslint: 8.57.0
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       eslint-plugin-prettier: 4.2.1(eslint@8.57.0)(prettier@2.8.8)
       eslint-plugin-typescript-sort-keys: 3.2.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint@8.57.0)(typescript@5.2.2)
       prettier: 2.8.8
@@ -8725,8 +8725,8 @@ snapshots:
       debug: 4.3.5
       enhanced-resolve: 5.17.0
       eslint: 8.57.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.5
       is-core-module: 2.13.1
@@ -8737,7 +8737,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -8748,7 +8748,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
@@ -8758,7 +8758,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.13.1
       is-glob: 4.0.3
@@ -10138,14 +10138,6 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.49
 
-  postcss-load-config@4.0.2(postcss@8.4.49)(ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.2.2)):
-    dependencies:
-      lilconfig: 3.1.2
-      yaml: 2.4.3
-    optionalDependencies:
-      postcss: 8.4.49
-      ts-node: 10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.2.2)
-
   postcss-load-config@4.0.2(postcss@8.4.49)(ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.4.5)):
     dependencies:
       lilconfig: 3.1.2
@@ -10784,33 +10776,6 @@ snapshots:
 
   tabbable@6.2.0: {}
 
-  tailwindcss@3.4.15(ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.2.2)):
-    dependencies:
-      '@alloc/quick-lru': 5.2.0
-      arg: 5.0.2
-      chokidar: 3.6.0
-      didyoumean: 1.2.2
-      dlv: 1.1.3
-      fast-glob: 3.3.2
-      glob-parent: 6.0.2
-      is-glob: 4.0.3
-      jiti: 1.21.6
-      lilconfig: 2.1.0
-      micromatch: 4.0.8
-      normalize-path: 3.0.0
-      object-hash: 3.0.0
-      picocolors: 1.1.1
-      postcss: 8.4.49
-      postcss-import: 15.1.0(postcss@8.4.49)
-      postcss-js: 4.0.1(postcss@8.4.49)
-      postcss-load-config: 4.0.2(postcss@8.4.49)(ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.2.2))
-      postcss-nested: 6.2.0(postcss@8.4.49)
-      postcss-selector-parser: 6.1.2
-      resolve: 1.22.8
-      sucrase: 3.35.0
-    transitivePeerDependencies:
-      - ts-node
-
   tailwindcss@3.4.15(ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.4.5)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
@@ -10896,27 +10861,6 @@ snapshots:
       typescript: 5.2.2
 
   ts-interface-checker@0.1.13: {}
-
-  ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.2.2):
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.11
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.4
-      '@types/node': 20.10.5
-      acorn: 8.11.3
-      acorn-walk: 8.3.2
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 5.2.2
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
-    optionalDependencies:
-      '@swc/core': 1.3.91(@swc/helpers@0.5.2)
-    optional: true
 
   ts-node@10.9.1(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@20.10.5)(typescript@5.4.5):
     dependencies:
