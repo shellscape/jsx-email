@@ -34,9 +34,9 @@ jobs:
       - name: Install React v18
         run: |
           cd packages/jsx-email
-          pnpm add react@^18
+          pnpm add react@^18 react-dom@18
           cd ../create-jsx-email
-          pnpm add react@^18
+          pnpm add react@^18 react-dom@18
 
       - name: Build Projects
         run: |
