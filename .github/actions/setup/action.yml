@@ -1,0 +1,35 @@
+name: Setup
+description: Sets up the CI environment
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup Moon
+      uses: moonrepo/setup-toolchain@v0
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install PNPM
+      uses: pnpm/action-setup@v4
+
+    - name: Sanity Check
+      shell: bash
+      run: |
+        echo $'.\n.\n============\nSanity Check\n============\n'
+        echo git `git version`;
+        echo branch `git branch --show-current`;
+        echo `moon --version`
+        echo node `node -v`;
+        echo pnpm `pnpm -v`
+        echo $'============\n.\n.'
+
+    - name: pnpm install
+      shell: bash
+      run: pnpm install --frozen-lockfile
