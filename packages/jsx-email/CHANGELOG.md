@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.1
+
+_2025-03-05_
+
+### Bugfixes
+
+- jsx-email: make react-dom a peerDep, allow v18 in range (#290)
+
 ## v2.7.0
 
 _2025-01-28_
