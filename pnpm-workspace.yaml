@@ -3,3 +3,6 @@ packages:
   - 'packages/*'
   - 'test/*'
   - '!recipes/*'
+
+enablePrePostScripts: true
+shamefullyHoist: true
