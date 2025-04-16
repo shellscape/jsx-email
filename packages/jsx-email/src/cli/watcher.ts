@@ -204,7 +204,8 @@ export const watch = async (args: WatchArgs) => {
           const mappedDeps = await mapDeps(results);
           files.push(...results);
           validFiles.push(
-            ...[path, ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))]
+            path,
+            ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))
           );
 
           await writePreviewDataFiles(results);
