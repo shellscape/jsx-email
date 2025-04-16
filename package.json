@@ -30,7 +30,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "eslint --fix --cache"
+      "oxlint --format stylish --fix",
+      "prettier --write"
     ],
     "**/(package|tsconfig(.*)?).json": [
       "prettier --write"

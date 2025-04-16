@@ -1,6 +1,11 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-// @ts-ignore
 import type { ConfigBase } from '@unocss/core';
+import { createGenerator } from '@unocss/core';
+import { presetTypography } from '@unocss/preset-typography';
+import { presetWind } from '@unocss/preset-wind';
+import { presetUno } from '@unocss/preset-uno';
+import { presetRemToPx } from '@unocss/preset-rem-to-px';
+import transformerCompileClass from '@unocss/transformer-compile-class';
+import transformerVariantGroup from '@unocss/transformer-variant-group';
 import MagicString from 'magic-string';
 import postcss from 'postcss';
 // @ts-ignore
@@ -26,21 +31,6 @@ export interface TailwindProps {
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/tailwind' } : {};
 
 const getUno = async (config: ConfigBase, production: boolean) => {
-  // @ts-ignore
-  const { createGenerator } = await import('@unocss/core');
-  // @ts-ignore
-  const { presetTypography } = await import('@unocss/preset-typography');
-  // @ts-ignore
-  const { presetWind } = await import('@unocss/preset-wind');
-  // @ts-ignore
-  const { presetUno } = await import('@unocss/preset-uno');
-  // @ts-ignore
-  const { presetRemToPx } = await import('@unocss/preset-rem-to-px');
-  // @ts-ignore
-  const { default: transformerCompileClass } = await import('@unocss/transformer-compile-class');
-  // @ts-ignore
-  const { default: transformerVariantGroup } = await import('@unocss/transformer-variant-group');
-
   const transformers = [transformerVariantGroup()];
 
   if (production)
