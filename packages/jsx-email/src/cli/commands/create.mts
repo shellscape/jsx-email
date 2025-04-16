@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 import mustache from 'mustache';
 import {
   parse as assert,

@@ -37,6 +37,8 @@ const settings = {
 
 export const plugin: JsxEmailPlugin = {
   name: 'root/minify',
+  // @ts-ignore
+  // FIXME: ^ this
   process: async (): Promise<Preset> => {
     const plugins = [
       rehypeMinifyAttributeWhitespace,

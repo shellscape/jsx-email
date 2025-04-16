@@ -28,7 +28,7 @@ tasks:
       cache: false
 
   compile:
-    command: tshy
+    command: tsc --project tsconfig.json
     inputs:
       - src
       - package.json

@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 
 import { name, version } from '../../package-info.cjs';
 

@@ -1,6 +1,6 @@
 import { AssertionError } from 'assert';
 
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 import { lilconfig } from 'lilconfig';
 import type { MethodFactoryLevels } from '@dot/log';
 
@@ -95,6 +95,7 @@ const handleImportError = (error: any, name: string) => {
 // their names without additional config, and we don't want that burden on users
 const importInlinePlugin = async () => {
   try {
+    // @ts-ignore
     const { plugin } = (await import('@jsx-email/plugin-inline')) as unknown as PluginImport;
     return plugin;
   } catch (error) {
@@ -106,6 +107,7 @@ const importInlinePlugin = async () => {
 
 const importMinifyPlugin = async () => {
   try {
+    // @ts-ignore
     const { plugin } = (await import('@jsx-email/plugin-minify')) as unknown as PluginImport;
     return plugin;
   } catch (error) {
@@ -117,6 +119,7 @@ const importMinifyPlugin = async () => {
 
 const importPrettyPlugin = async () => {
   try {
+    // @ts-ignore
     const { plugin } = (await import('@jsx-email/plugin-pretty')) as unknown as PluginImport;
     return plugin;
   } catch (error) {

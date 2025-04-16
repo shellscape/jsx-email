@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "./shared/bootstrap.sh",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@dot/versioner": "^0.4.2",
@@ -24,8 +24,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-package": "^1.4.0",
     "ts-node": "10.9.2",
-    "tshy": "^3.0.2",
-    "typescript": "^5.2.2",
+    "typescript": "^5.8.3",
     "vitest": "^3.1.1"
   },
   "lint-staged": {

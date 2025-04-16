@@ -4,7 +4,7 @@ import os from 'node:os';
 import { dirname, basename, extname, join, resolve, win32, posix } from 'path';
 import { pathToFileURL } from 'url';
 
-import chalk from 'chalk';
+import chalkTmpl from 'chalk-template';
 import { globby } from 'globby';
 import micromatch from 'micromatch';
 import { isWindows } from 'std-env';
@@ -64,7 +64,7 @@ export interface BuildTempatesResult extends BuildResult {
   fileName: string;
 }
 
-export const help = chalk`
+export const help = chalkTmpl`
 {blue email build}
 
 Builds a template and saves the result
@@ -110,7 +110,7 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
 
   if (typeof componentExport !== 'function') {
     log.error(
-      chalk`{red Template Export Problem:} ${path} doesn't have an export  of a JSX Element named \`Template\`. If you feel this is a bug, please open a new issue.`
+      chalkTmpl`{red Template Export Problem:} ${path} doesn't have an export  of a JSX Element named \`Template\`. If you feel this is a bug, please open a new issue.`
     );
     process.exit(1);
   }
@@ -175,9 +175,9 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
 
   if (!silent) {
     const suffix = targetFiles.length > 1 ? 's' : '';
-    log.info(chalk`{cyan Found}`, targetFiles.length, `file${suffix}:`);
+    log.info(chalkTmpl`{cyan Found}`, targetFiles.length, `file${suffix}:`);
     log.info('  ', targetFiles.join('\n  '), '\n');
-    log.info(chalk`{blue Starting build...}`);
+    log.info(chalkTmpl`{blue Starting build...}`);
   }
 
   const compiledFiles = await compile({
@@ -215,14 +215,14 @@ export const buildTemplates = async ({ targetPath, buildOptions }: BuildTemplate
   if (!silent) {
     if (showStats && largeCount > 0) {
       log.warn('');
-      log.warn(chalk`${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
+      log.warn(chalkTmpl`${largeCount} template(s) exceed the 102kb Gmail Clipping limit`);
     }
     if (writeToFile) {
       log.info('');
-      log.info(chalk`{green Build complete}. File(s) written to:`, outputPath);
+      log.info(chalkTmpl`{green Build complete}. File(s) written to:`, outputPath);
     } else {
       log.info('');
-      log.info(chalk`{green Build complete}`);
+      log.info(chalkTmpl`{green Build complete}`);
     }
   }
 
@@ -235,7 +235,7 @@ export const command: CommandFn = async (argv: BuildCommandOptions, input) => {
   const [targetPath] = input;
 
   if (!existsSync(targetPath)) {
-    log.error(chalk`{red The provided build target '${targetPath}' does not exist}`);
+    log.error(chalkTmpl`{red The provided build target '${targetPath}' does not exist}`);
     process.exit(1);
   }
 

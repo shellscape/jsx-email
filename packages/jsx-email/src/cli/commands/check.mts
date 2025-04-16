@@ -2,6 +2,7 @@ import { lstat } from 'node:fs/promises';
 
 import { doIUseEmail } from '@jsx-email/doiuse-email';
 import chalk from 'chalk';
+import chalkTmpl from 'chalk-template';
 import { parse as assert, object, type InferOutput as Infer } from 'valibot';
 
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.mjs';
@@ -25,7 +26,7 @@ const emailClients = [
 ];
 
 const formatSubject = (what: string) =>
-  what.replace(/`([\s\w<>.-]+)`/g, (_, bit) => chalk`{bold ${bit}}`).trim();
+  what.replace(/`([\s\w<>.-]+)`/g, (_, bit) => chalkTmpl`{bold ${bit}}`).trim();
 
 const combine = (lines: string[]) => {
   const rePreamble = /(`([\s\w<>.-]+)`[\s\w]+)/;
@@ -46,7 +47,7 @@ const combine = (lines: string[]) => {
   return result;
 };
 
-export const help = chalk`
+export const help = chalkTmpl`
 {blue email check}
 
 Check jsx-email templates for client compatibility
@@ -67,14 +68,14 @@ const runCheck = (fileName: string, html: string) => {
 
   if (success && !result.warnings) return;
 
-  log(chalk`{underline ${fileName}} → HTML: ${htmlSize}\n`);
+  log(chalkTmpl`{underline ${fileName}} → HTML: ${htmlSize}\n`);
 
   if (!success && result.errors?.length) {
     const errors = combine(result.errors);
     const indent = '           ';
     for (const [preamble, clients] of Object.entries(errors)) {
       log(
-        chalk`  {red error}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
+        chalkTmpl`  {red error}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
           `\n${indent}`
         )}}\n`
       );
@@ -84,7 +85,7 @@ const runCheck = (fileName: string, html: string) => {
   }
 
   if (bytes >= gmailByteLimit) {
-    log(chalk`  {red error}  HTML content is over the Gmail Clipping Limit: ${htmlSize}\n`);
+    log(chalkTmpl`  {red error}  HTML content is over the Gmail Clipping Limit: ${htmlSize}\n`);
     counts.errors += 1;
   }
 
@@ -93,7 +94,7 @@ const runCheck = (fileName: string, html: string) => {
     const indent = '          ';
     for (const [preamble, clients] of Object.entries(warnings)) {
       log(
-        chalk`  {yellow warn}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
+        chalkTmpl`  {yellow warn}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
           `\n${indent}`
         )}}\n`
       );
@@ -102,7 +103,7 @@ const runCheck = (fileName: string, html: string) => {
   }
 
   if (bytes > gmailBytesSafe && bytes < gmailByteLimit) {
-    log(chalk`  {red warn}  HTML content is near the Gmail Clipping Limit: ${htmlSize}\n`);
+    log(chalkTmpl`  {red warn}  HTML content is near the Gmail Clipping Limit: ${htmlSize}\n`);
     counts.warnings += 1;
   }
 
@@ -110,13 +111,14 @@ const runCheck = (fileName: string, html: string) => {
   const warnings =
     counts.warnings > 0 ? chalk.yellow(counts.warnings) : chalk.green(counts.warnings);
 
-  log(chalk`{green Check Complete:} ${errors} error(s), ${warnings} warning(s)`);
+  log(chalkTmpl`{green Check Complete:} ${errors} error(s), ${warnings} warning(s)`);
 };
 
 export const command: CommandFn = async (argv: CheckOptions, input) => {
   if (input.length !== 1) return false;
 
-  const noExists = () => error(chalk`{red '${input}' doesn't appear to be a file which exists}`);
+  const noExists = () =>
+    error(chalkTmpl`{red '${input}' doesn't appear to be a file which exists}`);
 
   try {
     const stat = await lstat(input[0]);
@@ -128,7 +130,7 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
 
   assert(CheckOptionsStruct, argv);
 
-  log(chalk`{blue Checking email template for Client Compatibility...}\n`);
+  log(chalkTmpl`{blue Checking email template for Client Compatibility...}\n`);
 
   const [file] = await buildTemplates({
     buildOptions: { showStats: false, writeToFile: false },
