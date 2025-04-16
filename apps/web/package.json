@@ -5,7 +5,7 @@
   "description": "jsx.email",
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.19.0"
   },
   "devDependencies": {
     "@octokit/rest": "^20.0.2",
