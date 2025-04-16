@@ -19,7 +19,7 @@ import { resolve } from 'node:path';
 import { compile } from 'jsx-email/compile';
 
 const templatePath = resolve(__dirname, './emails/Batman');
-const outputDir = resolve(__dirname, '.compiled');
+const outDir = resolve(__dirname, '.compiled');
 
 const compiledFiles = await compile({ files: [templatePath], hashFiles: false, outDir });
 ```
