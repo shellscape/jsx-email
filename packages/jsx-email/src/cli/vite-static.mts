@@ -3,8 +3,6 @@ import { extname } from 'node:path';
 
 import { globby } from 'globby';
 import mime from 'mime-types';
-// Note: another tshy problem https://github.com/isaacs/tshy/issues/96
-// @ts-ignore
 import type { PluginOption, ViteDevServer } from 'vite';
 
 interface ViteStaticOptions {
@@ -55,8 +53,6 @@ const middleware = async (params: MiddlwareParams) => {
   const files = await globby(paths);
 
   return () => {
-    // Note: another tshy problem https://github.com/isaacs/tshy/issues/96
-    // @ts-ignore
     server.middlewares.use(async (req, res, next) => {
       const base = req.originalUrl ?? '';
       const pathName = new URL(base, `http://${req.headers.host}`).pathname.slice(1);
@@ -94,8 +90,6 @@ export const staticPlugin = (options: ViteStaticOptions): PluginOption => {
       const result = await middleware({ options, server });
       return result;
     },
-    // Note: another tshy problem https://github.com/isaacs/tshy/issues/96
-    // @ts-ignore
     name: 'jsx-email-static'
   };
 };

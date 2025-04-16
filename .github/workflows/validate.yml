@@ -33,6 +33,8 @@ jobs:
 
       - name: Build Projects
         run: |
+          pnpm exec tsc --version
+          cd packages/jsx-email && pnpm exec tsc --showConfig
           moon jsx-email:build
           moon create-jsx-email:build
           moon run :build --query "project~plugin-*"

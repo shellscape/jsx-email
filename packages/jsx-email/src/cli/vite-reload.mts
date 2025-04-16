@@ -1,6 +1,4 @@
 import micromatch from 'micromatch';
-// Note: another tshy problem https://github.com/isaacs/tshy/issues/96
-// @ts-ignore
 import type { PluginOption, ViteDevServer } from 'vite';
 
 import { normalizePath } from './commands/build.mjs';
@@ -15,8 +13,6 @@ export const reloadPlugin = (options: ViteReloadOptions): PluginOption => {
 
   return {
     apply: 'serve',
-    // Note: and yet another tshy problem
-    // @ts-ignore
     config({ server }) {
       /* eslint-disable no-param-reassign */
       if (!server) server = {};
@@ -34,8 +30,6 @@ export const reloadPlugin = (options: ViteReloadOptions): PluginOption => {
         }
       });
     },
-    // Note: another tshy problem https://github.com/isaacs/tshy/issues/96
-    // @ts-ignore
     name: 'jsx-email-reload'
   };
 };

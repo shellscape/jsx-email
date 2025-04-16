@@ -66,11 +66,5 @@
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
   },
-  "sideEffects": false,
-  "tshy": {
-    "exports": {
-      "./package.json": "./package.json",
-      ".": "./src/index.ts"
-    }
-  }
+  "sideEffects": false
 }

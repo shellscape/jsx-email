@@ -13,7 +13,7 @@
     "jsx": "react-jsx",
     "lib": ["ES2023", "ESNext"],
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
