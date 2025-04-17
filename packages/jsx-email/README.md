@@ -32,7 +32,7 @@ Everything to know about the components, props, and usage is available within ou
 
 ## Requirements
 
-The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+
+The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v20.19.0+) and React v19.1.0+
 
 <div>
   <br/>

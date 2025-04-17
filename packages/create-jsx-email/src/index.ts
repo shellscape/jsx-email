@@ -48,7 +48,7 @@ const isEmpty = (path: string) => {
 const { log } = console;
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 const asConst = ' as const';
-const typeDep = ',\n"@types/react": "^19.0.2",\n"typescript": "^5.2.2"';
+const typeDep = ',\n"@types/react": "^19.1.2",\n"typescript": "^5.8.3"';
 const typeProps = `\ninterface TemplateProps {
   email: string;
   name: string;

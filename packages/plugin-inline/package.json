@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "hast": "^1.0.0",
-    "unified": "^11.0.4"
+    "unified": "^11.0.5"
   },
   "types": "./dist/commonjs/index.d.ts",
   "funding": {
