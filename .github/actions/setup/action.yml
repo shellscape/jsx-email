@@ -34,4 +34,4 @@ runs:
 
     - name: pnpm install
       shell: bash
-      run: pnpm install --frozen-lockfile
+      run: pnpm install --frozen-lockfile --shamefully-hoist
