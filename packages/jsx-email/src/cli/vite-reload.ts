@@ -1,7 +1,7 @@
 import micromatch from 'micromatch';
 import type { PluginOption, ViteDevServer } from 'vite';
 
-import { normalizePath } from './commands/build.mjs';
+import { normalizePath } from './commands/build.js';
 
 interface ViteReloadOptions {
   globs: string[];

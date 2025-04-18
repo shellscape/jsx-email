@@ -5,10 +5,10 @@ import chalk from 'chalk';
 import chalkTmpl from 'chalk-template';
 import { parse as assert, object, type InferOutput as Infer } from 'valibot';
 
-import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.mjs';
+import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.js';
 
-import { buildTemplates } from './build.mjs';
-import { type CommandFn } from './types.mjs';
+import { buildTemplates } from './build.js';
+import { type CommandFn } from './types.js';
 
 const { error, log } = console;
 

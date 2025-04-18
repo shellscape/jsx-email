@@ -12,11 +12,11 @@ import type { InferOutput as Infer } from 'valibot';
 import { parse as assert, boolean, object, optional, string } from 'valibot';
 
 import { log } from '../../log.js';
-import { formatBytes, gmailByteLimit } from '../helpers.mjs';
+import { formatBytes, gmailByteLimit } from '../helpers.js';
 import { compile } from '../../renderer/compile.js';
 import { render } from '../../renderer/render.js';
 
-import type { CommandFn, TemplateFn } from './types.mjs';
+import type { CommandFn, TemplateFn } from './types.js';
 
 const BuildCommandOptionsStruct = object({
   exclude: optional(string()),

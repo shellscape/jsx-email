@@ -20,8 +20,8 @@ importers:
         specifier: ^0.4.2
         version: 0.4.2
       '@moonrepo/cli':
-        specifier: 1.30.0
-        version: 1.30.0
+        specifier: 1.35.0
+        version: 1.35.0
       '@swc/core':
         specifier: ^1.3.91
         version: 1.3.91(@swc/helpers@0.5.2)
@@ -252,12 +252,12 @@ importers:
       '@unocss/preset-typography':
         specifier: ^66.0.0
         version: 66.0.0
-      '@unocss/preset-uno':
+      '@unocss/preset-wind3':
         specifier: ^66.0.0
         version: 66.0.0
-      '@unocss/preset-wind':
-        specifier: ^66.0.0
-        version: 66.0.0
+      '@unocss/preset-wind4':
+        specifier: 66.1.0-beta.11
+        version: 66.1.0-beta.11
       '@unocss/transformer-compile-class':
         specifier: ^66.0.0
         version: 66.0.0
@@ -1314,42 +1314,42 @@ packages:
     peerDependencies:
       jsx-email: ^2.0.0
 
-  '@moonrepo/cli@1.30.0':
-    resolution: {integrity: sha512-NX90mw3uMbos47EMMCycovSFNsGm6tlVhh/4/YyCWzm/wy4pKsH+onJvAWV40HA+cXf8nUlA8EVIEZZWIWVT4w==}
+  '@moonrepo/cli@1.35.0':
+    resolution: {integrity: sha512-uMKg7CfYWp9gvs8zIwwI3RhWT+EsfOvY5Rp6vD9D3BPgCaffRgyweIL10hXzzW0y+1y7kwqIS4N0wzky2WvhTQ==}
     hasBin: true
 
-  '@moonrepo/core-linux-arm64-gnu@1.30.0':
-    resolution: {integrity: sha512-ifMh7n37KlpUrE9SHpeV38e/dj1V6HdLwAoNuq1e8MuEhxQIgxKhmxEjJy4N50pQM3mlIP3ae0MJP9jZ/2VlBQ==}
+  '@moonrepo/core-linux-arm64-gnu@1.35.0':
+    resolution: {integrity: sha512-0eTsfwv/VdaW3RB25LDFgtUk/gr3KnhUdHqZ5Xe7h54R1qlb31w36whe+GZvNzx1ypxt7MMRNZhT1iFV/PaxEw==}
     cpu: [arm64]
     os: [linux]
 
-  '@moonrepo/core-linux-arm64-musl@1.30.0':
-    resolution: {integrity: sha512-IAv7V6XpKYxbd7Npc8/o4+RHDNRQ3s0sZGXYvH0pc9BmgX83CYWI+Mf0BC7y8rZwQrF7AADXxE32r+hQ2yLApw==}
+  '@moonrepo/core-linux-arm64-musl@1.35.0':
+    resolution: {integrity: sha512-cL1984ycLIe7BPVWm6eUid55LTJSIOiVx+MVZnpCxBx96907TitQCegCovtsFnxIOPUpcP4KTi91UKL8D2pVWw==}
     cpu: [arm64]
     os: [linux]
 
-  '@moonrepo/core-linux-x64-gnu@1.30.0':
-    resolution: {integrity: sha512-Fp9adnbUsySC1CPgMc1lJvUxKQsYNfR+RzgZA/Mzt/WvTAh8gfH/N5pcpo1Jo3tVDZwLzqcYmkCpIdw0QKqxEA==}
+  '@moonrepo/core-linux-x64-gnu@1.35.0':
+    resolution: {integrity: sha512-cGCbz/FyTUO1MxKXytcrdtwctLpDa1tbzu8YRNAVvBKdceIMXGYg6fgD/5ZyAU1+SwJNKnKxESLs0E5ClrJZkg==}
     cpu: [x64]
     os: [linux]
 
-  '@moonrepo/core-linux-x64-musl@1.30.0':
-    resolution: {integrity: sha512-p9D0BfbP9r6tKii1vc98Zv6ym1ZgRVzBUG45jWit6iwfWJZDOVJhvMueULSqdB4U7YIv49N2nLVHNQRyTlUZlw==}
+  '@moonrepo/core-linux-x64-musl@1.35.0':
+    resolution: {integrity: sha512-aAeLqLef4aMJCt/F7D8RUkblH1WkUYlj2y9CQFgquua43Eit9IhcN1D5DcQ9a1444qMPl880LEYRZQJwEeaYEg==}
     cpu: [x64]
     os: [linux]
 
-  '@moonrepo/core-macos-arm64@1.30.0':
-    resolution: {integrity: sha512-qB3gbd5Qp456SwPcQ401HNC3ceNnutXrsOtadTOUztr0r8h7KGEcARyrlet1EWjz0jXD+60k4DIbFpCBfkAUSA==}
+  '@moonrepo/core-macos-arm64@1.35.0':
+    resolution: {integrity: sha512-kytJjttT6O0O7jfJVyjMECYWv5lVezz9SG7X7bPXxNrVfkM3AGSf9Ek1ZX3xnSuHNwTSYP1PSW6n9h5aWKCkrQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@moonrepo/core-macos-x64@1.30.0':
-    resolution: {integrity: sha512-48c76Gu1wzThBf8+8h3rMvBa1Z/Yl12Ij3IQp6iQl8yGJPnvDixoX31P/Tky5ZOJj94EHiPkmWnqioMR+0hTvg==}
+  '@moonrepo/core-macos-x64@1.35.0':
+    resolution: {integrity: sha512-cun/qUrj8MqyvUU1+brkEeP8mtOz8c6aejImJHlJ8LMykBjZ0uNTfKXuYN3VOSsWaNEwDeHEThqYVY81c7cglQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@moonrepo/core-windows-x64-msvc@1.30.0':
-    resolution: {integrity: sha512-bNl86LZHIXGH54dEMDDb13WzthP9mdhAUR+7mkWVbp3dgsq/vTYU+i5If+b8wJLYajH/ehu9SnXNRRHF/+C9Ug==}
+  '@moonrepo/core-windows-x64-msvc@1.35.0':
+    resolution: {integrity: sha512-sWa6UKBmf8jwlAkAGB8s4HXdmgN15TjcIRzLDLsi8dKB4Ei94bZmQ/tPZ/33tZgyqs19lY2JB0CmOZUpadW8tA==}
     cpu: [x64]
     os: [win32]
 
@@ -2570,11 +2570,17 @@ packages:
   '@unocss/core@66.0.0':
     resolution: {integrity: sha512-PdVbSMHNDDkr++9nkqzsZRAkaU84gxMTEgYbqI7dt2p1DXp/5tomVtmMsr2/whXGYKRiUc0xZ3p4Pzraz8TcXA==}
 
+  '@unocss/core@66.1.0-beta.11':
+    resolution: {integrity: sha512-KkCyEO+KK1B05hA9uu+gcm/bvkr7a+bj6IP/S4Yu9ojtRVpJwpDnwAEdc6vgLk6qNWyM4V88dVqWGrRYy0Buvg==}
+
   '@unocss/extractor-arbitrary-variants@0.65.1':
     resolution: {integrity: sha512-VpF7j29TlmVjNolkIjhQ/cwYkuPUoXLv+ko62YRMibE5632QepbNob69pNYGOZustrZt3LvgHD/GcriKwJO4BA==}
 
   '@unocss/extractor-arbitrary-variants@66.0.0':
     resolution: {integrity: sha512-vlkOIOuwBfaFBJcN6o7+obXjigjOlzVFN/jT6pG1WXbQDTRZ021jeF3i9INdb9D/0cQHSeDvNgi1TJ5oUxfiow==}
+
+  '@unocss/extractor-arbitrary-variants@66.1.0-beta.11':
+    resolution: {integrity: sha512-fkLmFVDZFw2j1M010yn+wQa4jOfEKNh264LUaPPHkG+tqtsUDJ8C5V+Gx3Ta31VC/po69rR6+cezSkslHDrk6g==}
 
   '@unocss/inspector@0.65.1':
     resolution: {integrity: sha512-RtONVp7rPpfSarr48qVEEsm201JyQSv6M21lqu1IzQZ62LQB5Gmi59Y+XR6cYDtwSn5ZUGxowR7nIRTPBMcxkw==}
@@ -2615,20 +2621,17 @@ packages:
   '@unocss/preset-uno@0.65.1':
     resolution: {integrity: sha512-OSEkphrlR9/RM5un9t9AqVQXOGBLJgjcEweZSm2ng9AK7BsxBXuVP1FelmRqeXVYT5uFtBoD4dfgCgBjGFIW9Q==}
 
-  '@unocss/preset-uno@66.0.0':
-    resolution: {integrity: sha512-qgoZ/hzTI32bQvcyjcwvv1X/dbPlmQNehzgjUaL7QFT0q0/CN/SRpysfzoQ8DLl2se9T+YCOS9POx3KrpIiYSQ==}
-
   '@unocss/preset-web-fonts@0.65.1':
     resolution: {integrity: sha512-29TO8kCfvOaHj5O3a3SZIXuOwvg7raPcdmuFKB9KFM3J2pYv4PB1cLBrw6h9DWwAAnJUSQpGx9QmKIBEPnDhlw==}
 
   '@unocss/preset-wind3@66.0.0':
     resolution: {integrity: sha512-WAGRmpi1sb2skvYn9DBQUvhfqrJ+VmQmn5ZGsT2ewvsk7HFCvVLAMzZeKrrTQepeNBRhg6HzFDDi8yg6yB5c9g==}
 
+  '@unocss/preset-wind4@66.1.0-beta.11':
+    resolution: {integrity: sha512-gbw8z2+NMPEsZfeNsIAdm60lAWRHoDJfJV/BkOmNmSf49rUhcezoCsIN4zdAWjkYrLWiZxlCMGBw/4AERWx6gQ==}
+
   '@unocss/preset-wind@0.65.1':
     resolution: {integrity: sha512-7rw3hAWOkWMSjoprWKcQidqJRFQm8qM0IdLjFLQa2ROSzPSnIlNisXGEwAphf4/VYdP7+URUnu5eySQsIRWRzg==}
-
-  '@unocss/preset-wind@66.0.0':
-    resolution: {integrity: sha512-FtvGpHnGC7FiyKJavPnn5y9lsaoWRhXlujCqlT5Bw63kKhMNr0ogKySBpenUhJOhWhVM0OQXn2nZ3GZRxW2qpw==}
 
   '@unocss/reset@0.65.1':
     resolution: {integrity: sha512-qyxF7rKGX+Cu3FpV8KCRQbtCvFcBpmzvx5A2wal77tIhrFR5VSH7NzCVmgs2+V9FXvU3aWVNZ79i1KMnLZ5Mjg==}
@@ -2639,6 +2642,10 @@ packages:
 
   '@unocss/rule-utils@66.0.0':
     resolution: {integrity: sha512-UJ51YHbwxYTGyj35ugsPlOT4gaa7tCbXdywZ3m5Nn0JgywwIqGmBFyiN9ZjHBHfJuDxmmPd6lxojoBscih/WMQ==}
+    engines: {node: '>=14'}
+
+  '@unocss/rule-utils@66.1.0-beta.11':
+    resolution: {integrity: sha512-qK5YQbstTP0rUgRkm1s1Ly9TMBKzP38TARVdh35yKW03YY8Lq1huUGEnLt5JV6iPdWzuiNRnnD/KKjBzZvP5FQ==}
     engines: {node: '>=14'}
 
   '@unocss/transformer-attributify-jsx@0.65.1':
@@ -5958,37 +5965,37 @@ snapshots:
       jsx-email: 2.7.1(@jsx-email/plugin-inline@1.0.1)(@jsx-email/plugin-minify@1.0.2)(@jsx-email/plugin-pretty@1.0.0)(@types/node@22.14.1)(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(jiti@1.21.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(ts-node@10.9.2(@swc/core@1.3.91(@swc/helpers@0.5.2))(@types/node@22.14.1)(typescript@5.8.3))(tsx@4.19.2)(typescript@5.8.3)(yaml@2.7.1)
       pretty: 2.0.0
 
-  '@moonrepo/cli@1.30.0':
+  '@moonrepo/cli@1.35.0':
     dependencies:
       detect-libc: 2.0.3
     optionalDependencies:
-      '@moonrepo/core-linux-arm64-gnu': 1.30.0
-      '@moonrepo/core-linux-arm64-musl': 1.30.0
-      '@moonrepo/core-linux-x64-gnu': 1.30.0
-      '@moonrepo/core-linux-x64-musl': 1.30.0
-      '@moonrepo/core-macos-arm64': 1.30.0
-      '@moonrepo/core-macos-x64': 1.30.0
-      '@moonrepo/core-windows-x64-msvc': 1.30.0
+      '@moonrepo/core-linux-arm64-gnu': 1.35.0
+      '@moonrepo/core-linux-arm64-musl': 1.35.0
+      '@moonrepo/core-linux-x64-gnu': 1.35.0
+      '@moonrepo/core-linux-x64-musl': 1.35.0
+      '@moonrepo/core-macos-arm64': 1.35.0
+      '@moonrepo/core-macos-x64': 1.35.0
+      '@moonrepo/core-windows-x64-msvc': 1.35.0
 
-  '@moonrepo/core-linux-arm64-gnu@1.30.0':
+  '@moonrepo/core-linux-arm64-gnu@1.35.0':
     optional: true
 
-  '@moonrepo/core-linux-arm64-musl@1.30.0':
+  '@moonrepo/core-linux-arm64-musl@1.35.0':
     optional: true
 
-  '@moonrepo/core-linux-x64-gnu@1.30.0':
+  '@moonrepo/core-linux-x64-gnu@1.35.0':
     optional: true
 
-  '@moonrepo/core-linux-x64-musl@1.30.0':
+  '@moonrepo/core-linux-x64-musl@1.35.0':
     optional: true
 
-  '@moonrepo/core-macos-arm64@1.30.0':
+  '@moonrepo/core-macos-arm64@1.35.0':
     optional: true
 
-  '@moonrepo/core-macos-x64@1.30.0':
+  '@moonrepo/core-macos-x64@1.35.0':
     optional: true
 
-  '@moonrepo/core-windows-x64-msvc@1.30.0':
+  '@moonrepo/core-windows-x64-msvc@1.35.0':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -7101,6 +7108,8 @@ snapshots:
 
   '@unocss/core@66.0.0': {}
 
+  '@unocss/core@66.1.0-beta.11': {}
+
   '@unocss/extractor-arbitrary-variants@0.65.1':
     dependencies:
       '@unocss/core': 0.65.1
@@ -7108,6 +7117,10 @@ snapshots:
   '@unocss/extractor-arbitrary-variants@66.0.0':
     dependencies:
       '@unocss/core': 66.0.0
+
+  '@unocss/extractor-arbitrary-variants@66.1.0-beta.11':
+    dependencies:
+      '@unocss/core': 66.1.0-beta.11
 
   '@unocss/inspector@0.65.1(vue@3.3.4)':
     dependencies:
@@ -7184,11 +7197,6 @@ snapshots:
       '@unocss/preset-wind': 0.65.1
       '@unocss/rule-utils': 0.65.1
 
-  '@unocss/preset-uno@66.0.0':
-    dependencies:
-      '@unocss/core': 66.0.0
-      '@unocss/preset-wind3': 66.0.0
-
   '@unocss/preset-web-fonts@0.65.1':
     dependencies:
       '@unocss/core': 0.65.1
@@ -7200,16 +7208,17 @@ snapshots:
       '@unocss/preset-mini': 66.0.0
       '@unocss/rule-utils': 66.0.0
 
+  '@unocss/preset-wind4@66.1.0-beta.11':
+    dependencies:
+      '@unocss/core': 66.1.0-beta.11
+      '@unocss/extractor-arbitrary-variants': 66.1.0-beta.11
+      '@unocss/rule-utils': 66.1.0-beta.11
+
   '@unocss/preset-wind@0.65.1':
     dependencies:
       '@unocss/core': 0.65.1
       '@unocss/preset-mini': 0.65.1
       '@unocss/rule-utils': 0.65.1
-
-  '@unocss/preset-wind@66.0.0':
-    dependencies:
-      '@unocss/core': 66.0.0
-      '@unocss/preset-wind3': 66.0.0
 
   '@unocss/reset@0.65.1': {}
 
@@ -7221,6 +7230,11 @@ snapshots:
   '@unocss/rule-utils@66.0.0':
     dependencies:
       '@unocss/core': 66.0.0
+      magic-string: 0.30.17
+
+  '@unocss/rule-utils@66.1.0-beta.11':
+    dependencies:
+      '@unocss/core': 66.1.0-beta.11
       magic-string: 0.30.17
 
   '@unocss/transformer-attributify-jsx@0.65.1':
@@ -7827,7 +7841,7 @@ snapshots:
       '@one-ini/wasm': 0.1.1
       commander: 10.0.1
       minimatch: 9.0.1
-      semver: 7.6.2
+      semver: 7.7.1
 
   electron-to-chromium@1.4.789: {}
 
@@ -9844,7 +9858,7 @@ snapshots:
 
   unist-util-remove@4.0.0:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
 

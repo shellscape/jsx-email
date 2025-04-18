@@ -13,7 +13,7 @@ import {
   type InferOutput as Infer
 } from 'valibot';
 
-import { type CommandFn } from './types.mjs';
+import { type CommandFn } from './types.js';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);

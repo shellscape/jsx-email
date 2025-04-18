@@ -1,8 +1,8 @@
 import type { ConfigBase } from '@unocss/core';
 import { createGenerator } from '@unocss/core';
 import { presetTypography } from '@unocss/preset-typography';
-import { presetWind } from '@unocss/preset-wind';
-import { presetUno } from '@unocss/preset-uno';
+import { presetWind3 } from '@unocss/preset-wind3';
+import { presetWind4 } from '@unocss/preset-wind4';
 import { presetRemToPx } from '@unocss/preset-rem-to-px';
 import transformerCompileClass from '@unocss/transformer-compile-class';
 import transformerVariantGroup from '@unocss/transformer-variant-group';
@@ -26,11 +26,19 @@ export interface TailwindProps {
     'layers' | 'presets' | 'rules' | 'separators' | 'shortcuts' | 'theme' | 'variants'
   >;
   production?: boolean;
+  version?: '3' | '4';
+}
+
+interface GetUnoOptions {
+  config: ConfigBase;
+  production: boolean;
+  version: '3' | '4';
 }
 
 const debugProps = debug.elements.enabled ? { dataType: 'jsx-email/tailwind' } : {};
 
-const getUno = async (config: ConfigBase, production: boolean) => {
+const getUno = async (options: GetUnoOptions) => {
+  const { config, production, version } = options;
   const transformers = [transformerVariantGroup()];
 
   if (production)
@@ -55,8 +63,7 @@ const getUno = async (config: ConfigBase, production: boolean) => {
     // Convert all `rem` values to `px`
     presetRemToPx(),
     presetTypography(),
-    presetUno({ dark: 'media' }),
-    presetWind()
+    version === '3' ? presetWind3({ dark: 'media' }) : presetWind4({ dark: 'media' })
   ];
   const uno = await createGenerator({
     ...(config as any),
@@ -70,9 +77,10 @@ const getUno = async (config: ConfigBase, production: boolean) => {
 const render = async ({
   children,
   config = {},
-  production = false
+  production = false,
+  version = '3'
 }: React.PropsWithChildren<TailwindProps>) => {
-  const uno = await getUno(config, production);
+  const uno = await getUno({ config, production, version });
   const html = await jsxToString(<>{children}</>);
   const code = production ? html.replace(/class="/g, 'class=":jsx: ') : html;
   const s = new MagicString(code);

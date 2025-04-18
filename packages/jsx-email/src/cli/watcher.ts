@@ -10,9 +10,9 @@ import { type ViteDevServer } from 'vite';
 
 import { log } from '../log.js';
 
-import { getTempPath, type BuildTempatesResult } from './commands/build.mjs';
-import { type PreviewCommonParams } from './commands/types.mjs';
-import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.mjs';
+import { getTempPath, type BuildTempatesResult } from './commands/build.js';
+import { type PreviewCommonParams } from './commands/types.js';
+import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.js';
 
 interface WatchArgs {
   common: PreviewCommonParams;
