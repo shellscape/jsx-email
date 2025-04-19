@@ -6,9 +6,7 @@ import { basename, dirname, join, relative, resolve, win32, posix } from 'path';
 import { fileURLToPath } from 'node:url';
 
 import chalk from 'chalk-template';
-// Note: https://github.com/egoist/detect-package-manager/issues/18
-// @ts-ignore
-import { detect } from 'detect-package-manager';
+import { detect } from 'package-manager-detector/detect';
 import { globby } from 'globby';
 import mustache from 'mustache';
 import prompts from 'prompts';
@@ -167,7 +165,8 @@ const run = async () => {
 
   await createEmail({ jsx, name: projectName, outputPath });
 
-  const packageManager = process.env.IS_CLI_TEST ? 'pnpm' : await detect();
+  const pm = await detect();
+  const packageManager = process.env.IS_CLI_TEST ? 'pnpm' : pm?.name;
   const install =
     packageManager === 'yarn'
       ? `  $ yarn\n  $ yarn dev`

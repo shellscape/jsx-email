@@ -1,5 +1,13 @@
-// Note: This is a workaround for Node v18 and Node v20 having different import assertion formats
-// eslint-disable-next-line
-const pkg = require('../package.json') as { description: string; name: string; version: string };
+// Note: This is a workaround due to Node v20 and Node v22 having different
+// import assertions. `with 'json'` vs `assert 'json'`
 
-export const { description, name, version } = pkg;
+// eslint-disable-next-line
+const pkg = require('../package.json') as {
+  description: string;
+  engines: { node: string };
+  name: string;
+  peerDependencies: Record<string, string>;
+  version: string;
+};
+
+export const { description, engines, name, peerDependencies, version } = pkg;

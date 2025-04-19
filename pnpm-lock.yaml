@@ -170,15 +170,15 @@ importers:
       chalk-template:
         specifier: ^1.1.0
         version: 1.1.0
-      detect-package-manager:
-        specifier: ^3.0.1
-        version: 3.0.1
       globby:
         specifier: 14.1.0
         version: 14.1.0
       mustache:
         specifier: ^4.2.0
         version: 4.2.0
+      package-manager-detector:
+        specifier: ^1.2.0
+        version: 1.2.0
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
@@ -4206,6 +4206,9 @@ packages:
 
   package-manager-detector@0.2.7:
     resolution: {integrity: sha512-g4+387DXDKlZzHkP+9FLt8yKj8+/3tOkPv7DVTJGGRm00RkEWgqbFstX1mXJ4M0VDYhUqsTOiISqNOJnhAu3PQ==}
+
+  package-manager-detector@1.2.0:
+    resolution: {integrity: sha512-PutJepsOtsqVfUsxCzgTTpyXmiAgvKptIgY4th5eq5UXXFhj5PxfQ9hnGkypMeovpAvVshFRItoFHYO18TCOqA==}
 
   parse-json@5.2.0:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
@@ -9001,6 +9004,8 @@ snapshots:
   p-try@2.2.0: {}
 
   package-manager-detector@0.2.7: {}
+
+  package-manager-detector@1.2.0: {}
 
   parse-json@5.2.0:
     dependencies:

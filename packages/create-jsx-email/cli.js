@@ -23,7 +23,7 @@ Please upgrade Node.js to a supported version: ${engines}\n`);
 
 (async () => {
   await checkEngine();
-  const { run } = await import('./dist/cli/index.js');
+  const { run } = await import('./dist/index.js');
   return run();
 })
   .then(() => process.exit(0))
