@@ -13,7 +13,6 @@
   },
   "author": "Andrew Powell <andrew@shellscape.org>",
   "homepage": "https://jsx.email/",
-  "main": "./dist/commonjs/index.js",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
