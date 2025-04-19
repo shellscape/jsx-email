@@ -2,7 +2,7 @@
  * Note: Parts of this file are derived from [Hyperons](https://github.com/i-like-robots/hyperons).
  * @license MIT
  */
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 import { type FC, type ReactNode } from 'react';
 
 import { log } from '../log.js';

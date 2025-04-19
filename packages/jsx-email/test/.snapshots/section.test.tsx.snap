@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Section> component > doesn't override cellPadding and cellSpacing 1`] = `"<table align=\\"center\\" width=\\"100%\\" cellPadding=\\"0\\" cellSpacing=\\"0\\" border=\\"0\\" role=\\"presentation\\"><tbody><tr><td><td>Lorem ipsum</td></td></tr></tbody></table>"`;
+exports[`<Section> component > doesn't override cellPadding and cellSpacing 1`] = `"<table align="center" width="100%" cellPadding="0" cellSpacing="0" border="0" role="presentation"><tbody><tr><td><td>Lorem ipsum</td></td></tr></tbody></table>"`;
 
-exports[`<Section> component > renders correctly 1`] = `"<table align=\\"center\\" width=\\"100%\\" border=\\"0\\" cellPadding=\\"0\\" cellSpacing=\\"0\\" role=\\"presentation\\"><tbody><tr><td>Lorem ipsum</td></tr></tbody></table>"`;
+exports[`<Section> component > renders correctly 1`] = `"<table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"><tbody><tr><td>Lorem ipsum</td></tr></tbody></table>"`;

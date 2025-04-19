@@ -50,14 +50,12 @@ tasks:
       cache: false
 
   lint.docs:
-    command: 'prettier --write .github/**/*.md **/README.md docs/**/*.md'
+    command: 'prettier --write .github/**/*.md **/README.md docs/**/*.md --no-error-on-unmatched-pattern'
     options:
       cache: false
 
   lint.js:
-    command: 'eslint --cache apps packages --ext .js,.ts,.tsx'
-    env:
-      NODE_OPTIONS: '--max-old-space-size=16384'
+    command: oxlint --format stylish apps infra packages scripts services
     options:
       cache: false
 

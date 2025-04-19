@@ -6,7 +6,7 @@
   "dependencies": {
     "create-jsx-email": "workspace:^",
     "execa": "^9.4.1",
-    "globby": "^14.0.2",
+    "globby": "14.1.0",
     "jsx-email": "workspace:^",
     "strip-ansi": "^7.1.0"
   }

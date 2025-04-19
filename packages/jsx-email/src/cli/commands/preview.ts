@@ -5,25 +5,25 @@ import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 import { parse as assert } from 'valibot';
 // TODO: re-enable this plugin to provide multiple paths for template assets
 // import { DynamicPublicDirectory } from 'vite-multiple-assets';
 import { build as viteBuild, createServer, type InlineConfig } from 'vite';
 
 import { log } from '../../log.js';
-import { buildForPreview, writePreviewDataFiles } from '../helpers.mjs';
-import { reloadPlugin } from '../vite-reload.mjs';
-import { staticPlugin } from '../vite-static.mjs';
-import { watch } from '../watcher.mjs';
+import { buildForPreview, writePreviewDataFiles } from '../helpers.js';
+import { reloadPlugin } from '../vite-reload.js';
+import { staticPlugin } from '../vite-static.js';
+import { watch } from '../watcher.js';
 
-import { getTempPath } from './build.mjs';
+import { getTempPath } from './build.js';
 import {
   type CommandFn,
   type PreviewCommandOptions,
   type PreviewCommonParams,
   PreviewCommandOptionsStruct
-} from './types.mjs';
+} from './types.js';
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');

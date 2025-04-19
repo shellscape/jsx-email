@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Row> component > doesn't override cellPadding and cellSpacing 1`] = `"<table align=\\"center\\" width=\\"100%\\" role=\\"presentation\\" cellSpacing=\\"10\\" cellPadding=\\"10\\" border=\\"0\\"><tbody style=\\"width:100%\\"><tr style=\\"width:100%\\"></tr></tbody></table>"`;
+exports[`<Row> component > doesn't override cellPadding and cellSpacing 1`] = `"<table align="center" width="100%" role="presentation" cellSpacing="10" cellPadding="10" border="0"><tbody style="width:100%"><tr style="width:100%"></tr></tbody></table>"`;
 
-exports[`<Row> component > renders correctly 1`] = `"<table align=\\"center\\" width=\\"100%\\" role=\\"presentation\\" cellSpacing=\\"0\\" cellPadding=\\"0\\" border=\\"0\\"><tbody style=\\"width:100%\\"><tr style=\\"width:100%\\"></tr></tbody></table>"`;
+exports[`<Row> component > renders correctly 1`] = `"<table align="center" width="100%" role="presentation" cellSpacing="0" cellPadding="0" border="0"><tbody style="width:100%"><tr style="width:100%"></tr></tbody></table>"`;

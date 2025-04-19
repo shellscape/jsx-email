@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 import mustache from 'mustache';
 import {
   parse as assert,
@@ -13,7 +13,7 @@ import {
   type InferOutput as Infer
 } from 'valibot';
 
-import { type CommandFn } from './types.mjs';
+import { type CommandFn } from './types.js';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);

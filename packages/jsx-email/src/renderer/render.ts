@@ -1,4 +1,6 @@
 import { htmlToText } from 'html-to-text';
+import { rehype } from 'rehype';
+import stringify from 'rehype-stringify';
 
 import { defineConfig, loadConfig, mergeConfig, type JsxEmailConfig } from '../config.js';
 import { callHook, callProcessHook } from '../plugins.js';
@@ -69,8 +71,6 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
 };
 
 const processHtml = async (config: JsxEmailConfig, html: string) => {
-  const { rehype } = await import('rehype');
-  const { default: stringify } = await import('rehype-stringify');
   const docType =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();

@@ -1,3 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-to-string > converts a React component into HTML 1`] = `"<h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`;
+exports[`jsx-to-string > converts a React component into HTML 1`] = `"<h1>Welcome, Jim!</h1><img src="img/test.png" alt="test"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`;

@@ -1,6 +1,6 @@
 import { AssertionError } from 'assert';
 
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 import { lilconfig } from 'lilconfig';
 import type { MethodFactoryLevels } from '@dot/log';
 
@@ -95,7 +95,6 @@ const handleImportError = (error: any, name: string) => {
 // their names without additional config, and we don't want that burden on users
 const importInlinePlugin = async () => {
   try {
-    // Note: tshy up to bullshit again with compile errors where there are none
     // @ts-ignore
     const { plugin } = (await import('@jsx-email/plugin-inline')) as unknown as PluginImport;
     return plugin;

@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`<Hr> component > renders correctly 1`] = `
-"<table cellPadding=\\"0\\" cellSpacing=\\"0\\" border=\\"0\\" width=\\"100%\\" role=\\"presentation\\"><tr><td valign=\\"top\\" background=\\"url-to-image\\" style=\\"background-repeat:no-repeat\\"><jsx-email-cond>
+"<table cellPadding="0" cellSpacing="0" border="0" width="100%" role="presentation"><tr><td valign="top" background="url-to-image" style="background-repeat:no-repeat"><jsx-email-cond>
 <!--[if gte mso 9]>
-<v:rect xmlns:v=\\"urn:schemas-microsoft-com:vml\\" fill=\\"true\\" stroke=\\"false\\" style=\\"mso-width-percent:1000;\\"><v:fill type=\\"frame\\" src=\\"url-to-image\\" /><v:textbox style=\\"mso-fit-shape-to-text:true\\" inset=\\"0,0,0,0\\"><![endif]-->
+<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;"><v:fill type="frame" src="url-to-image" /><v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0"><![endif]-->
 <div>Hello World</div>
 <!--[if gte mso 9]></v:textbox></v:rect><![endif]--></jsx-email-cond></td></tr></table>"
 `;
