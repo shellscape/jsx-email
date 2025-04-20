@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "create-jsx-email": "workspace:^",
+    "create-mail": "workspace:^",
     "execa": "^9.4.1",
     "globby": "14.1.0",
     "jsx-email": "workspace:^",

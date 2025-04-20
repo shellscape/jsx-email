@@ -1,4 +1,4 @@
-# create-jsx-email ChangeLog
+# create-mail ChangeLog
 
 ## v2.1.0
 

@@ -14,7 +14,7 @@
     "@types/node": "22.14.1",
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
-    "create-jsx-email": "*",
+    "create-mail": "workspace:^",
     "gh-pages": "^6.0.0",
     "happy-dom": "^17.4.4",
     "husky": "^9.1.7",

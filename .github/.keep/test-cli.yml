@@ -34,7 +34,7 @@ jobs:
       - name: Build Projects
         run: |
           moon jsx-email:build
-          moon create-jsx-email:build
+          moon create-mail:build
           moon run :build --query "project~plugin-*"
 
       - name: Run Tests

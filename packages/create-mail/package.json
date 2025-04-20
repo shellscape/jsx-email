@@ -1,5 +1,5 @@
 {
-  "name": "create-jsx-email",
+  "name": "create-mail",
   "version": "2.1.0",
   "publishConfig": {
     "access": "public"
@@ -9,11 +9,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/shellscape/jsx-email.git",
-    "directory": "packages/create-jsx-email"
+    "directory": "packages/create-mail"
   },
   "homepage": "https://jsx.email/",
   "bin": {
-    "create-jsx-email": "cli.js"
+    "create-mail": "cli.js"
   },
   "type": "module",
   "engines": {

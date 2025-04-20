@@ -35,7 +35,7 @@ const clearDirectory = (path: string) => {
 };
 const formatTargetDir = (targetPath?: string) => targetPath?.trim().replace(/\/+$/g, '');
 const intro = chalk`
-{underline create-jsx-email v${pkg.version}}
+{underline create-mail v${pkg.version}}
 
 ${pkg.description}
 `;

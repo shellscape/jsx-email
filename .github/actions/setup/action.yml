@@ -14,12 +14,10 @@ runs:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: 20.19.0
+        node-version: 20
 
     - name: Install PNPM
       uses: pnpm/action-setup@v4
-      with:
-        version: 9.15.9
 
     - name: Sanity Check
       shell: bash
@@ -34,4 +32,4 @@ runs:
 
     - name: pnpm install
       shell: bash
-      run: pnpm install --frozen-lockfile --shamefully-hoist
+      run: pnpm install --frozen-lockfile

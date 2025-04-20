@@ -15,7 +15,7 @@ tasks:
       - plugin-inline:build
       - plugin-minify:build
       - plugin-pretty:build
-      - create-jsx-email:build
+      - create-mail:build
 
   build.all:
     command: moon repo:build.deps
