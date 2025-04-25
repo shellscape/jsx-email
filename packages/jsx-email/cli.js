@@ -25,7 +25,7 @@ Please upgrade Node.js to a supported version: ${engines}\n`);
   await checkEngine();
   const { run } = await import('./dist/cli/index.js');
   return run();
-})
+})()
   .then(() => process.exit(0))
   .catch((error) => {
     danger(error);

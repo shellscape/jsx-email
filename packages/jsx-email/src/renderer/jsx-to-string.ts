@@ -9,8 +9,8 @@ import { log } from '../log.js';
 
 import { AttributeAliases, BooleanAttributes, EmptyObject, VoidElements } from './constants.js';
 import { escapeString } from './escape-string.js';
-import { stringifyStyles } from './stringify-styles.js';
 import { isValidElement } from './is-valid-element.js';
+import { stringifyStyles } from './stringify-styles.js';
 
 const renderSuspense = async (children: ReactNode[]): ReturnType<typeof jsxToString> => {
   try {

@@ -1,8 +1,8 @@
 import yargs from 'yargs-parser';
 
-import { name, version } from '../package-info.cjs';
-
+import { loadConfig } from '../config.js';
 import { debug } from '../debug.js';
+import { name, version } from '../package-info.cjs';
 
 import { command as build } from './commands/build.js';
 import { command as check } from './commands/check.js';
@@ -10,13 +10,11 @@ import { command as create } from './commands/create.js';
 import { command as help } from './commands/help.js';
 import { command as preview } from './commands/preview.js';
 import type { CommandFn } from './commands/types.js';
-
 // Note: I'm not a huge fan of importing this here, but it guarantees that we capture
 // the cwd before anything else futzes with it
 // @ts-expect-error
 // eslint-disable-next-line
 import { originalCwd } from './helpers.js';
-import { loadConfig } from '../config.js';
 
 const commands: Record<string, CommandFn> = { build, check, create, help, preview };
 

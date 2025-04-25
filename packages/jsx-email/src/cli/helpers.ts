@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import chalk from 'chalk';
 import prettyBytes from 'pretty-bytes';
 
-import { buildTemplates, normalizePath, type BuildTempatesResult } from './commands/build.js';
+import { type BuildTempatesResult, buildTemplates, normalizePath } from './commands/build.js';
 
 export { originalCwd } from '../helpers.js';
 

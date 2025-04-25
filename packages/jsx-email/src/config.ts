@@ -1,12 +1,11 @@
+import type { MethodFactoryLevels } from '@dot/log';
 import { AssertionError } from 'assert';
-
 import chalk from 'chalk-template';
 import { lilconfig } from 'lilconfig';
-import type { MethodFactoryLevels } from '@dot/log';
 
 import { getPluginLog, log } from './log.js';
 // @ts-ignore
-import { pluginSymbol, type JsxEmailPlugin, type PluginInternal } from './plugins.js';
+import { type JsxEmailPlugin, type PluginInternal, pluginSymbol } from './plugins.js';
 import type { ESBuildOptions, RenderOptions } from './types.js';
 
 export interface JsxEmailConfig {

@@ -5,12 +5,12 @@ import { fileURLToPath } from 'node:url';
 import chalk from 'chalk-template';
 import mustache from 'mustache';
 import {
+  type InferOutput as Infer,
   parse as assert,
   boolean,
   object,
   optional,
-  string,
-  type InferOutput as Infer
+  string
 } from 'valibot';
 
 import { type CommandFn } from './types.js';

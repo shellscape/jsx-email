@@ -2,7 +2,7 @@ import { htmlToText } from 'html-to-text';
 import { rehype } from 'rehype';
 import stringify from 'rehype-stringify';
 
-import { defineConfig, loadConfig, mergeConfig, type JsxEmailConfig } from '../config.js';
+import { type JsxEmailConfig, defineConfig, loadConfig, mergeConfig } from '../config.js';
 import { callHook, callProcessHook } from '../plugins.js';
 import type { PlainTextOptions, RenderOptions } from '../types.js';
 

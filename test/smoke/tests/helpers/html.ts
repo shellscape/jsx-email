@@ -1,8 +1,8 @@
 import { EOL } from 'node:os';
 
-import diffableHTML from 'diffable-html';
-import dedent from 'dedent';
 import type { Locator } from '@playwright/test';
+import dedent from 'dedent';
+import diffableHTML from 'diffable-html';
 
 const cleanHTML = (html: string) =>
   diffableHTML(dedent(html))

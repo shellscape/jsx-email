@@ -2,7 +2,6 @@
  * Note: Parts of this file are derived from [Hyperons](https://github.com/i-like-robots/hyperons).
  * @license MIT
  */
-
 import type { CSSProperties } from 'react';
 
 import { escapeString } from './escape-string.js';

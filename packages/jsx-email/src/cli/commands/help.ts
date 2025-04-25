@@ -2,11 +2,11 @@ import chalk from 'chalk-template';
 
 import { name, version } from '../../package-info.cjs';
 
-import type { CommandFn } from './types.js';
 import { help as build } from './build.js';
 import { help as check } from './check.js';
 import { help as create } from './create.js';
 import { help as preview } from './preview.js';
+import type { CommandFn } from './types.js';
 
 const { log } = console;
 

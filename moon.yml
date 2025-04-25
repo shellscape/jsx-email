@@ -59,6 +59,11 @@ tasks:
     options:
       cache: false
 
+  lint.format:
+    command: prettier --write **/*.{js,ts,cjs}
+    options:
+      cache: false
+
   lint.json:
     command: 'prettier --write .github/**/*.yml **/tsconfig.json **/tsconfig.*.json pnpm-workspace.yaml .moon/*.yml **/moon.yml'
     options:

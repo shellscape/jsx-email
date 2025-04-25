@@ -54,7 +54,6 @@
   },
   "dependencies": {
     "@dot/log": "^0.2.0",
-    "@jsx-email/doiuse-email": "^1.0.1",
     "@parcel/watcher": "^2.4.1",
     "@radix-ui/colors": "3.0.0",
     "@radix-ui/react-collapsible": "1.1.4",
@@ -72,6 +71,7 @@
     "@unocss/transformer-variant-group": "^66.0.0",
     "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.16",
+    "caniemail": "0.1.0-beta3",
     "chalk": "5.4.1",
     "chalk-template": "^1.1.0",
     "classnames": "2.5.1",
@@ -98,6 +98,7 @@
     "shiki": "^3.2.2",
     "source-map-support": "^0.5.21",
     "std-env": "^3.6.0",
+    "strip-ansi": "^7.1.0",
     "tailwindcss": "4.1.4",
     "titleize": "^4.0.0",
     "unist-util-visit": "^5.0.0",

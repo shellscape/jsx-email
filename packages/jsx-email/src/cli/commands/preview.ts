@@ -9,7 +9,7 @@ import chalk from 'chalk-template';
 import { parse as assert } from 'valibot';
 // TODO: re-enable this plugin to provide multiple paths for template assets
 // import { DynamicPublicDirectory } from 'vite-multiple-assets';
-import { build as viteBuild, createServer, type InlineConfig } from 'vite';
+import { type InlineConfig, createServer, build as viteBuild } from 'vite';
 
 import { log } from '../../log.js';
 import { buildForPreview, writePreviewDataFiles } from '../helpers.js';
@@ -21,8 +21,8 @@ import { getTempPath } from './build.js';
 import {
   type CommandFn,
   type PreviewCommandOptions,
-  type PreviewCommonParams,
-  PreviewCommandOptionsStruct
+  PreviewCommandOptionsStruct,
+  type PreviewCommonParams
 } from './types.js';
 
 // eslint-disable-next-line no-console

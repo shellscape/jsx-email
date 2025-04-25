@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 import { getHTML } from './helpers/html.js';
 

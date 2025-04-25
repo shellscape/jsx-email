@@ -2,10 +2,10 @@ import { parse } from '@adobe/css-tools';
 import type { Root } from 'hast';
 import { selectAll } from 'hast-util-select';
 import { toString } from 'hast-util-to-string';
+import { type JsxEmailPlugin, pluginSymbol } from 'jsx-email';
+import type { Plugin } from 'unified';
 import { remove } from 'unist-util-remove';
 import { visit } from 'unist-util-visit';
-import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
-import type { Plugin } from 'unified';
 
 export const plugin: JsxEmailPlugin = {
   name: 'root/inline',

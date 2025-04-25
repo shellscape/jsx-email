@@ -1,5 +1,5 @@
 import { parseName } from './helpers';
-import type { PreviewImportContent, TemplatePart, TemplateData } from './types.ts';
+import type { PreviewImportContent, TemplateData, TemplatePart } from './types.ts';
 
 export const gather = async () => {
   const imports = import.meta.glob<PreviewImportContent>(`@jsxemailbuild/**/*.js`, {

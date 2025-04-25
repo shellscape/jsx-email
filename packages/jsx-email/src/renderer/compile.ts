@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { dirname, basename, extname, join, resolve } from 'path';
 
 import esbuild from 'esbuild';
+import { basename, dirname, extname, join, resolve } from 'path';
 
 import { loadConfig } from '../config.js';
 import { log } from '../log.js';

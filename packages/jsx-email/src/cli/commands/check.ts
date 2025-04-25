@@ -1,9 +1,10 @@
 import { lstat } from 'node:fs/promises';
 
-import { doIUseEmail } from '@jsx-email/doiuse-email';
+import { type IssueGroup, caniemail, groupIssues, sortIssues } from 'caniemail';
 import chalk from 'chalk';
 import chalkTmpl from 'chalk-template';
-import { parse as assert, object, type InferOutput as Infer } from 'valibot';
+import stripAnsi from 'strip-ansi';
+import { type InferOutput as Infer, parse as assert, object } from 'valibot';
 
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.js';
 
@@ -25,28 +26,6 @@ const emailClients = [
   'fastmail.*'
 ];
 
-const formatSubject = (what: string) =>
-  what.replace(/`([\s\w<>.-]+)`/g, (_, bit) => chalkTmpl`{bold ${bit}}`).trim();
-
-const combine = (lines: string[]) => {
-  const rePreamble = /(`([\s\w<>.-]+)`[\s\w]+)/;
-
-  const result = lines.reduce<Record<string, string[]>>((prev, curr) => {
-    const matches = curr.match(rePreamble);
-    const [preamble] = matches!;
-
-    prev[preamble] = (prev[preamble] || []).concat(curr.replace(rePreamble, '').replace(/`/g, ''));
-
-    return prev;
-  }, {});
-
-  for (const key of Object.keys(result)) {
-    result[key] = Array.from(new Set(result[key]));
-  }
-
-  return result;
-};
-
 export const help = chalkTmpl`
 {blue email check}
 
@@ -59,59 +38,76 @@ Check jsx-email templates for client compatibility
   $ email check ./emails/Batman.tsx
 `;
 
+const formatNotes = (notes: string[], indent: string) => {
+  if (!notes.length) return '';
+  const noteLines = (notes as string[]).join(`\n${'.'.repeat(indent.length)}**`);
+  console.log({ noteLines });
+  return chalkTmpl`\n${indent}{cyan Notes}:\n${'.'.repeat(indent.length)}asshole\n`;
+};
+
+const formatIssue = (group: IssueGroup): string => {
+  const { issue, clients } = group;
+  const { position, support, title } = issue;
+  const positionTuple = chalkTmpl`{dim ${position!.start.line}:${position!.start.column}}`;
+  const notes = issue.notes.length ? issue.notes.map((note, index) => `${index + 1}. ${note}`) : [];
+  let lineType = '';
+
+  if (support === 'none') {
+    lineType = chalkTmpl`  {red error}`;
+  } else {
+    lineType = chalkTmpl`  {yellow warn} `;
+  }
+
+  const preamble = `${lineType}  ${positionTuple} `;
+  const indent = ' '.repeat(stripAnsi(preamble).length + 2);
+  const footnotes = formatNotes(notes, indent);
+
+  return chalkTmpl`${preamble}${title}:${footnotes}\n${indent}{dim ${clients.join(`\n${indent}`)}}\n`;
+};
+
 const runCheck = (fileName: string, html: string) => {
   const bytes = Buffer.byteLength(html, 'utf8');
-  const counts = { errors: 0, notes: 0, warnings: 0 };
   const htmlSize = formatBytes(bytes);
-  const result = doIUseEmail(html, { emailClients });
-  const { success } = result;
+  const result = caniemail({ clients: emailClients as any, html });
+  const { issues, success } = result;
+  const { errors, warnings } = issues;
+  const counts = {
+    errors: 0,
+    notes: 0,
+    warnings: 0
+  };
 
-  if (success && !result.warnings) return;
+  if (success && !issues.warnings) return;
 
   log(chalkTmpl`{underline ${fileName}} → HTML: ${htmlSize}\n`);
-
-  if (!success && result.errors?.length) {
-    const errors = combine(result.errors);
-    const indent = '           ';
-    for (const [preamble, clients] of Object.entries(errors)) {
-      log(
-        chalkTmpl`  {red error}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
-          `\n${indent}`
-        )}}\n`
-      );
-
-      counts.errors += 1;
-    }
-  }
 
   if (bytes >= gmailByteLimit) {
     log(chalkTmpl`  {red error}  HTML content is over the Gmail Clipping Limit: ${htmlSize}\n`);
     counts.errors += 1;
-  }
-
-  if (result.warnings?.length) {
-    const warnings = combine(result.warnings);
-    const indent = '          ';
-    for (const [preamble, clients] of Object.entries(warnings)) {
-      log(
-        chalkTmpl`  {yellow warn}  ${formatSubject(preamble)}:\n${indent}{dim ${clients.join(
-          `\n${indent}`
-        )}}\n`
-      );
-      counts.warnings += 1;
-    }
-  }
-
-  if (bytes > gmailBytesSafe && bytes < gmailByteLimit) {
+  } else if (bytes > gmailBytesSafe && bytes < gmailByteLimit) {
     log(chalkTmpl`  {red warn}  HTML content is near the Gmail Clipping Limit: ${htmlSize}\n`);
     counts.warnings += 1;
   }
 
-  const errors = counts.errors > 0 ? chalk.red(counts.errors) : chalk.green(counts.errors);
-  const warnings =
+  if (errors?.size || warnings?.size) {
+    const groupedErrors = groupIssues(errors);
+    const groupedWarnings = groupIssues(warnings);
+    const sorted = sortIssues([...groupedErrors, ...groupedWarnings]);
+
+    for (const group of sorted) {
+      if (group.issue.support === 'none') counts.errors += 1;
+      if (group.issue.support === 'partial') counts.warnings += 1;
+      log(formatIssue(group));
+    }
+  }
+
+  const errorCount = counts.errors > 0 ? chalk.red(counts.errors) : chalk.green(counts.errors);
+  const warningCount =
     counts.warnings > 0 ? chalk.yellow(counts.warnings) : chalk.green(counts.warnings);
 
-  log(chalkTmpl`{green Check Complete:} ${errors} error(s), ${warnings} warning(s)`);
+  log(
+    chalkTmpl` {green {bold ✓}} {dim Check Complete}: ${errorCount} error(s), ${warningCount} warning(s)`
+  );
 };
 
 export const command: CommandFn = async (argv: CheckOptions, input) => {

@@ -1,16 +1,16 @@
 /* eslint-disable no-await-in-loop, no-underscore-dangle */
-
-import { existsSync, readdirSync, rmSync } from 'fs';
-import { mkdir, readFile, writeFile } from 'fs/promises';
-import { basename, dirname, join, relative, resolve, win32, posix } from 'path';
 import { fileURLToPath } from 'node:url';
 
 import chalk from 'chalk-template';
-import { detect } from 'package-manager-detector/detect';
+import { existsSync, readdirSync, rmSync } from 'fs';
 import { globby } from 'globby';
 import mustache from 'mustache';
+import { detect } from 'package-manager-detector/detect';
+import { basename, dirname, join, posix, relative, resolve, win32 } from 'path';
 import prompts from 'prompts';
 import yargs from 'yargs-parser';
+
+import { mkdir, readFile, writeFile } from 'fs/promises';
 
 import * as pkg from './package-info.cjs';
 

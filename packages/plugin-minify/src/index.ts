@@ -1,4 +1,4 @@
-import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
+import { type JsxEmailPlugin, pluginSymbol } from 'jsx-email';
 import rehypeMinifyAttributeWhitespace from 'rehype-minify-attribute-whitespace';
 import rehypeMinifyCssStyle from 'rehype-minify-css-style';
 import rehypeMinifyEnumeratedAttribute from 'rehype-minify-enumerated-attribute';
