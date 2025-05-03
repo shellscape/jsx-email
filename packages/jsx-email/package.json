@@ -1,6 +1,6 @@
 {
   "name": "jsx-email",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "publishConfig": {
     "access": "public"
   },
@@ -107,7 +107,7 @@
     "postcss": "^8.4.32",
     "postcss-var-replace": "^1.0.0",
     "pretty-bytes": "^6.1.1",
-    "react-router-dom": "7.0.1",
+    "react-router-dom": "7.5.2",
     "rehype": "^13.0.1",
     "rehype-stringify": "^10.0.0",
     "shiki": "^1.18.0",
