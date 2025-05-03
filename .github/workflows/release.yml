@@ -1,0 +1,61 @@
+name: Release Projects
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - '*-v*'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  release:
+    if: |
+      !startsWith(github.event.head_commit.message, 'chore(release):') &&
+      !startsWith(github.event.head_commit.message, 'chore(repo):')
+
+    permissions:
+      contents: write
+
+    runs-on: ubuntu-latest
+
+    name: release
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+          fetch-tags: true
+          ref: main
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Fetch Tags
+        run: git fetch --tags
+
+      - name: Set Git Config
+        run: |
+          git config pull.rebase false
+          git config --global user.email "release-workflow@jsx.email"
+          git config --global user.name "Release Workflow"
+          git remote set-url origin https://github.com/${{ github.repository }}
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Projects
+        run: |
+          moon jsx-email:build
+          moon create-mail:build
+          moon run :build --query "project~plugin-*"
+
+      - name: Release
+        run: moon run :release --affected --concurrency 1 --remote
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

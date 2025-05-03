@@ -77,7 +77,7 @@ export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) =>
   return outPath;
 };
 
-const run = async () => {
+export const run = async () => {
   log(intro);
 
   const skip = process.argv.some((arg) => arg === '--yes');
@@ -184,5 +184,3 @@ ${install}
 
   log(footer);
 };
-
-run();

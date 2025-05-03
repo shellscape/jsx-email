@@ -26,7 +26,7 @@ For those not familiar with the bits above, here are some links to resources tha
 
 ## New Projects
 
-If you're starting a new project — whether that's a project solely for email templates, or a project that will eventually host additional code — our [`create-mail`](https://github.com/shellscape/jsx-email/tree/main/packages/create-jsx-email) utility is a perfect choice, and the fastest way to get started. The utility will scaffold a new project and get everything ready for developing new email templates. To begin, make sure you have a terminal (or command line) open and your current working directory is the directory you'd like to create a new project. Run the following command in your terminal (without the `$` symbol):
+If you're starting a new project — whether that's a project solely for email templates, or a project that will eventually host additional code — our [`create-mail`](https://github.com/shellscape/jsx-email/tree/main/packages/create-mail) utility is a perfect choice, and the fastest way to get started. The utility will scaffold a new project and get everything ready for developing new email templates. To begin, make sure you have a terminal (or command line) open and your current working directory is the directory you'd like to create a new project. Run the following command in your terminal (without the `$` symbol):
 
 ```console
 $ npm create jsx-email

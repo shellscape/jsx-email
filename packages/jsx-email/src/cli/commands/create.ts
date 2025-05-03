@@ -55,7 +55,7 @@ export const command: CommandFn = async (argv: CreateOptions, input) => {
 
   const [name] = input;
   const { jsx, out } = argv;
-  const template = await readFile(join(__dirname, '../../../templates/email.mustache'), 'utf8');
+  const template = await readFile(join(__dirname, '../../templates/email.mustache'), 'utf8');
   const data = {
     asConst: jsx ? '' : asConst,
     name,
