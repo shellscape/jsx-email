@@ -271,8 +271,8 @@ importers:
         specifier: ^10.4.16
         version: 10.4.19(postcss@8.4.38)
       caniemail:
-        specifier: 0.1.0-beta3
-        version: 0.1.0-beta3
+        specifier: 1.0.0
+        version: 1.0.0(@vue/compiler-sfc@3.3.4)(prettier@3.5.3)
       chalk:
         specifier: 5.4.1
         version: 5.4.1
@@ -2503,8 +2503,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-  caniemail@0.1.0-beta3:
-    resolution: {integrity: sha512-HcROJNL4c4mapIZx9eQQ/mcm59EmWqridqPmuDbNEk4hBhCHnUg8V1cKF4tA2Y8TxCY/z138UV1a9Xh+7gxQ2A==}
+  caniemail@1.0.0:
+    resolution: {integrity: sha512-C2vF3xE0wuBlvB8WSvjsRy7PwnKdPk8B3+qhXgqXp5bWAYgaiIcerLIFFv0siKAsGF+m/CvSnbjNAv2PMXAiNA==}
     engines: {node: '>=20.19.0'}
 
   caniuse-lite@1.0.30001627:
@@ -6545,9 +6545,10 @@ snapshots:
 
   camelcase@5.3.1: {}
 
-  caniemail@0.1.0-beta3:
+  caniemail@1.0.0(@vue/compiler-sfc@3.3.4)(prettier@3.5.3):
     dependencies:
       '@adobe/css-tools': 4.4.2
+      '@trivago/prettier-plugin-sort-imports': 5.2.2(@vue/compiler-sfc@3.3.4)(prettier@3.5.3)
       binary-search: 1.3.6
       css-what: 6.1.0
       domhandler: 5.0.3
@@ -6557,6 +6558,12 @@ snapshots:
       onetime: 7.0.0
       split-lines: 3.0.0
       style-to-object: 1.0.6
+    transitivePeerDependencies:
+      - '@vue/compiler-sfc'
+      - prettier
+      - prettier-plugin-svelte
+      - supports-color
+      - svelte
 
   caniuse-lite@1.0.30001627: {}
 
