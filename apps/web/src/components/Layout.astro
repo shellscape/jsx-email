@@ -1,0 +1,60 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "jsx.email - Building Emails doesn't have to be Painful" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content="Build and send emails using JSX with a delightful developer experience" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Initialize theme -->
+    <script is:inline>
+      // Check for saved theme preference or use the system preference
+      const savedTheme = localStorage.getItem('theme') || 'auto';
+      if (
+        savedTheme === 'dark' ||
+        (savedTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="bg-white dark:bg-black text-black dark:text-white font-sans antialiased">
+    <slot />
+
+    <!-- Theme toggle script -->
+    <script is:inline>
+      function toggleTheme() {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (isDark) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+      
+      // Add event listener to theme toggle button if it exists
+      document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', toggleTheme);
+        }
+      });
+    </script>
+  </body>
+</html> 

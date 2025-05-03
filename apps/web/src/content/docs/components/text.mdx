@@ -1,0 +1,39 @@
+---
+title: Text
+description: A JSX email component which renders a paragraph element
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Text"
+// TextExample.jsx
+import { Text } from 'jsx-email';
+
+const Email = () => {
+  return <Text>Lorem ipsum</Text>;
+};
+```
+
+## Props
+
+### Optional Props
+
+#### disableDefaultStyle
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'p'>`.

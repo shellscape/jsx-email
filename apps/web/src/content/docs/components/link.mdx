@@ -1,0 +1,61 @@
+---
+title: Link
+description: Renders a hyperlink to an external resource
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Link"
+// LinkExample.jsx
+import { Link } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <>
+      <Link href="https://example.com">Website Link</Link>
+    </>
+  );
+};
+```
+
+## Props
+
+### Required Props
+
+#### href
+
+```ts
+href: string;
+```
+
+URL for the link.
+
+### Optional Props
+
+#### disableDefaultStyle
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+#### target
+
+```ts
+target?: string;
+```
+
+Link target attribute (e.g., '\_blank').
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.

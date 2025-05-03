@@ -1,0 +1,41 @@
+/* Custom CSS for the JSX Email documentation */
+
+/* Color theme customization */
+:root[data-theme='light'] {
+  --sl-color-text-accent: #000000 !important;
+  --sl-color-bg-nav: #f2f2f2 !important;
+  --sl-color-bg-sidebar: #f2f2f2 !important;
+  --sl-color-bg: #f2f2f2 !important;
+  --sl-color-hairline-shade: #cecece !important;
+}
+
+/* Dark mode */
+/* :root[data-theme='dark'] {
+  --sl-color-text-accent: #e6e6e6 !important;
+  --sl-color-text-invert: #000000 !important;
+  --sl-color-bg-nav: #000000 !important;
+  --sl-color-bg-sidebar: #000000 !important;
+  --sl-color-bg: #000000 !important;
+  --sl-color-hairline-shade: #262626 !important;
+} */
+
+/* Add spacing at the top of the content where the title would normally be */
+main.content {
+  padding-top: 3rem;
+}
+
+/* Adjust the first element to have proper spacing */
+main.content > div > :first-child {
+  margin-top: 0;
+}
+
+/* Ensure proper spacing between page sections */
+main.content > section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+/* Subtle styling for headings to match landing page */
+h2 {
+  letter-spacing: 0.5px;
+}

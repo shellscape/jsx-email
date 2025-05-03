@@ -1,0 +1,65 @@
+---
+title: Butan
+description: Deprecated. The v1 Button component. Please upgrade to the new Button component.
+type: component
+sidebar:
+  badge:
+    text: Deprecated
+    variant: caution
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+:::warning[Deprecated Component]
+This component is a fallback for v1 Button compatibility. Please migrate to the new [`Button`](/components/button) component. `Butan` will be removed in a future release.
+:::
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Butan"
+// ButanExample.jsx
+import { Butan } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Butan href="https://example.com" style={{ color: '#61dafb', padding: '10px 20px' }}>
+      Click me
+    </Butan>
+  );
+};
+```
+
+:::note[HTML Output]
+Renders as an `<a>` element styled to look like a button.
+:::
+
+## Props
+
+### Required Props
+
+#### href
+
+```ts
+href: string;
+```
+
+URL to navigate to when clicked.
+
+### Optional Props
+
+#### target
+
+```ts
+target?: string;
+```
+
+Value for the HTML `target` attribute.
+
+### Additional Props
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.

@@ -1,3 +1,0 @@
-## {{ $frontmatter.title }}
-
-{{ $frontmatter.description }}

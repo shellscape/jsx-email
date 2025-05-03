@@ -1,0 +1,112 @@
+---
+title: Introduction to JSX-email
+description: Build and send emails using React and TypeScript
+sidebar:
+  order: 1
+  label: Introduction
+---
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Overview
+
+JSX-email provides React components and helpers for building responsive email templates. Key features:
+
+- Modern email client compatibility
+- Handles cross-client inconsistencies
+- Focus on developer experience
+- Compatible with all modern email services
+
+<div>
+  <img
+    src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/clients.svg"
+    alt="JSX email"
+    class="clients"
+  />
+</div>
+
+## Requirements
+
+- Node.js: [LTS version](https://github.com/nodejs/Release) (v18.0.0+)
+- React: v18.2.0+
+
+## Version 2 Migration
+
+Version 2 introduces significant improvements with some breaking changes. See our [Migration Guide](/upgrade/v2) for:
+
+- Upgrade steps
+- Breaking changes
+- New features
+
+:::note
+For v1.12.1 documentation, see the [legacy documentation](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
+:::
+
+## Key Features
+
+### Client Compatibility
+
+- [Email client compatibility checking](/core/cli#check)
+- Cross-client style consistency
+- Modern email service support
+
+### Developer Experience
+
+- Optional configuration files
+- Plugin system
+- Fast Tailwind support
+- `<Suspense>` and `async` component support
+- Enhanced CLI tools
+- Native monorepo support
+- Streamlined preview server
+
+### Community Focus
+
+- Community-driven maintenance
+- Rapid feature development
+- No vendor lock-in
+- Generic components and tools
+
+## Service Integration
+
+JSX-email works with any email provider accepting HTML string content:
+
+- [AWS SES](https://aws.amazon.com/ses)
+- [Loops](https://loops.so)
+- [Nodemailer](https://nodemailer.com)
+- [Postmark](https://postmarkapp.com)
+- [Resend](https://resend.com)
+- [Plunk](https://www.useplunk.com/)
+- [SendGrid](https://sendgrid.com)
+
+See [Email Providers](/getting-started/email-providers) for implementation examples.
+
+## Contributing
+
+We 💛 contributions! This is a community-driven project with:
+
+- No corporate sponsorship
+- Community-maintained codebase
+- User-driven development
+
+To contribute, see our [contribution guide](/getting-started/contributing)!
+
+## Attribution 🧡
+
+JSX-email is a fork of `react-email`, originally created by:
+
+- Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
+- Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
+
+### Fork History
+
+This fork began as a canary channel for unaddressed fixes and evolved into a separate project due to:
+
+- Need for faster improvements
+- Community-driven development focus
+- Different maintenance priorities
+
+## License
+
+[MIT License](https://github.com/shellscape/jsx-email/blob/main/LICENSE.md)
