@@ -46,7 +46,7 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.10.0",
   "pnpm": {
     "overrides": {
       "@types/react": "19.1.2",
