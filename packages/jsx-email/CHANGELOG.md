@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.2
+
+_2025-05-03_
+
+### Updates
+
+- jsx-email: upgrade react-router-dom to 7.5.2 due to high severity vuln (#298)
+
 ## v2.7.1
 
 _2025-03-05_
