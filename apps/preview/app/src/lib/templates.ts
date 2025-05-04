@@ -10,10 +10,18 @@ export const gather = async () => {
   const templateFiles: Record<string, TemplateData> = builtFiles.reduce((acc, file) => {
     const templateName = file.templateName || file.sourceFile.split('/').at(-1);
 
+    const fileExtensionRegex = /\.[^/.]+$/;
+
+    const fileExtension = file.sourceFile.match(fileExtensionRegex)[0];
+    const fileNameWithExtensionStripped = file.sourceFile.replace(fileExtensionRegex, '');
+
     return {
       ...acc,
-      [file.sourceFile]: {
+      [fileNameWithExtensionStripped]: {
+        fileExtension,
+        fileName: fileNameWithExtensionStripped,
         html: file.html,
+        // @ts-ignore // TODO: @andrew ?
         path: file.sourcePath.replace(`${targetPath}/`, ''),
         plain: file.plain,
         source: file.source,

@@ -9,13 +9,15 @@ export interface PreviewImportContent {
 
 export enum Views {
   Desktop = 'desktop',
+  Device = 'device',
   Html = 'html',
   Jsx = 'jsx',
-  Mobile = 'mobile',
   Plain = 'plain'
 }
 
 export interface TemplateData {
+  fileExtension: string;
+  fileName: string;
   html: string;
   path?: string;
   plain: string;

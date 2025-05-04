@@ -13,12 +13,12 @@
     {
       "name": "iPhone 15 Pro Max",
       "width": "430",
-      "height": "+932"
+      "height": "932"
     },
     {
       "name": "iPhone 15 Pro",
       "width": "393",
-      "height": "+852"
+      "height": "852"
     },
     {
       "name": "iPhone 14 Pro Max",
@@ -85,7 +85,7 @@
     {
       "name": "iPad Mini 4",
       "width": "768",
-      "height": "+1024"
+      "height": "1024"
     },
     {
       "name": "iPad Pro 10.5\"",
