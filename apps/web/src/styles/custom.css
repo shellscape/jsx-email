@@ -10,14 +10,14 @@
 }
 
 /* Dark mode */
-/* :root[data-theme='dark'] {
-  --sl-color-text-accent: #e6e6e6 !important;
-  --sl-color-text-invert: #000000 !important;
+:root[data-theme='dark'] {
+  /* --sl-color-text-accent: #e6e6e6 !important; */
+  /* --sl-color-text-invert: #000000 !important; */
   --sl-color-bg-nav: #000000 !important;
   --sl-color-bg-sidebar: #000000 !important;
   --sl-color-bg: #000000 !important;
   --sl-color-hairline-shade: #262626 !important;
-} */
+}
 
 /* Add spacing at the top of the content where the title would normally be */
 main.content {

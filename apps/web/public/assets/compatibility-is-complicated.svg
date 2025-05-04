@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 540 540" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+     <style>
+        .stop-color {
+            stop-color: white;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .stop-color {
+                stop-color: black;
+            }
+        }
+    </style>
     <rect id="Artboard1" x="0" y="-0" width="540" height="540" style="fill:none;"/>
     <clipPath id="_clip1">
         <rect x="0" y="-0" width="540" height="540"/>
@@ -211,5 +222,10 @@
         <path d="M257.613,222.927l-3.654,-3.654l6.301,-6.608l-13.068,-0.159l-3.684,-3.684l23.362,0.346l1.83,1.83l-11.087,11.929Z" style="fill-rule:nonzero;"/>
         <rect x="385.405" y="0" width="154.595" height="540" style="fill:url(#_Linear5);"/>
     </g>
-
+    <defs>
+        <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(106.057,0,0,122.026,-4.79616e-12,540)"><stop class="stop-color"  offset="0" style="stop-opacity:1"/><stop class="stop-color"  offset="1" style="stop-opacity:0"/></linearGradient>
+        <linearGradient id="_Linear3" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(5.97943e-15,-97.6515,122.026,7.47193e-15,540,540)"><stop class="stop-color"  offset="0" style="stop-opacity:1"/><stop class="stop-color"  offset="1" style="stop-opacity:0"/></linearGradient>
+        <linearGradient id="_Linear4" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.5616e-15,95.4451,122.026,-1.33079e-14,540,3.06777e-12)"><stop class="stop-color"  offset="0" style="stop-opacity:1"/><stop class="stop-color"  offset="1" style="stop-opacity:0"/></linearGradient>
+        <linearGradient id="_Linear5" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-154.595,0,0,122.026,540,540)"><stop class="stop-color"  offset="0" style="stop-opacity:1"/><stop class="stop-color"  offset="1" style="stop-opacity:0"/></linearGradient>
+    </defs>
 </svg>

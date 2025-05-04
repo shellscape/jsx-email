@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import { Code, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import Install from '@components/mdx/install.mdx';
 
 <h1>{frontmatter.title}</h1>
@@ -40,12 +40,21 @@ This creates an `email-project` directory with a starter template.
 
 Install JSX email in your project:
 
-<Tabs syncKey="install">
-  <TabItem label="pnpm">```sh pnpm add jsx-email ```</TabItem>
-  <TabItem label="npm">```sh npm install jsx-email ```</TabItem>
-  <TabItem label="yarn">```sh yarn add jsx-email ```</TabItem>
-  <TabItem label="bun">```sh bun add jsx-email ```</TabItem>
+<Tabs>
+  <TabItem label="pnpm">
+    <Code code="pnpm add jsx-email" lang="sh" />
+  </TabItem>
+  <TabItem label="bun">
+    <Code code="bun add jsx-email" lang="sh" />
+  </TabItem>
+  <TabItem label="npm">
+    <Code code="npm add jsx-email" lang="sh" />
+  </TabItem>
+  <TabItem label="yarn">
+    <Code code="yarn add jsx-email" lang="sh" />
+  </TabItem>
 </Tabs>
+
 
 ### One-Time Execution
 
