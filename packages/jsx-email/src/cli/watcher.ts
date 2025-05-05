@@ -1,18 +1,18 @@
+// Note: Keep the star here. There are environments (ahem, Stackblitz) which
+// can't seem to handle the psuedo default export
 import { access, readFile, unlink } from 'node:fs/promises';
 import { dirname, extname, relative, resolve } from 'node:path';
 
-// Note: Keep the star here. There are environments (ahem, Stackblitz) which
-// can't seem to handle the psuedo default export
 import * as watcher from '@parcel/watcher';
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 import type { Metafile } from 'esbuild';
 import { type ViteDevServer } from 'vite';
 
 import { log } from '../log.js';
 
-import { getTempPath, type BuildTempatesResult } from './commands/build.mjs';
-import { type PreviewCommonParams } from './commands/types.mjs';
-import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.mjs';
+import { type BuildTempatesResult, getTempPath } from './commands/build.js';
+import { type PreviewCommonParams } from './commands/types.js';
+import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.js';
 
 interface WatchArgs {
   common: PreviewCommonParams;
@@ -204,7 +204,8 @@ export const watch = async (args: WatchArgs) => {
           const mappedDeps = await mapDeps(results);
           files.push(...results);
           validFiles.push(
-            ...[path, ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))]
+            path,
+            ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))
           );
 
           await writePreviewDataFiles(results);

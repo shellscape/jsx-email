@@ -1,11 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Column> component > passes style and other props correctly 1`] = `"<td data-testid=\\"column-test\\" style=\\"background-color:red\\">Test</td>"`;
+exports[`<Column> component > passes style and other props correctly 1`] = `"<td data-testid="column-test" style="background-color:red">Test</td>"`;
 
 exports[`<Column> component > renders children correctly 1`] = `"<td>Test message</td>"`;
 
 exports[`<Column> component > renders correctly 1`] = `"<td>Lorem ipsum</td>"`;
 
-exports[`<Column> component > renders correctly with background color 1`] = `"<td bgcolor=\\"#000000\\">Lorem ipsum</td>"`;
+exports[`<Column> component > renders correctly with background color 1`] = `"<td bgcolor="#000000">Lorem ipsum</td>"`;
 
-exports[`<Column> component > renders correctly with background image 1`] = `"<td background=\\"link-to-image\\">Lorem ipsum</td>"`;
+exports[`<Column> component > renders correctly with background image 1`] = `"<td background="link-to-image">Lorem ipsum</td>"`;

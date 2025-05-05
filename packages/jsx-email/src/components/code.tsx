@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
-// @ts-ignore
-import { type BuiltinLanguage } from 'shiki';
+import { codeToHtml, type BuiltinLanguage } from 'shiki';
 
 import { debug } from '../debug.js';
 import { useData } from '../renderer/suspense.js';
@@ -20,9 +19,6 @@ const Renderer = (props: React.PropsWithChildren<CodeProps>) => {
   const { children, language, style, theme = 'nord', ...rest } = props;
   const code = children as string;
   const highlight = async () => {
-    // Note: When building CJS with thsy, tsc thinks that this isn't already dynamic
-    // @ts-ignore
-    const { codeToHtml } = await import('shiki');
     const html = await codeToHtml(code, { lang: language, theme });
     return html;
   };

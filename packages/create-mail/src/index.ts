@@ -1,18 +1,14 @@
 /* eslint-disable no-await-in-loop, no-underscore-dangle */
-
-import { existsSync, readdirSync, rmSync } from 'fs';
-import { mkdir, readFile, writeFile } from 'fs/promises';
-import { basename, dirname, join, relative, resolve, win32, posix } from 'path';
-import { fileURLToPath } from 'node:url';
-
 import chalk from 'chalk-template';
-// Note: https://github.com/egoist/detect-package-manager/issues/18
-// @ts-ignore
-import { detect } from 'detect-package-manager';
+import { existsSync, readdirSync, rmSync } from 'fs';
 import { globby } from 'globby';
 import mustache from 'mustache';
+import { detect } from 'package-manager-detector/detect';
+import { basename, dirname, join, posix, relative, resolve, win32 } from 'path';
 import prompts from 'prompts';
 import yargs from 'yargs-parser';
+
+import { mkdir, readFile, writeFile } from 'fs/promises';
 
 import * as pkg from './package-info.cjs';
 
@@ -21,9 +17,6 @@ interface CreateEmailArgs {
   name: string;
   outputPath: string;
 }
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const cancelled = () => {
   throw new Error(chalk`{red ✖} Operation cancelled`);
 };
@@ -37,7 +30,7 @@ const clearDirectory = (path: string) => {
 };
 const formatTargetDir = (targetPath?: string) => targetPath?.trim().replace(/\/+$/g, '');
 const intro = chalk`
-{underline create-jsx-email v${pkg.version}}
+{underline create-mail v${pkg.version}}
 
 ${pkg.description}
 `;
@@ -48,7 +41,7 @@ const isEmpty = (path: string) => {
 const { log } = console;
 const normalizePath = (filename: string) => filename.split(win32.sep).join(posix.sep);
 const asConst = ' as const';
-const typeDep = ',\n"@types/react": "^19.0.2",\n"typescript": "^5.2.2"';
+const typeDep = ',\n"@types/react": "^19.1.2",\n"typescript": "^5.8.3"';
 const typeProps = `\ninterface TemplateProps {
   email: string;
   name: string;
@@ -63,7 +56,7 @@ export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) =>
     propsType: jsx ? '' : ': TemplateProps',
     typeProps: jsx ? '' : typeProps
   };
-  const templatePath = resolve(__dirname, '../dist/generators/templates/email.mustache');
+  const templatePath = resolve(import.meta.dirname, '../dist/generators/templates/email.mustache');
   const template = await readFile(templatePath, 'utf8');
   const contents = mustache.render(template, data);
   const fileName = basename(templatePath)
@@ -79,7 +72,7 @@ export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) =>
   return outPath;
 };
 
-const run = async () => {
+export const run = async () => {
   log(intro);
 
   const skip = process.argv.some((arg) => arg === '--yes');
@@ -139,7 +132,7 @@ const run = async () => {
 
   const { overwrite, projectName, projectType } = result;
   const root = join(process.cwd(), targetPath);
-  const generatorsPath = resolve(__dirname, '../dist/generators');
+  const generatorsPath = resolve(import.meta.dirname, '../dist/generators');
   const jsx = projectType === 'JavaScript';
   const templates = await globby([normalizePath(join(generatorsPath, '/*.*'))]);
   const outputPath = join(root, 'templates');
@@ -167,7 +160,8 @@ const run = async () => {
 
   await createEmail({ jsx, name: projectName, outputPath });
 
-  const packageManager = process.env.IS_CLI_TEST ? 'pnpm' : await detect();
+  const pm = await detect();
+  const packageManager = process.env.IS_CLI_TEST ? 'pnpm' : pm?.name;
   const install =
     packageManager === 'yarn'
       ? `  $ yarn\n  $ yarn dev`
@@ -185,5 +179,3 @@ ${install}
 
   log(footer);
 };
-
-run();

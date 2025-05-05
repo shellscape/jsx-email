@@ -1,8 +1,6 @@
 // Note: This script builds the preview app for deploy to https://samples.jsx.email against
 // apps/demo/emails
-
 import { resolve } from 'path';
-
 import { build } from 'vite';
 
 (async () => {

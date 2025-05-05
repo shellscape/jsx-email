@@ -22,12 +22,14 @@ exports[`defineConfig > basic set 1`] = `
             },
             "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
             "time": [Function],
+            "transports": undefined,
           },
           "ready": {
             "promise": Promise {},
             "reject": [Function],
             "resolve": [Function],
           },
+          "transports": [],
           Symbol(log-instance): [Circular],
           Symbol(log-levels): {
             "DEBUG": 1,
@@ -51,12 +53,14 @@ exports[`defineConfig > basic set 1`] = `
               },
               "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
               "time": [Function],
+              "transports": undefined,
             },
             "ready": {
               "promise": Promise {},
               "reject": [Function],
               "resolve": [Function],
             },
+            "transports": [],
             Symbol(log-instance): [Circular],
             Symbol(log-levels): {
               "DEBUG": 1,
@@ -114,12 +118,14 @@ exports[`defineConfig > de-dupe plugins 1`] = `
             },
             "template": "[{{time}}] [34mjsx-email[39m [1m∵ batman[22m {{level}} ",
             "time": [Function],
+            "transports": undefined,
           },
           "ready": {
             "promise": Promise {},
             "reject": [Function],
             "resolve": [Function],
           },
+          "transports": [],
           Symbol(log-instance): [Circular],
           Symbol(log-levels): {
             "DEBUG": 1,
@@ -143,12 +149,14 @@ exports[`defineConfig > de-dupe plugins 1`] = `
               },
               "template": "[{{time}}] [34mjsx-email[39m [1m∵ batman[22m {{level}} ",
               "time": [Function],
+              "transports": undefined,
             },
             "ready": {
               "promise": Promise {},
               "reject": [Function],
               "resolve": [Function],
             },
+            "transports": [],
             Symbol(log-instance): [Circular],
             Symbol(log-levels): {
               "DEBUG": 1,
@@ -220,12 +228,14 @@ exports[`defineConfig > minify and pretty 1`] = `
             },
             "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
             "time": [Function],
+            "transports": undefined,
           },
           "ready": {
             "promise": Promise {},
             "reject": [Function],
             "resolve": [Function],
           },
+          "transports": [],
           Symbol(log-instance): [Circular],
           Symbol(log-levels): {
             "DEBUG": 1,
@@ -249,12 +259,14 @@ exports[`defineConfig > minify and pretty 1`] = `
               },
               "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
               "time": [Function],
+              "transports": undefined,
             },
             "ready": {
               "promise": Promise {},
               "reject": [Function],
               "resolve": [Function],
             },
+            "transports": [],
             Symbol(log-instance): [Circular],
             Symbol(log-levels): {
               "DEBUG": 1,
@@ -297,12 +309,14 @@ exports[`defineConfig > minify and pretty 1`] = `
             },
             "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/pretty[22m {{level}} ",
             "time": [Function],
+            "transports": undefined,
           },
           "ready": {
             "promise": Promise {},
             "reject": [Function],
             "resolve": [Function],
           },
+          "transports": [],
           Symbol(log-instance): [Circular],
           Symbol(log-levels): {
             "DEBUG": 1,
@@ -326,12 +340,14 @@ exports[`defineConfig > minify and pretty 1`] = `
               },
               "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/pretty[22m {{level}} ",
               "time": [Function],
+              "transports": undefined,
             },
             "ready": {
               "promise": Promise {},
               "reject": [Function],
               "resolve": [Function],
             },
+            "transports": [],
             Symbol(log-instance): [Circular],
             Symbol(log-levels): {
               "DEBUG": 1,

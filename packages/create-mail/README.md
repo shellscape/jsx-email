@@ -1,5 +1,5 @@
-[npm]: https://img.shields.io/npm/v/create-jsx-email
-[npm-url]: https://www.npmjs.com/package/create-jsx-email
+[npm]: https://img.shields.io/npm/v/create-mail
+[npm-url]: https://www.npmjs.com/package/create-mail
 
 [![npm][npm]][npm-url]
 [![Join our Discord](https://img.shields.io/badge/join_our-Discord-5a64ea)](https://discord.gg/FywZN57mTg)
@@ -9,7 +9,7 @@
 	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"><br/><br/>
 </div>
 
-# create-jsx-email
+# create-mail
 
 ![jsx-email](../../assets/brackets.svg) The starter command for JSX email.
 
@@ -20,7 +20,7 @@
 
 ## Requirements
 
-This package requires an [LTS](https://github.com/nodejs/Release) Node version (v18.0.0+) and React v18.2.0+.
+This package requires an [LTS](https://github.com/nodejs/Release) Node version (v20.19.0+) and React v19.1.0+.
 
 ## Getting started
 

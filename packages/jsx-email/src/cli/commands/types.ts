@@ -1,12 +1,12 @@
 import type React from 'react';
 import {
+  type InferOutput as Infer,
   boolean,
   number,
   object,
   optional,
   string,
-  union,
-  type InferOutput as Infer
+  union
 } from 'valibot';
 
 export type Flags = Record<string, string | boolean | undefined>;

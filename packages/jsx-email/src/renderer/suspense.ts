@@ -1,5 +1,3 @@
-// Note: tshy has some bugs with dual-mode package importing in the cjs build https://github.com/isaacs/tshy/issues/50
-// @ts-ignore
 import hash from 'hash-it';
 
 const promiseMap = new Map();

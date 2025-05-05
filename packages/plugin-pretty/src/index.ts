@@ -1,4 +1,4 @@
-import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
+import { type JsxEmailPlugin, pluginSymbol } from 'jsx-email';
 import prettyHtml from 'pretty';
 
 export const plugin: JsxEmailPlugin = {

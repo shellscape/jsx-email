@@ -1,8 +1,8 @@
 import { resolve } from 'node:path';
 
 import { execa } from 'execa';
-import { describe, expect, test } from 'vitest';
 import strip from 'strip-ansi';
+import { describe, expect, test } from 'vitest';
 
 process.chdir(__dirname);
 
