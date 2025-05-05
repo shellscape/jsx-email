@@ -1,7 +1,6 @@
 /* eslint-disable no-await-in-loop, no-underscore-dangle */
 import { readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
 import { expect, test } from '@playwright/test';
 
@@ -13,8 +12,6 @@ import { getHTML } from './helpers/html.js';
 // - HTML View
 // - Copy and Download buttons on code views
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const { error } = console;
 const timeout = { timeout: 15e3 };
 const propsButtonSel = '#Props-sidebar-tree > button';
@@ -75,7 +72,7 @@ test('watcher', async ({ page }) => {
 
   const isLocal = process.env.CI !== 'true';
   const targetFilePath = isLocal
-    ? join(__dirname, '../fixtures/templates/base.jsx')
+    ? join(import.meta.dirname, '../fixtures/templates/base.jsx')
     : '/home/runner/work/jsx-email/jsx-email/jsx-email-tests/smoke-test/fixtures/templates/base.jsx';
 
   console.log({ isLocal, targetFilePath });

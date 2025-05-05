@@ -2,7 +2,6 @@
 import { existsSync } from 'node:fs';
 import { mkdir, rmdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk-template';
@@ -86,8 +85,8 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
 const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
   const buildPath = await getTempPath('preview');
   const root = JSX_DEV_LOCAL
-    ? fileURLToPath(import.meta.resolve('../../../../../apps/preview/app'))
-    : fileURLToPath(import.meta.resolve('../../preview'));
+    ? resolve(import.meta.dirname, '../../../../../apps/preview/app')
+    : resolve(import.meta.dirname, '../../preview');
   const { basePath = '/', host = false, port = 55420 } = argv;
 
   if (JSX_DEV_LOCAL)
