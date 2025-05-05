@@ -22,12 +22,12 @@ Please upgrade Node.js to a supported version: ${engines}\n`);
 };
 
 (async () => {
-  await checkEngine();
-  const { run } = await import('./dist/cli/index.js');
-  return run();
-})()
-  .then(() => process.exit(0))
-  .catch((error) => {
+  try {
+    await checkEngine();
+    const { run } = await import('./dist/cli/index.js');
+    return run();
+  } catch (error) {
     danger(error);
     process.exit(1);
-  });
+  }
+})();

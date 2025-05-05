@@ -86,8 +86,8 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
 const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
   const buildPath = await getTempPath('preview');
   const root = JSX_DEV_LOCAL
-    ? fileURLToPath(import.meta.resolve('../../../../../../apps/preview/app'))
-    : fileURLToPath(import.meta.resolve('../../../preview'));
+    ? fileURLToPath(import.meta.resolve('../../../../../apps/preview/app'))
+    : fileURLToPath(import.meta.resolve('../../preview'));
   const { basePath = '/', host = false, port = 55420 } = argv;
 
   if (JSX_DEV_LOCAL)

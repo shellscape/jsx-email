@@ -9,6 +9,7 @@ tasks:
   build:
     command: echo "Build Complete ✓"
     inputs:
+      - cli.js
       - generators
       - src
       - package.json
