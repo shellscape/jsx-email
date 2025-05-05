@@ -1,0 +1,148 @@
+<section class="py-20 relative overflow-hidden">
+  <div class="container-custom mx-auto px-4 md:px-6 relative z-10">
+    <!-- Top Feature (Full Width) -->
+    <div
+      class="p-8 pr-0 pb-0 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl mb-6"
+    >
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-4">
+            Compatibility is complicated,<br />jsx-email makes it simple.
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            Emails make heavy use of &lt;table&gt; based layouts for compatibility, jsx-email has
+            you covered with over 20 custom components you can use directly in your email templates.
+          </p>
+          <a href="/components" class="font-medium hover:underline">Components</a>
+        </div>
+        <div class="flex justify-end">
+          <img
+            src="/assets/compatibility-is-complicated.svg"
+            alt="HTML Email Components Layers"
+            class="w-full max-w-lg h-auto"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 col grid Features -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <div class="flex flex-col gap-6">
+        <!-- Style with your tools -->
+        <div
+          class="p-8 pb-0 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl min-h-[360px]"
+        >
+          <h3 class="text-2xl font-bold mb-2">Style with your tools.</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Style your components your way using CSS-in-JS or TailwindCSS / UnoCSS.
+          </p>
+          <a href="/styling-guide" class="font-medium hover:underline">Styling Guide</a>
+
+          <div class="mt-8 flex justify-start pl-4">
+            <img
+              src="/assets/style-with-your-tools.svg"
+              alt="Styling Tools"
+              class="w-full h-auto"
+            />
+          </div>
+        </div>
+
+        <!-- Check compatibility -->
+        <div
+          class="p-8 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl min-h-[320px]"
+        >
+          <h3 class="text-2xl font-bold mb-2">Check compatibility.</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Test the compatibility of your CSS with a single command.
+          </p>
+          <a href="/cli-check" class="font-medium hover:underline">CLI: Check</a>
+
+          <div
+            class="mt-8 flex items-center border-2 border-gray-200 dark:border-gray-800 rounded-full py-3 px-6 font-mono text-lg"
+          >
+            <span class="text-gray-400 dark:text-gray-400 mr-2">$</span>
+            <span class="text-gray-400 dark:text-gray-400"
+              >pnpm <span class="font-bold text-gray-700 dark:text-gray-300"
+                >email check ./templates</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <!-- Preview while Building -->
+        <div
+          class="p-8 pb-0 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl min-h-[360px] overflow-hidden"
+        >
+          <h3 class="text-2xl font-bold mb-2">Preview while Building.</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Preview your templates as you're building them.
+          </p>
+          <a href="/cli-preview" class="font-medium hover:underline">CLI: Preview</a>
+
+          <div
+            class="mt-8 border border-gray-200 dark:border-gray-800 rounded-lg p-5 overflow-hidden w-full mb-[-28px]"
+          >
+            <!-- Skeleton animation for preview tool -->
+            <div class="flex flex-col gap-8">
+              <div class="flex flex-col gap-2">
+                <div class="h-8 bg-gray-200 dark:bg-gray-400 rounded-md w-2/3"></div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-400 rounded-md w-1/4"></div>
+              </div>
+              <div>
+                <div class="h-10 bg-gray-200 dark:bg-gray-400 rounded-md w-full mb-8"></div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-400 rounded-md w-5/6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Use anywhere -->
+        <div
+          class="p-8 pb-0 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl min-h-[320px]"
+        >
+          <h3 class="text-2xl font-bold mb-2">Use anywhere.</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Use jsx-email as your email templating solution for Nuxt, Next, Astro, Express, Koa, and
+            even with backends & services that don't use JS/TS.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/backend-integration-guide" class="font-medium hover:underline"
+              >Backend Integration Guide</a
+            >
+            <a href="/workflows-guide" class="font-medium hover:underline">Workflows Guide</a>
+          </div>
+
+          <div class="mt-8 relative pl-4">
+            <img
+              src="/assets/use-anywhere.svg"
+              alt="Integration Illustration"
+              class="w-full h-auto relative z-10"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Find out more link -->
+    <div class="text-center">
+      <a
+        href="/docs"
+        class="inline-flex items-center text-black dark:text-white font-medium hover:underline"
+      >
+        Find out more in the docs
+        <svg
+          class="ml-1 w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

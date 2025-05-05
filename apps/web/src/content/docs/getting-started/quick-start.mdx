@@ -1,0 +1,158 @@
+---
+title: Quick Start
+description: Get started quickly with JSX email
+sidebar:
+  order: 2
+---
+
+import { Code, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Prerequisites
+
+- Node.js [LTS version](https://github.com/nodejs/Release) (v18.0.0+)
+- React v18.2.0+
+
+:::info[New to Node.js?]
+Before starting, familiarize yourself with:
+
+- [Node Fundamentals](https://www.codecademy.com/learn/learn-nodejs-fundamentals/modules/intro-to-node-js/cheatsheet)
+- [NPM Fundamentals](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/)
+- [Executing Local NPM Packages](https://jaireina.medium.com/executing-local-npm-packages-226820ad2c31)
+- [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and [`pnpm exec`](https://pnpm.io/cli/exec)
+- [How to use relative paths on windows CMD?](https://superuser.com/a/1270599)
+  :::
+
+## New Project Setup
+
+The fastest way to start is using our project creation tool:
+
+```sh
+npm create jsx-email
+```
+
+This creates an `email-project` directory with a starter template.
+
+### Installation
+
+Install JSX email in your project:
+
+<Tabs>
+  <TabItem label="pnpm">
+    <Code code="pnpm add jsx-email" lang="sh" />
+  </TabItem>
+  <TabItem label="bun">
+    <Code code="bun add jsx-email" lang="sh" />
+  </TabItem>
+  <TabItem label="npm">
+    <Code code="npm add jsx-email" lang="sh" />
+  </TabItem>
+  <TabItem label="yarn">
+    <Code code="yarn add jsx-email" lang="sh" />
+  </TabItem>
+</Tabs>
+
+
+### One-Time Execution
+
+Run commands without installation:
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```sh
+    pnpm dlx email <command>
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```sh
+    npx email <command>
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```sh
+    yarn dlx email <command>
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```sh
+    bunx email <command>
+    ```
+  </TabItem>
+</Tabs>
+
+## Creating Templates
+
+These steps will create a new template named `BatmanEmail.tsx` in the `./emails` directory.
+
+<Steps>
+
+1. Create templates directory:
+
+   ```sh
+   mkdir ./emails
+   ```
+
+2. Generate template:
+   ```sh
+   email create BatmanEmail --out=./emails
+   ```
+
+</Steps>
+
+:::tip
+Use `--jsx` flag to create `.jsx` files.
+:::
+
+## Development
+
+### Preview Server
+
+JSX-email includes a lightweight preview server with:
+
+- No additional dependencies
+- Simple setup
+- Monorepo support
+- Hot reloading
+
+Launch the preview server:
+
+```sh
+email preview ./emails
+```
+
+:::info[Windows Users]
+Windows paths differ from Unix-like systems. Please see the link above regarding Windows relative paths if you are unfamiliar with how they work on the Command Line.
+:::
+
+The CLI will startup a preview server and open a new browser tab at `http://localhost:55420`. It's that simple.
+
+Preview server options:
+
+```sh
+email help preview
+```
+
+### Building Templates
+
+Build templates using either:
+
+- CLI for static output
+- [`render` method](/core/render) for dynamic runtime rendering
+
+#### CLI Build
+
+```sh
+email build ./emails/BatmanEmail.tsx
+```
+
+:::tip
+View build options:
+
+```sh
+email help build
+```
+
+:::

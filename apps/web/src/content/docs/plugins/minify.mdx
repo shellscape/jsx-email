@@ -1,0 +1,31 @@
+---
+title: Minify Plugin
+description: Reduce HTML size through minification for better email delivery
+type: plugin
+---
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Overview
+
+The `@jsx-email/plugin-minify` plugin reduces HTML size by removing unnecessary whitespace and formatting.
+
+:::note[Automatic Loading]
+This plugin is a `peerDependency` of `jsx-email` and loads automatically when the [`minify` render option](/core/render#method-options) is enabled.
+:::
+
+## Benefits
+
+- Reduces email size
+- Prevents email clipping in clients
+- Improves delivery performance
+
+:::caution[Size Monitoring]
+Monitor console output during rendering for size warnings to avoid email clipping in clients like Gmail.
+:::
+
+## Resources
+
+- [Source Code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify)
+- [About Minification](<https://en.wikipedia.org/wiki/Minification_(programming)>)

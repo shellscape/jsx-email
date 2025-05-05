@@ -1,0 +1,190 @@
+---
+title: Email Provider Integrations
+description: Use JSX email with an Email Provider of your choice
+sidebar:
+  order: 3
+---
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Overview
+
+JSX-email works with any email provider that accepts HTML content. The process is simple:
+
+1. Create your template
+2. Use [`render`](/core/render) to convert JSX/TSX to HTML
+3. Send using your preferred provider
+
+:::note
+This guide assumes you've completed the [Quick Start Guide](/getting-started/quick-start) and have a template ready.
+:::
+
+## Provider Examples
+
+### [AWS SES](https://aws.amazon.com/ses)
+
+```tsx
+import { render } from 'jsx-email';
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
+import { Template } from './emails/Batman.tsx';
+
+const ses = new SESv2Client({ region: process.env.AWS_SES_REGION });
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await ses.send(
+  new SendEmailCommand({
+    FromEmailAddress: 'penguin@joker.us',
+    Destination: {
+      ToAddresses: ['bruce@wayneinc.com']
+    },
+    Content: {
+      Simple: {
+        Body: {
+          Html: {
+            Charset: 'UTF-8',
+            Data: html
+          }
+        },
+        Subject: {
+          Charset: 'UTF-8',
+          Data: 'Did you get that thing I sent you?'
+        }
+      }
+    }
+  })
+);
+```
+
+### [Mailersend](https://www.mailersend.com)
+
+```tsx
+import { render } from 'jsx-email';
+import { MailerSend, EmailParams, Sender, Recipient } from 'mailersend';
+import { Template } from './emails/Batman.tsx';
+
+const mailerSend = new MailerSend({
+  apiKey: process.env.MAILERSEND_API_KEY || ''
+});
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+const sentFrom = new Sender('penguin@joker.us', 'Copperpot');
+const recipients = [new Recipient('bruce@wayneinc.com', 'Bruce Wayne')];
+
+const params = new EmailParams()
+  .setFrom(sentFrom)
+  .setTo(recipients)
+  .setSubject('This is a Subject')
+  .setHtml(html);
+
+mailerSend.email.send(params);
+```
+
+### [Nodemailer](https://nodemailer.com)
+
+```tsx
+import { render } from 'jsx-email';
+import nodemailer from 'nodemailer';
+import { Template } from './emails/Batman.tsx';
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+const transport = nodemailer.createTransport({
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'batman',
+    pass: 'j0ker$mells!1'
+  }
+});
+
+await transport.sendMail({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html: html
+});
+```
+
+### [Postmark](https://postmarkapp.com)
+
+```tsx
+import { render } from 'jsx-email';
+import { ServerClient } from 'postmark';
+import { Template } from './emails/Batman.tsx';
+
+const client = new ServerClient(process.env.POSTMARK_API_KEY);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+client.sendEmail({
+  From: 'penguin@joker.us',
+  To: 'bruce@wayneinc.com',
+  Subject: 'Did you get that thing I sent you?',
+  HtmlBody: html
+});
+```
+
+### [Resend](https://resend.com)
+
+```tsx
+import { render } from 'jsx-email';
+import { Resend } from 'resend';
+import { Template } from './emails/Batman.tsx';
+
+const resend = new Resend('re_123456789');
+const template = <Template firstName="Bruce" lastName="Wayne" />;
+const html = await render(template);
+
+resend.sendEmail({
+  from: 'penguin@joker.us',
+  html,
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?'
+});
+```
+
+:::caution
+While Resend supports `react-email` through its `react` property, we recommend using JSX-email's `render` method as shown above for access to advanced features not available in `react-email`.
+:::
+
+### [SendGrid](https://sendgrid.com)
+
+```tsx
+import { render } from 'jsx-email';
+import sendgrid from '@sendgrid/mail';
+import { Template } from './emails/Batman.tsx';
+
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+sendgrid.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html: html
+});
+```
+
+### [Plunk](https://www.useplunk.com/)
+
+```tsx
+import { render } from 'jsx-email';
+import Plunk from '@plunk/node';
+import { Template } from './emails/Batman.tsx';
+
+const plunk = new Plunk(process.env.PLUNK_API_KEY);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+plunk.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  body: html
+});
+```
+
+## Universal Support
+
+JSX-email works with any email service that accepts HTML content.
+
+For more information about rendering options and advanced usage, see our [`render` documentation](/core/render).

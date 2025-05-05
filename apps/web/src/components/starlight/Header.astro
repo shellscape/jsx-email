@@ -1,0 +1,10 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Header.astro';
+---
+
+// Pass through all props to the default Header component
+
+<Default {...Astro.props}>
+  <slot />
+</Default> 

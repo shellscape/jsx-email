@@ -1,0 +1,217 @@
+<section class="pt-24 sm:pt-28 md:pt-32 pb-10">
+  <div class="mx-auto px-4 md:px-6 text-center">
+    <!-- Announcement -->
+    <div class="mb-6 sm:mb-8 flex flex-wrap justify-center items-center gap-2">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="18"
+          cy="5"
+          r="3"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></circle>
+        <circle
+          cx="6"
+          cy="12"
+          r="3"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></circle>
+        <circle
+          cx="18"
+          cy="19"
+          r="3"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></circle>
+        <line
+          x1="8.59"
+          y1="13.51"
+          x2="15.42"
+          y2="17.49"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></line>
+        <line
+          x1="15.41"
+          y1="6.51"
+          x2="8.59"
+          y2="10.49"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></line>
+      </svg>
+      <div
+        class="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-800 px-4 sm:px-6 py-2 text-sm text-gray-600 dark:text-gray-400"
+      >
+        <span> jsx-email is a community fork of react-email, see what's new </span>
+        <svg
+          class="ml-1"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="9 18 15 12 9 6"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></polyline>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Main Headline -->
+    <h1
+      class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight max-w-5xl mx-auto px-4 md:px-6"
+    >
+      Building Emails doesn't have to be Painful.
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-10">
+      Develop standards compliant emails with JSX or TSX with amazing developer experience.
+      Compatible with the most popular email clients.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+      <a
+        href="/getting-started/quick-start"
+        class="inline-flex items-center justify-center py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-base font-medium rounded-full bg-black text-white dark:bg-white dark:text-black transition-all hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+      >
+        Quick Start
+      </a>
+      <button
+        id="copy-command-btn"
+        class="inline-flex items-center justify-center py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-base font-medium rounded-full bg-white text-black border border-gray-300 dark:bg-black dark:text-white dark:border-gray-700 transition-all hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+      >
+        pnpm add jsx-email
+        <!-- Copy icon (default) -->
+        <svg
+          id="copy-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ml-2"
+        >
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <!-- Success icon (hidden by default) -->
+        <svg
+          id="success-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ml-2 hidden"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hero Image -->
+  <div class="mx-auto px-4 md:px-6">
+    <div class="relative max-w-7xl mx-auto">
+      <!-- Isometric illustration with mobile-optimized view -->
+      <div class="overflow-hidden rounded-lg relative">
+        <!-- Mobile view (focuses on top-right corner) -->
+        <div class="sm:hidden">
+          <div class="overflow-hidden">
+            <img
+              src="/assets/hero.svg"
+              alt="JSX Email component illustration"
+              class="w-[200%] max-w-none object-cover object-center aspect-[4/3]"
+            />
+          </div>
+        </div>
+        <!-- Desktop view (shows full image) -->
+        <div class="hidden sm:block">
+          <img
+            src="/assets/hero.svg"
+            alt="JSX Email component illustration"
+            class="w-full rounded-lg"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Workflow Selection Pills -->
+  <div class="container mx-auto px-4 md:px-6 mt-6 sm:mt-8 text-center">
+    <div
+      class="inline-flex flex-wrap justify-center rounded-full border border-gray-200 dark:border-gray-800 p-1"
+    >
+      <span class="py-2 px-3 sm:px-5 text-sm font-medium">Workflows:</span>
+      <button
+        class="py-2 px-3 sm:px-5 rounded-full bg-black text-white dark:bg-white dark:text-black text-sm font-medium"
+      >
+        Backend Integration
+      </button>
+      <button
+        class="py-2 px-3 sm:px-5 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
+      >
+        Standalone Builder
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copy-command-btn');
+    const copyIcon = document.getElementById('copy-icon');
+    const successIcon = document.getElementById('success-icon');
+
+    if (copyBtn && copyIcon && successIcon) {
+      copyBtn.addEventListener('click', async () => {
+        // The text to copy
+        const textToCopy = 'pnpm add jsx-email';
+
+        try {
+          // Copy text to clipboard
+          await navigator.clipboard.writeText(textToCopy);
+
+          // Show success icon, hide copy icon
+          copyIcon.classList.add('hidden');
+          successIcon.classList.remove('hidden');
+
+          // After 3 seconds, revert back
+          setTimeout(() => {
+            copyIcon.classList.remove('hidden');
+            successIcon.classList.add('hidden');
+          }, 3000);
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+        }
+      });
+    }
+  });
+</script>

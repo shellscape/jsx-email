@@ -1,0 +1,116 @@
+---
+title: Font
+description: Sets up custom fonts for use in email
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+:::caution[Web Font Support]
+Not all email clients support web fonts. Check [email client compatibility](https://www.caniemail.com/features/css-at-font-face/) before implementation.
+:::
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Font"
+// FontExample.jsx
+import { Font, Head, Html } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Head>
+        <Font
+          fontFamily="Roboto"
+          fallbackFontFamily="Verdana"
+          webFont={{
+            url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
+            format: 'woff2'
+          }}
+          fontWeight={400}
+          fontStyle="normal"
+        />
+      </Head>
+    </Html>
+  );
+};
+```
+
+## Props
+
+### TypeScript Interface
+
+```ts
+export interface FontProps {
+  fallbackFontFamily: FallbackFont | FallbackFont[];
+  fontFamily: string;
+  fontStyle?: FontStyle;
+  fontWeight?: FontWeight;
+  webFont?: {
+    format: FontFormat;
+    url: string;
+  };
+}
+```
+
+### Required Props
+
+#### fontFamily
+
+```ts
+fontFamily: string;
+```
+
+The primary font family name. Should match webFont name if using web fonts.
+
+#### fallbackFontFamily
+
+```ts
+fallbackFontFamily: FallbackFont | FallbackFont[];
+```
+
+Fallback font(s) to use when web fonts aren't supported or primary font is unavailable.
+
+### Optional Props
+
+#### fontStyle
+
+```ts
+fontStyle?: FontStyle;
+```
+
+Font style variation. Defaults to `'normal'`.
+
+#### fontWeight
+
+```ts
+fontWeight?: FontWeight;
+```
+
+Font weight value. Defaults to `400`.
+
+#### webFont
+
+```ts
+webFont?: {
+  format: FontFormat;
+  url: string;
+}
+```
+
+Web font configuration:
+
+- `format`: Font file format (e.g., 'woff2')
+- `url`: URL to font file
+
+:::note[Usage Tips]
+
+- Use `fallbackFontFamily` for multiple fallback fonts
+- Ensure web font URLs are publicly accessible
+- Consider using system fonts for better compatibility
+  :::

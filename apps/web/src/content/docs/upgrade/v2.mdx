@@ -1,0 +1,168 @@
+---
+title: V2 Upgrade Guide
+description: Guide for upgrading to JSX-email version 2
+sidebar:
+  label: Version 2
+---
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Overview
+
+Version 2 of JSX-email introduces significant improvements and breaking changes. This guide will help you upgrade your existing projects.
+
+## New Features
+
+### Components
+
+- [`Background`](/components/background) ⭐️ New
+- [`Button`](/components/button) Updates
+- [`Graph`](/components/graph) ⭐️ New
+
+### Configuration File Support
+
+Added support for configuration files to:
+
+- Disable default component styles globally
+- Set rendering properties
+- Configure logging levels
+- Specify plugins
+
+See [Configuration](/core/config) documentation for details.
+
+### Plugin System
+
+New plugin system with lifecycle hooks for:
+
+- Pre-render modifications
+- During-render processing
+- Post-render transformations
+
+Core features like minification and prettifying are now separate plugins, enabling:
+
+- Smaller bundle sizes
+- Better compatibility with restricted environments (e.g., Cloudflare)
+- Custom rendering pipelines
+
+See [Plugins](/core/plugins) documentation for details.
+
+### Module Format Changes
+
+Moved to [`tshy`](https://github.com/isaacs/tshy) for package building
+
+## Breaking Changes
+
+### Named Exports
+
+Templates must now use named exports instead of default exports:
+
+```tsx title="Before"
+export default function MyTemplate({ ... }) {
+  ...
+};
+
+MyTemplate.Name = 'MyTemplate';
+MyTemplate.PreviewProps = { ... };
+```
+
+```tsx title="After"
+export const previewProps = { ... };
+export const templateName = 'MyTemplate';
+export const Template = ({ ... }) => {
+  ...
+};
+```
+
+:::note[Why This Change?]
+Default exports can negatively impact tree-shaking and bundle optimization. Named exports provide better consistency and simplify template validation.
+:::
+
+### Button Component
+
+The `Button` component has been completely refactored for better email client compatibility.
+
+The [`Button`](/components/button) component received a mountain of updates thanks to [@lordelogos](https://github.com/lordelogos). Amoung the updates was a complete refactoring of the component source and the HTML that it generates. This was done to address nagging and persistent issues with rendering buttons effectively across many clients. No surprise, Outlook was the worst offender. While these updates provide a lot of new props, the `Button` component remains backwards compatible in most situations.
+
+However, one big potentially breaking change is around the `style` property. If you're using the `style` or `class` properties to style your buttons, there may be some visual differences. The updates to `Button` provide direct props for most of the styles that we've seen people use on buttons, in an effort to get to maximum compatibility across email clients. _This is something you won't find in other email templating tools!_ Please see the [props](/components/button#component-props) documentation for more info.
+
+#### Key Changes
+
+- Original `Button` is now available as [`Butan`](/components/butan)
+- New styling approach using props instead of CSS
+- Better Outlook compatibility
+
+:::caution[Deprecation Notice]
+The `Butan` component is deprecated and will be removed in v3. Migrate to the new `Button` component for future compatibility.
+:::
+
+### Component Props
+
+To take full advantage of the new Button, we strongly recommend using the provided component props (see the Button docs or the details below) to set styles. Avoid using `CSS`, the `style` property, or `Tailwind` classes, as this ensures better compatibility with Outlook and older email clients.
+
+The Only required props are `width` and `height`. While the other props are optional, it is highly recommended to use them instead of relying on `style`, `CSS`, or `Tailwind` classes for styling.
+
+```tsx
+width: number;
+height: number;
+href?: string;
+align?: 'left' | 'center' | 'right';
+backgroundColor?: string;
+borderColor?: string;
+borderRadius?: number;
+borderSize?: number;
+fontSize?: number;
+textColor?: string;
+withBackground?: boolean;
+```
+
+#### Migration Example
+
+```tsx title="Before (now Butan)"
+<Butan
+  style={{
+    backgroundColor: '#ff5a5f',
+    borderRadius: '3px',
+    color: '#fff',
+    fontSize: '18px',
+    textDecoration: 'none',
+    textAlign: 'center' as const,
+    display: 'block',
+    width: '300px',
+    padding: '19px 0px'
+  }}
+  href="#"
+>
+  Click Me!
+</Butan>
+```
+
+```tsx title="After (new Button)"
+<Button
+  width={300}
+  height={64}
+  backgroundColor={'#ff5a5f'}
+  borderRadius={3}
+  textColor={'#fff'}
+  fontSize={18}
+  href="#"
+>
+  Click Me!
+</Button>
+```
+
+### Preview System Changes
+
+Improvements:
+
+- Faster pre-rendering
+- Live updates via file watching
+- Template exclusion support
+
+Current Limitations:
+
+- Local relative asset imports temporarily unavailable, working on restoring this functionality
+
+:::tip[Need Help?]
+If you encounter issues during migration, please [open an issue](https://github.com/shellscape/jsx-email/issues/new/choose).
+:::

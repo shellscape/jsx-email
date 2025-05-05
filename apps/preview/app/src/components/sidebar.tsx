@@ -1,221 +1,243 @@
+import { Icon } from '@iconify/react';
 import * as Collapsible from '@radix-ui/react-collapsible';
-import classnames from 'classnames';
-import * as React from 'react';
+import * as RadixToggleGroup from '@radix-ui/react-toggle-group';
+import clsx from 'clsx';
+import { observer } from 'mobx-react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Cross1Icon } from '@radix-ui/react-icons';
+import { useAppStore } from '../composables/useAppStore';
+import type { TemplatePart } from '../lib/types';
 
-import type { TemplatePart } from '../types.js';
+import { Logo } from './Logo';
+import { Separator } from './ui/Separator';
 
-import { Logo } from './logo';
-
-type SidebarElement = React.ElementRef<'aside'>;
-type RootProps = React.ComponentPropsWithoutRef<'aside'>;
-
-interface SidebarProps extends RootProps {
-  closeNav: () => void;
-  templateParts: TemplatePart[];
-  title?: string;
-}
-
-interface SidebarSectionProps {
-  closeNav: () => void;
-  currentPageTitle: string;
+interface DirectoryTreeProps {
   isSubSection?: boolean;
   templateParts: TemplatePart[];
   title: string;
 }
 
-const FolderPlus = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className="w-4 h-4 ml-1"
-  >
-    <path
-      fillRule="evenodd"
-      d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V10.5Z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
+const version = '2.5.4';
 
-const FolderMinus = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className="w-4 h-4 ml-1"
-  >
-    <path
-      fillRule="evenodd"
-      d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15ZM9 12.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
+export const DirectoryTree = observer(
+  ({ templateParts, isSubSection, title = 'Email Templates' }: DirectoryTreeProps) => {
+    const { pathname: basePathName, search } = useLocation();
+    const pathname = decodeURIComponent(
+      basePathName.startsWith('/') ? basePathName.slice(1) : basePathName
+    );
 
-const FileName = () => (
-  <svg
-    className="flex-shrink-0"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
-      stroke="currentColor"
-      strokeOpacity="0.927"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M18 9.25H13.75V5"
-      stroke="currentColor"
-      strokeOpacity="0.927"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+    const [isOpen, setIsOpen] = useState(
+      !isSubSection || pathname.indexOf(title.toLowerCase()) > -1
+    );
 
-export const SidebarSection = ({
-  closeNav,
-  templateParts,
-  currentPageTitle,
-  isSubSection,
-  title = 'Email Templates'
-}: SidebarSectionProps) => {
-  const { pathname: basePathName } = useLocation();
-  const pathname = decodeURIComponent(
-    basePathName.startsWith('/') ? basePathName.slice(1) : basePathName
-  );
+    const appStore = useAppStore();
 
-  const [isOpen, setIsOpen] = React.useState(
-    !isSubSection || pathname.indexOf(title.toLowerCase()) > -1
-  );
-
-  return (
-    <Collapsible.Root
-      className={isSubSection ? 'py-1' : 'pt-4'}
-      id={isSubSection ? `${title.replace(' ', '')}-sidebar-tree` : 'sidebar-tree'}
-      onOpenChange={setIsOpen}
-      defaultOpen={isOpen}
-    >
-      <Collapsible.Trigger
-        className={classnames('flex items-center gap-1', {
-          'cursor-default': templateParts && templateParts.length === 0
-        })}
+    return (
+      <Collapsible.Root
+        className=""
+        id={isSubSection ? `${title.replace(' ', '')}-sidebar-tree` : 'sidebar-tree'}
+        onOpenChange={setIsOpen}
+        defaultOpen={isOpen}
       >
-        {isOpen ? <FolderMinus /> : <FolderPlus />}
-        <div className="flex items-center transition ease-in-out duration-200 hover:text-dark-bg-text">
-          <h3
-            className={classnames(
-              'text-sm transition ease-in-out duration-200 hover:text-dark-bg-text',
-              { 'font-medium': currentPageTitle === title || !isSubSection, 'ml-2': isSubSection }
-            )}
-          >
-            {title}
-          </h3>
-        </div>
-      </Collapsible.Trigger>
-
-      {templateParts && templateParts.length > 0 && (
-        <Collapsible.Content
-          className={classnames('relative collapsible-content', {
-            'mt-1': isSubSection,
-            'mt-3': !isSubSection
+        <Collapsible.Trigger
+          className={clsx('flex w-full hover:underline items-center gap-2 py-1', {
+            'cursor-default': templateParts && templateParts.length === 0,
+            'pb-1': !isSubSection
           })}
         >
-          <div className="absolute left-2.5 w-px h-full bg-slate-6" />
-
-          <div
-            className={isSubSection ? 'py-0 flex flex-col truncate' : 'py-2 flex flex-col truncate'}
-          >
-            <div id={isSubSection ? `${title.replace(' ', '')}-sidebar` : 'sidebar'}>
-              {templateParts &&
-                templateParts.map((item) => {
-                  const isCurrentPage = pathname === item.path;
-                  const isParent = item.children && item.children.length > 0;
-                  return isParent ? (
-                    <div className="pl-4" key={item.name}>
-                      <SidebarSection
-                        closeNav={closeNav}
-                        templateParts={item.children}
-                        currentPageTitle={currentPageTitle}
-                        title={item.name}
-                        isSubSection
-                      />
-                    </div>
-                  ) : (
-                    <Link
-                      data-name={item.name}
-                      id={
-                        isSubSection
-                          ? `${title.replace(' ', '')}-link-${item.name}`
-                          : `link-${item.name}`
-                      }
-                      key={item.name}
-                      to={`/${item.path}`}
-                      onClick={closeNav}
-                    >
-                      <span
-                        className={classnames(
-                          'text-[14px] flex items-center gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
-                          {
-                            'font-medium': isCurrentPage,
-                            'hover:text-dark-bg-text': currentPageTitle !== item.name,
-                            'text-cyan-11': isCurrentPage
-                          }
-                        )}
-                      >
-                        {isCurrentPage && (
-                          <span className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-[#78b0a04d] animate-nav-fade-in">
-                            <div className="bg-[#61efce] w-px absolute top-1 left-2.5 h-6 transition-all ease-in-out" />
-                          </span>
-                        )}
-                        <FileName />
-                        {item.template.templateName}
-                      </span>
-                    </Link>
-                  );
-                })}
-            </div>
+          <Icon
+            icon={
+              isOpen ? 'material-symbols:folder-open-outline' : 'material-symbols:folder-outline'
+            }
+            className="h-6 w-6"
+          />
+          <div className="flex items-center transition ease-in-out duration-200">
+            <h3 className="transition ease-in-out duration-200 font-semibold">{title}</h3>
           </div>
-        </Collapsible.Content>
-      )}
-    </Collapsible.Root>
-  );
-};
+        </Collapsible.Trigger>
 
-export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  ({ className, templateParts, closeNav, title, ...props }, forwardedRef) => (
-    <aside ref={forwardedRef} className={className} {...props}>
-      <nav className="h-full p-6 w-screen lg:w-full lg:min-w-[275px] lg:max-w-[275px] flex flex-col gap-4 border-r border-dark-bg-border">
-        <div className="flex items-center justify-between">
-          <Logo />
-          <button
-            onClick={closeNav}
-            className="inlne-block lg:hidden w-5 h-5"
-            aria-label="Toggle nav menu"
-          >
-            <Cross1Icon className="w-5 h-5" />
-          </button>
-        </div>
-        <SidebarSection
-          closeNav={closeNav}
-          templateParts={templateParts}
-          currentPageTitle={title}
-          title="Email Templates"
-        />
-      </nav>
-    </aside>
-  )
+        {templateParts && templateParts.length > 0 && (
+          <Collapsible.Content className="relative collapsible-content">
+            <div className="absolute left-2.5 w-[2px] h-full bg-neutral-200 dark:bg-neutral-800" />
+
+            <div className="flex flex-col truncate mb-2">
+              <div id={isSubSection ? `${title.replace(' ', '')}-sidebar` : 'sidebar'}>
+                {templateParts &&
+                  templateParts.map((item) => {
+                    const isCurrentPage = pathname === `emails/${item.path}`;
+                    const isParent = item.children && item.children.length > 0;
+
+                    return isParent ? (
+                      <div className="pl-4" key={item.name}>
+                        <DirectoryTree
+                          templateParts={item.children}
+                          title={item.name}
+                          isSubSection
+                        />
+                      </div>
+                    ) : (
+                      <Link
+                        data-name={item.name}
+                        id={
+                          isSubSection
+                            ? `${title.replace(' ', '')}-link-${item.name}`
+                            : `link-${item.name}`
+                        }
+                        key={item.name}
+                        to={`/emails/${item.path}${search}`}
+                        className={clsx({
+                          'hover:underline': !isCurrentPage
+                        })}
+                        onClick={() => appStore.sidebar.setIsOpen(false)}
+                      >
+                        <span
+                          className={clsx(
+                            'flex items-center gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
+                            { 'font-semibold': isCurrentPage }
+                          )}
+                        >
+                          {isCurrentPage && (
+                            <span className="absolute inset-y-0 right-0 left-2.5 rounded-r-lg bg-neutral-600/5 dark:bg-neutral-400/5 animate-nav-fade-in">
+                              <span className="bg-black dark:bg-white w-[2px] absolute left-0 inset-y-0 inline-block transition-all ease-in-out" />
+                            </span>
+                          )}
+                          <span className="relative flex items-center gap-2">
+                            <Icon icon="mdi:file-outline" className="h-6 w-6" />
+                            {item.template.templateName}
+                          </span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+              </div>
+            </div>
+          </Collapsible.Content>
+        )}
+      </Collapsible.Root>
+    );
+  }
 );
 
-Sidebar.displayName = 'Sidebar';
+const SidebarTemplatesTree = observer(
+  (props: Omit<DirectoryTreeProps, 'templateParts' | 'isSubSection'>) => {
+    const appStore = useAppStore();
+
+    return <DirectoryTree templateParts={appStore.templates.parts} {...props} />;
+  }
+);
+
+const ColorSchemePicker = observer(() => {
+  const appStore = useAppStore();
+
+  const colorSchemes = [
+    {
+      icon: 'ic:outline-computer',
+      name: 'system'
+    },
+    {
+      icon: 'tabler:sun-filled',
+      name: 'light'
+    },
+    {
+      icon: 'tabler:moon-filled',
+      name: 'dark'
+    }
+  ] as const satisfies { icon: string; name: string }[];
+
+  return (
+    <RadixToggleGroup.Root
+      type="single"
+      className="inline-flex items-center gap-1 rounded-full border-2 border-neutral-200 dark:border-neutral-800 p-1"
+      value={appStore.colorScheme.preference}
+    >
+      {colorSchemes.map((colorScheme, index) => (
+        <RadixToggleGroup.Item
+          key={index}
+          value={colorScheme.name}
+          className="p-1 rounded-full data-[state=on]:outline hover:text-black dark:hover:text-white outline-2 outline-neutral-200 dark:outline-neutral-800 data-[state=off]:text-neutral-300 dark:data-[state=off]:text-neutral-700"
+          onClick={() => appStore.colorScheme.setPreference(colorScheme.name)}
+        >
+          <Icon icon={colorScheme.icon} className="w-4 h-4" />
+        </RadixToggleGroup.Item>
+      ))}
+    </RadixToggleGroup.Root>
+  );
+});
+
+export const Sidebar = observer(() => {
+  const appStore = useAppStore();
+
+  useEffect(() => {
+    function handleResize() {
+      appStore.sidebar.setIsOpen(window.innerWidth > appStore.sidebar.breakpoint);
+    }
+
+    addEventListener('resize', handleResize);
+
+    return () => {
+      removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <div
+      className={clsx(
+        'w-full max-w-[360px] border-r-solid border-r-2 bg-white dark:bg-black border-r-neutral-200 dark:border-r-neutral-800 max-lg:absolute left-0 top-0 z-[10]',
+        !appStore.sidebar.isOpen && 'max-lg:hidden'
+      )}
+    >
+      <div className="overflow-y-auto h-[100dvh] flex justify-between flex-col relative">
+        <div>
+          {/* header */}
+          <div className="px-8 pt-8 pb-12 max-lg:mt-12">
+            <div className="flex items-center gap-5">
+              <Link className="flex items-center gap-2.5 font-bold" to="/">
+                <Logo className="h-[38px]" />
+                <span>jsx.email</span>
+              </Link>
+              <Separator orientation="vertical" className="h-8" />
+              <span className="text-sm">v{version}</span>
+            </div>
+          </div>
+          {/* body */}
+          <div className="px-8 pb-48">
+            <SidebarTemplatesTree title="Email Templates" />
+          </div>
+        </div>
+        {/* color scheme */}
+        <div className="bg-white/60 dark:bg-black/60 backdrop-blur-sm pt-2 px-8 pb-4 w-full flex flex-col items-center justify-center gap-5 sticky bottom-0">
+          <ColorSchemePicker />
+          <p className="text-center max-w-[22ch] mb-5">
+            Looking for inspiration? Check out{' '}
+            <a href="https://pro.jsx.email" target="_blank" className="underline">
+              pro.jsx.email
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+export const Header = observer(() => {
+  const appStore = useAppStore();
+
+  return (
+    <div className="w-full py-4 px-4 sticky top-0 border-b-2 border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black lg:hidden z-[20]">
+      <div className="flex items-center gap-5">
+        <button onClick={() => appStore.sidebar.setIsOpen(!appStore.sidebar.isOpen)}>
+          <Icon
+            icon={appStore.sidebar.isOpen ? 'material-symbols:close' : 'tabler:menu'}
+            className="h-8 w-8"
+          />
+        </button>
+        <Separator orientation="vertical" className="h-8" />
+        <Link className="flex items-center gap-2.5 font-bold" to="/">
+          <Logo className="h-[30px]" />
+          <span>jsx.email</span>
+        </Link>
+      </div>
+    </div>
+  );
+});

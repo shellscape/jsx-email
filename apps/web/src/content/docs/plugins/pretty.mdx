@@ -1,0 +1,31 @@
+---
+title: Pretty Plugin
+description: Format HTML output for better readability during development
+type: plugin
+---
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Overview
+
+The `@jsx-email/plugin-pretty` plugin formats HTML output for improved readability during development.
+
+:::note[Automatic Loading]
+This plugin is a `peerDependency` of `jsx-email` and loads automatically when the [`pretty` render option](/core/render#method-options) is enabled.
+:::
+
+## Use Cases
+
+- Debugging email templates
+- Development environments
+- Code review and inspection
+- Template troubleshooting
+
+:::tip
+While useful for development, disable this plugin in production for optimal performance.
+:::
+
+## Resources
+
+- [Source Code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty)

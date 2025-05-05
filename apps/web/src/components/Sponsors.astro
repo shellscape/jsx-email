@@ -1,0 +1,12 @@
+---
+import { TrustedBy } from './ui/trusted-by';
+import { FadeBlock } from './ui/fade-block';
+---
+
+<section class="py-12 border-y border-gray-200 dark:border-gray-800">
+  <div class="container-custom mx-auto px-4 md:px-6">
+    <FadeBlock client:load>
+      <TrustedBy client:load />
+    </FadeBlock>
+  </div>
+</section>

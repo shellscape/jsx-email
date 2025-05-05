@@ -1,0 +1,86 @@
+---
+title: Conditional
+description: Use HTML conditional comments effortlessly
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Conditional"
+// ConditionalExample.jsx
+import { Conditional, Head } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Head>
+      {/* MSO-specific content */}
+      <Conditional mso={true}>
+        <meta content="mso-content" />
+      </Conditional>
+
+      {/* Custom conditional */}
+      <Conditional expression="lt ie 10">
+        <meta content="legacy-ie" />
+      </Conditional>
+    </Head>
+  );
+};
+```
+
+## Props
+
+### TypeScript Interface
+
+```ts
+interface ConditionalProps {
+  children?: React.ReactNode;
+  expression?: string;
+  mso?: boolean;
+}
+```
+
+:::caution[Props Usage]
+Either `expression` or `mso` must be defined, but not both simultaneously.
+:::
+
+### Optional Props
+
+#### expression
+
+```ts
+expression?: string;
+```
+
+Custom conditional expression for HTML comment. Example: `'lt ie 10'` produces `<!--[if lt ie 10]>`.
+
+#### head
+
+```ts
+head?: boolean;
+```
+
+Places the conditional in the email template's `head` section.
+
+#### mso
+
+```ts
+mso?: boolean;
+```
+
+- When `true`: Outputs `<!--[if mso]>`
+- When `false`: Outputs `<!--[if !mso]><!--> ... <!--<![endif]-->`
+
+### Children Props
+
+```ts
+children?: React.ReactNode;
+```
+
+Content to be wrapped in the conditional comment.
