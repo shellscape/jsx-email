@@ -15,8 +15,11 @@ tasks:
       - ~:copy.preview
       - ~:copy.templates
     inputs:
+      - cli.js
+      - generators
       - src
       - package.json
+      - tsconfig.json
     options:
       cache: false
       outputStyle: 'stream'

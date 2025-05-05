@@ -10,3 +10,4 @@ tasks:
     command: email preview emails
     options:
       cache: false
+      persistent: true

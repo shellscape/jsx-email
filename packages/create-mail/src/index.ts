@@ -1,6 +1,4 @@
 /* eslint-disable no-await-in-loop, no-underscore-dangle */
-import { fileURLToPath } from 'node:url';
-
 import chalk from 'chalk-template';
 import { existsSync, readdirSync, rmSync } from 'fs';
 import { globby } from 'globby';
@@ -19,9 +17,6 @@ interface CreateEmailArgs {
   name: string;
   outputPath: string;
 }
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const cancelled = () => {
   throw new Error(chalk`{red ✖} Operation cancelled`);
 };
@@ -61,7 +56,7 @@ export const createEmail = async ({ jsx, name, outputPath }: CreateEmailArgs) =>
     propsType: jsx ? '' : ': TemplateProps',
     typeProps: jsx ? '' : typeProps
   };
-  const templatePath = resolve(__dirname, '../dist/generators/templates/email.mustache');
+  const templatePath = resolve(import.meta.dirname, '../dist/generators/templates/email.mustache');
   const template = await readFile(templatePath, 'utf8');
   const contents = mustache.render(template, data);
   const fileName = basename(templatePath)
@@ -137,7 +132,7 @@ export const run = async () => {
 
   const { overwrite, projectName, projectType } = result;
   const root = join(process.cwd(), targetPath);
-  const generatorsPath = resolve(__dirname, '../dist/generators');
+  const generatorsPath = resolve(import.meta.dirname, '../dist/generators');
   const jsx = projectType === 'JavaScript';
   const templates = await globby([normalizePath(join(generatorsPath, '/*.*'))]);
   const outputPath = join(root, 'templates');

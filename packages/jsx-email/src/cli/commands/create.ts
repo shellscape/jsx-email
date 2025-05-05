@@ -1,6 +1,5 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join, resolve } from 'node:path';
 
 import chalk from 'chalk-template';
 import mustache from 'mustache';
@@ -15,9 +14,6 @@ import {
 
 import { type CommandFn } from './types.js';
 
-// eslint-disable-next-line no-underscore-dangle
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const { log } = console;
 const CreateOptionsStruct = object({
   jsx: optional(boolean()),
@@ -55,7 +51,10 @@ export const command: CommandFn = async (argv: CreateOptions, input) => {
 
   const [name] = input;
   const { jsx, out } = argv;
-  const template = await readFile(join(__dirname, '../../templates/email.mustache'), 'utf8');
+  const template = await readFile(
+    join(import.meta.dirname, '../../templates/email.mustache'),
+    'utf8'
+  );
   const data = {
     asConst: jsx ? '' : asConst,
     name,
