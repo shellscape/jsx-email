@@ -2,6 +2,14 @@
 
 ## v2.7.2
 
+_2025-08-20_
+
+### Bugfixes
+
+- jsx-email: support linebreaks in Raw element (#305)
+
+## v2.7.2
+
 _2025-05-03_
 
 ### Updates
