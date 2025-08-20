@@ -1,0 +1,116 @@
+---
+title: Contributing
+description: Guidelines for contributing to JSX-email
+sidebar:
+  order: 5
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Guidelines
+
+We 💛 contributions! Please follow these basic rules:
+
+1. Be respectful and professional
+2. Search existing issues before creating new ones
+3. Test and lint code locally before submitting
+4. Follow the project's code style
+
+## Repository Setup
+
+JSX-email uses a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) structure with:
+
+- [`pnpm`](https://pnpm.io/) for package and workspace management
+- [`Moon`](https://moonrepo.dev/) for task running and build orchestration
+
+### Prerequisites
+
+- Node.js v18.0.0 or higher ([NVM](https://github.com/creationix/nvm) recommended)
+- Basic familiarity with React
+
+### Development Setup
+
+<Steps>
+
+1. Bootstrap your environment:
+
+   ```console
+   ./shared/bootstrap.sh
+   ```
+
+2. Install dependencies:
+
+   ```console
+   pnpm install
+   ```
+
+3. Build all packages:
+
+   ```console
+   moon repo:build.all
+   ```
+
+</Steps>
+
+## Development Workflow
+
+### Before Committing
+
+<Steps>
+
+1. Lint your changes:
+
+   ```console
+   moon run repo:lint
+   ```
+
+2. Run tests:
+
+   ```console
+   moon run repo:test
+   ```
+
+3. Fix any errors or warnings before committing
+
+</Steps>
+
+## Pull Requests
+
+### Submission Guidelines
+
+1. **Template Usage**
+
+   - Fill in the PR template completely
+   - Don't modify the template format
+
+2. **Description**
+
+   - Explain what the code does
+   - Provide steps to test/execute
+   - Include relevant test cases
+
+3. **Quality Checks**
+
+   - Ensure all tests pass
+   - Fix any lint errors
+   - Resolve failing checks
+
+4. **Issue Resolution**
+   - Link related issues using "resolves #[issue number]"
+   - Example: "resolves #23"
+
+### Review Process
+
+For faster reviews:
+
+- Break large changes into smaller PRs
+- Provide clear context and motivation
+- Explain why the change matters
+- Link to relevant issues or discussions
+
+:::tip
+Smaller, focused pull requests are typically reviewed and merged faster than large ones.
+:::

@@ -1,0 +1,66 @@
+---
+title: Column
+description: A JSX email component which displays columns that separate content boundaries vertically
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Column"
+// ColumnExample.jsx
+import { Column, Row } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Row>
+      <Column>A</Column>
+      <Column>B</Column>
+      <Column>C</Column>
+    </Row>
+  );
+};
+```
+
+:::note[HTML Output]
+Renders as a `<td>` element within an email table structure.
+:::
+
+## Props
+
+### TypeScript Interface
+
+```ts
+export interface ColumnProps extends BaseProps<'td'> {
+  bgColor?: string;
+  bgImage?: string;
+}
+```
+
+### Optional Props
+
+#### bgColor
+
+```ts
+bgColor?: string;
+```
+
+Sets the background color using HTML email's `bgcolor` property.
+
+#### bgImage
+
+```ts
+bgImage?: string;
+```
+
+Sets the background image using HTML email's `background` property.
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.

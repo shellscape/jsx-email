@@ -1,0 +1,51 @@
+---
+title: Row
+description: Separates content boundaries horizontally
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Row"
+// RowExample.jsx
+import { Column, Row, Section } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Section>
+      <Row>
+        <Column>A</Column>
+      </Row>
+      <Row>
+        <Column>B</Column>
+      </Row>
+      <Row>
+        <Column>C</Column>
+      </Row>
+    </Section>
+  );
+};
+```
+
+## Props
+
+### Optional Props
+
+#### disableDefaultStyle
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
