@@ -95,7 +95,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   result = result.replace(reJsxTags, '');
-  result = result.replace(/<jsx-email-raw.*?><!--(.*?)--><\/jsx-email-raw>/g, (_, p1) =>
+  result = result.replace(/<jsx-email-raw.*?><!--(.*?)--><\/jsx-email-raw>/gs, (_, p1) =>
     unescapeForRawComponent(p1)
   );
 
