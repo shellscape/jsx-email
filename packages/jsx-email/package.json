@@ -1,6 +1,6 @@
 {
   "name": "jsx-email",
-  "version": "2.7.0",
+  "version": "2.7.2",
   "publishConfig": {
     "access": "public"
   },
@@ -66,7 +66,8 @@
     "@jsx-email/plugin-inline": "workspace:^",
     "@jsx-email/plugin-minify": "workspace:^",
     "@jsx-email/plugin-pretty": "workspace:^",
-    "react": "^18.2.0 || ^19"
+    "react": "^18.2.0 || ^19",
+    "react-dom": "^18.2.0 || ^19"
   },
   "dependencies": {
     "@dot/log": "^0.1.5",
@@ -106,8 +107,7 @@
     "postcss": "^8.4.32",
     "postcss-var-replace": "^1.0.0",
     "pretty-bytes": "^6.1.1",
-    "react-dom": "^19",
-    "react-router-dom": "7.0.1",
+    "react-router-dom": "7.5.2",
     "rehype": "^13.0.1",
     "rehype-stringify": "^10.0.0",
     "shiki": "^1.18.0",

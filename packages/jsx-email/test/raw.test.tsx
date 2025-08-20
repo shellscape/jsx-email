@@ -46,6 +46,19 @@ describe('<Raw> component', async () => {
     expect(actual).toMatchSnapshot();
   });
 
+  it('Should work correctly when it has linebreaks', async () => {
+    const actual = await render(
+      <>
+        <Raw
+          content={`
+            Raw context
+        `}
+        />
+      </>
+    );
+    expect(actual).toMatchSnapshot();
+  });
+
   describe('disablePlainTextOutput', () => {
     it('Should not output to the plain text when enabled', async () => {
       const actual = await render(

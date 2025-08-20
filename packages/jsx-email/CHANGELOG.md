@@ -1,5 +1,21 @@
 # jsx-email ChangeLog
 
+## v2.7.2
+
+_2025-05-03_
+
+### Updates
+
+- jsx-email: upgrade react-router-dom to 7.5.2 due to high severity vuln (#298)
+
+## v2.7.1
+
+_2025-03-05_
+
+### Bugfixes
+
+- jsx-email: make react-dom a peerDep, allow v18 in range (#290)
+
 ## v2.7.0
 
 _2025-01-28_
