@@ -1,0 +1,67 @@
+---
+title: Raw
+description: Use raw HTML and unescaped text effortlessly
+type: component
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+This component is especially useful for placing additional templating languages in your rendered email templates, for use in email providers which have their own value injection, or for further processing later in a separate system.
+
+:::caution
+It's important to understand that the values set as `content` will be placed into the rendered template unescaped. `jsx-email` goes to great lengths to validate and correct mistakes in HTML which may cause issues in email clients. Please use this component cautiously and thoughtfully.
+:::
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Raw } from 'jsx-email';
+
+const hero = true;
+
+const HeroOrVillain = () => {
+  return (
+    <>
+      <Raw content={`<#if ${hero}>`} />
+      <b>Batman's a hero</b>
+      <Raw content={`</#if>`} />
+    </>
+  );
+};
+```
+
+Which if used in a template, would yield the following when rendered:
+
+```html
+<#if true>
+  <b>Batman's a hero</b>
+</#if>
+```
+
+## Props
+
+### Optional Props
+
+#### content
+
+```ts
+content?: string;
+```
+
+The raw text content to render into a template
+
+#### disablePlainTextOutput
+
+```ts
+disablePlainTextOutput?: boolean;
+```
+
+If `true`, the content of the `Raw` component will not be rendered during plain text rendering

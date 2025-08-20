@@ -22,12 +22,14 @@ exports[`loadConfig → dotdir > loadConfig 1`] = `
             },
             "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
             "time": [Function],
+            "transports": undefined,
           },
           "ready": {
             "promise": Promise {},
             "reject": [Function],
             "resolve": [Function],
           },
+          "transports": [],
           Symbol(log-instance): [Circular],
           Symbol(log-levels): {
             "DEBUG": 1,
@@ -51,12 +53,14 @@ exports[`loadConfig → dotdir > loadConfig 1`] = `
               },
               "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
               "time": [Function],
+              "transports": undefined,
             },
             "ready": {
               "promise": Promise {},
               "reject": [Function],
               "resolve": [Function],
             },
+            "transports": [],
             Symbol(log-instance): [Circular],
             Symbol(log-levels): {
               "DEBUG": 1,

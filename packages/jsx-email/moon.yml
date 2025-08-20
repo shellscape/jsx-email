@@ -15,8 +15,11 @@ tasks:
       - ~:copy.preview
       - ~:copy.templates
     inputs:
+      - cli.js
+      - generators
       - src
       - package.json
+      - tsconfig.json
     options:
       cache: false
       outputStyle: 'stream'
@@ -28,7 +31,7 @@ tasks:
       cache: false
 
   compile:
-    command: tshy
+    command: tsc --project tsconfig.json
     inputs:
       - src
       - package.json

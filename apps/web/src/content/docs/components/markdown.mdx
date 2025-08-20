@@ -1,0 +1,83 @@
+---
+title: Markdown
+description: Converts markdown input to valid HTML for email
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Markdown"
+// MarkdownExample.jsx
+import { Markdown } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Markdown
+      markdownCustomStyles={{
+        h1: { color: 'red' },
+        h2: { color: 'blue' },
+        codeInline: { background: 'grey' }
+      }}
+      markdownContainerStyles={{
+        padding: '12px',
+        border: 'solid 1px black'
+      }}
+    >{`# Hello, World!`}</Markdown>
+
+    {/* OR */}
+
+    <Markdown children={`# This is a ~~strikethrough~~`} />
+  );
+};
+```
+
+:::note[Style Override]
+Custom styles override default styles for their respective elements.
+:::
+
+## Props
+
+### TypeScript Interface
+
+```ts
+export interface MarkdownProps {
+  children: string;
+  markdownContainerStyles?: React.CSSProperties;
+  markdownCustomStyles?: StylesType;
+}
+```
+
+### Required Props
+
+#### children
+
+```ts
+children: string | string[];
+```
+
+Markdown content to render in the email.
+
+### Optional Props
+
+#### markdownContainerStyles
+
+```ts
+markdownContainerStyles?: React.CSSProperties;
+```
+
+Custom styles for the markdown container div.
+
+#### markdownCustomStyles
+
+```ts
+markdownCustomStyles?: StylesType;
+```
+
+Custom styles for specific markdown elements.

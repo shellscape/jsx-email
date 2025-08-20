@@ -1,0 +1,77 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "jsx.email - Building Emails doesn't have to be Painful" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="Build and send emails using JSX with a delightful developer experience"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Initialize theme -->
+    <script is:inline>
+      // Check for saved theme preference, check Starlight theme first for consistency
+      const starlightTheme = localStorage.getItem('starlight-theme');
+      const savedTheme = starlightTheme || localStorage.getItem('theme') || 'auto';
+
+      if (
+        savedTheme === 'dark' ||
+        (savedTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="bg-white dark:bg-black text-black dark:text-white font-sans antialiased">
+    <slot />
+
+    <!-- Theme toggle script -->
+    <script is:inline>
+      function toggleTheme() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+
+        // Toggle the class
+        document.documentElement.classList.toggle('dark');
+
+        // Save the theme in both formats for cross-site consistency
+        localStorage.setItem('theme', newTheme);
+        localStorage.setItem('starlight-theme', newTheme);
+      }
+
+      // Add event listener to theme toggle button if it exists
+      document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', toggleTheme);
+        }
+      });
+
+      // Listen for storage events to sync between tabs
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'starlight-theme' || e.key === 'theme') {
+          const newTheme = e.newValue;
+          document.documentElement.classList.toggle('dark', newTheme === 'dark');
+        }
+      });
+    </script>
+  </body>
+</html>

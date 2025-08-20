@@ -32,7 +32,7 @@ tasks:
       - package.json
 
   compile:
-    command: tshy
+    command: tsc --project tsconfig.json
     inputs:
       - src
       - package.json

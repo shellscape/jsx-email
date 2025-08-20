@@ -1,0 +1,180 @@
+{
+  "ignore": [
+    "**/*.coffee",
+    "**/*.css",
+    "**/*.hbs",
+    "**/*.json",
+    "**/*.less",
+    "**/*.scss",
+    "**/*.svg",
+    "dist/**",
+    "node_modules/**"
+  ],
+  "project": [
+    "./apps/desktop/tsconfig.json",
+    "./apps/web/tsconfig.json",
+    "./shared/tsconfig.lint.json"
+  ],
+  "rules": {
+    "correctness/no-array-constructor": "error",
+    "correctness/no-class-assign": "error",
+    "correctness/no-cond-assign": "error",
+    "correctness/no-const-assign": "error",
+    "correctness/no-constant-condition": "warn",
+    "correctness/no-control-regex": "error",
+    "correctness/no-debugger": "error",
+    "correctness/no-dupe-args": "error",
+    "correctness/no-dupe-class-members": "error",
+    "correctness/no-dupe-keys": "error",
+    "correctness/no-duplicate-case": "error",
+    "correctness/no-empty-character-class": "error",
+    "correctness/no-empty-pattern": "error",
+    "correctness/no-ex-assign": "error",
+    "correctness/no-func-assign": "error",
+    "correctness/no-invalid-regexp": "error",
+    "correctness/no-irregular-whitespace": "error",
+    "correctness/no-obj-calls": "error",
+    "correctness/no-octal": "error",
+    "correctness/no-prototype-builtins": "error",
+    "correctness/no-regex-spaces": "error",
+    "correctness/no-self-assign": "error",
+    "correctness/no-sparse-arrays": "error",
+    "correctness/no-template-curly-in-string": "error",
+    "correctness/no-this-before-super": "error",
+    "correctness/no-undef": "error",
+    "correctness/no-unreachable": "error",
+    "correctness/no-unsafe-finally": "error",
+    "correctness/no-unsafe-negation": "error",
+    "correctness/require-yield": "error",
+    "correctness/use-isnan": "error",
+    "correctness/valid-typeof": "error",
+    "performance/no-new-buffer": "error",
+    "style/camelcase": [
+      "error",
+      {
+        "properties": "never"
+      }
+    ],
+    "style/capitalized-comments": "off",
+    "style/comma-dangle": ["error", "never"],
+    "style/eqeqeq": [
+      "error",
+      "always",
+      {
+        "null": "ignore"
+      }
+    ],
+    "style/linebreak-style": ["error", "unix"],
+    "style/new-cap": [
+      "error",
+      {
+        "capIsNew": false,
+        "newIsCap": true
+      }
+    ],
+    "style/no-bitwise": "error",
+    "style/no-continue": "error",
+    "style/no-else-return": "error",
+    "style/no-lonely-if": "error",
+    "style/no-multi-assign": ["error"],
+    "style/no-new-object": "error",
+    "style/no-param-reassign": ["warn", { "props": false }],
+    "style/no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
+    "style/no-unneeded-ternary": [
+      "error",
+      {
+        "defaultAssignment": false
+      }
+    ],
+    "style/no-var": "error",
+    "style/object-shorthand": [
+      "error",
+      "always",
+      {
+        "avoidQuotes": true,
+        "ignoreConstructors": false
+      }
+    ],
+    "style/one-var": ["error", "never"],
+    "style/operator-assignment": ["error", "always"],
+    "style/prefer-const": [
+      "error",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": true
+      }
+    ],
+    "style/prefer-destructuring": [
+      "warn",
+      {
+        "array": false,
+        "object": true
+      }
+    ],
+    "style/prefer-numeric-literals": "error",
+    "style/prefer-rest-params": "error",
+    "style/prefer-spread": "error",
+    "style/prefer-template": "error",
+    "style/radix": "error",
+    "style/spaced-comment": ["error", "always"],
+    "style/strict": "error",
+    "style/symbol-description": "error",
+    "style/vars-on-top": "error",
+    "style/yoda": "error",
+    "suspicious/no-await-in-loop": "error",
+    "suspicious/no-compare-neg-zero": "error",
+    "suspicious/no-empty": ["error", { "allowEmptyCatch": true }],
+    "suspicious/no-empty-function": [
+      "error",
+      {
+        "allow": ["arrowFunctions", "functions", "methods"]
+      }
+    ],
+    "suspicious/no-eval": "error",
+    "suspicious/no-extend-native": "error",
+    "suspicious/no-extra-bind": "error",
+    "suspicious/no-extra-boolean-cast": "error",
+    "suspicious/no-fallthrough": "error",
+    "suspicious/no-global-assign": "error",
+    "suspicious/no-implied-eval": "error",
+    "suspicious/no-inner-declarations": "error",
+    "suspicious/no-iterator": "error",
+    "suspicious/no-labels": "error",
+    "suspicious/no-lone-blocks": "error",
+    "suspicious/no-loop-func": "error",
+    "suspicious/no-multi-str": "error",
+    "suspicious/no-new": "error",
+    "suspicious/no-new-func": "error",
+    "suspicious/no-new-wrappers": "error",
+    "suspicious/no-octal-escape": "error",
+    "suspicious/no-return-assign": "error",
+    "suspicious/no-return-await": "error",
+    "suspicious/no-script-url": "error",
+    "suspicious/no-self-compare": "error",
+    "suspicious/no-sequences": "error",
+    "suspicious/no-throw-literal": "error",
+    "suspicious/no-unmodified-loop-condition": "off",
+    "suspicious/no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": false
+      }
+    ],
+    "suspicious/no-unused-labels": "error",
+    "suspicious/no-useless-concat": "error",
+    "suspicious/no-useless-constructor": "error",
+    "suspicious/no-useless-escape": "error",
+    "suspicious/no-useless-return": "error",
+    "suspicious/no-void": "off",
+    "suspicious/no-with": "error",
+    "unicorn/no-new-array": "off",
+    "unicorn/no-useless-fallback-in-spread": "off"
+  },
+  "typescript": true
+}

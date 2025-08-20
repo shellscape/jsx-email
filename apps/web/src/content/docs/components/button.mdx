@@ -1,0 +1,163 @@
+---
+title: Button
+description: A JSX email component which styles an anchor element to appear as a button
+type: component
+sidebar:
+  badge:
+    text: Major update
+    variant: danger
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Button"
+// ButtonExample.jsx
+import { Button } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Button width={160} height={60} href="https://jsx.email" target="_blank">
+      JOIN US
+    </Button>
+  );
+};
+```
+
+:::note[HTML Output]
+Renders as an `<a>` element styled to look like a button.
+:::
+
+## Props
+
+### TypeScript Interface
+
+```ts
+export interface ButtonProps extends BaseProps<'a'> {
+  width: number;
+  height: number;
+  href?: string;
+  align?: 'left' | 'center' | 'right';
+  backgroundColor?: string;
+  borderColor?: string;
+  borderRadius?: number;
+  borderSize?: number;
+  fontSize?: number;
+  textColor?: string;
+  withBackground?: boolean;
+}
+```
+
+:::caution[Email Client Compatibility]
+For optimal compatibility (especially with Outlook), use the component props below instead of CSS, `style` property, or [`Tailwind`](/components/tailwind) classes.
+:::
+
+### Required Props
+
+#### width
+
+```ts
+width: number;
+```
+
+Button width in pixels.
+
+#### height
+
+```ts
+height: number;
+```
+
+Button height in pixels.
+
+### Optional Props
+
+#### href
+
+```ts
+href?: string;
+```
+
+URL to navigate to when clicked.
+
+#### align
+
+```ts
+align?: 'left' | 'center' | 'right';
+```
+
+Horizontal alignment in container. Defaults to `left`.
+
+#### backgroundColor
+
+```ts
+backgroundColor?: string;
+```
+
+Button background color (hex value).
+
+#### borderColor
+
+```ts
+borderColor?: string;
+```
+
+Border color (hex value).
+
+#### borderRadius
+
+```ts
+borderRadius?: number;
+```
+
+Border radius in pixels.
+
+#### borderSize
+
+```ts
+borderSize?: number;
+```
+
+Border width in pixels.
+
+#### fontSize
+
+```ts
+fontSize?: number;
+```
+
+Text size in pixels.
+
+#### target
+
+```ts
+target?: string;
+```
+
+Value for the HTML `target` attribute.
+
+#### textColor
+
+```ts
+textColor?: string;
+```
+
+Text color (hex value).
+
+#### withBackground
+
+```ts
+withBackground?: boolean;
+```
+
+Set to `true` when nested in a `Background` component for Outlook compatibility.
+
+### Additional Props
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.

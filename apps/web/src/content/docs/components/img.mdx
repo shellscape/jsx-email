@@ -1,0 +1,83 @@
+---
+title: Img (Image)
+description: Displays an image in email templates
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Img"
+// ImgExample.jsx
+import { Img } from 'jsx-email';
+
+const baseUrl = import.meta.isJsxEmailPreview ? '/assets/' : 'https://assets.example.com/';
+
+const Email = () => {
+  return <Img src={`${baseUrl}cat.jpg`} alt="Cat picture" width="300" height="300" />;
+};
+```
+
+:::caution[Image Format Support]
+
+- Supported: `.png`, `.gif`, `.jpg`
+- Not supported: `.svg` - [see compatibility](https://www.caniemail.com/features/image-svg/)
+  :::
+
+:::tip[Local Development]
+Place images in an `assets/` or `static/` directory within your templates folder. For production, use hosted image URLs.
+:::
+
+## Props
+
+### Optional Props
+
+#### src
+
+```ts
+src?: string;
+```
+
+Path or URL to the image.
+
+#### alt
+
+```ts
+alt?: string;
+```
+
+Alternative text description for accessibility.
+
+#### disableDefaultStyle
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+#### height
+
+```ts
+height?: string;
+```
+
+Image height in pixels.
+
+#### width
+
+```ts
+width?: string;
+```
+
+Image width in pixels.
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`.

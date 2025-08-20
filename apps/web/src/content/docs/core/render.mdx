@@ -1,0 +1,115 @@
+---
+title: Render
+description: Render JSX email components to HTML email
+type: core
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+Convert JSX email templates to HTML:
+
+```jsx
+import { render } from 'jsx-email';
+import { Template } from './emails/Batman';
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+```
+
+## Options
+
+The render method accepts these options:
+
+```ts
+export interface Options {
+  disableDefaultStyle?: boolean;
+  inlineCss?: boolean;
+  minify?: boolean;
+  plainText?: boolean | PlainTextOptions;
+  pretty?: boolean;
+}
+```
+
+### disableDefaultStyle (optional)
+
+Disable default component styles:
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes all default styles from components during rendering.
+
+### inline (optional)
+
+Convert class-based styles to inline styles:
+
+```ts
+inline?: boolean;
+```
+
+When `true`, converts CSS classes to inline style attributes. Uses [`plugin-inline`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline).
+
+### minify (optional)
+
+Minify output HTML:
+
+```ts
+minify?: boolean;
+```
+
+When `true`, compresses the HTML output. Uses the [`plugin-minify`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) plugin.
+
+### plainText (optional)
+
+Generate plain text version:
+
+```ts
+plainText?: boolean | PlainTextOptions;
+```
+
+Options:
+
+- `true`: Generates plain text version
+- `object`: Customize conversion using [`html-to-text` options](https://github.com/html-to-text/node-html-to-text/blob/master/packages/html-to-text/README.md#options)
+
+### pretty (optional)
+
+Beautify output HTML:
+
+```ts
+pretty?: boolean;
+```
+
+When `true`, formats HTML for readability. Uses the [`plugin-pretty`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty) plugin.
+
+## Development
+
+### Debugging
+
+To debug template rendering:
+
+<Steps>
+
+1. Enable debugging attributes by setting the `DEBUG` environment variable:
+
+   ```text title=".env"
+   DEBUG=jsx-email:elements
+   ```
+
+2. Disable minification in render options:
+
+   ```js
+   await render(template, { minify: false });
+   ```
+
+</Steps>
+
+This adds `data-type` attributes to HTML elements for easier template tracing.

@@ -1,0 +1,112 @@
+---
+title: Graph
+description: A JSX email component for displaying graphs in your Email template
+type: component
+sidebar:
+  badge:
+    text: New
+    variant: success
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+:::note[API Integration]
+This component uses [QuickChart API](https://quickchart.io/) to generate email-compatible charts.
+:::
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Graph"
+// GraphExample.jsx
+import { Html, Body, Section, Graph } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Body>
+        <Section>
+          <Graph
+            width={100}
+            height={100}
+            title="Graph with jsx-email"
+            config={{
+              type: 'bar',
+              data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                  {
+                    data: [10, 6.5, 3, 6, 4, 0.1, 0.5]
+                  }
+                ]
+              }
+            }}
+          />
+        </Section>
+      </Body>
+    </Html>
+  );
+};
+```
+
+:::tip[Chart Configuration]
+Test your chart configurations in the [QuickChart playground](https://quickchart.io/sandbox).
+:::
+
+## Props
+
+### Required Props
+
+#### config
+
+```ts
+config: ChartConfiguration & Record<string, any>;
+```
+
+Chart configuration object following [Chart.js v2.9.4](https://www.chartjs.org/docs/2.9.4/charts/) format.
+
+#### title
+
+```ts
+title: string;
+```
+
+Graph title.
+
+### Optional Props
+
+#### background
+
+```ts
+background?: string;
+```
+
+Graph background color.
+
+#### className
+
+```ts
+className?: string;
+```
+
+Custom CSS class for additional styling.
+
+#### height
+
+```ts
+height?: number;
+```
+
+Graph height in pixels.
+
+#### width
+
+```ts
+width?: number;
+```
+
+Graph width in pixels.
