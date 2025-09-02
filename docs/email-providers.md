@@ -178,3 +178,34 @@ plunk.emails.send({
   body: html
 });
 ```
+
+## Upyo
+
+```tsx
+import { render } from 'jsx-email';
+import { SmtpTransport } from '@upyo/smtp';
+import { createMessage } from '@upyo/core';
+
+import { Template } from './emails/Batman.tsx';
+
+const transport = new SmtpTransport({
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'batman',
+    pass: 'j0ker$mells!1'
+  }
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+const message = createMessage({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  content: { html }
+});
+
+await transport.send(message);
+```
