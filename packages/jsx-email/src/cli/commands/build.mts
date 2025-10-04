@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
-import { dirname, basename, extname, join, resolve, win32, posix } from 'path';
+import { dirname, basename, extname, join, resolve, win32, posix, relative } from 'path';
 import { pathToFileURL } from 'url';
 
 import chalk from 'chalk';
@@ -121,8 +121,9 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
+  const relativeBaseDir = outputBasePath ? relative(outputBasePath, baseDir) : '';
   const writePath = outputBasePath
-    ? join(out!, baseDir.replace(outputBasePath, ''), templateName)
+    ? join(out!, relativeBaseDir, templateName)
     : join(out!, templateName);
   // const writePath = outputBasePath
   //   ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)
