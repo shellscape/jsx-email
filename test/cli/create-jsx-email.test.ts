@@ -29,7 +29,7 @@ describe('create-jsx-email', async () => {
     const contents = await readFile(join(__dirname, '.test/new/templates/email.tsx'), 'utf8');
     expect(contents).toMatchSnapshot();
 
-    const files = await globby('.test/new/**/*', { dot: true });
+    const files = await globby('.test/new/**/*', { dot: true, sort: true });
 
     expect(files).toMatchSnapshot();
   });
