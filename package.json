@@ -28,6 +28,7 @@
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   },
+  "bump": 1,
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "eslint --fix --cache"
