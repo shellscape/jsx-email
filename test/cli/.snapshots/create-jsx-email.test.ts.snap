@@ -129,7 +129,7 @@ exports[`create-jsx-email > command 3`] = `
   ".test/new/.gitignore",
   ".test/new/README.md",
   ".test/new/package.json",
-  ".test/new/tsconfig.json",
   ".test/new/templates/email.tsx",
+  ".test/new/tsconfig.json",
 ]
 `;
