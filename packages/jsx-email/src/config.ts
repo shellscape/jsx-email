@@ -1,6 +1,5 @@
 import { AssertionError } from 'assert';
 import { isAbsolute, resolve as resolvePath } from 'node:path';
-import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 
 import chalk from 'chalk';
@@ -26,7 +25,6 @@ interface ConfigExports {
 }
 
 const configSymbol = Symbol.for('jsx-email/config');
-const require = createRequire(import.meta.url);
 
 const toImportSpecifier = (id: string): string => {
   if (id.startsWith('file://')) return id;
@@ -210,7 +208,11 @@ const moduleImport = async (id: string) => {
     return mod;
   } catch (e) {
     try {
-      return require(id);
+      if (require) return require(id);
+
+      throw RangeError(
+        'require is not defined. this is likely due to the ESM build attempting to use require'
+      );
     } catch (error) {
       if (
         (error as any).code === 'ERR_REQUIRE_ESM' ||

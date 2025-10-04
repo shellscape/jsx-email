@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@dot/versioner": "^0.3.4",
-    "@moonrepo/cli": "1.39.4",
+    "@moonrepo/cli": "1.41.2",
     "@swc/core": "^1.3.91",
     "@swc/helpers": "^0.5.2",
     "@types/node": "20.6.2",
