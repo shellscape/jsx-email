@@ -26,7 +26,8 @@ tasks:
       - dist
 
   clean.dist:
-    command: rm -rf dist
+    # Note: Split flags so Windows PowerShell maps them to -Recurse and -Force
+    command: rm -r -f dist
     inputs:
       - src
       - package.json
