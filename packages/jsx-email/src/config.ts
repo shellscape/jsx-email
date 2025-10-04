@@ -1,4 +1,7 @@
 import { AssertionError } from 'assert';
+import { isAbsolute, resolve as resolvePath } from 'node:path';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
 
 import chalk from 'chalk';
 import { lilconfig } from 'lilconfig';
@@ -23,6 +26,14 @@ interface ConfigExports {
 }
 
 const configSymbol = Symbol.for('jsx-email/config');
+const require = createRequire(import.meta.url);
+
+const toImportSpecifier = (id: string): string => {
+  if (id.startsWith('file://')) return id;
+  if (isAbsolute(id)) return pathToFileURL(id).href;
+  if (id.startsWith('.')) return pathToFileURL(resolvePath(id)).href;
+  return id;
+};
 export const defaults: JsxEmailConfig = {
   logLevel: 'info',
   plugins: [],
@@ -192,8 +203,10 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
 };
 
 const moduleImport = async (id: string) => {
+  const specifier = toImportSpecifier(id);
+
   try {
-    const mod = await import(id);
+    const mod = await import(specifier);
     return mod;
   } catch (e) {
     try {
