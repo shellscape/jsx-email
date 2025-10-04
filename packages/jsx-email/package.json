@@ -137,6 +137,7 @@
     "unified": "^11.0.4"
   },
   "types": "./dist/commonjs/index.d.ts",
+  "bump": 1,
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
