@@ -1,5 +1,14 @@
 # jsx-email ChangeLog
 
+## v2.7.4
+
+_2025-10-04_
+
+### Bugfixes
+
+- jsx-email: bump release (94714c6)
+- jsx-email: change build command to use relative paths for output directories (#313)
+
 ## v2.7.2
 
 _2025-08-20_
