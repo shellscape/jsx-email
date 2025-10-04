@@ -20,6 +20,7 @@ describe('create-jsx-email', async () => {
       .replace(/^(.*)create-jsx-email/, 'create-jsx-email')
       .replace(/v(\d+\.\d+\.\d+)/, '');
     const normalized = plain
+      .replace(/\\/g, '/')
       .replace(/^ {2}\$ (?:pnpm install|yarn)$/gm, '  $ <package-manager install>')
       .replace(/^ {2}\$ (?:pnpm run dev|yarn dev)$/gm, '  $ <package-manager run dev>');
 
