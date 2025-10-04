@@ -78,7 +78,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
       if (!entryPoint) return null;
       return {
         entryPoint,
-        path: resolve('/', path)
+        path: resolve(outDir, path)
       };
     })
     .filter<CompileResult>(Boolean as any);
