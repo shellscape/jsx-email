@@ -2,18 +2,10 @@
   <head>
     <style tailwind>
       /* layer: preflights */
-    /* layer: default */
-    .me {
-      margin-inline-end: 16px;
-    }
-
-    .font-medium {
-      font-weight: 500;
-    }
-
-    .leading-4 {
-      line-height: 16px;
-    }
+/* layer: default */
+.me{margin-inline-end:16px;}
+.font-medium{font-weight:500;}
+.leading-4{line-height:16px;}
     </style>
   </head>
   <body>
@@ -30,12 +22,12 @@
           <td align="left">
             <span>
               <!--[if mso]>
-          <v:roundrect href="https://example.com" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="0%"  strokeweight="1px" fillcolor=#007291>
-          <w:anchorlock/>
-          <center style="font-size:16px;color:#FFFFFF;">
-          Click me
-          </center></v:roundrect>
-          <![endif]-->
+<v:roundrect href="https://example.com" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="0%"  strokeweight="1px" fillcolor=#007291>
+<w:anchorlock/>
+<center style="font-size:16px;color:#FFFFFF;">
+Click me
+</center></v:roundrect>
+<![endif]-->
             </span>
             <a
               href="https://example.com"
