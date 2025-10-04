@@ -20,8 +20,8 @@ describe('create-jsx-email', async () => {
       .replace(/^(.*)create-jsx-email/, 'create-jsx-email')
       .replace(/v(\d+\.\d+\.\d+)/, '');
     const normalized = plain
-      .replace(/ {2}\$ (?:pnpm install|yarn)\b/g, '  $ <package-manager install>')
-      .replace(/ {2}\$ (?:pnpm run dev|yarn dev)\b/g, '  $ <package-manager run dev>');
+      .replace(/^ {2}\$ (?:pnpm install|yarn)$/gm, '  $ <package-manager install>')
+      .replace(/^ {2}\$ (?:pnpm run dev|yarn dev)$/gm, '  $ <package-manager run dev>');
 
     expect(normalized).toMatchSnapshot();
 
