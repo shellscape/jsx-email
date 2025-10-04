@@ -15,8 +15,8 @@ Creating a new template at: .test/new/templates/email.tsx
 Next, run:
 
   $ cd email-project
-  $ pnpm install
-  $ pnpm run dev
+  $ <package-manager install>
+  $ <package-manager run dev>
 
 Check out the docs! http://jsx.email/docs/quick-start
 "

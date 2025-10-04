@@ -19,8 +19,11 @@ describe('create-jsx-email', async () => {
     const plain = strip(stdout)
       .replace(/^(.*)create-jsx-email/, 'create-jsx-email')
       .replace(/v(\d+\.\d+\.\d+)/, '');
+    const normalized = plain
+      .replace(/\$ (pnpm|yarn) install/g, '$ <package-manager install>')
+      .replace(/\$ (pnpm run dev|yarn dev)/g, '$ <package-manager run dev>');
 
-    expect(plain).toMatchSnapshot();
+    expect(normalized).toMatchSnapshot();
 
     const contents = await readFile(join(__dirname, '.test/new/templates/email.tsx'), 'utf8');
     expect(contents).toMatchSnapshot();
