@@ -9,9 +9,9 @@
     "react": "^18.2.0 || ^19"
   },
   "dependencies": {
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "^1.55.1",
     "dedent": "^1.5.1",
-    "diffable-html": "^5.0.0",
+    "diffable-html": "^6.0.1",
     "jsx-email": "workspace:^",
     "unocss": "^0.65.1"
   },

@@ -30,57 +30,19 @@
     <!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
     <style tailwind>
       /* layer: preflights */
-    /* layer: default */
-    .mx-auto {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .my-\[40px\] {
-      margin-top: 40px;
-      margin-bottom: 40px;
-    }
-
-    .my-auto {
-      margin-top: auto;
-      margin-bottom: auto;
-    }
-
-    .w-\[465px\] {
-      width: 465px;
-    }
-
-    .border-separate {
-      border-collapse: separate;
-    }
-
-    .border {
-      border-width: 1px;
-    }
-
-    .border-\[\#eaeaea\] {
-      border-color: rgb(234, 234, 234);
-    }
-
-    .rounded {
-      border-radius: 4px;
-    }
-
-    .border-solid {
-      border-style: solid;
-    }
-
-    .bg-white {
-      background-color: rgb(255, 255, 255);
-    }
-
-    .p-\[20px\] {
-      padding: 20px;
-    }
-
-    .font-sans {
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    }
+/* layer: default */
+.mx-auto{margin-left:auto;margin-right:auto;}
+.my-\[40px\]{margin-top:40px;margin-bottom:40px;}
+.my-auto{margin-top:auto;margin-bottom:auto;}
+.w-\[465px\]{width:465px;}
+.border-separate{border-collapse:separate;}
+.border{border-width:1px;}
+.border-\[\#eaeaea\]{border-color:rgb(234,234,234);}
+.rounded{border-radius:4px;}
+.border-solid{border-style:solid;}
+.bg-white{background-color:rgb(255,255,255);}
+.p-\[20px\]{padding:20px;}
+.font-sans{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";}
     </style>
   </head>
   <body class="bg-white my-auto mx-auto font-sans">
