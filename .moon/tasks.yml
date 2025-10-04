@@ -26,8 +26,8 @@ tasks:
       - dist
 
   clean.dist:
-    # Note: Split flags so Windows PowerShell maps them to -Recurse and -Force
-    command: rm -r -f dist
+    # Note: Use rimraf so PowerShell matches Linux delete behavior
+    command: rimraf dist
     inputs:
       - src
       - package.json

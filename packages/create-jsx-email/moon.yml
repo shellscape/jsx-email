@@ -38,7 +38,7 @@ tasks:
       cache: false
 
   copy.templates:
-    command: rm -rf dist/generators/templates && cp -r ../../assets/templates dist/generators
+    command: rimraf dist/generators/templates && cp -r ../../assets/templates dist/generators
     options:
       cache: false
 
