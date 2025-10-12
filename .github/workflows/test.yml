@@ -46,4 +46,4 @@ jobs:
       - name: Package Tests
         env:
           FORCE_COLOR: 1
-        run: moon run :test --affected --concurrency 1 --remote
+        run: moon run jsx-email:test.ci

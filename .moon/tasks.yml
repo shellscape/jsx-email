@@ -31,6 +31,8 @@ tasks:
     inputs:
       - src
       - package.json
+    options:
+      cache: false
 
   compile:
     command: tshy
@@ -39,6 +41,8 @@ tasks:
       - package.json
     options:
       runDepsInParallel: false
+    outputs:
+      - dist
 
   release:
     command: versioner --target $projectRoot

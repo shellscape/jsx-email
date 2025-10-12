@@ -43,12 +43,12 @@ tasks:
       cache: false
 
   copy.preview:
-    command: cp -r -f ../../apps/preview/app dist/preview
+    command: cp -r ../../apps/preview/app dist/preview
     options:
       cache: false
 
   copy.templates:
-    command: cp -r -f ../../assets/templates dist
+    command: cp -r ../../assets/templates dist
     options:
       cache: false
 
@@ -68,8 +68,13 @@ tasks:
       - src
       - test
       - package.json
+    local: true
     options:
-      cache: false
+      outputStyle: 'stream'
+
+  test.ci:
+    command: vitest --config ../../shared/vitest.config.ts
+    options:
       outputStyle: 'stream'
 
   tsc:
