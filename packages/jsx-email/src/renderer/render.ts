@@ -6,7 +6,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
-import { unescapeForRawComponent } from './raw.js';
+import { getRawPlugin, unescapeForRawComponent } from './raw.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -74,6 +74,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const docType =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();
+  const rawPlugin = await getRawPlugin();
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
 
@@ -81,6 +82,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const processor = rehype().data('settings', settings);
 
   processor.use(movePlugin);
+  processor.use(rawPlugin);
   await callProcessHook({ config, processor });
 
   const doc = await processor
@@ -95,9 +97,9 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   result = result.replace(reJsxTags, '');
-  result = result.replace(/<jsx-email-raw.*?><!--(.*?)--><\/jsx-email-raw>/gs, (_, p1) =>
-    unescapeForRawComponent(p1)
-  );
+  // Normalize accidentally corrupted MSO conditional closers that can appear
+  // when nested comment content is stringified by the HTML serializer.
+  result = result.replace(/<!--\[endif\]-+-->/g, '<![endif]-->');
 
   return result;
 };
