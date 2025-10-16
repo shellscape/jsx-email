@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.5
+
+_2025-10-16_
+
+### Updates
+
+- jsx-email: use rehype `rawPlugin` to hoist <Raw> content (#320)
+
 ## v2.7.4
 
 _2025-10-04_
