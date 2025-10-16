@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`snapshot: minimal <Raw> inside <Conditional mso> > renders a minimal MSO block with inlined Raw content 1`] = `"<jsx-email-cond><!--[if mso]><jsx-email-raw><!--<b data-testid=\\"raw\\">hello</b>--></jsx-email-raw><![endif]--></jsx-email-cond>"`;
