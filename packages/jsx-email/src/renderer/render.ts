@@ -6,7 +6,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
-import { getRawPlugin, unescapeForRawComponent, normalizeMsoConditionalClosers } from './raw.js';
+import { getRawPlugin, unescapeForRawComponent } from './raw.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -76,7 +76,6 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const movePlugin = await getMovePlugin();
   const rawPlugin = await getRawPlugin();
   const settings = { emitParseErrors: true };
-  const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
 
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
@@ -94,11 +93,12 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     })
     .process(html);
 
-  let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
-
-  result = result.replace(reJsxTags, '');
-  // Keep conditional-closer normalization colocated with Raw helpers.
-  result = normalizeMsoConditionalClosers(result);
-
-  return result;
+  const result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
+  const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
+  const unwrapped = result
+    .replace(reJsxTags, '')
+    .replace(/<jsx-email-raw[^>]*?>\s*<!--([\s\S]*?)-->\s*<\/jsx-email-raw>/g, (_m, p1) =>
+      unescapeForRawComponent(p1)
+    );
+  return unwrapped;
 };
