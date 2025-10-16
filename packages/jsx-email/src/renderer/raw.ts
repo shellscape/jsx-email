@@ -66,20 +66,30 @@ export const getRawPlugin = async () => {
           const first = children[0];
           const last = children[children.length - 1];
           if (first?.type === 'comment' && last?.type === 'comment') {
-            const openVal = String(first.value ?? '');
-            const openIdx = openVal.indexOf(']>');
-            const openRaw =
-              openIdx >= 0 ? `<!--${openVal.slice(0, openIdx + 2)}` : `<!--${openVal}`;
-            // Everything after the opening marker within the first comment is the inner HTML
-            let innerHtml = openIdx >= 0 ? openVal.slice(openIdx + 2) : '';
-            // Normalize any nested <jsx-email-raw><!--...--></jsx-email-raw> within innerHtml
+            const value = String(first.value ?? '');
+            const openIdx = value.indexOf(']>');
+            const closeIdx = value.lastIndexOf('<![endif]');
+
+            // Construct opening marker comment bytes
+            const openRaw = openIdx >= 0 ? `<!--${value.slice(0, openIdx + 2)}` : `<!--${value}`;
+
+            // Extract inner HTML strictly between the open and close markers when both exist
+            let innerHtml = '';
+            if (openIdx >= 0 && closeIdx > openIdx) {
+              innerHtml = value.slice(openIdx + 2, closeIdx);
+            } else if (openIdx >= 0) {
+              innerHtml = value.slice(openIdx + 2);
+            }
+
+            // Inline any nested <jsx-email-raw><!-- … --></jsx-email-raw> occurrences inside the
+            // single-comment payload, being tolerant of a corrupted element closer like
+            // "</jsx-email-raw-->" that some serializers may emit when adjacent to comment ends.
             innerHtml = innerHtml.replace(
-              /<jsx-email-raw[^>]*?>\s*(?:<!--|&#x3C;!--)([\s\S]*?)-->\s*<\/jsx-email-raw>/g,
+              /<jsx-email-raw[^>]*?>\s*(?:<!--|&#x3C;!--)([\s\S]*?)-->\s*<\/jsx-email-raw(?:--)?\s*>/g,
               (_m: string, p1: string) => unescapeForRawComponent(p1)
             );
-            // Any child nodes between the leading and trailing comments are ignored by the parser
-            // for single-comment conditionals. For safety, also include transformed middle children
-            // in case the parser produced actual nodes (downlevel-revealed form).
+
+            // Include any middle child nodes (downlevel-revealed form produces real nodes)
             const middle = transformRaw(children.slice(1, -1));
             const nodes: any[] = [
               { type: 'raw', value: openRaw },
