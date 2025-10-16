@@ -14,15 +14,18 @@
   "author": "Andrew Powell <andrew@shellscape.org>",
   "homepage": "https://jsx.email/",
   "main": "./dist/commonjs/index.js",
+  "module": "./dist/esm/index.js",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "import": {
+        "source": "./src/index.ts",
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       },
       "require": {
+        "source": "./src/index.ts",
         "types": "./dist/commonjs/index.d.ts",
         "default": "./dist/commonjs/index.js"
       }

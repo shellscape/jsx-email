@@ -6,7 +6,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
-import { getRawPlugin, unescapeForRawComponent } from './raw.js';
+import { getRawPlugin, unescapeForRawComponent, normalizeMsoConditionalClosers } from './raw.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -97,9 +97,8 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   result = result.replace(reJsxTags, '');
-  // Normalize accidentally corrupted MSO conditional closers that can appear
-  // when nested comment content is stringified by the HTML serializer.
-  result = result.replace(/<!--\[endif\]-+-->/g, '<![endif]-->');
+  // Keep conditional-closer normalization colocated with Raw helpers.
+  result = normalizeMsoConditionalClosers(result);
 
   return result;
 };

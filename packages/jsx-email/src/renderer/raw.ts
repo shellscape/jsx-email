@@ -13,6 +13,13 @@ export function unescapeForRawComponent(input: string): string {
     .replace(new RegExp(END_TAG, 'g'), '/-->');
 }
 
+// Convenience: normalize malformed MSO conditional closers that may be
+// produced when nested comment content is serialized adjacent to the
+// conditional terminator. Keeps this logic colocated with other Raw helpers.
+export function normalizeMsoConditionalClosers(input: string): string {
+  return input.replace(/<!--\[endif\]-+-->/g, '<![endif]-->');
+}
+
 // Return a rehype plugin that replaces <jsx-email-raw><!-- ... --></jsx-email-raw>
 // with a HAST "raw" node containing the unescaped payload. This avoids nesting
 // HTML comments when <Raw> appears inside Outlook conditional comments.
