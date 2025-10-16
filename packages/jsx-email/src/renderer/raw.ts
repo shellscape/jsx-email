@@ -6,7 +6,9 @@ interface Match {
   parent: Parents;
 }
 
-type ParentWithRaw = Parents & { children: (Content | Raw)[] };
+interface ParentWithRaw {
+  children: (Content | Raw)[];
+}
 
 // `raw` is an unofficial HAST node used by rehype to pass through HTML verbatim.
 // Model it locally to avoid `any` casts while keeping the rest of the tree typed.
