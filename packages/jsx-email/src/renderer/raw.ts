@@ -1,5 +1,20 @@
 import type { Comment, Content, Element, Literal, Parents, Root } from 'hast';
 
+interface Match {
+  index: number;
+  node: Element;
+  parent: Parents;
+}
+
+type ParentWithRaw = Parents & { children: (Content | Raw)[] };
+
+// `raw` is an unofficial HAST node used by rehype to pass through HTML verbatim.
+// Model it locally to avoid `any` casts while keeping the rest of the tree typed.
+interface Raw extends Literal {
+  type: 'raw';
+  value: string;
+}
+
 const START_TAG = '__COMMENT_START';
 const END_TAG = '__COMMENT_END';
 export function escapeForRawComponent(input: string): string {
@@ -13,13 +28,6 @@ export function unescapeForRawComponent(input: string): string {
     .replace(new RegExp(END_TAG, 'g'), '/-->');
 }
 
-// `raw` is an unofficial HAST node used by rehype to pass through HTML verbatim.
-// Model it locally to avoid `any` casts while keeping the rest of the tree typed.
-interface Raw extends Literal {
-  type: 'raw';
-  value: string;
-}
-
 /**
  * Returns a rehype plugin that replaces `<jsx-email-raw><!--...--></jsx-email-raw>`
  * elements with a raw HTML node using the original, unescaped content.
@@ -31,11 +39,6 @@ export const getRawPlugin = async () => {
 
   return function rawPlugin() {
     return function transform(tree: Root) {
-      interface Match {
-        index: number;
-        node: Element;
-        parent: Parents;
-      }
       const matches: Match[] = [];
 
       visit(tree, 'element', (node, index, parent) => {
@@ -55,7 +58,6 @@ export const getRawPlugin = async () => {
 
           // Replace the wrapper element with a `raw` node to inject HTML verbatim.
           // rehype-stringify will pass this through when `allowDangerousHtml: true`.
-          type ParentWithRaw = Parents & { children: (Content | Raw)[] };
           const rawNode: Raw = { type: 'raw', value: rawHtml };
           (parent as ParentWithRaw).children.splice(index, 1, rawNode);
         }
