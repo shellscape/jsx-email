@@ -6,7 +6,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
-import { getRawPlugin, unescapeForRawComponent } from './raw.js';
+import { getRawPlugin, normalizeMsoConditionalClosers, unescapeForRawComponent } from './raw.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -94,11 +94,26 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     .process(html);
 
   const result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
+  try {
+    if (process.env.DEBUG_REHYPE && result.includes('<jsx-email-raw')) {
+      const { writeFileSync } = await import('node:fs');
+      writeFileSync('/tmp/jsx-email-debug.html', result);
+    }
+  } catch {
+    // noop: best-effort debug write when DEBUG_REHYPE is set
+  }
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
-  const unwrapped = result
-    .replace(reJsxTags, '')
-    .replace(/<jsx-email-raw[^>]*?>\s*<!--([\s\S]*?)-->\s*<\/jsx-email-raw>/g, (_m, p1) =>
-      unescapeForRawComponent(p1)
-    );
+  const reRawWrapper =
+    /<jsx-email-raw[^>]*?>\s*(?:<!--|&#x3C;!--)([\s\S]*?)-->\s*<\/jsx-email-raw(?:--)?\s*>/g;
+  // Handle a corrupted closer where the </jsx-email-raw> tag is eaten and the
+  // comment terminator abuts the MSO closer: `<jsx-email-raw><!--…--><![endif]-->`.
+  const reRawBeforeEndif =
+    /<jsx-email-raw[^>]*?>\s*(?:<!--|&#x3C;!--)([\s\S]*?)-->[\s\r\n]*(?=(?:<!\[endif\]|<!--\[endif\])-+-->)/g;
+  const unwrapped = normalizeMsoConditionalClosers(
+    result
+      .replace(reJsxTags, '')
+      .replace(reRawWrapper, (_m, p1) => unescapeForRawComponent(p1))
+      .replace(reRawBeforeEndif, (_m, p1) => unescapeForRawComponent(p1))
+  );
   return unwrapped;
 };

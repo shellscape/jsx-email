@@ -13,6 +13,12 @@ export function unescapeForRawComponent(input: string): string {
     .replace(new RegExp(END_TAG, 'g'), '/-->');
 }
 
+// Normalize corrupted MSO conditional closers that can occur when nested
+// comment boundaries abut the `<![endif]-->` sequence (e.g. `<!--[endif]---->`).
+export function normalizeMsoConditionalClosers(input: string): string {
+  return input.replace(/<!--\[endif\]-+-->/g, '<![endif]-->');
+}
+
 // Return a rehype plugin that replaces <jsx-email-raw><!-- ... --></jsx-email-raw>
 // with a HAST "raw" node containing the unescaped payload. This avoids nesting
 // HTML comments when <Raw> appears inside Outlook conditional comments.
@@ -65,7 +71,21 @@ export const getRawPlugin = async () => {
 
           const first = children[0];
           const last = children[children.length - 1];
-          if (first?.type === 'comment' && last?.type === 'comment') {
+          // Downlevel-revealed form produces 2 comment siblings around real
+          // element/text children: `<!--[if !mso]><!-->` … `<!--<![endif]-->`.
+          // Preserve the exact serializer bytes by keeping the original
+          // comment nodes and only transforming any nested <jsx-email-raw>
+          // elements found between them.
+          if (first?.type === 'comment' && last?.type === 'comment' && children.length > 1) {
+            const middle = transformRaw(children.slice(1, -1));
+            parent.children.splice(index, 1, first, ...middle, last);
+            return;
+          }
+
+          // Single-comment form packs everything into a single comment node:
+          // `<!--[if mso]>…<![endif]-->`. Split it into raw nodes so that
+          // nested <jsx-email-raw> wrappers can be safely inlined.
+          if (first?.type === 'comment') {
             const value = String(first.value ?? '');
             const openIdx = value.indexOf(']>');
             const closeIdx = value.lastIndexOf('<![endif]');
@@ -90,14 +110,14 @@ export const getRawPlugin = async () => {
             );
 
             // Include any middle child nodes (downlevel-revealed form produces real nodes)
-            const middle = transformRaw(children.slice(1, -1));
-            const nodes: any[] = [
+            parent.children.splice(
+              index,
+              1,
               { type: 'raw', value: openRaw },
               { type: 'raw', value: innerHtml },
-              ...middle,
+              ...transformRaw(children.slice(1, -1)),
               { type: 'raw', value: '<![endif]-->' }
-            ];
-            parent.children.splice(index, 1, ...nodes);
+            );
             return;
           }
 
