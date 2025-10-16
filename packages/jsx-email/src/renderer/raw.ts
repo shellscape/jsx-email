@@ -19,6 +19,11 @@ export function normalizeMsoConditionalClosers(input: string): string {
   return input.replace(/<!--\[endif\]-+-->/g, '<![endif]-->');
 }
 
+// Shared pattern for a `<jsx-email-raw><!-- … --></jsx-email-raw>` wrapper,
+// also matching an encoded comment opener and a corrupted `</jsx-email-raw-->` closer.
+export const RAW_WRAPPER_RE =
+  /<jsx-email-raw[^>]*?>\s*(?:<!--|&#x3C;!--)([\s\S]*?)-->\s*<\/jsx-email-raw(?:--)?\s*>/g;
+
 // Return a rehype plugin that replaces <jsx-email-raw><!-- ... --></jsx-email-raw>
 // with a HAST "raw" node containing the unescaped payload. This avoids nesting
 // HTML comments when <Raw> appears inside Outlook conditional comments.
@@ -90,6 +95,12 @@ export const getRawPlugin = async () => {
             const openIdx = value.indexOf(']>');
             const closeIdx = value.lastIndexOf('<![endif]');
 
+            // If not a valid MSO single-comment wrapper, fall back to generic behavior.
+            if (!(openIdx >= 0 && closeIdx > openIdx)) {
+              parent.children.splice(index, 1, ...transformRaw(children));
+              return;
+            }
+
             // Construct opening marker comment bytes
             const openRaw = openIdx >= 0 ? `<!--${value.slice(0, openIdx + 2)}` : `<!--${value}`;
 
@@ -104,9 +115,8 @@ export const getRawPlugin = async () => {
             // Inline any nested <jsx-email-raw><!-- … --></jsx-email-raw> occurrences inside the
             // single-comment payload, being tolerant of a corrupted element closer like
             // "</jsx-email-raw-->" that some serializers may emit when adjacent to comment ends.
-            innerHtml = innerHtml.replace(
-              /<jsx-email-raw[^>]*?>\s*(?:<!--|&#x3C;!--)([\s\S]*?)-->\s*<\/jsx-email-raw(?:--)?\s*>/g,
-              (_m: string, p1: string) => unescapeForRawComponent(p1)
+            innerHtml = innerHtml.replace(RAW_WRAPPER_RE, (_m: string, p1: string) =>
+              unescapeForRawComponent(p1)
             );
 
             // Include any middle child nodes (downlevel-revealed form produces real nodes)
