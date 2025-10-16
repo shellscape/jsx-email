@@ -1,3 +1,5 @@
+import type { Element, Parents, Root } from 'hast';
+
 const START_TAG = '__COMMENT_START';
 const END_TAG = '__COMMENT_END';
 export function escapeForRawComponent(input: string): string {
@@ -10,3 +12,54 @@ export function unescapeForRawComponent(input: string): string {
     .replace(new RegExp(START_TAG, 'g'), '<!--')
     .replace(new RegExp(END_TAG, 'g'), '/-->');
 }
+
+interface ElementWithParent extends Element {
+  index: number;
+  parent: Parents;
+}
+
+/**
+ * Returns a rehype plugin that replaces `<jsx-email-raw><!--...--></jsx-email-raw>`
+ * elements with a raw HTML node using the original, unescaped content.
+ *
+ * Mirrors the async factory pattern used by `getMovePlugin()`.
+ */
+export const getRawPlugin = async () => {
+  const { visit } = await import('unist-util-visit');
+
+  return function rawPlugin() {
+    return function transform(tree: Root) {
+      const matches: ElementWithParent[] = [];
+
+      visit(tree, 'element', (node, _idx, parent) => {
+        if (!parent) return;
+        if (node.tagName !== 'jsx-email-raw') return;
+
+        const found = node as ElementWithParent;
+        found.parent = parent;
+        found.index = parent.children.indexOf(node);
+        matches.push(found);
+      });
+
+      for (const node of matches) {
+        // The Raw component renders a single HTML comment child containing the
+        // escaped raw content. Extract it and unescape back to the original.
+        const commentChild = node.children.find((c: any) => c.type === 'comment') as
+          | { type: 'comment'; value: string }
+          | undefined;
+
+        const value = commentChild?.value ?? '';
+        const rawHtml = unescapeForRawComponent(value);
+
+        // Replace the wrapper element with a `raw` node to inject HTML verbatim.
+        // rehype-stringify will pass this through when `allowDangerousHtml: true`.
+        (node.parent as Element).children.splice(node.index, 1, {
+          // `raw` is not part of the typed HAST nodes; cast to `any` to avoid
+          // importing additional types or changing configs.
+          type: 'raw',
+          value: rawHtml
+        } as any);
+      }
+    };
+  };
+};
