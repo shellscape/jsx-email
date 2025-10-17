@@ -1,12 +1,11 @@
 import type { Element, Root } from 'hast';
 
 /**
- * Returns a rehype plugin that replaces `<jsx-email-cond>` marker elements with a
- * single `raw` node containing the appropriate conditional comment wrapper and
- * the stringified children.
- *
- * The plugin also rejects nested `<jsx-email-cond>` elements since nested
- * `<!--[if ...]>` blocks are not supported and lead to fragile markup.
+ * Returns a rehype plugin that enforces that `<jsx-email-cond>` elements are
+ * not nested. This plugin does not perform any transformation or serialization
+ * of conditionals. In the current renderer, conditional comments are produced
+ * by the legacy `jsxToString()` path and any `<jsx-email-cond>` wrappers are
+ * stripped later in the pipeline.
  */
 export const getConditionalPlugin = async () => {
   const { visit, EXIT } = await import('unist-util-visit');
