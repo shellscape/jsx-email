@@ -7,6 +7,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
 import { getRawPlugin, unescapeForRawComponent } from './raw.js';
+import { getConditionalPlugin } from './conditional.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -75,6 +76,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();
   const rawPlugin = await getRawPlugin();
+  const conditionalPlugin = await getConditionalPlugin();
   const settings = { emitParseErrors: true };
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
 
@@ -83,6 +85,8 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
 
   processor.use(movePlugin);
   processor.use(rawPlugin);
+  // Run after Raw so any <jsx-email-raw> inside <jsx-email-cond> is lifted first
+  processor.use(conditionalPlugin);
   await callProcessHook({ config, processor });
 
   const doc = await processor

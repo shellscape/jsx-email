@@ -75,4 +75,19 @@ describe('<Conditional> component', async () => {
 
     expect(error!).toMatchSnapshot();
   });
+
+  it('throws on nested <Conditional>', async () => {
+    let error: Error | undefined;
+    try {
+      await render(
+        <Conditional mso>
+          <div>one</div>
+          <Conditional mso>two</Conditional>
+        </Conditional>
+      );
+    } catch (e: any) {
+      error = e;
+    }
+    expect(error!).toMatchSnapshot();
+  });
 });

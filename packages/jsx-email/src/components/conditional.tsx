@@ -1,7 +1,5 @@
 import React, { Suspense } from 'react';
 
-import { jsxToString } from '../renderer/jsx-to-string.js';
-import { useData } from '../renderer/suspense.js';
 import type { JsxEmailComponent } from '../types.js';
 
 export interface ConditionalProps {
@@ -11,25 +9,22 @@ export interface ConditionalProps {
   mso?: boolean;
 }
 
-const notMso = (html: string) => `<!--[if !mso]><!-->${html}<!--<![endif]-->`;
-
-const comment = (expression: string, html: string) => `<!--[if ${expression}]>${html}<![endif]-->`;
-
 const Renderer = (props: ConditionalProps) => {
-  const { children, mso, head } = props;
-  let { expression } = props;
-  const html = useData(props, () => jsxToString(<>{children}</>));
-  let innerHtml = '';
+  const { children, head, expression, mso } = props;
 
-  if (mso === false) innerHtml = notMso(html);
-  else if (mso === true && !expression) expression = 'mso';
-  if (expression) innerHtml = comment(expression, html);
+  // We no longer serialize the children to a string at component render time.
+  // Instead, we emit a marker element and let a rehype plugin wrap the contents
+  // with the proper MSO conditional comment in the HTML pipeline. This preserves
+  // child structure so the Raw plugin can lift <jsx-email-raw> first.
 
-  const Component = head ? 'head' : 'jsx-email-cond';
+  const attrs: Record<string, string> = {};
+  if (typeof mso !== 'undefined') attrs['data-mso'] = String(!!mso);
+  if (expression) attrs['data-expression'] = expression;
 
-  // @ts-ignore
-  // Note: This is perfectly valid. TS just expects lowercase tag names to match a specific type
-  return <Component dangerouslySetInnerHTML={{ __html: innerHtml }} />;
+  // @ts-ignore custom element tag is intentional
+  const marker = <jsx-email-cond {...attrs}>{children}</jsx-email-cond>;
+
+  return head ? <head>{marker}</head> : marker;
 };
 
 export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
@@ -46,11 +41,9 @@ export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
     );
 
   return (
-    <>
-      <Suspense fallback={<div>waiting</div>}>
-        <Renderer {...props}>{children}</Renderer>
-      </Suspense>
-    </>
+    <Suspense fallback={<div>waiting</div>}>
+      <Renderer {...props}>{children}</Renderer>
+    </Suspense>
   );
 };
 

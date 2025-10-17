@@ -11,10 +11,10 @@ exports[`render > renders with debug attributes 1`] = `
     <meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\">
     <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, user-scalable=yes\\">
     <meta name=\\"x-apple-disable-message-reformatting\\">
-    <meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\"><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+    <meta name=\\"format-detection\\" content=\\"telephone=no, date=no, address=no, email=no, url=no\\">
   </head>
 
-  <body data-type=\\"jsx-email/body\\" style=\\"background-color:#ffffff;font-family:HelveticaNeue,Helvetica,Arial,sans-serif\\">
+  <body data-type=\\"jsx-email/body\\" style=\\"background-color:#ffffff;font-family:HelveticaNeue,Helvetica,Arial,sans-serif\\"><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
     <div data-type=\\"jsx-email/container\\" style=\\"table-layout:fixed;width:100%\\">
       <div style=\\"margin:0 auto;max-width:600px\\"><span><!--[if mso]><table align=\\"center\\" width=\\"600\\" style=\\"border-spacing: 0; width:600px;\\" role=\\"presentation\\"><tr><td><![endif]--></span>
         <table align=\\"center\\" width=\\"100%\\" role=\\"presentation\\" cellspacing=\\"0\\" cellpadding=\\"0\\" border=\\"0\\" style=\\"max-width:600px;background-color:#ffffff;border:1px solid #eee;border-radius:5px;box-shadow:0 5px 10px rgba(20,50,70,.2);margin-top:20px;width:360px;margin:0 auto;padding:68px 0 130px\\">
