@@ -1,23 +1,15 @@
-import type { Content, Element, Literal, Parents, Root } from 'hast';
+import type { Content, Element, Parents, Root } from 'hast';
 
-// Model rehype `raw` node locally for strong typing.
-interface Raw extends Literal {
-  type: 'raw';
-  value: string;
-}
-
-interface ParentWithRaw {
-  children: (Content | Raw)[];
-}
+import type { ParentWithRaw, Raw } from './raw.js';
 
 /**
-* Returns a rehype plugin that replaces `<jsx-email-cond>` marker elements with a
-* single `raw` node containing the appropriate conditional comment wrapper and
-* the stringified children.
-*
-* The plugin also rejects nested `<jsx-email-cond>` elements since nested
-* `<!--[if ...]>` blocks are not supported and lead to fragile markup.
-*/
+ * Returns a rehype plugin that replaces `<jsx-email-cond>` marker elements with a
+ * single `raw` node containing the appropriate conditional comment wrapper and
+ * the stringified children.
+ *
+ * The plugin also rejects nested `<jsx-email-cond>` elements since nested
+ * `<!--[if ...]>` blocks are not supported and lead to fragile markup.
+ */
 export const getConditionalPlugin = async () => {
   const { visit } = await import('unist-util-visit');
   const { rehype } = await import('rehype');
@@ -32,7 +24,7 @@ export const getConditionalPlugin = async () => {
 
   return function conditionalPlugin() {
     return function transform(tree: Root) {
-      const matches: Array<{ parent: Parents; index: number; node: Element }> = [];
+      const matches: Array<{ index: number; node: Element; parent: Parents }> = [];
 
       visit(tree, 'element', (node, index, parent) => {
         if (!parent || typeof index !== 'number') return;
@@ -42,7 +34,7 @@ export const getConditionalPlugin = async () => {
           Object.prototype.hasOwnProperty.call(props, 'data-mso') ||
           Object.prototype.hasOwnProperty.call(props, 'data-expression');
         if (!hasMarkerAttrs) return;
-        matches.push({ parent, index, node: node as Element });
+        matches.push({ index, node: node as Element, parent });
       });
 
       for (const { parent, index, node } of matches) {
@@ -61,10 +53,11 @@ export const getConditionalPlugin = async () => {
 
         const props = (node.properties ?? {}) as Record<string, unknown>;
         const msoAttr = props['data-mso'];
-        const msoStr = typeof msoAttr === 'boolean' ? String(msoAttr) : (msoAttr as string | undefined);
+        const msoStr =
+          typeof msoAttr === 'boolean' ? String(msoAttr) : (msoAttr as string | undefined);
         const expr =
           (props['data-expression'] as string | undefined) ??
-          (msoStr && msoStr !== 'false' ? 'mso' : undefined);
+          (msoStr && msoStr !== 'false' ? 'mso' : void 0);
 
         const open = msoStr === 'false' ? '<!--[if !mso]><!-->' : `<!--[if ${expr || 'mso'}]>`;
         const close = msoStr === 'false' ? '<!--<![endif]-->' : '<![endif]-->';
@@ -76,7 +69,7 @@ export const getConditionalPlugin = async () => {
           if ((child as any).type === 'raw' && typeof (child as any).value === 'string') {
             parts.push((child as any).value as string);
           } else {
-            parts.push(String(stringifier.stringify({ type: 'root', children: [child] } as Root)));
+            parts.push(String(stringifier.stringify({ children: [child], type: 'root' } as Root)));
           }
         }
         const inner = parts.join('');

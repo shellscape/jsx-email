@@ -33,7 +33,7 @@ export const Head: JsxEmailComponent<HeadProps> = ({
       children={
         // prettier-ignore
         // @ts-expect-error: element don't exist
-        <xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+        <xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
       }
     />
   </head>

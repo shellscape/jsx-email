@@ -6,13 +6,13 @@ interface Match {
   parent: Parents;
 }
 
-interface ParentWithRaw {
+export interface ParentWithRaw {
   children: (Content | Raw)[];
 }
 
 // `raw` is an unofficial HAST node used by rehype to pass through HTML verbatim.
 // Model it locally to avoid `any` casts while keeping the rest of the tree typed.
-interface Raw extends Literal {
+export interface Raw extends Literal {
   type: 'raw';
   value: string;
 }
