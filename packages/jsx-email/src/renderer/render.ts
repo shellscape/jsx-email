@@ -5,6 +5,7 @@ import { callHook, callProcessHook } from '../plugins.js';
 import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
+import { RenderModeContext } from './mode.js';
 import { getMovePlugin } from './move-style.js';
 import { getRawPlugin, unescapeForRawComponent } from './raw.js';
 import { getConditionalPlugin } from './conditional.js';
@@ -61,7 +62,14 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
     config = await defineConfig(merged);
   }
 
-  let html = await jsxToString(component);
+  const providerElement = {
+    $$typeof: Symbol.for('react.element'),
+    key: null,
+    ref: null,
+    type: RenderModeContext.Provider,
+    props: { value: 'render', children: component }
+  } as unknown as React.ReactElement;
+  let html = await jsxToString(providerElement);
 
   html = await callHook({ config, hookType: 'beforeRender', html });
   html = await processHtml(config, html);

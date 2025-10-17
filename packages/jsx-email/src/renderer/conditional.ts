@@ -37,6 +37,11 @@ export const getConditionalPlugin = async () => {
       visit(tree, 'element', (node, index, parent) => {
         if (!parent || typeof index !== 'number') return;
         if ((node as Element).tagName !== 'jsx-email-cond') return;
+        const props = ((node as Element).properties ?? {}) as Record<string, unknown>;
+        const hasMarkerAttrs =
+          Object.prototype.hasOwnProperty.call(props, 'data-mso') ||
+          Object.prototype.hasOwnProperty.call(props, 'data-expression');
+        if (!hasMarkerAttrs) return;
         matches.push({ parent, index, node: node as Element });
       });
 

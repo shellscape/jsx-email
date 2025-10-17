@@ -2,7 +2,6 @@ import type { BaseProps, JsxEmailComponent } from '../types.js';
 import { debug } from '../debug.js';
 
 import { Conditional } from './conditional.js';
-import { Raw } from './raw.js';
 
 export interface HeadProps extends BaseProps<'head'> {
   enableFormatDetection?: boolean;
@@ -32,7 +31,9 @@ export const Head: JsxEmailComponent<HeadProps> = ({
       head
       mso
       children={
-        <Raw content={'<xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>'} />
+        // prettier-ignore
+        // @ts-expect-error: element don't exist
+        <xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
       }
     />
   </head>
