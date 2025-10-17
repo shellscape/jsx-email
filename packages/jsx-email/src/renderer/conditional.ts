@@ -72,6 +72,7 @@ export const getConditionalPlugin = async () => {
             } else {
               parts.push(
                 toHtml({ children: [child], type: 'root' } as Root, {
+                  allowDangerousCharacters: true,
                   allowDangerousHtml: true,
                   closeSelfClosing: true,
                   collapseEmptyAttributes: true
