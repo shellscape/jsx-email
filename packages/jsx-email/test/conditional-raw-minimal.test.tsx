@@ -1,6 +1,3 @@
-// @ts-ignore
-import React from 'react';
-
 import { jsxToString } from '../src/renderer/jsx-to-string.js';
 import { Conditional } from '../src/components/conditional.js';
 import { Raw } from '../src/components/raw.js';
@@ -12,12 +9,7 @@ import { Raw } from '../src/components/raw.js';
  * render pipeline produces for this structure so we can iterate on it
  * in follow‑ups. There are no behavioral assertions beyond the snapshot.
  */
-describe('snapshot: minimal <Raw> inside <Conditional mso>', async () => {
-  beforeEach(() => {
-    vi.restoreAllMocks();
-    vi.resetModules();
-  });
-
+describe('snapshot: minimal <Raw> inside <Conditional mso>', () => {
   it('renders a minimal MSO block with inlined Raw content', async () => {
     const fragment = (
       <Conditional mso>
