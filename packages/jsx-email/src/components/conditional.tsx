@@ -29,7 +29,7 @@ function hasRaw(node: React.ReactNode): boolean {
     const { type } = node;
     if (
       type === Raw ||
-      type?.displayName === 'Raw' ||
+      (typeof type !== 'string' && (type as any)?.displayName === 'Raw') ||
       (typeof type === 'string' && type === 'jsx-email-raw')
     )
       return true;
