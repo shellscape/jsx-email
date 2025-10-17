@@ -12,15 +12,7 @@ import type { ParentWithRaw, Raw } from './raw.js';
  */
 export const getConditionalPlugin = async () => {
   const { visit } = await import('unist-util-visit');
-  const { rehype } = await import('rehype');
-  const { default: stringify } = await import('rehype-stringify');
-
-  const stringifier = rehype().use(stringify, {
-    allowDangerousCharacters: true,
-    allowDangerousHtml: true,
-    closeEmptyElements: true,
-    collapseEmptyAttributes: true
-  });
+  const { toHtml } = await import('hast-util-to-html');
 
   return function conditionalPlugin() {
     return function transform(tree: Root) {
@@ -63,7 +55,7 @@ export const getConditionalPlugin = async () => {
         // `data-mso` nor `data-expression` are present, this is a legacy
         // wrapper carrying pre-rendered HTML; leave it intact so snapshots
         // remain unchanged.
-        const hasDirective = msoStr !== undefined || props['data-expression'] !== undefined;
+        const hasDirective = msoStr !== void 0 || props['data-expression'] !== void 0;
         if (!hasDirective) {
           // legacy wrapper: do nothing
           (parent as ParentWithRaw).children[index] = node as any;
@@ -79,7 +71,11 @@ export const getConditionalPlugin = async () => {
               parts.push((child as any).value as string);
             } else {
               parts.push(
-                String(stringifier.stringify({ children: [child], type: 'root' } as Root))
+                toHtml({ children: [child], type: 'root' } as Root, {
+                  allowDangerousHtml: true,
+                  closeSelfClosing: true,
+                  collapseEmptyAttributes: true
+                })
               );
             }
           }
