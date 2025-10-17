@@ -1,22 +1,28 @@
-import type { Element, Root } from 'hast';
+import type { Content, Element, Parents, Root } from 'hast';
 
 /**
- * Returns a rehype plugin that enforces that `<jsx-email-cond>` elements are
- * not nested. This plugin does not perform any transformation or serialization
- * of conditionals. In the current renderer, conditional comments are produced
- * by the legacy `jsxToString()` path and any `<jsx-email-cond>` wrappers are
- * stripped later in the pipeline.
+ * Returns a rehype plugin that:
+ * - forbids nested `<jsx-email-cond>` elements (throws on detection); and
+ * - unwraps each `<jsx-email-cond>` by replacing it with its children.
+ *
+ * The Conditional component renders a temporary `<jsx-email-cond>` wrapper
+ * around already-stringified conditional comment content. This plugin removes
+ * that wrapper so we don't rely on brittle regex replacement later in the
+ * pipeline.
  */
 export const getConditionalPlugin = async () => {
   const { visit, EXIT } = await import('unist-util-visit');
 
   return function conditionalPlugin() {
     return function transform(tree: Root) {
-      // Only enforce the nested-Conditional rule. Transformation is handled
-      // elsewhere (legacy jsxToString path) and wrappers are stripped later.
-      visit(tree, 'element', (node) => {
+      // Gather matches with parent/index for safe, ordered mutation.
+      const matches: Array<{ index: number; node: Element; parent: Parents }> = [];
+
+      visit(tree, 'element', (node, index, parent) => {
+        if (!parent || typeof index !== 'number') return;
         if ((node as Element).tagName !== 'jsx-email-cond') return;
 
+        // Enforce: no nested <jsx-email-cond> inside this node.
         let nested = false;
         visit(node, 'element', (child) => {
           if (child !== node && (child as Element).tagName === 'jsx-email-cond') {
@@ -31,7 +37,26 @@ export const getConditionalPlugin = async () => {
             'jsx-email: Nested <Conditional> is not supported. Flatten your conditionals into a single block.'
           );
         }
+
+        matches.push({ index, node: node as Element, parent });
       });
+
+      // Unwrap by parent in descending index order to avoid index invalidation
+      // when multiple siblings are replaced under the same parent.
+      const byParent = new Map<Parents, Array<{ index: number; node: Element }>>();
+      for (const { parent, index, node } of matches) {
+        const arr = byParent.get(parent) ?? [];
+        arr.push({ index, node });
+        byParent.set(parent, arr);
+      }
+
+      for (const [parent, items] of byParent) {
+        items.sort((a, b) => b.index - a.index);
+        for (const { index, node } of items) {
+          const children = (node.children as Content[]) ?? [];
+          parent.children.splice(index, 1, ...children);
+        }
+      }
     };
   };
 };

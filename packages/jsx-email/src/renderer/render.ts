@@ -9,8 +9,6 @@ import { getMovePlugin } from './move-style.js';
 import { getRawPlugin, unescapeForRawComponent } from './raw.js';
 import { getConditionalPlugin } from './conditional.js';
 
-export const jsxEmailTags = ['jsx-email-cond'];
-
 export const renderPlainText = async (
   component: React.ReactElement,
   options?: PlainTextOptions
@@ -78,7 +76,6 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const rawPlugin = await getRawPlugin();
   const conditionalPlugin = await getConditionalPlugin();
   const settings = { emitParseErrors: true };
-  const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
 
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
@@ -98,9 +95,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     })
     .process(html);
 
-  let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
-
-  result = result.replace(reJsxTags, '');
+  const result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
 
   return result;
 };
