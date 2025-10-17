@@ -1,6 +1,9 @@
 import type { Content, Element, Parents, Root } from 'hast';
 
-import type { ParentWithRaw } from './raw.js';
+// Minimal local shape to satisfy TS when splicing children
+interface ParentWithChildren {
+  children: Content[];
+}
 
 /**
  * Returns a rehype plugin that:
@@ -56,7 +59,7 @@ export const getConditionalPlugin = async () => {
         items.sort((a, b) => b.index - a.index);
         for (const { index, node } of items) {
           const children = (node.children as Content[]) ?? [];
-          (parent as ParentWithRaw).children.splice(index, 1, ...children);
+          (parent as unknown as ParentWithChildren).children.splice(index, 1, ...children);
         }
       }
     };
