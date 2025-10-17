@@ -66,7 +66,8 @@ const Renderer = (props: ConditionalProps) => {
 
   const Component = head ? 'head' : 'jsx-email-cond';
 
-  // @ts-ignore lower-case tag name used intentionally
+  // @ts-ignore
+  // Note: This is perfectly valid. TS just expects lowercase tag names to match a specific type
   return <Component dangerouslySetInnerHTML={{ __html: innerHtml }} />;
 };
 
