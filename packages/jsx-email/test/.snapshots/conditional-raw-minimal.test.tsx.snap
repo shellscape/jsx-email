@@ -1,5 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`snapshot: minimal <Raw> inside <Conditional mso> > renders a minimal MSO block with inlined Raw content 1`] = `"<jsx-email-cond><!--[if mso]><jsx-email-raw><!--<b data-testid=\\"raw\\">hello</b>--></jsx-email-raw><![endif]--></jsx-email-cond>"`;
+exports[`snapshot: minimal <Raw> inside <Conditional mso> > renders a minimal MSO block with inlined Raw content (jsxToString) 1`] = `"<jsx-email-cond><!--[if mso]><jsx-email-raw><!--<b data-testid=\\"raw\\">hello</b>--></jsx-email-raw><![endif]--></jsx-email-cond>"`;
 
-exports[`snapshot: minimal <Raw> inside <Conditional mso> > renders final HTML via the render pipeline 1`] = `"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\"><html><body><!--[if mso]><b data-testid=\\\"raw\\\">hello</b><![endif]--></body></html>"`;
+exports[`snapshot: minimal <Raw> inside <Conditional mso> > renders final HTML via the render pipeline 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><html><body><!--[if mso]><jsx-email-raw>&#x3C;!--<b data-testid=\\"raw\\">hello</b>--><!--[endif]----></body></html>"`;
