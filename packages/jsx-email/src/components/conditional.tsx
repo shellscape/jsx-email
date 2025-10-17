@@ -4,7 +4,9 @@ import { jsxToString } from '../renderer/jsx-to-string.js';
 import { useData } from '../renderer/suspense.js';
 import type { JsxEmailComponent } from '../types.js';
 
-import { Raw } from './raw.js';
+// Note: no need to import Raw here; Conditional now always follows the legacy
+// jsxToString path so that behavior matches previous snapshots across the
+// codebase. This is in response to review feedback to remove Raw-detection.
 
 export interface ConditionalProps {
   children?: React.ReactNode;
@@ -16,44 +18,9 @@ export interface ConditionalProps {
 const notMso = (html: string) => `<!--[if !mso]><!-->${html}<!--<![endif]-->`;
 const comment = (expression: string, html: string) => `<!--[if ${expression}]>${html}<![endif]-->`;
 
-function hasRaw(node: React.ReactNode): boolean {
-  if (
-    node == null ||
-    typeof node === 'boolean' ||
-    typeof node === 'number' ||
-    typeof node === 'string'
-  )
-    return false;
-  if (Array.isArray(node)) return node.some(hasRaw);
-  if (React.isValidElement(node)) {
-    const { type } = node;
-    if (
-      type === Raw ||
-      (typeof type !== 'string' && (type as any)?.displayName === 'Raw') ||
-      (typeof type === 'string' && type === 'jsx-email-raw')
-    )
-      return true;
-    // Recurse into children of composite elements
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return hasRaw((node.props as any)?.children);
-  }
-  return false;
-}
-
 const Renderer = (props: ConditionalProps) => {
   const { children, head, mso } = props;
   let { expression } = props;
-
-  // If any <Raw> exists within the children, defer wrapping to the rehype plugin
-  // by emitting a marker element. This preserves exact Raw casing and avoids
-  // escaping.
-  if (hasRaw(children)) {
-    const attrs: Record<string, string> = {};
-    if (typeof mso !== 'undefined') attrs['data-mso'] = String(!!mso);
-    if (expression) attrs['data-expression'] = expression;
-    // @ts-ignore: custom tag by design
-    return <jsx-email-cond {...attrs}>{children}</jsx-email-cond>;
-  }
 
   // Legacy path: stringify children now to preserve existing snapshots/output
   // for non-Raw content.
