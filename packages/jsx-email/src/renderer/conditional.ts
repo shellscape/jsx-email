@@ -59,23 +59,35 @@ export const getConditionalPlugin = async () => {
           (props['data-expression'] as string | undefined) ??
           (msoStr && msoStr !== 'false' ? 'mso' : void 0);
 
-        const open = msoStr === 'false' ? '<!--[if !mso]><!-->' : `<!--[if ${expr || 'mso'}]>`;
-        const close = msoStr === 'false' ? '<!--<![endif]-->' : '<![endif]-->';
+        // Only transform nodes that opted into plugin-mode. If neither
+        // `data-mso` nor `data-expression` are present, this is a legacy
+        // wrapper carrying pre-rendered HTML; leave it intact so snapshots
+        // remain unchanged.
+        const hasDirective = msoStr !== undefined || props['data-expression'] !== undefined;
+        if (!hasDirective) {
+          // legacy wrapper: do nothing
+          (parent as ParentWithRaw).children[index] = node as any;
+        } else {
+          const open = msoStr === 'false' ? '<!--[if !mso]><!-->' : `<!--[if ${expr || 'mso'}]>`;
+          const close = msoStr === 'false' ? '<!--<![endif]-->' : '<![endif]-->';
 
-        // Preserve `raw` children exactly as-is to avoid HTML serializer
-        // normalizing case or formatting (important for MSO XML tags).
-        const parts: string[] = [];
-        for (const child of node.children as Content[]) {
-          if ((child as any).type === 'raw' && typeof (child as any).value === 'string') {
-            parts.push((child as any).value as string);
-          } else {
-            parts.push(String(stringifier.stringify({ children: [child], type: 'root' } as Root)));
+          // Preserve `raw` children exactly as-is to avoid HTML serializer
+          // normalizing case or formatting (important for MSO XML tags).
+          const parts: string[] = [];
+          for (const child of node.children as Content[]) {
+            if ((child as any).type === 'raw' && typeof (child as any).value === 'string') {
+              parts.push((child as any).value as string);
+            } else {
+              parts.push(
+                String(stringifier.stringify({ children: [child], type: 'root' } as Root))
+              );
+            }
           }
-        }
-        const inner = parts.join('');
+          const inner = parts.join('');
 
-        const rawNode: Raw = { type: 'raw', value: `${open}${inner}${close}` };
-        (parent as ParentWithRaw).children.splice(index, 1, rawNode);
+          const rawNode: Raw = { type: 'raw', value: `${open}${inner}${close}` };
+          (parent as ParentWithRaw).children.splice(index, 1, rawNode);
+        }
       }
     };
   };
