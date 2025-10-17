@@ -1,9 +1,7 @@
 import type { Content, Element, Parents, Root } from 'hast';
+import { visit, EXIT, CONTINUE } from 'unist-util-visit';
 
-// Minimal local shape to satisfy TS when splicing children
-interface ParentWithChildren {
-  children: Content[];
-}
+type ParentWithChildren = Parents & { children: Content[] };
 
 /**
  * Returns a rehype plugin that:
@@ -15,10 +13,8 @@ interface ParentWithChildren {
  * that wrapper so we don't rely on brittle regex replacement later in the
  * pipeline.
  */
-export const getConditionalPlugin = async () => {
-  const { visit, EXIT } = await import('unist-util-visit');
-
-  return function conditionalPlugin() {
+export const getConditionalPlugin = () =>
+  function conditionalPlugin() {
     return function transform(tree: Root) {
       // Gather matches with parent/index for safe, ordered mutation.
       const matches: Array<{ index: number; node: Element; parent: Parents }> = [];
@@ -34,7 +30,7 @@ export const getConditionalPlugin = async () => {
             nested = true;
             return EXIT;
           }
-          return void 0;
+          return CONTINUE;
         });
 
         if (nested) {
@@ -59,9 +55,8 @@ export const getConditionalPlugin = async () => {
         items.sort((a, b) => b.index - a.index);
         for (const { index, node } of items) {
           const children = (node.children as Content[]) ?? [];
-          (parent as unknown as ParentWithChildren).children.splice(index, 1, ...children);
+          (parent as ParentWithChildren).children.splice(index, 1, ...children);
         }
       }
     };
   };
-};

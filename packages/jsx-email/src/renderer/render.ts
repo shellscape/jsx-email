@@ -74,7 +74,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();
   const rawPlugin = await getRawPlugin();
-  const conditionalPlugin = await getConditionalPlugin();
+  const conditionalPlugin = getConditionalPlugin();
   const settings = { emitParseErrors: true };
 
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
