@@ -1,5 +1,7 @@
 import type { Content, Element, Parents, Root } from 'hast';
 
+import type { ParentWithRaw } from './raw.js';
+
 /**
  * Returns a rehype plugin that:
  * - forbids nested `<jsx-email-cond>` elements (throws on detection); and
@@ -54,7 +56,7 @@ export const getConditionalPlugin = async () => {
         items.sort((a, b) => b.index - a.index);
         for (const { index, node } of items) {
           const children = (node.children as Content[]) ?? [];
-          parent.children.splice(index, 1, ...children);
+          (parent as ParentWithRaw).children.splice(index, 1, ...children);
         }
       }
     };

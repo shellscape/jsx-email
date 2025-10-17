@@ -50,18 +50,35 @@ export const getRawPlugin = async () => {
         matches.push({ index, node: node as Element, parent });
       });
 
-      for (const { node, parent, index } of matches) {
-        // The Raw component renders a single HTML comment child containing the
-        // escaped raw content. Extract it and unescape back to the original.
-        const commentChild = node.children.find((c): c is Comment => c.type === 'comment');
+      // Unwrap by parent in descending index order to avoid index invalidation
+      // when multiple siblings are replaced under the same parent.
+      const byParent = new Map<Parents, Array<{ index: number; node: Element }>>();
+      for (const { parent, index, node } of matches) {
+        const arr = byParent.get(parent) ?? [];
+        arr.push({ index, node });
+        byParent.set(parent, arr);
+      }
 
-        if (commentChild) {
-          const rawHtml = unescapeForRawComponent(commentChild.value);
+      for (const [parent, items] of byParent) {
+        items.sort((a, b) => b.index - a.index);
+        for (const { index, node } of items) {
+          // The Raw component renders a single HTML comment child containing the
+          // escaped raw content. Extract it and unescape back to the original.
+          const commentChild = node.children.find((c): c is Comment => c.type === 'comment');
 
-          // Replace the wrapper element with a `raw` node to inject HTML verbatim.
-          // rehype-stringify will pass this through when `allowDangerousHtml: true`.
-          const rawNode: Raw = { type: 'raw', value: rawHtml };
-          (parent as ParentWithRaw).children.splice(index, 1, rawNode);
+          if (commentChild) {
+            const rawHtml = unescapeForRawComponent(commentChild.value);
+
+            // Replace the wrapper element with a `raw` node to inject HTML verbatim.
+            // rehype-stringify will pass this through when `allowDangerousHtml: true`.
+            const rawNode: Raw = { type: 'raw', value: rawHtml };
+            (parent as ParentWithRaw).children.splice(index, 1, rawNode);
+          } else {
+            // Fallback: no comment child (unexpected). Unwrap the wrapper by
+            // splicing its children directly to ensure no <jsx-email-raw> tags
+            // remain in output.
+            (parent as ParentWithRaw).children.splice(index, 1, ...(node.children as Content[]));
+          }
         }
       }
     };
