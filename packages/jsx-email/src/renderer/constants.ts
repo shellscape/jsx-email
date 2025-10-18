@@ -76,3 +76,7 @@ export const VoidElements = new Set([
   'track',
   'wbr'
 ]);
+
+// Standard Office settings XML used within MSO conditional comments in <head>
+export const OFFICE_SETTINGS_XML =
+  '<xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>';

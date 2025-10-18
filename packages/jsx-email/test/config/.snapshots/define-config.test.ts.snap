@@ -20,7 +20,7 @@ exports[`defineConfig > basic set 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
+            "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
             "time": [Function],
           },
           "ready": {
@@ -38,7 +38,7 @@ exports[`defineConfig > basic set 1`] = `
             "WARN": 3,
           },
         },
-        "name": "dot-log:[1m∵ root/minify[22m",
+        "name": "dot-log:∵ root/minify",
         "options": {
           "factory": LogFactory {
             "options": {
@@ -49,7 +49,7 @@ exports[`defineConfig > basic set 1`] = `
                 "reject": [Function],
                 "resolve": [Function],
               },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
+              "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
               "time": [Function],
             },
             "ready": {
@@ -67,9 +67,9 @@ exports[`defineConfig > basic set 1`] = `
               "WARN": 3,
             },
           },
-          "id": "dot-log:[1m∵ root/minify[22m",
+          "id": "dot-log:∵ root/minify",
           "level": "info",
-          "name": "dot-log:[1m∵ root/minify[22m",
+          "name": "dot-log:∵ root/minify",
           "prefix": undefined,
         },
         "trace": [Function],
@@ -112,7 +112,7 @@ exports[`defineConfig > de-dupe plugins 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ batman[22m {{level}} ",
+            "template": "[{{time}}] jsx-email ∵ batman {{level}} ",
             "time": [Function],
           },
           "ready": {
@@ -130,7 +130,7 @@ exports[`defineConfig > de-dupe plugins 1`] = `
             "WARN": 3,
           },
         },
-        "name": "dot-log:[1m∵ batman[22m",
+        "name": "dot-log:∵ batman",
         "options": {
           "factory": LogFactory {
             "options": {
@@ -141,7 +141,7 @@ exports[`defineConfig > de-dupe plugins 1`] = `
                 "reject": [Function],
                 "resolve": [Function],
               },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ batman[22m {{level}} ",
+              "template": "[{{time}}] jsx-email ∵ batman {{level}} ",
               "time": [Function],
             },
             "ready": {
@@ -159,9 +159,9 @@ exports[`defineConfig > de-dupe plugins 1`] = `
               "WARN": 3,
             },
           },
-          "id": "dot-log:[1m∵ batman[22m",
+          "id": "dot-log:∵ batman",
           "level": "info",
-          "name": "dot-log:[1m∵ batman[22m",
+          "name": "dot-log:∵ batman",
           "prefix": undefined,
         },
         "trace": [Function],
@@ -218,7 +218,7 @@ exports[`defineConfig > minify and pretty 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
+            "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
             "time": [Function],
           },
           "ready": {
@@ -236,7 +236,7 @@ exports[`defineConfig > minify and pretty 1`] = `
             "WARN": 3,
           },
         },
-        "name": "dot-log:[1m∵ root/minify[22m",
+        "name": "dot-log:∵ root/minify",
         "options": {
           "factory": LogFactory {
             "options": {
@@ -247,7 +247,7 @@ exports[`defineConfig > minify and pretty 1`] = `
                 "reject": [Function],
                 "resolve": [Function],
               },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
+              "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
               "time": [Function],
             },
             "ready": {
@@ -265,9 +265,9 @@ exports[`defineConfig > minify and pretty 1`] = `
               "WARN": 3,
             },
           },
-          "id": "dot-log:[1m∵ root/minify[22m",
+          "id": "dot-log:∵ root/minify",
           "level": "info",
-          "name": "dot-log:[1m∵ root/minify[22m",
+          "name": "dot-log:∵ root/minify",
           "prefix": undefined,
         },
         "trace": [Function],
@@ -295,7 +295,7 @@ exports[`defineConfig > minify and pretty 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/pretty[22m {{level}} ",
+            "template": "[{{time}}] jsx-email ∵ root/pretty {{level}} ",
             "time": [Function],
           },
           "ready": {
@@ -313,7 +313,7 @@ exports[`defineConfig > minify and pretty 1`] = `
             "WARN": 3,
           },
         },
-        "name": "dot-log:[1m∵ root/pretty[22m",
+        "name": "dot-log:∵ root/pretty",
         "options": {
           "factory": LogFactory {
             "options": {
@@ -324,7 +324,7 @@ exports[`defineConfig > minify and pretty 1`] = `
                 "reject": [Function],
                 "resolve": [Function],
               },
-              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/pretty[22m {{level}} ",
+              "template": "[{{time}}] jsx-email ∵ root/pretty {{level}} ",
               "time": [Function],
             },
             "ready": {
@@ -342,9 +342,9 @@ exports[`defineConfig > minify and pretty 1`] = `
               "WARN": 3,
             },
           },
-          "id": "dot-log:[1m∵ root/pretty[22m",
+          "id": "dot-log:∵ root/pretty",
           "level": "info",
-          "name": "dot-log:[1m∵ root/pretty[22m",
+          "name": "dot-log:∵ root/pretty",
           "prefix": undefined,
         },
         "trace": [Function],

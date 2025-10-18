@@ -46,10 +46,9 @@ describe('<Head> component', async () => {
     expect(html).toContain(testMessage);
   });
 
-  it('renders mso-conditional statement correctly', async () => {
-    const msoConditional =
-      '<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->';
+  it('renders mso-conditional statement marker in jsxToString()', async () => {
     const html = await jsxToString(<Head enableFormatDetection />);
-    expect(html).toContain(msoConditional);
+    // Marker is a custom element that the rehype plugin will transform during render()
+    expect(html).toContain('<jsx-email-cond data-mso="true">');
   });
 });
