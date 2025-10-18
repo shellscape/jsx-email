@@ -1,5 +1,7 @@
 import type { Content, Element, Parents, Root } from 'hast';
 
+import { OFFICE_SETTINGS_XML } from './constants.js';
+
 interface Match {
   index: number;
   node: Element;
@@ -31,7 +33,12 @@ export const getConditionalPlugin = async () => {
 
       visit(tree, 'element', (node, index, parent) => {
         if (!parent || typeof index !== 'number') return;
-        if (node.tagName !== 'jsx-email-cond') return;
+        const isCustomMarker = node.tagName === 'jsx-email-cond';
+        const isMetaMarker =
+          node.tagName === 'meta' &&
+          (typeof (node.properties as any)?.['data-jsx-email-cond'] !== 'undefined' ||
+            typeof (node.properties as any)?.dataJsxEmailCond !== 'undefined');
+        if (!isCustomMarker && !isMetaMarker) return;
 
         const props = (node.properties || {}) as Record<string, unknown>;
         const msoProp = (props['data-mso'] ?? (props as any).dataMso) as unknown;
@@ -74,12 +81,21 @@ export const getConditionalPlugin = async () => {
             end = '<![endif]-->';
           }
 
-          // Children are already HAST nodes representing HTML; no need to stringify.
-          // Replace the wrapper element with start comment, original children, and end comment.
-          const startRaw: RawNode = { type: 'raw', value: start };
-          const endRaw: RawNode = { type: 'raw', value: end };
-          const children = (node.children as Content[]) || [];
-          (parent as ParentWithRaw).children.splice(index, 1, startRaw, ...children, endRaw);
+          if (node.tagName === 'meta') {
+            // Only inject the Office XML when explicitly targeting MSO and
+            // not using an arbitrary expression.
+            const shouldInjectOfficeXml = !expr && String(msoRaw) === 'true';
+            const inner = shouldInjectOfficeXml ? OFFICE_SETTINGS_XML : '';
+            const block: RawNode = { type: 'raw', value: `${start}${inner}${end}` };
+            (parent as ParentWithRaw).children.splice(index, 1, block);
+          } else {
+            // Preserve children as HAST nodes so downstream plugins can still
+            // operate on them; only the boundary comments are raw.
+            const startRaw: RawNode = { type: 'raw', value: start };
+            const endRaw: RawNode = { type: 'raw', value: end };
+            const children = (node.children as Content[]) || [];
+            (parent as ParentWithRaw).children.splice(index, 1, startRaw, ...children, endRaw);
+          }
         }
       }
     };

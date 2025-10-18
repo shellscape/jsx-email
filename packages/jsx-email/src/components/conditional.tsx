@@ -63,9 +63,22 @@ export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
   if (typeof mso === 'boolean') attrs['data-mso'] = mso ? 'true' : 'false';
   if (typeof expression === 'string') attrs['data-expression'] = expression;
 
-  const node = <jsx-email-cond {...attrs}>{children}</jsx-email-cond>;
+  // Emit a marker element that the rehype plugin will transform.
+  // - In <head>, use a <meta> marker because custom elements are not
+  //   allowed in <head> in many HTML parsers. This ensures the marker stays
+  //   in the head section through parsing.
+  // - Elsewhere, emit a lightweight custom element.
+  if (head) {
+    return (
+      <meta
+        data-jsx-email-cond="true"
+        {...(attrs['data-mso'] ? { 'data-mso': attrs['data-mso'] } : {})}
+        {...(attrs['data-expression'] ? { 'data-expression': attrs['data-expression'] } : {})}
+      />
+    );
+  }
 
-  return head ? <head>{node}</head> : node;
+  return <jsx-email-cond {...attrs}>{children}</jsx-email-cond>;
 };
 
 Conditional.displayName = 'Conditional';

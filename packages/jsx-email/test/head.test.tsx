@@ -46,10 +46,9 @@ describe('<Head> component', async () => {
     expect(html).toContain(testMessage);
   });
 
-  it('renders mso-conditional statement correctly', async () => {
-    const msoConditional =
-      '<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG></o:AllowPNG><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->';
+  it('renders mso-conditional statement marker in jsxToString()', async () => {
+    const marker = '<meta data-jsx-email-cond="true" data-mso="true"/>';
     const html = await jsxToString(<Head enableFormatDetection />);
-    expect(html).toContain(msoConditional);
+    expect(html).toContain(marker);
   });
 });
