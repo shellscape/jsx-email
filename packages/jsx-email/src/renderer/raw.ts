@@ -77,6 +77,12 @@ export const getRawPlugin = async () => {
             // Fallback: no comment child (unexpected). Unwrap the wrapper by
             // splicing its children directly to ensure no <jsx-email-raw> tags
             // remain in output.
+            if (process.env.NODE_ENV !== 'production') {
+              // eslint-disable-next-line no-console
+              console.warn(
+                'jsx-email: <Raw> wrapper missing expected comment child; splicing children as fallback'
+              );
+            }
             (parent as ParentWithRaw).children.splice(index, 1, ...(node.children as Content[]));
           }
         }
