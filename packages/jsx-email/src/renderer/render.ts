@@ -7,6 +7,7 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
 import { getRawPlugin, unescapeForRawComponent } from './raw.js';
+import { getConditionalPlugin } from './conditional.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -75,14 +76,27 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();
   const rawPlugin = await getRawPlugin();
+  const conditionalPlugin = await getConditionalPlugin();
   const settings = { emitParseErrors: true };
-  const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
+  // Remove any leftover custom tags (opening/closing/self-closing)
+  const reJsxTags = new RegExp(
+    `<(?:${jsxEmailTags.join('|')})(?:\\s[^>]*)?\\s*/?>|</(?:${jsxEmailTags.join('|')})>`,
+    'g'
+  );
 
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
 
-  processor.use(movePlugin);
+  // 1) Expand <jsx-email-raw> before wrapping content in conditional comments
   processor.use(rawPlugin);
+
+  // 2) Transform <jsx-email-cond> markers into real conditional comments
+  //    (must run after raw so raw HTML ends up inside the comment block)
+  processor.use(conditionalPlugin);
+
+  // 3) Move <style> tags to <head> after conditionalization so gated styles
+  //    remain inside their intended conditional comment blocks
+  processor.use(movePlugin);
   await callProcessHook({ config, processor });
 
   const doc = await processor

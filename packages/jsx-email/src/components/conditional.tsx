@@ -1,8 +1,20 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
-import { jsxToString } from '../renderer/jsx-to-string.js';
-import { useData } from '../renderer/suspense.js';
 import type { JsxEmailComponent } from '../types.js';
+
+declare module 'react/jsx-runtime' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'jsx-email-cond': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & {
+          'data-expression'?: string;
+          'data-mso'?: 'true' | 'false';
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
 
 export interface ConditionalProps {
   children?: React.ReactNode;
@@ -11,47 +23,39 @@ export interface ConditionalProps {
   mso?: boolean;
 }
 
-const notMso = (html: string) => `<!--[if !mso]><!-->${html}<!--<![endif]-->`;
-
-const comment = (expression: string, html: string) => `<!--[if ${expression}]>${html}<![endif]-->`;
-
-const Renderer = (props: ConditionalProps) => {
-  const { children, mso, head } = props;
-  let { expression } = props;
-  const html = useData(props, () => jsxToString(<>{children}</>));
-  let innerHtml = '';
-
-  if (mso === false) innerHtml = notMso(html);
-  else if (mso === true && !expression) expression = 'mso';
-  if (expression) innerHtml = comment(expression, html);
-
-  const Component = head ? 'head' : 'jsx-email-cond';
-
-  // @ts-ignore
-  // Note: This is perfectly valid. TS just expects lowercase tag names to match a specific type
-  return <Component dangerouslySetInnerHTML={{ __html: innerHtml }} />;
-};
-
+/**
+ * Emits a marker element (<jsx-email-cond>) that the render pipeline transforms
+ * into HTML conditional comments. Note: jsxToString() will output the marker
+ * element as-is; use render() to produce final conditional comments.
+ */
 export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
-  const { children, expression, mso } = props;
+  const { children, head, mso } = props;
+  const expr = props.expression?.trim();
 
-  if (typeof expression === 'undefined' && typeof mso === 'undefined')
+  if (typeof expr === 'string' && expr.length === 0) {
+    throw new RangeError('jsx-email: Conditional expects a non-empty `expression` when provided');
+  }
+
+  if (typeof expr === 'undefined' && typeof mso === 'undefined')
     throw new RangeError(
       'jsx-email: Conditional expects the `expression` or `mso` prop to be defined'
     );
 
-  if (typeof expression !== 'undefined' && typeof mso !== 'undefined')
+  if (typeof expr !== 'undefined' && typeof mso !== 'undefined')
     throw new RangeError(
       'jsx-email: Conditional expects the `expression` or `mso` prop to be defined, not both'
     );
 
-  return (
-    <>
-      <Suspense fallback={<div>waiting</div>}>
-        <Renderer {...props}>{children}</Renderer>
-      </Suspense>
-    </>
-  );
+  // Build a lightweight marker element that the rehype plugin will transform
+  // into a conditional comment block. We do not inline HTML here.
+  type CondElProps = JSX.IntrinsicElements['jsx-email-cond'];
+  const attrs: CondElProps = {};
+  if (typeof mso === 'boolean') attrs['data-mso'] = mso ? 'true' : 'false';
+  if (typeof expr === 'string') attrs['data-expression'] = expr;
+
+  const node = <jsx-email-cond {...attrs}>{children}</jsx-email-cond>;
+
+  return head ? <head>{node}</head> : node;
 };
 
 Conditional.displayName = 'Conditional';
