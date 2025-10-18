@@ -24,7 +24,15 @@ export interface ConditionalProps {
 }
 
 // Type alias for the intrinsic conditional marker element
-type ConditionalElementProps = JSX.IntrinsicElements['jsx-email-cond'];
+// Avoid referencing the global `JSX` namespace directly to keep type
+// resolution stable under different TS JSX settings.
+type ConditionalElementProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement> & {
+    'data-expression'?: string;
+    'data-mso'?: 'true' | 'false';
+  },
+  HTMLElement
+>;
 
 /**
  * Emits a marker element (<jsx-email-cond>) that the render pipeline transforms
