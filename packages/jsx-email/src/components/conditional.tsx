@@ -40,7 +40,10 @@ type ConditionalElementProps = React.DetailedHTMLProps<
  * element as-is; use render() to produce final conditional comments.
  */
 export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
-  const { children, mso } = props;
+  // Keep `head` in the destructure to make intent explicit even though the
+  // current implementation does not branch on it. Using a leading underscore
+  // avoids unused-var linting while preserving the public prop.
+  const { children, head: _head, mso } = props;
   const expression = props.expression?.trim();
 
   if (typeof expression === 'string' && expression.length === 0) {
