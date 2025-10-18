@@ -47,8 +47,8 @@ describe('<Head> component', async () => {
   });
 
   it('renders mso-conditional statement marker in jsxToString()', async () => {
-    const marker = '<meta data-jsx-email-cond="true" data-mso="true"/>';
     const html = await jsxToString(<Head enableFormatDetection />);
-    expect(html).toContain(marker);
+    // Marker is a custom element that the rehype plugin will transform during render()
+    expect(html).toContain('<jsx-email-cond data-mso="true">');
   });
 });

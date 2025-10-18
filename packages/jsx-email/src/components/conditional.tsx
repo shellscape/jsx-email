@@ -40,7 +40,7 @@ type ConditionalElementProps = React.DetailedHTMLProps<
  * element as-is; use render() to produce final conditional comments.
  */
 export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
-  const { children, head, mso } = props;
+  const { children, mso } = props;
   const expression = props.expression?.trim();
 
   if (typeof expression === 'string' && expression.length === 0) {
@@ -62,21 +62,6 @@ export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
   const attrs: ConditionalElementProps = {};
   if (typeof mso === 'boolean') attrs['data-mso'] = mso ? 'true' : 'false';
   if (typeof expression === 'string') attrs['data-expression'] = expression;
-
-  // Emit a marker element that the rehype plugin will transform.
-  // - In <head>, use a <meta> marker because custom elements are not
-  //   allowed in <head> in many HTML parsers. This ensures the marker stays
-  //   in the head section through parsing.
-  // - Elsewhere, emit a lightweight custom element.
-  if (head) {
-    return (
-      <meta
-        data-jsx-email-cond="true"
-        {...(attrs['data-mso'] ? { 'data-mso': attrs['data-mso'] } : {})}
-        {...(attrs['data-expression'] ? { 'data-expression': attrs['data-expression'] } : {})}
-      />
-    );
-  }
 
   return <jsx-email-cond {...attrs}>{children}</jsx-email-cond>;
 };
