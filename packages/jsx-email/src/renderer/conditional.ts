@@ -1,5 +1,7 @@
-import type { Content, Element, Parents, Root } from 'hast';
+import type { Comment, Content, Element, Parents, Root } from 'hast';
 import { visit, EXIT, CONTINUE } from 'unist-util-visit';
+
+import { unescapeForRawComponent } from './raw.js';
 
 type ParentWithChildren = Parents & { children: Content[] };
 
@@ -54,8 +56,46 @@ export const getConditionalPlugin = () =>
       for (const [parent, items] of byParent) {
         items.sort((a, b) => b.index - a.index);
         for (const { index, node } of items) {
-          const children = (node.children as Content[]) ?? [];
-          (parent as ParentWithChildren).children.splice(index, 1, ...children);
+          // Special-case: legacy path renders a single HTML comment containing
+          // the conditional wrapper and an inner <jsx-email-raw><!--...--></jsx-email-raw>
+          // placeholder. In that case, emit a single `raw` node with the
+          // correct conditional wrapper and the unescaped inner HTML so the
+          // content is preserved byte-for-byte.
+          const onlyChild = node.children?.[0] as Comment | undefined;
+          if (
+            node.children?.length === 1 &&
+            onlyChild?.type === 'comment' &&
+            /\[if\s+[^\]]+\]/.test(onlyChild.value)
+          ) {
+            // Extract the [if ...] expression
+            const exprMatch = onlyChild.value.match(/\[if\s+([^\]]+)\]/);
+            // Extract the Raw placeholder payload
+            const rawMatch = onlyChild.value.match(
+              /<jsx-email-raw><!--([\s\S]*?)--><\/jsx-email-raw>/
+            );
+
+            if (exprMatch && rawMatch) {
+              const expression = exprMatch[1].trim();
+              const inner = unescapeForRawComponent(rawMatch[1]);
+              const rawNode = {
+                type: 'raw',
+                value: `<!--[if ${expression}]>${inner}<![endif]-->`
+              } as const;
+              (parent as ParentWithChildren).children.splice(
+                index,
+                1,
+                rawNode as unknown as Content
+              );
+            } else {
+              // Default: unwrap the wrapper and splice its children in place.
+              const children = (node.children as Content[]) ?? [];
+              (parent as ParentWithChildren).children.splice(index, 1, ...children);
+            }
+          } else {
+            // Default: unwrap the wrapper and splice its children in place.
+            const children = (node.children as Content[]) ?? [];
+            (parent as ParentWithChildren).children.splice(index, 1, ...children);
+          }
         }
       }
     };
