@@ -35,11 +35,9 @@ export const getConditionalPlugin = async () => {
 
         const props = (node.properties || {}) as Record<string, unknown>;
         const msoProp = (props['data-mso'] ?? (props as any).dataMso) as unknown;
-        const exprProp = (props['data-expression'] ?? (props as any).dataExpression) as
-          | string
-          | undefined;
+        const exprRaw = props['data-expression'] ?? (props as any).dataExpression;
         const hasMso = typeof msoProp !== 'undefined';
-        const hasExpr = typeof exprProp !== 'undefined';
+        const hasExpr = typeof exprRaw === 'string' && exprRaw.trim() !== '';
 
         // Only transform wrappers that explicitly declare intent via data-*.
         if (!hasMso && !hasExpr) return;
@@ -58,10 +56,8 @@ export const getConditionalPlugin = async () => {
 
         for (const { node, index } of list) {
           const props = (node.properties || {}) as Record<string, unknown>;
-          const exprRaw = (props['data-expression'] ?? (props as any).dataExpression) as
-            | string
-            | undefined;
-          const expr = exprRaw?.trim();
+          const exprSource = props['data-expression'] ?? (props as any).dataExpression;
+          const expr = typeof exprSource === 'string' ? exprSource.trim() : void 0;
           const msoRaw = props['data-mso'] ?? (props as any).dataMso;
 
           let start = '';
