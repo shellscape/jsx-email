@@ -23,6 +23,9 @@ export interface ConditionalProps {
   mso?: boolean;
 }
 
+// Type alias for the intrinsic conditional marker element
+type ConditionalElementProps = JSX.IntrinsicElements['jsx-email-cond'];
+
 /**
  * Emits a marker element (<jsx-email-cond>) that the render pipeline transforms
  * into HTML conditional comments. Note: jsxToString() will output the marker
@@ -30,28 +33,27 @@ export interface ConditionalProps {
  */
 export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
   const { children, head, mso } = props;
-  const expr = props.expression?.trim();
+  const expression = props.expression?.trim();
 
-  if (typeof expr === 'string' && expr.length === 0) {
+  if (typeof expression === 'string' && expression.length === 0) {
     throw new RangeError('jsx-email: Conditional expects a non-empty `expression` when provided');
   }
 
-  if (typeof expr === 'undefined' && typeof mso === 'undefined')
+  if (typeof expression === 'undefined' && typeof mso === 'undefined')
     throw new RangeError(
       'jsx-email: Conditional expects the `expression` or `mso` prop to be defined'
     );
 
-  if (typeof expr !== 'undefined' && typeof mso !== 'undefined')
+  if (typeof expression !== 'undefined' && typeof mso !== 'undefined')
     throw new RangeError(
       'jsx-email: Conditional expects the `expression` or `mso` prop to be defined, not both'
     );
 
   // Build a lightweight marker element that the rehype plugin will transform
   // into a conditional comment block. We do not inline HTML here.
-  type CondElProps = JSX.IntrinsicElements['jsx-email-cond'];
-  const attrs: CondElProps = {};
+  const attrs: ConditionalElementProps = {};
   if (typeof mso === 'boolean') attrs['data-mso'] = mso ? 'true' : 'false';
-  if (typeof expr === 'string') attrs['data-expression'] = expr;
+  if (typeof expression === 'string') attrs['data-expression'] = expression;
 
   const node = <jsx-email-cond {...attrs}>{children}</jsx-email-cond>;
 

@@ -24,17 +24,6 @@ interface ParentWithRaw {
  */
 export const getConditionalPlugin = async () => {
   const { visit } = await import('unist-util-visit');
-  const { rehype } = await import('rehype');
-  const { default: stringify } = await import('rehype-stringify');
-
-  // Local child stringifier that mirrors main stringify options so that
-  // embedded HTML matches our final output formatting.
-  const childProcessor = rehype().use(stringify, {
-    allowDangerousCharacters: true,
-    allowDangerousHtml: true,
-    closeEmptyElements: true,
-    collapseEmptyAttributes: true
-  });
 
   return function conditionalPlugin() {
     return function transform(tree: Root) {
@@ -82,15 +71,12 @@ export const getConditionalPlugin = async () => {
             end = '<![endif]-->';
           }
 
-          // Serialize children to HTML and wrap in a single raw node
-          const childRoot: Root = { children: node.children as Content[], type: 'root' };
-          const serialized = String(childProcessor.processSync(childRoot)).replace(
-            /^<!doctype html>/i,
-            ''
-          );
-
-          const block: RawNode = { type: 'raw', value: `${start}${serialized}${end}` };
-          (parent as ParentWithRaw).children.splice(index, 1, block);
+          // Children are already HAST nodes representing HTML; no need to stringify.
+          // Replace the wrapper element with start comment, original children, and end comment.
+          const startRaw: RawNode = { type: 'raw', value: start };
+          const endRaw: RawNode = { type: 'raw', value: end };
+          const children = (node.children as Content[]) || [];
+          (parent as ParentWithRaw).children.splice(index, 1, startRaw, ...children, endRaw);
         }
       }
     };
