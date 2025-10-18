@@ -34,8 +34,12 @@ export const getConditionalPlugin = async () => {
         if (node.tagName !== 'jsx-email-cond') return;
 
         const props = (node.properties || {}) as Record<string, unknown>;
-        const hasMso = typeof props['data-mso'] !== 'undefined';
-        const hasExpr = typeof props['data-expression'] !== 'undefined';
+        const msoProp = (props['data-mso'] ?? (props as any).dataMso) as unknown;
+        const exprProp = (props['data-expression'] ?? (props as any).dataExpression) as
+          | string
+          | undefined;
+        const hasMso = typeof msoProp !== 'undefined';
+        const hasExpr = typeof exprProp !== 'undefined';
 
         // Only transform wrappers that explicitly declare intent via data-*.
         if (!hasMso && !hasExpr) return;
@@ -54,8 +58,11 @@ export const getConditionalPlugin = async () => {
 
         for (const { node, index } of list) {
           const props = (node.properties || {}) as Record<string, unknown>;
-          const expr = (props['data-expression'] as string | undefined)?.trim();
-          const msoRaw = props['data-mso'];
+          const exprRaw = (props['data-expression'] ?? (props as any).dataExpression) as
+            | string
+            | undefined;
+          const expr = exprRaw?.trim();
+          const msoRaw = props['data-mso'] ?? (props as any).dataMso;
 
           let start = '';
           let end = '';
