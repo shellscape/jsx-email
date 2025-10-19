@@ -50,7 +50,12 @@ export const getConditionalPlugin = async () => {
         const exprRaw = (props['data-expression'] ?? (props as any).dataExpression) as unknown;
         const exprAttr = typeof exprRaw === 'string' ? exprRaw : void 0;
         const headProp = (props['data-head'] ?? (props as any).dataHead) as unknown;
-        const toHead = typeof headProp === 'undefined' ? false : Boolean(headProp);
+        const toHead =
+          typeof headProp === 'undefined'
+            ? false
+            : headProp === 'false'
+            ? false
+            : Boolean(headProp);
 
         let openRaw: string | undefined;
         let closeRaw: string | undefined;
@@ -77,10 +82,15 @@ export const getConditionalPlugin = async () => {
         const children = (node.children || []) as Content[];
 
         if (toHead && headEl) {
-          // Remove wrapper from current location
-          (parent as ParentWithRaw).children.splice(index, 1);
-          // Append the conditional to the <head>
-          (headEl as unknown as ParentWithRaw).children.push(before, ...children, after);
+          if (parent === headEl) {
+            // Replace in place: open raw, original children, close raw.
+            (parent as ParentWithRaw).children.splice(index, 1, before, ...children, after);
+          } else {
+            // Remove wrapper from current location
+            (parent as ParentWithRaw).children.splice(index, 1);
+            // Append the conditional to the <head>
+            (headEl as unknown as ParentWithRaw).children.push(before, ...children, after);
+          }
         } else {
           // Replace in place: open raw, original children, close raw.
           (parent as ParentWithRaw).children.splice(index, 1, before, ...children, after);
