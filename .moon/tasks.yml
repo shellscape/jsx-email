@@ -31,8 +31,6 @@ tasks:
     inputs:
       - src
       - package.json
-    options:
-      cache: false
 
   compile:
     command: tshy
