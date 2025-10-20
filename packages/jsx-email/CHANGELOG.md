@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.6
+
+_2025-10-20_
+
+### Updates
+
+- jsx-email: syntatically correct Conditional, rehype plugin, nested Raw (#328)
+
 ## v2.7.5
 
 _2025-10-16_
