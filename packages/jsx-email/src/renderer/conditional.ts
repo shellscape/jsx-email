@@ -69,7 +69,11 @@ export const getConditionalPlugin = async () => {
           const expression = exprAttr || (msoAttr === true ? 'mso' : void 0);
           if (expression) {
             openRaw = `<!--[if ${expression}]>`;
-            closeRaw = '<![endif]-->';
+            // Older Outlook/Word HTML parsers prefer the self-closing
+            // conditional terminator variant to avoid comment spillover
+            // when adjacent comments appear. Use the `<![endif]/-->` form
+            // for maximum compatibility.
+            closeRaw = '<![endif]/-->';
           }
         }
 
