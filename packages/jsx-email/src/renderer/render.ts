@@ -6,12 +6,8 @@ import type { PlainTextOptions, RenderOptions } from '../types.js';
 
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
-import {
-  RAW_WRAPPER_RE,
-  getRawPlugin,
-  normalizeMsoConditionalClosers,
-  unescapeForRawComponent
-} from './raw.js';
+import { getRawPlugin, unescapeForRawComponent } from './raw.js';
+import { getConditionalPlugin } from './conditional.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -80,13 +76,18 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();
   const rawPlugin = await getRawPlugin();
+  const conditionalPlugin = await getConditionalPlugin();
   const settings = { emitParseErrors: true };
+  // Remove any stray jsx-email markers (with or without attributes)
+  const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})(?:\\s[^>]*)?>`, 'g');
 
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
 
   processor.use(movePlugin);
   processor.use(rawPlugin);
+  // Ensure conditional processing happens after raw hoisting
+  processor.use(conditionalPlugin);
   await callProcessHook({ config, processor });
 
   const doc = await processor
@@ -98,29 +99,9 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     })
     .process(html);
 
-  const result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
-  try {
-    if (process.env.DEBUG_REHYPE && result.includes('<jsx-email-raw')) {
-      const { writeFileSync } = await import('node:fs');
-      const { join } = await import('node:path');
-      const { tmpdir } = await import('node:os');
-      const filePath = join(tmpdir(), 'jsx-email-debug.html');
-      writeFileSync(filePath, result);
-    }
-  } catch {
-    // noop: best-effort debug write when DEBUG_REHYPE is set
-  }
-  const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})>`, 'g');
-  const reRawWrapper = RAW_WRAPPER_RE;
-  // Handle a corrupted closer where the </jsx-email-raw> tag is eaten and the
-  // comment terminator abuts the MSO closer: `<jsx-email-raw><!--…--><![endif]-->`.
-  const reRawBeforeEndif =
-    /<jsx-email-raw[^>]*?>\s*(?:<!--|&#x3C;!--)([\s\S]*?)-->[\s\r\n]*(?=(?:<!\[endif\]|<!--\[endif\])-+-->)/g;
-  const unwrapped = normalizeMsoConditionalClosers(
-    result
-      .replace(reJsxTags, '')
-      .replace(reRawWrapper, (_m, p1) => unescapeForRawComponent(p1))
-      .replace(reRawBeforeEndif, (_m, p1) => unescapeForRawComponent(p1))
-  );
-  return unwrapped;
+  let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
+
+  result = result.replace(reJsxTags, '');
+
+  return result;
 };

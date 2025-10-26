@@ -1,0 +1,36 @@
+export declare const AttributeAliases: {
+    acceptCharset: string;
+    accessKey: string;
+    allowFullScreen: string;
+    autoCapitalize: string;
+    autoComplete: string;
+    autoCorrect: string;
+    autoFocus: string;
+    autoPlay: string;
+    charSet: string;
+    className: string;
+    colSpan: string;
+    contentEditable: string;
+    crossOrigin: string;
+    dateTime: string;
+    defaultChecked: string;
+    defaultSelected: string;
+    defaultValue: string;
+    htmlFor: string;
+    httpEquiv: string;
+    longDesc: string;
+    maxLength: string;
+    minLength: string;
+    noModule: string;
+    noValidate: string;
+    readOnly: string;
+    referrerPolicy: string;
+    rowSpan: string;
+    spellCheck: string;
+    tabIndex: string;
+    useMap: string;
+};
+export declare const BooleanAttributes: Set<string>;
+export declare const EmptyObject: Readonly<{}>;
+export declare const VoidElements: Set<string>;
+//# sourceMappingURL=constants.d.ts.map
