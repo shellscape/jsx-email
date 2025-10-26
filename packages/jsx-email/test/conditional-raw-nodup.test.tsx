@@ -4,9 +4,16 @@ import { describe, expect, it } from 'vitest';
 import { Conditional, Raw, render } from '../src/index.ts';
 
 function count(haystack: string, needle: string) {
-  const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const re = new RegExp(escaped, 'g');
-  return (haystack.match(re) || []).length;
+  // Avoid regex escaping pitfalls by scanning linearly
+  let i = 0;
+  let c = 0;
+  while (true) {
+    const at = haystack.indexOf(needle, i);
+    if (at === -1) break;
+    c += 1;
+    i = at + needle.length;
+  }
+  return c;
 }
 
 describe('Conditional + Raw – no duplication', () => {
@@ -23,19 +30,22 @@ describe('Conditional + Raw – no duplication', () => {
       </Conditional>
     );
 
-    // Exactly one conditional block and one copy of the inner table
-    expect(count(html, '<!--[if mso]>')).toBe(1);
+    // Exactly one conditional block, one closer, and one copy of the inner table
+    const opener = '<!--[if mso]>';
+    const closer = '<![endif]/-->';
+    expect(count(html, opener)).toBe(1);
+    expect(count(html, closer)).toBe(1);
     expect(count(html, 'id="msoTableTest"')).toBe(1);
     expect(count(html, 'data-testid="unique"')).toBe(1);
 
     // Sanity: should not contain an unguarded duplicate of the table before/after the block
-    const firstIdx = html.indexOf('<!--[if mso]>');
-    const lastIdx = html.indexOf('<![endif]/-->');
-    expect(firstIdx).toBeGreaterThan(0);
+    const firstIdx = html.indexOf(opener);
+    const lastIdx = html.lastIndexOf(closer);
+    expect(firstIdx).toBeGreaterThanOrEqual(0);
     expect(lastIdx).toBeGreaterThan(firstIdx);
 
     const before = html.slice(0, firstIdx);
-    const after = html.slice(lastIdx + '<![endif]/-->'.length);
+    const after = html.slice(lastIdx + closer.length);
     expect(before).not.toContain('id="msoTableTest"');
     expect(after).not.toContain('id="msoTableTest"');
   });

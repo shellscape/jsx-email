@@ -26,7 +26,7 @@ Run the `packages/jsx-email` test suite locally with the same settings CI uses s
 
 ## Rollback
 - If you mistakenly updated snapshots for log/ANSI output, reset them:
-  - `git restore --source=origin/$(git rev-parse --abbrev-ref HEAD) -- packages/jsx-email/test/**/.snapshots || true`
+  - `git restore --source=origin/$(git rev-parse --abbrev-ref HEAD) -- "packages/jsx-email/test/**/.snapshots/*.snap" || true`
   - Or discard all local changes: `git reset --hard`
 
 ## References
