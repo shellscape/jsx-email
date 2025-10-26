@@ -5,80 +5,7 @@ exports[`loadConfig → parent dir > loadConfig 1`] = `
   "logLevel": "info",
   "plugins": [
     {
-      "log": LogLevel {
-        "currentLevel": 2,
-        "debug": [Function],
-        "error": [Function],
-        "info": [Function],
-        "log": [Function],
-        "methodFactory": LogFactory {
-          "options": {
-            "level": [Function],
-            "name": [Function],
-            "ready": {
-              "promise": Promise {},
-              "reject": [Function],
-              "resolve": [Function],
-            },
-            "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
-            "time": [Function],
-          },
-          "ready": {
-            "promise": Promise {},
-            "reject": [Function],
-            "resolve": [Function],
-          },
-          Symbol(log-instance): [Circular],
-          Symbol(log-levels): {
-            "DEBUG": 1,
-            "ERROR": 4,
-            "INFO": 2,
-            "SILENT": 5,
-            "TRACE": 0,
-            "WARN": 3,
-          },
-        },
-        "name": "dot-log:∵ root/minify",
-        "options": {
-          "factory": LogFactory {
-            "options": {
-              "level": [Function],
-              "name": [Function],
-              "ready": {
-                "promise": Promise {},
-                "reject": [Function],
-                "resolve": [Function],
-              },
-              "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
-              "time": [Function],
-            },
-            "ready": {
-              "promise": Promise {},
-              "reject": [Function],
-              "resolve": [Function],
-            },
-            Symbol(log-instance): [Circular],
-            Symbol(log-levels): {
-              "DEBUG": 1,
-              "ERROR": 4,
-              "INFO": 2,
-              "SILENT": 5,
-              "TRACE": 0,
-              "WARN": 3,
-            },
-          },
-          "id": "dot-log:∵ root/minify",
-          "level": "info",
-          "name": "dot-log:∵ root/minify",
-          "prefix": undefined,
-        },
-        "trace": [Function],
-        "type": "LogLevel",
-        "warn": [Function],
-      },
       "name": "root/minify",
-      "process": [Function],
-      "symbol": Symbol(jsx-email/plugin),
     },
   ],
   "render": {
@@ -88,6 +15,5 @@ exports[`loadConfig → parent dir > loadConfig 1`] = `
     "plainText": false,
     "pretty": false,
   },
-  "symbol": Symbol(jsx-email/config),
 }
 `;
