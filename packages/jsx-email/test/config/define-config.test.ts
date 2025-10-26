@@ -1,23 +1,9 @@
 import { defineConfig } from '../../src/config.js';
 import { pluginSymbol } from '../../src/plugins.js';
 
-// Snapshot only stable fields to avoid environment-dependent diffs
-const stable = (config: any) => {
-  return {
-    logLevel: config.logLevel,
-    plugins: Array.isArray(config.plugins)
-      ? config.plugins.map((p: any) => {
-          return { name: p?.name };
-        })
-      : [],
-    render: config.render
-  };
-};
-
 describe('defineConfig', async () => {
   test('defaults', async () => {
-    const config = await defineConfig({});
-    expect(stable(config)).toMatchSnapshot();
+    expect(await defineConfig({})).toMatchSnapshot();
   });
 
   test('basic set', async () => {
@@ -26,7 +12,7 @@ describe('defineConfig', async () => {
         minify: true
       }
     });
-    expect(stable(config)).toMatchSnapshot();
+    expect(config).toMatchSnapshot();
   });
 
   test('minify and pretty', async () => {
@@ -36,7 +22,7 @@ describe('defineConfig', async () => {
         pretty: true
       }
     });
-    expect(stable(config)).toMatchSnapshot();
+    expect(config).toMatchSnapshot();
   });
 
   test('plain', async () => {
@@ -47,7 +33,7 @@ describe('defineConfig', async () => {
         pretty: true
       }
     });
-    expect(stable(config)).toMatchSnapshot();
+    expect(config).toMatchSnapshot();
   });
 
   test('de-dupe plugins', async () => {
@@ -55,6 +41,6 @@ describe('defineConfig', async () => {
     const config = await defineConfig({
       plugins: [plugin as any, plugin]
     });
-    expect(stable(config)).toMatchSnapshot();
+    expect(config).toMatchSnapshot();
   });
 });
