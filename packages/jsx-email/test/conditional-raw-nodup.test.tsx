@@ -1,8 +1,7 @@
-// @ts-ignore
-import React from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { Conditional, Raw, render } from '../dist/esm/index.js';
+// Import from source to keep tests hermetic and avoid prebuild coupling
+import { Conditional, Raw, render } from '../src/index.ts';
 
 function count(haystack: string, needle: string) {
   const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
