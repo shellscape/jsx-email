@@ -27,6 +27,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - Build artifacts used by tests:
     - `pnpm moon run plugin-inline:build plugin-minify:build plugin-pretty:build`
     - `pnpm moon run jsx-email:build`
+  - Lint: `pnpm moon run repo:lint`
   - Tests (exactly like CI): `FORCE_COLOR=1 pnpm moon run jsx-email:test.ci`
   - TypeScript (package): `pnpm moon run jsx-email:tsc`
   - Do not change tool configs or CI to make checks pass.
