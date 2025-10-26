@@ -30,6 +30,11 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - Tests (exactly like CI): `FORCE_COLOR=1 pnpm moon run jsx-email:test.ci`
   - TypeScript (package): `pnpm moon run jsx-email:tsc`
   - Do not change tool configs or CI to make checks pass.
+- [R4.1] Linting (must run before pushing any commits):
+  - Run repo linting via Moon: `pnpm moon run repo:lint`.
+  - Do not push if linting reports errors anywhere. Fix them or coordinate a follow‑up if they are unrelated but surfaced by your changes.
+  - If linting reports warnings in files you modified, resolve those warnings before pushing.
+  - For quick checks while iterating, you may run ESLint scoped to touched files, but always run the full `repo:lint` before the final push.
 - [R5] Git & PRs:
   - Branch names: `<type>/<short-slug>` (e.g., `fix/conditional-endif-slash`).
   - Commit messages use Conventional Commits; ≤ 72 chars in the subject; no emojis.

@@ -4,13 +4,12 @@ import { describe, expect, it } from 'vitest';
 import { Conditional, Raw, render } from '../src/index.ts';
 
 function count(haystack: string, needle: string) {
-  if (needle.length === 0) return 0; // prevent hangs on empty needle
+  // Prevent hangs on empty needle
+  if (needle.length === 0) return 0;
   // Avoid regex escaping pitfalls by scanning linearly
   let i = 0;
   let c = 0;
-  while (true) {
-    const at = haystack.indexOf(needle, i);
-    if (at === -1) break;
+  for (let at = haystack.indexOf(needle, i); at !== -1; at = haystack.indexOf(needle, i)) {
     c += 1;
     i = at + needle.length;
   }
