@@ -14,7 +14,6 @@ describe('<Conditional mso> closer', () => {
     expect(html).toContain('<![endif]/-->' /* Outlook-friendly closer */);
     expect(html).not.toContain('<![endif]-->' /* slashless closer */);
     expect(html).not.toContain('<!--[endif]---->' /* previously corrupted closer */);
-
     // Robustness: ensure the closer appears exactly once
     expect((html.match(/<!\[endif\]\/-->/g) || []).length).toBe(1);
   });

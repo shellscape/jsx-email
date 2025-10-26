@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { Conditional, Raw, render } from '../src/index.ts';
 
 function count(haystack: string, needle: string) {
+  if (needle.length === 0) return 0; // prevent hangs on empty needle
   // Avoid regex escaping pitfalls by scanning linearly
   let i = 0;
   let c = 0;
