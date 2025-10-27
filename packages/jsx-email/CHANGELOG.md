@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.7
+
+_2025-10-27_
+
+### Bugfixes
+
+- jsx-email: emit <![endif]/--> for conditional, add no-dup test (#330)
+
 ## v2.7.6
 
 _2025-10-20_
