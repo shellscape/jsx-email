@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { dirname, basename, extname, join, isAbsolute, posix, resolve, win32 } from 'path';
+import { dirname, basename, extname, join, resolve } from 'path';
 
 import esbuild from 'esbuild';
 
@@ -78,7 +78,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
       if (!entryPoint) return null;
       return {
         entryPoint,
-        path: resolve(outDir, path)
+        path: resolve(originalCwd, path)
       };
     })
     .filter<CompileResult>(Boolean as any);
@@ -87,11 +87,11 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
 
   if (metafile && writeMeta) {
     const ops = Object.entries(outputs).map(async ([path]) => {
-      const outPath = resolveOutputPath(outDir, path);
-      const fileName = basename(outPath, extname(outPath));
-      const metaPath = join(dirname(outPath), `${fileName}.meta.json`);
-      // const fileName = basename(path, extname(path));
-      // const metaPath = join(dirname(path), `${fileName}.meta.json`);
+      // const outPath = resolveOutputPath(outDir, path);
+      // const fileName = basename(outPath, extname(outPath));
+      // const metaPath = join(dirname(outPath), `${fileName}.meta.json`);
+      const fileName = basename(path, extname(path));
+      const metaPath = join(dirname(path), `${fileName}.meta.json`);
       const writePath = resolve(originalCwd, metaPath);
       const json = JSON.stringify(metafile);
 
@@ -104,25 +104,25 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
   return affectedFiles;
 };
 
-export const resolveOutputPath = (
-  outDir: string,
-  outKey: string,
-  cwd: string = originalCwd
-): string => {
-  // Absolute (platform current) or Windows-style absolute
-  // Do not normalize separators; return exactly as provided
-  if (isAbsolute(outKey) || win32.isAbsolute(outKey)) {
-    return outKey;
-  }
+// export const resolveOutputPath = (
+//   outDir: string,
+//   outKey: string,
+//   cwd: string = originalCwd
+// ): string => {
+//   // Absolute (platform current) or Windows-style absolute
+//   // Do not normalize separators; return exactly as provided
+//   if (isAbsolute(outKey) || win32.isAbsolute(outKey)) {
+//     return outKey;
+//   }
 
-  // macOS: keys may omit the leading '/'
-  // e.g., outDir: '/private/var/.../build' and key: 'private/var/.../build/file.js'
-  if (posix.isAbsolute(outDir)) {
-    const outNoLead = outDir.slice(1);
-    if (outKey.startsWith(outNoLead + posix.sep)) {
-      return posix.join(posix.sep, outKey);
-    }
-  }
+//   // macOS: keys may omit the leading '/'
+//   // e.g., outDir: '/private/var/.../build' and key: 'private/var/.../build/file.js'
+//   if (posix.isAbsolute(outDir)) {
+//     const outNoLead = outDir.slice(1);
+//     if (outKey.startsWith(outNoLead + posix.sep)) {
+//       return posix.join(posix.sep, outKey);
+//     }
+//   }
 
-  return resolve(cwd, outKey);
-};
+//   return resolve(cwd, outKey);
+// };
