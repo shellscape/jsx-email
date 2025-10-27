@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { dirname, basename, extname, join, resolve } from 'path';
+import { dirname, basename, extname, join, resolve, isAbsolute } from 'path';
 
 import esbuild from 'esbuild';
 
@@ -44,6 +44,29 @@ interface CompileResult {
   path: string;
 }
 
+// Convert any path to POSIX-style slashes for consistent comparisons
+const toPosix = (p: string) => p.replace(/\\/g, '/');
+
+// Internal: resolve an esbuild metafile output key to an absolute file path
+// Handles macOS quirk where keys may omit the leading '/'
+export const _resolveOutputPath = (outDir: string, outKey: string): string => {
+  const outDirPosix = toPosix(outDir);
+  const keyPosix = toPosix(outKey);
+
+  // If esbuild already provided an absolute path, use it as-is
+  if (isAbsolute(keyPosix) || /^[A-Za-z]:\//.test(keyPosix)) return keyPosix;
+
+  // macOS: sometimes keys look absolute but are missing the leading '/'
+  // e.g. key: 'private/var/folders/.../T/jsx-email/build/file.js'
+  // while outDir: '/private/var/folders/.../T/jsx-email/build'
+  if (outDirPosix.startsWith('/')) {
+    const outNoLead = outDirPosix.slice(1);
+    if (keyPosix.startsWith(outNoLead + '/')) return `/${keyPosix}`;
+  }
+
+  // Fallback: treat key as relative to outDir
+  return resolve(outDir, outKey);
+};
 /**
  * @desc Compiles a JSX/TSX template file using esbuild
  * @param options CompileOptions
@@ -73,22 +96,23 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
   const { outputs } = metafile;
   const outputPaths = Object.keys(outputs);
   const affectedFiles = outputPaths
-    .map((path) => {
-      const { entryPoint } = metafile.outputs[path];
+    .map((key) => {
+      const { entryPoint } = metafile.outputs[key];
       if (!entryPoint) return null;
       return {
         entryPoint,
-        path: resolve(outDir, path)
+        path: _resolveOutputPath(outDir, key)
       };
     })
-    .filter<CompileResult>(Boolean as any);
+    .filter((x): x is CompileResult => x !== null);
 
   // log.debug({ affectedFiles });
 
   if (metafile && writeMeta) {
-    const ops = Object.entries(outputs).map(async ([path]) => {
-      const fileName = basename(path, extname(path));
-      const metaPath = join(dirname(path), `${fileName}.meta.json`);
+    const ops = Object.keys(outputs).map(async (key) => {
+      const outPath = _resolveOutputPath(outDir, key);
+      const fileName = basename(outPath, extname(outPath));
+      const metaPath = join(dirname(outPath), `${fileName}.meta.json`);
       const writePath = resolve(originalCwd, metaPath);
       const json = JSON.stringify(metafile);
 
