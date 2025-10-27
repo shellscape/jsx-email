@@ -1,5 +1,16 @@
+/* eslint-disable import/extensions */
 import { readFile, writeFile } from 'node:fs/promises';
-import { dirname, basename, extname, join, resolve, isAbsolute } from 'path';
+import {
+  dirname,
+  basename,
+  extname,
+  join,
+  resolve,
+  isAbsolute,
+  normalize,
+  posix,
+  win32
+} from 'node:path';
 
 import esbuild from 'esbuild';
 
@@ -44,28 +55,31 @@ interface CompileResult {
   path: string;
 }
 
-// Convert any path to POSIX-style slashes for consistent comparisons
-const toPosix = (p: string) => p.replace(/\\/g, '/');
-
-// Internal: resolve an esbuild metafile output key to an absolute file path
-// Handles macOS quirk where keys may omit the leading '/'
-export const resolveOutputPath = (outDir: string, outKey: string): string => {
-  const outDirPosix = toPosix(outDir);
-  const keyPosix = toPosix(outKey);
-
-  // If esbuild already provided an absolute path, use it as-is
-  if (isAbsolute(keyPosix) || /^[A-Za-z]:\//.test(keyPosix)) return keyPosix;
-
-  // macOS: sometimes keys look absolute but are missing the leading '/'
-  // e.g. key: 'private/var/folders/.../T/jsx-email/build/file.js'
-  // while outDir: '/private/var/folders/.../T/jsx-email/build'
-  if (outDirPosix.startsWith('/')) {
-    const outNoLead = outDirPosix.slice(1);
-    if (keyPosix.startsWith(`${outNoLead}/`)) return `/${keyPosix}`;
+// Resolve an esbuild metafile output key to an absolute filesystem path.
+// - Accepts absolute keys in both POSIX and Windows forms.
+// - Handles macOS cases where the leading '/' is omitted in keys under /private.
+// - Resolves relative keys against the original CWD (esbuild behavior), not outDir.
+export const resolveOutputPath = (
+  outDir: string,
+  outKey: string,
+  cwd: string = originalCwd
+): string => {
+  // Absolute (platform current) or Windows-style absolute
+  if (isAbsolute(outKey) || win32.isAbsolute(outKey)) {
+    return normalize(outKey);
   }
 
-  // Fallback: treat key as relative to outDir
-  return resolve(outDir, outKey);
+  // macOS: keys may omit the leading '/'
+  // e.g., outDir: '/private/var/.../build' and key: 'private/var/.../build/file.js'
+  if (posix.isAbsolute(outDir)) {
+    const outNoLead = outDir.slice(1);
+    if (outKey.startsWith(outNoLead + posix.sep)) {
+      return posix.join(posix.sep, outKey);
+    }
+  }
+
+  // Relative keys are relative to the process CWD used for the esbuild run
+  return resolve(cwd, outKey);
 };
 /**
  * @desc Compiles a JSX/TSX template file using esbuild
@@ -96,21 +110,18 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
   const { outputs } = metafile;
   const outputPaths = Object.keys(outputs);
   const affectedFiles = outputPaths
-    .map((key) => {
-      const { entryPoint } = metafile.outputs[key];
+    .map((path) => {
+      const { entryPoint } = metafile.outputs[path];
       if (!entryPoint) return null;
-      return {
-        entryPoint,
-        path: resolveOutputPath(outDir, key)
-      };
+      return { entryPoint, path: resolveOutputPath(outDir, path, originalCwd) };
     })
     .filter((x): x is CompileResult => x !== null);
 
   // log.debug({ affectedFiles });
 
   if (metafile && writeMeta) {
-    const ops = Object.keys(outputs).map(async (key) => {
-      const outPath = resolveOutputPath(outDir, key);
+    const ops = Object.entries(outputs).map(async ([path]) => {
+      const outPath = resolveOutputPath(outDir, path, originalCwd);
       const fileName = basename(outPath, extname(outPath));
       const metaPath = join(dirname(outPath), `${fileName}.meta.json`);
       const writePath = resolve(originalCwd, metaPath);
