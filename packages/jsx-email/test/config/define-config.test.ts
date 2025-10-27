@@ -1,9 +1,11 @@
 import { defineConfig } from '../../src/config.js';
 import { pluginSymbol } from '../../src/plugins.js';
+import { sanitizeConfig } from '../helpers/sanitize-config.js';
 
 describe('defineConfig', async () => {
   test('defaults', async () => {
-    expect(await defineConfig({})).toMatchSnapshot();
+    const cfg = await defineConfig({});
+    expect(sanitizeConfig(cfg)).toMatchSnapshot();
   });
 
   test('basic set', async () => {
@@ -12,7 +14,7 @@ describe('defineConfig', async () => {
         minify: true
       }
     });
-    expect(config).toMatchSnapshot();
+    expect(sanitizeConfig(config)).toMatchSnapshot();
   });
 
   test('minify and pretty', async () => {
@@ -22,7 +24,7 @@ describe('defineConfig', async () => {
         pretty: true
       }
     });
-    expect(config).toMatchSnapshot();
+    expect(sanitizeConfig(config)).toMatchSnapshot();
   });
 
   test('plain', async () => {
@@ -33,7 +35,7 @@ describe('defineConfig', async () => {
         pretty: true
       }
     });
-    expect(config).toMatchSnapshot();
+    expect(sanitizeConfig(config)).toMatchSnapshot();
   });
 
   test('de-dupe plugins', async () => {
@@ -41,6 +43,6 @@ describe('defineConfig', async () => {
     const config = await defineConfig({
       plugins: [plugin as any, plugin]
     });
-    expect(config).toMatchSnapshot();
+    expect(sanitizeConfig(config)).toMatchSnapshot();
   });
 });
