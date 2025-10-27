@@ -63,6 +63,8 @@ tasks:
 
   test.ci:
     command: vitest --config ../../shared/vitest.config.ts
+    env:
+      FORCE_COLOR: '1'
     options:
       outputStyle: 'stream'
 

@@ -44,6 +44,4 @@ jobs:
           moon run :build --query "project~plugin-*"
 
       - name: Package Tests
-        env:
-          FORCE_COLOR: 1
         run: moon run jsx-email:test.ci
