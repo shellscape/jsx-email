@@ -7,6 +7,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
 
 ## Context
 - Monorepo using pnpm + Moon. Most tasks are run with `pnpm moon run <project>:<task>`.
+- Task inheritance lives in `.moon/tasks.yml`. Each project can add/override tasks in its own `moon.yml` (for example, `packages/jsx-email/moon.yml`). The root `moon.yml` defines repository tasks and is aliased as the `repo` project.
 - TypeScript uses ESM with NodeNext resolution; relative imports in source include the `.js` suffix.
 - Tests use Vitest; snapshots live in `.snapshots` next to tests (custom resolver).
 - GitHub Actions sets `FORCE_COLOR=1` when running tests; local runs must mirror this to avoid ANSI snapshot diffs.
@@ -37,16 +38,19 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - If linting reports warnings in files you modified, resolve those warnings before pushing.
   - For quick checks while iterating, you may run ESLint scoped to touched files, but always run the full `repo:lint` before the final push.
 - [R5] Git & PRs:
-  - Branch names: `<type>/<short-slug>` (e.g., `fix/conditional-endif-slash`).
+  - Branch names (from humans): `{type}/{project}/{short-desc}` — for example, `fix/jsx-email/conditional-endif-slash`. Use the package with the most changes (or the intended target) for `{project}`.
+  - Conventional Commits scope = affected project name(s) from `packages/`. Examples: `fix(jsx-email): …`, `refactor(plugin-inline,plugin-pretty): …`. For multiple projects, list names comma-separated with no spaces.
   - Commit messages use Conventional Commits; ≤ 72 chars in the subject; no emojis.
-  - Use the repository PR template. Start as Draft when work is in flux; mark Ready only after local verification passes and the description reflects the actual changes.
+  - PRs must use the repository template as-is — Charlie is not allowed to remove sections from the template.
+  - Start as Draft when work is in flux; mark Ready only after local verification passes and the description reflects the actual changes.
   - Don’t add novel labels. Assign and request review from the human requester when appropriate.
-- [R6] Conditional/Raw specifics (from recent work):
-  - Changes to conditional comment tokens or rendering must include targeted tests and minimal snapshot updates limited to intentional markup differences.
-  - Do not introduce token “centralization” or adjacency tests unless explicitly requested by a maintainer.
+
+> Conditional/Raw specifics have been moved to a dedicated playbook. See `.charlie/playbooks/conditional-and-raw.md`.
 
 ## References
 1. CI workflow (test color): `.github/workflows/test-*.yml` (see `FORCE_COLOR=1` in test steps)
 2. Vitest shared config: `shared/vitest.config.ts`
-3. jsx-email package scripts/tasks: `packages/jsx-email/moon.yml`
-4. Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/
+3. Moon tasks inheritance: `.moon/tasks.yml`; per-project tasks: `*/moon.yml`; repository tasks: `moon.yml` (project `repo`)
+4. jsx-email package tasks: `packages/jsx-email/moon.yml`
+5. Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/
+6. Conditional/Raw playbook: `.charlie/playbooks/conditional-and-raw.md`
