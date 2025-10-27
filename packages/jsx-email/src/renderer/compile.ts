@@ -13,9 +13,7 @@ import {
 
 import esbuild from 'esbuild';
 
-// eslint-disable-next-line import/extensions
 import { loadConfig } from '../config.js';
-// eslint-disable-next-line import/extensions
 import { log } from '../log.js';
 
 interface CompileOptions {
