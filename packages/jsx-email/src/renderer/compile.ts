@@ -77,7 +77,6 @@ export const resolveOutputPath = (
     }
   }
 
-  // Relative keys are relative to the process CWD used for the esbuild run
   return resolve(cwd, outKey);
 };
 /**
@@ -112,7 +111,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
     .map((path) => {
       const { entryPoint } = metafile.outputs[path];
       if (!entryPoint) return null;
-      return { entryPoint, path: resolveOutputPath(outDir, path, originalCwd) };
+      return { entryPoint, path: resolveOutputPath(outDir, path) };
     })
     .filter((x): x is CompileResult => x !== null);
 
@@ -120,7 +119,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
 
   if (metafile && writeMeta) {
     const ops = Object.entries(outputs).map(async ([path]) => {
-      const outPath = resolveOutputPath(outDir, path, originalCwd);
+      const outPath = resolveOutputPath(outDir, path);
       const fileName = basename(outPath, extname(outPath));
       const metaPath = join(dirname(outPath), `${fileName}.meta.json`);
       const writePath = resolve(originalCwd, metaPath);
