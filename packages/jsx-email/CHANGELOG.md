@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.9
+
+_2025-10-27_
+
+### Bugfixes
+
+- jsx-email: resolve relative build paths on darwin/linux correctly (#335)
+
 ## v2.7.8
 
 _2025-10-27_
