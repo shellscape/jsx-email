@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import { readFile, writeFile } from 'node:fs/promises';
 import {
   dirname,
@@ -14,7 +13,9 @@ import {
 
 import esbuild from 'esbuild';
 
+// eslint-disable-next-line import/extensions
 import { loadConfig } from '../config.js';
+// eslint-disable-next-line import/extensions
 import { log } from '../log.js';
 
 interface CompileOptions {
