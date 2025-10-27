@@ -12,6 +12,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
 - Tests use Vitest; snapshots live in `.snapshots` next to tests (custom resolver).
 - GitHub Actions sets `FORCE_COLOR=1` when running tests; local runs must mirror this to avoid ANSI snapshot diffs.
 - Conventional Commits are the norm (e.g., `fix(jsx-email): …`). PRs should use the repository template.
+- Conventional Commit scopes map to affected project name(s) under `packages/` (e.g., `(jsx-email)`, `(plugin-inline)`, `(create-jsx-email)`). When multiple projects are affected, list each name in the scope, comma‑separated with no spaces (e.g., `(plugin-inline,plugin-pretty)`). PRs should use the repository template.
 
 ## Rules
 - [R1] Stay on task. Do not add refactors, helpers, or style tweaks outside the explicit ask. Keep diffs minimal.
