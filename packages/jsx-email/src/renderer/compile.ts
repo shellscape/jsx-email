@@ -49,7 +49,7 @@ const toPosix = (p: string) => p.replace(/\\/g, '/');
 
 // Internal: resolve an esbuild metafile output key to an absolute file path
 // Handles macOS quirk where keys may omit the leading '/'
-export const _resolveOutputPath = (outDir: string, outKey: string): string => {
+export const resolveOutputPath = (outDir: string, outKey: string): string => {
   const outDirPosix = toPosix(outDir);
   const keyPosix = toPosix(outKey);
 
@@ -61,7 +61,7 @@ export const _resolveOutputPath = (outDir: string, outKey: string): string => {
   // while outDir: '/private/var/folders/.../T/jsx-email/build'
   if (outDirPosix.startsWith('/')) {
     const outNoLead = outDirPosix.slice(1);
-    if (keyPosix.startsWith(outNoLead + '/')) return `/${keyPosix}`;
+    if (keyPosix.startsWith(`${outNoLead}/`)) return `/${keyPosix}`;
   }
 
   // Fallback: treat key as relative to outDir
@@ -101,7 +101,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
       if (!entryPoint) return null;
       return {
         entryPoint,
-        path: _resolveOutputPath(outDir, key)
+        path: resolveOutputPath(outDir, key)
       };
     })
     .filter((x): x is CompileResult => x !== null);
@@ -110,7 +110,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
 
   if (metafile && writeMeta) {
     const ops = Object.keys(outputs).map(async (key) => {
-      const outPath = _resolveOutputPath(outDir, key);
+      const outPath = resolveOutputPath(outDir, key);
       const fileName = basename(outPath, extname(outPath));
       const metaPath = join(dirname(outPath), `${fileName}.meta.json`);
       const writePath = resolve(originalCwd, metaPath);
