@@ -38,7 +38,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - If linting reports warnings in files you modified, resolve those warnings before pushing.
   - For quick checks while iterating, you may run ESLint scoped to touched files, but always run the full `repo:lint` before the final push.
 - [R5] Git & PRs:
-  - Branch names (from humans): `{type}/{project}/{short-desc}` — for example, `fix/jsx-email/conditional-endif-slash`. Use the package with the most changes (or the intended target) for `{project}`.
+  - Branch names (from humans): `{type}/{project}/{short-desc}` — for example, `fix/jsx-email/conditional-endif-slash`. Use the package with the most changes (or the intended target) for `{project}`, and let `{short-desc}` be a descriptive phrase or a short slug.
   - Conventional Commits scope = affected project name(s) from `packages/`. Examples: `fix(jsx-email): …`, `refactor(plugin-inline,plugin-pretty): …`. For multiple projects, list names comma-separated with no spaces.
   - Commit messages use Conventional Commits; ≤ 72 chars in the subject; no emojis.
   - PRs must use the repository template as-is — Charlie is not allowed to remove sections from the template.
@@ -50,7 +50,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
 ## References
 1. CI workflow (test color): `.github/workflows/test-*.yml` (see `FORCE_COLOR=1` in test steps)
 2. Vitest shared config: `shared/vitest.config.ts`
-3. Moon tasks inheritance: `.moon/tasks.yml`; per-project tasks: `*/moon.yml`; repository tasks: `moon.yml` (project `repo`)
+3. Moon tasks inheritance: `.moon/tasks.yml`; per-project tasks: `apps/*/moon.yml`, `packages/*/moon.yml`, `test/*/moon.yml`; repository tasks: `moon.yml` (project `repo`)
 4. jsx-email package tasks: `packages/jsx-email/moon.yml`
 5. Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/
 6. Conditional/Raw playbook: `.charlie/playbooks/conditional-and-raw.md`
