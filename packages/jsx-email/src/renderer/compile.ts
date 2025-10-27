@@ -111,7 +111,9 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
     .map((path) => {
       const { entryPoint } = metafile.outputs[path];
       if (!entryPoint) return null;
-      return { entryPoint, path: resolveOutputPath(outDir, path) };
+      // For the list of affected files, esbuild's output keys are relative to
+      // the configured outDir. Join them to produce stable artifact paths.
+      return { entryPoint, path: resolve(outDir, path) };
     })
     .filter((x): x is CompileResult => x !== null);
 
