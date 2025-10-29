@@ -68,7 +68,6 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
       minify: false,
       outDir: buildPath,
       rollupOptions: {
-        external: ['react/jsx-runtime'],
         output: {
           manualChunks: {}
         }
