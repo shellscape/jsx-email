@@ -98,8 +98,11 @@ export const normalizePath = (filename: string) => filename.split(win32.sep).joi
 export const getTempPath = async (type: 'build' | 'preview') => {
   const tmpdir = await realpath(os.tmpdir());
   const buildPath = join(tmpdir, `jsx-email/${type}`);
+  const result = normalizePath(buildPath);
 
-  return normalizePath(buildPath);
+  log.info('getTempPath', { buildPath, result });
+
+  return result;
 };
 
 export const build = async (options: BuildOptions): Promise<BuildResult> => {
