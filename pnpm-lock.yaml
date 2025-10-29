@@ -524,6 +524,9 @@ importers:
       jsx-email:
         specifier: workspace:^
         version: link:../../packages/jsx-email
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
       strip-ansi:
         specifier: ^7.1.0
         version: 7.1.0
@@ -8424,7 +8427,7 @@ snapshots:
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.9.3)
       eslint: 8.57.0
       eslint-scope: 5.1.1
-      semver: 7.6.2
+      semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
       - typescript
