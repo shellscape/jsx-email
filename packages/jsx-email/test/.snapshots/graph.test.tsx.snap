@@ -1,3 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Hr> component > renders correctly 1`] = `"<img src=\\"https://quickchart.io/chart?c=%7B%22data%22%3A%7B%22datasets%22%3A%5B%7B%22data%22%3A%5B50%2C60%2C70%2C180%5D%2C%22label%22%3A%22Users%22%7D%5D%2C%22labels%22%3A%5B%22Q1%22%2C%22Q2%22%2C%22Q3%22%2C%22Q4%22%5D%7D%2C%22type%22%3A%22bar%22%7D\\" alt=\\"Basic graph demo\\"/>"`;
+exports[`<Hr> component > renders correctly 1`] = `"<img src="https://quickchart.io/chart?c=%7B%22data%22%3A%7B%22datasets%22%3A%5B%7B%22data%22%3A%5B50%2C60%2C70%2C180%5D%2C%22label%22%3A%22Users%22%7D%5D%2C%22labels%22%3A%5B%22Q1%22%2C%22Q2%22%2C%22Q3%22%2C%22Q4%22%5D%7D%2C%22type%22%3A%22bar%22%7D" alt="Basic graph demo"/>"`;

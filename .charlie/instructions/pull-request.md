@@ -50,7 +50,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
 
 ## References
 1. CI workflow (test color): `.github/workflows/test-*.yml` (see `FORCE_COLOR=1` in test steps)
-2. Vitest shared config: `shared/vitest.config.ts`
+2. Vitest shared config: `shared/vitest.config.mts`
 3. Moon tasks inheritance: `.moon/tasks.yml`; per-project tasks: `apps/*/moon.yml`, `packages/*/moon.yml`, `test/*/moon.yml`; repository tasks: `moon.yml` (project `repo`)
 4. jsx-email package tasks: `packages/jsx-email/moon.yml`
 5. Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/
