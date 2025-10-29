@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.8.0
+
+_2025-10-29_
+
+### Features
+
+- jsx-email: document build --use-preview-props; add flag to check (#341)
+
 ## v2.7.10
 
 _2025-10-29_
