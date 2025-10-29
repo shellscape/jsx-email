@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.7.10
+
+_2025-10-29_
+
+### Bugfixes
+
+- jsx-email: remove external for preview deployment build (#311)
+
 ## v2.7.9
 
 _2025-10-27_
