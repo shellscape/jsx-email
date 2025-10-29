@@ -38,7 +38,7 @@ Starts the preview server for a directory of email templates
   $ email preview <template dir path> [...options]
 
 {underline Options}
-  --build-path  An absolute path. When set, builds the preview as a deployable app and saves to disk
+  --build-path  When set, builds the preview as a deployable app and saves to disk. Defaults to .deploy
   --exclude     A micromatch glob pattern that specifies files to exclude from the preview
   --host        Allow thew preview server to listen on all addresses (0.0.0.0)
   --no-open     Do not open a browser tab when the preview server starts
@@ -56,7 +56,7 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
     );
   }
 
-  const { basePath = './', buildPath = './' } = argv;
+  const { basePath = './', buildPath = './.deploy' } = argv;
   const common = { argv, targetPath };
   await prepareBuild(common);
   const config = await getConfig(common);
