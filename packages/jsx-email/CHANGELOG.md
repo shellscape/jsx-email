@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.8.1
+
+_2025-10-29_
+
+### Bugfixes
+
+- jsx-email: allow relative --build-path values for preview deploy (#343)
+
 ## v2.8.0
 
 _2025-10-29_
