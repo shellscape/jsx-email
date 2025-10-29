@@ -24,5 +24,5 @@ Commands (jsx-email)
 
 References
 - CI workflow (color): `.github/workflows/test-*.yml` (look for `FORCE_COLOR=1`)
-- Shared Vitest config: `shared/vitest.config.ts`
+- Shared Vitest config: `shared/vitest.config.mts`
 - Package tasks: `packages/jsx-email/moon.yml`

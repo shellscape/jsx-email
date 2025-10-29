@@ -21,24 +21,24 @@ exports[`color functions > should replace all color functions in a css block 1`]
 /* layer: preflights */
 /* layer: default */
 @media (min-width: 1280px) {
-  .xl\\\\:bg-green-500 {
+  .xl\\:bg-green-500 {
     background-color: rgb(34,197,94);
   }
 
   @media (min-width: 1280px) {
-    .xl\\\\:bg-green-500 {
+    .xl\\:bg-green-500 {
       background-color: rgb(34,197,94);
     }
   }
 }
 
 @media (min-width: 1536px) {
-  .\\\\32 xl\\\\:bg-blue-500 {
+  .\\32 xl\\:bg-blue-500 {
     background-color: rgb(59,130,246);
   }
 
   @media (min-width: 1536px) {
-    .\\\\32 xl\\\\:bg-blue-500 {
+    .\\32 xl\\:bg-blue-500 {
       background-color: rgb(59,130,246);
     }
   }

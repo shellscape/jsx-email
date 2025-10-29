@@ -44,7 +44,7 @@ interface TemplateProps {
 const main = {
   backgroundColor: '#f6f9fc',
   fontFamily:
-    '-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,\\"Helvetica Neue\\",Ubuntu,sans-serif'
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif'
 };
 
 const container = {
@@ -101,7 +101,7 @@ export const Template = ({ email, name }: TemplateProps) => (
             borderRadius={5}
             fontSize={16}
             height={60}
-            href=\\"https://example.com\\"
+            href="https://example.com"
             style={button}
             textColor={'#fff'}
             width={160}
@@ -111,7 +111,7 @@ export const Template = ({ email, name }: TemplateProps) => (
           <Hr style={hr} />
           <Text style={paragraph}>
             This is text content with a{' '}
-            <Link style={anchor} href=\\"mailto:{email}\\">
+            <Link style={anchor} href="mailto:{email}">
               link
             </Link>
             .
