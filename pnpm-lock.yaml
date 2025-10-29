@@ -525,8 +525,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/jsx-email
       react:
-        specifier: ^19.2.0
-        version: 19.2.0
+        specifier: 19.0.0
+        version: 19.0.0
       strip-ansi:
         specifier: ^7.1.0
         version: 7.1.0
@@ -5139,10 +5139,6 @@ packages:
 
   react@19.0.0:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
-    engines: {node: '>=0.10.0'}
-
-  react@19.2.0:
-    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
@@ -10772,8 +10768,6 @@ snapshots:
       '@types/react': 19.0.2
 
   react@19.0.0: {}
-
-  react@19.2.0: {}
 
   read-cache@1.0.0:
     dependencies:
