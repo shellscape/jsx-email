@@ -26,8 +26,8 @@
     "rimraf": "^6.0.1",
     "ts-node": "10.9.1",
     "tshy": "^1.14.0",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.5"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.5"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [

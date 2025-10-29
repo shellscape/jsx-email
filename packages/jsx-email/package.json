@@ -94,7 +94,7 @@
     "@unocss/preset-wind": "^0.65.1",
     "@unocss/transformer-compile-class": "^0.65.1",
     "@unocss/transformer-variant-group": "^0.65.1",
-    "@vitejs/plugin-react": "^4.3.0",
+    "@vitejs/plugin-react": "^5.1.0",
     "autoprefixer": "^10.4.16",
     "chalk": "4.1.2",
     "classnames": "2.5.1",
@@ -124,7 +124,7 @@
     "titleize": "^4.0.0",
     "unist-util-visit": "^5.0.0",
     "valibot": "^0.42.1",
-    "vite": "^5.2.11",
+    "vite": "^7.1.12",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
