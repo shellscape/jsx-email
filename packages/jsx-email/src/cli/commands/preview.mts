@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { existsSync } from 'node:fs';
 import { mkdir, rmdir } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { join, resolve, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
@@ -61,12 +61,8 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
   await prepareBuild(common);
   const config = await getConfig(common);
 
-  // Ensure Vite's outDir is absolute. When users pass a relative value for
-  // `--build-path`, Vite will resolve it from the preview app's root (we
-  // `chdir` in getConfig), which can point into a package directory under
-  // node_modules. Normalize here against the original working directory so
-  // output lands where the user expects.
-  const outDir = buildPath ? resolve(originalCwd, buildPath) : buildPath;
+  const pathArg = buildPath as string;
+  const outDir = isAbsolute(pathArg) ? pathArg : resolve(join(originalCwd, pathArg));
 
   await viteBuild({
     ...config,
