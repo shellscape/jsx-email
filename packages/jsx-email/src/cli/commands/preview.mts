@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { existsSync } from 'node:fs';
 import { mkdir, rmdir } from 'node:fs/promises';
-import { isAbsolute, join, resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
@@ -66,7 +66,7 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
   // `chdir` in getConfig), which can point into a package directory under
   // node_modules. Normalize here against the original working directory so
   // output lands where the user expects.
-  const outDir = buildPath && !isAbsolute(buildPath) ? join(originalCwd, buildPath) : buildPath;
+  const outDir = buildPath ? resolve(originalCwd, buildPath) : buildPath;
 
   await viteBuild({
     ...config,
