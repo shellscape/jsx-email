@@ -100,7 +100,7 @@ export const getTempPath = async (type: 'build' | 'preview') => {
   const buildPath = join(tmpdir, `jsx-email/${type}`);
   const result = normalizePath(buildPath);
 
-  log.info('getTempPath', { buildPath, result });
+  log.debug('getTempPath', { buildPath, result });
 
   return result;
 };

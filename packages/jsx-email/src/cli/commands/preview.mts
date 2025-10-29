@@ -1,7 +1,9 @@
 /* eslint-disable no-use-before-define */
+import { AssertionError } from 'node:assert';
 import { existsSync } from 'node:fs';
 import { mkdir, rmdir } from 'node:fs/promises';
-import { isAbsolute, join, resolve } from 'node:path';
+import { isAbsolute, join, resolve, win32 } from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
@@ -95,6 +97,22 @@ const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
 
   log.debug(`Vite Root: ${root}`);
 
+  // On Windows, Vite's import.meta.glob cannot cross drive letters. If the
+  // preview app root and the temporary build directory are on different
+  // drives (e.g., D: vs C:), fail fast with a helpful error.
+  if (os.platform() === 'win32') {
+    const rootDrive = getDriveLetter(root);
+    const buildDrive = getDriveLetter(buildPath);
+    if (rootDrive && buildDrive && rootDrive !== buildDrive) {
+      log.error(
+        `jsx-email preview cannot run on Windows when the application root directory and the system temporary directory are on different drive letters. Please consider using WSL`
+      );
+      throw new AssertionError({
+        message: `Temporary directory drive letter different than root directory drive letter`
+      });
+    }
+  }
+
   newline();
   log.info(chalk`{blue Starting build...}`);
 
@@ -126,6 +144,11 @@ const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
   } satisfies InlineConfig;
 
   return config;
+};
+
+const getDriveLetter = (path: string) => {
+  if (os.platform() !== 'win32') return null;
+  return win32.parse(path).root.slice(0, 2).toUpperCase();
 };
 
 const prepareBuild = async ({ targetPath, argv }: PreviewCommonParams) => {
