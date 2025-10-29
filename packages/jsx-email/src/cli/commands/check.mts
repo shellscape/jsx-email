@@ -56,7 +56,8 @@ Check jsx-email templates for client compatibility
 
 {underline Examples}
   $ email check ./emails/Batman.tsx
-`;
+\nNote: If the template file exports \`previewProps\`, those props will be used when
+rendering the template for checks. This mirrors the Preview app behavior.`;
 
 const runCheck = (fileName: string, html: string) => {
   const bytes = Buffer.byteLength(html, 'utf8');
@@ -131,7 +132,7 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
   log(chalk`{blue Checking email template for Client Compatibility...}\n`);
 
   const [file] = await buildTemplates({
-    buildOptions: { showStats: false, writeToFile: false },
+    buildOptions: { showStats: false, writeToFile: false, usePreviewProps: true },
     targetPath: input[0]
   });
 

@@ -83,6 +83,10 @@ Builds a template and saves the result
   --props       A JSON string containing props to be passed to the email template
                 This is usually only useful when building a single template, unless all of your
                 templates share the same props.
+  --use-preview-props / --no-use-preview-props
+                When set, use the \`previewProps\` exported by the template file (if present).
+                Default behavior: if \`--props\` is not provided and the template exports
+                \`previewProps\`, those props will be used.
 
 {underline Examples}
   $ email build ./src/emails
@@ -115,8 +119,25 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
     process.exit(1);
   }
 
-  // const extension = plain ? '.txt' : '.html';
-  const renderProps = usePreviewProps ? template.previewProps || {} : JSON.parse(props);
+  // Determine the props to render with,
+  // precedence: explicit --props > --use-preview-props (or default) > empty object
+  // Note: when building a directory, each file's own exported previewProps will be used
+  // if --props is omitted and the export exists.
+  let renderProps: Record<string, any> = {};
+  const hasExplicitProps = typeof props === 'string' && props.trim() !== '';
+
+  if (hasExplicitProps) {
+    try {
+      renderProps = JSON.parse(props);
+    } catch (err) {
+      log.error(chalk`{red Invalid --props JSON:} ${(err as Error).message}`);
+      process.exit(1);
+    }
+  } else if (usePreviewProps !== false && 'previewProps' in template) {
+    // Use previewProps by default when available, unless explicitly disabled via --no-use-preview-props
+    const pp = (template as any).previewProps;
+    renderProps = pp && typeof pp === 'object' ? pp : {};
+  }
   const fileExt = extname(path);
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
