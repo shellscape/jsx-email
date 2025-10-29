@@ -57,7 +57,7 @@ Check jsx-email templates for client compatibility
   $ email check <template file name>
 
 {underline Options}
-  --use-preview-props / --no-use-preview-props
+  --use-preview-props
                 When set, use the \`previewProps\` exported by the template file (if present).
 
 {underline Examples}
