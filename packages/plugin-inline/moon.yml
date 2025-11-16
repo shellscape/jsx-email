@@ -1,0 +1,27 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'test']
+
+tasks:
+  build:
+    command: echo "Build Complete \u2713"
+    deps:
+      - ~:tsc
+    inputs:
+      - src
+      - package.json
+      - tsconfig.json
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
+  tsc:
+    command: tsc --project tsconfig.json
+    inputs:
+      - src
+    options:
+      cache: false
