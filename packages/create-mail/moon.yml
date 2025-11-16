@@ -34,7 +34,7 @@ tasks:
       runDepsInParallel: false
 
   copy:
-    command: rm -rf dist/generators && cp -r generators dist
+    command: cp -r generators dist
     options:
       cache: false
 

@@ -24,7 +24,7 @@ cd $TESTS_DIR/smoke-test
 pnpm i
 
 # The dependencies below are required for fixtures
-pnpm add unocss set-cookie-parser
+pnpm add unocss
 
 # The dependencies below have to be pointed back to the repo
 pnpm add "@jsx-email/app-preview@file:$REPO_DIR/apps/preview"

@@ -8,8 +8,6 @@ workspace:
 tasks:
   dev:
     command: email preview fixtures/templates
-    deps:
-      - repo:build.all
     options:
       cache: false
       outputStyle: 'stream'
@@ -23,7 +21,6 @@ tasks:
   run:
     command: playwright test -x --config playwright.dev.ts
     deps:
-      - repo:build.all
       - ~:install
     env:
       JSX_DEV_LOCAL: 'true'
@@ -35,7 +32,6 @@ tasks:
   run.ci:
     command: playwright test -x
     deps:
-      - repo:build.all
       - ~:install
       - ~:setup.ci
     env:
@@ -48,8 +44,6 @@ tasks:
 
   setup.ci:
     command: ./scripts/ci-preview-setup.sh
-    deps:
-      - repo:build.all
     options:
       cache: false
       outputStyle: 'stream'

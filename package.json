@@ -24,7 +24,6 @@
     "oxlint": "^0.16.6",
     "prettier": "^3.5.3",
     "prettier-plugin-package": "^1.4.0",
-    "set-cookie-parser": "^2.7.2",
     "ts-node": "10.9.2",
     "typescript": "^5.8.3",
     "vitest": "^3.1.1"
@@ -55,8 +54,7 @@
       "react": "19.1.0",
       "react-dom": "19.1.0",
       "react-router-dom": "6.16.0",
-      "vite": "^6.3.0",
-      "jsx-email": "link:packages/jsx-email"
+      "vite": "^6.3.0"
     }
   }
 }
