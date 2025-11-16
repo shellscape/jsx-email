@@ -71,6 +71,8 @@ tasks:
       - src
       - test
       - package.json
+    env:
+      FORCE_COLOR: '1'
     options:
       cache: false
       outputStyle: 'stream'
