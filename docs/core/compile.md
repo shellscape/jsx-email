@@ -28,9 +28,9 @@ const compiledFiles = await compile({ files: [templatePath], hashFiles: false, o
 Once compiled into a bundle, the file can be imported and passed to render such like:
 
 ```jsx
-import { Template } from './.compiled/batman.js';
-
 import { render } from 'jsx-email';
+
+import { Template } from './.compiled/batman.js';
 
 const html = render(<Template />);
 ```
