@@ -83,6 +83,8 @@ Builds a template and saves the result
   --props       A JSON string containing props to be passed to the email template
                 This is usually only useful when building a single template, unless all of your
                 templates share the same props.
+  --use-preview-props
+                When set, use the \`previewProps\` exported by the template file (if present).
 
 {underline Examples}
   $ email build ./src/emails

@@ -63,6 +63,8 @@ email build ./emails/Welcome.tsx
 To view info, flags, and options for the `build` command, run `email help build`.
 :::
 
+To render using the sample props you export from a template file, pass the `--use-preview-props` flag. When set, `email build` will use the `previewProps` export (if present) instead of `--props`.
+
 ### Check Command
 
 Verify email client compatibility using [caniuse.com](https://caniemail.com/) data:
@@ -87,6 +89,8 @@ Check Complete: 14 error(s), 20 warning(s)
 :::tip
 To view info, flags, and options for the `check` command, run `email help check`.
 :::
+
+You can also pass `--use-preview-props` so `email check` builds templates using their exported `previewProps`, keeping compatibility checks aligned with the data used for previews and builds.
 
 ### Preview Command
 

@@ -4,7 +4,7 @@ import { type IssueGroup, caniemail, groupIssues, sortIssues } from 'caniemail';
 import chalk from 'chalk';
 import chalkTmpl from 'chalk-template';
 import stripAnsi from 'strip-ansi';
-import { type InferOutput as Infer, parse as assert, object } from 'valibot';
+import { type InferOutput as Infer, parse as assert, boolean, object, optional } from 'valibot';
 
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.js';
 
@@ -13,7 +13,9 @@ import { type CommandFn } from './types.js';
 
 const { error, log } = console;
 
-const CheckOptionsStruct = object({});
+const CheckOptionsStruct = object({
+  usePreviewProps: optional(boolean())
+});
 
 type CheckOptions = Infer<typeof CheckOptionsStruct>;
 
@@ -33,6 +35,10 @@ Check jsx-email templates for client compatibility
 
 {underline Usage}
   $ email check <template file name>
+
+{underline Options}
+  --use-preview-props
+                When set, use the \`previewProps\` exported by the template file (if present).
 
 {underline Examples}
   $ email check ./emails/Batman.tsx
@@ -129,7 +135,11 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
   log(chalkTmpl`{blue Checking email template for Client Compatibility...}\n`);
 
   const [file] = await buildTemplates({
-    buildOptions: { showStats: false, writeToFile: false },
+    buildOptions: {
+      showStats: false,
+      writeToFile: false,
+      usePreviewProps: argv.usePreviewProps
+    },
     targetPath: input[0]
   });
 
