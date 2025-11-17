@@ -33,7 +33,7 @@ const cssPlugin: esbuild.Plugin = {
   setup(builder) {
     builder.onLoad({ filter: /\.css$/ }, async (args) => {
       const buffer = await readFile(args.path);
-      const css = await esbuild.transform(buffer, { loader: 'css', minify: false });
+      const css = await esbuild.transform(buffer as any, { loader: 'css', minify: false });
       return { contents: css.code, loader: 'text' };
     });
   }
@@ -78,7 +78,7 @@ export const compile = async (options: CompileOptions): Promise<CompileResult[]>
       if (!entryPoint) return null;
       return {
         entryPoint,
-        path: resolve('/', path)
+        path: resolve(originalCwd, path)
       };
     })
     .filter<CompileResult>(Boolean as any);
