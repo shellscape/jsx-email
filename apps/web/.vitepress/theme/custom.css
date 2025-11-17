@@ -220,6 +220,10 @@ img.clients {
   .VPHomeHero .text {
     height: auto;
   }
+  .VPContent {
+    /* Less visible to not obscure overlapping content */
+    background-image: url(/landing-bg-muted.svg);
+  }
 }
 
 table.recipes {
