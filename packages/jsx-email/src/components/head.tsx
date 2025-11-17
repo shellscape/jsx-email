@@ -1,7 +1,8 @@
-import type { BaseProps, JsxEmailComponent } from '../types.js';
 import { debug } from '../debug.js';
+import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 import { Conditional } from './conditional.js';
+import { Raw } from './raw.js';
 
 export interface HeadProps extends BaseProps<'head'> {
   enableFormatDetection?: boolean;
@@ -27,15 +28,9 @@ export const Head: JsxEmailComponent<HeadProps> = ({
       <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no" />
     )}
     {children}
-    <Conditional
-      head
-      mso
-      children={
-        // prettier-ignore
-        // @ts-expect-error: element don't exist
-        <xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
-      }
-    />
+    <Conditional head mso>
+      <Raw content="<xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>" />
+    </Conditional>
   </head>
 );
 
