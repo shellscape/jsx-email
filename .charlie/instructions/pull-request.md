@@ -26,7 +26,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - Prefer importing from package source (e.g., `../src/index.ts`) for new tests to avoid prebuild coupling. If an existing suite imports from `dist`, keep that pattern for that suite.
   - Avoid adding `// @ts-ignore` to suppress React imports; tests can rely on the React automatic JSX runtime. Don’t add new ignores.
   - Follow NodeNext import style in source files (relative imports include `.js`).
-- [R4] Verification commands (run locally before marking a PR Ready):
+- [R4] Verification commands (run locally before marking a PR Ready for changes that affect code, tests, or tooling config):
   - Build artifacts used by tests:
     - `pnpm moon run plugin-inline:build plugin-minify:build plugin-pretty:build`
     - `pnpm moon run jsx-email:build`
@@ -34,6 +34,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - Tests (jsx-email package, mirroring the `next/v3` CI setup): `pnpm moon run jsx-email:test`
   - TypeScript (package): `pnpm moon run jsx-email:tsc`
   - Do not change tool configs or CI to make checks pass.
+  - For documentation-only or `.charlie`-only changes that do not affect CI, code, or tests, you may skip these commands, but prefer running at least `pnpm moon run repo:lint` when in doubt.
 - [R4.1] Linting (must run before pushing any commits):
   - Run repo linting via Moon: `pnpm moon run repo:lint`.
   - Do not push if linting reports errors anywhere. Fix them or coordinate a follow‑up if they are unrelated but surfaced by your changes.
