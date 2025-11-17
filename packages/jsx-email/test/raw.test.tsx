@@ -1,8 +1,8 @@
 // @ts-ignore
 import React from 'react';
 
-import { render } from '../src/renderer/render.js';
 import { Raw } from '../src/components/raw.js';
+import { render } from '../src/renderer/render.js';
 
 describe('<Raw> component', async () => {
   beforeEach(() => {
@@ -41,6 +41,19 @@ describe('<Raw> component', async () => {
         <Raw content={`<!--[if !mso]><!-->`} />
         Ola!
         <Raw content={`<!--<![endif]-->`} />
+      </>
+    );
+    expect(actual).toMatchSnapshot();
+  });
+
+  it('Should work correctly when it has linebreaks', async () => {
+    const actual = await render(
+      <>
+        <Raw
+          content={`
+            Raw context
+        `}
+        />
       </>
     );
     expect(actual).toMatchSnapshot();
