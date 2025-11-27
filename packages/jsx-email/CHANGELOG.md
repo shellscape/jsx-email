@@ -1,5 +1,94 @@
 # jsx-email ChangeLog
 
+## v2.8.1
+
+_2025-10-29_
+
+### Bugfixes
+
+- jsx-email: allow relative --build-path values for preview deploy (#343)
+
+## v2.8.0
+
+_2025-10-29_
+
+### Features
+
+- jsx-email: document build --use-preview-props; add flag to check (#341)
+
+## v2.7.10
+
+_2025-10-29_
+
+### Bugfixes
+
+- jsx-email: remove external for preview deployment build (#311)
+
+## v2.7.9
+
+_2025-10-27_
+
+### Bugfixes
+
+- jsx-email: resolve relative build paths on darwin/linux correctly (#335)
+
+## v2.7.8
+
+_2025-10-27_
+
+### Bugfixes
+
+- jsx-email: resolve relative build paths on darwin/linux correctly (#334)
+
+## v2.7.7
+
+_2025-10-27_
+
+### Bugfixes
+
+- jsx-email: emit <![endif]/--> for conditional, add no-dup test (#330)
+
+## v2.7.6
+
+_2025-10-20_
+
+### Updates
+
+- jsx-email: syntatically correct Conditional, rehype plugin, nested Raw (#328)
+
+## v2.7.5
+
+_2025-10-16_
+
+### Updates
+
+- jsx-email: use rehype `rawPlugin` to hoist <Raw> content (#320)
+
+## v2.7.4
+
+_2025-10-04_
+
+### Bugfixes
+
+- jsx-email: bump release (94714c6)
+- jsx-email: change build command to use relative paths for output directories (#313)
+
+## v2.7.2
+
+_2025-08-20_
+
+### Bugfixes
+
+- jsx-email: support linebreaks in Raw element (#305)
+
+## v2.7.2
+
+_2025-05-03_
+
+### Updates
+
+- jsx-email: upgrade react-router-dom to 7.5.2 due to high severity vuln (#298)
+
 ## v2.7.1
 
 _2025-03-05_

@@ -1,6 +1,6 @@
 {
   "name": "jsx-email",
-  "version": "2.7.0",
+  "version": "2.8.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,35 +17,42 @@
   "bin": {
     "email": "./bin/email"
   },
+  "module": "./dist/esm/index.js",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "import": {
+        "source": "./src/index.ts",
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       },
       "require": {
+        "source": "./src/index.ts",
         "types": "./dist/commonjs/index.d.ts",
         "default": "./dist/commonjs/index.js"
       }
     },
     "./compile": {
       "import": {
+        "source": "./src/compile.ts",
         "types": "./dist/esm/compile.d.ts",
         "default": "./dist/esm/compile.js"
       },
       "require": {
+        "source": "./src/compile.ts",
         "types": "./dist/commonjs/compile.d.ts",
         "default": "./dist/commonjs/compile.js"
       }
     },
     "./config": {
       "import": {
+        "source": "./src/config.ts",
         "types": "./dist/esm/config.d.ts",
         "default": "./dist/esm/config.js"
       },
       "require": {
+        "source": "./src/config.ts",
         "types": "./dist/commonjs/config.d.ts",
         "default": "./dist/commonjs/config.js"
       }
@@ -87,7 +94,7 @@
     "@unocss/preset-wind": "^0.65.1",
     "@unocss/transformer-compile-class": "^0.65.1",
     "@unocss/transformer-variant-group": "^0.65.1",
-    "@vitejs/plugin-react": "^4.3.0",
+    "@vitejs/plugin-react": "^5.1.0",
     "autoprefixer": "^10.4.16",
     "chalk": "4.1.2",
     "classnames": "2.5.1",
@@ -107,7 +114,7 @@
     "postcss": "^8.4.32",
     "postcss-var-replace": "^1.0.0",
     "pretty-bytes": "^6.1.1",
-    "react-router-dom": "7.0.1",
+    "react-router-dom": "7.5.2",
     "rehype": "^13.0.1",
     "rehype-stringify": "^10.0.0",
     "shiki": "^1.18.0",
@@ -117,7 +124,7 @@
     "titleize": "^4.0.0",
     "unist-util-visit": "^5.0.0",
     "valibot": "^1.2.0",
-    "vite": "^5.2.11",
+    "vite": "^7.1.12",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
@@ -137,6 +144,7 @@
     "unified": "^11.0.4"
   },
   "types": "./dist/commonjs/index.d.ts",
+  "bump": 1,
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"

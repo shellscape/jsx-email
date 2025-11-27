@@ -18,7 +18,7 @@
     "postcss": "^8.4.32",
     "react": "^19",
     "react-dom": "^19",
-    "react-router-dom": "7.0.1",
+    "react-router-dom": "7.5.2",
     "shiki": "^1.18.0",
     "tailwindcss": "3.4.15",
     "titleize": "^4.0.0",

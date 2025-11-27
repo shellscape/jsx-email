@@ -1,4 +1,6 @@
 import { AssertionError } from 'assert';
+import { isAbsolute, resolve as resolvePath } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 import chalk from 'chalk';
 import { lilconfig } from 'lilconfig';
@@ -23,6 +25,13 @@ interface ConfigExports {
 }
 
 const configSymbol = Symbol.for('jsx-email/config');
+
+const toImportSpecifier = (id: string): string => {
+  if (id.startsWith('file://')) return id;
+  if (isAbsolute(id)) return pathToFileURL(id).href;
+  if (id.startsWith('.')) return pathToFileURL(resolvePath(id)).href;
+  return id;
+};
 export const defaults: JsxEmailConfig = {
   logLevel: 'info',
   plugins: [],
@@ -192,12 +201,18 @@ export const defineConfig = async (config: DefineConfigOptions = {}): Promise<Js
 };
 
 const moduleImport = async (id: string) => {
+  const specifier = toImportSpecifier(id);
+
   try {
-    const mod = await import(id);
+    const mod = await import(specifier);
     return mod;
   } catch (e) {
     try {
-      return require(id);
+      if (require) return require(id);
+
+      throw RangeError(
+        'require is not defined. this is likely due to the ESM build attempting to use require'
+      );
     } catch (error) {
       if (
         (error as any).code === 'ERR_REQUIRE_ESM' ||

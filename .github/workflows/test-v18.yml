@@ -14,8 +14,13 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
     name: Run Tests (React v18)
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout Commit
@@ -45,6 +50,4 @@ jobs:
           moon run :build --query "project~plugin-*"
 
       - name: Package Tests
-        env:
-          FORCE_COLOR: 1
-        run: moon run :test --affected --concurrency 1 --remote
+        run: moon run jsx-email:test.ci

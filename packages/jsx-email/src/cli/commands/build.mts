@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
-import { dirname, basename, extname, join, resolve, win32, posix } from 'path';
+import { dirname, basename, extname, join, resolve, win32, posix, relative } from 'path';
 import { pathToFileURL } from 'url';
 
 import chalk from 'chalk';
@@ -83,6 +83,8 @@ Builds a template and saves the result
   --props       A JSON string containing props to be passed to the email template
                 This is usually only useful when building a single template, unless all of your
                 templates share the same props.
+  --use-preview-props
+                When set, use the \`previewProps\` exported by the template file (if present).
 
 {underline Examples}
   $ email build ./src/emails
@@ -96,8 +98,11 @@ export const normalizePath = (filename: string) => filename.split(win32.sep).joi
 export const getTempPath = async (type: 'build' | 'preview') => {
   const tmpdir = await realpath(os.tmpdir());
   const buildPath = join(tmpdir, `jsx-email/${type}`);
+  const result = normalizePath(buildPath);
 
-  return normalizePath(buildPath);
+  log.debug('getTempPath', { buildPath, result });
+
+  return result;
 };
 
 export const build = async (options: BuildOptions): Promise<BuildResult> => {
@@ -121,8 +126,9 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
+  const relativeBaseDir = outputBasePath ? relative(outputBasePath, baseDir) : '';
   const writePath = outputBasePath
-    ? join(out!, baseDir.replace(outputBasePath, ''), templateName)
+    ? join(out!, relativeBaseDir, templateName)
     : join(out!, templateName);
   // const writePath = outputBasePath
   //   ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)

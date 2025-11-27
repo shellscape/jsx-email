@@ -26,7 +26,8 @@ tasks:
       - dist
 
   clean.dist:
-    command: rm -rf dist
+    # Note: Use rimraf so PowerShell matches Linux delete behavior
+    command: rimraf dist
     inputs:
       - src
       - package.json
@@ -38,6 +39,8 @@ tasks:
       - package.json
     options:
       runDepsInParallel: false
+    outputs:
+      - dist
 
   release:
     command: versioner --target $projectRoot
