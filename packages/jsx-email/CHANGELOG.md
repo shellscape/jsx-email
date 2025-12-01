@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.8.3
+
+_2025-12-01_
+
+### Bugfixes
+
+- jsx-email: normalize globby paths for preview command (#365)
+
 ## v2.8.2
 
 _2025-11-27_
