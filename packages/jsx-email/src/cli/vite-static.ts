@@ -3,7 +3,7 @@ import { extname } from 'node:path';
 
 import { globby } from 'globby';
 import mime from 'mime-types';
-import type { PluginOption, ViteDevServer } from 'vite';
+import { type PluginOption, type ViteDevServer, normalizePath } from 'vite';
 
 interface ViteStaticOptions {
   paths: string[];
@@ -50,7 +50,7 @@ interface MiddlwareParams {
 const middleware = async (params: MiddlwareParams) => {
   const { options, server } = params;
   const { paths } = options;
-  const files = await globby(paths);
+  const files = await globby(paths.map((path) => normalizePath(path)));
 
   return () => {
     server.middlewares.use(async (req, res, next) => {
