@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Header, Sidebar } from '../components/Sidebar';
+import { Header, Sidebar } from '../components/sidebar';
 
 export const Shell = () => (
   <>
