@@ -5,7 +5,7 @@ import os from 'node:os';
 import chalkTmpl from 'chalk-template';
 import { globby } from 'globby';
 import micromatch from 'micromatch';
-import { basename, dirname, extname, join, posix, resolve, win32 } from 'path';
+import { basename, dirname, extname, join, posix, relative, resolve, win32 } from 'path';
 import { isWindows } from 'std-env';
 import { pathToFileURL } from 'url';
 import type { InferOutput as Infer } from 'valibot';
@@ -121,8 +121,9 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
+  const relativeBaseDir = outputBasePath ? relative(outputBasePath, baseDir) : '';
   const writePath = outputBasePath
-    ? join(out!, baseDir.replace(outputBasePath, ''), templateName)
+    ? join(out!, relativeBaseDir, templateName)
     : join(out!, templateName);
   // const writePath = outputBasePath
   //   ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)
