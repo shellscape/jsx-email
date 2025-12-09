@@ -18,7 +18,7 @@ This component is wrapper around [QuickChart API](https://quickchart.io/) for ge
 Add the graph component to your email template.
 
 ```jsx
-import { Html, Body, Section, Graph } from 'jsx-email';
+import { Body, Graph, Html, Section } from 'jsx-email';
 
 const Email = () => {
   return (
