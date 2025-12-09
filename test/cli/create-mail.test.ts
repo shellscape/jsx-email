@@ -21,6 +21,23 @@ describe('create-mail', async () => {
 
     expect(plain).toMatchSnapshot();
 
+    type PackageJson = {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+
+    const packageJson = JSON.parse(
+      await readFile(join(__dirname, '.test/new/package.json'), 'utf8')
+    ) as PackageJson;
+
+    expect(packageJson.devDependencies).toMatchObject({
+      react: expect.any(String),
+      'react-dom': expect.any(String)
+    });
+
+    expect(packageJson.dependencies ?? {}).not.toHaveProperty('react');
+    expect(packageJson.dependencies ?? {}).not.toHaveProperty('react-dom');
+
     const contents = await readFile(join(__dirname, '.test/new/templates/email.tsx'), 'utf8');
     expect(contents).toMatchSnapshot();
 
