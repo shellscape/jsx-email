@@ -33,6 +33,7 @@ To instruct a render to use plugins, utilize a [Configuration File](/docs/core/c
 
 ```js
 import { defineConfig } from 'jsx-email/config';
+
 import { somePlugin } from './plugins/some-plugin';
 
 export const config = defineConfig({
