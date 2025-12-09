@@ -9,7 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAppStore } from '../composables/useAppStore';
 import type { TemplatePart } from '../lib/types';
 
-import { Logo } from './Logo';
+import { Logo } from './logo';
 import { Separator } from './ui/Separator';
 
 interface DirectoryTreeProps {
