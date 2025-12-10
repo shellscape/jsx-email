@@ -20,7 +20,7 @@ exports[`loadConfig → parent dir > loadConfig 1`] = `
               "reject": [Function],
               "resolve": [Function],
             },
-            "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
+            "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
             "time": [Function],
             "transports": undefined,
           },
@@ -40,7 +40,7 @@ exports[`loadConfig → parent dir > loadConfig 1`] = `
             "WARN": 3,
           },
         },
-        "name": "dot-log:∵ root/minify",
+        "name": "dot-log:[1m∵ root/minify[22m",
         "options": {
           "factory": LogFactory {
             "options": {
@@ -51,7 +51,7 @@ exports[`loadConfig → parent dir > loadConfig 1`] = `
                 "reject": [Function],
                 "resolve": [Function],
               },
-              "template": "[{{time}}] jsx-email ∵ root/minify {{level}} ",
+              "template": "[{{time}}] [34mjsx-email[39m [1m∵ root/minify[22m {{level}} ",
               "time": [Function],
               "transports": undefined,
             },
@@ -71,9 +71,9 @@ exports[`loadConfig → parent dir > loadConfig 1`] = `
               "WARN": 3,
             },
           },
-          "id": "dot-log:∵ root/minify",
+          "id": "dot-log:[1m∵ root/minify[22m",
           "level": "info",
-          "name": "dot-log:∵ root/minify",
+          "name": "dot-log:[1m∵ root/minify[22m",
           "prefix": undefined,
         },
         "trace": [Function],
