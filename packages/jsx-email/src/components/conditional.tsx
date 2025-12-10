@@ -1,8 +1,22 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
-import { jsxToString } from '../renderer/jsx-to-string.js';
-import { useData } from '../renderer/suspense.js';
 import type { JsxEmailComponent } from '../types.js';
+
+declare module 'react/jsx-runtime' {
+  namespace JSX {
+    interface IntrinsicElements {
+      // @ts-ignore
+      'jsx-email-cond': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & {
+          'data-expression'?: string;
+          'data-head'?: boolean;
+          'data-mso'?: boolean;
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
 
 export interface ConditionalProps {
   children?: React.ReactNode;
@@ -11,29 +25,8 @@ export interface ConditionalProps {
   mso?: boolean;
 }
 
-const notMso = (html: string) => `<!--[if !mso]><!-->${html}<!--<![endif]-->`;
-
-const comment = (expression: string, html: string) => `<!--[if ${expression}]>${html}<![endif]-->`;
-
-const Renderer = (props: ConditionalProps) => {
-  const { children, mso, head } = props;
-  let { expression } = props;
-  const html = useData(props, () => jsxToString(<>{children}</>));
-  let innerHtml = '';
-
-  if (mso === false) innerHtml = notMso(html);
-  else if (mso === true && !expression) expression = 'mso';
-  if (expression) innerHtml = comment(expression, html);
-
-  const Component = head ? 'head' : 'jsx-email-cond';
-
-  // @ts-ignore
-  // Note: This is perfectly valid. TS just expects lowercase tag names to match a specific type
-  return <Component dangerouslySetInnerHTML={{ __html: innerHtml }} />;
-};
-
 export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
-  const { children, expression, mso } = props;
+  const { children, expression, mso, head } = props;
 
   if (typeof expression === 'undefined' && typeof mso === 'undefined')
     throw new RangeError(
@@ -45,12 +38,13 @@ export const Conditional: JsxEmailComponent<ConditionalProps> = (props) => {
       'jsx-email: Conditional expects the `expression` or `mso` prop to be defined, not both'
     );
 
+  // Always render a JSX custom element with data-* markers.
+  // A rehype plugin will replace this element with proper conditional comments.
+  // @ts-ignore - lower-case custom element tag is valid
   return (
-    <>
-      <Suspense fallback={<div>waiting</div>}>
-        <Renderer {...props}>{children}</Renderer>
-      </Suspense>
-    </>
+    <jsx-email-cond data-mso={mso} data-expression={expression} data-head={head}>
+      {children}
+    </jsx-email-cond>
   );
 };
 
