@@ -1,14 +1,14 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Conditional> component > renders expression 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if lt batman]><h1>joker</h1><![endif]--></body></html>"`;
+exports[`<Conditional> component > renders expression 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if lt batman]><h1>joker</h1><![endif]/--></body></html>"`;
 
 exports[`<Conditional> component > renders mso: false 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if !mso]><!--><h1>batman</h1><!--<![endif]--></body></html>"`;
 
-exports[`<Conditional> component > renders mso: true 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if mso]><h1>batman</h1><![endif]--></body></html>"`;
+exports[`<Conditional> component > renders mso: true 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if mso]><h1>batman</h1><![endif]/--></body></html>"`;
 
-exports[`<Conditional> component > renders with head: true 1`] = `"<head><!--[if mso]><h1>batman</h1><![endif]--></head>"`;
+exports[`<Conditional> component > renders with head: true 1`] = `"<jsx-email-cond data-mso="true" data-head="true"><h1>batman</h1></jsx-email-cond>"`;
 
-exports[`<Conditional> component > renders with jsxToString 1`] = `"<jsx-email-cond><!--[if mso]><h1>batman</h1><![endif]--></jsx-email-cond>"`;
+exports[`<Conditional> component > renders with jsxToString 1`] = `"<jsx-email-cond data-mso="true"><h1>batman</h1></jsx-email-cond>"`;
 
 exports[`<Conditional> component > throws on bad props 1`] = `[RangeError: jsx-email: Conditional expects the \`expression\` or \`mso\` prop to be defined]`;
 
