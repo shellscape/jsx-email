@@ -9,6 +9,12 @@ tasks:
   # Naming this differently so it's not picked up bu the main test workflow
   test.run:
     command: vitest --config ../../shared/vitest.config.ts . --pool=forks
+    deps:
+      - plugin-inline:build
+      - plugin-minify:build
+      - plugin-pretty:build
+      - create-mail:build
+      - jsx-email:build
     inputs:
       - ./**/*.test.ts
       - package.json
