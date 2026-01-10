@@ -43,7 +43,13 @@ tasks:
       - dist
 
   release:
-    command: versioner --target $projectRoot
+    command: |
+      versioner --target $projectRoot --publish=false
+      rm -rf /tmp/jsx-email-pack
+      mkdir -p /tmp/jsx-email-pack
+      cd $projectRoot
+      pnpm pack --pack-destination /tmp/jsx-email-pack
+      npm publish /tmp/jsx-email-pack/*.tgz
     deps:
       - ~:build
     options:
