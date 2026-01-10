@@ -9,9 +9,9 @@ on:
       - '*-v*'
 
 permissions:
+  # Jobs requiring OIDC (e.g., npm publish) must request `id-token: write` at the job level.
   contents: read
   pages: write
-  id-token: write
 
 jobs:
   release:
@@ -20,6 +20,7 @@ jobs:
       !startsWith(github.event.head_commit.message, 'chore(repo):')
 
     permissions:
+      # Required for `versioner` to push release commits/tags and for npm OIDC publish.
       contents: write
       id-token: write
 
@@ -49,14 +50,6 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Upgrade npm
-        run: |
-          required=11.5.1
-          current=$(npm -v)
-          if [ "$current" != "$required" ] && [ "$(printf '%s\n' "$current" "$required" | sort -V | head -n 1)" = "$current" ]; then
-            npm install -g "npm@$required"
-          fi
-
       - name: Build Projects
         run: |
           moon jsx-email:build
@@ -64,4 +57,5 @@ jobs:
           moon run :build --query "project~plugin-*"
 
       - name: Release
+        # npm auth is handled via GitHub OIDC in `scripts/release*.sh`; no NPM_TOKEN needed.
         run: moon run :release --affected --concurrency 1 --remote

@@ -43,13 +43,9 @@ tasks:
       - dist
 
   release:
-    command: |
-      versioner --target $projectRoot --publish=false
-      cd $projectRoot
-      PACK_DIR="$(mktemp -d -t jsx-email-pack-XXXXXX)"
-      pnpm pack --pack-destination "$PACK_DIR"
-      npm publish --provenance $PACK_DIR/*.tgz
-      rm -rf "$PACK_DIR"
+    # Release wrapper (version + OIDC-backed `npm publish --provenance`).
+    # Note: requires Bash.
+    command: ../../scripts/release.sh "$projectRoot"
     deps:
       - ~:build
     options:
