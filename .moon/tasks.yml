@@ -45,11 +45,11 @@ tasks:
   release:
     command: |
       versioner --target $projectRoot --publish=false
-      rm -rf /tmp/jsx-email-pack
-      mkdir -p /tmp/jsx-email-pack
       cd $projectRoot
-      pnpm pack --pack-destination /tmp/jsx-email-pack
-      npm publish /tmp/jsx-email-pack/*.tgz
+      PACK_DIR="$(mktemp -d -t jsx-email-pack-XXXXXX)"
+      pnpm pack --pack-destination "$PACK_DIR"
+      npm publish --provenance $PACK_DIR/*.tgz
+      rm -rf "$PACK_DIR"
     deps:
       - ~:build
     options:

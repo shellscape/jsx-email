@@ -50,7 +50,12 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Upgrade npm
-        run: npm install -g npm@11.5.1
+        run: |
+          required=11.5.1
+          current=$(npm -v)
+          if [ "$current" != "$required" ] && [ "$(printf '%s\n' "$current" "$required" | sort -V | head -n 1)" = "$current" ]; then
+            npm install -g "npm@$required"
+          fi
 
       - name: Build Projects
         run: |
