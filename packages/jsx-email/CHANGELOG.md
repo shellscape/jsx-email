@@ -1,5 +1,21 @@
 # jsx-email ChangeLog
 
+## v2.8.3
+
+_2025-12-01_
+
+### Bugfixes
+
+- jsx-email: normalize globby paths for preview command (#365)
+
+## v2.8.2
+
+_2025-11-27_
+
+### Bugfixes
+
+- jsx-email: upgrade valibot to 1.2.0 (#363)
+
 ## v2.8.1
 
 _2025-10-29_
