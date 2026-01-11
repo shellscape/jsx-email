@@ -7,7 +7,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@dot/versioner": "^0.3.4",
+    "@dot/versioner": "^0.4.3",
     "@moonrepo/cli": "1.41.2",
     "@swc/core": "^1.3.91",
     "@swc/helpers": "^0.5.2",
