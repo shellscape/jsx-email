@@ -9,9 +9,9 @@ on:
       - '*-v*'
 
 permissions:
+  # Jobs requiring OIDC (e.g., npm publish) must request `id-token: write` at the job level.
   contents: read
   pages: write
-  id-token: write
 
 jobs:
   release:
@@ -20,7 +20,9 @@ jobs:
       !startsWith(github.event.head_commit.message, 'chore(repo):')
 
     permissions:
+      # Required for `versioner` to push release commits/tags and for npm OIDC publish.
       contents: write
+      id-token: write
 
     runs-on: ubuntu-latest
 
@@ -54,8 +56,16 @@ jobs:
           moon create-jsx-email:build
           moon run :build --query "project~plugin-*"
 
+      - name: OIDC Preflight
+        shell: bash
+        run: |
+          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ] || [ -z "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]; then
+            echo "Missing GitHub Actions OIDC env vars (ACTIONS_ID_TOKEN_REQUEST_URL/TOKEN)." >&2
+            echo "Ensure the job requests permissions: id-token: write." >&2
+            exit 1
+          fi
+
+          echo "OIDC env vars detected."
+
       - name: Release
         run: moon run :release --affected --concurrency 1 --remote
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
