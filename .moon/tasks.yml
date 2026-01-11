@@ -43,9 +43,7 @@ tasks:
       - dist
 
   release:
-    # Release wrapper (version + OIDC-backed `npm publish --provenance`).
-    # Note: requires Bash.
-    command: ../../scripts/release.sh "$projectRoot"
+    command: versioner --target $projectRoot
     deps:
       - ~:build
     options:

@@ -57,5 +57,4 @@ jobs:
           moon run :build --query "project~plugin-*"
 
       - name: Release
-        # npm auth is handled via GitHub OIDC in `scripts/release*.sh`; no NPM_TOKEN needed.
         run: moon run :release --affected --concurrency 1 --remote
