@@ -1,5 +1,5 @@
 {
-  "name": "test-smoke",
+  "name": "test-smoke-v2",
   "version": "0.0.0",
   "private": true,
   "description": "A project to demo and test the `email preview` CLI command",
@@ -9,14 +9,14 @@
     "react": "^19.1.0"
   },
   "dependencies": {
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "^1.57.0",
     "dedent": "^1.5.1",
-    "diffable-html": "^5.0.0",
+    "diffable-html": "^6.0.1",
     "jsx-email": "workspace:^",
     "unocss": "^0.65.1"
   },
   "devDependencies": {
     "@types/diffable-html": "^5.0.2",
-    "@types/node": "20.10.5"
+    "@types/node": "22.14.1"
   }
 }

@@ -19,11 +19,12 @@ tasks:
       outputStyle: 'stream'
 
   run:
-    command: playwright test -x --config playwright.dev.ts
+    command: playwright test -x
     deps:
       - ~:install
+      - ~:setup
     env:
-      JSX_DEV_LOCAL: 'true'
+      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
     options:
       cache: false
       outputStyle: 'stream'
@@ -37,13 +38,26 @@ tasks:
     env:
       DOT_LOG_LEVEL: debug
       LOCAL_SMOKE: 'true'
+      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
     options:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
 
+  setup:
+    command: ./scripts/ci-preview-setup-smoke-v2.sh
+    env:
+      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runFromWorkspaceRoot: true
+    platform: system
+
   setup.ci:
-    command: ./scripts/ci-preview-setup.sh
+    command: ./scripts/ci-preview-setup-smoke-v2.sh
+    env:
+      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
     options:
       cache: false
       outputStyle: 'stream'
@@ -51,7 +65,9 @@ tasks:
     platform: system
 
   start.ci:
-    command: ./scripts/ci-preview-start.sh
+    command: ./scripts/ci-preview-start-smoke-v2.sh
+    env:
+      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
     options:
       cache: false
       outputStyle: 'stream'

@@ -23,7 +23,7 @@ export default defineConfig({
     trace: 'on-first-retry'
   },
   webServer: {
-    command: 'moon smoke:start.ci',
+    command: 'moon smoke-v2:start.ci',
     env: {
       ENV_TEST_VALUE: 'joker'
     },

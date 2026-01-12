@@ -1,26 +1,28 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # This script sets up an independent environment for testing the preview app, outside of this monorepo
 # That's important because how pnpm arranges node_modules within the monorepo give false positives
 # when Vite is loading imports and setting up the preview app for a development mode run. Setting this
 # up in a separate directory alleviates those differences and more closesly represents a user's machine
 # which provides a more accurate test environment
 
-TESTS_DIR="$TMPDIR"jsx-email-tests
-echo "Tests Directory: $TESTS_DIR"
+TMP_ROOT=${TMPDIR:-"/tmp"}
+TESTS_DIR="${TMP_ROOT%/}/jsx-email-tests"
+PROJECT_DIR_NAME='smoke-v2'
+STATE_PATH=${SMOKE_V2_STATE_PATH:-"${TMP_ROOT%/}/jsx-email-smoke-v2.state"}
 
-rm -rf $TESTS_DIR
-mkdir -p $TESTS_DIR
+rm -rf "$TESTS_DIR"
+mkdir -p "$TESTS_DIR"
 
-REPO_DIR=$(pwd)
-echo "Repo Directory: $REPO_DIR"
+REPO_DIR="$(pwd)"
 
-pnpm exec create-mail smoke-test --yes
+pnpm exec create-mail "$PROJECT_DIR_NAME" --yes
 
-echo "Moving smoke-test to $TESTS_DIR/smoke-test"
-mv -f smoke-test $TESTS_DIR
+mv -f "$PROJECT_DIR_NAME" "$TESTS_DIR/$PROJECT_DIR_NAME"
 
-cd $TESTS_DIR/smoke-test
+cd "$TESTS_DIR/$PROJECT_DIR_NAME"
 pnpm i
 
 # The dependencies below are required for fixtures
@@ -39,5 +41,7 @@ pnpm link "$REPO_DIR/packages/jsx-email"
 # Remove the templates that were created for us
 rm -rf templates
 
-# Copy our test fixtures to the temp smoke-test
-cp -r $REPO_DIR/test/smoke/fixtures .
+# Copy our test fixtures to the temp project
+cp -r "$REPO_DIR/test/smoke-v2/fixtures" .
+
+echo "$TESTS_DIR/$PROJECT_DIR_NAME" > "$STATE_PATH"
