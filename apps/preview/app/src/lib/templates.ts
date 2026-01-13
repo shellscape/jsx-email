@@ -7,12 +7,17 @@ export const gather = async () => {
   });
   const builtFiles = await Promise.all(Object.values(imports).map((imp) => imp()));
   const targetPath = import.meta.env.VITE_JSXEMAIL_TARGET_PATH;
+
+  if (!targetPath) {
+    throw new Error('VITE_JSXEMAIL_TARGET_PATH is not set. Preview cannot gather templates.');
+  }
+
   const templateFiles: Record<string, TemplateData> = builtFiles.reduce((acc, file) => {
     const fileExtensionRegex = /\.[^/.]+$/;
 
     const fileExtensionMatch = file.sourceFile.match(fileExtensionRegex);
     if (!fileExtensionMatch) {
-      return acc;
+      throw new Error(`Built template has no extension: ${file.sourceFile}`);
     }
 
     const fileExtension = fileExtensionMatch[0];
