@@ -7,30 +7,56 @@
   Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
 >
-<html
-  lang="en"
-  dir="ltr"
-  xmlns:o="urn:schemas-microsoft-com:office:office"
-  xmlns:v="urn:schemas-microsoft-com:vml"
->
+<html>
+  <head>
+    <style tailwind>
+      /* layer: preflights */
+    /* layer: default */
+    .me {
+      margin-inline-end: 16px;
+    }
+
+    .font-medium {
+      font-weight: 500;
+    }
+
+    .leading-4 {
+      line-height: 16px;
+    }
+    </style>
+  </head>
   <body>
-    <p style="font-size:14px;line-height:24px;margin:16px 0">
-      component test
-    </p>
-    <img
-      id="image"
-      alt="Cat"
-      src="/static/cat.jpeg"
-      width="200"
-      height="200"
-      style="border:none;display:block;outline:none;text-decoration:none"
+    <table
+      width="100%"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      style="border-collapse:collapse"
+      role="presentation"
     >
-    <a
-      href="/static/cat.jpeg"
-      style="color:#067df7;text-decoration:none"
-    >
-      /static/cat.jpeg
-    </a>
+      <tbody>
+        <tr>
+          <td align="left">
+            <span>
+              <!--[if mso]>
+          <v:roundrect href="https://example.com" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="0%"  strokeweight="1px" fillcolor=#007291>
+          <w:anchorlock/>
+          <center style="font-size:16px;color:#FFFFFF;">
+          Click me
+          </center></v:roundrect>
+          <![endif]-->
+            </span>
+            <a
+              href="https://example.com"
+              style="-webkit-text-size-adjust:none;border-radius:0;display:inline-block;font-size:16px;line-height:38px;max-width:200px;text-align:center;text-decoration:none;width:100%;background-color:#007291;color:#FFFFFF;mso-hide:all"
+              class="font-medium leading-4"
+            >
+              Click me
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
 <style>

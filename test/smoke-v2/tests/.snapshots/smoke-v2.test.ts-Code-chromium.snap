@@ -15,20 +15,6 @@
 >
   <head>
     <meta
-      name="color-scheme"
-      content="normal"
-    >
-    <meta
-      name="supported-color-schemes"
-      content="normal"
-    >
-    <style>
-      :root {
-      color-scheme: normal;
-      supported-color-schemes: normal;
-    }
-    </style>
-    <meta
       http-equiv="Content-Type"
       content="text/html; charset=UTF-8"
     >
@@ -50,44 +36,63 @@
       name="format-detection"
       content="telephone=no, date=no, address=no, email=no, url=no"
     >
-    <style>
-      @font-face {
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 400;
-      mso-font-alt: 'Verdana';
-      src: url(https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');
+    <style tailwind>
+      /* layer: preflights */
+    /* layer: default */
+    .mx-auto {
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    * {
-      font-family: 'Roboto', Verdana;
+    .my-\[40px\] {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    .my-auto {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .w-\[465px\] {
+      width: 465px;
+    }
+
+    .border-separate {
+      border-collapse: separate;
+    }
+
+    .border {
+      border-width: 1px;
+    }
+
+    .border-\[\#eaeaea\] {
+      border-color: rgb(234, 234, 234);
+    }
+
+    .rounded {
+      border-radius: 4px;
+    }
+
+    .border-solid {
+      border-style: solid;
+    }
+
+    .bg-white {
+      background-color: rgb(255, 255, 255);
+    }
+
+    .p-\[20px\] {
+      padding: 20px;
+    }
+
+    .font-sans {
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
     </style>
     <!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]/-->
   </head>
-  <body>
-    <!--[if mso]><![endif]/-->
-    <xml>
-      <o:OfficeDocumentSettings>
-        <o:AllowPNG>
-        </o:AllowPNG>
-        <o:PixelsPerInch>
-          96
-        </o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml>
-    <div
-      data-skip="true"
-      style="display:none;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden"
-    >
-      Preview Content
-      <div>
-         ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿
-      </div>
-    </div>
-    <p style="font-size:14px;line-height:24px;margin:16px 0">
-      component test
-    </p>
+  <body class="bg-white my-auto mx-auto font-sans">
     <div style="table-layout:fixed;width:100%">
       <div style="margin:0 auto;max-width:600px">
         <span>
@@ -100,93 +105,162 @@
           cellspacing="0"
           cellpadding="0"
           border="0"
+          class="border-separate border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]"
           style="max-width:600px"
         >
           <tbody>
             <tr style="width:100%">
               <td align="center">
-                <table
-                  align="center"
-                  width="100%"
-                  border="0"
-                  cellpadding="0"
-                  cellspacing="0"
-                  role="presentation"
-                >
-                  <tbody>
-                    <tr>
-                      <td>
-                        <table
-                          width="100%"
-                          border="0"
-                          cellpadding="0"
-                          cellspacing="0"
-                          style="border-collapse:collapse"
-                          role="presentation"
-                        >
-                          <tbody>
-                            <tr>
-                              <td align="left">
-                                <span>
-                                  <!--[if mso]>
-          <v:roundrect href="https://jsx.email" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="0%"  strokeweight="1px" fillcolor=#FFFFFF>
-          <w:anchorlock/>
-          <center style="font-size:16px;color:#000000;">
-          Button Content
-          </center></v:roundrect>
-          <![endif]-->
-                                </span>
-                                <a
-                                  href="https://jsx.email"
-                                  style="-webkit-text-size-adjust:none;border-radius:0;display:inline-block;font-size:16px;line-height:38px;max-width:200px;text-align:center;text-decoration:none;width:100%;background-color:#FFFFFF;color:#000000;mso-hide:all"
-                                >
-                                  Button Content
-                                </a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <h1 style>
-                          Heading Content
-                        </h1>
-                        <hr style="border:none;border-top:1px solid #eaeaea;width:100%">
-                        <img
-                          src="https://about.google/assets-main/img/glue-google-solid-logo.svg"
-                          style="border:none;display:block;outline:none;text-decoration:none"
-                        >
-                        <a
-                          href="https://jsx.email"
-                          style="color:#067df7;text-decoration:none"
-                        >
-                        </a>
-                        <div style="border:solid 1px black;padding:12px">
-                          <h1 style="color:red">
-                            Hello, World!
-                          </h1>
-                        </div>
-                        <table
-                          align="center"
-                          width="100%"
-                          role="presentation"
-                          cellspacing="0"
-                          cellpadding="0"
-                          border="0"
-                        >
-                          <tbody style="width:100%">
-                            <tr style="width:100%">
-                              <td>
-                                Column
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <p style="font-size:14px;line-height:24px;margin:16px 0">
-                          Text Content
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div>
+                  <pre
+                    class="shiki nord"
+                    style="background-color:#2e3440ff;color:#d8dee9ff"
+                    tabindex="0"
+                  >
+                    <code>
+                      <span class="line">
+                      </span>
+                      <span class="line">
+                        <span style="color:#81A1C1">
+                          import
+                        </span>
+                        <span style="color:#ECEFF4">
+                          {
+                        </span>
+                        <span style="color:#8FBCBB">
+                          batman
+                        </span>
+                        <span style="color:#ECEFF4">
+                          }
+                        </span>
+                        <span style="color:#81A1C1">
+                          from
+                        </span>
+                        <span style="color:#ECEFF4">
+                          '
+                        </span>
+                        <span style="color:#A3BE8C">
+                          superheros
+                        </span>
+                        <span style="color:#ECEFF4">
+                          '
+                        </span>
+                        <span style="color:#81A1C1">
+                          ;
+                        </span>
+                      </span>
+                      <span class="line">
+                        <span style="color:#81A1C1">
+                          import
+                        </span>
+                        <span style="color:#ECEFF4">
+                          {
+                        </span>
+                        <span style="color:#8FBCBB">
+                          joker
+                        </span>
+                        <span style="color:#ECEFF4">
+                          }
+                        </span>
+                        <span style="color:#81A1C1">
+                          from
+                        </span>
+                        <span style="color:#ECEFF4">
+                          '
+                        </span>
+                        <span style="color:#A3BE8C">
+                          villains
+                        </span>
+                        <span style="color:#ECEFF4">
+                          '
+                        </span>
+                        <span style="color:#81A1C1">
+                          ;
+                        </span>
+                      </span>
+                      <span class="line">
+                      </span>
+                      <span class="line">
+                        <span style="color:#81A1C1">
+                          const
+                        </span>
+                        <span style="color:#D8DEE9">
+                          henchmen
+                        </span>
+                        <span style="color:#81A1C1">
+                          =
+                        </span>
+                        <span style="color:#D8DEE9">
+                          joker
+                        </span>
+                        <span style="color:#ECEFF4">
+                          .
+                        </span>
+                        <span style="color:#88C0D0">
+                          help
+                        </span>
+                        <span style="color:#D8DEE9FF">
+                          ()
+                        </span>
+                        <span style="color:#81A1C1">
+                          ;
+                        </span>
+                      </span>
+                      <span class="line">
+                      </span>
+                      <span class="line">
+                        <span style="color:#D8DEE9">
+                          batman
+                        </span>
+                        <span style="color:#ECEFF4">
+                          .
+                        </span>
+                        <span style="color:#88C0D0">
+                          fight
+                        </span>
+                        <span style="color:#D8DEE9FF">
+                          (
+                        </span>
+                        <span style="color:#D8DEE9">
+                          henchmen
+                        </span>
+                        <span style="color:#D8DEE9FF">
+                          )
+                        </span>
+                        <span style="color:#81A1C1">
+                          ;
+                        </span>
+                      </span>
+                      <span class="line">
+                        <span style="color:#D8DEE9">
+                          batman
+                        </span>
+                        <span style="color:#ECEFF4">
+                          .
+                        </span>
+                        <span style="color:#88C0D0">
+                          arrest
+                        </span>
+                        <span style="color:#D8DEE9FF">
+                          (
+                        </span>
+                        <span style="color:#D8DEE9">
+                          joker
+                        </span>
+                        <span style="color:#D8DEE9FF">
+                          )
+                        </span>
+                        <span style="color:#81A1C1">
+                          ;
+                        </span>
+                      </span>
+                      <span class="line">
+                        <span style="color:#D8DEE9FF">
+                        </span>
+                      </span>
+                    </code>
+                  </pre>
+                </div>
               </td>
             </tr>
           </tbody>

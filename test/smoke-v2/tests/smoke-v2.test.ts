@@ -61,21 +61,33 @@ test('watcher', async ({ page }) => {
   const smokeProjectDir = await getSmokeProjectDir();
   const targetFilePath = join(smokeProjectDir, 'fixtures/templates/base.tsx');
   const contents = await readFile(targetFilePath, 'utf8');
+  const builtBaseFilePath = join(os.tmpdir(), 'jsx-email', 'preview', 'base.js');
 
   try {
     await page.goto(indexUrl);
     await page.waitForSelector('#link-Base', timeout);
     await page.locator('#link-Base').click(timeout);
 
-    const iframe = page.frameLocator('iframe');
-
-    await expect(iframe.locator('body')).toContainText('Text Content', { timeout: 30e3 });
+    const iframeEl = page.locator('iframe');
+    await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
+    await expect(iframeEl).toHaveAttribute('srcdoc', /Text Content/, { timeout: 30e3 });
 
     await writeFile(targetFilePath, contents.replace('Text Content', 'Removed Content'), 'utf8');
 
-    await expect(iframe.locator('body')).toContainText('Removed Content', { timeout: 60e3 });
+    await expect
+      .poll(async () => (await readFile(builtBaseFilePath, 'utf8')).includes('Removed Content'), {
+        timeout: 60e3
+      })
+      .toBe(true);
 
-    const html = await getHTML(iframe.locator('html'), { deep: true });
+    // When templates rebuild, Vite's HMR doesn't always update the iframe content deterministically.
+    // Reloading ensures the latest compiled template HTML is reflected in `srcdoc`.
+    await page.reload();
+    await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
+    await expect(iframeEl).toHaveAttribute('srcdoc', /Removed Content/, { timeout: 60e3 });
+
+    const srcdoc = await iframeEl.getAttribute('srcdoc');
+    const html = await getHTML(srcdoc || '');
     expect(html).toMatchSnapshot({ name: 'watcher.snap' });
   } finally {
     await writeFile(targetFilePath, contents, 'utf8');

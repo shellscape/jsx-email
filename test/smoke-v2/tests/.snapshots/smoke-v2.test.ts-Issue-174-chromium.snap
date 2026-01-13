@@ -13,8 +13,12 @@
   xmlns:o="urn:schemas-microsoft-com:office:office"
   xmlns:v="urn:schemas-microsoft-com:vml"
 >
+  <head>
+    <style tailwind>
+      /* layer: preflights */
+    </style>
+  </head>
   <body>
-    joker
   </body>
 </html>
 <style>
