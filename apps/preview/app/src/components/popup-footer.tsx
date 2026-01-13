@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Link as ReactRouterDomLink } from 'react-router-dom';
 
-import { Button } from './ui/button.js';
+import { Button } from './ui/button';
 import { Link } from './ui/link.js';
 import { Separator } from './ui/separator.js';
 

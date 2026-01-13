@@ -4,7 +4,7 @@ import * as RadixSelect from '@radix-ui/react-select';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 
-import { Button } from '../../components/ui/button.js';
+import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input.js';
 import { Separator } from '../../components/ui/separator';
 import { plunkApiBearerTokenProvidedOnlyForJsxEmailUiDoNotUseElsewhere } from '../../lib/consts';
