@@ -5,5 +5,7 @@ packages:
   - '!recipes/*'
 
 enablePrePostScripts: true
-dangerouslyAllowAllBuilds: true
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
 shamefullyHoist: true
