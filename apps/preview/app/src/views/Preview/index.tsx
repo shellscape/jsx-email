@@ -4,15 +4,15 @@ import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { Button } from '../../components/ui/Button';
-import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/Popover';
-import { ToggleGroup } from '../../components/ui/ToggleGroup';
+import { Button } from '../../components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover';
+import { ToggleGroup } from '../../components/ui/toggle-group';
 import { useAppStore } from '../../composables/useAppStore';
 import { useScroll } from '../../composables/useScroll';
 import { Views } from '../../lib/types';
 
-import { CodePreview } from './CodePreview';
-import { RenderPreview } from './RenderPreview';
+import { CodePreview } from './code-preview';
+import { RenderPreview } from './render-preview';
 
 export const Preview = observer(() => {
   const appStore = useAppStore();

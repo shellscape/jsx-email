@@ -1,11 +1,11 @@
 import { Icon } from '@iconify/react';
 import { Link as ReactRouterDomLink } from 'react-router-dom';
 
-import { Button } from './ui/Button';
-import { Link } from './ui/Link';
-import { Separator } from './ui/Separator';
+import { Button } from './ui/button.js';
+import { Link } from './ui/link.js';
+import { Separator } from './ui/separator.js';
 
-export const DefaultPopupFooter = () => (
+export const PopupFooter = () => (
   <div className="w-full flex items-center justify-between gap-x-4 gap-y-8 flex-wrap px-8 sm:px-12 py-6">
     <div className="flex items-center gap-x-5">
       <Button asChild>

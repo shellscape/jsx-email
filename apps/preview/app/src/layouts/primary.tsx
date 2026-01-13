@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
-import { Header, Sidebar } from '../components/Sidebar';
+import { Header, Sidebar } from '../components/sidebar';
 
-export const Shell = () => (
+export const PrimaryLayout = () => (
   <>
     <div className="w-full h-[100dvh] flex flex-col fixed inset-x-0">
       <Header />

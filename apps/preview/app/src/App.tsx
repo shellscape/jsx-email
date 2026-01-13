@@ -3,10 +3,10 @@ import { StrictMode, useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { useAppStore } from './composables/useAppStore';
-import { Shell } from './layouts/Shell';
+import { PrimaryLayout } from './layouts/primary';
 import { AppStore } from './stores/AppStore';
-import { Index } from './views/Index';
 import { Preview } from './views/Preview/index';
+import { IndexView } from './views/index-view';
 
 const Router = observer(() => {
   const appStore = useAppStore();
@@ -16,8 +16,8 @@ const Router = observer(() => {
       {appStore.templates.isReady && (
         <HashRouter>
           <Routes>
-            <Route path="/" element={<Shell />}>
-              <Route index element={<Index />} />
+            <Route path="/" element={<PrimaryLayout />}>
+              <Route index element={<IndexView />} />
               <Route path="emails">
                 {Object.values(appStore.templates.records).map((template, index) => (
                   <Route

@@ -12,8 +12,8 @@ While JSX email can be used with just about any email provider that takes a stri
 ## AWS SES
 
 ```tsx
-import { render } from 'jsx-email';
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
+import { render } from 'jsx-email';
 
 import { Template } from './emails/Batman.tsx';
 
@@ -48,7 +48,7 @@ await ses.send(
 
 ```tsx
 import { render } from 'jsx-email';
-import { MailerSend, EmailParams, Sender, Recipient } from 'mailersend';
+import { EmailParams, MailerSend, Recipient, Sender } from 'mailersend';
 
 import { Template } from './emails/Batman.tsx';
 
@@ -142,8 +142,8 @@ resend.sendEmail({
 ## Sendgrid
 
 ```tsx
-import { render } from 'jsx-email';
 import sendgrid from '@sendgrid/mail';
+import { render } from 'jsx-email';
 
 import { Template } from './emails/Batman.tsx';
 
@@ -162,8 +162,8 @@ sendgrid.send({
 ## Plunk
 
 ```tsx
-import { render } from 'jsx-email';
 import Plunk from '@plunk/node';
+import { render } from 'jsx-email';
 
 import { Template } from './emails/Batman.tsx';
 

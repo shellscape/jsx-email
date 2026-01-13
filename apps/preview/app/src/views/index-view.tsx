@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react';
 
-import { DefaultPopupFooter } from '../components/DefaultPopupFooter';
-import { Popup } from '../components/ui/Popup';
-import { Separator } from '../components/ui/Separator';
+import { PopupFooter } from '../components/popup-footer.js';
+import { Popup } from '../components/ui/popup.js';
+import { Separator } from '../components/ui/separator';
 import { useAppStore } from '../composables/useAppStore';
 
-export const Index = observer(() => {
+export const IndexView = observer(() => {
   const appStore = useAppStore();
 
   const hasNoRecords = Object.keys(appStore.templates.records).length === 0;
@@ -36,7 +36,7 @@ export const Index = observer(() => {
             </Popup.Description>
           </div>
           <Separator />
-          <DefaultPopupFooter />
+          <PopupFooter />
         </Popup.Modal>
       </Popup.Root>
       {/* templates found but not selected */}
@@ -57,7 +57,7 @@ export const Index = observer(() => {
               </p>
             </div>
             <Separator />
-            <DefaultPopupFooter />
+            <PopupFooter />
           </Popup.Body>
         </div>
       )}
