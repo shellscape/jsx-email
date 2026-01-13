@@ -12,8 +12,8 @@ import shikiGithubDarkHighContrastTheme from 'shiki/themes/github-dark-high-cont
 import shikiGithubLightTheme from 'shiki/themes/github-light.mjs';
 
 import { Button } from '../../components/ui/button';
-import { useAppStore } from '../../composables/useAppStore.js';
-import { Views } from '../../lib/types.js';
+import { useAppStore } from '../../composables/useAppStore';
+import { Views } from '../../lib/types';
 
 import { FlaotingToolbarPositioningController } from './floating-toolbar';
 import type { BaseRendererProps } from './types';

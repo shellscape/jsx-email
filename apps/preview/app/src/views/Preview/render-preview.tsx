@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useRef, useState } from 'react';
 
 import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input.js';
+import { Input } from '../../components/ui/input';
 import { Separator } from '../../components/ui/separator';
 import { plunkApiBearerTokenProvidedOnlyForJsxEmailUiDoNotUseElsewhere } from '../../lib/consts';
 import devices from '../../lib/devices.json';
