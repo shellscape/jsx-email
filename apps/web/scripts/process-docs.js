@@ -3,6 +3,7 @@
  * This script processes the documentation files from the docs directory
  * and copies them into the Astro.js content structure.
  */
+/* oxlint-disable no-await-in-loop */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
