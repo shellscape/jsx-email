@@ -20,11 +20,7 @@ const Router = observer(() => {
               <Route index element={<Index />} />
               <Route path="emails">
                 {Object.values(appStore.templates.records).map((template, index) => (
-                  <Route
-                    path={template.path.replace('.tsx', '')}
-                    key={index}
-                    element={<Preview />}
-                  />
+                  <Route path={template.path} key={index} element={<Preview />} />
                 ))}
               </Route>
             </Route>

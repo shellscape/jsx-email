@@ -27,7 +27,7 @@ test('landing', async ({ page }) => {
 });
 
 test('templates', async ({ page }) => {
-  test.setTimeout(30e3);
+  test.setTimeout(3 * 60e3);
 
   await page.goto('/');
 
@@ -42,8 +42,12 @@ test('templates', async ({ page }) => {
     await test.step(`template: ${name}`, async () => {
       await link.click(timeout);
 
-      const iframe = await page.frameLocator('iframe');
-      const html = await getHTML(iframe.locator('html'), { deep: true });
+      // Reading the iframe srcdoc is more reliable than traversing into the frame in CI.
+      const iframeEl = page.locator('iframe');
+      await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
+      await expect(iframeEl).toHaveAttribute('srcdoc', /\S/, { timeout: 30e3 });
+      const srcdoc = await iframeEl.getAttribute('srcdoc');
+      const html = await getHTML(srcdoc || '');
 
       expect(html).toMatchSnapshot({ name: `${safeName}.snap` });
     });

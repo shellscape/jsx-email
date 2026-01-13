@@ -34,14 +34,16 @@ export const Preview = observer(() => {
 
   useEffect(() => {
     if (!searchParams.get('view')) {
-      searchParams.set('view', Views.Desktop);
-      setSearchParams(searchParams);
+      const next = new URLSearchParams(searchParams);
+      next.set('view', Views.Desktop);
+      setSearchParams(next);
     }
   }, [urlKey]);
 
   function changeView(view: Views) {
-    searchParams.set('view', view);
-    setSearchParams(searchParams);
+    const next = new URLSearchParams(searchParams);
+    next.set('view', view);
+    setSearchParams(next);
   }
 
   return (

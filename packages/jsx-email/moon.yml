@@ -46,12 +46,12 @@ tasks:
       cache: false
 
   copy.preview:
-    command: cp -r ../../apps/preview/app dist/preview
+    command: rm -rf dist/preview && cp -r ../../apps/preview/app dist/preview
     options:
       cache: false
 
   copy.templates:
-    command: cp -r ../../assets/templates dist
+    command: rm -rf dist/templates && cp -r ../../assets/templates dist/templates
     options:
       cache: false
 
