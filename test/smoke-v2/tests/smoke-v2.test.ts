@@ -59,7 +59,7 @@ test('watcher', async ({ page }) => {
   test.setTimeout(90e3);
 
   const smokeProjectDir = await getSmokeProjectDir();
-  const targetFilePath = join(smokeProjectDir, 'fixtures/templates/base.jsx');
+  const targetFilePath = join(smokeProjectDir, 'fixtures/templates/base.tsx');
   const contents = await readFile(targetFilePath, 'utf8');
 
   try {
