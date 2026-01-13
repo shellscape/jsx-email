@@ -1,0 +1,36 @@
+import { EOL } from 'node:os';
+
+import type { Locator } from '@playwright/test';
+import dedent from 'dedent';
+import diffableHTML from 'diffable-html';
+
+const cleanHTML = (html: string) =>
+  diffableHTML(dedent(html))
+    .trim()
+    // Consistent line-endings are important
+    .replace(/\r?\n/g, EOL)
+    // The .replace removes some playwright locator gunk that slips in otherwise
+    .replace(/\r?\n^\s*__playwright_target__.+$/m, '')
+    .replace(/@fs\/(.+)\/fixtures/g, '@fs/<path-removed>/fixtures');
+
+interface GetHtmlOptions {
+  deep: boolean;
+}
+
+const getHTML = async (locator: string | Locator, options?: GetHtmlOptions) => {
+  if (typeof locator === 'string') {
+    return cleanHTML(locator);
+  }
+
+  const { deep = true } = options || { deep: false };
+  const raw = await locator.evaluate((node, d) => {
+    // @ts-ignore
+    const tgt = d ? node : node.cloneNode();
+
+    return tgt.outerHTML;
+  }, deep);
+
+  return cleanHTML(raw);
+};
+
+export { getHTML, cleanHTML };

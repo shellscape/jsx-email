@@ -6,6 +6,7 @@ projects:
     - 'apps/*'
     - 'packages/*'
     - 'test/cli'
+    - 'test/smoke'
     - 'test/smoke-v2'
   sources:
     root: '.'

@@ -8,21 +8,21 @@ export const gather = async () => {
   const builtFiles = await Promise.all(Object.values(imports).map((imp) => imp()));
   const targetPath = import.meta.env.VITE_JSXEMAIL_TARGET_PATH;
   const templateFiles: Record<string, TemplateData> = builtFiles.reduce((acc, file) => {
-    const fileExtensionRegex = /\.[^/.]+$/;
-    const fileExtension = file.sourceFile.match(fileExtensionRegex)[0];
+    const templateName = file.templateName || file.sourceFile.split('/').at(-1);
 
-    // @ts-ignore // TODO: @andrew ?
-    const relativePath = file.sourcePath.replace(`${targetPath}/`, '');
-    const routePath = relativePath.replace(/\.(t|j)sx$/, '');
-    const templateName = file.templateName || parseName(relativePath);
+    const fileExtensionRegex = /\.[^/.]+$/;
+
+    const fileExtension = file.sourceFile.match(fileExtensionRegex)[0];
+    const fileNameWithExtensionStripped = file.sourceFile.replace(fileExtensionRegex, '');
 
     return {
       ...acc,
-      [`emails/${routePath}`]: {
+      [fileNameWithExtensionStripped]: {
         fileExtension,
-        fileName: routePath,
+        fileName: fileNameWithExtensionStripped,
         html: file.html,
-        path: routePath,
+        // @ts-ignore // TODO: @andrew ?
+        path: file.sourcePath.replace(`${targetPath}/`, ''),
         plain: file.plain,
         source: file.source,
         templateName
@@ -60,7 +60,7 @@ export const getNestedStructure = (templates: TemplateData[]) => {
       let child = curr.children?.find((c) => c.name === parseName(part));
       if (!child) {
         // If not, create it
-        child = { children: [], name: parseName(part), path: template.path };
+        child = { children: [], name: parseName(part), path: template.path.replace('.tsx', '') };
         curr.children.push(child);
       }
 

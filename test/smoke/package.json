@@ -1,0 +1,22 @@
+{
+  "name": "test-smoke",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A project to demo and test the `email preview` CLI command",
+  "license": "MIT",
+  "type": "module",
+  "peerDependencies": {
+    "react": "^19.1.0"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.49.1",
+    "dedent": "^1.5.1",
+    "diffable-html": "^5.0.0",
+    "jsx-email": "workspace:^",
+    "unocss": "^0.65.1"
+  },
+  "devDependencies": {
+    "@types/diffable-html": "^5.0.2",
+    "@types/node": "20.10.5"
+  }
+}
