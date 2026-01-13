@@ -214,11 +214,8 @@ const Marquee = forwardRef<HTMLDivElement, MarqueeProps>(
 
     // Animation duration
     const duration = useMemo(() => {
-      if (autoFill) {
-        return (marqueeWidth * multiplier) / speed;
-      } else {
-        return marqueeWidth < containerWidth ? containerWidth / speed : marqueeWidth / speed;
-      }
+      if (autoFill) return (marqueeWidth * multiplier) / speed;
+      return marqueeWidth < containerWidth ? containerWidth / speed : marqueeWidth / speed;
     }, [autoFill, containerWidth, marqueeWidth, multiplier, speed]);
 
     const containerStyle = useMemo(
@@ -249,7 +246,7 @@ const Marquee = forwardRef<HTMLDivElement, MarqueeProps>(
         ['--direction' as string]: direction === 'left' ? 'normal' : 'reverse',
         ['--duration' as string]: `${duration}s`,
         ['--delay' as string]: `${delay}s`,
-        ['--iteration-count' as string]: !!loop ? `${loop}` : 'infinite',
+        ['--iteration-count' as string]: loop ? `${loop}` : 'infinite',
         ['--min-width' as string]: autoFill ? `auto` : '100%'
       }),
       [play, direction, duration, delay, loop, autoFill]
@@ -287,7 +284,7 @@ const Marquee = forwardRef<HTMLDivElement, MarqueeProps>(
       <div
         ref={containerRef}
         style={containerStyle}
-        className={'rfm-marquee-container ' + className}
+        className={`rfm-marquee-container ${className}`}
       >
         {gradient && <div style={gradientStyle} className="rfm-overlay" />}
         <div

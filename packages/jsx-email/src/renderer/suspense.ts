@@ -21,6 +21,7 @@ const wrapPromise = <TPromise extends Promise<any>>(promise: TPromise) => {
       if (status === 'pending') {
         throw suspender;
       } else if (status === 'error') {
+        // oxlint-disable-next-line no-throw-literal
         throw result;
       } else if (status === 'success') {
         return result;

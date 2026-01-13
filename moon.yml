@@ -55,7 +55,7 @@ tasks:
       cache: false
 
   lint.js:
-    command: oxlint --format stylish apps infra packages scripts services
+    command: oxlint --format stylish --tsconfig tsconfig.json apps infra packages scripts services
     options:
       cache: false
 
