@@ -11,11 +11,11 @@ import shikiTsxLang from 'shiki/langs/tsx.mjs';
 import shikiGithubDarkHighContrastTheme from 'shiki/themes/github-dark-high-contrast.mjs';
 import shikiGithubLightTheme from 'shiki/themes/github-light.mjs';
 
-import { Button } from '../../components/ui/Button';
-import { useAppStore } from '../../composables/useAppStore';
-import { Views } from '../../lib/types';
+import { Button } from '../../components/ui/button.js';
+import { useAppStore } from '../../composables/useAppStore.js';
+import { Views } from '../../lib/types.js';
 
-import { FlaotingToolbarPositioningController } from './FloatingToolbarPositioningController';
+import { FlaotingToolbarPositioningController } from './floating-toolbar';
 import type { BaseRendererProps } from './types';
 
 interface CodePreviewProps extends BaseRendererProps {

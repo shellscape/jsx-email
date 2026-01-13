@@ -4,14 +4,14 @@ import * as RadixSelect from '@radix-ui/react-select';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 
-import { Button } from '../../components/ui/Button';
-import { Input } from '../../components/ui/Input';
-import { Separator } from '../../components/ui/Separator';
+import { Button } from '../../components/ui/button.js';
+import { Input } from '../../components/ui/input.js';
+import { Separator } from '../../components/ui/separator';
 import { plunkApiBearerTokenProvidedOnlyForJsxEmailUiDoNotUseElsewhere } from '../../lib/consts';
 import devices from '../../lib/devices.json';
 import { Views } from '../../lib/types';
 
-import { FlaotingToolbarPositioningController } from './FloatingToolbarPositioningController';
+import { FlaotingToolbarPositioningController } from './floating-toolbar';
 import type { BaseRendererProps } from './types';
 
 const PlunkLogo = ({ className }: { className?: string }) => (
