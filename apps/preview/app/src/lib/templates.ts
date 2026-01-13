@@ -9,10 +9,15 @@ export const gather = async () => {
   const targetPath = import.meta.env.VITE_JSXEMAIL_TARGET_PATH;
   const templateFiles: Record<string, TemplateData> = builtFiles.reduce((acc, file) => {
     const fileExtensionRegex = /\.[^/.]+$/;
-    const fileExtension = file.sourceFile.match(fileExtensionRegex)[0];
+
+    const fileExtensionMatch = file.sourceFile.match(fileExtensionRegex);
+    if (!fileExtensionMatch) {
+      return acc;
+    }
+
+    const fileExtension = fileExtensionMatch[0];
     const fileNameWithExtensionStripped = file.sourceFile.replace(fileExtensionRegex, '');
 
-    // @ts-ignore // TODO: @andrew ?
     const relativePath = file.sourcePath.replace(`${targetPath}/`, '');
     const routePath = relativePath.replace(/\.(t|j)sx$/, '');
     const id = `emails/${routePath}`;

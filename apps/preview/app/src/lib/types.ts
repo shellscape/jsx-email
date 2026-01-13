@@ -4,6 +4,7 @@ export interface PreviewImportContent {
   plain: string;
   source: string;
   sourceFile: string;
+  sourcePath: string;
   templateName: string;
 }
 
