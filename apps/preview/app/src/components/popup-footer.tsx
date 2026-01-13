@@ -1,9 +1,9 @@
 import { Icon } from '@iconify/react';
 import { Link as ReactRouterDomLink } from 'react-router-dom';
 
-import { Button } from './ui/button';
-import { Link } from './ui/link';
-import { Separator } from './ui/separator';
+import { Button } from './ui/Button';
+import { Link } from './ui/Link';
+import { Separator } from './ui/Separator';
 
 export const PopupFooter = () => (
   <div className="w-full flex items-center justify-between gap-x-4 gap-y-8 flex-wrap px-8 sm:px-12 py-6">

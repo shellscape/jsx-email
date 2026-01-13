@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react';
 
 import { PopupFooter } from '../components/popup-footer';
-import { Popup } from '../components/ui/popup';
-import { Separator } from '../components/ui/separator';
+import { Popup } from '../components/ui/Popup';
+import { Separator } from '../components/ui/Separator';
 import { useAppStore } from '../composables/useAppStore';
 
 export const IndexView = observer(() => {
