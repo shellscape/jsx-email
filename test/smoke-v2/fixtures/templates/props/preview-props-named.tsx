@@ -1,6 +1,6 @@
 import { Body, Html } from 'jsx-email';
 
-export const TemplateName = 'preview-props-named';
+export const templateName = 'preview-props-named';
 
 export const Template = ({ test }: { test: string }) => (
   <Html>
