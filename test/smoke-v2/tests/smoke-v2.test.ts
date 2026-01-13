@@ -9,6 +9,7 @@ import { getHTML } from './helpers/html.js';
 
 const timeout = { timeout: 15e3 };
 const templateLinkSel = '#sidebar-tree a[data-name]';
+const baseViewQuery = '?view=desktop';
 const defaultStatePath = join(os.tmpdir(), 'jsx-email-smoke-v2.state');
 
 const getSmokeProjectDir = async () => {
@@ -19,7 +20,7 @@ const getSmokeProjectDir = async () => {
 test.describe.configure({ mode: 'serial' });
 
 test('landing', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(`/${baseViewQuery}`);
   await expect(page).toHaveTitle('jsx-email Preview');
 
   await expect(page.getByRole('heading', { name: 'Select a Template' })).toBeVisible();
@@ -29,7 +30,7 @@ test('landing', async ({ page }) => {
 test('templates', async ({ page }) => {
   test.setTimeout(3 * 60e3);
 
-  await page.goto('/');
+  await page.goto(`/${baseViewQuery}`);
 
   await page.waitForSelector(templateLinkSel, timeout);
 
@@ -62,7 +63,7 @@ test('watcher', async ({ page }) => {
   const contents = await readFile(targetFilePath, 'utf8');
 
   try {
-    await page.goto('/');
+    await page.goto(`/${baseViewQuery}`);
     await page.waitForSelector('#link-Base', timeout);
     await page.locator('#link-Base').click(timeout);
 
