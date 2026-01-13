@@ -11,7 +11,7 @@ import shikiTsxLang from 'shiki/langs/tsx.mjs';
 import shikiGithubDarkHighContrastTheme from 'shiki/themes/github-dark-high-contrast.mjs';
 import shikiGithubLightTheme from 'shiki/themes/github-light.mjs';
 
-import { Button } from '../../components/ui/button.js';
+import { Button } from '../../components/ui/button';
 import { useAppStore } from '../../composables/useAppStore.js';
 import { Views } from '../../lib/types.js';
 
