@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 
-import { PopupFooter } from '../components/popup-footer.js';
-import { Popup } from '../components/ui/popup.js';
+import { PopupFooter } from '../components/popup-footer';
+import { Popup } from '../components/ui/popup';
 import { Separator } from '../components/ui/separator';
 import { useAppStore } from '../composables/useAppStore';
 
