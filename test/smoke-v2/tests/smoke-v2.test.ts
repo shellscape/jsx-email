@@ -11,6 +11,7 @@ const timeout = { timeout: 15e3 };
 const templateLinkSel = '#sidebar-tree a[data-name]';
 const indexUrl = '/#/?view=desktop';
 const defaultStatePath = join(os.tmpdir(), 'jsx-email-smoke-v2.state');
+const defaultPreviewBuildFilePath = join(os.tmpdir(), 'jsx-email', 'preview', 'base.js');
 
 const getSmokeProjectDir = async () => {
   const statePath = process.env.SMOKE_V2_STATE_PATH || defaultStatePath;
@@ -61,7 +62,6 @@ test('watcher', async ({ page }) => {
   const smokeProjectDir = await getSmokeProjectDir();
   const targetFilePath = join(smokeProjectDir, 'fixtures/templates/base.tsx');
   const contents = await readFile(targetFilePath, 'utf8');
-  const builtBaseFilePath = join(os.tmpdir(), 'jsx-email', 'preview', 'base.js');
 
   try {
     await page.goto(indexUrl);
@@ -75,7 +75,7 @@ test('watcher', async ({ page }) => {
     await writeFile(targetFilePath, contents.replace('Text Content', 'Removed Content'), 'utf8');
 
     await expect
-      .poll(async () => (await readFile(builtBaseFilePath, 'utf8')).includes('Removed Content'), {
+      .poll(async () => (await readFile(defaultPreviewBuildFilePath, 'utf8')).includes('Removed Content'), {
         timeout: 60e3
       })
       .toBe(true);
