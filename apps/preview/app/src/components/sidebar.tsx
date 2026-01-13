@@ -9,8 +9,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAppStore } from '../composables/useAppStore';
 import type { TemplatePart } from '../lib/types';
 
-import { Logo } from './logo';
-import { Separator } from './ui/Separator';
+import { Logo } from './Logo.js';
+import { Separator } from './ui/separator.js';
 
 interface DirectoryTreeProps {
   isSubSection?: boolean;
