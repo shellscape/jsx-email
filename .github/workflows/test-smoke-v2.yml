@@ -34,4 +34,7 @@ jobs:
           moon run :build --query "project~plugin-*"
 
       - name: Run smoke-v2 tests
-        run: moon smoke-v2:run.ci
+        env:
+          DOT_LOG_LEVEL: debug
+          LOCAL_SMOKE: 'true'
+        run: moon smoke-v2:run

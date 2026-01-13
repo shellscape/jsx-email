@@ -23,22 +23,6 @@ tasks:
     deps:
       - ~:install
       - ~:setup
-    env:
-      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false
-
-  run.ci:
-    command: playwright test -x
-    deps:
-      - ~:install
-      - ~:setup.ci
-    env:
-      DOT_LOG_LEVEL: debug
-      LOCAL_SMOKE: 'true'
-      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
     options:
       cache: false
       outputStyle: 'stream'
@@ -46,28 +30,14 @@ tasks:
 
   setup:
     command: ./scripts/ci-preview-setup-smoke-v2.sh
-    env:
-      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
     options:
       cache: false
       outputStyle: 'stream'
       runFromWorkspaceRoot: true
     platform: system
 
-  setup.ci:
-    command: ./scripts/ci-preview-setup-smoke-v2.sh
-    env:
-      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runFromWorkspaceRoot: true
-    platform: system
-
-  start.ci:
+  start:
     command: ./scripts/ci-preview-start-smoke-v2.sh
-    env:
-      SMOKE_V2_STATE_PATH: /tmp/jsx-email-smoke-v2.state
     options:
       cache: false
       outputStyle: 'stream'

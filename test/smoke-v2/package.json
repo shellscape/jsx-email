@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@playwright/test": "^1.57.0",
+    "@jsx-email/plugin-inline": "workspace:^",
+    "@jsx-email/plugin-minify": "workspace:^",
+    "@jsx-email/plugin-pretty": "workspace:^",
     "dedent": "^1.5.1",
     "diffable-html": "^6.0.1",
     "jsx-email": "workspace:^",
