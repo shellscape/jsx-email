@@ -36,6 +36,7 @@ tasks:
       - src
       - package.json
     options:
+      mergeArgs: replace
       runDepsInParallel: false
 
   # Note: https://github.com/isaacs/tshy/issues/61
