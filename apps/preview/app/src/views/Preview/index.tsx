@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-import { Button } from '../../components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover';
+import { Button } from '../../components/ui/Button';
+import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/Popover';
 import { ToggleGroup } from '../../components/ui/toggle-group';
 import { useAppStore } from '../../composables/useAppStore';
 import { useScroll } from '../../composables/useScroll';

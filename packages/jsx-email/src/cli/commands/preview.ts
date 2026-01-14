@@ -126,7 +126,7 @@ const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
     clearScreen: false,
     configFile: false,
     optimizeDeps: {
-      include: ['classnames', 'cookie', 'react-dom', 'react-dom/client', 'set-cookie-parser']
+      include: ['classnames', 'react-dom', 'react-dom/client']
     },
     // plugins: [DynamicPublicDirectory([join(targetPath, '**')], { ssr: false }), react()],
     plugins: [

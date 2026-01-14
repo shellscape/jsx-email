@@ -5,5 +5,8 @@ packages:
   - '!recipes/*'
 
 enablePrePostScripts: true
-dangerouslyAllowAllBuilds: true
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@moonrepo/cli'
+  - esbuild
 shamefullyHoist: true

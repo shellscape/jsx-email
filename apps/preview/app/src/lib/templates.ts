@@ -7,22 +7,30 @@ export const gather = async () => {
   });
   const builtFiles = await Promise.all(Object.values(imports).map((imp) => imp()));
   const targetPath = import.meta.env.VITE_JSXEMAIL_TARGET_PATH;
+
+  if (!targetPath) {
+    throw new Error('VITE_JSXEMAIL_TARGET_PATH is not set. Preview cannot gather templates.');
+  }
+
   const templateFiles: Record<string, TemplateData> = builtFiles.reduce((acc, file) => {
-    const templateName = file.templateName || file.sourceFile.split('/').at(-1);
-
     const fileExtensionRegex = /\.[^/.]+$/;
+    const sourcePath = file.sourcePath || file.sourceFile;
+    const relativePath = sourcePath.startsWith(`${targetPath}/`)
+      ? sourcePath.slice(`${targetPath}/`.length)
+      : sourcePath;
+    const routePath = relativePath.replace(/\.(t|j)sx$/, '');
+    const id = `emails/${routePath}`;
 
-    const fileExtension = file.sourceFile.match(fileExtensionRegex)[0];
-    const fileNameWithExtensionStripped = file.sourceFile.replace(fileExtensionRegex, '');
+    const fileExtension = relativePath.match(fileExtensionRegex)?.[0] || '';
+    const templateName = file.templateName || parseName(routePath);
 
     return {
       ...acc,
-      [fileNameWithExtensionStripped]: {
+      [id]: {
         fileExtension,
-        fileName: fileNameWithExtensionStripped,
+        fileName: routePath,
         html: file.html,
-        // @ts-ignore // TODO: @andrew ?
-        path: file.sourcePath.replace(`${targetPath}/`, ''),
+        path: routePath,
         plain: file.plain,
         source: file.source,
         templateName
@@ -60,7 +68,7 @@ export const getNestedStructure = (templates: TemplateData[]) => {
       let child = curr.children?.find((c) => c.name === parseName(part));
       if (!child) {
         // If not, create it
-        child = { children: [], name: parseName(part), path: template.path.replace('.tsx', '') };
+        child = { children: [], name: parseName(part), path: template.path };
         curr.children.push(child);
       }
 

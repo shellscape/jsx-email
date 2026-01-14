@@ -4,7 +4,8 @@ export interface PreviewImportContent {
   plain: string;
   source: string;
   sourceFile: string;
-  templateName: string;
+  sourcePath?: string;
+  templateName?: string;
 }
 
 export enum Views {
