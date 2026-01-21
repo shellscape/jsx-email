@@ -71,6 +71,7 @@ describe('<Conditional mso> closer', () => {
   });
 
   it('emits the standard closer for OfficeDocumentSettings XML within <head>', async () => {
+    // Canonical guardrail for the Classic Outlook + OfficeDocumentSettings scenario.
     const officeXml =
       '<xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>';
 
