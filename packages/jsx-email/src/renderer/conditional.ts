@@ -31,9 +31,11 @@ export const getConditionalPlugin = async () => {
   return function conditionalPlugin() {
     return function transform(tree: Root) {
       const matches: Match[] = [];
+      let htmlEl: Element | undefined;
       let headEl: Element | undefined;
 
       visit(tree, 'element', (node, index, parent) => {
+        if (node.tagName === 'html') htmlEl = node;
         if (node.tagName === 'head') headEl = node;
 
         if (!parent || typeof index !== 'number') return;
@@ -57,9 +59,28 @@ export const getConditionalPlugin = async () => {
             ? false
             : Boolean(headProp);
 
+        // When a head-scoped conditional is requested and we're operating on a
+        // document tree (i.e., we have an <html> root), ensure there's a <head>
+        // so relocation behavior matches closer selection.
+        if (!headEl && toHead && htmlEl) {
+          const htmlChildren = (htmlEl as unknown as ParentWithRaw).children;
+          const insertAt = htmlChildren.findIndex(
+            (child) => child.type === 'element' && child.tagName === 'body'
+          );
+          headEl = {
+            children: [],
+            properties: {},
+            tagName: 'head',
+            type: 'element'
+          };
+
+          htmlChildren.splice(insertAt === -1 ? 0 : insertAt, 0, headEl);
+        }
+
         // MSO closer selection is tied to whether the conditional is declared as
-        // head-scoped (via `data-head`). Relocation into <head> itself is still
-        // conditional on a head root being present.
+        // head-scoped (via `data-head`). When we're operating on a full document
+        // tree and a head root is missing, we create one so the relocation logic
+        // stays consistent with this closer choice.
         const rendersInHeadScope = toHead;
 
         let openRaw: string | undefined;

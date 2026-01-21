@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { Conditional, Raw, render } from '../src/index.ts';
 
 function getHead(html: string) {
+  // Test helper: assumes well-formed HTML with a single <head>…</head> pair.
   const start = html.indexOf('<head');
   if (start === -1) return '';
 
