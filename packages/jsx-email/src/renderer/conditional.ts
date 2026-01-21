@@ -57,9 +57,9 @@ export const getConditionalPlugin = async () => {
             ? false
             : Boolean(headProp);
 
-        // Head-scoped conditionals either opt in via `data-head` (and get moved into <head>)
-        // or are already direct descendants of <head>.
-        const willRenderInHead = Boolean(headEl && (toHead || parent === headEl));
+        // Head-scoped conditionals opt in via `data-head` and get moved into <head>
+        // when a head root is present. This flag controls the choice of MSO closer.
+        const rendersInHeadScope = Boolean(headEl && toHead);
 
         let openRaw: string | undefined;
         let closeRaw: string | undefined;
@@ -76,8 +76,10 @@ export const getConditionalPlugin = async () => {
             // Older Outlook/Word HTML parsers prefer the self-closing
             // conditional terminator variant to avoid comment spillover
             // when adjacent comments appear. Prefer `<![endif]/-->` outside
-            // <head>, but use the standard `<![endif]-->` within <head>.
-            closeRaw = willRenderInHead ? '<![endif]-->' : '<![endif]/-->';
+            // <head>. However, Classic Outlook can be stricter about head
+            // conditionals (notably those wrapping OfficeDocumentSettings XML),
+            // so we use the standard `<![endif]-->` closer for head-scoped blocks.
+            closeRaw = rendersInHeadScope ? '<![endif]-->' : '<![endif]/-->';
           }
         }
 

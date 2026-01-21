@@ -27,9 +27,11 @@ describe('<Conditional mso> closer', () => {
       </Conditional>
     );
 
-    expect(html).toContain('<![endif]-->' /* standard closer */);
-    expect(html).not.toContain('<![endif]/-->' /* slashed closer */);
+    const head = html.match(/<head[\s\S]*?<\/head>/)?.[0] || '';
+
+    expect(head).toContain('<![endif]-->' /* standard closer */);
+    expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
     // Robustness: ensure the closer appears exactly once
-    expect((html.match(/<!\[endif\]-->/g) || []).length).toBe(1);
+    expect((head.match(/<!\[endif\]-->/g) || []).length).toBe(1);
   });
 });
