@@ -4,7 +4,13 @@ import { describe, expect, it } from 'vitest';
 import { Conditional, Raw, render } from '../src/index.ts';
 
 function getHead(html: string) {
-  return html.match(/<head[\s\S]*?<\/head>/)?.[0] || '';
+  const start = html.indexOf('<head');
+  if (start === -1) return '';
+
+  const end = html.indexOf('</head>', start);
+  if (end === -1) return '';
+
+  return html.slice(start, end + '</head>'.length);
 }
 
 describe('<Conditional mso> closer', () => {
@@ -39,6 +45,27 @@ describe('<Conditional mso> closer', () => {
     expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
     expect(head).not.toContain('<!--[endif]---->' /* previously corrupted closer */);
     // Robustness: ensure the closer appears exactly once
+    expect((head.match(/<!\[endif\]-->/g) || []).length).toBe(1);
+  });
+
+  it('emits the standard closer when the conditional is already in <head>', async () => {
+    const html = await render(
+      <html>
+        <head>
+          <Conditional mso>
+            <Raw content={'<b data-testid="closer-in-head">hi</b>'} />
+          </Conditional>
+        </head>
+        <body />
+      </html>
+    );
+
+    const head = getHead(html);
+
+    expect(head).toContain('<!--[if mso]>' /* opener */);
+    expect(head).toContain('data-testid="closer-in-head"');
+    expect(head).toContain('<![endif]-->' /* standard closer */);
+    expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
     expect((head.match(/<!\[endif\]-->/g) || []).length).toBe(1);
   });
 

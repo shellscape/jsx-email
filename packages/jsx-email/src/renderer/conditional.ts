@@ -57,13 +57,9 @@ export const getConditionalPlugin = async () => {
             ? false
             : Boolean(headProp);
 
-        // Head-scoped conditionals opt in via `data-head` and get moved into <head>
-        // when a head root is present (via `headEl`). This flag controls the choice
-        // of MSO closer and must stay in sync with the relocation logic.
-        // (See the `headEl && toHead` relocation block below.)
-        //
-        // Note: `rehypeDocument` ensures a <head> exists for `render()` output.
-        const rendersInHeadScope = Boolean(headEl && toHead);
+        // Decide whether this conditional will be emitted into <head> by this
+        // plugin. This is used to select the correct MSO closer variant.
+        const rendersInHeadScope = Boolean(headEl && (parent === headEl || toHead));
 
         let openRaw: string | undefined;
         let closeRaw: string | undefined;
