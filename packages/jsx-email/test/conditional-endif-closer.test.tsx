@@ -37,6 +37,7 @@ describe('<Conditional mso> closer', () => {
     expect(head).toContain('data-testid="closer-head"');
     expect(head).toContain('<![endif]-->' /* standard closer */);
     expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
+    expect(head).not.toContain('<!--[endif]---->' /* previously corrupted closer */);
     // Robustness: ensure the closer appears exactly once
     expect((head.match(/<!\[endif\]-->/g) || []).length).toBe(1);
   });
@@ -54,6 +55,7 @@ describe('<Conditional mso> closer', () => {
     expect(head).toContain('data-testid="closer-head-expr"');
     expect(head).toContain('<![endif]-->' /* standard closer */);
     expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
+    expect(head).not.toContain('<!--[endif]---->' /* previously corrupted closer */);
   });
 
   it('emits the slashed closer for expression conditionals outside <head>', async () => {
@@ -84,5 +86,6 @@ describe('<Conditional mso> closer', () => {
     expect(head).toContain('<o:OfficeDocumentSettings>');
     expect(head).toContain('<![endif]-->' /* standard closer */);
     expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
+    expect(head).not.toContain('<!--[endif]---->' /* previously corrupted closer */);
   });
 });
