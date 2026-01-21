@@ -5,6 +5,7 @@ import { Conditional, Raw, render } from '../src/index.ts';
 
 describe('<Conditional mso> closer', () => {
   it('emits a self-closing MSO closer `<![endif]/-->`', async () => {
+    // Outside <head>, we prefer the self-closing closer to avoid comment spillover.
     const html = await render(
       <Conditional mso>
         <Raw content={'<b data-testid="closer">hi</b>'} />
@@ -19,6 +20,7 @@ describe('<Conditional mso> closer', () => {
   });
 
   it('emits the standard MSO closer `<![endif]-->` within <head>', async () => {
+    // Within <head>, use the standard closer for Classic Outlook compatibility.
     const html = await render(
       <Conditional head mso>
         <Raw content={'<b data-testid="closer-head">hi</b>'} />

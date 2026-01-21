@@ -57,6 +57,8 @@ export const getConditionalPlugin = async () => {
             ? false
             : Boolean(headProp);
 
+        // Head-scoped conditionals either opt in via `data-head` (and get moved into <head>)
+        // or are already direct descendants of <head>.
         const willRenderInHead = Boolean(headEl && (toHead || parent === headEl));
 
         let openRaw: string | undefined;
