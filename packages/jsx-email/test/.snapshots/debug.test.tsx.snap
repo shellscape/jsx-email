@@ -11,7 +11,7 @@ exports[`render > renders with debug attributes 1`] = `
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <meta name="x-apple-disable-message-reformatting">
-    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no"><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]/-->
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no"><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
   </head>
 
   <body data-type="jsx-email/body" style="background-color:#ffffff;font-family:HelveticaNeue,Helvetica,Arial,sans-serif">

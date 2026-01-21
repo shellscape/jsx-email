@@ -17,4 +17,17 @@ describe('<Conditional mso> closer', () => {
     // Robustness: ensure the closer appears exactly once
     expect((html.match(/<!\[endif\]\/-->/g) || []).length).toBe(1);
   });
+
+  it('emits the standard MSO closer `<![endif]-->` within <head>', async () => {
+    const html = await render(
+      <Conditional head mso>
+        <Raw content={'<b data-testid="closer-head">hi</b>'} />
+      </Conditional>
+    );
+
+    expect(html).toContain('<![endif]-->' /* standard closer */);
+    expect(html).not.toContain('<![endif]/-->' /* slashed closer */);
+    // Robustness: ensure the closer appears exactly once
+    expect((html.match(/<!\[endif\]-->/g) || []).length).toBe(1);
+  });
 });

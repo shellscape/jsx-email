@@ -57,6 +57,8 @@ export const getConditionalPlugin = async () => {
             ? false
             : Boolean(headProp);
 
+        const willRenderInHead = Boolean(headEl && (toHead || parent === headEl));
+
         let openRaw: string | undefined;
         let closeRaw: string | undefined;
 
@@ -72,8 +74,8 @@ export const getConditionalPlugin = async () => {
             // Older Outlook/Word HTML parsers prefer the self-closing
             // conditional terminator variant to avoid comment spillover
             // when adjacent comments appear. Use the `<![endif]/-->` form
-            // for maximum compatibility.
-            closeRaw = '<![endif]/-->';
+            // for maximum compatibility, except within <head>.
+            closeRaw = willRenderInHead ? '<![endif]-->' : '<![endif]/-->';
           }
         }
 
