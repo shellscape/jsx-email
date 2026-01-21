@@ -73,8 +73,8 @@ export const getConditionalPlugin = async () => {
             openRaw = `<!--[if ${expression}]>`;
             // Older Outlook/Word HTML parsers prefer the self-closing
             // conditional terminator variant to avoid comment spillover
-            // when adjacent comments appear. Use the `<![endif]/-->` form
-            // for maximum compatibility, except within <head>.
+            // when adjacent comments appear. Prefer `<![endif]/-->` outside
+            // <head>, but use the standard `<![endif]-->` within <head>.
             closeRaw = willRenderInHead ? '<![endif]-->' : '<![endif]/-->';
           }
         }
