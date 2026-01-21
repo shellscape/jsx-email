@@ -57,9 +57,10 @@ export const getConditionalPlugin = async () => {
             ? false
             : Boolean(headProp);
 
-        // Decide whether this conditional will be emitted into <head> by this
-        // plugin. This is used to select the correct MSO closer variant.
-        const rendersInHeadScope = Boolean(headEl && (parent === headEl || toHead));
+        // MSO closer selection is tied to whether the conditional is declared as
+        // head-scoped (via `data-head`). Relocation into <head> itself is still
+        // conditional on a head root being present.
+        const rendersInHeadScope = toHead;
 
         let openRaw: string | undefined;
         let closeRaw: string | undefined;

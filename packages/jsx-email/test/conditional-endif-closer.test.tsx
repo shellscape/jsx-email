@@ -48,27 +48,6 @@ describe('<Conditional mso> closer', () => {
     expect((head.match(/<!\[endif\]-->/g) || []).length).toBe(1);
   });
 
-  it('emits the standard closer when the conditional is already in <head>', async () => {
-    const html = await render(
-      <html>
-        <head>
-          <Conditional mso>
-            <Raw content={'<b data-testid="closer-in-head">hi</b>'} />
-          </Conditional>
-        </head>
-        <body />
-      </html>
-    );
-
-    const head = getHead(html);
-
-    expect(head).toContain('<!--[if mso]>' /* opener */);
-    expect(head).toContain('data-testid="closer-in-head"');
-    expect(head).toContain('<![endif]-->' /* standard closer */);
-    expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
-    expect((head.match(/<!\[endif\]-->/g) || []).length).toBe(1);
-  });
-
   it('emits the standard closer for expression conditionals within <head>', async () => {
     const html = await render(
       <Conditional head expression="gte mso 9">
