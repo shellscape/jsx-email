@@ -51,4 +51,16 @@ describe('<Conditional mso> closer', () => {
     expect(head).toContain('<![endif]-->' /* standard closer */);
     expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
   });
+
+  it('emits the slashed closer for expression conditionals outside <head>', async () => {
+    const html = await render(
+      <Conditional expression="gte mso 9">
+        <Raw content={'<b data-testid="closer-body-expr">hi</b>'} />
+      </Conditional>
+    );
+
+    expect(html).toContain('<![endif]/-->' /* slashed closer */);
+    expect(html).not.toContain('<![endif]-->' /* standard closer */);
+    expect((html.match(/<!\[endif\]\/-->/g) || []).length).toBe(1);
+  });
 });
