@@ -3,6 +3,10 @@ import { describe, expect, it } from 'vitest';
 // Import from source to keep tests hermetic and avoid prebuild coupling
 import { Conditional, Raw, render } from '../src/index.ts';
 
+function getHead(html: string) {
+  return html.match(/<head[\s\S]*?<\/head>/)?.[0] || '';
+}
+
 describe('<Conditional mso> closer', () => {
   it('emits a self-closing MSO closer `<![endif]/-->`', async () => {
     // Outside <head>, we prefer the self-closing closer to avoid comment spillover.
@@ -27,7 +31,7 @@ describe('<Conditional mso> closer', () => {
       </Conditional>
     );
 
-    const head = html.match(/<head[\s\S]*?<\/head>/)?.[0] || '';
+    const head = getHead(html);
 
     expect(head).toContain('<!--[if mso]>' /* opener */);
     expect(head).toContain('data-testid="closer-head"');
@@ -44,7 +48,7 @@ describe('<Conditional mso> closer', () => {
       </Conditional>
     );
 
-    const head = html.match(/<head[\s\S]*?<\/head>/)?.[0] || '';
+    const head = getHead(html);
 
     expect(head).toContain('<!--[if gte mso 9]>' /* opener */);
     expect(head).toContain('data-testid="closer-head-expr"');
@@ -62,5 +66,23 @@ describe('<Conditional mso> closer', () => {
     expect(html).toContain('<![endif]/-->' /* slashed closer */);
     expect(html).not.toContain('<![endif]-->' /* standard closer */);
     expect((html.match(/<!\[endif\]\/-->/g) || []).length).toBe(1);
+  });
+
+  it('emits the standard closer for OfficeDocumentSettings XML within <head>', async () => {
+    const officeXml =
+      '<xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>';
+
+    const html = await render(
+      <Conditional head mso>
+        <Raw content={officeXml} />
+      </Conditional>
+    );
+
+    const head = getHead(html);
+
+    expect(head).toContain('<!--[if mso]>' /* opener */);
+    expect(head).toContain('<o:OfficeDocumentSettings>');
+    expect(head).toContain('<![endif]-->' /* standard closer */);
+    expect(head).not.toContain('<![endif]/-->' /* slashed closer */);
   });
 });

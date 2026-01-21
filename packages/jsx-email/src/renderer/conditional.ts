@@ -58,8 +58,8 @@ export const getConditionalPlugin = async () => {
             : Boolean(headProp);
 
         // Head-scoped conditionals opt in via `data-head` and get moved into <head>
-        // when a head root is present. This flag controls the choice of MSO closer
-        // and must stay in sync with the relocation logic.
+        // when a head root is present (via `headEl`). This flag controls the choice
+        // of MSO closer and must stay in sync with the relocation logic.
         const rendersInHeadScope = Boolean(headEl && toHead);
 
         let openRaw: string | undefined;
