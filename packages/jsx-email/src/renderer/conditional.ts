@@ -57,10 +57,6 @@ export const getConditionalPlugin = async () => {
             ? false
             : Boolean(headProp);
 
-        // MSO closer selection is tied to whether the conditional is declared as
-        // head-scoped (via `data-head`).
-        const rendersInHeadScope = toHead;
-
         let openRaw: string | undefined;
         let closeRaw: string | undefined;
 
@@ -73,13 +69,10 @@ export const getConditionalPlugin = async () => {
           const expression = exprAttr || (msoAttr === true ? 'mso' : void 0);
           if (expression) {
             openRaw = `<!--[if ${expression}]>`;
-            // Older Outlook/Word HTML parsers prefer the self-closing
-            // conditional terminator variant to avoid comment spillover
-            // when adjacent comments appear. Prefer `<![endif]/-->` outside
-            // <head>. However, Classic Outlook can be stricter about head
-            // conditionals (notably those wrapping OfficeDocumentSettings XML),
-            // so we use the standard `<![endif]-->` closer for head-scoped blocks.
-            closeRaw = rendersInHeadScope ? '<![endif]-->' : '<![endif]/-->';
+            // Use the standard MSO conditional closer per W3C and Microsoft
+            // specifications. This is compatible with all Outlook versions
+            // and matches industry frameworks (MJML, Maizzle, Litmus examples).
+            closeRaw = '<![endif]-->';
           }
         }
 

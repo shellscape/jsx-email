@@ -10,8 +10,8 @@ exports[`<Raw> component > Should work correctly when it has linebreaks 1`] = `
         </body></html>"
 `;
 
-exports[`<Raw> component > Should work correctly with a comment as a content 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if !mso]><!-->Ola!<!--<![endif]/--></body></html>"`;
+exports[`<Raw> component > Should work correctly with a comment as a content 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if !mso]><!-->Ola!<!--<![endif]--></body></html>"`;
 
 exports[`<Raw> component > disablePlainTextOutput > Should not output to the plain text when enabled 1`] = `"Ola!"`;
 
-exports[`<Raw> component > disablePlainTextOutput > Should output to html when enabled 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if !mso]><!-->Ola!<!--<![endif]/--></body></html>"`;
+exports[`<Raw> component > disablePlainTextOutput > Should output to html when enabled 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if !mso]><!-->Ola!<!--<![endif]--></body></html>"`;

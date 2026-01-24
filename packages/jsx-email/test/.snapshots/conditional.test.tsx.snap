@@ -1,10 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Conditional> component > renders expression 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if lt batman]><h1>joker</h1><![endif]/--></body></html>"`;
+exports[`<Conditional> component > renders expression 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if lt batman]><h1>joker</h1><![endif]--></body></html>"`;
 
 exports[`<Conditional> component > renders mso: false 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if !mso]><!--><h1>batman</h1><!--<![endif]--></body></html>"`;
 
-exports[`<Conditional> component > renders mso: true 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if mso]><h1>batman</h1><![endif]/--></body></html>"`;
+exports[`<Conditional> component > renders mso: true 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><body><!--[if mso]><h1>batman</h1><![endif]--></body></html>"`;
 
 exports[`<Conditional> component > renders with head: true 1`] = `"<jsx-email-cond data-mso="true" data-head="true"><h1>batman</h1></jsx-email-cond>"`;
 
