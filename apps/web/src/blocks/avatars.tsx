@@ -1,4 +1,4 @@
-import { Column, Img, Row, Text, render } from 'jsx-email';
+import { Column, Container, Img, Row, Tailwind, Text, render } from 'jsx-email';
 import React from 'react';
 import { codeToHtml } from 'shiki';
 
@@ -11,141 +11,173 @@ export interface Block {
 
 // Pattern 1: Basic Circular Avatar
 const BasicCircularAvatar = () => (
-  <Img
-    src="https://i.pravatar.cc/96?u=john"
-    alt="John Doe"
-    width={48}
-    height={48}
-    style={{
-      borderRadius: '50%',
-      display: 'inline-block',
-      verticalAlign: 'middle'
-    }}
-  />
+  <Tailwind>
+    <Container className="mx-auto max-w-[600px]">
+      <Img
+        src="https://i.pravatar.cc/96?u=john"
+        alt="John Doe"
+        width={48}
+        height={48}
+        style={{
+          borderRadius: '50%',
+          display: 'inline-block',
+          verticalAlign: 'middle'
+        }}
+      />
+    </Container>
+  </Tailwind>
 );
 
-const basicCircularAvatarCode = `import { Img } from 'jsx-email';
+const basicCircularAvatarCode = `import { Container, Img, Tailwind } from 'jsx-email';
 
-<Img
-  src="https://example.com/avatar.jpg"
-  alt="John Doe"
-  width={48}
-  height={48}
-  style={{
-    borderRadius: '50%',
-    display: 'inline-block',
-    verticalAlign: 'middle'
-  }}
-/>`;
+<Tailwind>
+  <Container className="mx-auto max-w-[600px]">
+    <Img
+      src="https://example.com/avatar.jpg"
+      alt="John Doe"
+      width={48}
+      height={48}
+      style={{
+        borderRadius: '50%',
+        display: 'inline-block',
+        verticalAlign: 'middle'
+      }}
+    />
+  </Container>
+</Tailwind>`;
 
 // Pattern 2: Rounded Avatar
 const RoundedAvatar = () => (
-  <Img
-    src="https://i.pravatar.cc/96?u=sarah"
-    alt="Sarah Smith"
-    width={48}
-    height={48}
-    style={{
-      borderRadius: 8,
-      display: 'inline-block',
-      verticalAlign: 'middle'
-    }}
-  />
+  <Tailwind>
+    <Container className="mx-auto max-w-[600px]">
+      <Img
+        src="https://i.pravatar.cc/96?u=sarah"
+        alt="Sarah Smith"
+        width={48}
+        height={48}
+        style={{
+          borderRadius: 8,
+          display: 'inline-block',
+          verticalAlign: 'middle'
+        }}
+      />
+    </Container>
+  </Tailwind>
 );
 
-const roundedAvatarCode = `import { Img } from 'jsx-email';
+const roundedAvatarCode = `import { Container, Img, Tailwind } from 'jsx-email';
 
-<Img
-  src="https://example.com/avatar.jpg"
-  alt="Sarah Smith"
-  width={48}
-  height={48}
-  style={{
-    borderRadius: 8,
-    display: 'inline-block',
-    verticalAlign: 'middle'
-  }}
-/>`;
+<Tailwind>
+  <Container className="mx-auto max-w-[600px]">
+    <Img
+      src="https://example.com/avatar.jpg"
+      alt="Sarah Smith"
+      width={48}
+      height={48}
+      style={{
+        borderRadius: 8,
+        display: 'inline-block',
+        verticalAlign: 'middle'
+      }}
+    />
+  </Container>
+</Tailwind>`;
 
 // Pattern 3: Avatar with Name
 const AvatarWithName = () => (
-  <Row>
-    <Column style={{ width: 48, verticalAlign: 'middle' }}>
-      <Img
-        src="https://i.pravatar.cc/96?u=jane"
-        alt="Jane Doe"
-        width={48}
-        height={48}
-        style={{ borderRadius: '50%' }}
-      />
-    </Column>
-    <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
-      <Text style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>Jane Doe</Text>
-    </Column>
-  </Row>
+  <Tailwind>
+    <Container className="mx-auto max-w-[600px]">
+      <Row>
+        <Column style={{ width: 48, verticalAlign: 'middle' }}>
+          <Img
+            src="https://i.pravatar.cc/96?u=jane"
+            alt="Jane Doe"
+            width={48}
+            height={48}
+            style={{ borderRadius: '50%' }}
+          />
+        </Column>
+        <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
+          <Text style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>Jane Doe</Text>
+        </Column>
+      </Row>
+    </Container>
+  </Tailwind>
 );
 
-const avatarWithNameCode = `import { Row, Column, Img, Text } from 'jsx-email';
+const avatarWithNameCode = `import { Column, Container, Img, Row, Tailwind, Text } from 'jsx-email';
 
-<Row>
-  <Column style={{ width: 48, verticalAlign: 'middle' }}>
-    <Img
-      src="https://example.com/avatar.jpg"
-      alt="Jane Doe"
-      width={48}
-      height={48}
-      style={{ borderRadius: '50%' }}
-    />
-  </Column>
-  <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
-    <Text style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>
-      Jane Doe
-    </Text>
-  </Column>
-</Row>`;
+<Tailwind>
+  <Container className="mx-auto max-w-[600px]">
+    <Row>
+      <Column style={{ width: 48, verticalAlign: 'middle' }}>
+        <Img
+          src="https://example.com/avatar.jpg"
+          alt="Jane Doe"
+          width={48}
+          height={48}
+          style={{ borderRadius: '50%' }}
+        />
+      </Column>
+      <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
+        <Text style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>
+          Jane Doe
+        </Text>
+      </Column>
+    </Row>
+  </Container>
+</Tailwind>`;
 
 // Pattern 4: Avatar with Name and Description
 const AvatarWithDescription = () => (
-  <Row>
-    <Column style={{ width: 48, verticalAlign: 'middle' }}>
-      <Img
-        src="https://i.pravatar.cc/96?u=mike"
-        alt="Mike Johnson"
-        width={48}
-        height={48}
-        style={{ borderRadius: '50%' }}
-      />
-    </Column>
-    <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
-      <Text style={{ margin: 0, fontSize: 14, fontWeight: 600, color: '#111827' }}>
-        Mike Johnson
-      </Text>
-      <Text style={{ margin: 0, fontSize: 12, color: '#6b7280' }}>Software Engineer</Text>
-    </Column>
-  </Row>
+  <Tailwind>
+    <Container className="mx-auto max-w-[600px]">
+      <Row>
+        <Column style={{ width: 48, verticalAlign: 'middle' }}>
+          <Img
+            src="https://i.pravatar.cc/96?u=mike"
+            alt="Mike Johnson"
+            width={48}
+            height={48}
+            style={{ borderRadius: '50%' }}
+          />
+        </Column>
+        <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
+          <Text style={{ margin: 0, fontSize: 14, fontWeight: 600, color: '#111827' }}>
+            Mike Johnson
+          </Text>
+          <Text style={{ margin: 0, fontSize: 12, color: '#6b7280' }}>Software Engineer</Text>
+        </Column>
+      </Row>
+    </Container>
+  </Tailwind>
 );
 
-const avatarWithDescriptionCode = `import { Row, Column, Img, Text } from 'jsx-email';
+const avatarWithDescriptionCode = `import { Column, Container, Img, Row, Tailwind, Text } from 'jsx-email';
 
-<Row>
-  <Column style={{ width: 48, verticalAlign: 'middle' }}>
-    <Img
-      src="https://example.com/avatar.jpg"
-      alt="Mike Johnson"
-      width={48}
-      height={48}
-      style={{ borderRadius: '50%' }}
-    />
-  </Column>
-  <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
-    <Text style={{ margin: 0, fontSize: 14, fontWeight: 600, color: '#111827' }}>
-      Mike Johnson
-    </Text>
-    <Text style={{ margin: 0, fontSize: 12, color: '#6b7280' }}>
-      Software Engineer
-    </Text>
-  </Column>
-</Row>`;
+<Tailwind>
+  <Container className="mx-auto max-w-[600px]">
+    <Row>
+      <Column style={{ width: 48, verticalAlign: 'middle' }}>
+        <Img
+          src="https://example.com/avatar.jpg"
+          alt="Mike Johnson"
+          width={48}
+          height={48}
+          style={{ borderRadius: '50%' }}
+        />
+      </Column>
+      <Column style={{ paddingLeft: 12, verticalAlign: 'middle' }}>
+        <Text style={{ margin: 0, fontSize: 14, fontWeight: 600, color: '#111827' }}>
+          Mike Johnson
+        </Text>
+        <Text style={{ margin: 0, fontSize: 12, color: '#6b7280' }}>
+          Software Engineer
+        </Text>
+      </Column>
+    </Row>
+  </Container>
+</Tailwind>`;
 
 // Helper to render a component to HTML
 async function renderBlock(Component: React.FC): Promise<string> {
