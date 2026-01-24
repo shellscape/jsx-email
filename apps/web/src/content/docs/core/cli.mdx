@@ -1,0 +1,124 @@
+---
+title: CLI
+description: Command Line Interface and developer tools for JSX-email
+type: core
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Command Line Interface
+
+The package provides an `email` CLI command that becomes available through package managers (`pnpm exec`, `npx`, or `yarn`). Here's the basic command structure:
+
+```console
+→ pnpm exec email
+
+jsx-email v0.0.0
+
+A CLI for working with Email Templates made with jsx-email
+
+Usage
+  $ email [...options]
+
+Commands
+  build       <template file or dir path>
+  check       <template file path>
+  create      <template name>
+  help        [<command>]
+  preview     <template dir path>
+
+Options
+  --help      Displays this message
+  --version   Displays the current jsx-email version
+
+Examples
+  $ email
+  $ email --help
+  $ email build ./src/templates/Invite.tsx
+  $ email create invite
+  $ email preview ./src/templates
+```
+
+## Available Commands
+
+### Build Command
+
+Build and compile email templates to HTML format:
+
+```console
+# Build entire directory
+email build ./emails
+
+# Build single template
+email build ./emails/Welcome.tsx
+```
+
+:::tip
+To view info, flags, and options for the `build` command, run `email help build`.
+:::
+
+To render using the sample props you export from a template file, pass the `--use-preview-props` flag. When set, `email build` will use the `previewProps` export (if present) instead of `--props`.
+
+### Check Command
+
+Verify email client compatibility using [caniuse.com](https://caniemail.com/) data:
+
+```console
+email check ./emails/Welcome.tsx
+```
+
+Example output shows compatibility issues:
+
+```console
+Checking email template for Client Compatibility...
+
+Found 1 files:
+   ./emails/Welcome.tsx
+
+[...]
+
+Check Complete: 14 error(s), 20 warning(s)
+```
+
+:::tip
+To view info, flags, and options for the `check` command, run `email help check`.
+:::
+
+You can also pass `--use-preview-props` so `email check` builds templates using their exported `previewProps`, keeping compatibility checks aligned with the data used for previews and builds.
+
+### Preview Command
+
+Launch a development server to preview your email templates with these features:
+
+- Fast and lightweight preview environment
+- Built-in support for monorepos
+- Local static asset serving
+- Hot-reloading
+
+For a good example of how to handle local assets like images, please have a look at [the demo AirBnB template](https://github.com/shellscape/jsx-email/blob/main/apps/demo/emails/airbnb-review.tsx). Notice that `baseUrl` is set using a condition on `import.meta.isJsxEmailPreview`. That `import.meta` property is specific to `jsx-email` and will be replaced appropriately at build time. Local assets are served from the templates root directory, in this case `apps/demos/emails`, at the server root. So a `apps/demos/emails/batman.png` file would be served at `/batman.png` in the browser. We recommend using a `static` or `assets` directory in your templates root directory, so it's clear where files are being served from when viewing in the Preview Tool.
+
+Launch the preview server:
+
+```console
+email preview ./emails
+```
+
+:::tip
+To view info, flags, and options for the `preview` command, run `email help preview`.
+:::
+
+### Deploying Preview App
+
+Create a deployable version of your preview environment:
+
+```console
+email preview <templates-path> --build-path <build-path>
+```
+
+This generates a standalone app that can be deployed to any hosting platform.

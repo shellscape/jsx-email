@@ -3,3 +3,10 @@ packages:
   - 'packages/*'
   - 'test/*'
   - '!recipes/*'
+
+enablePrePostScripts: true
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@moonrepo/cli'
+  - esbuild
+shamefullyHoist: true

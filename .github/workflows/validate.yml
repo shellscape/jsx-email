@@ -33,8 +33,9 @@ jobs:
 
       - name: Build Projects
         run: |
+          ls -aln node_modules
           moon jsx-email:build
-          moon create-jsx-email:build
+          moon create-mail:build
           moon run :build --query "project~plugin-*"
 
       - name: Lint Monorepo

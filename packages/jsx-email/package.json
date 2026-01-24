@@ -13,56 +13,31 @@
   },
   "author": "Andrew Powell <andrew@shellscape.org>",
   "homepage": "https://jsx.email/",
-  "main": "./dist/commonjs/index.js",
   "bin": {
-    "email": "./bin/email"
+    "email": "cli.js"
   },
   "module": "./dist/esm/index.js",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": {
-        "source": "./src/index.ts",
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "source": "./src/index.ts",
-        "types": "./dist/commonjs/index.d.ts",
-        "default": "./dist/commonjs/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./compile": {
-      "import": {
-        "source": "./src/compile.ts",
-        "types": "./dist/esm/compile.d.ts",
-        "default": "./dist/esm/compile.js"
-      },
-      "require": {
-        "source": "./src/compile.ts",
-        "types": "./dist/commonjs/compile.d.ts",
-        "default": "./dist/commonjs/compile.js"
-      }
+      "types": "./dist/compile.d.ts",
+      "default": "./dist/compile.js"
     },
     "./config": {
-      "import": {
-        "source": "./src/config.ts",
-        "types": "./dist/esm/config.d.ts",
-        "default": "./dist/esm/config.js"
-      },
-      "require": {
-        "source": "./src/config.ts",
-        "types": "./dist/commonjs/config.d.ts",
-        "default": "./dist/commonjs/config.js"
-      }
+      "types": "./dist/config.d.ts",
+      "default": "./dist/config.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.19.0"
   },
   "files": [
-    "bin/**",
+    "cli.js",
     "dist/**"
   ],
   "keywords": [
@@ -73,43 +48,47 @@
     "@jsx-email/plugin-inline": "workspace:^",
     "@jsx-email/plugin-minify": "workspace:^",
     "@jsx-email/plugin-pretty": "workspace:^",
-    "react": "^18.2.0 || ^19",
-    "react-dom": "^18.2.0 || ^19"
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "dependencies": {
-    "@dot/log": "^0.1.5",
-    "@jsx-email/doiuse-email": "^1.0.1",
+    "@dot/log": "^0.2.0",
     "@parcel/watcher": "^2.4.1",
     "@radix-ui/colors": "3.0.0",
-    "@radix-ui/react-collapsible": "1.1.1",
-    "@radix-ui/react-icons": "^1.3.0",
-    "@radix-ui/react-popover": "1.1.2",
-    "@radix-ui/react-select": "^2.0.0",
-    "@radix-ui/react-slot": "1.1.0",
-    "@radix-ui/react-toggle-group": "1.1.0",
-    "@unocss/core": "^0.65.1",
-    "@unocss/preset-rem-to-px": "^0.65.1",
-    "@unocss/preset-typography": "^0.65.1",
-    "@unocss/preset-uno": "^0.65.1",
-    "@unocss/preset-wind": "^0.65.1",
-    "@unocss/transformer-compile-class": "^0.65.1",
-    "@unocss/transformer-variant-group": "^0.65.1",
-    "@vitejs/plugin-react": "^5.1.0",
+    "@radix-ui/react-collapsible": "1.1.4",
+    "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-popover": "1.1.7",
+    "@radix-ui/react-select": "^2.1.7",
+    "@radix-ui/react-slot": "1.2.0",
+    "@radix-ui/react-toggle-group": "1.1.3",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@unocss/core": "^66.0.0",
+    "@unocss/preset-rem-to-px": "^66.0.0",
+    "@unocss/preset-typography": "^66.0.0",
+    "@unocss/preset-wind3": "^66.0.0",
+    "@unocss/preset-wind4": "66.1.0-beta.11",
+    "@unocss/transformer-compile-class": "^66.0.0",
+    "@unocss/transformer-variant-group": "^66.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.16",
-    "chalk": "4.1.2",
+    "caniemail": "1.0.0",
+    "chalk": "5.4.1",
+    "chalk-template": "^1.1.0",
     "classnames": "2.5.1",
     "debug": "^4.3.4",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.2",
     "find-up": "^7.0.0",
-    "framer-motion": "11.12.0",
-    "globby": "14.0.2",
+    "framer-motion": "12.7.3",
+    "globby": "14.1.0",
     "hash-it": "^6.0.0",
     "html-to-text": "9.0.5",
     "lilconfig": "^3.1.2",
     "magic-string": "^0.30.5",
-    "md-to-react-email": "5.0.4",
+    "md-to-react-email": "5.0.5",
     "micromatch": "^4.0.5",
-    "mime-types": "^2.1.35",
+    "mime-types": "^3.0.1",
     "mustache": "^4.2.0",
     "postcss": "^8.4.32",
     "postcss-var-replace": "^1.0.0",
@@ -117,14 +96,16 @@
     "react-router-dom": "7.12.0",
     "rehype": "^13.0.1",
     "rehype-stringify": "^10.0.0",
-    "shiki": "^1.18.0",
+    "semver": "^7.7.1",
+    "shiki": "^3.2.2",
     "source-map-support": "^0.5.21",
     "std-env": "^3.6.0",
-    "tailwindcss": "3.4.15",
+    "strip-ansi": "^7.1.0",
+    "tailwindcss": "4.1.4",
     "titleize": "^4.0.0",
     "unist-util-visit": "^5.0.0",
-    "valibot": "^1.2.0",
-    "vite": "^7.1.12",
+    "valibot": "^1.0.0",
+    "vite": "^6.3.0",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
@@ -141,22 +122,13 @@
     "@types/source-map-support": "^0.5.10",
     "@types/yargs-parser": "^21.0.3",
     "hast": "^1.0.0",
-    "unified": "^11.0.4"
+    "unified": "^11.0.5"
   },
-  "types": "./dist/commonjs/index.d.ts",
-  "bump": 1,
+  "types": "./dist/index.d.ts",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
   },
   "generatorsBump": "0",
-  "sideEffects": false,
-  "tshy": {
-    "exports": {
-      "./package.json": "./package.json",
-      ".": "./src/index.ts",
-      "./compile": "./src/compile.ts",
-      "./config": "./src/config.ts"
-    }
-  }
+  "sideEffects": false
 }

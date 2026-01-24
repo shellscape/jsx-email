@@ -1,5 +1,5 @@
 import { getLog } from '@dot/log';
-import chalk from 'chalk';
+import chalk from 'chalk-template';
 
 export const getPluginLog = (name: string) =>
   getLog({ brand: 'jsx-email', name: chalk`{bold ∵ ${name}}` } as any);

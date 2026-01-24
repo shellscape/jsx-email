@@ -1,0 +1,10 @@
+{
+  "arrowParens": "always",
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "plugins": ["prettier-plugin-package", "@trivago/prettier-plugin-sort-imports"],
+  "importOrder": ["^node:(.*)$", "<THIRD_PARTY_MODULES>", "^@jsx-email/(.*)$", "^(../)+(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

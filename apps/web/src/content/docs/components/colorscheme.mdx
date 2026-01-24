@@ -1,0 +1,91 @@
+---
+title: ColorScheme
+description: A JSX email component which provides meta and style foundations for color scheme support
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+:::tip[Dark Mode Support]
+Read our [FAQ about Dark Mode](/getting-started/faq#dark-and-light-mode) in email templates.
+:::
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "ColorScheme"
+// ColorSchemeExample.jsx
+import { Body, ColorScheme, Head, Html } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html>
+      <Head>
+        <ColorScheme mode="light only" />
+      </Head>
+      <Body></Body>
+    </Html>
+  );
+};
+```
+
+:::note[HTML Output]
+
+```html
+<html>
+  <head>
+    <meta name="color-scheme" content="light only" />
+    <meta name="supported-color-schemes" content="light only" />
+    <style>
+      :root {
+        color-scheme: light only;
+        supported-color-schemes: light only;
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
+```
+
+:::
+
+## Props
+
+### TypeScript Interface
+
+```ts
+export interface ColorSchemeProps {
+  mode?: Mode;
+}
+```
+
+### Optional Props
+
+#### mode
+
+```ts
+mode?: ColorSchemeMode;
+```
+
+Selects the color scheme mode. Defaults to `'normal'`.
+
+Available modes:
+
+- `'dark'` - Dark mode
+- `'dark only'` - Forces dark mode only
+- `'light'` - Light mode
+- `'light dark'` - Adapts to user preference
+- `'light dark only'` - Forces adaptation to user preference
+- `'light only'` - Forces light mode only
+- `'normal'` - Uses page defaults or no specific scheme
+
+:::note[Mode Behavior]
+
+- `only` suffix prevents client override
+- `light dark` allows client to choose based on user preference
+- `normal` respects page defaults
+  :::

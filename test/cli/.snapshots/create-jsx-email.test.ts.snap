@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`create-jsx-email > command 1`] = `
+exports[`create-mail > command 1`] = `
 "
-create-jsx-email 
+create-mail
 
 The fastest way to get started with JSX Email
 
@@ -22,7 +22,7 @@ Check out the docs! http://jsx.email/docs/quick-start
 "
 `;
 
-exports[`create-jsx-email > command 2`] = `
+exports[`create-mail > command 2`] = `
 "import {
   Body,
   Button,
@@ -124,7 +124,7 @@ export const Template = ({ email, name }: TemplateProps) => (
 "
 `;
 
-exports[`create-jsx-email > command 3`] = `
+exports[`create-mail > command 3`] = `
 [
   ".test/new/.gitignore",
   ".test/new/README.md",

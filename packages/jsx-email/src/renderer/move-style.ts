@@ -1,4 +1,5 @@
 import type { Element, Parents, Root } from 'hast';
+import { visit } from 'unist-util-visit';
 
 interface ElementWithParent extends Element {
   index: number;
@@ -6,8 +7,6 @@ interface ElementWithParent extends Element {
 }
 
 export const getMovePlugin = async () => {
-  const { visit } = await import('unist-util-visit');
-
   return function moveStylePlugin() {
     return function move(tree: Root) {
       const matches: ElementWithParent[] = [];

@@ -1,6 +1,6 @@
-# Charlie instructions for jsx-email
+# Charlie instructions for jsx-email (next/v3 branch)
 
-Repo‑specific rules that keep Charlie aligned with this codebase and review preferences. Keep diffs small, mirror existing patterns, and don’t widen scope beyond the request.
+Repo‑specific rules that keep Charlie aligned with this codebase and review preferences. Keep diffs small, mirror existing patterns, and don't widen scope beyond the request.
 
 ## Scope
 Applies to the entire repository, with extra focus on `packages/jsx-email` and its tests.
@@ -13,26 +13,28 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
 - GitHub Actions sets `FORCE_COLOR=1` when running tests; local runs must mirror this to avoid ANSI snapshot diffs.
 - Conventional Commits are the norm (e.g., `fix(jsx-email): …`). PRs should use the repository template.
 - Conventional Commit scopes map to affected project name(s) under `packages/` (e.g., `(jsx-email)`, `(plugin-inline)`, `(create-jsx-email)`). When multiple projects are affected, list each name in the scope, comma‑separated with no spaces (e.g., `(plugin-inline,plugin-pretty)`). PRs should use the repository template.
+- For the ongoing `next/v3` alignment work on `<Raw>` / `<Conditional>` behavior and core correctness (tracked in #348), branch from `origin/next/v3` and open pull requests with `base` set to `next/v3` (not `main`). Mention `#348` in the PR description for traceability.
 
 ## Rules
 - [R1] Stay on task. Do not add refactors, helpers, or style tweaks outside the explicit ask. Keep diffs minimal.
 - [R2] Tests and snapshots:
   - Run with `FORCE_COLOR=1` to match CI.
-  - Never change log/ANSI‑colored snapshots to “de‑colorize” or “stabilize” output. If a log snapshot fails, fix the cause or mirror CI settings; do not rewrite the assertion shape.
-  - Do not introduce “snapshot normalization” helpers (e.g., projecting only parts of config objects) unless a maintainer requests it.
+  - Never change log/ANSI‑colored snapshots to "de‑colorize" or "stabilize" output. If a log snapshot fails, fix the cause or mirror CI settings; do not rewrite the assertion shape.
+  - Do not introduce "snapshot normalization" helpers (e.g., projecting only parts of config objects) unless a maintainer requests it.
   - Place/update snapshots under `.snapshots` alongside the test file; prefer targeted assertions plus snapshots when behavior changes intentionally.
 - [R3] Writing tests for `packages/jsx-email`:
   - Prefer importing from package source (e.g., `../src/index.ts`) for new tests to avoid prebuild coupling. If an existing suite imports from `dist`, keep that pattern for that suite.
-  - Avoid adding `// @ts-ignore` to suppress React imports; tests can rely on the React automatic JSX runtime. Don’t add new ignores.
+  - Avoid adding `// @ts-ignore` to suppress React imports; tests can rely on the React automatic JSX runtime. Don't add new ignores.
   - Follow NodeNext import style in source files (relative imports include `.js`).
-- [R4] Verification commands (run locally before marking a PR Ready):
+- [R4] Verification commands (run locally before marking a PR Ready for changes that affect code, tests, or tooling config):
   - Build artifacts used by tests:
     - `pnpm moon run plugin-inline:build plugin-minify:build plugin-pretty:build`
     - `pnpm moon run jsx-email:build`
   - Lint: `pnpm moon run repo:lint`
-  - Tests (exactly like CI): `FORCE_COLOR=1 pnpm moon run jsx-email:test.ci`
+  - Tests (jsx-email package, mirroring the `next/v3` CI setup): `pnpm moon run jsx-email:test`
   - TypeScript (package): `pnpm moon run jsx-email:tsc`
   - Do not change tool configs or CI to make checks pass.
+  - For documentation-only or `.charlie`-only changes that do not affect CI, code, or tests, you may skip these commands, but prefer running at least `pnpm moon run repo:lint` when in doubt.
 - [R4.1] Linting (must run before pushing any commits):
   - Run repo linting via Moon: `pnpm moon run repo:lint`.
   - Do not push if linting reports errors anywhere. Fix them or coordinate a follow‑up if they are unrelated but surfaced by your changes.
@@ -44,7 +46,7 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - Commit messages use Conventional Commits; ≤ 72 chars in the subject; no emojis.
   - PRs must use the repository template as-is — Charlie is not allowed to remove sections from the template.
   - Start as Draft when work is in flux; mark Ready only after local verification passes and the description reflects the actual changes.
-  - Don’t add novel labels. Assign and request review from the human requester when appropriate.
+  - Don't add novel labels. Assign and request review from the human requester when appropriate.
 
 > Conditional/Raw specifics have been moved to a dedicated playbook. See `.charlie/playbooks/conditional-and-raw.md`.
 

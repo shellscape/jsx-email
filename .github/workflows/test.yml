@@ -40,8 +40,10 @@ jobs:
       - name: Build Projects
         run: |
           moon jsx-email:build
-          moon create-jsx-email:build
+          moon create-mail:build
           moon run :build --query "project~plugin-*"
 
       - name: Package Tests
-        run: moon run jsx-email:test.ci
+        env:
+          FORCE_COLOR: 1
+        run: moon run :test --affected --concurrency 1 --remote --log trace

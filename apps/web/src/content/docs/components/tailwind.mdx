@@ -1,0 +1,102 @@
+---
+title: Tailwind
+description: A JSX email component which enables using Tailwind-style CSS to style emails
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+:::note[Engine]
+Uses [UnoCSS](https://unocss.dev/) for Atomic CSS generation, supporting both Tailwind and [Windi CSS](https://windicss.org/) syntax.
+:::
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Tailwind"
+// TailwindExample.jsx
+import { Button, Tailwind } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              brand: '#007291'
+            }
+          }
+        }
+      }}
+      production={true}
+    >
+      <Button
+        href="https://example.com"
+        className="bg-brand px-3 py-2 font-medium leading-4 text-white"
+      >
+        Click me
+      </Button>
+    </Tailwind>
+  );
+};
+```
+
+:::caution[Email Client Compatibility]
+
+- Use `production: true` for Gmail compatibility
+- Test styles with `email check` command
+- Some CSS features may not work in all clients
+  :::
+
+## Props
+
+### TypeScript Interface
+
+```ts
+export interface TailwindProps {
+  config?: UnoCssConfig;
+  production?: boolean;
+}
+```
+
+### Optional Props
+
+#### config
+
+```ts
+config?: UnoCssConfig;
+```
+
+UnoCSS configuration for customizing theme, layers, presets, rules, etc. See [UnoCSS Configuration](https://unocss.dev/config/).
+
+#### production
+
+```ts
+production?: boolean;
+```
+
+When `true`, hashes class names for better compatibility and smaller size (e.g., `bg-purple-400` becomes `#ae387`).
+
+## Additional Information
+
+### Plugins Support
+
+:::note[Tailwind Plugins]
+The component uses UnoCSS instead of Tailwind CSS engine:
+
+- Native Tailwind plugins are not supported
+- Use [UnoCSS presets](https://unocss.dev/presets/) instead
+- See [community presets](https://unocss.dev/presets/community)
+- Check [transformers](https://unocss.dev/transformers/variant-group)
+  :::
+
+Need help porting a Tailwind plugin? Join our [Discord](https://discord.gg/FywZN57mTg).
+
+:::tip[Legacy Version]
+For v3.0.0+ of deprecated `@jsx-email/tailwind`, see [legacy docs](https://github.com/shellscape/jsx-email/blob/tailwind-v3.0.4/docs/components/tailwind.md).
+:::

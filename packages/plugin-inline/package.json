@@ -13,14 +13,13 @@
   },
   "author": "Andrew Powell <andrew@shellscape.org>",
   "homepage": "https://jsx.email/",
-  "main": "./dist/commonjs/index.js",
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       },
       "require": {
         "types": "./dist/commonjs/index.d.ts",
@@ -29,7 +28,7 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.19.0"
   },
   "files": [
     "dist/**"
@@ -51,26 +50,20 @@
     "jsx-email": "workspace:^"
   },
   "dependencies": {
-    "@adobe/css-tools": "^4.3.3",
-    "hast-util-select": "^6.0.2",
-    "hast-util-to-string": "^3.0.0",
+    "@adobe/css-tools": "^4.4.2",
+    "hast-util-select": "^6.0.4",
+    "hast-util-to-string": "^3.0.1",
     "unist-util-remove": "^4.0.0",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "hast": "^1.0.0",
-    "unified": "^11.0.4"
+    "unified": "^11.0.5"
   },
   "types": "./dist/commonjs/index.d.ts",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
   },
-  "sideEffects": false,
-  "tshy": {
-    "exports": {
-      "./package.json": "./package.json",
-      ".": "./src/index.ts"
-    }
-  }
+  "sideEffects": false
 }

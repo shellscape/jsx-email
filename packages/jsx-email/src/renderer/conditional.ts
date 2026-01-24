@@ -1,4 +1,5 @@
 import type { Content, Element, Literal, Parents, Root } from 'hast';
+
 // dynamic import of 'unist-util-visit' within factory to support CJS build
 
 interface Match {
@@ -54,8 +55,8 @@ export const getConditionalPlugin = async () => {
           typeof headProp === 'undefined'
             ? false
             : headProp === 'false'
-            ? false
-            : Boolean(headProp);
+              ? false
+              : Boolean(headProp);
 
         let openRaw: string | undefined;
         let closeRaw: string | undefined;

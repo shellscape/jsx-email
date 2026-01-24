@@ -1,11 +1,12 @@
 import React from 'react';
 
-import type { JsxEmailComponent } from '../types.js';
 import { escapeForRawComponent } from '../renderer/raw.js';
+import type { JsxEmailComponent } from '../types.js';
 
 declare module 'react/jsx-runtime' {
   namespace JSX {
     interface IntrinsicElements {
+      // @ts-ignore
       'jsx-email-raw': React.DetailedHTMLProps<
         React.HTMLAttributes<HTMLElement> & {
           dangerouslySetInnerHTML?: {

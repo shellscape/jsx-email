@@ -1,0 +1,38 @@
+<!DOCTYPE
+  html
+  PUBLIC
+  "-//W3C//DTD
+  XHTML
+  1.0
+  Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+>
+<html
+  lang="en"
+  dir="ltr"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+>
+  <body>
+    <p style="font-size:14px;line-height:24px;margin:16px 0">
+      component test
+    </p>
+    <img
+      id="image"
+      alt="Cat"
+      src="/static/cat.jpeg"
+      width="200"
+      height="200"
+      style="border:none;display:block;outline:none;text-decoration:none"
+    >
+    <a
+      href="/static/cat.jpeg"
+      style="color:#067df7;text-decoration:none"
+    >
+      /static/cat.jpeg
+    </a>
+  </body>
+</html>
+<style>
+  table { overflow-wrap: anywhere; width: 100% !important; }
+</style>

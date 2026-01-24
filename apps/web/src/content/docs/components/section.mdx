@@ -1,0 +1,59 @@
+---
+title: Section
+description: Creates section boundaries that can be formatted with columns and rows
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Section"
+// SectionExample.jsx
+import { Column, Row, Section, Text } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <>
+      {/* A simple `section` */}
+      <Section>
+        <Text>Hello World</Text>
+      </Section>
+
+      {/* Formatted with `rows` and `columns` */}
+      <Section>
+        <Row>
+          <Column>Column 1, Row 1</Column>
+          <Column>Column 2, Row 1</Column>
+        </Row>
+        <Row>
+          <Column>Column 1, Row 2</Column>
+          <Column>Column 2, Row 2</Column>
+        </Row>
+      </Section>
+    </>
+  );
+};
+```
+
+:::caution[Table Properties]
+While `Section` uses a `<table>` internally, it's designed for email client compatibility, not as a table component:
+
+- Does not support `cellPadding` or `cellSpacing`
+- For table functionality, use HTML `<table>` element
+- For padding/spacing, use these properties on [`Row`](/components/row) components
+  :::
+
+## Props
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for:
+
+- `cellPadding`
+- `cellSpacing`

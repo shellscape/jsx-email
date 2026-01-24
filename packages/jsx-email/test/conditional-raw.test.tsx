@@ -2,13 +2,12 @@
  * Note: Parts of this file are derived from [Hyperons](https://github.com/i-like-robots/hyperons).
  * @license MIT
  */
-
 import type { FC } from 'react';
 // @ts-ignore
 import React from 'react';
 
+import { Conditional, Raw, render } from '../dist/index.js';
 import { jsxToString } from '../src/renderer/jsx-to-string.js';
-import { Conditional, Raw, render } from '../dist/esm/index.js';
 
 const Template: FC<{}> = () => (
   <>

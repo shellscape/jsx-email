@@ -1,20 +1,15 @@
-// Note: tshy has some bugs with dual-mode package importing in the cjs build https://github.com/isaacs/tshy/issues/50
-// @ts-ignore
 import { parse } from '@adobe/css-tools';
-// @ts-ignore
 import type { Root } from 'hast';
-import { pluginSymbol, type JsxEmailPlugin } from 'jsx-email';
-// @ts-ignore
+import { selectAll } from 'hast-util-select';
+import { toString } from 'hast-util-to-string';
+import { type JsxEmailPlugin, pluginSymbol } from 'jsx-email';
 import type { Plugin } from 'unified';
+import { remove } from 'unist-util-remove';
+import { visit } from 'unist-util-visit';
 
 export const plugin: JsxEmailPlugin = {
   name: 'root/inline',
   process: async () => {
-    const { selectAll } = await import('hast-util-select');
-    const { toString } = await import('hast-util-to-string');
-    const { remove } = await import('unist-util-remove');
-    const { visit } = await import('unist-util-visit');
-
     return function inlineCssPlugin() {
       return function inline(tree: Root) {
         if (!tree) return null;

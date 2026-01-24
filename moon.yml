@@ -15,7 +15,7 @@ tasks:
       - plugin-inline:build
       - plugin-minify:build
       - plugin-pretty:build
-      - create-jsx-email:build
+      - create-mail:build
 
   build.all:
     command: moon repo:build.deps
@@ -50,14 +50,17 @@ tasks:
       cache: false
 
   lint.docs:
-    command: 'prettier --write .github/**/*.md **/README.md docs/**/*.md'
+    command: 'prettier --write .github/**/*.md **/README.md docs/**/*.md --no-error-on-unmatched-pattern'
     options:
       cache: false
 
   lint.js:
-    command: 'eslint --cache apps packages --ext .js,.ts,.tsx'
-    env:
-      NODE_OPTIONS: '--max-old-space-size=16384'
+    command: oxlint --format stylish --tsconfig tsconfig.json apps infra packages scripts services
+    options:
+      cache: false
+
+  lint.format:
+    command: prettier --write **/*.{js,ts,cjs}
     options:
       cache: false
 

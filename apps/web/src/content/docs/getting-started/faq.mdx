@@ -1,0 +1,150 @@
+---
+title: Frequently Asked Questions
+description: You know the drill. Questions that get asked oodles
+sidebar:
+  order: 4
+  label: FAQ
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+## Dark and Light Mode
+
+Email clients handle dark/light mode differently than web browsers. Key considerations:
+
+- Gmail and Outlook Windows have limited color-switching support
+- Different handling than web development
+
+Recommended resources:
+
+- [Ultimate Guide to Dark Mode for Email](https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers)
+- [Color Scheme Web Development Guide](https://web.dev/articles/color-scheme)
+
+## Preview App Deployment
+
+Yes, you can deploy your own preview app! Use the CLI to build a custom, deployable preview app with your templates.
+
+See [CLI Documentation](/core/cli#deploying-your-preview-app) for details.
+
+## Gmail and Tailwind
+
+Gmail has strict CSS class restrictions. When using the `<Tailwind/>` component:
+
+```jsx
+<Tailwind production={true}>{/* Your email content */}</Tailwind>
+```
+
+Setting `production: true` ensures Gmail compatibility by hashing and combining class names.
+
+## Monorepo Support
+
+JSX-email works natively with most monorepo setups without additional configuration.
+
+:::tip[Recommended Tools]
+Consider using:
+
+- [Moon](https://moonrepo.dev/)
+- [Turborepo](https://turbo.build/)
+- [pnpm Workspaces](https://pnpm.io/workspaces)
+  :::
+
+## Next.js Build Issues
+
+### Error Description
+
+If you encounter this error during Next.js builds:
+
+```
+8058.js from Terser
+  x await isn't allowed in non-async function
+```
+
+This is a [known issue with Next.js and Webpack](https://github.com/vercel/next.js/discussions/57535) related to server actions in client components.
+
+### Solutions
+
+#### Option 1: Restructure Imports
+
+Pass server actions through props:
+
+```jsx
+// page.jsx
+import { MyForm } from './MyForm';
+import { myEmailAction } from './myEmailAction';
+
+export async function Page() {
+  return <MyForm action={myEmailAction} />;
+}
+```
+
+```jsx
+// MyForm.jsx
+'use client';
+export function MyForm({ action }) {
+  // Note the passing of `action` as a prop
+  return <form action={action}>...</form>;
+}
+```
+
+```jsx
+// myEmailAction.js
+'use server';
+import { render } from 'jsx-email';
+import { MyEmail } from '@/emails/MyEmail';
+
+export async function myEmailAction() {
+  const body = await render(<MyEmail />);
+  // ...
+}
+```
+
+#### Option 2: Disable ESM Externals
+
+Modify `next.config.js`:
+
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    esmExternals: false
+  }
+};
+
+module.exports = nextConfig;
+```
+
+## How do I use React context?
+
+Import context helpers from jsx-email instead of from React.
+
+```jsx
+import { createContext, useContext } from 'jsx-email';
+```
+
+## Need More Help?
+
+If your question isn't covered here:
+
+<Steps>
+
+1. Check these resources:
+
+   - [Open an issue](https://github.com/shellscape/jsx-email/issues)
+   - [Start a Discussion](https://github.com/shellscape/jsx-email/discussions)
+   - [Join our Discord](https://discord.gg/FywZN57mTg)
+
+2. For code issues, provide a reproduction:
+
+   - Use [jsx-email-repro template](https://stackblitz.com/fork/jsx-email-repro)
+   - Or create a [minimal repository](https://gist.github.com/Rich-Harris/88c5fc2ac6dc941b22e7996af05d70ff)
+
+3. Include reproduction link with your question
+
+</Steps>
+
+:::tip
+A minimal reproduction helps us identify if the issue is in your code, setup, or JSX-email itself.
+:::

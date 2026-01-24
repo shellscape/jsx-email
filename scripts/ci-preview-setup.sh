@@ -15,7 +15,7 @@ mkdir -p $TESTS_DIR
 REPO_DIR=$(pwd)
 echo "Repo Directory: $REPO_DIR"
 
-pnpm exec create-jsx-email smoke-test --yes
+pnpm exec create-mail smoke-test --yes
 
 echo "Moving smoke-test to $TESTS_DIR/smoke-test"
 mv -f smoke-test $TESTS_DIR

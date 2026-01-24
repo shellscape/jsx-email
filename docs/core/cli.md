@@ -67,6 +67,8 @@ $ cd ~/code/email-app
 $ email build ./emails/Batman.tsx
 ```
 
+To render using the sample props you export from a template file, pass the `--use-preview-props` flag. When set, `email build` will use the `previewProps` export (if present) instead of `--props`.
+
 ## Check
 
 ::: tip
@@ -78,6 +80,8 @@ To view info, flags, and options for the `check` command, run `email help check`
 ```console
 $ email check ./emails/Batman.tsx
 ```
+
+To check templates using their exported `previewProps`, pass the `--use-preview-props` flag so the check runs against the same sample data as your previews and builds.
 
 Example output:
 

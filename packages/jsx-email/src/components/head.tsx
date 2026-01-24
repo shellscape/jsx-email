@@ -1,5 +1,5 @@
-import type { BaseProps, JsxEmailComponent } from '../types.js';
 import { debug } from '../debug.js';
+import type { BaseProps, JsxEmailComponent } from '../types.js';
 
 import { Conditional } from './conditional.js';
 import { Raw } from './raw.js';

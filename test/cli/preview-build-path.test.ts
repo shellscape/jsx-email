@@ -1,4 +1,4 @@
-import { access, rm, readFile } from 'node:fs/promises';
+import { access, readFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import { join, resolve } from 'node:path';
 

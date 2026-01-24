@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v2.8.4
+
+_2026-01-24_
+
+### Updates
+
+- jsx-email: merge main into next/v3 branch
+
 ## v2.8.3
 
 _2025-12-01_
@@ -89,7 +97,7 @@ _2025-10-04_
 - jsx-email: bump release (94714c6)
 - jsx-email: change build command to use relative paths for output directories (#313)
 
-## v2.7.2
+## v2.7.3
 
 _2025-08-20_
 
