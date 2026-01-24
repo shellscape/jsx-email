@@ -9,9 +9,13 @@ interface Props {
 const { name, renderedHtml, code, id } = Astro.props;
 ---
 
-<div class="pattern-card border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden mb-8 bg-white dark:bg-gray-900">
+<div
+  class="pattern-card border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden mb-8 bg-white dark:bg-gray-900"
+>
   <!-- Header with title and tabs -->
-  <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2">
+  <div
+    class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2"
+  >
     <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-sm">{name}</h3>
 
     <div class="tabs flex gap-1 bg-gray-200 dark:bg-gray-700 rounded-md p-1">
@@ -37,11 +41,10 @@ const { name, renderedHtml, code, id } = Astro.props;
   <!-- Preview Panel -->
   <div id={`${id}-preview`} class="tab-panel p-6 bg-white dark:bg-gray-900" data-visible="true">
     <iframe
-      srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
+      srcdoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
       class="border-0 w-full bg-white rounded"
       style="min-height: 80px; max-height: 300px;"
-      title={`Preview: ${name}`}
-    ></iframe>
+      title={`Preview: ${name}`}></iframe>
   </div>
 
   <!-- Code Panel -->
@@ -52,15 +55,16 @@ const { name, renderedHtml, code, id } = Astro.props;
     >
       Copy
     </button>
-    <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-auto max-h-[400px] m-0"><code>{code}</code></pre>
+    <pre
+      class="p-4 bg-gray-900 text-gray-100 text-sm overflow-auto max-h-[400px] m-0"><code>{code}</code></pre>
   </div>
 </div>
 
 <style>
-  .tab-panel[data-visible="false"] {
+  .tab-panel[data-visible='false'] {
     display: none;
   }
-  .tab-panel[data-visible="true"] {
+  .tab-panel[data-visible='true'] {
     display: block;
   }
 </style>
@@ -76,7 +80,7 @@ const { name, renderedHtml, code, id } = Astro.props;
         const targetId = (btn as HTMLElement).dataset.target;
 
         // Update button states
-        buttons.forEach((b) => (b as HTMLElement).dataset.active = 'false');
+        buttons.forEach((b) => ((b as HTMLElement).dataset.active = 'false'));
         (btn as HTMLElement).dataset.active = 'true';
 
         // Update panel visibility
