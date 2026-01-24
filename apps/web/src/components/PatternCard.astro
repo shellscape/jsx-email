@@ -1,0 +1,102 @@
+---
+interface Props {
+  name: string;
+  renderedHtml: string;
+  code: string;
+  id: string;
+}
+
+const { name, renderedHtml, code, id } = Astro.props;
+---
+
+<div class="pattern-card border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden mb-8 bg-white dark:bg-gray-900">
+  <!-- Header with title and tabs -->
+  <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2">
+    <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-sm">{name}</h3>
+
+    <div class="tabs flex gap-1 bg-gray-200 dark:bg-gray-700 rounded-md p-1">
+      <button
+        class="tab-btn px-3 py-1 text-xs font-medium rounded transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white data-[active=true]:bg-white dark:data-[active=true]:bg-gray-600 data-[active=true]:text-gray-900 dark:data-[active=true]:text-white"
+        data-tab="preview"
+        data-target={`${id}-preview`}
+        data-active="true"
+      >
+        Preview
+      </button>
+      <button
+        class="tab-btn px-3 py-1 text-xs font-medium rounded transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white data-[active=true]:bg-white dark:data-[active=true]:bg-gray-600 data-[active=true]:text-gray-900 dark:data-[active=true]:text-white"
+        data-tab="code"
+        data-target={`${id}-code`}
+        data-active="false"
+      >
+        Code
+      </button>
+    </div>
+  </div>
+
+  <!-- Preview Panel -->
+  <div id={`${id}-preview`} class="tab-panel p-6 bg-white dark:bg-gray-900" data-visible="true">
+    <iframe
+      srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
+      class="border-0 w-full bg-white rounded"
+      style="min-height: 80px; max-height: 300px;"
+      title={`Preview: ${name}`}
+    ></iframe>
+  </div>
+
+  <!-- Code Panel -->
+  <div id={`${id}-code`} class="tab-panel hidden relative" data-visible="false">
+    <button
+      class="copy-btn absolute top-2 right-2 z-10 px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
+      data-code={code}
+    >
+      Copy
+    </button>
+    <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-auto max-h-[400px] m-0"><code>{code}</code></pre>
+  </div>
+</div>
+
+<style>
+  .tab-panel[data-visible="false"] {
+    display: none;
+  }
+  .tab-panel[data-visible="true"] {
+    display: block;
+  }
+</style>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.pattern-card').forEach((card) => {
+    const buttons = card.querySelectorAll('.tab-btn');
+    const panels = card.querySelectorAll('.tab-panel');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = (btn as HTMLElement).dataset.target;
+
+        // Update button states
+        buttons.forEach((b) => (b as HTMLElement).dataset.active = 'false');
+        (btn as HTMLElement).dataset.active = 'true';
+
+        // Update panel visibility
+        panels.forEach((panel) => {
+          (panel as HTMLElement).dataset.visible = panel.id === targetId ? 'true' : 'false';
+        });
+      });
+    });
+  });
+
+  // Copy functionality
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const code = (btn as HTMLElement).dataset.code;
+      if (code) {
+        await navigator.clipboard.writeText(code);
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => (btn.textContent = originalText), 2000);
+      }
+    });
+  });
+</script>

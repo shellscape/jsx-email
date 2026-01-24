@@ -1,0 +1,174 @@
+---
+import '../../styles/global.css';
+import Layout from '../../components/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+interface Block {
+  name: string;
+  slug: string;
+  blockCount: number;
+  icon: string;
+}
+
+interface CategoryGroup {
+  name: string;
+  blocks: Block[];
+}
+
+const categoryGroups: CategoryGroup[] = [
+  {
+    name: 'General',
+    blocks: [
+      { name: 'Avatars', slug: 'avatars', blockCount: 4, icon: 'avatars' },
+    ]
+  },
+  {
+    name: 'Marketing',
+    blocks: [
+      { name: 'Marketing', slug: 'marketing', blockCount: 3, icon: 'marketing' },
+      { name: 'Ecommerce Pricing', slug: 'ecommerce-pricing', blockCount: 2, icon: 'pricing' },
+      { name: 'Features', slug: 'features', blockCount: 3, icon: 'features' },
+    ]
+  },
+  {
+    name: 'User Feedback',
+    blocks: [
+      { name: 'Feedback', slug: 'feedback', blockCount: 2, icon: 'feedback' },
+      { name: 'Stats', slug: 'stats', blockCount: 2, icon: 'stats' },
+      { name: 'Testimonials', slug: 'testimonials', blockCount: 3, icon: 'testimonials' },
+    ]
+  },
+  {
+    name: 'Layout',
+    blocks: [
+      { name: 'Gallery', slug: 'gallery', blockCount: 4, icon: 'gallery' },
+      { name: 'Articles', slug: 'articles', blockCount: 2, icon: 'articles' },
+    ]
+  },
+];
+---
+
+<Layout title="Blocks - JSX Email">
+  <Header />
+  <main class="min-h-screen">
+    <div class="container-custom mx-auto px-4 md:px-6 py-16 pt-24">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2">Blocks</h1>
+        <p class="text-gray-600 dark:text-gray-400">
+          Ready-to-use email blocks you can copy and paste into your templates.
+        </p>
+      </div>
+
+      <div class="border-t border-gray-200 dark:border-gray-800 pt-8">
+        {categoryGroups.map((group) => (
+          <section class="mb-12">
+            <h2 class="text-lg font-medium mb-4 text-gray-500 dark:text-gray-400">{group.name}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {group.blocks.map((block) => (
+                <a
+                  href={`/blocks/${block.slug}`}
+                  class="group block bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:border-gray-400 dark:hover:border-gray-600 transition-colors"
+                >
+                  <div class="aspect-[4/3] bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-8">
+                    <div class="block-icon" data-icon={block.icon}>
+                      {block.icon === 'avatars' && (
+                        <div class="flex -space-x-2">
+                          <div class="w-8 h-8 rounded-full bg-gray-500"></div>
+                          <div class="w-8 h-8 rounded-full bg-gray-400"></div>
+                          <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+                        </div>
+                      )}
+                      {block.icon === 'marketing' && (
+                        <div class="flex flex-col items-center gap-2">
+                          <svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                          </svg>
+                        </div>
+                      )}
+                      {block.icon === 'pricing' && (
+                        <div class="flex items-center gap-1">
+                          <div class="text-2xl font-bold text-gray-400 dark:text-gray-500">$</div>
+                          <div class="flex flex-col gap-1">
+                            <div class="w-8 h-1.5 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                            <div class="w-6 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          </div>
+                        </div>
+                      )}
+                      {block.icon === 'features' && (
+                        <div class="flex flex-col gap-2">
+                          <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 border border-gray-400 dark:border-gray-500 rounded flex items-center justify-center">
+                              <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-sm"></div>
+                            </div>
+                            <div class="w-12 h-1.5 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          </div>
+                          <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 border border-gray-400 dark:border-gray-500 rounded flex items-center justify-center">
+                              <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-sm"></div>
+                            </div>
+                            <div class="w-10 h-1.5 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          </div>
+                        </div>
+                      )}
+                      {block.icon === 'feedback' && (
+                        <div class="relative">
+                          <div class="w-12 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+                          <div class="absolute -bottom-1 left-2 w-3 h-3 bg-gray-200 dark:bg-gray-700 rotate-45"></div>
+                        </div>
+                      )}
+                      {block.icon === 'stats' && (
+                        <div class="flex items-end gap-1">
+                          <div class="w-4 h-6 bg-gray-300 dark:bg-gray-600 rounded-t"></div>
+                          <div class="w-4 h-10 bg-gray-400 dark:bg-gray-500 rounded-t"></div>
+                          <div class="w-4 h-8 bg-gray-300 dark:bg-gray-600 rounded-t"></div>
+                          <div class="w-4 h-12 bg-gray-400 dark:bg-gray-500 rounded-t"></div>
+                        </div>
+                      )}
+                      {block.icon === 'testimonials' && (
+                        <div class="flex flex-col items-center gap-2">
+                          <div class="text-2xl text-gray-400 dark:text-gray-500">"</div>
+                          <div class="flex flex-col gap-1">
+                            <div class="w-16 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                            <div class="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          </div>
+                        </div>
+                      )}
+                      {block.icon === 'gallery' && (
+                        <div class="grid grid-cols-2 gap-1">
+                          <div class="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                          <div class="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          <div class="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+                            <svg class="w-3 h-3 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            </svg>
+                          </div>
+                          <div class="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                        </div>
+                      )}
+                      {block.icon === 'articles' && (
+                        <div class="flex gap-2">
+                          <div class="w-8 h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                          <div class="flex flex-col gap-1">
+                            <div class="w-12 h-1.5 bg-gray-400 dark:bg-gray-500 rounded"></div>
+                            <div class="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                            <div class="w-8 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <h3 class="font-medium">{block.name}</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">{block.blockCount} block{block.blockCount !== 1 ? 's' : ''}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
