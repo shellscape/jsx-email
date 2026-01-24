@@ -25,9 +25,7 @@ export function escapeForRawComponent(input: string): string {
 }
 
 export function unescapeForRawComponent(input: string): string {
-  return input
-    .replace(new RegExp(START_TAG, 'g'), '<!--')
-    .replace(new RegExp(END_TAG, 'g'), '/-->');
+  return input.replace(new RegExp(START_TAG, 'g'), '<!--').replace(new RegExp(END_TAG, 'g'), '-->');
 }
 
 /**

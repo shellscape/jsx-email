@@ -17,7 +17,7 @@ exports[`Tailwind + Head > should not clobber <Head> content 2`] = `
     <title>test title</title>
     <style tailwind>
       /* layer: preflights */
-    </style><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]/-->
+    </style><!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG /><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
   </head>
 
   <body></body>

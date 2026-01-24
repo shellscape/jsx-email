@@ -19,7 +19,7 @@ import { Conditional, Head } from 'jsx-email';
 const Email = () => {
   return (
     <Head>
-      <Conditional mso={true}>
+      <Conditional head mso={true}>
         <meta content="batman" />
       </Conditional>
     </Head>
@@ -33,6 +33,7 @@ const Email = () => {
 interface ConditionalProps {
   children?: React.ReactNode;
   expression?: string;
+  head?: boolean;
   mso?: boolean;
 }
 ```
@@ -54,6 +55,8 @@ head?: boolean;
 ```
 
 If `true`, the conditional expression will be placed in the `head` section of your email template.
+
+Note: the component renders an intermediate `<jsx-email-cond>` element which HTML parsers may hoist out of a literal `<head>` tag. If you need the conditional to reliably land in `<head>`, use `head` / `data-head`.
 
 ```ts
 mso?: boolean;
