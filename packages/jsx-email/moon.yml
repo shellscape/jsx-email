@@ -21,14 +21,11 @@ tasks:
       - package.json
       - tsconfig.json
     options:
-      cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
 
   clean.readme:
     command: rm README.md
-    options:
-      cache: false
 
   compile:
     command: tsc --project tsconfig.json
@@ -43,29 +40,21 @@ tasks:
   # For all the things that tshy solves, it creates new problems
   copy.package:
     command: cp -r ./package.json dist
-    options:
-      cache: false
 
   copy.preview:
     command: cp -r ../../apps/preview/app dist/preview
-    options:
-      cache: false
 
   copy.templates:
     command: cp -r ../../assets/templates dist
-    options:
-      cache: false
 
   start.preview:
     command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
-    options:
-      cache: false
 
   test:
-    command: vitest --config ../../shared/vitest.config.ts
-    # command: vitest test/config/define-config.test.ts --config ../../shared/vitest.config.ts
-    # command: vitest test/config/load/mjs/load-mjs.test.ts --config ../../shared/vitest.config.ts
-    # command: vitest test/config/load/mjs-json/load-mjs-json.test.ts --config ../../shared/vitest.config.ts
+    command: vitest --config ../../shared/vitest.config.mts
+    # command: vitest test/config/define-config.test.ts --config ../../shared/vitest.config.mts
+    # command: vitest test/config/load/mjs/load-mjs.test.ts --config ../../shared/vitest.config.mts
+    # command: vitest test/config/load/mjs-json/load-mjs-json.test.ts --config ../../shared/vitest.config.mts
     deps:
       - ~:build
     inputs:
@@ -75,7 +64,6 @@ tasks:
     env:
       FORCE_COLOR: '1'
     options:
-      cache: false
       outputStyle: 'stream'
 
   tsc:

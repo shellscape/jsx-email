@@ -5,7 +5,7 @@ import os from 'node:os';
 import chalkTmpl from 'chalk-template';
 import { globby } from 'globby';
 import micromatch from 'micromatch';
-import { basename, dirname, extname, join, posix, resolve, win32 } from 'path';
+import { basename, dirname, extname, join, posix, relative, resolve, win32 } from 'path';
 import { isWindows } from 'std-env';
 import { pathToFileURL } from 'url';
 import type { InferOutput as Infer } from 'valibot';
@@ -98,8 +98,11 @@ export const normalizePath = (filename: string) => filename.split(win32.sep).joi
 export const getTempPath = async (type: 'build' | 'preview') => {
   const tmpdir = await realpath(os.tmpdir());
   const buildPath = join(tmpdir, `jsx-email/${type}`);
+  const result = normalizePath(buildPath);
 
-  return normalizePath(buildPath);
+  log.debug('getTempPath', { buildPath, result });
+
+  return result;
 };
 
 export const build = async (options: BuildOptions): Promise<BuildResult> => {
@@ -123,8 +126,9 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
+  const relativeBaseDir = outputBasePath ? relative(outputBasePath, baseDir) : '';
   const writePath = outputBasePath
-    ? join(out!, baseDir.replace(outputBasePath, ''), templateName)
+    ? join(out!, relativeBaseDir, templateName)
     : join(out!, templateName);
   // const writePath = outputBasePath
   //   ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)

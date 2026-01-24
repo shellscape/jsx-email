@@ -1,6 +1,6 @@
 # Charlie instructions for jsx-email (next/v3 branch)
 
-Repo‑specific rules that keep Charlie aligned with this codebase and review preferences. Keep diffs small, mirror existing patterns, and don’t widen scope beyond the request.
+Repo‑specific rules that keep Charlie aligned with this codebase and review preferences. Keep diffs small, mirror existing patterns, and don't widen scope beyond the request.
 
 ## Scope
 Applies to the entire repository, with extra focus on `packages/jsx-email` and its tests.
@@ -19,12 +19,12 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
 - [R1] Stay on task. Do not add refactors, helpers, or style tweaks outside the explicit ask. Keep diffs minimal.
 - [R2] Tests and snapshots:
   - Run with `FORCE_COLOR=1` to match CI.
-  - Never change log/ANSI‑colored snapshots to “de‑colorize” or “stabilize” output. If a log snapshot fails, fix the cause or mirror CI settings; do not rewrite the assertion shape.
-  - Do not introduce “snapshot normalization” helpers (e.g., projecting only parts of config objects) unless a maintainer requests it.
+  - Never change log/ANSI‑colored snapshots to "de‑colorize" or "stabilize" output. If a log snapshot fails, fix the cause or mirror CI settings; do not rewrite the assertion shape.
+  - Do not introduce "snapshot normalization" helpers (e.g., projecting only parts of config objects) unless a maintainer requests it.
   - Place/update snapshots under `.snapshots` alongside the test file; prefer targeted assertions plus snapshots when behavior changes intentionally.
 - [R3] Writing tests for `packages/jsx-email`:
   - Prefer importing from package source (e.g., `../src/index.ts`) for new tests to avoid prebuild coupling. If an existing suite imports from `dist`, keep that pattern for that suite.
-  - Avoid adding `// @ts-ignore` to suppress React imports; tests can rely on the React automatic JSX runtime. Don’t add new ignores.
+  - Avoid adding `// @ts-ignore` to suppress React imports; tests can rely on the React automatic JSX runtime. Don't add new ignores.
   - Follow NodeNext import style in source files (relative imports include `.js`).
 - [R4] Verification commands (run locally before marking a PR Ready for changes that affect code, tests, or tooling config):
   - Build artifacts used by tests:
@@ -46,13 +46,13 @@ Applies to the entire repository, with extra focus on `packages/jsx-email` and i
   - Commit messages use Conventional Commits; ≤ 72 chars in the subject; no emojis.
   - PRs must use the repository template as-is — Charlie is not allowed to remove sections from the template.
   - Start as Draft when work is in flux; mark Ready only after local verification passes and the description reflects the actual changes.
-  - Don’t add novel labels. Assign and request review from the human requester when appropriate.
+  - Don't add novel labels. Assign and request review from the human requester when appropriate.
 
 > Conditional/Raw specifics have been moved to a dedicated playbook. See `.charlie/playbooks/conditional-and-raw.md`.
 
 ## References
 1. CI workflow (test color): `.github/workflows/test-*.yml` (see `FORCE_COLOR=1` in test steps)
-2. Vitest shared config: `shared/vitest.config.ts`
+2. Vitest shared config: `shared/vitest.config.mts`
 3. Moon tasks inheritance: `.moon/tasks.yml`; per-project tasks: `apps/*/moon.yml`, `packages/*/moon.yml`, `test/*/moon.yml`; repository tasks: `moon.yml` (project `repo`)
 4. jsx-email package tasks: `packages/jsx-email/moon.yml`
 5. Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/

@@ -18,7 +18,7 @@ For the ongoing `next/v3` alignment work on `<Raw>` / `<Conditional>` behavior a
 2. Run tests with color forced (matches CI)
    - `pnpm moon run jsx-email:test`  <!-- task sets FORCE_COLOR=1 in Moon config on next/v3 -->
 3. Optional: update snapshots only for intentional HTML/markup changes (never for log/ANSI deltas)
-   - `cd packages/jsx-email && pnpm vitest -u --config ../../shared/vitest.config.ts && cd -`
+   - `cd packages/jsx-email && pnpm vitest -u --config ../../shared/vitest.config.mts && cd -`
 4. TypeScript check (package)
    - `pnpm moon run jsx-email:tsc`
 
@@ -33,5 +33,5 @@ For the ongoing `next/v3` alignment work on `<Raw>` / `<Conditional>` behavior a
 
 ## References
 - CI workflow (color): `.github/workflows/test-*.yml` (look for `FORCE_COLOR=1`)
-- Shared Vitest config: `shared/vitest.config.ts`
+- Shared Vitest config: `shared/vitest.config.mts`
 - Moon project tasks: `packages/jsx-email/moon.yml`

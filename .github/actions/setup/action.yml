@@ -4,10 +4,6 @@ description: Sets up the CI environment
 runs:
   using: 'composite'
   steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-
     - name: Setup Moon
       uses: moonrepo/setup-toolchain@v0
 

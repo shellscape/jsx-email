@@ -30,7 +30,7 @@ tasks:
       cache: false
 
   clean.samples:
-    command: rm -rf /tmp/samples.jsx.email
+    command: rimraf /tmp/samples.jsx.email
     inputs:
       - src
       - package.json

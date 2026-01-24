@@ -9,7 +9,7 @@ This copy lives on the `next/v3` branch. For the ongoing alignment work on `<Raw
 
 Rules
 - Include targeted tests and keep snapshot updates minimal (only intentional markup diffs).
-- Do not introduce token “centralization” helpers or adjacency tests unless a maintainer explicitly requests them.
+- Do not introduce token "centralization" helpers or adjacency tests unless a maintainer explicitly requests them.
 - Import from source for new tests to avoid prebuild coupling: `import { Conditional, Raw, render } from '../src/index.ts'`.
 
 Test guidelines
@@ -20,7 +20,7 @@ Test guidelines
   - For `<Conditional mso><Raw …/></Conditional>`, assert the inner payload appears exactly once and not outside the block.
   - Use `lastIndexOf` for closer slicing and allow opener at index `>= 0`.
 - Snapshots and colorized logs
-  - Run with `FORCE_COLOR=1` to match CI. Never “de‑colorize” or normalize log snapshots.
+  - Run with `FORCE_COLOR=1` to match CI. Never "de‑colorize" or normalize log snapshots.
 
 Commands (jsx-email)
 - Build artifacts some suites rely on: `pnpm moon run plugin-inline:build plugin-minify:build plugin-pretty:build && pnpm moon run jsx-email:build`
@@ -29,5 +29,5 @@ Commands (jsx-email)
 
 References
 - CI workflow (color): `.github/workflows/test-*.yml` (look for `FORCE_COLOR=1`)
-- Shared Vitest config: `shared/vitest.config.ts`
+- Shared Vitest config: `shared/vitest.config.mts`
 - Package tasks: `packages/jsx-email/moon.yml`

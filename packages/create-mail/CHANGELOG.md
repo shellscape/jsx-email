@@ -1,5 +1,13 @@
 # create-mail ChangeLog
 
+## v2.1.1
+
+_2025-08-20_
+
+### Bugfixes
+
+- create-jsx-email: Add react-dom to devDeps (#304)
+
 ## v2.1.0
 
 _2025-01-12_

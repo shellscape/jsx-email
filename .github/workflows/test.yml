@@ -14,8 +14,14 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
     name: Run Tests
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout Commit
