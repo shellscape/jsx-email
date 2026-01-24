@@ -32,7 +32,7 @@ describe('Conditional + Raw – no duplication', () => {
 
     // Exactly one conditional block, one closer, and one copy of the inner table
     const opener = '<!--[if mso]>';
-    const closer = '<![endif]/-->';
+    const closer = '<![endif]-->';
     expect(count(html, opener)).toBe(1);
     expect(count(html, closer)).toBe(1);
     expect(count(html, 'id="msoTableTest"')).toBe(1);

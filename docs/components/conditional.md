@@ -58,8 +58,6 @@ If `true`, the conditional expression will be placed in the `head` section of yo
 
 Note: the component renders an intermediate `<jsx-email-cond>` element which HTML parsers may hoist out of a literal `<head>` tag. If you need the conditional to reliably land in `<head>`, use `head` / `data-head`.
 
-For `mso` conditionals, `head` scope also affects the closer: head-scoped MSO blocks close with `<![endif]-->`, while non-head MSO blocks keep the `<![endif]/-->` closer.
-
 ```ts
 mso?: boolean;
 ```

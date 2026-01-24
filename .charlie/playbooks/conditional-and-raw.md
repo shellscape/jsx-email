@@ -9,7 +9,7 @@ Rules
 
 Test guidelines
 - Closer/opener integrity
-  - Assert exactly one opener and closer for MSO: `<!--[if mso]>` and the current closer `<![endif]/-->`.
+  - Assert exactly one opener and closer for MSO: `<!--[if mso]>` and the standard closer `<![endif]-->`.
   - Add a small case for the expression path (e.g., `expression="gte mso 16"`) and assert the same closer.
 - No‑duplication when nesting Raw
   - For `<Conditional mso><Raw …/></Conditional>`, assert the inner payload appears exactly once and not outside the block.
