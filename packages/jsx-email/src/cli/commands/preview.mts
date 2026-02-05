@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { AssertionError } from 'node:assert';
 import { existsSync } from 'node:fs';
-import { mkdir, rmdir } from 'node:fs/promises';
+import { mkdir, rm } from 'node:fs/promises';
 import { isAbsolute, join, resolve, win32 } from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -155,7 +155,7 @@ const prepareBuild = async ({ targetPath, argv }: PreviewCommonParams) => {
   const buildPath = await getTempPath('preview');
   const { exclude } = argv;
 
-  if (existsSync(buildPath)) await rmdir(buildPath, { recursive: true });
+  if (existsSync(buildPath)) await rm(buildPath, { recursive: true });
   await mkdir(buildPath, { recursive: true });
   const files = await buildForPreview({ buildPath, exclude, targetPath });
   await writePreviewDataFiles(files);
