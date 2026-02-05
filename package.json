@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "./shared/bootstrap.sh",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@dot/versioner": "^0.4.3",
