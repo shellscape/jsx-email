@@ -8,10 +8,10 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "@octokit/rest": "^20.0.2",
-    "globby": "11.0.4",
+    "@octokit/rest": "^22.0.1",
+    "globby": "16.1.0",
     "titleize": "^4.0.0",
-    "vitepress": "1.0.0-rc.20",
-    "vue": "3.3.4"
+    "vitepress": "1.6.4",
+    "vue": "3.5.27"
   }
 }

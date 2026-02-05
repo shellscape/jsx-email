@@ -54,7 +54,7 @@
     "pretty": "2.0.0"
   },
   "devDependencies": {
-    "@types/pretty": "^2.0.1"
+    "@types/pretty": "^2.0.3"
   },
   "types": "./dist/commonjs/index.d.ts",
   "funding": {

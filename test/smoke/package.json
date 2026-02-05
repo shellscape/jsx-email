@@ -9,14 +9,14 @@
     "react": "^18.2.0 || ^19"
   },
   "dependencies": {
-    "@playwright/test": "^1.55.1",
-    "dedent": "^1.5.1",
+    "@playwright/test": "^1.58.1",
+    "dedent": "^1.7.1",
     "diffable-html": "^6.0.1",
     "jsx-email": "workspace:^",
-    "unocss": "^0.65.1"
+    "unocss": "^66.6.0"
   },
   "devDependencies": {
     "@types/diffable-html": "^5.0.2",
-    "@types/node": "20.10.5"
+    "@types/node": "25.2.0"
   }
 }

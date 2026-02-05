@@ -31,17 +31,17 @@
   ],
   "dependencies": {
     "@types/yargs-parser": "^21.0.3",
-    "chalk-template": "^1.1.0",
-    "detect-package-manager": "^3.0.1",
-    "globby": "14.0.2",
+    "chalk-template": "^1.1.2",
+    "detect-package-manager": "^3.0.2",
+    "globby": "16.1.0",
     "mustache": "^4.2.0",
     "prompts": "^2.4.2",
-    "yargs-parser": "^21.1.1"
+    "yargs-parser": "^22.0.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.2",
-    "@types/mustache": "^4.2.5",
-    "@types/prompts": "^2.4.8"
+    "@types/fs-extra": "^11.0.4",
+    "@types/mustache": "^4.2.6",
+    "@types/prompts": "^2.4.9"
   },
   "types": "dist/src/index.d.ts",
   "funding": {

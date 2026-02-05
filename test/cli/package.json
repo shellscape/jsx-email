@@ -5,10 +5,10 @@
   "type": "module",
   "dependencies": {
     "create-jsx-email": "workspace:^",
-    "execa": "^9.6.0",
-    "globby": "^14.0.2",
+    "execa": "^9.6.1",
+    "globby": "^16.1.0",
     "jsx-email": "workspace:^",
-    "react": "^19.2.0",
-    "strip-ansi": "^7.1.0"
+    "react": "19.2.4",
+    "strip-ansi": "^7.1.2"
   }
 }
