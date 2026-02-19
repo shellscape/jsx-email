@@ -2,7 +2,14 @@ import { lstat } from 'node:fs/promises';
 
 import { doIUseEmail } from '@jsx-email/doiuse-email';
 import chalk from 'chalk';
-import { parse as assert, boolean, object, optional, type InferOutput as Infer } from 'valibot';
+import {
+  parse as assert,
+  boolean,
+  object,
+  optional,
+  string,
+  type InferOutput as Infer
+} from 'valibot';
 
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.mjs';
 
@@ -12,12 +19,13 @@ import { type CommandFn } from './types.mjs';
 const { error, log } = console;
 
 const CheckOptionsStruct = object({
+  emailClients: optional(string()),
   usePreviewProps: optional(boolean())
 });
 
 type CheckOptions = Infer<typeof CheckOptionsStruct>;
 
-const emailClients = [
+const defaultEmailClients = [
   'apple-mail.*',
   'gmail.*',
   'outlook.*',
@@ -57,6 +65,9 @@ Check jsx-email templates for client compatibility
   $ email check <template file name>
 
 {underline Options}
+  --email-clients
+              The comma separated list of email clients for which to check compatility.
+              Default: 'apple-mail.*,gmail.*,outlook.*,protonmail.*,hey.*,fastmail.*'
   --use-preview-props
                 When set, use the \`previewProps\` exported by the template file (if present).
 
@@ -64,7 +75,7 @@ Check jsx-email templates for client compatibility
   $ email check ./emails/Batman.tsx
 `;
 
-const runCheck = (fileName: string, html: string) => {
+const runCheck = (fileName: string, html: string, emailClients: string[]) => {
   const bytes = Buffer.byteLength(html, 'utf8');
   const counts = { errors: 0, notes: 0, warnings: 0 };
   const htmlSize = formatBytes(bytes);
@@ -147,7 +158,9 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
 
   log();
 
-  runCheck(file.fileName, file.html!);
+  const emailClients = argv.emailClients ? argv.emailClients.split(',') : defaultEmailClients;
+
+  runCheck(file.fileName, file.html!, emailClients);
 
   return true;
 };
