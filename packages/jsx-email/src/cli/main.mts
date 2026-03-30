@@ -49,4 +49,5 @@ const run = async () => {
   }
 };
 
-run();
+await run();
+process.exit(0);
