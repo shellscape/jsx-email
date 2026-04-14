@@ -17,14 +17,8 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/commonjs/index.d.ts",
-        "default": "./dist/commonjs/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "engines": {
@@ -55,7 +49,7 @@
   "devDependencies": {
     "@types/pretty": "^2.0.1"
   },
-  "types": "./dist/commonjs/index.d.ts",
+  "types": "./dist/index.d.ts",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/shellscape"
