@@ -1,0 +1,93 @@
+---
+title: Avatar
+description: Displays a profile avatar with image and fallback support
+slug: avatar
+type: component
+---
+
+<!--@include: @/include/header.md-->
+
+<!--@include: @/include/install.md-->
+
+## Usage
+
+Use `Avatar` for profile images. If `src` is missing, it renders fallback text.
+
+```jsx
+import { Avatar } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Avatar
+      src="https://assets.example.com/users/bruce.jpg"
+      name="Bruce Wayne"
+      width={48}
+      height={48}
+    />
+  );
+};
+```
+
+Fallback-only example:
+
+```jsx
+import { Avatar } from 'jsx-email';
+
+const Email = () => {
+  return <Avatar name="Bruce Wayne" />;
+};
+```
+
+## Component Props
+
+```ts
+src?: string;
+```
+
+Path or URL for the avatar image.
+
+```ts
+alt?: string;
+```
+
+Accessible alt text for image avatars. If omitted, the component derives text from `name` or `fallback`.
+
+```ts
+name?: string;
+```
+
+A readable label used for alt derivation and fallback initials.
+
+```ts
+fallback?: string;
+```
+
+Fallback text used when `src` is not provided.
+
+```ts
+decorative?: boolean;
+```
+
+Marks the avatar as decorative. Decorative avatars use presentational accessibility attributes.
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+```ts
+width?: string | number;
+```
+
+Avatar width. Defaults to `40` when no explicit size is provided.
+
+```ts
+height?: string | number;
+```
+
+Avatar height. Defaults to `40` when no explicit size is provided.
+
+::: tip
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`, except `children`.
+:::

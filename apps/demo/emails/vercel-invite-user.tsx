@@ -1,8 +1,9 @@
 import {
+  Avatar,
+  AvatarGroup,
   Body,
   Button,
   Container,
-  Column,
   Head,
   Heading,
   Hr,
@@ -10,7 +11,6 @@ import {
   Img,
   Link,
   Preview,
-  Row,
   Section,
   Tailwind,
   Text
@@ -84,23 +84,11 @@ export const Template = ({
               </Link>
               ) has invited you to the <strong>{teamName}</strong> team on <strong>Vercel</strong>.
             </Text>
-            <Section>
-              <Row>
-                <Column align="right">
-                  <Img className="rounded-full" src={userImage} width="64" height="64" />
-                </Column>
-                <Column align="center">
-                  <Img
-                    src={`${baseUrl}vercel-arrow.png`}
-                    width="12"
-                    height="9"
-                    alt="invited you to"
-                  />
-                </Column>
-                <Column align="left">
-                  <Img className="rounded-full" src={teamImage} width="64" height="64" />
-                </Column>
-              </Row>
+            <Section className="text-center">
+              <AvatarGroup overlap={true} spacing={12} style={{ margin: '0 auto' }}>
+                <Avatar src={userImage} name={username} width="64" height="64" />
+                <Avatar src={teamImage} name={teamName} width="64" height="64" />
+              </AvatarGroup>
             </Section>
             <Section className="mb-[32px] mt-[32px] text-center">
               <Button
