@@ -1,0 +1,42 @@
+---
+import '../../styles/global.css';
+import Layout from '../../components/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { BlockPreview } from '../../components/BlockPreview';
+import { getRenderedBlocks, type Block } from '../../blocks/avatars';
+
+// Get all rendered blocks at build time
+const renderedBlocks: Block[] = await getRenderedBlocks();
+---
+
+<Layout title="User Avatars - Blocks - JSX Email">
+  <Header />
+  <main class="min-h-screen">
+    <div class="container-custom mx-auto px-4 md:px-6 py-16 pt-24">
+      <div class="mb-8">
+        <a href="/blocks" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm mb-4 inline-block">&larr; Back to Blocks</a>
+        <h1 class="text-4xl font-bold mb-4">User Avatars</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          Display user profile images in your email templates.
+        </p>
+      </div>
+
+      <section class="mb-16">
+        {
+          renderedBlocks.map((block) => (
+            <BlockPreview
+              client:load
+              name={block.name}
+              renderedHtml={block.renderedHtml}
+              code={block.code}
+              codeHtml={block.codeHtml}
+              height={300}
+            />
+          ))
+        }
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
