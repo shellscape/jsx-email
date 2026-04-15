@@ -1,5 +1,3 @@
-> Note: This content is duplicated between `AGENTS.md` and `.charlie/instructions/agents.md`. Keep them in sync.
-
 This repo is a pnpm workspace and uses Moon as the task runner.
 
 - Repo tasks are run via Moon (not `package.json` scripts). The only root script is `prepare` (Husky).
