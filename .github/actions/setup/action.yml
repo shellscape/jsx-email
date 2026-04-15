@@ -10,6 +10,8 @@ runs:
 
     - name: Setup Moon
       uses: moonrepo/setup-toolchain@v0
+      with:
+        moon-version: 1.41.2
 
     - name: Setup Node
       uses: actions/setup-node@v3
