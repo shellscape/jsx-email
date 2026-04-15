@@ -1,0 +1,25 @@
+{
+  "arrowParens": "always",
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "importOrder": [
+    "^node:(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@jsx-email/(.*)$",
+    "^(../)+(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "**/@codegen",
+    "**/dist/",
+    "**/fixtures/",
+    ".moon/cache",
+    ".snapshots",
+    "dist",
+    "pnpm-lock.yaml"
+  ]
+}
