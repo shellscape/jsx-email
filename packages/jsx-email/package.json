@@ -24,8 +24,8 @@
       "default": "./dist/index.js"
     },
     "./compile": {
-      "types": "./dist/compile.d.ts",
-      "default": "./dist/compile.js"
+      "types": "./dist/renderer/compile.d.ts",
+      "default": "./dist/renderer/compile.js"
     },
     "./config": {
       "types": "./dist/config.d.ts",
