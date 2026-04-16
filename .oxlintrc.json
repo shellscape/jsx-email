@@ -125,7 +125,7 @@
     "no-new-func": "error",
     "no-new-wrappers": "error",
     "no-return-assign": "error",
-    "typescript/return-await": "error",
+    "typescript/return-await": ["error", "in-try-catch"],
     "no-script-url": "error",
     "no-self-compare": "error",
     "no-sequences": "error",
