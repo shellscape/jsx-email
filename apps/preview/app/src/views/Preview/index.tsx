@@ -12,24 +12,10 @@ import { useScroll } from '../../composables/useScroll';
 import { Views } from '../../lib/types';
 
 import { CodePreview } from './code-preview';
-import { RenderPreview, tableWidthPolicyValues, type TableWidthPolicy } from './render-preview';
-
-const brokenImageFallbackModeValues = ['off', 'on'] as const;
-type BrokenImageFallbackMode = (typeof brokenImageFallbackModeValues)[number];
-
-const defaultTableWidthPolicy: TableWidthPolicy = 'root-only';
-const defaultBrokenImageFallbackMode: BrokenImageFallbackMode = 'off';
+import { RenderPreview } from './render-preview';
 
 const isView = (value: string | null): value is Views => {
   return Object.values(Views).includes(value as Views);
-};
-
-const isTableWidthPolicy = (value: string | null): value is TableWidthPolicy => {
-  return tableWidthPolicyValues.includes(value as TableWidthPolicy);
-};
-
-const isBrokenImageFallbackMode = (value: string | null): value is BrokenImageFallbackMode => {
-  return brokenImageFallbackModeValues.includes(value as BrokenImageFallbackMode);
 };
 
 export const Preview = observer(() => {
@@ -51,32 +37,12 @@ export const Preview = observer(() => {
   const viewParam = searchParams.get('view');
   const currentView = isView(viewParam) ? viewParam : Views.Desktop;
 
-  const tableWidthPolicyParam = searchParams.get('tableWidthPolicy');
-  const tableWidthPolicy = isTableWidthPolicy(tableWidthPolicyParam)
-    ? tableWidthPolicyParam
-    : defaultTableWidthPolicy;
-
-  const brokenImageFallbackModeParam = searchParams.get('brokenAvatarFallbackMode');
-  const brokenImageFallbackMode = isBrokenImageFallbackMode(brokenImageFallbackModeParam)
-    ? brokenImageFallbackModeParam
-    : defaultBrokenImageFallbackMode;
-
   useEffect(() => {
     const nextSearchParams = new URLSearchParams(searchParams);
     let shouldUpdate = false;
 
     if (!isView(viewParam)) {
       nextSearchParams.set('view', Views.Desktop);
-      shouldUpdate = true;
-    }
-
-    if (!isTableWidthPolicy(tableWidthPolicyParam)) {
-      nextSearchParams.set('tableWidthPolicy', defaultTableWidthPolicy);
-      shouldUpdate = true;
-    }
-
-    if (!isBrokenImageFallbackMode(brokenImageFallbackModeParam)) {
-      nextSearchParams.set('brokenAvatarFallbackMode', defaultBrokenImageFallbackMode);
       shouldUpdate = true;
     }
 
@@ -94,18 +60,6 @@ export const Preview = observer(() => {
   function changeView(value: string) {
     if (isView(value)) {
       setPreviewSearchParam('view', value);
-    }
-  }
-
-  function changeTableWidthPolicy(value: string) {
-    if (isTableWidthPolicy(value)) {
-      setPreviewSearchParam('tableWidthPolicy', value);
-    }
-  }
-
-  function changeBrokenImageFallbackMode(value: string) {
-    if (isBrokenImageFallbackMode(value)) {
-      setPreviewSearchParam('brokenAvatarFallbackMode', value);
     }
   }
 
@@ -145,40 +99,12 @@ export const Preview = observer(() => {
               </ToggleGroup.Item>
             ))}
           </ToggleGroup.Root>
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            <span className="text-xs text-neutral-500">Table Width</span>
-            <ToggleGroup.Root
-              type="single"
-              value={tableWidthPolicy}
-              onValueChange={changeTableWidthPolicy}
-            >
-              <ToggleGroup.Item value="root-only">Root</ToggleGroup.Item>
-              <ToggleGroup.Item value="all">All</ToggleGroup.Item>
-              <ToggleGroup.Item value="none">None</ToggleGroup.Item>
-            </ToggleGroup.Root>
-          </div>
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            <span className="text-xs text-neutral-500">Broken Avatar Fallback</span>
-            <ToggleGroup.Root
-              type="single"
-              value={brokenImageFallbackMode}
-              onValueChange={changeBrokenImageFallbackMode}
-            >
-              <ToggleGroup.Item value="off">Off</ToggleGroup.Item>
-              <ToggleGroup.Item value="on">On</ToggleGroup.Item>
-            </ToggleGroup.Root>
-          </div>
         </div>
       </div>
       {/* body */}
       <div className="h-full w-full grid overflow-auto relative">
         {(Views.Desktop === currentView || Views.Device === currentView) && (
-          <RenderPreview
-            emulateBrokenImageFallback={brokenImageFallbackMode === 'on'}
-            mode={currentView}
-            tableWidthPolicy={tableWidthPolicy}
-            template={currentTemplate}
-          />
+          <RenderPreview mode={currentView} template={currentTemplate} />
         )}
         {(Views.Jsx === currentView ||
           Views.Html === currentView ||

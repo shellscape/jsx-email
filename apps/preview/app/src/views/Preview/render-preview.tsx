@@ -46,22 +46,12 @@ const SelectItem = ({ className: _className, children, ...props }: RadixSelect.S
 interface HtmlRendererPreviewProps extends BaseRendererProps {
   emulateBrokenImageFallback?: boolean;
   mode: Views.Desktop | Views.Device;
-  tableWidthPolicy?: TableWidthPolicy;
 }
 
 interface IframeStyle {
   height?: `${number}px`;
   width?: `${number}px`;
 }
-
-export const tableWidthPolicyValues = ['all', 'root-only', 'none'] as const;
-export type TableWidthPolicy = (typeof tableWidthPolicyValues)[number];
-
-const tableWidthPolicyCss: Record<TableWidthPolicy, string> = {
-  all: 'table { width: 100% !important; }',
-  none: '',
-  'root-only': 'body > table:first-of-type { width: 100% !important; }'
-};
 
 const injectHtmlAddon = ({ addon, html }: { addon: string; html: string }): string => {
   if (!addon.trim()) {
@@ -79,10 +69,12 @@ const injectHtmlAddon = ({ addon, html }: { addon: string; html: string }): stri
   return `${html}\n${addon}`;
 };
 
-const buildPreviewStyleAddon = (tableWidthPolicy: TableWidthPolicy): string => {
+const buildPreviewStyleAddon = (): string => {
   return /* html */ `<style>
     table { overflow-wrap: anywhere; }
-    ${tableWidthPolicyCss[tableWidthPolicy]}
+    body > table:first-of-type {
+      width: 100% !important;
+    }
   </style>`;
 };
 
@@ -202,14 +194,12 @@ const brokenAvatarFallbackScript = /* html */ `<script>
 
 const buildPreviewSrcDoc = ({
   emulateBrokenImageFallback,
-  html,
-  tableWidthPolicy
+  html
 }: {
   emulateBrokenImageFallback: boolean;
   html: string;
-  tableWidthPolicy: TableWidthPolicy;
 }): string => {
-  const styleAddon = buildPreviewStyleAddon(tableWidthPolicy);
+  const styleAddon = buildPreviewStyleAddon();
   const withStyles = injectHtmlAddon({ addon: styleAddon, html });
 
   if (!emulateBrokenImageFallback) {
@@ -222,13 +212,11 @@ const buildPreviewSrcDoc = ({
 export const RenderPreview = ({
   emulateBrokenImageFallback = false,
   mode,
-  tableWidthPolicy = 'root-only',
   template
 }: HtmlRendererPreviewProps) => {
   const srcDoc = buildPreviewSrcDoc({
     emulateBrokenImageFallback,
-    html: template.html,
-    tableWidthPolicy
+    html: template.html
   });
 
   const defaultDevice = devices.phones[3];
