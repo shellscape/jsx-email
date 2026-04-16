@@ -50,6 +50,7 @@ export const AvatarGroup: JsxEmailComponent<AvatarGroupProps> = ({
   ...props
 }) => {
   const configDds = config.current().render.disableDefaultStyle;
+  const disableStyles = configDds || disableDefaultStyle;
   const avatars = React.Children.toArray(children);
   const normalizedSpacing = Math.abs(spacing);
   const orderedAvatars = direction === 'rtl' ? [...avatars].reverse() : avatars;
@@ -77,6 +78,28 @@ export const AvatarGroup: JsxEmailComponent<AvatarGroupProps> = ({
         ]
       : visibleAvatars;
 
+  const avatarCellStyle: React.CSSProperties = disableStyles
+    ? {}
+    : { padding: 0, verticalAlign: 'middle' };
+
+  const getAvatarWrapperStyle = (index: number): React.CSSProperties => {
+    if (disableStyles) {
+      return {};
+    }
+
+    return {
+      display: 'inline-block',
+      fontSize: 0,
+      lineHeight: 0,
+      verticalAlign: 'middle',
+      ...(index === 0
+        ? {}
+        : overlap
+          ? { marginLeft: `${-normalizedSpacing}px`, position: 'relative' }
+          : { marginLeft: `${normalizedSpacing}px` })
+    };
+  };
+
   return (
     <table
       {...props}
@@ -86,28 +109,15 @@ export const AvatarGroup: JsxEmailComponent<AvatarGroupProps> = ({
       cellPadding="0"
       cellSpacing="0"
       style={{
-        ...(configDds || disableDefaultStyle ? {} : { borderCollapse: 'collapse' }),
+        ...(disableStyles ? {} : { borderCollapse: 'collapse' }),
         ...style
       }}
     >
       <tbody>
         <tr>
           {avatarsToRender.map((avatar, index) => (
-            <td key={index}>
-              <span
-                style={
-                  configDds || disableDefaultStyle || index === 0
-                    ? {}
-                    : {
-                        display: 'inline-block',
-                        ...(overlap
-                          ? { marginLeft: `${-normalizedSpacing}px`, position: 'relative' }
-                          : { marginLeft: `${normalizedSpacing}px` })
-                      }
-                }
-              >
-                {avatar}
-              </span>
+            <td key={index} style={avatarCellStyle}>
+              <span style={getAvatarWrapperStyle(index)}>{avatar}</span>
             </td>
           ))}
         </tr>
