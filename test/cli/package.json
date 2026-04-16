@@ -9,5 +9,8 @@
     "globby": "14.1.0",
     "jsx-email": "workspace:^",
     "strip-ansi": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
