@@ -80,9 +80,9 @@ function getIsolationTableStyle(cssIsolation: BarcodeCssIsolation): CSSPropertie
   return {
     borderCollapse: 'collapse',
     borderSpacing: 0,
-    maxWidth: 'none',
-    tableLayout: 'fixed',
-    width: 'auto'
+    maxWidth: 'none !important',
+    tableLayout: 'fixed !important' as unknown as CSSProperties['tableLayout'],
+    width: 'auto !important'
   };
 }
 

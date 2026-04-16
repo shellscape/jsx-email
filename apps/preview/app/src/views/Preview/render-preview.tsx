@@ -55,7 +55,7 @@ interface IframeStyle {
 export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
   const styleAddons = /* html */ `
     <style>
-      table:not([data-jsx-email-barcode]) { overflow-wrap: anywhere; width: 100% !important; }
+      table { overflow-wrap: anywhere; width: 100% !important; }
     </style>
   `;
 
