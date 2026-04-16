@@ -334,6 +334,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.21(postcss@8.5.6)
+      bwip-js:
+        specifier: ^4.9.2
+        version: 4.9.2
       caniemail:
         specifier: 1.0.0
         version: 1.0.0(@vue/compiler-sfc@3.3.4)(prettier@3.5.3)
@@ -394,6 +397,9 @@ importers:
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
+      qrcode-generator:
+        specifier: ^2.0.4
+        version: 2.0.4
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -3489,6 +3495,10 @@ packages:
     peerDependencies:
       esbuild: '>=0.18'
 
+  bwip-js@4.9.2:
+    resolution: {integrity: sha512-N1tpd345f2l43ajtL1M1fvVg41JidRI2xzDvYuQADC+KZiWqQsZPFVVzoWXNEXhpvl6YjH64b65rL2kh5+GzeQ==}
+    hasBin: true
+
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
@@ -5505,6 +5515,9 @@ packages:
 
   pump@3.0.2:
     resolution: {integrity: sha512-tUPXtzlGM8FE3P0ZL6DVs/3P58k9nk8/jZeQCurTJylQA8qFYzHFfhBJkuqyE0FifOsQ0uKWekiZ5g8wtr28cw==}
+
+  qrcode-generator@2.0.4:
+    resolution: {integrity: sha512-mZSiP6RnbHl4xL2Ap5HfkjLnmxfKcPWpWe/c+5XxCuetEenqmNFf1FH/ftXPCtFG5/TDobjsjz6sSNL0Sr8Z9g==}
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -9333,6 +9346,8 @@ snapshots:
       esbuild: 0.23.1
       load-tsconfig: 0.2.5
 
+  bwip-js@4.9.2: {}
+
   cac@6.7.14: {}
 
   camelcase-css@2.0.1: {}
@@ -11773,6 +11788,8 @@ snapshots:
     dependencies:
       end-of-stream: 1.4.4
       once: 1.4.0
+
+  qrcode-generator@2.0.4: {}
 
   queue-microtask@1.2.3: {}
 
