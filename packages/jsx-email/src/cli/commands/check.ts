@@ -4,7 +4,14 @@ import { type IssueGroup, caniemail, groupIssues, sortIssues } from 'caniemail';
 import chalk from 'chalk';
 import chalkTmpl from 'chalk-template';
 import stripAnsi from 'strip-ansi';
-import { type InferOutput as Infer, parse as assert, boolean, object, optional } from 'valibot';
+import {
+  type InferOutput as Infer,
+  parse as assert,
+  boolean,
+  object,
+  optional,
+  string
+} from 'valibot';
 
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.js';
 
@@ -14,12 +21,13 @@ import { type CommandFn } from './types.js';
 const { error, log } = console;
 
 const CheckOptionsStruct = object({
+  emailClients: optional(string()),
   usePreviewProps: optional(boolean())
 });
 
 type CheckOptions = Infer<typeof CheckOptionsStruct>;
 
-const emailClients = [
+const defaultEmailClients = [
   'apple-mail.*',
   'gmail.*',
   'outlook.*',
@@ -37,6 +45,9 @@ Check jsx-email templates for client compatibility
   $ email check <template file name>
 
 {underline Options}
+  --email-clients
+              The comma separated list of email clients for which to check compatility.
+              Default: 'apple-mail.*,gmail.*,outlook.*,protonmail.*,hey.*,fastmail.*'
   --use-preview-props
                 When set, use the \`previewProps\` exported by the template file (if present).
 
@@ -71,7 +82,7 @@ const formatIssue = (group: IssueGroup): string => {
   return chalkTmpl`${preamble}${title}:${footnotes}\n${indent}{dim ${clients.join(`\n${indent}`)}}\n`;
 };
 
-const runCheck = (fileName: string, html: string) => {
+const runCheck = (fileName: string, html: string, emailClients: string[]) => {
   const bytes = Buffer.byteLength(html, 'utf8');
   const htmlSize = formatBytes(bytes);
   const result = caniemail({ clients: emailClients as any, html });
@@ -145,7 +156,9 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
 
   log();
 
-  runCheck(file.fileName, file.html!);
+  const emailClients = argv.emailClients ? argv.emailClients.split(',') : defaultEmailClients;
+
+  runCheck(file.fileName, file.html!, emailClients);
 
   return true;
 };
