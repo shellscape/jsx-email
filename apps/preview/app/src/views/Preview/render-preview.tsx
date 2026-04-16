@@ -28,7 +28,7 @@ const PlunkLogo = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const SelectItem = ({ className, children, ...props }: RadixSelect.SelectItemProps) => (
+const SelectItem = ({ className: _className, children, ...props }: RadixSelect.SelectItemProps) => (
   <RadixSelect.Item
     className={clsx(
       'relative flex items-center px-4 py-2 rounded-md text-xs text-light-bg-text',
@@ -44,7 +44,9 @@ const SelectItem = ({ className, children, ...props }: RadixSelect.SelectItemPro
 );
 
 interface HtmlRendererPreviewProps extends BaseRendererProps {
+  emulateBrokenImageFallback?: boolean;
   mode: Views.Desktop | Views.Device;
+  tableWidthPolicy?: TableWidthPolicy;
 }
 
 interface IframeStyle {
@@ -52,16 +54,186 @@ interface IframeStyle {
   width?: `${number}px`;
 }
 
-export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
-  const styleAddons = /* html */ `
-    <style>
-      table { overflow-wrap: anywhere; width: 100% !important; }
-    </style>
-  `;
+export const tableWidthPolicyValues = ['all', 'root-only', 'none'] as const;
+export type TableWidthPolicy = (typeof tableWidthPolicyValues)[number];
+
+const tableWidthPolicyCss: Record<TableWidthPolicy, string> = {
+  all: 'table { width: 100% !important; }',
+  none: '',
+  'root-only': 'body > table:first-of-type { width: 100% !important; }'
+};
+
+const injectHtmlAddon = ({ addon, html }: { addon: string; html: string }): string => {
+  if (!addon.trim()) {
+    return html;
+  }
+
+  if (html.includes('</head>')) {
+    return html.replace('</head>', `${addon}\n</head>`);
+  }
+
+  if (html.includes('</body>')) {
+    return html.replace('</body>', `${addon}\n</body>`);
+  }
+
+  return `${html}\n${addon}`;
+};
+
+const buildPreviewStyleAddon = (tableWidthPolicy: TableWidthPolicy): string => {
+  return /* html */ `<style>
+    table { overflow-wrap: anywhere; }
+    ${tableWidthPolicyCss[tableWidthPolicy]}
+  </style>`;
+};
+
+const brokenAvatarFallbackScript = /* html */ `<script>
+  (() => {
+    const numericValueRegex = /^\\d+(?:\\.\\d+)?$/;
+
+    const toCssSize = (value, fallback) => {
+      const normalized = (value || '').toString().trim();
+
+      if (!normalized) {
+        return fallback;
+      }
+
+      return numericValueRegex.test(normalized) ? normalized + 'px' : normalized;
+    };
+
+    const deriveInitials = (value) => {
+      const normalized = (value || '').toString().trim();
+
+      if (!normalized) {
+        return '';
+      }
+
+      const words = normalized.split(/\\s+/).filter(Boolean);
+
+      if (words.length === 0) {
+        return '';
+      }
+
+      if (words.length === 1) {
+        return words[0].slice(0, 2).toUpperCase();
+      }
+
+      return (words[0][0] + words[1][0]).toUpperCase();
+    };
+
+    const resolveFallbackText = (imageEl) => {
+      const fallback = (imageEl.getAttribute('data-jsx-email-avatar-fallback') || '').trim();
+
+      if (fallback) {
+        return fallback;
+      }
+
+      const alt = (imageEl.getAttribute('alt') || '').trim();
+
+      if (!alt) {
+        return '?';
+      }
+
+      return deriveInitials(alt) || alt.slice(0, 2).toUpperCase();
+    };
+
+    const replaceImageWithFallback = (imageEl) => {
+      if (!imageEl || imageEl.dataset.jsxEmailAvatarFallbackApplied === 'true') {
+        return;
+      }
+
+      imageEl.dataset.jsxEmailAvatarFallbackApplied = 'true';
+
+      const fallbackText = resolveFallbackText(imageEl);
+      const width = toCssSize(imageEl.getAttribute('width'), '40px');
+      const height = toCssSize(imageEl.getAttribute('height'), '40px');
+      const isDecorative =
+        imageEl.getAttribute('role') === 'presentation' ||
+        imageEl.getAttribute('aria-hidden') === 'true' ||
+        imageEl.getAttribute('alt') === '';
+      const fallbackEl = document.createElement('span');
+
+      fallbackEl.textContent = fallbackText;
+      fallbackEl.style.alignItems = 'center';
+      fallbackEl.style.backgroundColor = '#E2E8F0';
+      fallbackEl.style.borderRadius = '9999px';
+      fallbackEl.style.color = '#475569';
+      fallbackEl.style.display = 'inline-flex';
+      fallbackEl.style.fontFamily = 'Arial, sans-serif';
+      fallbackEl.style.fontSize = '14px';
+      fallbackEl.style.fontWeight = '600';
+      fallbackEl.style.height = height;
+      fallbackEl.style.justifyContent = 'center';
+      fallbackEl.style.lineHeight = height;
+      fallbackEl.style.textTransform = 'uppercase';
+      fallbackEl.style.width = width;
+
+      if (isDecorative) {
+        fallbackEl.setAttribute('aria-hidden', 'true');
+        fallbackEl.setAttribute('role', 'presentation');
+      } else {
+        fallbackEl.setAttribute('aria-label', imageEl.getAttribute('alt') || fallbackText);
+        fallbackEl.setAttribute('role', 'img');
+      }
+
+      imageEl.replaceWith(fallbackEl);
+    };
+
+    const wireAvatarImage = (node) => {
+      if (!(node instanceof HTMLImageElement)) {
+        return;
+      }
+
+      node.addEventListener(
+        'error',
+        () => {
+          replaceImageWithFallback(node);
+        },
+        { once: true }
+      );
+
+      if (node.complete && node.naturalWidth === 0) {
+        replaceImageWithFallback(node);
+      }
+    };
+
+    document.querySelectorAll('img[data-jsx-email-avatar="true"]').forEach(wireAvatarImage);
+  })();
+</script>`;
+
+const buildPreviewSrcDoc = ({
+  emulateBrokenImageFallback,
+  html,
+  tableWidthPolicy
+}: {
+  emulateBrokenImageFallback: boolean;
+  html: string;
+  tableWidthPolicy: TableWidthPolicy;
+}): string => {
+  const styleAddon = buildPreviewStyleAddon(tableWidthPolicy);
+  const withStyles = injectHtmlAddon({ addon: styleAddon, html });
+
+  if (!emulateBrokenImageFallback) {
+    return withStyles;
+  }
+
+  return injectHtmlAddon({ addon: brokenAvatarFallbackScript, html: withStyles });
+};
+
+export const RenderPreview = ({
+  emulateBrokenImageFallback = false,
+  mode,
+  tableWidthPolicy = 'root-only',
+  template
+}: HtmlRendererPreviewProps) => {
+  const srcDoc = buildPreviewSrcDoc({
+    emulateBrokenImageFallback,
+    html: template.html,
+    tableWidthPolicy
+  });
 
   const defaultDevice = devices.phones[3];
 
-  const iframeElRef = useRef<HTMLIFrameElement>();
+  const iframeElRef = useRef<HTMLIFrameElement | null>(null);
 
   // const [activeDevice, setActiveDevice] = useState(() => devices.phones[0].name)
   const [iframeStyle, setIframeStyle] = useState<IframeStyle>(
@@ -159,7 +331,7 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
         </FlaotingToolbarPositioningController>
         <iframe
           ref={iframeElRef}
-          srcDoc={template.html + styleAddons}
+          srcDoc={srcDoc}
           className={clsx('w-full h-full', mode === Views.Device && 'mt-6 mb-24 mx-auto')}
           style={mode === Views.Device ? iframeStyle : {}}
         />
@@ -171,7 +343,7 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
     const [email, setEmail] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [sendState, setSendState] = useState<'idle' | 'sending' | 'error' | 'sent'>('idle');
-    const [sendError, setSendError] = useState<string>(null);
+    const [sendError, setSendError] = useState<string | null>(null);
 
     async function handleSend(e: React.FormEvent) {
       try {
@@ -197,7 +369,7 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
           setSendError(error);
           return;
         }
-      } catch (error: unknown) {
+      } catch {
         setSendError('Something went wrong. Please try again.');
       } finally {
         setSendState('error');
