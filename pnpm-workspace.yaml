@@ -5,8 +5,10 @@ packages:
   - '!recipes/*'
 
 enablePrePostScripts: true
+linkWorkspacePackages: false
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@moonrepo/cli'
   - esbuild
 shamefullyHoist: true
+sharedWorkspaceLockfile: true
