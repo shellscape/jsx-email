@@ -21,7 +21,7 @@ For those not familiar with the bits above, here are some links to resources tha
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/) v20.19.0+
+- [Node.js](https://nodejs.org/en/) v22.0.0+
 - React v19.1.0+
 
 ## New Projects
