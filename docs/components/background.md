@@ -34,8 +34,10 @@ const Email = () => {
 ## Component Props
 
 ```tsx
-interface BackgroundProps
-  extends Omit<React.ComponentPropsWithoutRef<'td'>, 'height' | 'width' | 'bgcolor'> {
+interface BackgroundProps extends Omit<
+  React.ComponentPropsWithoutRef<'td'>,
+  'height' | 'width' | 'bgcolor'
+> {
   src: string;
   bgColor?: string;
   bgRepeat?: 'repeat' | 'no-repeat';

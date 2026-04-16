@@ -50,7 +50,7 @@ tasks:
       cache: false
 
   lint.docs:
-    command: 'prettier --write .github/**/*.md **/README.md docs/**/*.md --no-error-on-unmatched-pattern'
+    command: 'oxfmt --write .github/**/*.md **/README.md docs/**/*.md --no-error-on-unmatched-pattern'
     options:
       cache: false
 
@@ -60,17 +60,17 @@ tasks:
       cache: false
 
   lint.format:
-    command: prettier --write **/*.{js,ts,cjs}
+    command: oxfmt --write **/*.{js,ts,cjs}
     options:
       cache: false
 
   lint.json:
-    command: 'prettier --write .github/**/*.yml **/tsconfig.json **/tsconfig.*.json pnpm-workspace.yaml .moon/*.yml **/moon.yml'
+    command: 'oxfmt --write .github/**/*.yml **/tsconfig.json **/tsconfig.*.json pnpm-workspace.yaml .moon/*.yml **/moon.yml'
     options:
       cache: false
 
   lint.package:
-    command: 'prettier --write **/package.json'
+    command: 'oxfmt --write **/package.json'
     options:
       cache: false
 
