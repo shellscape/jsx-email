@@ -1,6 +1,8 @@
 import './helpers.js';
 
 // components
+export * from './components/avatar-group.js';
+export * from './components/avatar.js';
 export * from './components/background.js';
 export * from './components/barcode/barcode.js';
 export * from './components/body.js';

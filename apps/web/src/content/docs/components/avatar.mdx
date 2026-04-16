@@ -1,0 +1,119 @@
+---
+title: Avatar
+description: Displays a profile avatar with image and fallback support
+type: component
+---
+
+import Install from '@components/mdx/install.mdx';
+
+<h1>{frontmatter.title}</h1>
+<p>{frontmatter.description}</p>
+
+<Install type={frontmatter.type} />
+
+## Usage
+
+```jsx "Avatar"
+// AvatarExample.jsx
+import { Avatar } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Avatar
+      src="https://assets.example.com/users/bruce.jpg"
+      name="Bruce Wayne"
+      width={48}
+      height={48}
+    />
+  );
+};
+```
+
+Fallback-only example:
+
+```jsx "Avatar"
+// AvatarFallbackExample.jsx
+import { Avatar } from 'jsx-email';
+
+const Email = () => {
+  return <Avatar name="Bruce Wayne" />;
+};
+```
+
+## Props
+
+### Optional Props
+
+#### src
+
+```ts
+src?: string;
+```
+
+Path or URL for the avatar image.
+
+#### alt
+
+```ts
+alt?: string;
+```
+
+Accessible alt text for image avatars. If omitted, the component derives text from `name` or `fallback`.
+
+#### name
+
+```ts
+name?: string;
+```
+
+A readable label used for alt derivation and fallback initials.
+
+#### fallback
+
+```ts
+fallback?: string;
+```
+
+Fallback text used when `src` is not provided.
+
+#### decorative
+
+```ts
+decorative?: boolean;
+```
+
+Marks the avatar as decorative. Decorative avatars use presentational accessibility attributes.
+
+#### disableDefaultStyle
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+#### width
+
+```ts
+width?: string | number;
+```
+
+Avatar width. Defaults to `40` when no explicit size is provided.
+
+#### height
+
+```ts
+height?: string | number;
+```
+
+Avatar height. Defaults to `40` when no explicit size is provided.
+
+## Caveats
+
+- Default avatar images use `object-fit: cover` to keep circular crops consistent.
+- Some email clients may ignore `object-fit`, which can produce stretching or letterboxing.
+- For consistent rendering, provide pre-cropped square images and explicit `width`/`height`.
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`, except `children`.
