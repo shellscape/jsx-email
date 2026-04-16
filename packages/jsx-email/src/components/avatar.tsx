@@ -38,6 +38,31 @@ const deriveInitials = (value?: string): string => {
   return `${words[0][0]}${words[1][0]}`.toUpperCase();
 };
 
+const normalizeText = (value?: string): string | undefined => {
+  if (typeof value === 'undefined') {
+    return void 0;
+  }
+
+  const normalized = value.trim();
+  return normalized.length > 0 ? normalized : void 0;
+};
+
+const resolveFallbackText = (fallback?: string, name?: string): string => {
+  return normalizeText(fallback) ?? normalizeText(deriveInitials(name)) ?? '?';
+};
+
+const resolveAccessibleLabel = ({
+  alt,
+  fallbackText,
+  name
+}: {
+  alt?: string;
+  fallbackText: string;
+  name?: string;
+}): string => {
+  return normalizeText(alt) ?? normalizeText(name) ?? normalizeText(fallbackText) ?? 'Avatar';
+};
+
 export const Avatar: JsxEmailComponent<AvatarProps> = ({
   alt,
   decorative = false,
@@ -54,8 +79,8 @@ export const Avatar: JsxEmailComponent<AvatarProps> = ({
   const disableStyles = configDds || disableDefaultStyle;
   const resolvedWidth = width ?? height ?? 40;
   const resolvedHeight = height ?? width ?? 40;
-  const fallbackText = (fallback ?? deriveInitials(name) ?? '?').trim() || '?';
-  const resolvedAlt = alt ?? name ?? fallbackText ?? 'Avatar';
+  const fallbackText = resolveFallbackText(fallback, name);
+  const resolvedAlt = resolveAccessibleLabel({ alt, fallbackText, name });
 
   if (!src) {
     return (
@@ -96,6 +121,8 @@ export const Avatar: JsxEmailComponent<AvatarProps> = ({
       {...props}
       {...debugProps}
       alt={decorative ? '' : resolvedAlt}
+      data-jsx-email-avatar="true"
+      data-jsx-email-avatar-fallback={fallbackText}
       src={src}
       width={resolvedWidth}
       height={resolvedHeight}

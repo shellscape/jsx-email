@@ -38,6 +38,19 @@ const Email = () => {
 };
 ```
 
+### Fallback and accessibility precedence (when `src` is missing)
+
+- Visible fallback text uses this order:
+  1. trimmed `fallback`
+  2. derived initials from `name`
+  3. `?`
+- Non-decorative fallback avatars (`decorative={false}`) use this accessible label order:
+  1. trimmed `alt`
+  2. `name`
+  3. resolved visible fallback text
+- Decorative fallback avatars (`decorative={true}`) render with `role="presentation"` and
+  `aria-hidden="true"`.
+
 ## Component Props
 
 ```ts
