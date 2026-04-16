@@ -17,15 +17,21 @@ interface AvatarComponentsEmailProps {
   alanAvatarSrc: string;
   graceAvatarSrc: string;
   margaretAvatarSrc: string;
+  mikeAvatarSrc: string;
+  zorgAvatarSrc: string;
 }
 
-const baseUrl = 'https://jsx.email/assets/demo/';
-
 export const previewProps = {
-  adaAvatarSrc: `${baseUrl}airbnb-review-user.jpg`,
-  alanAvatarSrc: `${baseUrl}cat.jpeg`,
-  graceAvatarSrc: `${baseUrl}vercel-user.png`,
-  margaretAvatarSrc: `${baseUrl}batman-twilight.jpg`
+  adaAvatarSrc:
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2lazm4zXHY4Oz9m_T7CBnhVPTukZCj9M18Q&s',
+  alanAvatarSrc:
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE_-in-mMPGc3wHs2xuO4IdjZDG2UQje7enw&s',
+  graceAvatarSrc: 'https://i.pinimg.com/564x/63/8f/cc/638fcc11e752676aa3967274e643fa74.jpg',
+  margaretAvatarSrc:
+    'https://www.reddit.com/media?url=https%3A%2F%2Fcf.preview.redd.it%2Ficonic-movie-images-for-the-ages-v0-xd3dve47wtnb1.jpg%3Fauto%3Dwebp%26s%3D4dd897132692e1ab975b6d78d715ed454a8b748a',
+  mikeAvatarSrc: 'https://variety.com/wp-content/uploads/2017/02/mike-myers-1.jpg?w=700',
+  zorgAvatarSrc:
+    'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/zorg-the-fifth-element-joseph-oland.jpg'
 } as AvatarComponentsEmailProps;
 
 export const templateName = 'Avatar Components';
@@ -34,7 +40,9 @@ export const Template = ({
   adaAvatarSrc,
   alanAvatarSrc,
   graceAvatarSrc,
-  margaretAvatarSrc
+  margaretAvatarSrc,
+  mikeAvatarSrc,
+  zorgAvatarSrc
 }: AvatarComponentsEmailProps = previewProps) => (
   <Html>
     <Head />
@@ -68,6 +76,18 @@ export const Template = ({
         </Section>
 
         <Section style={exampleSection}>
+          <Text style={exampleTitle}>Avatar (default / no picture examples)</Text>
+          <Text style={exampleDescription}>
+            Explicit no-picture avatars with initials and fallback text.
+          </Text>
+          <AvatarGroup spacing={10}>
+            <Avatar name="No Photo" width={44} height={44} />
+            <Avatar name="Guest User" fallback="GU" width={44} height={44} />
+            <Avatar fallback="?" width={44} height={44} />
+          </AvatarGroup>
+        </Section>
+
+        <Section style={exampleSection}>
           <Text style={exampleTitle}>AvatarGroup</Text>
           <Text style={exampleDescription}>Standard spacing for a small team roster.</Text>
           <AvatarGroup>
@@ -82,11 +102,13 @@ export const Template = ({
           <Text style={exampleDescription}>
             Overlap mode with overflow token for larger groups.
           </Text>
-          <AvatarGroup overlap spacing={10} max={3}>
+          <AvatarGroup overlap spacing={10} max={4}>
             <Avatar src={adaAvatarSrc} name="Ada Lovelace" width={44} height={44} />
             <Avatar src={graceAvatarSrc} name="Grace Hopper" width={44} height={44} />
             <Avatar src={alanAvatarSrc} name="Alan Turing" width={44} height={44} />
             <Avatar src={margaretAvatarSrc} name="Margaret Hamilton" width={44} height={44} />
+            <Avatar src={zorgAvatarSrc} name="Jean-Baptiste Zorg" width={44} height={44} />
+            <Avatar src={mikeAvatarSrc} name="Dr. Evil" width={44} height={44} />
           </AvatarGroup>
         </Section>
 
@@ -94,9 +116,9 @@ export const Template = ({
           <Text style={exampleTitle}>AvatarGroup (rtl)</Text>
           <Text style={exampleDescription}>Right-to-left ordering for localized layouts.</Text>
           <AvatarGroup direction="rtl" spacing={10}>
-            <Avatar src={adaAvatarSrc} name="Ada Lovelace" width={44} height={44} />
-            <Avatar src={graceAvatarSrc} name="Grace Hopper" width={44} height={44} />
-            <Avatar src={alanAvatarSrc} name="Alan Turing" width={44} height={44} />
+            <Avatar src={zorgAvatarSrc} name="Jean-Baptiste Zorg" width={44} height={44} />
+            <Avatar src={margaretAvatarSrc} name="Margaret Hamilton" width={44} height={44} />
+            <Avatar src={mikeAvatarSrc} name="Dr. Evil" width={44} height={44} />
           </AvatarGroup>
         </Section>
 
