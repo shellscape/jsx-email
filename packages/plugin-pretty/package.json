@@ -47,7 +47,7 @@
     "pretty": "2.0.0"
   },
   "devDependencies": {
-    "@types/pretty": "^2.0.1"
+    "@types/pretty": "catalog:"
   },
   "types": "./dist/index.d.ts",
   "funding": {

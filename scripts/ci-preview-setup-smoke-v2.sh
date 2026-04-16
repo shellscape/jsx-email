@@ -41,11 +41,27 @@ pnpm i
 pnpm add unocss
 
 # The dependencies below have to be pointed back to the repo
-pnpm add "@jsx-email/app-preview@file:$REPO_DIR/apps/preview"
-pnpm add "@jsx-email/plugin-inline@file:$REPO_DIR/packages/plugin-inline"
-pnpm add "@jsx-email/plugin-minify@file:$REPO_DIR/packages/plugin-minify"
-pnpm add "@jsx-email/plugin-pretty@file:$REPO_DIR/packages/plugin-pretty"
-pnpm add "jsx-email@file:$REPO_DIR/packages/jsx-email"
+pack_local_package() {
+  local package_dir="$1"
+  (
+    cd "$package_dir"
+    pnpm pack --pack-destination "$TESTS_DIR" | tail -n 1
+  )
+}
+
+# Pack local packages before installing into the isolated smoke workspace so
+# workspace/catalog protocols are replaced with publishable dependency specs.
+APP_PREVIEW_TARBALL=$(pack_local_package "$REPO_DIR/apps/preview")
+PLUGIN_INLINE_TARBALL=$(pack_local_package "$REPO_DIR/packages/plugin-inline")
+PLUGIN_MINIFY_TARBALL=$(pack_local_package "$REPO_DIR/packages/plugin-minify")
+PLUGIN_PRETTY_TARBALL=$(pack_local_package "$REPO_DIR/packages/plugin-pretty")
+JSX_EMAIL_TARBALL=$(pack_local_package "$REPO_DIR/packages/jsx-email")
+
+pnpm add "@jsx-email/app-preview@file:$APP_PREVIEW_TARBALL"
+pnpm add "@jsx-email/plugin-inline@file:$PLUGIN_INLINE_TARBALL"
+pnpm add "@jsx-email/plugin-minify@file:$PLUGIN_MINIFY_TARBALL"
+pnpm add "@jsx-email/plugin-pretty@file:$PLUGIN_PRETTY_TARBALL"
+pnpm add "jsx-email@file:$JSX_EMAIL_TARBALL"
 
 # We have to link this due to the workspace dependency
 pnpm link "$REPO_DIR/packages/jsx-email"
