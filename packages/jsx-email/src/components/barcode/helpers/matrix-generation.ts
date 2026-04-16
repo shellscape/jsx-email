@@ -10,6 +10,8 @@ import type {
   Matrix
 } from '../types.js';
 
+const BWIP_ROW_UNITS_PER_INCH = 72;
+
 export function generateMatrix(type: BarcodeType, text: string, ecLevel: BarcodeEcLevel): Matrix {
   if (type === 'qrcode') {
     return generateQrMatrix(text, ecLevel);
@@ -19,10 +21,9 @@ export function generateMatrix(type: BarcodeType, text: string, ecLevel: Barcode
 }
 
 function generateQrMatrix(text: string, ecLevel: BarcodeEcLevel): Matrix {
-  const payload = text.trim();
   const qr = qrcode(0, ecLevel);
 
-  qr.addData(payload, 'Byte');
+  qr.addData(text, 'Byte');
   qr.make();
 
   const size = qr.getModuleCount();
@@ -37,11 +38,9 @@ function generateBwipMatrix(
   text: string,
   ecLevel: BarcodeEcLevel | null
 ): Matrix {
-  const payload = text.trim();
-
   const rawOptions = {
     bcid: type,
-    text: payload,
+    text,
     scale: 1,
     includetext: false,
     padding: 0,
@@ -86,8 +85,12 @@ function fromBwipBars(raw: BwipBarMatrix): Matrix {
     1,
     widths.reduce((sum, value) => sum + value, 0)
   );
-  const barHeights = raw.bhs.length ? raw.bhs.map((value) => Math.max(1, Math.round(value))) : [1];
-  const barOffsets = raw.bbs.length ? raw.bbs.map((value) => Math.max(0, Math.round(value))) : [0];
+  const barHeights = raw.bhs.length
+    ? raw.bhs.map((value) => Math.max(1, Math.round(value * BWIP_ROW_UNITS_PER_INCH)))
+    : [1];
+  const barOffsets = raw.bbs.length
+    ? raw.bbs.map((value) => Math.max(0, Math.round(value * BWIP_ROW_UNITS_PER_INCH)))
+    : [0];
 
   const totalHeight = Math.max(
     1,

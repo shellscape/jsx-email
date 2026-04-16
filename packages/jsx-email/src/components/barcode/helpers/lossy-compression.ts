@@ -24,6 +24,11 @@ export function applyLossy(
   }
 
   const barcodeType = barcodeTypes[type];
+
+  if (barcodeType.family === '1d') {
+    return sourceMatrix;
+  }
+
   const budget = normalizeLossyBudget(lossyBudget);
 
   if (!budget) {
@@ -31,17 +36,13 @@ export function applyLossy(
   }
 
   const ecRate = resolveEcRate(type, ecLevel, barcodeType);
-  const { changed, matrix } = applyLossyCompression(sourceMatrix, {
+  const { matrix } = applyLossyCompression(sourceMatrix, {
     budget,
     ecRate,
     protectAlignmentPatterns: type === 'qrcode',
     protectPositionPatterns: type === 'qrcode',
     protectTimingPatterns: type === 'qrcode'
   });
-
-  if (barcodeType.family === '1d' && changed > 0) {
-    return enforceColumnUniformity(matrix);
-  }
 
   return matrix;
 }
@@ -141,32 +142,6 @@ function applyLossyCompression(
     changed: changeCount,
     matrix
   };
-}
-
-function enforceColumnUniformity(matrix: Matrix): Matrix {
-  if (!matrix.length || !matrix[0]?.length) {
-    return matrix;
-  }
-
-  const normalized = cloneMatrix(matrix);
-  const height = normalized.length;
-  const width = normalized[0].length;
-
-  for (let col = 0; col < width; col += 1) {
-    let dark = 0;
-
-    for (let row = 0; row < height; row += 1) {
-      dark += normalized[row][col];
-    }
-
-    const value = dark * 2 >= height ? 1 : 0;
-
-    for (let row = 0; row < height; row += 1) {
-      normalized[row][col] = value;
-    }
-  }
-
-  return normalized;
 }
 
 function countDarkNeighbors(matrix: Matrix, row: number, col: number): number {

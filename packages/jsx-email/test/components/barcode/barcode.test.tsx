@@ -92,6 +92,12 @@ const parityCases = [
 const acceptsBarcodeProps = (props: BarcodeProps): BarcodeProps => props;
 const acceptsDataMatrixProps = (props: DataMatrixProps): DataMatrixProps => props;
 
+function getDarkRowCount(html: string): number {
+  const rows = html.match(/<tr>.*?<\/tr>/gs) ?? [];
+
+  return rows.filter((row) => row.includes('background-color:#000000')).length;
+}
+
 describe('<Barcode> component', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -125,6 +131,41 @@ describe('<Barcode> component', () => {
     );
 
     expect(first).toBe(second);
+  });
+
+  it('preserves whitespace-sensitive payloads across encoders', async () => {
+    const qrWithOuterWhitespace = await jsxToString(
+      <Barcode type="qrcode" text="  QR-WHITESPACE  " />
+    );
+    const qrTrimmedPayload = await jsxToString(<Barcode type="qrcode" text="QR-WHITESPACE" />);
+
+    expect(qrWithOuterWhitespace).not.toBe(qrTrimmedPayload);
+
+    const code128WithOuterWhitespace = await jsxToString(
+      <Barcode type="code128" text="  CODE128-WHITESPACE  " quietZone={false} />
+    );
+    const code128TrimmedPayload = await jsxToString(
+      <Barcode type="code128" text="CODE128-WHITESPACE" quietZone={false} />
+    );
+
+    expect(code128WithOuterWhitespace).not.toBe(code128TrimmedPayload);
+  });
+
+  it('renders multi-row geometry for 1D barcodes', async () => {
+    const html = await jsxToString(<Barcode type="code128" text={code128Text} quietZone={false} />);
+
+    expect(getDarkRowCount(html)).toBeGreaterThan(10);
+  });
+
+  it('does not apply lossy mutation to 1D symbologies', async () => {
+    const baseline = await jsxToString(
+      <Barcode type="code39" text={code39Text} quietZone={false} />
+    );
+    const lossy = await jsxToString(
+      <Barcode type="code39" text={code39Text} quietZone={false} lossyEnabled lossyBudget={1} />
+    );
+
+    expect(lossy).toBe(baseline);
   });
 
   it('enforces discriminated-union type guards', () => {
