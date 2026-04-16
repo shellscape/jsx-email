@@ -28,7 +28,7 @@ export const previewProps = {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE_-in-mMPGc3wHs2xuO4IdjZDG2UQje7enw&s',
   graceAvatarSrc: 'https://i.pinimg.com/564x/63/8f/cc/638fcc11e752676aa3967274e643fa74.jpg',
   margaretAvatarSrc:
-    'https://www.reddit.com/media?url=https%3A%2F%2Fcf.preview.redd.it%2Ficonic-movie-images-for-the-ages-v0-xd3dve47wtnb1.jpg%3Fauto%3Dwebp%26s%3D4dd897132692e1ab975b6d78d715ed454a8b748a',
+    'https://i.pinimg.com/474x/31/93/64/319364c3d37856f1fbfcf8bc4f88bc33.jpg',
   mikeAvatarSrc: 'https://variety.com/wp-content/uploads/2017/02/mike-myers-1.jpg?w=700',
   zorgAvatarSrc:
     'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/zorg-the-fifth-element-joseph-oland.jpg'
