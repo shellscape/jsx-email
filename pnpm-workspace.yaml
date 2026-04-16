@@ -15,12 +15,16 @@ catalog:
   'unified': '^11.0.5'
   'unist-util-visit': '^5.0.0'
   'yargs-parser': '^21.1.1'
+  'typescript': '^6.0.2'
 
 enablePrePostScripts: true
 linkWorkspacePackages: false
 onlyBuiltDependencies:
-  - '@parcel/watcher'
   - '@moonrepo/cli'
+  - '@parcel/watcher'
+  - '@swc/core'
+  - '@tailwindcss/oxide'
   - esbuild
+  - sharp
 shamefullyHoist: true
 sharedWorkspaceLockfile: true

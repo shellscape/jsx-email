@@ -24,7 +24,6 @@ tasks:
   compile:
     command: echo "Compile compelete"
     inputs:
-      - starter
       - src
     deps:
       - ~:tsc

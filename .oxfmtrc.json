@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "arrowParens": "always",
   "printWidth": 100,
   "singleQuote": true,
