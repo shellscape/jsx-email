@@ -165,6 +165,7 @@ const brokenAvatarFallbackScript = /* html */ `<script>
       fallbackEl.style.justifyContent = 'center';
       fallbackEl.style.lineHeight = height;
       fallbackEl.style.textTransform = 'uppercase';
+      fallbackEl.style.verticalAlign = 'middle';
       fallbackEl.style.width = width;
 
       if (isDecorative) {
@@ -196,11 +197,19 @@ const brokenAvatarFallbackScript = /* html */ `<script>
       }
     };
 
-    document.querySelectorAll('img[data-jsx-email-avatar="true"]').forEach(wireAvatarImage);
+    const wireAvatarImages = () => {
+      document.querySelectorAll('img[data-jsx-email-avatar="true"]').forEach(wireAvatarImage);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wireAvatarImages, { once: true });
+    } else {
+      wireAvatarImages();
+    }
   })();
 </script>`;
 
-const buildPreviewSrcDoc = ({
+export const buildPreviewSrcDoc = ({
   emulateBrokenImageFallback,
   html,
   tableWidthPolicy

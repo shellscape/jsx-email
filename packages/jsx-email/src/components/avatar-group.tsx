@@ -50,6 +50,7 @@ export const AvatarGroup: JsxEmailComponent<AvatarGroupProps> = ({
   ...props
 }) => {
   const configDds = config.current().render.disableDefaultStyle;
+  const disableStyles = configDds || disableDefaultStyle;
   const avatars = React.Children.toArray(children);
   const normalizedSpacing = Math.abs(spacing);
   const orderedAvatars = direction === 'rtl' ? [...avatars].reverse() : avatars;
@@ -93,16 +94,30 @@ export const AvatarGroup: JsxEmailComponent<AvatarGroupProps> = ({
       <tbody>
         <tr>
           {avatarsToRender.map((avatar, index) => (
-            <td key={index}>
+            <td
+              key={index}
+              style={
+                disableStyles
+                  ? {}
+                  : {
+                      padding: '0',
+                      verticalAlign: 'middle'
+                    }
+              }
+            >
               <span
                 style={
-                  configDds || disableDefaultStyle || index === 0
+                  disableStyles
                     ? {}
                     : {
                         display: 'inline-block',
+                        lineHeight: '0',
+                        verticalAlign: 'middle',
                         ...(overlap
-                          ? { marginLeft: `${-normalizedSpacing}px`, position: 'relative' }
-                          : { marginLeft: `${normalizedSpacing}px` })
+                          ? index === 0
+                            ? {}
+                            : { marginLeft: `${-normalizedSpacing}px`, position: 'relative' }
+                          : { marginLeft: index === 0 ? void 0 : `${normalizedSpacing}px` })
                       }
                 }
               >

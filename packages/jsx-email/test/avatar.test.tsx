@@ -32,6 +32,11 @@ describe('<Avatar> component', async () => {
     expect(html).toContain('alt="Bruce Wayne"');
   });
 
+  it('applies vertical alignment defaults for image avatars', async () => {
+    const html = await jsxToString(<Avatar src="cat.jpg" name="Bruce Wayne" />);
+    expect(html).toContain('vertical-align:middle');
+  });
+
   it('renders fallback markup when src is missing', async () => {
     const actualOutput = await jsxToString(<Avatar name="Bruce Wayne" />);
     expect(actualOutput).toMatchSnapshot();

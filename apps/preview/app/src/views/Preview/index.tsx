@@ -18,7 +18,7 @@ const brokenImageFallbackModeValues = ['off', 'on'] as const;
 type BrokenImageFallbackMode = (typeof brokenImageFallbackModeValues)[number];
 
 const defaultTableWidthPolicy: TableWidthPolicy = 'root-only';
-const defaultBrokenImageFallbackMode: BrokenImageFallbackMode = 'off';
+const defaultBrokenImageFallbackMode: BrokenImageFallbackMode = 'on';
 
 const isView = (value: string | null): value is Views => {
   return Object.values(Views).includes(value as Views);

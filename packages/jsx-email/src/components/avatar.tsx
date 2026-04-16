@@ -106,6 +106,7 @@ export const Avatar: JsxEmailComponent<AvatarProps> = ({
                 justifyContent: 'center',
                 lineHeight: toCssSize(resolvedHeight),
                 textTransform: 'uppercase',
+                verticalAlign: 'middle',
                 width: toCssSize(resolvedWidth)
               }),
           ...style
@@ -137,7 +138,8 @@ export const Avatar: JsxEmailComponent<AvatarProps> = ({
               display: 'inline-block',
               objectFit: 'cover',
               outline: 'none',
-              textDecoration: 'none'
+              textDecoration: 'none',
+              verticalAlign: 'middle'
             }),
         ...style
       }}

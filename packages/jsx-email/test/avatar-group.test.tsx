@@ -83,6 +83,21 @@ describe('<AvatarGroup> component', async () => {
     expect(actualOutput).toMatch(/aria-label="2 more"[^>]*height:64px[^>]*width:64px">\+2<\/span>/);
   });
 
+  it('applies alignment-friendly wrapper defaults for image avatars', async () => {
+    const html = await jsxToString(
+      <AvatarGroup overlap={true} spacing={10}>
+        <Avatar src="cat.jpg" name="Bruce Wayne" />
+        <Avatar src="dog.jpg" name="Selina Kyle" />
+      </AvatarGroup>
+    );
+
+    expect(html).toContain('<td style="padding:0;vertical-align:middle">');
+    expect(html).toContain('style="display:inline-block;line-height:0;vertical-align:middle"');
+    expect(html).toContain(
+      'style="display:inline-block;line-height:0;vertical-align:middle;margin-left:-10px;position:relative"'
+    );
+  });
+
   it('supports rtl rendering order', async () => {
     const actualOutput = await jsxToString(
       <AvatarGroup direction="rtl">
