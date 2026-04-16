@@ -2,6 +2,7 @@ import './helpers.js';
 
 // components
 export * from './components/background.js';
+export * from './components/barcode/barcode.js';
 export * from './components/body.js';
 export * from './components/button.js';
 export * from './components/butan.js';
