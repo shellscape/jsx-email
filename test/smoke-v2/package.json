@@ -21,5 +21,8 @@
   "devDependencies": {
     "@types/diffable-html": "^5.0.2",
     "@types/node": "22.14.1"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

@@ -34,5 +34,8 @@
     "tailwind-scrollbar": "^4.0.2",
     "titleize": "^4.0.0",
     "vite": "^7.0.4"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
