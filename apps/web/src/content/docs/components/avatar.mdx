@@ -108,6 +108,12 @@ height?: string | number;
 
 Avatar height. Defaults to `40` when no explicit size is provided.
 
+## Caveats
+
+- Default avatar images use `object-fit: cover` to keep circular crops consistent.
+- Some email clients may ignore `object-fit`, which can produce stretching or letterboxing.
+- For consistent rendering, provide pre-cropped square images and explicit `width`/`height`.
+
 ### Additional Props
 
 This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`, except `children`.

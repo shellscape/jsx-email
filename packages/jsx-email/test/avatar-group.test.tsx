@@ -58,6 +58,31 @@ describe('<AvatarGroup> component', async () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
+  it('supports truncation with an overflow token', async () => {
+    const actualOutput = await jsxToString(
+      <AvatarGroup max={2}>
+        <Avatar name="Bruce Wayne" />
+        <Avatar name="Selina Kyle" />
+        <Avatar name="Clark Kent" />
+        <Avatar name="Diana Prince" />
+      </AvatarGroup>
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('supports rtl rendering order', async () => {
+    const actualOutput = await jsxToString(
+      <AvatarGroup direction="rtl">
+        <Avatar name="Bruce Wayne" />
+        <Avatar name="Selina Kyle" />
+        <Avatar name="Clark Kent" />
+      </AvatarGroup>
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
   it('disables default styles', async () => {
     const actualOutput = await jsxToString(
       <AvatarGroup disableDefaultStyle={true}>

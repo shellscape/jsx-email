@@ -45,9 +45,60 @@ const Email = () => {
 };
 ```
 
+Truncate long groups with a `+N` overflow token:
+
+```jsx "AvatarGroup"
+// AvatarGroupMaxExample.jsx
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup max={3}>
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+      <Avatar name="Diana Prince" />
+    </AvatarGroup>
+  );
+};
+```
+
+Render right-to-left order when needed:
+
+```jsx "AvatarGroup"
+// AvatarGroupDirectionExample.jsx
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup direction="rtl">
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+    </AvatarGroup>
+  );
+};
+```
+
 ## Props
 
 ### Optional Props
+
+#### direction
+
+```ts
+direction?: 'ltr' | 'rtl';
+```
+
+Controls group rendering order. Defaults to `"ltr"`.
+
+#### max
+
+```ts
+max?: number;
+```
+
+Maximum number of avatars to render before appending an overflow token (for example, `+2`).
 
 #### overlap
 
@@ -72,6 +123,11 @@ disableDefaultStyle?: boolean;
 ```
 
 When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+## Caveats
+
+- `overlap={true}` is an enhanced mode that relies on negative margins and layered stacking.
+- Rendering can vary in stricter email clients, so keep overlap spacing conservative and verify with `email check`.
 
 ### Additional Props
 
