@@ -4,6 +4,18 @@ packages:
   - 'test/*'
   - '!recipes/*'
 
+catalog:
+  '@types/mustache': '^4.2.5'
+  '@types/pretty': '^2.0.1'
+  '@types/yargs-parser': '^21.0.3'
+  'chalk-template': '^1.1.0'
+  'globby': '14.1.0'
+  'hast': '^1.0.0'
+  'mustache': '^4.2.0'
+  'unified': '^11.0.5'
+  'unist-util-visit': '^5.0.0'
+  'yargs-parser': '^21.1.1'
+
 enablePrePostScripts: true
 onlyBuiltDependencies:
   - '@parcel/watcher'

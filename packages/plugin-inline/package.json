@@ -48,11 +48,11 @@
     "hast-util-select": "^6.0.4",
     "hast-util-to-string": "^3.0.1",
     "unist-util-remove": "^4.0.0",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "catalog:"
   },
   "devDependencies": {
-    "hast": "^1.0.0",
-    "unified": "^11.0.5"
+    "hast": "catalog:",
+    "unified": "catalog:"
   },
   "types": "./dist/index.d.ts",
   "funding": {

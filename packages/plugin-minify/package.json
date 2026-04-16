@@ -63,7 +63,7 @@
     "rehype-remove-style-type-css": "^4.0.1",
     "rehype-sort-attribute-values": "^5.0.1",
     "rehype-sort-attributes": "^5.0.1",
-    "unified": "^11.0.5"
+    "unified": "catalog:"
   },
   "types": "./dist/index.d.ts",
   "funding": {
