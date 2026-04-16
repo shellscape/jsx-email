@@ -71,6 +71,18 @@ describe('<AvatarGroup> component', async () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
+  it('uses semantic overflow text and avatar sizing for overflow token', async () => {
+    const actualOutput = await jsxToString(
+      <AvatarGroup max={1}>
+        <Avatar name="Bruce Wayne" width={64} />
+        <Avatar name="Selina Kyle" width={64} />
+        <Avatar name="Clark Kent" width={64} />
+      </AvatarGroup>
+    );
+
+    expect(actualOutput).toMatch(/aria-label="2 more"[^>]*height:64px[^>]*width:64px">\+2<\/span>/);
+  });
+
   it('supports rtl rendering order', async () => {
     const actualOutput = await jsxToString(
       <AvatarGroup direction="rtl">

@@ -5,6 +5,31 @@ import { debug } from '../debug.js';
 import type { BaseProps, JsxEmailComponent } from '../types.js';
 import { Avatar } from './avatar.js';
 
+type OverflowAvatarSizing = {
+  height?: number | string;
+  width?: number | string;
+};
+
+const getOverflowAvatarSizing = (avatars: React.ReactNode[]): OverflowAvatarSizing => {
+  for (const avatar of avatars) {
+    if (React.isValidElement(avatar)) {
+      const avatarProps = avatar.props as {
+        height?: number | string;
+        style?: React.CSSProperties;
+        width?: number | string;
+      };
+      const width = avatarProps.width ?? avatarProps.style?.width;
+      const height = avatarProps.height ?? avatarProps.style?.height;
+
+      if (typeof width !== 'undefined' || typeof height !== 'undefined') {
+        return { width, height };
+      }
+    }
+  }
+
+  return {};
+};
+
 export interface AvatarGroupProps extends Omit<BaseProps<'table'>, 'cellPadding' | 'cellSpacing'> {
   direction?: 'ltr' | 'rtl';
   max?: number;
@@ -36,6 +61,7 @@ export const AvatarGroup: JsxEmailComponent<AvatarGroupProps> = ({
     normalizedMax === null || orderedAvatars.length <= normalizedMax
       ? 0
       : orderedAvatars.length - normalizedMax;
+  const overflowAvatarSizing = getOverflowAvatarSizing(orderedAvatars);
   const avatarsToRender =
     overflowCount > 0
       ? [
@@ -44,6 +70,9 @@ export const AvatarGroup: JsxEmailComponent<AvatarGroupProps> = ({
             key="avatar-group-overflow-token"
             fallback={`+${overflowCount}`}
             disableDefaultStyle={disableDefaultStyle}
+            name={`${overflowCount} more`}
+            height={overflowAvatarSizing.height}
+            width={overflowAvatarSizing.width}
           />
         ]
       : visibleAvatars;
