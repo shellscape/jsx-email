@@ -44,7 +44,6 @@ const SelectItem = ({ className: _className, children, ...props }: RadixSelect.S
 );
 
 interface HtmlRendererPreviewProps extends BaseRendererProps {
-  emulateBrokenImageFallback?: boolean;
   mode: Views.Desktop | Views.Device;
 }
 
@@ -53,171 +52,11 @@ interface IframeStyle {
   width?: `${number}px`;
 }
 
-const injectHtmlAddon = ({ addon, html }: { addon: string; html: string }): string => {
-  if (!addon.trim()) {
-    return html;
-  }
-
-  if (html.includes('</head>')) {
-    return html.replace('</head>', `${addon}\n</head>`);
-  }
-
-  if (html.includes('</body>')) {
-    return html.replace('</body>', `${addon}\n</body>`);
-  }
-
-  return `${html}\n${addon}`;
-};
-
-const buildPreviewStyleAddon = (): string => {
-  return /* html */ `<style>
-    table { overflow-wrap: anywhere; }
-    body > table:first-of-type {
-      width: 100% !important;
-    }
-  </style>`;
-};
-
-const brokenAvatarFallbackScript = /* html */ `<script>
-  (() => {
-    const numericValueRegex = /^\\d+(?:\\.\\d+)?$/;
-
-    const toCssSize = (value, fallback) => {
-      const normalized = (value || '').toString().trim();
-
-      if (!normalized) {
-        return fallback;
-      }
-
-      return numericValueRegex.test(normalized) ? normalized + 'px' : normalized;
-    };
-
-    const deriveInitials = (value) => {
-      const normalized = (value || '').toString().trim();
-
-      if (!normalized) {
-        return '';
-      }
-
-      const words = normalized.split(/\\s+/).filter(Boolean);
-
-      if (words.length === 0) {
-        return '';
-      }
-
-      if (words.length === 1) {
-        return words[0].slice(0, 2).toUpperCase();
-      }
-
-      return (words[0][0] + words[1][0]).toUpperCase();
-    };
-
-    const resolveFallbackText = (imageEl) => {
-      const fallback = (imageEl.getAttribute('data-jsx-email-avatar-fallback') || '').trim();
-
-      if (fallback) {
-        return fallback;
-      }
-
-      const alt = (imageEl.getAttribute('alt') || '').trim();
-
-      if (!alt) {
-        return '?';
-      }
-
-      return deriveInitials(alt) || alt.slice(0, 2).toUpperCase();
-    };
-
-    const replaceImageWithFallback = (imageEl) => {
-      if (!imageEl || imageEl.dataset.jsxEmailAvatarFallbackApplied === 'true') {
-        return;
-      }
-
-      imageEl.dataset.jsxEmailAvatarFallbackApplied = 'true';
-
-      const fallbackText = resolveFallbackText(imageEl);
-      const width = toCssSize(imageEl.getAttribute('width'), '40px');
-      const height = toCssSize(imageEl.getAttribute('height'), '40px');
-      const isDecorative =
-        imageEl.getAttribute('role') === 'presentation' ||
-        imageEl.getAttribute('aria-hidden') === 'true' ||
-        imageEl.getAttribute('alt') === '';
-      const fallbackEl = document.createElement('span');
-
-      fallbackEl.textContent = fallbackText;
-      fallbackEl.style.alignItems = 'center';
-      fallbackEl.style.backgroundColor = '#E2E8F0';
-      fallbackEl.style.borderRadius = '9999px';
-      fallbackEl.style.color = '#475569';
-      fallbackEl.style.display = 'inline-flex';
-      fallbackEl.style.fontFamily = 'Arial, sans-serif';
-      fallbackEl.style.fontSize = '14px';
-      fallbackEl.style.fontWeight = '600';
-      fallbackEl.style.height = height;
-      fallbackEl.style.justifyContent = 'center';
-      fallbackEl.style.lineHeight = height;
-      fallbackEl.style.textTransform = 'uppercase';
-      fallbackEl.style.width = width;
-
-      if (isDecorative) {
-        fallbackEl.setAttribute('aria-hidden', 'true');
-        fallbackEl.setAttribute('role', 'presentation');
-      } else {
-        fallbackEl.setAttribute('aria-label', imageEl.getAttribute('alt') || fallbackText);
-        fallbackEl.setAttribute('role', 'img');
-      }
-
-      imageEl.replaceWith(fallbackEl);
-    };
-
-    const wireAvatarImage = (node) => {
-      if (!(node instanceof HTMLImageElement)) {
-        return;
-      }
-
-      node.addEventListener(
-        'error',
-        () => {
-          replaceImageWithFallback(node);
-        },
-        { once: true }
-      );
-
-      if (node.complete && node.naturalWidth === 0) {
-        replaceImageWithFallback(node);
-      }
-    };
-
-    document.querySelectorAll('img[data-jsx-email-avatar="true"]').forEach(wireAvatarImage);
-  })();
-</script>`;
-
-const buildPreviewSrcDoc = ({
-  emulateBrokenImageFallback,
-  html
-}: {
-  emulateBrokenImageFallback: boolean;
-  html: string;
-}): string => {
-  const styleAddon = buildPreviewStyleAddon();
-  const withStyles = injectHtmlAddon({ addon: styleAddon, html });
-
-  if (!emulateBrokenImageFallback) {
-    return withStyles;
-  }
-
-  return injectHtmlAddon({ addon: brokenAvatarFallbackScript, html: withStyles });
-};
-
 export const RenderPreview = ({
-  emulateBrokenImageFallback = false,
   mode,
   template
 }: HtmlRendererPreviewProps) => {
-  const srcDoc = buildPreviewSrcDoc({
-    emulateBrokenImageFallback,
-    html: template.html
-  });
+  const srcDoc = template.html;
 
   const defaultDevice = devices.phones[3];
 
