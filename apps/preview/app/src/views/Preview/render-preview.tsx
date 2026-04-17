@@ -56,7 +56,14 @@ export const RenderPreview = ({
   mode,
   template
 }: HtmlRendererPreviewProps) => {
-  const srcDoc = template.html;
+  const previewBaseStyles = /* html */ `
+    <style>
+      body {
+        overflow-wrap: anywhere;
+      }
+    </style>
+  `;
+  const srcDoc = template.html + previewBaseStyles;
 
   const defaultDevice = devices.phones[3];
 
