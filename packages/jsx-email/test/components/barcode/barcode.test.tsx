@@ -10,6 +10,7 @@ import {
   QrCode,
   UpcBarcode
 } from '../../../src/index.js';
+import { log } from '../../../src/log.js';
 import { jsxToString } from '../../../src/renderer/jsx-to-string.js';
 
 const matrixText = 'https://jsx.email/components/barcode';
@@ -120,6 +121,47 @@ describe('<Barcode> component', () => {
 
   it.each(snapshotCases)('matches deterministic snapshot: %s', async (_name, component) => {
     expect(await jsxToString(component)).toMatchSnapshot();
+  });
+
+  it('adds a stable barcode marker attribute to the root table', async () => {
+    const html = await jsxToString(<Barcode text={matrixText} />);
+
+    expect(html).toContain('data-jsx-email-barcode="root"');
+  });
+
+  it('protects barcode geometry in strict mode and warns on conflicting overrides', async () => {
+    const warnSpy = vi.spyOn(log, 'warn').mockImplementation(() => {});
+
+    const html = await jsxToString(
+      <Barcode
+        text={matrixText}
+        style={{ width: '999px' }}
+        tableProps={{ style: { width: '888px' }, width: '777' }}
+        cellProps={{ style: { height: '13px', width: '11px' }, width: '333' }}
+      />
+    );
+
+    expect(html).toContain('width:auto');
+    expect(html).not.toContain('width:999px');
+    expect(html).not.toContain('width:888px');
+    expect(html).not.toContain('width:11px');
+    expect(html).not.toContain('height:13px');
+    expect(warnSpy).toHaveBeenCalled();
+  });
+
+  it('supports css isolation escape hatches for root and cell props', async () => {
+    const html = await jsxToString(
+      <Barcode
+        text={matrixText}
+        cssIsolation="none"
+        tableProps={{ style: { width: '320px' } }}
+        cellProps={{ style: { height: '7px', width: '7px' } }}
+      />
+    );
+
+    expect(html).toContain('width:320px');
+    expect(html).toContain('width:7px');
+    expect(html).toContain('height:7px');
   });
 
   it('renders deterministic output for repeated input', async () => {

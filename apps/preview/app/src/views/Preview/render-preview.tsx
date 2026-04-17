@@ -53,9 +53,11 @@ interface IframeStyle {
 }
 
 export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
-  const styleAddons = /* html */ `
+  const previewBaseStyles = /* html */ `
     <style>
-      table { overflow-wrap: anywhere; width: 100% !important; }
+      body {
+        overflow-wrap: anywhere;
+      }
     </style>
   `;
 
@@ -159,7 +161,7 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
         </FlaotingToolbarPositioningController>
         <iframe
           ref={iframeElRef}
-          srcDoc={template.html + styleAddons}
+          srcDoc={template.html + previewBaseStyles}
           className={clsx('w-full h-full', mode === Views.Device && 'mt-6 mb-24 mx-auto')}
           style={mode === Views.Device ? iframeStyle : {}}
         />

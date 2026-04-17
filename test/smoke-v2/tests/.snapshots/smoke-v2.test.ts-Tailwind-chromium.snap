@@ -60,5 +60,7 @@
   </body>
 </html>
 <style>
-  table { overflow-wrap: anywhere; width: 100% !important; }
+  body {
+      overflow-wrap: anywhere;
+    }
 </style>

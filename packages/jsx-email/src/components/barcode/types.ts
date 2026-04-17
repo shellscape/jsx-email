@@ -11,13 +11,21 @@ export type BarcodeType =
 
 export type BarcodeEcLevel = 'L' | 'M' | 'Q' | 'H';
 
-type BarcodeBaseProps = Omit<BaseProps<'table'>, 'children'> & {
+export type BarcodeCssIsolation = 'strict' | 'balanced' | 'none';
+
+export type BarcodeTableProps = Omit<BaseProps<'table'>, 'children'>;
+export type BarcodeCellProps = Omit<BaseProps<'td'>, 'children'>;
+
+type BarcodeBaseProps = BarcodeTableProps & {
   bgColor?: string;
   cellSize?: number;
+  cellProps?: BarcodeCellProps;
+  cssIsolation?: BarcodeCssIsolation;
   fgColor?: string;
   lossyBudget?: number;
   lossyEnabled?: boolean;
   quietZone?: boolean;
+  tableProps?: BarcodeTableProps;
   text: string;
 };
 
