@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Avatar> component > disables default styles 1`] = `"<img alt="Cat" src="cat.jpg" width="64" height="64" style=""/>"`;
+exports[`<Avatar> component > disables default styles 1`] = `"<img alt="Cat" data-jsx-email-avatar="true" data-jsx-email-avatar-fallback="?" src="cat.jpg" width="64" height="64" style=""/>"`;
 
 exports[`<Avatar> component > renders fallback markup when src is missing 1`] = `"<span role="img" aria-label="Bruce Wayne" style="align-items:center;background-color:#E2E8F0;border-radius:9999px;color:#475569;display:inline-flex;font-family:Arial, sans-serif;font-size:14px;font-weight:600;height:40px;justify-content:center;line-height:40px;text-transform:uppercase;width:40px">BW</span>"`;
 
-exports[`<Avatar> component > supports decorative avatars 1`] = `"<img alt="" src="cat.jpg" width="40" height="40" role="presentation" aria-hidden="true" style="border:none;border-radius:9999px;display:inline-block;object-fit:cover;outline:none;text-decoration:none"/>"`;
+exports[`<Avatar> component > supports decorative avatars 1`] = `"<img alt="" data-jsx-email-avatar="true" data-jsx-email-avatar-fallback="?" src="cat.jpg" width="40" height="40" role="presentation" aria-hidden="true" style="border:none;border-radius:9999px;display:inline-block;object-fit:cover;outline:none;text-decoration:none"/>"`;

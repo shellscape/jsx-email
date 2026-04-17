@@ -14,6 +14,10 @@ import { Views } from '../../lib/types';
 import { CodePreview } from './code-preview';
 import { RenderPreview } from './render-preview';
 
+const isView = (value: string | null): value is Views => {
+  return Object.values(Views).includes(value as Views);
+};
+
 export const Preview = observer(() => {
   const appStore = useAppStore();
 
@@ -30,18 +34,33 @@ export const Preview = observer(() => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const currentView = searchParams.get('view') as Views;
+  const viewParam = searchParams.get('view');
+  const currentView = isView(viewParam) ? viewParam : Views.Desktop;
 
   useEffect(() => {
-    if (!searchParams.get('view')) {
-      searchParams.set('view', Views.Desktop);
-      setSearchParams(searchParams);
+    const nextSearchParams = new URLSearchParams(searchParams);
+    let shouldUpdate = false;
+
+    if (!isView(viewParam)) {
+      nextSearchParams.set('view', Views.Desktop);
+      shouldUpdate = true;
+    }
+
+    if (shouldUpdate) {
+      setSearchParams(nextSearchParams);
     }
   }, [urlKey]);
 
-  function changeView(view: Views) {
-    searchParams.set('view', view);
-    setSearchParams(searchParams);
+  function setPreviewSearchParam(name: string, value: string) {
+    const nextSearchParams = new URLSearchParams(searchParams);
+    nextSearchParams.set(name, value);
+    setSearchParams(nextSearchParams);
+  }
+
+  function changeView(value: string) {
+    if (isView(value)) {
+      setPreviewSearchParam('view', value);
+    }
   }
 
   return (
@@ -73,9 +92,9 @@ export const Preview = observer(() => {
               clients for Quality Control, before sending emails in production.
             </PopoverContent>
           </Popover>
-          <ToggleGroup.Root type="single" value={searchParams.get('view')}>
+          <ToggleGroup.Root type="single" value={currentView} onValueChange={changeView}>
             {Object.entries(Views).map(([key, value], index) => (
-              <ToggleGroup.Item key={index} value={value} onClick={() => changeView(value)}>
+              <ToggleGroup.Item key={index} value={value}>
                 {key}
               </ToggleGroup.Item>
             ))}

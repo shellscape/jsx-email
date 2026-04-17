@@ -148,14 +148,14 @@ const ColorSchemePicker = observer(() => {
   return (
     <RadixToggleGroup.Root
       type="single"
-      className="inline-flex items-center gap-1 rounded-full border-2 border-neutral-200 dark:border-neutral-800 p-1"
+      className="inline-flex items-center gap-1 rounded-md border-2 border-neutral-200 dark:border-neutral-800 p-1"
       value={appStore.colorScheme.preference}
     >
       {colorSchemes.map((colorScheme, index) => (
         <RadixToggleGroup.Item
           key={index}
           value={colorScheme.name}
-          className="p-1 rounded-full data-[state=on]:outline hover:text-black dark:hover:text-white outline-2 outline-neutral-200 dark:outline-neutral-800 data-[state=off]:text-neutral-300 dark:data-[state=off]:text-neutral-700"
+          className="p-1 cursor-pointer data-[state=on]:rounded-sm data-[state=on]:outline hover:text-black dark:hover:text-white outline-neutral-200 dark:outline-neutral-800 data-[state=off]:text-neutral-300 dark:data-[state=off]:text-neutral-700"
           onClick={() => appStore.colorScheme.setPreference(colorScheme.name)}
         >
           <Icon icon={colorScheme.icon} className="w-4 h-4" />

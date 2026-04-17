@@ -34,6 +34,23 @@ describe('<AvatarGroup> component', async () => {
     expect(html).toContain('data-testid="avatar-group-test"');
   });
 
+  it('normalizes inline baseline styles to prevent broken images from shifting avatar alignment', async () => {
+    const html = await jsxToString(
+      <AvatarGroup overlap={true}>
+        <Avatar src="broken.jpg" name="Margaret Hamilton" width={44} height={44} />
+        <Avatar src="ada.jpg" name="Ada Lovelace" width={44} height={44} />
+      </AvatarGroup>
+    );
+
+    expect(html).toContain('<td style="padding:0;vertical-align:middle">');
+    expect(html).toContain(
+      '<span style="display:inline-block;font-size:0;line-height:0;vertical-align:middle">'
+    );
+    expect(html).toContain(
+      '<span style="display:inline-block;font-size:0;line-height:0;vertical-align:middle;margin-left:-8px;position:relative">'
+    );
+  });
+
   it('renders with non-overlapping defaults', async () => {
     const actualOutput = await jsxToString(
       <AvatarGroup>

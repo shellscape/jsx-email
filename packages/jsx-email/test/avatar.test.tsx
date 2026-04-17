@@ -37,6 +37,36 @@ describe('<Avatar> component', async () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
+  it('uses fallback text precedence of fallback, then derived initials, then question mark', async () => {
+    const explicitFallback = await jsxToString(<Avatar fallback="BAT" name="Bruce Wayne" />);
+    const derivedInitials = await jsxToString(<Avatar name="Bruce Wayne" />);
+    const defaultFallback = await jsxToString(<Avatar />);
+
+    expect(explicitFallback).toContain('>BAT</span>');
+    expect(derivedInitials).toContain('>BW</span>');
+    expect(defaultFallback).toContain('>?</span>');
+  });
+
+  it('uses aria-label precedence of alt, then name, then fallback text when src is missing', async () => {
+    const explicitAlt = await jsxToString(
+      <Avatar alt="Batman label" fallback="BAT" name="Bruce Wayne" />
+    );
+    const derivedName = await jsxToString(<Avatar fallback="BAT" name="Bruce Wayne" />);
+    const derivedFallback = await jsxToString(<Avatar fallback="BAT" />);
+
+    expect(explicitAlt).toContain('aria-label="Batman label"');
+    expect(derivedName).toContain('aria-label="Bruce Wayne"');
+    expect(derivedFallback).toContain('aria-label="BAT"');
+  });
+
+  it('supports decorative fallback avatars when src is missing', async () => {
+    const html = await jsxToString(<Avatar decorative={true} name="Bruce Wayne" />);
+
+    expect(html).toContain('role="presentation"');
+    expect(html).toContain('aria-hidden="true"');
+    expect(html).not.toContain('aria-label=');
+  });
+
   it('supports decorative avatars', async () => {
     const actualOutput = await jsxToString(<Avatar src="cat.jpg" decorative={true} />);
     expect(actualOutput).toMatchSnapshot();

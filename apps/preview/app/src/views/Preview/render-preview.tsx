@@ -28,7 +28,7 @@ const PlunkLogo = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const SelectItem = ({ className, children, ...props }: RadixSelect.SelectItemProps) => (
+const SelectItem = ({ className: _className, children, ...props }: RadixSelect.SelectItemProps) => (
   <RadixSelect.Item
     className={clsx(
       'relative flex items-center px-4 py-2 rounded-md text-xs text-light-bg-text',
@@ -52,7 +52,10 @@ interface IframeStyle {
   width?: `${number}px`;
 }
 
-export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
+export const RenderPreview = ({
+  mode,
+  template
+}: HtmlRendererPreviewProps) => {
   const previewBaseStyles = /* html */ `
     <style>
       body {
@@ -60,10 +63,11 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
       }
     </style>
   `;
+  const srcDoc = template.html + previewBaseStyles;
 
   const defaultDevice = devices.phones[3];
 
-  const iframeElRef = useRef<HTMLIFrameElement>();
+  const iframeElRef = useRef<HTMLIFrameElement | null>(null);
 
   // const [activeDevice, setActiveDevice] = useState(() => devices.phones[0].name)
   const [iframeStyle, setIframeStyle] = useState<IframeStyle>(
@@ -161,7 +165,7 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
         </FlaotingToolbarPositioningController>
         <iframe
           ref={iframeElRef}
-          srcDoc={template.html + previewBaseStyles}
+          srcDoc={srcDoc}
           className={clsx('w-full h-full', mode === Views.Device && 'mt-6 mb-24 mx-auto')}
           style={mode === Views.Device ? iframeStyle : {}}
         />
@@ -173,7 +177,7 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
     const [email, setEmail] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [sendState, setSendState] = useState<'idle' | 'sending' | 'error' | 'sent'>('idle');
-    const [sendError, setSendError] = useState<string>(null);
+    const [sendError, setSendError] = useState<string | null>(null);
 
     async function handleSend(e: React.FormEvent) {
       try {
@@ -199,7 +203,7 @@ export const RenderPreview = ({ mode, template }: HtmlRendererPreviewProps) => {
           setSendError(error);
           return;
         }
-      } catch (error: unknown) {
+      } catch {
         setSendError('Something went wrong. Please try again.');
       } finally {
         setSendState('error');
