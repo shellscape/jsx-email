@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -13,9 +13,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   site: 'https://jsx.email',
   integrations: [
-    tailwind({
-      configFile: './tailwind.config.mjs'
-    }),
     starlight({
       title: 'JSX Email',
       logo: {
@@ -40,11 +37,11 @@ export default defineConfig({
           }
         }
       ],
-      social: {
-        github: 'https://github.com/shellscape/jsx-email',
-        discord: 'https://discord.gg/FywZN57mTg',
-        twitter: 'https://twitter.com/jsxemail'
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/shellscape/jsx-email' },
+        { icon: 'discord', label: 'Discord', href: 'https://discord.gg/FywZN57mTg' },
+        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/jsxemail' }
+      ],
       sidebar: [
         {
           label: 'Getting Started',
@@ -87,6 +84,7 @@ export default defineConfig({
   ],
   // Define content directories that exist outside of the typical src/content
   vite: {
+    plugins: [tailwindcss()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
