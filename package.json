@@ -47,10 +47,10 @@
   "packageManager": "pnpm@10.28.0",
   "pnpm": {
     "overrides": {
-      "@types/react": "19.2.8",
+      "@types/react": "19.2.14",
       "@types/react-dom": "19.2.3",
-      "react": "19.2.3",
-      "react-dom": "19.2.3",
+      "react": "19.2.5",
+      "react-dom": "19.2.5",
       "react-router-dom": "6.16.0",
       "vite": "^7.3.1"
     }
