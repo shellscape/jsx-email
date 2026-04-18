@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1240" viewBox="0 0 1600 1240" role="img" aria-labelledby="title desc">
+  <title id="title">Design System Snapshot — atom-editor.cc/packages</title>
+  <desc id="desc">Combined in-use color and typography reference for atom-editor.cc/packages including 404 variant.</desc>
+  <defs>
+    <style>
+      .bg { fill: #120f10; }
+      .panel { fill: #1d1718; stroke: #3c3336; stroke-width: 2; }
+      .title { fill: #faf4e8; font: 700 44px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .sub { fill: #c9bcad; font: 500 23px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .h { fill: #f6eee1; font: 700 20px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .meta { fill: #cabca9; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .txt { fill: #e9dece; font: 400 16px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .tag { fill: #382e30; stroke: #78686b; stroke-width: 1.5; }
+      .tagText { fill: #f4e8d9; font: 600 13px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .swDark { fill: #faf3e6; font: 700 12px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .swLight { fill: #332b27; font: 700 12px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .hn300 { fill: #f8f0e4; font: 300 42px "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif; }
+      .hn500 { fill: #f8f0e4; font: 500 31px "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif; }
+      .sys16 { fill: #eadfce; font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+      .sys14 { fill: #d8cab6; font: 400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+      .verdana { fill: #f7efdf; font: 400 24px Verdana, "Verdana Ref", sans-serif; }
+      .code { fill: #e7d8c6; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+    </style>
+    <linearGradient id="warmAtom" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EFDAB9"/>
+      <stop offset="45%" stop-color="#FFD152"/>
+      <stop offset="75%" stop-color="#EBAC00"/>
+      <stop offset="100%" stop-color="#D36E2D"/>
+    </linearGradient>
+    <linearGradient id="mintAtom" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#81C08B"/>
+      <stop offset="35%" stop-color="#78B0A0"/>
+      <stop offset="65%" stop-color="#61EFCE"/>
+      <stop offset="100%" stop-color="#2AEABD"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="bg" width="1600" height="1240"/>
+  <text class="title" x="60" y="84">atom-editor.cc/packages — Design System</text>
+  <text class="sub" x="60" y="120">Combined visual reference: IN USE colors + typography stacks</text>
+  <rect class="tag" x="60" y="146" width="104" height="34" rx="17"/>
+  <text class="tagText" x="112" y="168" text-anchor="middle">IN USE</text>
+
+  <g transform="translate(60,208)">
+    <rect class="panel" width="760" height="976" rx="18"/>
+    <text class="h" x="24" y="46">Color palette (in use)</text>
+    <text class="meta" x="24" y="70">Shared + package + 404-specific anchors</text>
+
+    <g transform="translate(24,96)">
+      <g><rect width="136" height="80" rx="10" fill="#584B4F"/><text class="swDark" x="8" y="52">#584B4F</text></g>
+      <g transform="translate(146,0)"><rect width="136" height="80" rx="10" fill="#EFEAE1"/><text class="swLight" x="8" y="52">#EFEAE1</text></g>
+      <g transform="translate(292,0)"><rect width="136" height="80" rx="10" fill="#81C08B"/><text class="swLight" x="8" y="52">#81C08B</text></g>
+      <g transform="translate(438,0)"><rect width="136" height="80" rx="10" fill="#343233"/><text class="swDark" x="8" y="52">#343233</text></g>
+      <g transform="translate(584,0)"><rect width="136" height="80" rx="10" fill="#EFDAB9"/><text class="swLight" x="8" y="52">#EFDAB9</text></g>
+
+      <g transform="translate(0,90)"><rect width="136" height="80" rx="10" fill="#FFD152"/><text class="swLight" x="8" y="52">#FFD152</text></g>
+      <g transform="translate(146,90)"><rect width="136" height="80" rx="10" fill="#FFC31F"/><text class="swLight" x="8" y="52">#FFC31F</text></g>
+      <g transform="translate(292,90)"><rect width="136" height="80" rx="10" fill="#EBAC00"/><text class="swLight" x="8" y="52">#EBAC00</text></g>
+      <g transform="translate(438,90)"><rect width="136" height="80" rx="10" fill="#D36E2D"/><text class="swLight" x="8" y="52">#D36E2D</text></g>
+      <g transform="translate(584,90)"><rect width="136" height="80" rx="10" fill="#8E8373"/><text class="swLight" x="8" y="52">#8E8373</text></g>
+
+      <g transform="translate(0,180)"><rect width="136" height="80" rx="10" fill="#786F63"/><text class="swLight" x="8" y="52">#786F63</text></g>
+      <g transform="translate(146,180)"><rect width="136" height="80" rx="10" fill="#78B0A0"/><text class="swLight" x="8" y="52">#78B0A0</text></g>
+      <g transform="translate(292,180)"><rect width="136" height="80" rx="10" fill="#61EFCE"/><text class="swLight" x="8" y="52">#61EFCE</text></g>
+      <g transform="translate(438,180)"><rect width="136" height="80" rx="10" fill="#45EDC6"/><text class="swLight" x="8" y="52">#45EDC6</text></g>
+      <g transform="translate(584,180)"><rect width="136" height="80" rx="10" fill="#2AEABD"/><text class="swLight" x="8" y="52">#2AEABD</text></g>
+
+      <g transform="translate(0,270)"><rect width="136" height="80" rx="10" fill="#3D3A3A"/><text class="swDark" x="8" y="52">#3D3A3A</text></g>
+      <g transform="translate(146,270)"><rect width="136" height="80" rx="10" fill="#2C2A2B"/><text class="swDark" x="8" y="52">#2C2A2B</text></g>
+      <g transform="translate(292,270)"><rect width="136" height="80" rx="10" fill="#574C4F"/><text class="swDark" x="8" y="52">#574C4F</text></g>
+      <g transform="translate(438,270)"><rect width="136" height="80" rx="10" fill="#FAF6EC"/><text class="swLight" x="8" y="52">#FAF6EC</text></g>
+      <g transform="translate(584,270)"><rect width="136" height="80" rx="10" fill="#949189"/><text class="swLight" x="8" y="52">#949189</text></g>
+
+      <g transform="translate(0,360)"><rect width="136" height="80" rx="10" fill="#66595C"/><text class="swDark" x="8" y="52">#66595C</text></g>
+    </g>
+
+    <rect x="24" y="572" width="712" height="138" rx="12" fill="#151113" stroke="#3c3336"/>
+    <text class="h" x="42" y="604">Derived preview gradients (not direct tokens)</text>
+    <rect x="42" y="624" width="324" height="26" rx="13" fill="url(#warmAtom)"/>
+    <text class="meta" x="378" y="641">Warm accent preview</text>
+    <rect x="42" y="662" width="324" height="26" rx="13" fill="url(#mintAtom)"/>
+    <text class="meta" x="378" y="679">Green/mint preview</text>
+
+    <rect x="24" y="732" width="712" height="220" rx="12" fill="#151113" stroke="#3c3336"/>
+    <text class="h" x="42" y="764">Usage notes</text>
+    <text class="txt" x="42" y="796">• Swatches above are all explicitly IN USE anchors.</text>
+    <text class="txt" x="42" y="824">• Warm family supports legacy Atom identity and emphasis states.</text>
+    <text class="txt" x="42" y="852">• Mint/green family supports positive/active signals.</text>
+    <text class="txt" x="42" y="880">• Neutral tones cover surfaces, text, and frame treatments.</text>
+    <text class="txt" x="42" y="908">• 404 surface tone includes #FAF6EC and Verdana typography pairing.</text>
+  </g>
+
+  <g transform="translate(850,208)">
+    <rect class="panel" width="690" height="976" rx="18"/>
+    <text class="h" x="24" y="46">Typography system (in use)</text>
+    <text class="meta" x="24" y="70">Package pages + fallback stacks + 404 variant + octicons</text>
+
+    <rect x="24" y="96" width="642" height="232" rx="12" fill="#151113" stroke="#3c3336"/>
+    <text class="meta" x="42" y="126">Primary stack: "Helvetica Neue", Helvetica, arial, freesans, clean, sans-serif</text>
+    <text class="hn300" x="42" y="194">Weight 300 heading sample</text>
+    <text class="hn500" x="42" y="240">Weight 500 label sample</text>
+    <text class="sys16" x="42" y="272">Body sample: package details and descriptions retain readable rhythm.</text>
+    <text class="sys14" x="42" y="298">Support sample: metadata and secondary lines use 14px rhythm.</text>
+
+    <rect x="24" y="350" width="642" height="212" rx="12" fill="#151113" stroke="#3c3336"/>
+    <text class="h" x="42" y="382">System fallback stack (in use)</text>
+    <text class="meta" x="42" y="406">-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,</text>
+    <text class="meta" x="42" y="429">"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"</text>
+    <text class="sys16" x="42" y="466">Used where modern UI sections rely on system-rendered sans typography.</text>
+    <text class="code" x="42" y="497">apm install atom-beautify</text>
+    <text class="sys14" x="42" y="527">Code/instruction lines coexist with sans body content.</text>
+
+    <rect x="24" y="584" width="642" height="172" rx="12" fill="#151113" stroke="#3c3336"/>
+    <text class="h" x="42" y="616">404 variant + icon font</text>
+    <text class="meta" x="42" y="640">Verdana, "Verdana Ref", sans-serif</text>
+    <text class="verdana" x="42" y="680">404 — Not Found</text>
+    <text class="meta" x="42" y="707">octicons (iconography font)</text>
+    <text class="sys14" x="42" y="735">Glyph icons pair with labels for package navigation and status hints.</text>
+
+    <rect x="24" y="778" width="642" height="174" rx="12" fill="#151113" stroke="#3c3336"/>
+    <text class="h" x="42" y="810">Component sample</text>
+    <text class="hn500" x="42" y="854">Featured Package</text>
+    <text class="sys16" x="42" y="884">A practical package description appears at 16px for readability.</text>
+    <text class="sys14" x="42" y="912">Version · Downloads · Last updated</text>
+    <text class="code" x="42" y="938">icon: octicon-package  •  install: apm install package-name</text>
+  </g>
+</svg>
