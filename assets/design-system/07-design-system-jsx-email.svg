@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Design System Snapshot — jsx-email</title>
+  <desc id="desc">Combined color and typography system board for jsx-email with explicit in-use values.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0d1014; }
+      .panel { fill: #151a20; stroke: #2b3441; stroke-width: 2; }
+      .title { fill: #f4f8ff; font: 700 44px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .sub { fill: #aab6c6; font: 500 23px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .h { fill: #eef4fb; font: 700 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .meta { fill: #b8c5d6; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .txt { fill: #dce6f2; font: 400 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .tag { fill: #1f2a38; stroke: #4f6078; stroke-width: 1.5; }
+      .tagText { fill: #dde7f3; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .swLabelDark { fill: #f4f8ff; font: 700 12px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .swLabelLight { fill: #2e343a; font: 700 12px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .big200 { fill: #f4f8ff; font: 200 46px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .big500 { fill: #f4f8ff; font: 500 31px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .body16 { fill: #dbe5f1; font: 400 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .body14 { fill: #bfccdc; font: 400 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .code { fill: #d2e3f7; font: 500 14px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, 'Lucida Console', 'DejaVu Sans Mono', 'Courier New', monospace; }
+    </style>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EFDAB9"/>
+      <stop offset="55%" stop-color="#FFD152"/>
+      <stop offset="100%" stop-color="#EBAC00"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#78B0A0"/>
+      <stop offset="50%" stop-color="#61EFCE"/>
+      <stop offset="100%" stop-color="#47504E"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="bg" width="1600" height="1200"/>
+  <text class="title" x="62" y="84">jsx-email — Design System</text>
+  <text class="sub" x="62" y="119">Combined visual reference: IN USE colors + typography</text>
+  <rect class="tag" x="62" y="144" width="104" height="34" rx="17"/>
+  <text class="tagText" x="114" y="166" text-anchor="middle">IN USE</text>
+
+  <g transform="translate(62,208)">
+    <rect class="panel" width="726" height="934" rx="18"/>
+    <text class="h" x="24" y="46">Color palette (in use)</text>
+    <text class="meta" x="24" y="70">Explicit swatches from jsx-email usage anchors</text>
+
+    <g transform="translate(24,94)">
+      <g><rect x="0" y="0" width="160" height="92" rx="10" fill="#343233"/><text class="swLabelDark" x="10" y="57">#343233</text></g>
+      <g transform="translate(172,0)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#2C2A2B"/><text class="swLabelDark" x="10" y="57">#2C2A2B</text></g>
+      <g transform="translate(344,0)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#1A191A"/><text class="swLabelDark" x="10" y="57">#1A191A</text></g>
+      <g transform="translate(516,0)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#EFDAB9"/><text class="swLabelLight" x="10" y="57">#EFDAB9</text></g>
+
+      <g transform="translate(0,104)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#FFD152"/><text class="swLabelLight" x="10" y="57">#FFD152</text></g>
+      <g transform="translate(172,104)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#FFC31F"/><text class="swLabelLight" x="10" y="57">#FFC31F</text></g>
+      <g transform="translate(344,104)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#EBAC00"/><text class="swLabelLight" x="10" y="57">#EBAC00</text></g>
+      <g transform="translate(516,104)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#61EFCE"/><text class="swLabelLight" x="10" y="57">#61EFCE</text></g>
+
+      <g transform="translate(0,208)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#78B0A0"/><text class="swLabelLight" x="10" y="57">#78B0A0</text></g>
+      <g transform="translate(172,208)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#47504E"/><text class="swLabelDark" x="10" y="57">#47504E</text></g>
+      <g transform="translate(344,208)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#EFEAE1"/><text class="swLabelLight" x="10" y="57">#EFEAE1</text></g>
+      <g transform="translate(516,208)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#574C4F"/><text class="swLabelDark" x="10" y="57">#574C4F</text></g>
+
+      <g transform="translate(0,312)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#8E8373"/><text class="swLabelLight" x="10" y="57">#8E8373</text></g>
+      <g transform="translate(172,312)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#565656"/><text class="swLabelDark" x="10" y="57">#565656</text></g>
+      <g transform="translate(344,312)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#719BC4"/><text class="swLabelLight" x="10" y="57">#719BC4</text></g>
+      <g transform="translate(516,312)"><rect x="0" y="0" width="160" height="92" rx="10" fill="#434C56"/><text class="swLabelDark" x="10" y="57">#434C56</text></g>
+    </g>
+
+    <rect x="24" y="540" width="678" height="136" rx="12" fill="#11161d" stroke="#2b3441"/>
+    <text class="h" x="42" y="572">Derived preview gradients (not direct tokens)</text>
+    <rect x="42" y="592" width="300" height="26" rx="13" fill="url(#warm)"/>
+    <text class="meta" x="354" y="609">Warm ramp preview</text>
+    <rect x="42" y="630" width="300" height="26" rx="13" fill="url(#mint)"/>
+    <text class="meta" x="354" y="647">Mint/slate ramp preview</text>
+
+    <rect x="24" y="698" width="678" height="214" rx="12" fill="#11161d" stroke="#2b3441"/>
+    <text class="h" x="42" y="730">Usage notes</text>
+    <text class="txt" x="42" y="762">• “IN USE” swatches above map directly to observed repository colors.</text>
+    <text class="txt" x="42" y="790">• Warm accent palette: #EFDAB9 → #FFD152 → #FFC31F → #EBAC00.</text>
+    <text class="txt" x="42" y="818">• Mint accent palette: #78B0A0 + #61EFCE with dark neutral support.</text>
+    <text class="txt" x="42" y="846">• Neutral text/surface system built from #343233/#2C2A2B/#1A191A/#EFEAE1.</text>
+    <text class="txt" x="42" y="874">• Blue utility color: #719BC4 with slate #434C56 support.</text>
+  </g>
+
+  <g transform="translate(822,208)">
+    <rect class="panel" width="716" height="934" rx="18"/>
+    <text class="h" x="24" y="46">Typography system (in use)</text>
+    <text class="meta" x="24" y="70">Primary sans + monospace code stack</text>
+
+    <rect x="24" y="94" width="668" height="236" rx="12" fill="#11161d" stroke="#2b3441"/>
+    <text class="meta" x="42" y="123">Sans stack:</text>
+    <text class="meta" x="42" y="146">-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,</text>
+    <text class="meta" x="42" y="169">'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'</text>
+    <text class="big200" x="42" y="230">Weight 200 headline</text>
+    <text class="big500" x="42" y="278">Weight 500 section title</text>
+
+    <rect x="24" y="352" width="668" height="234" rx="12" fill="#11161d" stroke="#2b3441"/>
+    <text class="h" x="42" y="384">Body scale</text>
+    <text class="body16" x="42" y="418">16px body: Build and style modular email templates quickly.</text>
+    <text class="body16" x="42" y="446">16px body: Maintain legibility across clients and responsive layouts.</text>
+    <text class="body14" x="42" y="474">14px support text: metadata, helper notes, and low-emphasis labels.</text>
+    <text class="body14" x="42" y="502">Weights in use: 200, 300, 400, 500, 600, 700.</text>
+
+    <rect x="24" y="608" width="668" height="138" rx="12" fill="#11161d" stroke="#2b3441"/>
+    <text class="h" x="42" y="640">Monospace stack (in use)</text>
+    <text class="meta" x="42" y="664">SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, 'Lucida Console',</text>
+    <text class="meta" x="42" y="687">'DejaVu Sans Mono', 'Courier New'</text>
+    <text class="code" x="42" y="719">pnpm jsx-email build && pnpm jsx-email lint</text>
+
+    <rect x="24" y="768" width="668" height="144" rx="12" fill="#11161d" stroke="#2b3441"/>
+    <text class="h" x="42" y="800">Component sample</text>
+    <text class="big500" x="42" y="842">Welcome to JSX Email</text>
+    <text class="body16" x="42" y="870">Compose emails with reusable components and straightforward styles.</text>
+    <text class="code" x="42" y="896">&lt;Button href=\"https://example.com\"&gt;Get Started&lt;/Button&gt;</text>
+  </g>
+</svg>
