@@ -210,38 +210,4 @@
     <text class="note" x="440" y="218">Guideline: preserve at least 10px spacing.</text>
     <text class="note" x="440" y="238">Keep compact card padding consistent.</text>
   </g>
-  <g transform="translate(960,990)">
-    <rect class="panel" width="824" height="414" rx="18"/>
-    <text class="panelTitle" x="26" y="46">Application guidance</text>
-    <rect class="subPanel" x="24" y="70" width="248" height="318" rx="12"/>
-    <text class="sectionTitle" x="40" y="100">Foundation</text>
-    <text class="body" x="40" y="128">Start from a dark neutral base.</text>
-    <text class="body" x="40" y="150">Add warm and mint accents.</text>
-    <text class="body" x="40" y="172">Use blue for info emphasis.</text>
-    <text class="note" x="40" y="204">Teletype works best as accent color.</text>
-    <rect class="subPanel" x="288" y="70" width="248" height="318" rx="12"/>
-    <text class="sectionTitle" x="304" y="100">Component recipe</text>
-    <rect x="304" y="118" width="216" height="220" rx="12" fill="#2C2A2B" stroke="#434C56" stroke-width="1.5"/>
-    <text class="sampleTitle" x="320" y="152">Release update</text>
-    <text class="sampleBody" x="320" y="178">Contrast stays steady.</text>
-    <text class="sampleBody" x="320" y="198">Type stays stable.</text>
-    <rect x="320" y="218" width="98" height="32" rx="16" fill="#FFD152"/>
-    <text class="sampleButtonText" x="369" y="239" text-anchor="middle">Read docs</text>
-    <rect x="426" y="218" width="82" height="32" rx="16" fill="#61EFCE"/>
-    <text class="sampleButtonText" x="467" y="239" text-anchor="middle">Preview</text>
-    <rect x="320" y="264" width="98" height="20" rx="10" fill="#659CC8"/>
-    <text class="sampleButtonText" x="369" y="278" text-anchor="middle">Signal bar</text>
-    <rect class="subPanel" x="552" y="70" width="248" height="318" rx="12"/>
-    <text class="sectionTitle" x="568" y="100">Checklist</text>
-    <circle cx="576" cy="128" r="4" fill="#81C08B"/>
-    <text class="body" x="588" y="132">Keep likeness groups intact in docs.</text>
-    <circle cx="576" cy="172" r="4" fill="#81C08B"/>
-    <text class="body" x="588" y="176">Sort every group from dark to light.</text>
-    <circle cx="576" cy="216" r="4" fill="#81C08B"/>
-    <text class="body" x="588" y="220">Avoid gradients in combined outputs.</text>
-    <circle cx="576" cy="260" r="4" fill="#81C08B"/>
-    <text class="body" x="588" y="264">Use teletype colors for focused accents.</text>
-    <circle cx="576" cy="304" r="4" fill="#81C08B"/>
-    <text class="body" x="588" y="308">Verify SVG and HTML with screenshots.</text>
-  </g>
 </svg>
