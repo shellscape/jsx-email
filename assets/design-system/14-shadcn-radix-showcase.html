@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Radix → shadcn Showcase (CDN)</title>
+    <title>shadcn + Radix Showcase (React CDN)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       :root {
@@ -12,722 +12,481 @@
           sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
       }
 
-      [data-select-content],
-      [data-popover-content] {
+      .animated-panel {
         transform-origin: top center;
+        transition: opacity 180ms ease, transform 180ms ease;
       }
 
-      [data-select-content][data-state='open'],
-      [data-popover-content][data-state='open'] {
-        animation-duration: 180ms;
-        animation-fill-mode: both;
-        animation-timing-function: ease-out;
+      .animated-panel[data-open='false'] {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+        pointer-events: none;
       }
 
-      [data-select-content][data-state='closed'],
-      [data-popover-content][data-state='closed'] {
-        animation-duration: 140ms;
-        animation-fill-mode: both;
-        animation-timing-function: ease-in;
-        animation-name: fadeOut;
+      .animated-panel[data-open='true'] {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
       }
 
-      [data-select-content][data-state='open'] {
-        animation-name: slideDownAndFade;
+      .collapsible-grid {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0.78;
+        transition: grid-template-rows 220ms ease, opacity 220ms ease;
       }
 
-      [data-popover-content][data-state='open'][data-side='top'] {
-        animation-name: slideDownAndFade;
+      .collapsible-grid[data-open='true'] {
+        grid-template-rows: 1fr;
+        opacity: 1;
       }
 
-      [data-popover-content][data-state='open'][data-side='right'] {
-        animation-name: slideLeftAndFade;
-      }
-
-      [data-popover-content][data-state='open'][data-side='bottom'] {
-        animation-name: slideUpAndFade;
-      }
-
-      [data-popover-content][data-state='open'][data-side='left'] {
-        animation-name: slideRightAndFade;
-      }
-
-      [data-collapsible-content] {
+      .collapsible-inner {
         overflow: hidden;
       }
 
-      [data-collapsible-content][data-state='open'] {
-        animation: slideDown 240ms ease-out forwards;
+      .dialog-overlay {
+        transition: opacity 180ms ease;
       }
 
-      [data-collapsible-content][data-state='closed'] {
-        animation: slideUp 220ms ease-in forwards;
+      .dialog-overlay[data-open='false'] {
+        opacity: 0;
+        pointer-events: none;
       }
 
-      [data-dialog-overlay][data-state='open'] {
-        animation: fadeIn 180ms ease-out forwards;
+      .dialog-overlay[data-open='true'] {
+        opacity: 1;
+        pointer-events: auto;
       }
 
-      [data-dialog-overlay][data-state='closed'] {
-        animation: fadeOut 140ms ease-in forwards;
+      .dialog-content {
+        transition: opacity 200ms ease, transform 200ms ease;
       }
 
-      [data-dialog-content][data-state='open'] {
-        animation: zoomIn 220ms ease-out forwards;
+      .dialog-content[data-open='false'] {
+        opacity: 0;
+        transform: translateY(8px) scale(0.97);
       }
 
-      [data-dialog-content][data-state='closed'] {
-        animation: zoomOut 160ms ease-in forwards;
-      }
-
-      [data-tabs-trigger][data-state='active'] {
-        background: rgb(15 23 42);
-        color: rgb(248 250 252);
-      }
-
-      [data-tabs-trigger][data-state='inactive'] {
-        color: rgb(148 163 184);
-      }
-
-      [data-separator='horizontal'] {
-        height: 2px;
-        width: 100%;
-      }
-
-      [data-separator='vertical'] {
-        height: 100%;
-        width: 2px;
-      }
-
-      @keyframes slideUpAndFade {
-        from {
-          opacity: 0;
-          transform: translateY(4px) scale(0.98);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-
-      @keyframes slideRightAndFade {
-        from {
-          opacity: 0;
-          transform: translateX(-4px) scale(0.98);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0) scale(1);
-        }
-      }
-
-      @keyframes slideDownAndFade {
-        from {
-          opacity: 0;
-          transform: translateY(-4px) scale(0.98);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-
-      @keyframes slideLeftAndFade {
-        from {
-          opacity: 0;
-          transform: translateX(4px) scale(0.98);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0) scale(1);
-        }
-      }
-
-      @keyframes slideDown {
-        from {
-          height: 0;
-        }
-        to {
-          height: var(--radix-collapsible-content-height);
-        }
-      }
-
-      @keyframes slideUp {
-        from {
-          height: var(--radix-collapsible-content-height);
-        }
-        to {
-          height: 0;
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeOut {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-        }
-      }
-
-      @keyframes zoomIn {
-        from {
-          opacity: 0;
-          transform: translateY(8px) scale(0.96);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-
-      @keyframes zoomOut {
-        from {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-        to {
-          opacity: 0;
-          transform: translateY(8px) scale(0.96);
-        }
+      .dialog-content[data-open='true'] {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
     </style>
   </head>
   <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
-    <main class="mx-auto w-full max-w-7xl px-6 py-10 lg:px-10">
-      <header class="mb-8">
-        <h1 class="text-3xl font-semibold tracking-tight">Radix → shadcn replacement showcase</h1>
-        <p class="mt-2 max-w-4xl text-sm text-slate-300">
-          Standalone CDN demo of shadcn-equivalent components for the primitives in scope (Select,
-          Popover, Toggle Group, Collapsible, Dialog, Tabs, Separator, and Slot guidance).
-        </p>
-        <p class="mt-2 text-xs text-slate-400">
-          CDN imports used: <code>https://cdn.tailwindcss.com</code> and
-          <code>https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm</code>.
-        </p>
-      </header>
+    <div id="app"></div>
 
-      <section class="mb-8 rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-        <h2 class="text-sm font-semibold">Effect notes</h2>
-        <ul class="mt-3 space-y-2 text-xs text-slate-300">
-          <li>
-            <span class="rounded bg-cyan-500/20 px-2 py-1 font-semibold text-cyan-200"
-              >CSS / data-state</span
-            >
-            Select and Popover open/close animations, Collapsible height transitions, Dialog
-            overlay/content transitions, and Tabs active-state visuals.
-          </li>
-          <li>
-            <span class="rounded bg-fuchsia-500/20 px-2 py-1 font-semibold text-fuchsia-200"
-              >Motion-driven</span
-            >
-            Toggle Group active-pill movement uses Motion (spring animation) as a CDN-friendly
-            analogue of the framer-motion layout animation pattern seen on <code>main</code>.
-          </li>
-        </ul>
-      </section>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-      <section class="grid gap-6 xl:grid-cols-2">
-        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h3 class="text-base font-semibold">Select (shadcn-style Select)</h3>
-          <p class="mt-1 text-xs text-slate-400">
-            Trigger + content + item pattern with data-state open/close behavior.
-          </p>
+    <script type="text/babel" data-presets="react">
+      const { useEffect, useRef, useState } = React;
 
-          <div id="select-demo" class="relative mt-4 max-w-sm">
+      const DEVICE_OPTIONS = [
+        { label: 'iPhone 15 Pro', value: '393×852' },
+        { label: 'Pixel 8', value: '412×915' },
+        { label: 'iPad Air', value: '820×1180' },
+      ];
+
+      function useOutsideClick(ref, active, onOutsideClick) {
+        useEffect(() => {
+          if (!active) return;
+
+          function handlePointerDown(event) {
+            if (!ref.current || ref.current.contains(event.target)) return;
+            onOutsideClick();
+          }
+
+          document.addEventListener('pointerdown', handlePointerDown);
+          return () => {
+            document.removeEventListener('pointerdown', handlePointerDown);
+          };
+        }, [active, onOutsideClick, ref]);
+      }
+
+      function Card({ title, description, children }) {
+        return (
+          <article className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+            <h3 className="text-base font-semibold">{title}</h3>
+            <p className="mt-1 text-xs text-slate-400">{description}</p>
+            <div className="mt-4">{children}</div>
+          </article>
+        );
+      }
+
+      function SelectDemo() {
+        const [open, setOpen] = useState(false);
+        const [selected, setSelected] = useState(DEVICE_OPTIONS[0]);
+        const rootRef = useRef(null);
+
+        useOutsideClick(rootRef, open, () => setOpen(false));
+
+        return (
+          <div ref={rootRef} className="relative max-w-sm">
             <button
-              id="select-trigger"
               type="button"
               aria-haspopup="listbox"
-              aria-expanded="false"
-              aria-controls="select-content"
-              class="inline-flex w-full items-center justify-between rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-left text-sm hover:border-slate-600"
+              aria-expanded={open}
+              className="inline-flex w-full items-center justify-between rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-left text-sm transition-colors hover:border-slate-600"
+              onClick={() => setOpen((value) => !value)}
             >
-              <span id="select-value">iPhone 15 Pro · 393×852</span>
-              <span class="text-slate-400">▾</span>
+              <span>
+                {selected.label} · {selected.value}
+              </span>
+              <span className="text-slate-400">▾</span>
             </button>
 
             <div
-              id="select-content"
-              data-select-content
-              data-state="closed"
-              class="hidden absolute z-20 mt-2 w-full rounded-md border border-slate-700 bg-slate-900 p-1 shadow-xl"
+              data-open={open}
+              className="animated-panel absolute left-0 z-20 mt-2 w-full rounded-md border border-slate-700 bg-slate-900 p-1 shadow-xl"
               role="listbox"
             >
-              <button
-                type="button"
-                class="select-item flex w-full items-center justify-between rounded px-2 py-1.5 text-sm hover:bg-slate-800"
-                data-value="iPhone 15 Pro · 393×852"
-              >
-                iPhone 15 Pro <span class="text-xs text-slate-400">393×852</span>
-              </button>
-              <button
-                type="button"
-                class="select-item flex w-full items-center justify-between rounded px-2 py-1.5 text-sm hover:bg-slate-800"
-                data-value="Pixel 8 · 412×915"
-              >
-                Pixel 8 <span class="text-xs text-slate-400">412×915</span>
-              </button>
-              <button
-                type="button"
-                class="select-item flex w-full items-center justify-between rounded px-2 py-1.5 text-sm hover:bg-slate-800"
-                data-value="iPad Air · 820×1180"
-              >
-                iPad Air <span class="text-xs text-slate-400">820×1180</span>
-              </button>
+              {DEVICE_OPTIONS.map((item) => {
+                const isSelected = selected.label === item.label;
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    role="option"
+                    aria-selected={isSelected}
+                    className={`flex w-full items-center justify-between rounded px-2 py-1.5 text-sm transition-colors ${
+                      isSelected ? 'bg-slate-800 text-slate-100' : 'text-slate-200 hover:bg-slate-800'
+                    }`}
+                    onClick={() => {
+                      setSelected(item);
+                      setOpen(false);
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-xs text-slate-400">{item.value}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
-        </article>
+        );
+      }
 
-        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h3 class="text-base font-semibold">Popover (shadcn-style Popover)</h3>
-          <p class="mt-1 text-xs text-slate-400">
-            Side-aware slide/fade classes mirror the Radix data-state + data-side pattern.
-          </p>
+      function PopoverDemo() {
+        const [open, setOpen] = useState(false);
+        const rootRef = useRef(null);
 
-          <div id="popover-demo" class="relative mt-4 inline-block">
+        useOutsideClick(rootRef, open, () => setOpen(false));
+
+        return (
+          <div ref={rootRef} className="relative inline-block">
             <button
-              id="popover-trigger"
               type="button"
-              aria-expanded="false"
-              aria-controls="popover-content"
-              class="inline-flex items-center rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm hover:border-slate-600"
+              aria-expanded={open}
+              className="inline-flex items-center rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm transition-colors hover:border-slate-600"
+              onClick={() => setOpen((value) => !value)}
             >
               Open popover
             </button>
+
             <div
-              id="popover-content"
-              data-popover-content
-              data-side="bottom"
-              data-state="closed"
-              class="hidden absolute left-0 z-20 mt-2 w-72 rounded-md border border-slate-700 bg-slate-900 p-3 shadow-xl"
+              data-open={open}
+              className="animated-panel absolute left-0 z-20 mt-2 w-72 rounded-md border border-slate-700 bg-slate-900 p-3 shadow-xl"
             >
-              <p class="text-sm font-medium text-slate-100">Send test email</p>
-              <p class="mt-1 text-xs text-slate-400">
-                Equivalent structure: <code>Popover</code> + <code>PopoverTrigger</code> +
+              <p className="text-sm font-medium text-slate-100">Send test email</p>
+              <p className="mt-1 text-xs text-slate-400">
+                Equivalent composition: <code>Popover</code> + <code>PopoverTrigger</code> +{' '}
                 <code>PopoverContent</code>.
               </p>
               <button
-                id="popover-close"
                 type="button"
-                class="mt-3 rounded border border-slate-600 px-2 py-1 text-xs hover:bg-slate-800"
+                className="mt-3 rounded border border-slate-600 px-2 py-1 text-xs transition-colors hover:bg-slate-800"
+                onClick={() => setOpen(false)}
               >
                 Close
               </button>
             </div>
           </div>
-        </article>
+        );
+      }
 
-        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h3 class="text-base font-semibold">Toggle Group (shadcn ToggleGroup)</h3>
-          <p class="mt-1 text-xs text-slate-400">
-            Data-state on/off styling + motion-driven active indicator (framer-motion analogue).
-          </p>
+      function ToggleGroupDemo() {
+        const options = ['Preview', 'Code', 'Meta'];
+        const [active, setActive] = useState('Preview');
 
-          <div
-            id="toggle-group"
-            class="relative mt-4 inline-flex items-center gap-1 rounded-md border border-slate-700 bg-slate-950 p-1"
-          >
-            <span
-              id="toggle-highlight"
-              class="pointer-events-none absolute left-1 top-1 h-8 rounded bg-cyan-400/25"
-            ></span>
-            <button
-              type="button"
-              data-toggle-item
-              data-value="preview"
-              data-state="on"
-              class="relative z-10 rounded px-3 py-1.5 text-sm data-[state=on]:text-white data-[state=off]:text-slate-400"
-            >
-              Preview
-            </button>
-            <button
-              type="button"
-              data-toggle-item
-              data-value="code"
-              data-state="off"
-              class="relative z-10 rounded px-3 py-1.5 text-sm data-[state=on]:text-white data-[state=off]:text-slate-400"
-            >
-              Code
-            </button>
-            <button
-              type="button"
-              data-toggle-item
-              data-value="meta"
-              data-state="off"
-              class="relative z-10 rounded px-3 py-1.5 text-sm data-[state=on]:text-white data-[state=off]:text-slate-400"
-            >
-              Meta
-            </button>
+        return (
+          <div className="inline-flex items-center gap-1 rounded-md border border-slate-700 bg-slate-950 p-1">
+            {options.map((option) => {
+              const isActive = option === active;
+              return (
+                <button
+                  key={option}
+                  type="button"
+                  data-state={isActive ? 'on' : 'off'}
+                  className={`rounded px-3 py-1.5 text-sm transition-all duration-150 ${
+                    isActive
+                      ? 'bg-cyan-400/20 text-cyan-100 shadow-inner shadow-cyan-500/20'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                  onClick={() => setActive(option)}
+                >
+                  {option}
+                </button>
+              );
+            })}
           </div>
-        </article>
+        );
+      }
 
-        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h3 class="text-base font-semibold">Collapsible (shadcn Collapsible)</h3>
-          <p class="mt-1 text-xs text-slate-400">
-            Uses <code>data-state</code> and
-            <code>--radix-collapsible-content-height</code>-style keyframes.
-          </p>
+      function CollapsibleDemo() {
+        const [open, setOpen] = useState(false);
 
-          <div class="mt-4 rounded-lg border border-slate-700 bg-slate-950 p-3">
+        return (
+          <div className="rounded-lg border border-slate-700 bg-slate-950 p-3">
             <button
-              id="collapsible-trigger"
               type="button"
-              aria-expanded="false"
-              class="inline-flex w-full items-center justify-between text-sm"
+              aria-expanded={open}
+              className="inline-flex w-full items-center justify-between text-sm"
+              onClick={() => setOpen((value) => !value)}
             >
-              <span class="font-medium">Email Templates</span>
-              <span id="collapsible-indicator" class="text-slate-400">+</span>
+              <span className="font-medium">Email templates</span>
+              <span className="text-slate-400">{open ? '−' : '+'}</span>
             </button>
-            <div
-              id="collapsible-content"
-              data-collapsible-content
-              data-state="closed"
-              style="--radix-collapsible-content-height: 0px"
-              class="mt-3"
-            >
-              <ul class="space-y-2 rounded-md border border-slate-800 bg-slate-900 p-2 text-sm">
-                <li class="rounded px-2 py-1 hover:bg-slate-800">welcome-email.tsx</li>
-                <li class="rounded px-2 py-1 hover:bg-slate-800">receipt-email.tsx</li>
-                <li class="rounded px-2 py-1 hover:bg-slate-800">newsletter-email.tsx</li>
-              </ul>
+
+            <div data-open={open} className="collapsible-grid mt-3">
+              <div className="collapsible-inner">
+                <ul className="space-y-2 rounded-md border border-slate-800 bg-slate-900 p-2 text-sm">
+                  <li className="rounded px-2 py-1 transition-colors hover:bg-slate-800">
+                    welcome-email.tsx
+                  </li>
+                  <li className="rounded px-2 py-1 transition-colors hover:bg-slate-800">
+                    receipt-email.tsx
+                  </li>
+                  <li className="rounded px-2 py-1 transition-colors hover:bg-slate-800">
+                    newsletter-email.tsx
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </article>
+        );
+      }
 
-        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h3 class="text-base font-semibold">Dialog (shadcn Dialog)</h3>
-          <p class="mt-1 text-xs text-slate-400">
-            Overlay/content open-close transitions are data-state driven.
-          </p>
+      function DialogDemo() {
+        const [open, setOpen] = useState(false);
 
-          <button
-            id="dialog-open"
-            type="button"
-            class="mt-4 rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm hover:border-slate-600"
-          >
-            Open dialog
-          </button>
+        useEffect(() => {
+          if (!open) return;
 
-          <div id="dialog-root" class="hidden fixed inset-0 z-40">
+          function handleEscape(event) {
+            if (event.key === 'Escape') {
+              setOpen(false);
+            }
+          }
+
+          window.addEventListener('keydown', handleEscape);
+          return () => {
+            window.removeEventListener('keydown', handleEscape);
+          };
+        }, [open]);
+
+        return (
+          <>
+            <button
+              type="button"
+              className="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm transition-colors hover:border-slate-600"
+              onClick={() => setOpen(true)}
+            >
+              Open dialog
+            </button>
+
             <div
-              id="dialog-overlay"
-              data-dialog-overlay
-              data-state="closed"
-              class="absolute inset-0 bg-black/70"
-            ></div>
-            <div class="relative z-50 flex min-h-screen items-center justify-center p-4">
+              className={`fixed inset-0 z-40 flex items-center justify-center p-4 ${
+                open ? 'pointer-events-auto' : 'pointer-events-none'
+              }`}
+            >
               <div
-                id="dialog-content"
-                data-dialog-content
-                data-state="closed"
+                data-open={open}
+                className="dialog-overlay absolute inset-0 bg-black/70"
+                onClick={() => setOpen(false)}
+              ></div>
+
+              <div
+                data-open={open}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="dialog-title"
-                class="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-4 shadow-2xl"
+                className="dialog-content relative z-50 w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-4 shadow-2xl"
               >
-                <h4 id="dialog-title" class="text-base font-semibold">Preview configuration</h4>
-                <p class="mt-2 text-sm text-slate-300">
-                  Equivalent to <code>DialogContent</code> with title/description and close action.
+                <h4 id="dialog-title" className="text-base font-semibold">
+                  Preview configuration
+                </h4>
+                <p className="mt-2 text-sm text-slate-300">
+                  Equivalent to <code>DialogContent</code> with title, description, and close action.
                 </p>
-                <div class="mt-4 flex justify-end gap-2">
+                <div className="mt-4 flex justify-end">
                   <button
-                    id="dialog-close"
                     type="button"
-                    class="rounded border border-slate-600 px-2 py-1 text-sm hover:bg-slate-800"
+                    className="rounded border border-slate-600 px-2 py-1 text-sm transition-colors hover:bg-slate-800"
+                    onClick={() => setOpen(false)}
                   >
                     Close
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        </article>
+          </>
+        );
+      }
 
-        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h3 class="text-base font-semibold">Tabs + Separator</h3>
-          <p class="mt-1 text-xs text-slate-400">
-            Tabs use data-state active/inactive styling; Separator mirrors horizontal and vertical
-            forms.
-          </p>
+      function TabsAndSeparatorDemo() {
+        const [activeTab, setActiveTab] = useState('preview');
 
-          <div class="mt-4">
-            <div class="inline-flex rounded-md bg-slate-800 p-1" role="tablist" aria-label="Preview tabs">
-              <button
-                type="button"
-                role="tab"
-                data-tabs-trigger
-                data-tab="preview"
-                data-state="active"
-                class="rounded px-3 py-1 text-sm transition-colors"
-              >
-                Preview
-              </button>
-              <button
-                type="button"
-                role="tab"
-                data-tabs-trigger
-                data-tab="code"
-                data-state="inactive"
-                class="rounded px-3 py-1 text-sm transition-colors"
-              >
-                Code
-              </button>
+        return (
+          <div>
+            <div className="inline-flex rounded-md bg-slate-800 p-1" role="tablist" aria-label="Preview tabs">
+              {['preview', 'code'].map((tab) => {
+                const active = tab === activeTab;
+                return (
+                  <button
+                    key={tab}
+                    type="button"
+                    role="tab"
+                    data-state={active ? 'active' : 'inactive'}
+                    className={`rounded px-3 py-1 text-sm capitalize transition-colors ${
+                      active ? 'bg-slate-900 text-slate-50' : 'text-slate-400 hover:text-slate-200'
+                    }`}
+                    onClick={() => setActiveTab(tab)}
+                  >
+                    {tab}
+                  </button>
+                );
+              })}
             </div>
 
-            <div class="mt-3 rounded-md border border-slate-700 bg-slate-950 p-3">
-              <section id="tab-preview" data-tabs-content data-state="active" class="text-sm">
-                Active preview panel content.
-              </section>
-              <section id="tab-code" data-tabs-content data-state="inactive" class="hidden text-sm">
-                <pre class="overflow-x-auto text-xs text-slate-300"><code>&lt;Button asChild&gt;
-  &lt;a href="/docs"&gt;Read docs&lt;/a&gt;
-&lt;/Button&gt;</code></pre>
-              </section>
+            <div className="mt-3 rounded-md border border-slate-700 bg-slate-950 p-3 text-sm">
+              {activeTab === 'preview' ? (
+                <section>Active preview panel content.</section>
+              ) : (
+                <section>
+                  <pre className="overflow-x-auto text-xs text-slate-300">
+                    <code>{`<Button asChild>
+  <a href="/docs">Read docs</a>
+</Button>`}</code>
+                  </pre>
+                </section>
+              )}
             </div>
 
-            <div class="mt-4 rounded-md border border-slate-700 bg-slate-950 p-3">
-              <div class="h-2 rounded bg-slate-800" data-separator="horizontal"></div>
-              <div class="mt-3 flex h-10 items-center gap-3 text-xs text-slate-300">
+            <div className="mt-4 rounded-md border border-slate-700 bg-slate-950 p-3">
+              <div className="h-2 rounded bg-slate-800" aria-label="Horizontal separator"></div>
+              <div className="mt-3 flex h-10 items-center gap-3 text-xs text-slate-300">
                 <span>Left</span>
-                <div class="bg-slate-700" data-separator="vertical"></div>
+                <div className="h-full w-[2px] bg-slate-700" aria-label="Vertical separator"></div>
                 <span>Right</span>
               </div>
             </div>
           </div>
-        </article>
-      </section>
-
-      <section class="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
-        <h3 class="text-base font-semibold">Slot note (shadcn composition)</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          For <code>Slot</code>, shadcn does not replace Radix; it intentionally reuses
-          <code>@radix-ui/react-slot</code> for <code>asChild</code> polymorphism.
-        </p>
-        <pre class="mt-3 overflow-x-auto rounded-md border border-slate-700 bg-slate-950 p-3 text-xs text-slate-300"><code>import { Slot } from "@radix-ui/react-slot"
-
-function Button({ asChild, ...props }) {
-  const Comp = asChild ? Slot : "button"
-  return &lt;Comp {...props} /&gt;
-}</code></pre>
-      </section>
-    </main>
-
-    <script type="module">
-      import { animate, spring } from 'https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm';
-
-      function setAnimatedOpenState(element, open, closeMs = 150) {
-        if (!element) return;
-        if (element.__closeTimer) {
-          clearTimeout(element.__closeTimer);
-        }
-
-        if (open) {
-          element.classList.remove('hidden');
-          requestAnimationFrame(() => {
-            element.dataset.state = 'open';
-          });
-          return;
-        }
-
-        element.dataset.state = 'closed';
-        element.__closeTimer = window.setTimeout(() => {
-          element.classList.add('hidden');
-        }, closeMs);
-      }
-
-      // Select
-      const selectDemo = document.getElementById('select-demo');
-      const selectTrigger = document.getElementById('select-trigger');
-      const selectContent = document.getElementById('select-content');
-      const selectValue = document.getElementById('select-value');
-      const selectItems = Array.from(document.querySelectorAll('.select-item'));
-      let selectOpen = false;
-
-      const setSelectOpen = (open) => {
-        selectOpen = open;
-        selectTrigger?.setAttribute('aria-expanded', String(open));
-        setAnimatedOpenState(selectContent, open, 130);
-      };
-
-      selectTrigger?.addEventListener('click', () => setSelectOpen(!selectOpen));
-      selectItems.forEach((item) => {
-        item.addEventListener('click', () => {
-          if (selectValue) selectValue.textContent = item.dataset.value ?? item.textContent ?? '';
-          setSelectOpen(false);
-        });
-      });
-
-      // Popover
-      const popoverDemo = document.getElementById('popover-demo');
-      const popoverTrigger = document.getElementById('popover-trigger');
-      const popoverContent = document.getElementById('popover-content');
-      const popoverClose = document.getElementById('popover-close');
-      let popoverOpen = false;
-
-      const setPopoverOpen = (open) => {
-        popoverOpen = open;
-        popoverTrigger?.setAttribute('aria-expanded', String(open));
-        setAnimatedOpenState(popoverContent, open, 130);
-      };
-
-      popoverTrigger?.addEventListener('click', () => setPopoverOpen(!popoverOpen));
-      popoverClose?.addEventListener('click', () => setPopoverOpen(false));
-
-      // Toggle group + motion-driven indicator
-      const toggleGroup = document.getElementById('toggle-group');
-      const toggleHighlight = document.getElementById('toggle-highlight');
-      const toggleItems = Array.from(document.querySelectorAll('[data-toggle-item]'));
-
-      function moveToggleHighlight(activeItem, shouldAnimate = true) {
-        if (!toggleGroup || !toggleHighlight || !activeItem) return;
-        const groupRect = toggleGroup.getBoundingClientRect();
-        const itemRect = activeItem.getBoundingClientRect();
-        const x = itemRect.left - groupRect.left;
-        const width = itemRect.width;
-
-        if (!shouldAnimate) {
-          toggleHighlight.style.transform = `translateX(${x}px)`;
-          toggleHighlight.style.width = `${width}px`;
-          return;
-        }
-
-        animate(
-          toggleHighlight,
-          { x, width },
-          { duration: 0.35, easing: spring({ stiffness: 420, damping: 36 }) }
         );
       }
 
-      function setToggleValue(nextValue) {
-        const activeItem = toggleItems.find((item) => item.dataset.value === nextValue) ?? toggleItems[0];
-        toggleItems.forEach((item) => {
-          item.dataset.state = item === activeItem ? 'on' : 'off';
-        });
-        moveToggleHighlight(activeItem, true);
+      function App() {
+        return (
+          <main className="mx-auto w-full max-w-7xl px-6 py-10 lg:px-10">
+            <header className="mb-8">
+              <h1 className="text-3xl font-semibold tracking-tight">Radix → shadcn replacement showcase</h1>
+              <p className="mt-2 max-w-4xl text-sm text-slate-300">
+                Standalone React CDN demo of shadcn-equivalent component patterns for Select,
+                Popover, Toggle Group, Collapsible, Dialog, Tabs, Separator, and Slot guidance.
+              </p>
+              <p className="mt-2 text-xs text-slate-400">
+                CDN imports: <code>tailwindcss</code>, <code>react@18</code>, <code>react-dom@18</code>,
+                and <code>@babel/standalone</code> for in-browser JSX transform.
+              </p>
+            </header>
+
+            <section className="mb-8 rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+              <h2 className="text-sm font-semibold">Animation approach</h2>
+              <ul className="mt-3 space-y-2 text-xs text-slate-300">
+                <li>
+                  <span className="rounded bg-cyan-500/20 px-2 py-1 font-semibold text-cyan-200">
+                    CSS-driven transitions
+                  </span>{' '}
+                  Open/close and panel transitions use CSS opacity/transform/grid transitions tied to
+                  component state.
+                </li>
+                <li>
+                  <span className="rounded bg-fuchsia-500/20 px-2 py-1 font-semibold text-fuchsia-200">
+                    Minimal behavior JS
+                  </span>{' '}
+                  React handles state and interaction wiring; there is no bespoke animation timeline
+                  orchestration.
+                </li>
+              </ul>
+            </section>
+
+            <section className="grid gap-6 xl:grid-cols-2">
+              <Card
+                title="Select (shadcn-style Select)"
+                description="Trigger + content + item pattern with CSS transition state changes."
+              >
+                <SelectDemo />
+              </Card>
+
+              <Card
+                title="Popover (shadcn-style Popover)"
+                description="Popover content uses the same CSS transition pattern as Select."
+              >
+                <PopoverDemo />
+              </Card>
+
+              <Card
+                title="Toggle Group (shadcn ToggleGroup)"
+                description="Stateful on/off buttons with soft visual transitions and no custom animation engine."
+              >
+                <ToggleGroupDemo />
+              </Card>
+
+              <Card
+                title="Collapsible (shadcn Collapsible)"
+                description="Height-style reveal is done with CSS grid row transitions (no measurement JS)."
+              >
+                <CollapsibleDemo />
+              </Card>
+
+              <Card
+                title="Dialog (shadcn Dialog)"
+                description="Overlay and content transitions are CSS-driven and controlled by React state."
+              >
+                <DialogDemo />
+              </Card>
+
+              <Card
+                title="Tabs + Separator"
+                description="Tabs rely on data-state-like active styling; separators mirror horizontal/vertical forms."
+              >
+                <TabsAndSeparatorDemo />
+              </Card>
+            </section>
+
+            <section className="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
+              <h3 className="text-base font-semibold">Slot note (shadcn composition)</h3>
+              <p className="mt-2 text-sm text-slate-300">
+                For <code>Slot</code>, shadcn intentionally reuses <code>@radix-ui/react-slot</code>
+                for <code>asChild</code> polymorphism.
+              </p>
+              <pre className="mt-3 overflow-x-auto rounded-md border border-slate-700 bg-slate-950 p-3 text-xs text-slate-300">
+                <code>{`import { Slot } from "@radix-ui/react-slot"
+
+function Button({ asChild, ...props }) {
+  const Comp = asChild ? Slot : "button"
+  return <Comp {...props} />
+}`}</code>
+              </pre>
+            </section>
+          </main>
+        );
       }
 
-      toggleItems.forEach((item) => {
-        item.addEventListener('click', () => {
-          setToggleValue(item.dataset.value);
-        });
-      });
-
-      const initialToggle = toggleItems.find((item) => item.dataset.state === 'on') ?? toggleItems[0];
-      if (initialToggle) {
-        moveToggleHighlight(initialToggle, false);
-      }
-
-      // Collapsible
-      const collapsibleTrigger = document.getElementById('collapsible-trigger');
-      const collapsibleContent = document.getElementById('collapsible-content');
-      const collapsibleIndicator = document.getElementById('collapsible-indicator');
-      let collapsibleOpen = false;
-
-      function setCollapsibleOpen(open) {
-        if (!collapsibleContent) return;
-        collapsibleOpen = open;
-        const h = collapsibleContent.scrollHeight;
-        collapsibleContent.style.setProperty('--radix-collapsible-content-height', `${h}px`);
-        collapsibleContent.dataset.state = open ? 'open' : 'closed';
-        collapsibleTrigger?.setAttribute('aria-expanded', String(open));
-        if (collapsibleIndicator) collapsibleIndicator.textContent = open ? '−' : '+';
-      }
-
-      collapsibleTrigger?.addEventListener('click', () => setCollapsibleOpen(!collapsibleOpen));
-
-      // Dialog
-      const dialogRoot = document.getElementById('dialog-root');
-      const dialogOpen = document.getElementById('dialog-open');
-      const dialogClose = document.getElementById('dialog-close');
-      const dialogOverlay = document.getElementById('dialog-overlay');
-      const dialogContent = document.getElementById('dialog-content');
-      let dialogIsOpen = false;
-
-      function setDialogOpen(open) {
-        if (!dialogRoot || !dialogOverlay || !dialogContent) return;
-        dialogIsOpen = open;
-
-        if (open) {
-          dialogRoot.classList.remove('hidden');
-          requestAnimationFrame(() => {
-            dialogOverlay.dataset.state = 'open';
-            dialogContent.dataset.state = 'open';
-          });
-          return;
-        }
-
-        dialogOverlay.dataset.state = 'closed';
-        dialogContent.dataset.state = 'closed';
-        window.setTimeout(() => {
-          dialogRoot.classList.add('hidden');
-        }, 170);
-      }
-
-      dialogOpen?.addEventListener('click', () => setDialogOpen(true));
-      dialogClose?.addEventListener('click', () => setDialogOpen(false));
-      dialogOverlay?.addEventListener('click', () => setDialogOpen(false));
-
-      window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && dialogIsOpen) {
-          setDialogOpen(false);
-        }
-      });
-
-      // Tabs
-      const tabsTriggers = Array.from(document.querySelectorAll('[data-tabs-trigger]'));
-      const tabsContents = Array.from(document.querySelectorAll('[data-tabs-content]'));
-
-      function setTab(nextTab) {
-        tabsTriggers.forEach((trigger) => {
-          trigger.dataset.state = trigger.dataset.tab === nextTab ? 'active' : 'inactive';
-        });
-
-        tabsContents.forEach((content) => {
-          const isActive = content.id === `tab-${nextTab}`;
-          content.dataset.state = isActive ? 'active' : 'inactive';
-          content.classList.toggle('hidden', !isActive);
-        });
-      }
-
-      tabsTriggers.forEach((trigger) => {
-        trigger.addEventListener('click', () => {
-          setTab(trigger.dataset.tab);
-        });
-      });
-
-      // Close select/popover on outside click
-      document.addEventListener('click', (event) => {
-        const target = event.target;
-        if (selectOpen && selectDemo && !selectDemo.contains(target)) {
-          setSelectOpen(false);
-        }
-        if (popoverOpen && popoverDemo && !popoverDemo.contains(target)) {
-          setPopoverOpen(false);
-        }
-      });
-
-      // Keep measured dimensions fresh on resize
-      window.addEventListener('resize', () => {
-        const activeToggle = toggleItems.find((item) => item.dataset.state === 'on') ?? toggleItems[0];
-        if (activeToggle) moveToggleHighlight(activeToggle, false);
-
-        if (collapsibleOpen && collapsibleContent) {
-          collapsibleContent.style.setProperty(
-            '--radix-collapsible-content-height',
-            `${collapsibleContent.scrollHeight}px`
-          );
-        }
-      });
+      const appRoot = document.getElementById('app');
+      ReactDOM.createRoot(appRoot).render(<App />);
     </script>
   </body>
 </html>
