@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Combined Design System — jsx-email + atom</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f1115;
+        --panel: #171b22;
+        --panel-muted: #11161d;
+        --row: #10151c;
+        --border: #2d3644;
+        --border-soft: #2b3441;
+        --text: #f6faff;
+        --text-sub: #b9c7da;
+        --text-body: #d2dfee;
+        --text-note: #afbdd0;
+        --jsx: #2a4f73;
+        --atom: #714832;
+        --both: #2f6a4a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text-body);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        line-height: 1.45;
+      }
+
+      .page {
+        max-width: 1760px;
+        margin: 0 auto;
+        padding: 32px 28px 44px;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        color: var(--text);
+        font-size: 2.35rem;
+        line-height: 1.15;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--text-sub);
+        font-size: 1.12rem;
+      }
+
+      .meta {
+        margin-top: 8px;
+        color: var(--text-note);
+        font-size: 0.9rem;
+        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+      }
+
+      .legend {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 74px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        color: #f6faff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .badge.jsx {
+        min-width: 110px;
+        background: var(--jsx);
+      }
+
+      .badge.atom {
+        background: var(--atom);
+      }
+
+      .badge.both {
+        background: var(--both);
+      }
+
+      .layout {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: minmax(780px, 1.05fr) minmax(720px, 1fr);
+        gap: 24px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .panel h2 {
+        margin: 0;
+        color: #e9f1fb;
+        font-size: 1.4rem;
+      }
+
+      .panel .source {
+        margin: 6px 0 14px;
+        color: var(--text-note);
+        font-size: 0.88rem;
+      }
+
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .kpi {
+        background: var(--panel-muted);
+        border: 1.5px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+
+      .kpi .value {
+        margin: 0;
+        color: #f3f9ff;
+        font-size: 1.52rem;
+        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+        font-weight: 700;
+      }
+
+      .kpi .label {
+        margin: 2px 0 0;
+        color: var(--text-note);
+        font-size: 0.76rem;
+      }
+
+      .swatch-section {
+        margin-top: 14px;
+        background: var(--panel-muted);
+        border: 1.5px solid var(--border-soft);
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .section-head h3 {
+        margin: 0;
+        color: #d8e4f3;
+        font-size: 1.08rem;
+      }
+
+      .swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .swatch {
+        background: #141b24;
+        border: 1.5px solid #334050;
+        border-radius: 10px;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 62px 1fr;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .chip {
+        width: 62px;
+        height: 56px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .hex {
+        margin: 0;
+        color: #f0f6ff;
+        font-size: 0.86rem;
+        font-weight: 700;
+        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+      }
+
+      .swatch-note {
+        margin: 2px 0 0;
+        color: var(--text-note);
+        font-size: 0.76rem;
+      }
+
+      .right-stack {
+        display: grid;
+        grid-template-rows: 430px 292px 340px;
+        gap: 24px;
+      }
+
+      .type-list,
+      .metric-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .type-row,
+      .metric-row {
+        background: var(--row);
+        border: 1.5px solid #2a3340;
+        border-radius: 10px;
+        padding: 10px 12px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .type-row p,
+      .metric-row p {
+        margin: 0;
+      }
+
+      .type-row .primary,
+      .metric-row .primary {
+        color: var(--text-body);
+        font-size: 0.93rem;
+      }
+
+      .type-row .secondary,
+      .metric-row .secondary {
+        margin-top: 2px;
+        color: var(--text-note);
+        font-size: 0.78rem;
+      }
+
+      .metrics-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .metric-card {
+        background: var(--panel-muted);
+        border: 1.5px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      .metric-card h3 {
+        margin: 0 0 8px;
+        color: #d8e4f3;
+        font-size: 1rem;
+      }
+
+      .guidance-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .guidance-card {
+        background: var(--panel-muted);
+        border: 1.5px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      .guidance-card h3 {
+        margin: 0 0 8px;
+        color: #d8e4f3;
+        font-size: 1rem;
+      }
+
+      .guidance-card p {
+        margin: 0 0 6px;
+        color: var(--text-body);
+        font-size: 0.88rem;
+      }
+
+      .sample {
+        margin-top: 8px;
+        background: #2c2a2b;
+        border: 1.5px solid #434c56;
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      .sample h4 {
+        margin: 0 0 6px;
+        color: #f7fbff;
+        font-size: 1.02rem;
+      }
+
+      .sample p {
+        margin: 0 0 8px;
+        color: #d9e5f4;
+        font-size: 0.82rem;
+      }
+
+      .sample-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .sample-btn {
+        border: 0;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #10151c;
+      }
+
+      .sample-btn.warm {
+        background: #ffd152;
+      }
+
+      .sample-btn.mint {
+        background: #61efce;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1>Combined design system — jsx-email + atom</h1>
+      <p class="subtitle">
+        Unified board built directly from <code>09-color-palette-combined.svg</code> and
+        <code>10-typography-combined.svg</code>.
+      </p>
+      <p class="meta">
+        Scope: in-use colors and typography behaviors only • explicit source attribution badges
+        (<code>jsx-email</code>, <code>atom</code>, <code>both</code>) throughout.
+      </p>
+      <div class="legend" aria-label="Attribution legend">
+        <span class="badge jsx">jsx-email</span>
+        <span class="badge atom">atom</span>
+        <span class="badge both">both</span>
+      </div>
+
+      <section class="layout">
+        <article class="panel" aria-labelledby="color-system-title">
+          <h2 id="color-system-title">1) Color system synthesis</h2>
+          <p class="source">Source board: <code>09-color-palette-combined.svg</code></p>
+
+          <div class="kpi-grid" aria-label="Color totals">
+            <div class="kpi"><p class="value">26</p><p class="label">total unique in-use colors</p></div>
+            <div class="kpi"><p class="value">11</p><p class="label">shared across systems</p></div>
+            <div class="kpi"><p class="value">5</p><p class="label">jsx-email only</p></div>
+            <div class="kpi"><p class="value">10</p><p class="label">atom only</p></div>
+          </div>
+
+          <div class="swatch-section">
+            <div class="section-head">
+              <h3>Shared foundation tokens (representative)</h3>
+              <span class="badge both">both</span>
+            </div>
+            <div class="swatch-grid">
+              <div class="swatch">
+                <span class="chip" style="background:#2C2A2B"></span>
+                <div><p class="hex">#2C2A2B</p><p class="swatch-note">base neutral surface</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#574C4F"></span>
+                <div><p class="hex">#574C4F</p><p class="swatch-note">mid-tone structural neutral</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#8E8373"></span>
+                <div><p class="hex">#8E8373</p><p class="swatch-note">warm neutral bridge tone</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#61EFCE"></span>
+                <div><p class="hex">#61EFCE</p><p class="swatch-note">mint action accent</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#EFEAE1"></span>
+                <div><p class="hex">#EFEAE1</p><p class="swatch-note">light canvas / contrast</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#FFD152"></span>
+                <div><p class="hex">#FFD152</p><p class="swatch-note">shared warm highlight</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swatch-section">
+            <div class="section-head">
+              <h3>jsx-email specific extensions (representative)</h3>
+              <span class="badge jsx">jsx-email</span>
+            </div>
+            <div class="swatch-grid">
+              <div class="swatch">
+                <span class="chip" style="background:#1A191A"></span>
+                <div><p class="hex">#1A191A</p><p class="swatch-note">deep anchor neutral</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#565656"></span>
+                <div><p class="hex">#565656</p><p class="swatch-note">dense text support gray</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#47504E"></span>
+                <div><p class="hex">#47504E</p><p class="swatch-note">teal-slate bridge neutral</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#434C56"></span>
+                <div><p class="hex">#434C56</p><p class="swatch-note">slate border/support</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#719BC4"></span>
+                <div><p class="hex">#719BC4</p><p class="swatch-note">jsx utility blue accent</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swatch-section">
+            <div class="section-head">
+              <h3>atom specific extensions (representative)</h3>
+              <span class="badge atom">atom</span>
+            </div>
+            <div class="swatch-grid">
+              <div class="swatch">
+                <span class="chip" style="background:#3D3A3A"></span>
+                <div><p class="hex">#3D3A3A</p><p class="swatch-note">package dark foundation</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#66595C"></span>
+                <div><p class="hex">#66595C</p><p class="swatch-note">muted rose neutral</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#786F63"></span>
+                <div><p class="hex">#786F63</p><p class="swatch-note">warm utility neutral</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#81C08B"></span>
+                <div><p class="hex">#81C08B</p><p class="swatch-note">soft green highlight</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#2AEABD"></span>
+                <div><p class="hex">#2AEABD</p><p class="swatch-note">high-energy mint accent</p></div>
+              </div>
+              <div class="swatch">
+                <span class="chip" style="background:#D36E2D"></span>
+                <div><p class="hex">#D36E2D</p><p class="swatch-note">atom warm action tone</p></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="right-stack">
+          <article class="panel" aria-labelledby="typography-title">
+            <h2 id="typography-title">2) Typography families and context</h2>
+            <p class="source">Source board: <code>10-typography-combined.svg</code></p>
+            <div class="type-list">
+              <div class="type-row">
+                <div>
+                  <p class="primary">System sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif</p>
+                  <p class="secondary">Primary reading and interface baseline for both ecosystems.</p>
+                </div>
+                <span class="badge both">both</span>
+              </div>
+              <div class="type-row">
+                <div>
+                  <p class="primary">Code stack: SFMono-Regular, Consolas, Menlo, Monaco, and related monospace fallbacks</p>
+                  <p class="secondary">Used prominently in jsx-email tooling and code examples.</p>
+                </div>
+                <span class="badge jsx">jsx-email</span>
+              </div>
+              <div class="type-row">
+                <div>
+                  <p class="primary">Package stack: "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif</p>
+                  <p class="secondary">Primary atom package-page heading and navigation voice.</p>
+                </div>
+                <span class="badge atom">atom</span>
+              </div>
+              <div class="type-row">
+                <div>
+                  <p class="primary">Fallback stack: Verdana, "Verdana Ref", sans-serif for atom 404/error treatment</p>
+                  <p class="secondary">Distinct voice reserved for error-state messaging.</p>
+                </div>
+                <span class="badge atom">atom</span>
+              </div>
+              <div class="type-row">
+                <div>
+                  <p class="primary">Icon font: octicons in atom package contexts</p>
+                  <p class="secondary">Non-text glyph layer complementing primary typography.</p>
+                </div>
+                <span class="badge atom">atom</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel" aria-labelledby="metrics-title">
+            <h2 id="metrics-title">3) Weight, scale, and spacing convergence</h2>
+            <div class="metrics-two-col">
+              <section class="metric-card" aria-label="Weight coverage">
+                <h3>Weight coverage</h3>
+                <div class="metric-list">
+                  <div class="metric-row">
+                    <div>
+                      <p class="primary">300 / 400 / 500 appear in both systems.</p>
+                    </div>
+                    <span class="badge both">both</span>
+                  </div>
+                  <div class="metric-row">
+                    <div>
+                      <p class="primary">200 / 600 / 700 are jsx-email emphasis tiers.</p>
+                    </div>
+                    <span class="badge jsx">jsx-email</span>
+                  </div>
+                  <div class="metric-row">
+                    <div>
+                      <p class="primary">Atom relies on 300–500 for package readability.</p>
+                    </div>
+                    <span class="badge atom">atom</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="metric-card" aria-label="Size and spacing">
+                <h3>Size and spacing</h3>
+                <div class="metric-list">
+                  <div class="metric-row">
+                    <div><p class="primary">Display range converges at 42px headline tier.</p></div>
+                    <span class="badge both">both</span>
+                  </div>
+                  <div class="metric-row">
+                    <div><p class="primary">16px body + 14px support is shared baseline.</p></div>
+                    <span class="badge both">both</span>
+                  </div>
+                  <div class="metric-row">
+                    <div><p class="primary">Atom keeps Verdana 26–27px error variant.</p></div>
+                    <span class="badge atom">atom</span>
+                  </div>
+                  <div class="metric-row">
+                    <div><p class="primary">jsx-email preserves 1.5 line-height in stack/code samples.</p></div>
+                    <span class="badge jsx">jsx-email</span>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </article>
+
+          <article class="panel" aria-labelledby="guidance-title">
+            <h2 id="guidance-title">4) Combined board application guidance</h2>
+            <div class="guidance-grid">
+              <section class="guidance-card" aria-label="Foundation guidance">
+                <h3>Foundation</h3>
+                <p>Neutral depth from dark anchors plus warm/mint accents forms the shared visual base.</p>
+                <span class="badge both">both</span>
+                <p>Shared sans is the default voice; source-specific stacks remain contextual extensions.</p>
+                <span class="badge both">both</span>
+              </section>
+
+              <section class="guidance-card" aria-label="Component recipe">
+                <h3>Component recipe</h3>
+                <div class="sample">
+                  <h4>Release update</h4>
+                  <p>Unified board aligns shared tokens and context-specific typography behavior.</p>
+                  <div class="sample-actions">
+                    <button class="sample-btn warm" type="button">Read docs</button>
+                    <button class="sample-btn mint" type="button">View</button>
+                  </div>
+                </div>
+                <p style="margin-top:8px;"><span class="badge both">both</span></p>
+              </section>
+
+              <section class="guidance-card" aria-label="Attribution matrix">
+                <h3>Attribution matrix</h3>
+                <p>Shared core tokens and scale baseline.</p>
+                <span class="badge both">both</span>
+                <p>CLI/code typography emphasis.</p>
+                <span class="badge jsx">jsx-email</span>
+                <p>Package and error voice variants.</p>
+                <span class="badge atom">atom</span>
+              </section>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

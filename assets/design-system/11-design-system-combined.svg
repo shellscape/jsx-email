@@ -1,0 +1,299 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1820" height="1380" viewBox="0 0 1820 1380" role="img" aria-labelledby="title desc">
+  <title id="title">Combined Design System Board — jsx-email + atom</title>
+  <desc id="desc">Unified design-system board synthesized from 09-color-palette-combined.svg and 10-typography-combined.svg. Includes shared and source-specific color foundations, typography stacks, weight and size convergence, and cross-system composition notes with explicit attribution badges.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0f1115; }
+      .panel { fill: #171b22; stroke: #2d3644; stroke-width: 2; }
+      .subPanel { fill: #11161d; stroke: #2b3441; stroke-width: 1.5; }
+      .row { fill: #10151c; stroke: #2a3340; stroke-width: 1.25; }
+      .title { fill: #f6faff; font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .sub { fill: #b9c7da; font: 500 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .meta { fill: #a8b6c8; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .panelTitle { fill: #e9f1fb; font: 700 26px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .sectionTitle { fill: #d8e4f3; font: 700 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .body { fill: #d2dfee; font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .note { fill: #afbdd0; font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .mono { fill: #c5d3e7; font: 500 13px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .kpiValue { fill: #f3f9ff; font: 700 29px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .kpiLabel { fill: #afbdd1; font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .swatchCard { fill: #141b24; stroke: #334050; stroke-width: 1.5; }
+      .swatchHex { fill: #f0f6ff; font: 700 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .swatchNote { fill: #afbdd0; font: 500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .sampleTitle { fill: #f7fbff; font: 600 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .sampleBody { fill: #d9e5f4; font: 400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .sampleButtonText { fill: #11161d; font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .badgeText { fill: #f6faff; font: 700 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; letter-spacing: 0.2px; }
+      .badgeJsx { fill: #2a4f73; }
+      .badgeAtom { fill: #714832; }
+      .badgeBoth { fill: #2f6a4a; }
+      .divider { stroke: #2d3644; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1820" height="1380"/>
+
+  <text class="title" x="56" y="84">Combined design system — jsx-email + atom</text>
+  <text class="sub" x="56" y="118">Unified board built directly from 09-color-palette-combined.svg + 10-typography-combined.svg</text>
+  <text class="meta" x="56" y="146">Scope: in-use tokens and typography behaviors only • additive synthesis of combined artifacts</text>
+  <text class="meta" x="56" y="168">Snapshot: 26 deduplicated colors • shared sans baseline • explicit source attribution on every analysis segment</text>
+
+  <rect class="badgeJsx" x="56" y="188" width="124" height="28" rx="14"/>
+  <text class="badgeText" x="118" y="206" text-anchor="middle">jsx-email</text>
+  <rect class="badgeAtom" x="192" y="188" width="86" height="28" rx="14"/>
+  <text class="badgeText" x="235" y="206" text-anchor="middle">atom</text>
+  <rect class="badgeBoth" x="290" y="188" width="86" height="28" rx="14"/>
+  <text class="badgeText" x="333" y="206" text-anchor="middle">both</text>
+
+  <g transform="translate(56,220)">
+    <rect class="panel" width="840" height="1110" rx="18"/>
+    <text class="panelTitle" x="26" y="46">1) Color system synthesis</text>
+    <text class="note" x="26" y="70">Source board: 09-color-palette-combined.svg (ordered, deduplicated, attributed)</text>
+
+    <rect class="subPanel" x="24" y="92" width="792" height="122" rx="12"/>
+    <text class="kpiValue" x="46" y="142">26</text>
+    <text class="kpiLabel" x="46" y="165">total in-use unique colors</text>
+    <text class="kpiValue" x="252" y="142">11</text>
+    <text class="kpiLabel" x="252" y="165">shared between systems</text>
+    <text class="kpiValue" x="450" y="142">5</text>
+    <text class="kpiLabel" x="450" y="165">jsx-email only colors</text>
+    <text class="kpiValue" x="646" y="142">10</text>
+    <text class="kpiLabel" x="646" y="165">atom only colors</text>
+    <text class="note" x="46" y="193">Representative swatches below are lifted from the combined palette and labeled by attribution.</text>
+
+    <text class="sectionTitle" x="26" y="250">Shared foundation tokens (representative)</text>
+    <rect class="badgeBoth" x="730" y="232" width="70" height="26" rx="13"/>
+    <text class="badgeText" x="765" y="249" text-anchor="middle">both</text>
+    <rect class="subPanel" x="24" y="266" width="792" height="236" rx="12"/>
+
+    <g transform="translate(40,288)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#2C2A2B"/>
+      <text class="swatchHex" x="90" y="38">#2C2A2B</text>
+      <text class="swatchNote" x="90" y="60">base neutral surface</text>
+    </g>
+    <g transform="translate(294,288)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#574C4F"/>
+      <text class="swatchHex" x="90" y="38">#574C4F</text>
+      <text class="swatchNote" x="90" y="60">mid-tone structural neutral</text>
+    </g>
+    <g transform="translate(548,288)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#8E8373"/>
+      <text class="swatchHex" x="90" y="38">#8E8373</text>
+      <text class="swatchNote" x="90" y="60">warm neutral bridge tone</text>
+    </g>
+    <g transform="translate(40,388)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#61EFCE"/>
+      <text class="swatchHex" x="90" y="38">#61EFCE</text>
+      <text class="swatchNote" x="90" y="60">mint action accent</text>
+    </g>
+    <g transform="translate(294,388)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#EFEAE1"/>
+      <text class="swatchHex" x="90" y="38">#EFEAE1</text>
+      <text class="swatchNote" x="90" y="60">light canvas / contrast</text>
+    </g>
+    <g transform="translate(548,388)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#FFD152"/>
+      <text class="swatchHex" x="90" y="38">#FFD152</text>
+      <text class="swatchNote" x="90" y="60">shared warm highlight</text>
+    </g>
+
+    <text class="sectionTitle" x="26" y="540">jsx-email specific extensions (representative)</text>
+    <rect class="badgeJsx" x="692" y="522" width="108" height="26" rx="13"/>
+    <text class="badgeText" x="746" y="539" text-anchor="middle">jsx-email</text>
+    <rect class="subPanel" x="24" y="556" width="792" height="232" rx="12"/>
+
+    <g transform="translate(40,578)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#1A191A"/>
+      <text class="swatchHex" x="90" y="38">#1A191A</text>
+      <text class="swatchNote" x="90" y="60">deep anchor neutral</text>
+    </g>
+    <g transform="translate(294,578)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#565656"/>
+      <text class="swatchHex" x="90" y="38">#565656</text>
+      <text class="swatchNote" x="90" y="60">dense text support gray</text>
+    </g>
+    <g transform="translate(548,578)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#47504E"/>
+      <text class="swatchHex" x="90" y="38">#47504E</text>
+      <text class="swatchNote" x="90" y="60">teal-slate bridge neutral</text>
+    </g>
+    <g transform="translate(40,678)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#434C56"/>
+      <text class="swatchHex" x="90" y="38">#434C56</text>
+      <text class="swatchNote" x="90" y="60">slate border/support</text>
+    </g>
+    <g transform="translate(294,678)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#719BC4"/>
+      <text class="swatchHex" x="90" y="38">#719BC4</text>
+      <text class="swatchNote" x="90" y="60">jsx utility blue accent</text>
+    </g>
+
+    <text class="sectionTitle" x="26" y="824">atom specific extensions (representative)</text>
+    <rect class="badgeAtom" x="730" y="806" width="70" height="26" rx="13"/>
+    <text class="badgeText" x="765" y="823" text-anchor="middle">atom</text>
+    <rect class="subPanel" x="24" y="840" width="792" height="246" rx="12"/>
+
+    <g transform="translate(40,862)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#3D3A3A"/>
+      <text class="swatchHex" x="90" y="38">#3D3A3A</text>
+      <text class="swatchNote" x="90" y="60">package dark foundation</text>
+    </g>
+    <g transform="translate(294,862)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#66595C"/>
+      <text class="swatchHex" x="90" y="38">#66595C</text>
+      <text class="swatchNote" x="90" y="60">muted rose neutral</text>
+    </g>
+    <g transform="translate(548,862)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#786F63"/>
+      <text class="swatchHex" x="90" y="38">#786F63</text>
+      <text class="swatchNote" x="90" y="60">warm utility neutral</text>
+    </g>
+    <g transform="translate(40,962)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#81C08B"/>
+      <text class="swatchHex" x="90" y="38">#81C08B</text>
+      <text class="swatchNote" x="90" y="60">soft green highlight</text>
+    </g>
+    <g transform="translate(294,962)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#2AEABD"/>
+      <text class="swatchHex" x="90" y="38">#2AEABD</text>
+      <text class="swatchNote" x="90" y="60">high-energy mint accent</text>
+    </g>
+    <g transform="translate(548,962)">
+      <rect class="swatchCard" width="228" height="84" rx="10"/>
+      <rect x="12" y="12" width="66" height="60" rx="8" fill="#D36E2D"/>
+      <text class="swatchHex" x="90" y="38">#D36E2D</text>
+      <text class="swatchNote" x="90" y="60">atom warm action tone</text>
+    </g>
+  </g>
+
+  <g transform="translate(928,220)">
+    <rect class="panel" width="836" height="430" rx="18"/>
+    <text class="panelTitle" x="26" y="46">2) Typography families and context</text>
+    <text class="note" x="26" y="70">Source board: 10-typography-combined.svg</text>
+
+    <rect class="row" x="24" y="84" width="788" height="56" rx="10"/>
+    <text class="body" x="40" y="108">System sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif</text>
+    <text class="mono" x="40" y="128">Primary reading and interface baseline for both ecosystems.</text>
+    <rect class="badgeBoth" x="730" y="99" width="70" height="24" rx="12"/>
+    <text class="badgeText" x="765" y="115" text-anchor="middle">both</text>
+
+    <rect class="row" x="24" y="150" width="788" height="56" rx="10"/>
+    <text class="body" x="40" y="174">Code stack: SFMono-Regular, Consolas, Menlo, Monaco, and related monospace fallbacks</text>
+    <text class="mono" x="40" y="194">Used prominently in jsx-email tooling/code examples.</text>
+    <rect class="badgeJsx" x="692" y="165" width="108" height="24" rx="12"/>
+    <text class="badgeText" x="746" y="181" text-anchor="middle">jsx-email</text>
+
+    <rect class="row" x="24" y="216" width="788" height="56" rx="10"/>
+    <text class="body" x="40" y="240">Package stack: "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif</text>
+    <text class="mono" x="40" y="260">Primary atom package-page heading and navigation voice.</text>
+    <rect class="badgeAtom" x="730" y="231" width="70" height="24" rx="12"/>
+    <text class="badgeText" x="765" y="247" text-anchor="middle">atom</text>
+
+    <rect class="row" x="24" y="282" width="788" height="56" rx="10"/>
+    <text class="body" x="40" y="306">Fallback stack: Verdana, "Verdana Ref", sans-serif for atom 404/error treatment</text>
+    <text class="mono" x="40" y="326">Distinct voice reserved for error-state messaging.</text>
+    <rect class="badgeAtom" x="730" y="297" width="70" height="24" rx="12"/>
+    <text class="badgeText" x="765" y="313" text-anchor="middle">atom</text>
+
+    <rect class="row" x="24" y="348" width="788" height="56" rx="10"/>
+    <text class="body" x="40" y="372">Icon font: octicons in atom package contexts</text>
+    <text class="mono" x="40" y="392">Non-text glyph layer complementing primary typography.</text>
+    <rect class="badgeAtom" x="730" y="363" width="70" height="24" rx="12"/>
+    <text class="badgeText" x="765" y="379" text-anchor="middle">atom</text>
+  </g>
+
+  <g transform="translate(928,674)">
+    <rect class="panel" width="836" height="292" rx="18"/>
+    <text class="panelTitle" x="26" y="46">3) Weight, scale, and spacing convergence</text>
+
+    <rect class="subPanel" x="24" y="70" width="378" height="198" rx="12"/>
+    <text class="sectionTitle" x="42" y="98">Weight coverage</text>
+    <text class="body" x="42" y="126">300 / 400 / 500 appear in both systems.</text>
+    <rect class="badgeBoth" x="318" y="110" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="353" y="125" text-anchor="middle">both</text>
+    <text class="body" x="42" y="158">200 / 600 / 700 are jsx-email emphasis tiers.</text>
+    <rect class="badgeJsx" x="280" y="142" width="108" height="22" rx="11"/>
+    <text class="badgeText" x="334" y="157" text-anchor="middle">jsx-email</text>
+    <text class="body" x="42" y="190">Atom relies on 300–500 for package readability.</text>
+    <rect class="badgeAtom" x="318" y="174" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="353" y="189" text-anchor="middle">atom</text>
+
+    <rect class="subPanel" x="434" y="70" width="378" height="198" rx="12"/>
+    <text class="sectionTitle" x="452" y="98">Size and spacing</text>
+    <text class="body" x="452" y="126">Display range converges at 42px headline tier.</text>
+    <rect class="badgeBoth" x="728" y="110" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="763" y="125" text-anchor="middle">both</text>
+    <text class="body" x="452" y="158">16px body + 14px support is shared baseline.</text>
+    <rect class="badgeBoth" x="728" y="142" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="763" y="157" text-anchor="middle">both</text>
+    <text class="body" x="452" y="190">Atom keeps Verdana 26–27px error variant.</text>
+    <rect class="badgeAtom" x="728" y="174" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="763" y="189" text-anchor="middle">atom</text>
+    <text class="body" x="452" y="222">jsx-email preserves 1.5 line-height in stack/code samples.</text>
+    <rect class="badgeJsx" x="690" y="206" width="108" height="22" rx="11"/>
+    <text class="badgeText" x="744" y="221" text-anchor="middle">jsx-email</text>
+  </g>
+
+  <g transform="translate(928,990)">
+    <rect class="panel" width="836" height="340" rx="18"/>
+    <text class="panelTitle" x="26" y="46">4) Combined board application guidance</text>
+
+    <rect class="subPanel" x="24" y="70" width="256" height="246" rx="12"/>
+    <text class="sectionTitle" x="40" y="100">Foundation</text>
+    <text class="body" x="40" y="128">Neutral depth from dark</text>
+    <text class="body" x="40" y="150">anchors + warm/mint accents.</text>
+    <rect class="badgeBoth" x="196" y="133" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="231" y="148" text-anchor="middle">both</text>
+    <text class="body" x="40" y="182">Shared sans stack is primary</text>
+    <text class="body" x="40" y="204">voice; source-specific stacks</text>
+    <text class="body" x="40" y="226">are contextual extensions.</text>
+    <rect class="badgeBoth" x="196" y="187" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="231" y="202" text-anchor="middle">both</text>
+    <text class="note" x="40" y="266">Token source is explicit by badge.</text>
+
+    <rect class="subPanel" x="292" y="70" width="256" height="246" rx="12"/>
+    <text class="sectionTitle" x="308" y="100">Component recipe</text>
+    <rect x="308" y="118" width="224" height="182" rx="12" fill="#2C2A2B" stroke="#434C56" stroke-width="1.5"/>
+    <text class="sampleTitle" x="324" y="150">Release update</text>
+    <text class="sampleBody" x="324" y="174">Unified board aligns shared tokens and</text>
+    <text class="sampleBody" x="324" y="194">context-specific typography behavior.</text>
+    <rect x="324" y="212" width="104" height="32" rx="16" fill="#FFD152"/>
+    <text class="sampleButtonText" x="376" y="233" text-anchor="middle">Read docs</text>
+    <rect x="436" y="212" width="80" height="32" rx="16" fill="#61EFCE"/>
+    <text class="sampleButtonText" x="476" y="233" text-anchor="middle">View</text>
+    <rect class="badgeBoth" x="456" y="88" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="491" y="103" text-anchor="middle">both</text>
+
+    <rect class="subPanel" x="560" y="70" width="252" height="246" rx="12"/>
+    <text class="sectionTitle" x="576" y="100">Attribution matrix</text>
+    <line class="divider" x1="576" y1="114" x2="796" y2="114"/>
+    <text class="body" x="576" y="142">Shared core tokens and scale</text>
+    <rect class="badgeBoth" x="726" y="126" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="761" y="141" text-anchor="middle">both</text>
+    <text class="body" x="576" y="174">CLI/code typography emphasis</text>
+    <rect class="badgeJsx" x="688" y="158" width="108" height="22" rx="11"/>
+    <text class="badgeText" x="742" y="173" text-anchor="middle">jsx-email</text>
+    <text class="body" x="576" y="206">Package/error voice variants</text>
+    <rect class="badgeAtom" x="726" y="190" width="70" height="22" rx="11"/>
+    <text class="badgeText" x="761" y="205" text-anchor="middle">atom</text>
+    <text class="note" x="576" y="240">Use shared layer as default.</text>
+    <text class="note" x="576" y="262">Apply source-specific badges only when</text>
+    <text class="note" x="576" y="282">context requires that lineage.</text>
+  </g>
+</svg>
