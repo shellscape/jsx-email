@@ -1,0 +1,269 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1210" viewBox="0 0 1700 1210" role="img" aria-labelledby="title desc">
+  <title id="title">Combined Color Palette — jsx-email + atom</title>
+  <desc id="desc">Deduplicated union of in-use swatch colors from 07-design-system-jsx-email.svg and 08-design-system-atom-packages.svg, ordered via deterministic nearest-neighbor traversal in CIELAB space (ΔE76 Euclidean).</desc>
+  <defs>
+    <style>
+      .bg { fill: #0F1115; }
+      .panel { fill: #171B22; stroke: #2D3644; stroke-width: 2; }
+      .title { fill: #F6FAFF; font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .sub { fill: #B9C7DA; font: 500 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .meta { fill: #A8B6C8; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .cell { fill: #11161D; stroke: #2B3441; stroke-width: 1.5; }
+      .hex { fill: #E8F0FA; font: 700 18px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .order { fill: #AFC0D6; font: 500 13px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .legendText { fill: #D7E3F2; font: 600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .badgeText { fill: #F6FAFF; font: 700 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; letter-spacing: 0.2px; }
+      .swatchLabelLight { fill: #101417; font: 700 12px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .swatchLabelDark { fill: #F7FBFF; font: 700 12px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1700" height="1210"/>
+  <text class="title" x="56" y="84">Combined color palette — jsx-email + atom</text>
+  <text class="sub" x="56" y="116">In-use swatches only • duplicates removed • source attribution per color</text>
+  <text class="meta" x="56" y="144">Ordering method: greedy nearest-neighbor path in CIELAB (ΔE76 Euclidean distance), seeded by lowest L*; ties break by hex code.</text>
+  <text class="meta" x="56" y="168">Unique colors: 26 • jsx-email only: 5 • atom only: 10 • both: 11</text>
+  <rect x="56" y="188" width="140" height="26" rx="13" fill="#2A4F73"/>
+  <text class="badgeText" x="126.0" y="205" text-anchor="middle">jsx-email</text>
+  <text class="legendText" x="206" y="206">= 5</text>
+  <rect x="280" y="188" width="108" height="26" rx="13" fill="#714832"/>
+  <text class="badgeText" x="334.0" y="205" text-anchor="middle">atom</text>
+  <text class="legendText" x="398" y="206">= 10</text>
+  <rect x="472" y="188" width="108" height="26" rx="13" fill="#2F6A4A"/>
+  <text class="badgeText" x="526.0" y="205" text-anchor="middle">both</text>
+  <text class="legendText" x="590" y="206">= 11</text>
+  <g transform="translate(56,226)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#1A191A"/>
+    <text class="swatchLabelDark" x="20" y="78">#1A191A</text>
+    <text class="hex" x="136" y="54">#1A191A</text>
+    <text class="order" x="136" y="82">order 01</text>
+    <rect x="198" y="95" width="94" height="26" rx="13" fill="#2A4F73"/>
+    <text class="badgeText" x="245.0" y="112" text-anchor="middle">jsx-email</text>
+  </g>
+  <g transform="translate(376,226)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#2C2A2B"/>
+    <text class="swatchLabelDark" x="20" y="78">#2C2A2B</text>
+    <text class="hex" x="136" y="54">#2C2A2B</text>
+    <text class="order" x="136" y="82">order 02</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(696,226)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#343233"/>
+    <text class="swatchLabelDark" x="20" y="78">#343233</text>
+    <text class="hex" x="136" y="54">#343233</text>
+    <text class="order" x="136" y="82">order 03</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(1016,226)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#3D3A3A"/>
+    <text class="swatchLabelDark" x="20" y="78">#3D3A3A</text>
+    <text class="hex" x="136" y="54">#3D3A3A</text>
+    <text class="order" x="136" y="82">order 04</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(1336,226)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#574C4F"/>
+    <text class="swatchLabelDark" x="20" y="78">#574C4F</text>
+    <text class="hex" x="136" y="54">#574C4F</text>
+    <text class="order" x="136" y="82">order 05</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(56,380)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#584B4F"/>
+    <text class="swatchLabelDark" x="20" y="78">#584B4F</text>
+    <text class="hex" x="136" y="54">#584B4F</text>
+    <text class="order" x="136" y="82">order 06</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(376,380)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#66595C"/>
+    <text class="swatchLabelDark" x="20" y="78">#66595C</text>
+    <text class="hex" x="136" y="54">#66595C</text>
+    <text class="order" x="136" y="82">order 07</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(696,380)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#565656"/>
+    <text class="swatchLabelDark" x="20" y="78">#565656</text>
+    <text class="hex" x="136" y="54">#565656</text>
+    <text class="order" x="136" y="82">order 08</text>
+    <rect x="198" y="95" width="94" height="26" rx="13" fill="#2A4F73"/>
+    <text class="badgeText" x="245.0" y="112" text-anchor="middle">jsx-email</text>
+  </g>
+  <g transform="translate(1016,380)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#47504E"/>
+    <text class="swatchLabelDark" x="20" y="78">#47504E</text>
+    <text class="hex" x="136" y="54">#47504E</text>
+    <text class="order" x="136" y="82">order 09</text>
+    <rect x="198" y="95" width="94" height="26" rx="13" fill="#2A4F73"/>
+    <text class="badgeText" x="245.0" y="112" text-anchor="middle">jsx-email</text>
+  </g>
+  <g transform="translate(1336,380)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#434C56"/>
+    <text class="swatchLabelDark" x="20" y="78">#434C56</text>
+    <text class="hex" x="136" y="54">#434C56</text>
+    <text class="order" x="136" y="82">order 10</text>
+    <rect x="198" y="95" width="94" height="26" rx="13" fill="#2A4F73"/>
+    <text class="badgeText" x="245.0" y="112" text-anchor="middle">jsx-email</text>
+  </g>
+  <g transform="translate(56,534)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#786F63"/>
+    <text class="swatchLabelDark" x="20" y="78">#786F63</text>
+    <text class="hex" x="136" y="54">#786F63</text>
+    <text class="order" x="136" y="82">order 11</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(376,534)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#8E8373"/>
+    <text class="swatchLabelDark" x="20" y="78">#8E8373</text>
+    <text class="hex" x="136" y="54">#8E8373</text>
+    <text class="order" x="136" y="82">order 12</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(696,534)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#949189"/>
+    <text class="swatchLabelDark" x="20" y="78">#949189</text>
+    <text class="hex" x="136" y="54">#949189</text>
+    <text class="order" x="136" y="82">order 13</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(1016,534)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#78B0A0"/>
+    <text class="swatchLabelDark" x="20" y="78">#78B0A0</text>
+    <text class="hex" x="136" y="54">#78B0A0</text>
+    <text class="order" x="136" y="82">order 14</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(1336,534)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#81C08B"/>
+    <text class="swatchLabelDark" x="20" y="78">#81C08B</text>
+    <text class="hex" x="136" y="54">#81C08B</text>
+    <text class="order" x="136" y="82">order 15</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(56,688)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#61EFCE"/>
+    <text class="swatchLabelLight" x="20" y="78">#61EFCE</text>
+    <text class="hex" x="136" y="54">#61EFCE</text>
+    <text class="order" x="136" y="82">order 16</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(376,688)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#45EDC6"/>
+    <text class="swatchLabelLight" x="20" y="78">#45EDC6</text>
+    <text class="hex" x="136" y="54">#45EDC6</text>
+    <text class="order" x="136" y="82">order 17</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(696,688)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#2AEABD"/>
+    <text class="swatchLabelLight" x="20" y="78">#2AEABD</text>
+    <text class="hex" x="136" y="54">#2AEABD</text>
+    <text class="order" x="136" y="82">order 18</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(1016,688)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#EFEAE1"/>
+    <text class="swatchLabelLight" x="20" y="78">#EFEAE1</text>
+    <text class="hex" x="136" y="54">#EFEAE1</text>
+    <text class="order" x="136" y="82">order 19</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(1336,688)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#FAF6EC"/>
+    <text class="swatchLabelLight" x="20" y="78">#FAF6EC</text>
+    <text class="hex" x="136" y="54">#FAF6EC</text>
+    <text class="order" x="136" y="82">order 20</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(56,842)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#EFDAB9"/>
+    <text class="swatchLabelLight" x="20" y="78">#EFDAB9</text>
+    <text class="hex" x="136" y="54">#EFDAB9</text>
+    <text class="order" x="136" y="82">order 21</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(376,842)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#FFD152"/>
+    <text class="swatchLabelLight" x="20" y="78">#FFD152</text>
+    <text class="hex" x="136" y="54">#FFD152</text>
+    <text class="order" x="136" y="82">order 22</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(696,842)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#FFC31F"/>
+    <text class="swatchLabelLight" x="20" y="78">#FFC31F</text>
+    <text class="hex" x="136" y="54">#FFC31F</text>
+    <text class="order" x="136" y="82">order 23</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(1016,842)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#EBAC00"/>
+    <text class="swatchLabelLight" x="20" y="78">#EBAC00</text>
+    <text class="hex" x="136" y="54">#EBAC00</text>
+    <text class="order" x="136" y="82">order 24</text>
+    <rect x="238" y="95" width="54" height="26" rx="13" fill="#2F6A4A"/>
+    <text class="badgeText" x="265.0" y="112" text-anchor="middle">both</text>
+  </g>
+  <g transform="translate(1336,842)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#D36E2D"/>
+    <text class="swatchLabelDark" x="20" y="78">#D36E2D</text>
+    <text class="hex" x="136" y="54">#D36E2D</text>
+    <text class="order" x="136" y="82">order 25</text>
+    <rect x="236" y="95" width="56" height="26" rx="13" fill="#714832"/>
+    <text class="badgeText" x="264.0" y="112" text-anchor="middle">atom</text>
+  </g>
+  <g transform="translate(56,996)">
+    <rect class="cell" width="304" height="138" rx="12"/>
+    <rect x="12" y="12" width="112" height="114" rx="10" fill="#719BC4"/>
+    <text class="swatchLabelDark" x="20" y="78">#719BC4</text>
+    <text class="hex" x="136" y="54">#719BC4</text>
+    <text class="order" x="136" y="82">order 26</text>
+    <rect x="198" y="95" width="94" height="26" rx="13" fill="#2A4F73"/>
+    <text class="badgeText" x="245.0" y="112" text-anchor="middle">jsx-email</text>
+  </g>
+</svg>
