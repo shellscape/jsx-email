@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>05 · Typography — jsx-email</title>
+  <style>
+    :root {
+      --bg: #343233;
+      --bg-alt: #2c2a2b;
+      --text: #efdab9;
+      --muted: #8e8373;
+      --accent: #78b0a0;
+      --brand: #ffd152;
+      --brand-hover: #ebac00;
+      --code: #353436;
+      --panel-border: #4a4547;
+      --stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--stack);
+      font-weight: 300;
+      color: var(--text);
+      background: radial-gradient(1000px 500px at 80% -20%, #3a3f45 0%, var(--bg) 50%, var(--bg-alt) 100%);
+      line-height: 1.55;
+      padding: 36px;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.35fr 1fr;
+    }
+
+    .card {
+      background: rgba(44, 42, 43, 0.86);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32);
+    }
+
+    h1 {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #f8f2e6;
+    }
+
+    .intro {
+      grid-column: 1 / -1;
+      margin: -6px 0 0;
+      color: #baa997;
+    }
+
+    .hero {
+      margin: 8px 0;
+      font-size: 3.45rem;
+      font-weight: 200;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      color: #f8f2e6;
+    }
+
+    h2.spec {
+      margin: 18px 0 6px;
+      font-size: 2.45rem;
+      font-weight: 200;
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+    }
+
+    .ui {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .accent { color: var(--accent); }
+
+    .cta {
+      margin-top: 14px;
+      display: inline-block;
+      border: 0;
+      border-radius: 7px;
+      background: var(--brand);
+      color: #343233;
+      font: 500 17px/1 var(--stack);
+      padding: 12px 20px;
+      text-decoration: none;
+    }
+
+    .cta:hover {
+      background: var(--brand-hover);
+    }
+
+    .body-copy {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    pre {
+      margin-top: 18px;
+      background: var(--code);
+      border: 1px solid #4f4a4d;
+      border-radius: 12px;
+      padding: 14px;
+      color: #9cdcfe;
+      font: 500 14px/1.6 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.92rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      border-bottom: 1px solid #4a4547;
+      padding: 10px 8px;
+    }
+
+    th {
+      color: #efdab9;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    code {
+      font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+      color: #f5e5c5;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      padding: 2px 5px;
+      font-size: 0.83em;
+    }
+
+    .stack {
+      font-size: 0.92rem;
+      color: #ccbca9;
+      margin-top: 0;
+    }
+
+    @media (max-width: 1060px) {
+      .page { grid-template-columns: 1fr; }
+      h1,.intro { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>05 · Typography — jsx-email (HTML-only)</h1>
+    <p class="intro">Derived from <code>apps/web/.vitepress/theme/custom.css</code> and <code>apps/preview/app/src/index.css</code>.</p>
+
+    <section class="card">
+      <p class="hero">A hackable text editor for the 21st Century</p>
+      <p class="ui">Hero / display — 56px, weight 200, letter-spacing 0.03em</p>
+
+      <h2 class="spec">Design system heading</h2>
+      <p class="ui">Heading scale — 40px, weight 200</p>
+
+      <p class="ui">Navigation and UI copy tend to sit at 16px / weight 300 for a lightweight rhythm.</p>
+      <a class="cta" href="#" aria-label="Call to action example">Call to Action</a>
+
+      <p class="body-copy">Body typography uses the same system stack with generous leading. Highlighted text frequently uses <span class="accent">mint accent</span> while maintaining warm foreground contrast on dark surfaces.</p>
+
+      <pre>&lt;button class="bg-cta-bg text-cta-text"&gt;Get Started&lt;/button&gt;
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;</pre>
+    </section>
+
+    <aside class="card">
+      <h2 style="margin:0 0 8px;font-size:1.35rem;font-weight:700;color:#f7efe2;">Type scale + usage</h2>
+      <p class="stack"><strong>Stack:</strong> -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'</p>
+      <table>
+        <thead>
+          <tr><th>Style</th><th>Context</th><th>Size</th><th>Weight</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hero Display</td><td><code>.VPHomeHero .text</code></td><td>56px</td><td>200</td></tr>
+          <tr><td>Heading</td><td><code>main h2</code></td><td>40px</td><td>200</td></tr>
+          <tr><td>Navigation</td><td><code>.VPNavBarMenuLink</code></td><td>16px</td><td>300</td></tr>
+          <tr><td>Body</td><td><code>html, body</code></td><td>16px</td><td>300</td></tr>
+          <tr><td>Button</td><td><code>.VPButton.medium</code></td><td>16px</td><td>500</td></tr>
+          <tr><td>Inline code</td><td><code>.inline-code</code></td><td>14–16px</td><td>300–500</td></tr>
+        </tbody>
+      </table>
+    </aside>
+  </main>
+</body>
+</html>

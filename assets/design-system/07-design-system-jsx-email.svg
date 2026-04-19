@@ -1,0 +1,103 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D1B1C"/>
+      <stop offset="0.55" stop-color="#2C2A2B"/>
+      <stop offset="1" stop-color="#262425"/>
+    </linearGradient>
+    <radialGradient id="heroGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1220 120) rotate(130) scale(620 420)">
+      <stop stop-color="#78B0A0" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#78B0A0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pill" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFFFFF" stop-opacity="0.11"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity="0.34"/>
+    </filter>
+    <style>
+      .title { font: 700 46px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #F6EFE2; }
+      .subtitle { font: 400 20px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #C0B5A7; }
+      .section { font: 700 24px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #F6EFE2; }
+      .meta { font: 500 14px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #B7ACA0; }
+      .token { font: 700 16px 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace; fill: #F6EFE2; }
+      .hero { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 52px; font-weight: 200; fill: #F6EFE2; letter-spacing: 0.03em; }
+      .h2 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 32px; font-weight: 200; fill: #F6EFE2; letter-spacing: 0.02em; }
+      .body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-weight: 300; fill: #EFDAB9; }
+      .ui { font: 500 15px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #D1C6B9; }
+      .badge { font: 700 12px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #141414; }
+      .badgeDark { font: 700 12px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #FFF; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1120" fill="url(#bg)"/>
+  <rect width="1600" height="1120" fill="url(#heroGlow)"/>
+
+  <text x="60" y="86" class="title">07 · jsx-email Design System</text>
+  <text x="60" y="120" class="subtitle">Combined color + typography showcase (apps/web + apps/preview cues)</text>
+
+  <g filter="url(#shadow)">
+    <rect x="52" y="168" width="542" height="904" rx="24" fill="#2A2728" stroke="#3D3A3B"/>
+    <text x="84" y="220" class="section">Color system</text>
+    <text x="84" y="246" class="meta">Status labels emphasize colors actively in use.</text>
+
+    <g transform="translate(84 278)">
+      <g transform="translate(0 0)"><rect width="476" height="62" rx="12" fill="#343233"/><text x="18" y="38" class="token">#343233  dark-bg</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 72)"><rect width="476" height="62" rx="12" fill="#2C2A2B"/><text x="18" y="38" class="token">#2C2A2B  darker-bg</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 144)"><rect width="476" height="62" rx="12" fill="#EFDAB9"/><text x="18" y="38" class="token" fill="#2B2728">#EFDAB9  text-primary</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 216)"><rect width="476" height="62" rx="12" fill="#8E8373"/><text x="18" y="38" class="token">#8E8373  text-muted</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 288)"><rect width="476" height="62" rx="12" fill="#FFD152"/><text x="18" y="38" class="token" fill="#2B2728">#FFD152  brand/cta</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 360)"><rect width="476" height="62" rx="12" fill="#FFC31F"/><text x="18" y="38" class="token" fill="#2B2728">#FFC31F  cta-hover</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 432)"><rect width="476" height="62" rx="12" fill="#EBAC00"/><text x="18" y="38" class="token" fill="#2B2728">#EBAC00  link-hover</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 504)"><rect width="476" height="62" rx="12" fill="#78B0A0"/><text x="18" y="38" class="token">#78B0A0  accent</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 576)"><rect width="476" height="62" rx="12" fill="#47504E"/><text x="18" y="38" class="token">#47504E  tab-bg</text><rect x="380" y="16" width="84" height="30" rx="15" fill="#61EFCF"/><text x="404" y="35" class="badge">IN USE</text></g>
+      <g transform="translate(0 648)"><rect width="476" height="62" rx="12" fill="url(#pill)" stroke="#B5B5B5" stroke-opacity="0.3"/><text x="18" y="38" class="token">gradient / shine overlays</text><rect x="354" y="16" width="110" height="30" rx="15" fill="#C08CFF"/><text x="374" y="35" class="badgeDark">GRADIENT ONLY</text></g>
+    </g>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="622" y="168" width="926" height="904" rx="24" fill="#262324" stroke="#3D3A3B"/>
+    <text x="658" y="220" class="section">Typography + UI composition</text>
+
+    <text x="658" y="308" class="hero">A hackable <tspan fill="#78B0A0">text editor</tspan></text>
+    <text x="658" y="360" class="hero">for the 21st Century</text>
+    <text x="658" y="390" class="meta">Display style · 52px / 200 / +0.03em</text>
+
+    <text x="658" y="460" class="h2">Design System Heading</text>
+    <text x="658" y="488" class="meta">Heading style · 32px / 200</text>
+
+    <text x="658" y="548" class="body">Body style uses lightweight system sans with warm contrast and generous spacing.</text>
+    <text x="658" y="578" class="body">Navigation and controls keep a crisp 16px rhythm for readability.</text>
+
+    <rect x="658" y="618" width="286" height="62" rx="9" fill="#FFD152"/>
+    <text x="756" y="656" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; font-size:20px; font-weight:500; fill:#343233;">Get Started</text>
+
+    <rect x="970" y="618" width="264" height="62" rx="9" fill="#47504E"/>
+    <text x="1056" y="656" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; font-size:20px; font-weight:400; fill:#EFDAB9;">Secondary</text>
+
+    <rect x="658" y="714" width="856" height="322" rx="16" fill="#2D2A2B" stroke="#474345"/>
+    <text x="686" y="754" class="section" style="font-size:20px;">Token references</text>
+
+    <g transform="translate(686 782)">
+      <rect width="380" height="220" rx="12" fill="#343233"/>
+      <text x="18" y="36" class="ui">Typography token stack</text>
+      <text x="18" y="66" class="meta">-apple-system, BlinkMacSystemFont,</text>
+      <text x="18" y="92" class="meta">'Segoe UI', Helvetica, Arial, sans-serif,</text>
+      <text x="18" y="118" class="meta">'Apple Color Emoji', 'Segoe UI Emoji',</text>
+      <text x="18" y="144" class="meta">'Segoe UI Symbol'</text>
+      <text x="18" y="186" class="ui">Weight ladder: 200 → 300 → 400 → 500</text>
+    </g>
+
+    <g transform="translate(1088 782)">
+      <rect width="398" height="220" rx="12" fill="#2A2728" stroke="#3E3A3C"/>
+      <text x="18" y="36" class="ui">Color usage snapshot</text>
+      <rect x="18" y="56" width="160" height="30" rx="8" fill="#343233"/><text x="30" y="76" class="meta">Background</text>
+      <rect x="188" y="56" width="190" height="30" rx="8" fill="#EFDAB9"/><text x="202" y="76" class="meta" fill="#2B2728">Primary text</text>
+      <rect x="18" y="96" width="160" height="30" rx="8" fill="#78B0A0"/><text x="30" y="116" class="meta">Accent words</text>
+      <rect x="188" y="96" width="190" height="30" rx="8" fill="#FFD152"/><text x="202" y="116" class="meta" fill="#2B2728">CTA surface</text>
+      <rect x="18" y="136" width="360" height="64" rx="10" fill="url(#pill)" stroke="#AAA" stroke-opacity="0.3"/>
+      <text x="34" y="174" class="meta">Gradient overlays are decorative only (not standalone tokens).</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>02 · Color Palette</title>
+  <style>
+    :root {
+      --bg-0: #1f1d1e;
+      --bg-1: #2c2a2b;
+      --panel: #2a2728;
+      --panel-border: #3d3a3b;
+      --text-strong: #f6efe2;
+      --text-muted: #b8afa2;
+      --use: #61efcf;
+      --source: #6ab4ff;
+      --gradient: #c08cff;
+      --atom: #ffb561;
+      --mono: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+      --sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: linear-gradient(140deg, var(--bg-0), var(--bg-1));
+      color: var(--text-strong);
+      padding: 36px;
+    }
+
+    .frame {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      letter-spacing: 0.01em;
+    }
+
+    .subtitle {
+      margin: 10px 0 24px;
+      color: var(--text-muted);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #141414;
+    }
+
+    .badge.use { background: var(--use); }
+    .badge.source { background: var(--source); }
+    .badge.gradient { background: var(--gradient); color: #fff; }
+    .badge.atom { background: var(--atom); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2 {
+      margin: 0 0 6px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .swatch {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 10px;
+      overflow: hidden;
+      min-height: 52px;
+    }
+
+    .label {
+      padding: 0 14px;
+      font-weight: 600;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .hex {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      padding-right: 2px;
+      white-space: nowrap;
+    }
+
+    .swatch .badge {
+      margin-right: 10px;
+      font-size: 0.68rem;
+      padding: 5px 10px;
+    }
+
+    .light-text { color: #1f1d1e; text-shadow: none; }
+
+    .gradients {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .gradient-card {
+      min-height: 100px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      position: relative;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .gradient-card span {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      font-size: 0.78rem;
+      color: #f6efe2;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: 1fr; }
+      .gradients { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <h1>02 · Color Palette (HTML-only)</h1>
+    <p class="subtitle">Derived from jsx-email app tokens and atom-editor.cc package UI references. Badges make in-use status explicit.</p>
+
+    <div class="legend">
+      <span class="badge use">IN USE</span>
+      <span class="badge source">SOURCE TOKEN</span>
+      <span class="badge gradient">GRADIENT ONLY</span>
+      <span class="badge atom">ATOM REFERENCE</span>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>jsx-email (apps/web + apps/preview)</h2>
+        <p>Primary colors currently used in theme variables and Tailwind tokens.</p>
+
+        <article class="swatch" style="background:#343233"><div class="label">dark-bg / --vp-c-bg</div><code class="hex">#343233</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#2c2a2b"><div class="label">darker-bg / --vp-c-bg-alt</div><code class="hex">#2C2A2B</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#efdab9"><div class="label light-text">dark-bg-text / --vp-c-text-1</div><code class="hex">#EFDAB9</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#8e8373"><div class="label">muted text / --vp-c-text-2</div><code class="hex">#8E8373</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#ffd152"><div class="label light-text">brand / cta-bg / link</div><code class="hex">#FFD152</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#ffc31f"><div class="label light-text">cta hover</div><code class="hex">#FFC31F</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#ebac00"><div class="label light-text">brand-2 / link-hover</div><code class="hex">#EBAC00</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#78b0a0"><div class="label">accent highlight</div><code class="hex">#78B0A0</code><span class="badge use">IN USE</span></article>
+        <article class="swatch" style="background:#47504e"><div class="label">tab-bg / button-alt-bg</div><code class="hex">#47504E</code><span class="badge use">IN USE</span></article>
+      </section>
+
+      <section class="card">
+        <h2>atom-editor.cc + /packages references</h2>
+        <p>External palette references from Atom website and packages listing styles.</p>
+
+        <article class="swatch" style="background:#584b4f"><div class="label">top bar navigation</div><code class="hex">#584B4F</code><span class="badge atom">ATOM REF</span></article>
+        <article class="swatch" style="background:#efeae1"><div class="label light-text">light canvas / footer</div><code class="hex">#EFEAE1</code><span class="badge atom">ATOM REF</span></article>
+        <article class="swatch" style="background:#574c4f"><div class="label">default text</div><code class="hex">#574C4F</code><span class="badge atom">ATOM REF</span></article>
+        <article class="swatch" style="background:#3b9b6d"><div class="label">primary link / action</div><code class="hex">#3B9B6D</code><span class="badge atom">ATOM REF</span></article>
+        <article class="swatch" style="background:#81c08b"><div class="label">selected state / hover accent</div><code class="hex">#81C08B</code><span class="badge atom">ATOM REF</span></article>
+        <article class="swatch" style="background:#f8f6f2"><div class="label light-text">card surface</div><code class="hex">#F8F6F2</code><span class="badge atom">ATOM REF</span></article>
+        <article class="swatch" style="background:#a29f99"><div class="label">muted metadata</div><code class="hex">#A29F99</code><span class="badge atom">ATOM REF</span></article>
+
+        <div class="gradients">
+          <div class="gradient-card" style="background:linear-gradient(145deg, rgba(255,255,255,.09) -8%, rgba(255,255,255,.027) 84%)"><span>gradient <b class="badge gradient">GRADIENT ONLY</b></span></div>
+          <div class="gradient-card" style="background:linear-gradient(145deg, rgba(255,255,255,.10) -8%, rgba(255,255,255,.057) 84%)"><span>gradientHover <b class="badge gradient">GRADIENT ONLY</b></span></div>
+          <div class="gradient-card" style="background:linear-gradient(45deg, rgba(255,255,255,0) 45%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 55%)"><span>shine <b class="badge gradient">GRADIENT ONLY</b></span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<svg width="1600" height="1120" viewBox="0 0 1600 1120" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F4ED"/>
+      <stop offset="1" stop-color="#E7DFD2"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1320 180) rotate(125) scale(520 360)">
+      <stop stop-color="#81C08B" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#81C08B" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#574C4F" flood-opacity="0.24"/>
+    </filter>
+    <style>
+      .title { font: 700 46px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #4C4245; }
+      .subtitle { font: 400 20px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #7E706D; }
+      .section { font: 700 24px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #4C4245; }
+      .meta { font: 500 14px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #7E706D; }
+      .tokenDark { font: 700 16px 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace; fill: #2A2527; }
+      .tokenLight { font: 700 16px 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace; fill: #F8F4ED; }
+      .display { font-family: 'Helvetica Neue', Helvetica, Arial, freesans, clean, sans-serif; font-size: 42px; font-weight: 300; fill: #4C4245; }
+      .h2 { font-family: 'Helvetica Neue', Helvetica, Arial, freesans, clean, sans-serif; font-size: 30px; font-weight: 300; fill: #4C4245; }
+      .body { font-family: 'Helvetica Neue', Helvetica, Arial, freesans, clean, sans-serif; font-size: 18px; font-weight: 400; fill: #574C4F; }
+      .ui { font: 500 15px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #685C5F; }
+      .badge { font: 700 12px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1E1B1C; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1120" fill="url(#bg)"/>
+  <rect width="1600" height="1120" fill="url(#glow)"/>
+
+  <text x="60" y="86" class="title">08 · Atom Packages Design System</text>
+  <text x="60" y="120" class="subtitle">Combined color + typography showcase (atom-editor.cc + /packages references)</text>
+
+  <g filter="url(#shadow)">
+    <rect x="52" y="168" width="542" height="904" rx="24" fill="#F8F6F2" stroke="#DDD3C0"/>
+    <text x="84" y="220" class="section">Color system</text>
+    <text x="84" y="246" class="meta">Reference palette from Atom nav, cards, links, and package metadata.</text>
+
+    <g transform="translate(84 278)">
+      <g transform="translate(0 0)"><rect width="476" height="62" rx="12" fill="#584B4F"/><text x="18" y="38" class="tokenLight">#584B4F  top-bar</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 72)"><rect width="476" height="62" rx="12" fill="#EFEAE1"/><text x="18" y="38" class="tokenDark">#EFEAE1  canvas</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 144)"><rect width="476" height="62" rx="12" fill="#574C4F"/><text x="18" y="38" class="tokenLight">#574C4F  text-base</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 216)"><rect width="476" height="62" rx="12" fill="#3B9B6D"/><text x="18" y="38" class="tokenLight">#3B9B6D  link/action</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 288)"><rect width="476" height="62" rx="12" fill="#81C08B"/><text x="18" y="38" class="tokenDark">#81C08B  selected</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 360)"><rect width="476" height="62" rx="12" fill="#F8F6F2" stroke="#D9CFBE"/><text x="18" y="38" class="tokenDark">#F8F6F2  card-bg</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 432)"><rect width="476" height="62" rx="12" fill="#A29F99"/><text x="18" y="38" class="tokenLight">#A29F99  muted-meta</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 504)"><rect width="476" height="62" rx="12" fill="#D36E2D"/><text x="18" y="38" class="tokenLight">#D36E2D  active-link</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 576)"><rect width="476" height="62" rx="12" fill="#FFD152"/><text x="18" y="38" class="tokenDark">#FFD152  banner-accent</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+      <g transform="translate(0 648)"><rect width="476" height="62" rx="12" fill="#FFFFFF" stroke="#DDD3C0"/><text x="18" y="38" class="tokenDark">#FFFFFF  modal surface</text><rect x="364" y="16" width="100" height="30" rx="15" fill="#FFB561"/><text x="383" y="35" class="badge">ATOM REF</text></g>
+    </g>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="622" y="168" width="926" height="904" rx="24" fill="#F8F6F2" stroke="#DDD3C0"/>
+    <text x="658" y="220" class="section">Typography + UI composition</text>
+
+    <text x="658" y="304" class="display">Package Directory</text>
+    <text x="658" y="338" class="meta">Page title rhythm · 40px / 300 · Helvetica Neue stack</text>
+
+    <text x="658" y="410" class="h2">linter-eslint</text>
+    <text x="658" y="438" class="meta">Card title rhythm · 28px / 300</text>
+
+    <text x="658" y="500" class="body">Body typography runs at 16px with line-height 1.7 for readable package descriptions,</text>
+    <text x="658" y="530" class="body">while metadata and utilities sit at 14px for hierarchy.</text>
+
+    <rect x="658" y="568" width="226" height="58" rx="8" fill="#3B9B6D"/>
+    <text x="737" y="604" style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:20px;font-weight:500;fill:#fff;">Install</text>
+
+    <rect x="904" y="568" width="240" height="58" rx="8" fill="#EFEAE1" stroke="#D7CCB8"/>
+    <text x="975" y="604" style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:19px;font-weight:500;fill:#574C4F;">View package</text>
+
+    <rect x="658" y="662" width="856" height="374" rx="16" fill="#EFEAE1" stroke="#DDD3C0"/>
+    <text x="686" y="702" class="section" style="font-size:20px;">Type + token references</text>
+
+    <g transform="translate(686 730)">
+      <rect width="392" height="280" rx="12" fill="#F8F6F2" stroke="#DDD3C0"/>
+      <text x="18" y="38" class="ui">Typography stack</text>
+      <text x="18" y="70" class="meta">'Helvetica Neue', Helvetica, Arial,</text>
+      <text x="18" y="96" class="meta">freesans, clean, sans-serif</text>
+      <text x="18" y="138" class="ui">Monospace utilities</text>
+      <text x="18" y="168" class="meta">Consolas, 'Liberation Mono',</text>
+      <text x="18" y="194" class="meta">Menlo, Courier, monospace</text>
+      <text x="18" y="238" class="ui">Weight ladder: 300 → 400 → 500</text>
+    </g>
+
+    <g transform="translate(1104 730)">
+      <rect width="382" height="280" rx="12" fill="#F8F6F2" stroke="#DDD3C0"/>
+      <text x="18" y="38" class="ui">Color intent</text>
+      <rect x="18" y="56" width="156" height="34" rx="8" fill="#3B9B6D"/><text x="30" y="79" class="meta" fill="#fff">Action + link</text>
+      <rect x="184" y="56" width="180" height="34" rx="8" fill="#81C08B"/><text x="198" y="79" class="meta">Selected state</text>
+      <rect x="18" y="100" width="156" height="34" rx="8" fill="#574C4F"/><text x="30" y="123" class="meta" fill="#fff">Base text</text>
+      <rect x="184" y="100" width="180" height="34" rx="8" fill="#EFEAE1" stroke="#D7CCB8"/><text x="198" y="123" class="meta">Canvas</text>
+      <rect x="18" y="150" width="346" height="110" rx="10" fill="#FFFFFF" stroke="#DDD3C0"/>
+      <text x="34" y="186" class="meta">System tone: practical, clean, and documentation-first.</text>
+      <text x="34" y="214" class="meta">Green is used sparingly for navigational intent and actions.</text>
+    </g>
+  </g>
+</svg>

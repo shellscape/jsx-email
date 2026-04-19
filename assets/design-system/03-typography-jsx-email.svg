@@ -1,0 +1,93 @@
+<svg width="1500" height="980" viewBox="0 0 1500 980" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1500" y2="980" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1F1D1E"/>
+      <stop offset="1" stop-color="#2C2A2B"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <style>
+      .title { font: 700 44px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #F6EFE2; }
+      .subtitle { font: 400 19px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #B8AFA2; }
+      .cardTitle { font: 700 24px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #F6EFE2; }
+      .meta { font: 500 15px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #B8AFA2; }
+      .display { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 56px; font-weight: 200; fill: #F6EFE2; letter-spacing: 0.03em; }
+      .h2 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 40px; font-weight: 200; fill: #F6EFE2; letter-spacing: 0.03em; }
+      .ui { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 16px; font-weight: 300; fill: #EFDAB9; }
+      .body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-weight: 300; fill: #EFDAB9; }
+      .button { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 17px; font-weight: 500; fill: #343233; }
+      .code { font: 500 16px 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', monospace; fill: #9CDCFD; }
+      .tableH { font: 700 14px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #EFDAB9; letter-spacing: 0.03em; }
+      .table { font: 500 14px Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #D8D0C4; }
+      .accent { fill: #78B0A0; }
+    </style>
+  </defs>
+
+  <rect width="1500" height="980" fill="url(#bg)"/>
+
+  <text x="60" y="88" class="title">03 · Typography — jsx-email repo/apps</text>
+  <text x="60" y="122" class="subtitle">Font stack from apps/web and apps/preview: system sans with lightweight display and UI typography.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="48" y="160" width="920" height="770" rx="22" fill="#2B2829" stroke="#3E3A3C"/>
+    <text x="84" y="210" class="cardTitle">Primary specimens</text>
+    <text x="84" y="236" class="meta">Family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif</text>
+
+    <text x="84" y="324" class="display">A hackable text editor</text>
+    <text x="84" y="360" class="ui">Display / hero style — 56px, weight 200, letter-spacing 0.03em</text>
+
+    <text x="84" y="430" class="h2">Design system heading</text>
+    <text x="84" y="458" class="ui">Heading scale — 40px, weight 200, airy spacing</text>
+
+    <text x="84" y="520" class="ui">Nav link · 16px · weight 300 · subtle contrast</text>
+    <rect x="84" y="546" width="250" height="56" rx="10" fill="#FFD152"/>
+    <text x="123" y="582" class="button">Call to Action Button</text>
+
+    <text x="84" y="648" class="body">Body copy (18/1.6): jsx-email keeps content readable with low visual noise.</text>
+    <text x="84" y="680" class="body">It relies on lightweight typography, generous spacing, and warm contrast.</text>
+
+    <rect x="84" y="715" width="796" height="150" rx="14" fill="#353436" stroke="#4A4648"/>
+    <text x="112" y="752" class="meta">Code specimen (inline + block styles)</text>
+    <text x="112" y="790" class="code">&lt;Button className="bg-cta-bg text-cta-text"&gt;Get started&lt;/Button&gt;</text>
+    <text x="112" y="824" class="code">font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="996" y="160" width="456" height="770" rx="22" fill="#252223" stroke="#3D393B"/>
+    <text x="1030" y="210" class="cardTitle">Type scale + usage</text>
+
+    <rect x="1030" y="236" width="386" height="42" rx="10" fill="#343233"/>
+    <text x="1048" y="262" class="tableH">STYLE</text>
+    <text x="1186" y="262" class="tableH">TOKEN / CONTEXT</text>
+    <text x="1378" y="262" class="tableH">SIZE</text>
+
+    <g transform="translate(1030 292)">
+      <rect width="386" height="52" rx="10" fill="#2E2A2C"/>
+      <text x="18" y="32" class="table">Hero Display</text><text x="138" y="32" class="table">.VPHomeHero .text</text><text x="328" y="32" class="table">56/1.1</text>
+
+      <rect y="60" width="386" height="52" rx="10" fill="#2A2628"/>
+      <text x="18" y="92" class="table">Heading H2</text><text x="138" y="92" class="table">main h2</text><text x="328" y="92" class="table">40/1.2</text>
+
+      <rect y="120" width="386" height="52" rx="10" fill="#2E2A2C"/>
+      <text x="18" y="152" class="table">Navigation</text><text x="138" y="152" class="table">.VPNavBarMenuLink</text><text x="328" y="152" class="table">16/1.4</text>
+
+      <rect y="180" width="386" height="52" rx="10" fill="#2A2628"/>
+      <text x="18" y="212" class="table">Body Copy</text><text x="138" y="212" class="table">html, body</text><text x="328" y="212" class="table">16/1.5</text>
+
+      <rect y="240" width="386" height="52" rx="10" fill="#2E2A2C"/>
+      <text x="18" y="272" class="table">Buttons</text><text x="138" y="272" class="table">.VPButton.medium</text><text x="328" y="272" class="table">16/1.0</text>
+
+      <rect y="300" width="386" height="52" rx="10" fill="#2A2628"/>
+      <text x="18" y="332" class="table">Code / Inline code</text><text x="138" y="332" class="table">.shiki, .inline-code</text><text x="328" y="332" class="table">14–16</text>
+    </g>
+
+    <rect x="1030" y="688" width="386" height="194" rx="14" fill="#2E2A2C"/>
+    <text x="1052" y="728" class="tableH">Stack note</text>
+    <text x="1052" y="760" class="table" fill="#EFDAB9">System sans stack ensures platform-native rendering.</text>
+    <text x="1052" y="790" class="table">Weights are intentionally light (200–300) with selective 500</text>
+    <text x="1052" y="818" class="table">for calls-to-action and controls.</text>
+    <circle cx="1062" cy="848" r="8" class="accent"/>
+    <text x="1080" y="853" class="table">Accent text often uses #78B0A0 for highlighted words.</text>
+  </g>
+</svg>
