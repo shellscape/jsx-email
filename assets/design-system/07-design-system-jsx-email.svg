@@ -104,7 +104,7 @@
     <text class="h" x="42" y="640">Monospace stack (in use)</text>
     <text class="meta" x="42" y="664">SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, 'Lucida Console',</text>
     <text class="meta" x="42" y="687">'DejaVu Sans Mono', 'Courier New'</text>
-    <text class="code" x="42" y="719">pnpm jsx-email build && pnpm jsx-email lint</text>
+    <text class="code" x="42" y="719">pnpm jsx-email build &amp;&amp; pnpm jsx-email lint</text>
 
     <rect x="24" y="768" width="668" height="144" rx="12" fill="#11161d" stroke="#2b3441"/>
     <text class="h" x="42" y="800">Component sample</text>
