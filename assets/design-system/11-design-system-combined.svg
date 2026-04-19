@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1840" height="1460" viewBox="0 0 1840 1460" role="img" aria-labelledby="title desc">
+  <title id="title">Combined Design System Board — v2</title>
+  <desc id="desc">Combined design-system board updated for v2: grouped palette without origin badges, teletype color integration, and clean non-gradient layout.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0F1115; }
+      .panel { fill: #171B22; stroke: #2D3644; stroke-width: 2; }
+      .subPanel { fill: #11161D; stroke: #2B3441; stroke-width: 1.4; }
+      .rowCard { fill: #10151C; stroke: #2A3340; stroke-width: 1.2; }
+      .title { fill: #F6FAFF; font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .sub { fill: #B9C7DA; font: 500 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .meta { fill: #A8B6C8; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .panelTitle { fill: #E9F1FB; font: 700 27px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .sectionTitle { fill: #D8E4F3; font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .body { fill: #D2DFEE; font: 500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .note { fill: #AFBDD0; font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .mono { fill: #C5D3E7; font: 500 12px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .kpiValue { fill: #F3F9FF; font: 700 30px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .kpiLabel { fill: #AFBDD1; font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .chipTextDark { fill: #F7FBFF; font: 700 10px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .chipTextLight { fill: #101417; font: 700 10px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .teleMarker { fill: #D36E2D; stroke: #0F1115; stroke-width: 1; }
+      .sampleTitle { fill: #F7FBFF; font: 600 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .sampleBody { fill: #D9E5F4; font: 400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+      .sampleButtonText { fill: #11161D; font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; }
+    </style>
+  </defs>
+  <rect class="bg" width="1840" height="1460"/>
+  <text class="title" x="56" y="84">Combined design system — v2</text>
+  <text class="sub" x="56" y="118">Grouped color architecture, integrated teletype hues, and typography convergence</text>
+  <text class="meta" x="56" y="146">Built from 09-color-palette-combined.svg and 10-typography-combined.svg • attribution badges removed</text>
+  <text class="meta" x="56" y="168">No gradients in output • color groups sorted darkest → lightest within each likeness cluster</text>
+  <g transform="translate(56,210)">
+    <rect class="panel" width="880" height="1194" rx="18"/>
+    <text class="panelTitle" x="26" y="46">1) Color architecture v2</text>
+    <text class="note" x="26" y="70">Grouped combined palette with teletype infusion and luminance ordering.</text>
+    <rect class="subPanel" x="24" y="92" width="832" height="126" rx="12"/>
+    <text class="kpiValue" x="46" y="144">30</text>
+    <text class="kpiLabel" x="46" y="168">total unique colors</text>
+    <text class="kpiValue" x="328" y="144">5</text>
+    <text class="kpiLabel" x="328" y="168">likeness groups</text>
+    <text class="kpiValue" x="610" y="144">5</text>
+    <text class="kpiLabel" x="610" y="168">teletype colors integrated</text>
+    <text class="note" x="46" y="194">Orange marker on chips indicates color sampled from index-teletype-graphic.svg.</text>
+    <text class="sectionTitle" x="26" y="252">Grouped palette rows (darkest → lightest)</text>
+    <rect class="rowCard" x="24" y="272" width="832" height="156" rx="12"/>
+    <text class="sectionTitle" x="44" y="302">Graphite &amp; Slate Neutrals</text>
+    <text class="note" x="44" y="324">Foundational dark surfaces and structural neutral depth. (7 colors)</text>
+    <g transform="translate(44,340)">
+      <rect width="70" height="70" rx="8" fill="#1A191A" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#1A191A</text>
+    </g>
+    <g transform="translate(124,340)">
+      <rect width="70" height="70" rx="8" fill="#2C2A2B" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#2C2A2B</text>
+    </g>
+    <g transform="translate(204,340)">
+      <rect width="70" height="70" rx="8" fill="#343233" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#343233</text>
+    </g>
+    <g transform="translate(284,340)">
+      <rect width="70" height="70" rx="8" fill="#3D3A3A" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#3D3A3A</text>
+    </g>
+    <g transform="translate(364,340)">
+      <rect width="70" height="70" rx="8" fill="#434C56" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#434C56</text>
+    </g>
+    <g transform="translate(444,340)">
+      <rect width="70" height="70" rx="8" fill="#47504E" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#47504E</text>
+    </g>
+    <g transform="translate(524,340)">
+      <rect width="70" height="70" rx="8" fill="#565656" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#565656</text>
+    </g>
+    <rect class="rowCard" x="24" y="440" width="832" height="156" rx="12"/>
+    <text class="sectionTitle" x="44" y="470">Warm Stone Neutrals</text>
+    <text class="note" x="44" y="492">Muted warm neutrals plus canvas tints for contrast balance. (9 colors)</text>
+    <g transform="translate(44,508)">
+      <rect width="70" height="70" rx="8" fill="#584B4F" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#584B4F</text>
+    </g>
+    <g transform="translate(124,508)">
+      <rect width="70" height="70" rx="8" fill="#574C4F" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#574C4F</text>
+    </g>
+    <g transform="translate(204,508)">
+      <rect width="70" height="70" rx="8" fill="#66595C" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#66595C</text>
+    </g>
+    <g transform="translate(284,508)">
+      <rect width="70" height="70" rx="8" fill="#786F63" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#786F63</text>
+    </g>
+    <g transform="translate(364,508)">
+      <rect width="70" height="70" rx="8" fill="#8E8373" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#8E8373</text>
+    </g>
+    <g transform="translate(444,508)">
+      <rect width="70" height="70" rx="8" fill="#949189" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#949189</text>
+    </g>
+    <g transform="translate(524,508)">
+      <rect width="70" height="70" rx="8" fill="#EFDAB9" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#EFDAB9</text>
+    </g>
+    <g transform="translate(604,508)">
+      <rect width="70" height="70" rx="8" fill="#EFEAE1" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#EFEAE1</text>
+    </g>
+    <g transform="translate(684,508)">
+      <rect width="70" height="70" rx="8" fill="#FAF6EC" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#FAF6EC</text>
+    </g>
+    <rect class="rowCard" x="24" y="608" width="832" height="156" rx="12"/>
+    <text class="sectionTitle" x="44" y="638">Teal &amp; Mint Spectrum</text>
+    <text class="note" x="44" y="660">Cool accents sorted from grounded teals into bright mint highlights. (6 colors)</text>
+    <g transform="translate(44,676)">
+      <rect width="70" height="70" rx="8" fill="#78AF9F" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#78AF9F</text>
+      <circle class="teleMarker" cx="58" cy="12" r="6"/>
+    </g>
+    <g transform="translate(124,676)">
+      <rect width="70" height="70" rx="8" fill="#78B0A0" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#78B0A0</text>
+    </g>
+    <g transform="translate(204,676)">
+      <rect width="70" height="70" rx="8" fill="#81C08B" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#81C08B</text>
+    </g>
+    <g transform="translate(284,676)">
+      <rect width="70" height="70" rx="8" fill="#2AEABD" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#2AEABD</text>
+    </g>
+    <g transform="translate(364,676)">
+      <rect width="70" height="70" rx="8" fill="#45EDC6" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#45EDC6</text>
+    </g>
+    <g transform="translate(444,676)">
+      <rect width="70" height="70" rx="8" fill="#61EFCE" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#61EFCE</text>
+    </g>
+    <rect class="rowCard" x="24" y="776" width="832" height="156" rx="12"/>
+    <text class="sectionTitle" x="44" y="806">Ember &amp; Amber Spectrum</text>
+    <text class="note" x="44" y="828">Warm signal tones spanning ember reds through bright yellow accents. (6 colors)</text>
+    <g transform="translate(44,844)">
+      <rect width="70" height="70" rx="8" fill="#C13F21" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#C13F21</text>
+      <circle class="teleMarker" cx="58" cy="12" r="6"/>
+    </g>
+    <g transform="translate(124,844)">
+      <rect width="70" height="70" rx="8" fill="#D36E2D" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#D36E2D</text>
+      <circle class="teleMarker" cx="58" cy="12" r="6"/>
+    </g>
+    <g transform="translate(204,844)">
+      <rect width="70" height="70" rx="8" fill="#DDA032" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#DDA032</text>
+      <circle class="teleMarker" cx="58" cy="12" r="6"/>
+    </g>
+    <g transform="translate(284,844)">
+      <rect width="70" height="70" rx="8" fill="#EBAC00" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#EBAC00</text>
+    </g>
+    <g transform="translate(364,844)">
+      <rect width="70" height="70" rx="8" fill="#FFC31F" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#FFC31F</text>
+    </g>
+    <g transform="translate(444,844)">
+      <rect width="70" height="70" rx="8" fill="#FFD152" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextLight" x="35" y="40" text-anchor="middle">#FFD152</text>
+    </g>
+    <rect class="rowCard" x="24" y="944" width="832" height="156" rx="12"/>
+    <text class="sectionTitle" x="44" y="974">Signal Blues</text>
+    <text class="note" x="44" y="996">Blue communication hues, including the teletype line-work blue. (2 colors)</text>
+    <g transform="translate(44,1012)">
+      <rect width="70" height="70" rx="8" fill="#659CC8" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#659CC8</text>
+      <circle class="teleMarker" cx="58" cy="12" r="6"/>
+    </g>
+    <g transform="translate(124,1012)">
+      <rect width="70" height="70" rx="8" fill="#719BC4" stroke="#3A4657" stroke-width="1"/>
+      <text class="chipTextDark" x="35" y="40" text-anchor="middle">#719BC4</text>
+    </g>
+    <text class="mono" x="44" y="1176">Rows are grouped by likeness and sorted darkest to lightest. No source-origin badges are used.</text>
+  </g>
+  <g transform="translate(960,210)">
+    <rect class="panel" width="824" height="420" rx="18"/>
+    <text class="panelTitle" x="26" y="46">2) Typography families and context</text>
+    <text class="note" x="26" y="70">Shared and contextual stacks represented without source badges.</text>
+    <rect class="rowCard" x="24" y="84" width="776" height="56" rx="10"/>
+    <text class="body" x="40" y="106">System sans stack: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;</text>
+    <text class="mono" x="40" y="126">Primary reading and interface baseline.</text>
+    <rect class="rowCard" x="24" y="148" width="776" height="56" rx="10"/>
+    <text class="body" x="40" y="170">Code stack: SFMono-Regular, Consolas, Menlo, Monaco, monospace</text>
+    <text class="mono" x="40" y="190">Used for technical snippets and dense metadata.</text>
+    <rect class="rowCard" x="24" y="212" width="776" height="56" rx="10"/>
+    <text class="body" x="40" y="234">Package headline stack: &quot;Helvetica Neue&quot;, Helvetica, Arial, freesans, clean, sans-serif</text>
+    <text class="mono" x="40" y="254">Alternative display voice for package-style surfaces.</text>
+    <rect class="rowCard" x="24" y="276" width="776" height="56" rx="10"/>
+    <text class="body" x="40" y="298">Error-state fallback: Verdana, &quot;Verdana Ref&quot;, sans-serif</text>
+    <text class="mono" x="40" y="318">Reserved for high-contrast fallback messaging.</text>
+    <rect class="rowCard" x="24" y="340" width="776" height="56" rx="10"/>
+    <text class="body" x="40" y="362">Iconography support: octicons and glyph companions</text>
+    <text class="mono" x="40" y="382">Symbol layer paired with text content where needed.</text>
+  </g>
+  <g transform="translate(960,652)">
+    <rect class="panel" width="824" height="316" rx="18"/>
+    <text class="panelTitle" x="26" y="46">3) Weight, scale, and spacing</text>
+    <rect class="subPanel" x="24" y="70" width="378" height="222" rx="12"/>
+    <text class="sectionTitle" x="42" y="98">Weight coverage</text>
+    <text class="body" x="42" y="126">300 / 400 / 500 are common body tiers.</text>
+    <text class="body" x="42" y="154">200 / 600 / 700 remain emphasis accents.</text>
+    <text class="body" x="42" y="182">Monospace text trends to 500–700 for clarity.</text>
+    <text class="note" x="42" y="218">Guideline: keep body text near 400.</text>
+    <text class="note" x="42" y="238">Reserve heavier weights for hierarchy.</text>
+    <rect class="subPanel" x="422" y="70" width="378" height="222" rx="12"/>
+    <text class="sectionTitle" x="440" y="98">Size and spacing</text>
+    <text class="body" x="440" y="126">Display tier anchors around 42px.</text>
+    <text class="body" x="440" y="154">Body + support baseline remains 16px / 14px.</text>
+    <text class="body" x="440" y="182">Default line-height target: 1.45–1.55.</text>
+    <text class="note" x="440" y="218">Guideline: preserve at least 10px spacing.</text>
+    <text class="note" x="440" y="238">Keep compact card padding consistent.</text>
+  </g>
+  </svg>

@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Radix → shadcn Showcase (CDN)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+          sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+      }
+
+      [data-select-content],
+      [data-popover-content] {
+        transform-origin: top center;
+      }
+
+      [data-select-content][data-state='open'],
+      [data-popover-content][data-state='open'] {
+        animation-duration: 180ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-out;
+      }
+
+      [data-select-content][data-state='closed'],
+      [data-popover-content][data-state='closed'] {
+        animation-duration: 140ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in;
+        animation-name: fadeOut;
+      }
+
+      [data-select-content][data-state='open'] {
+        animation-name: slideDownAndFade;
+      }
+
+      [data-popover-content][data-state='open'][data-side='top'] {
+        animation-name: slideDownAndFade;
+      }
+
+      [data-popover-content][data-state='open'][data-side='right'] {
+        animation-name: slideLeftAndFade;
+      }
+
+      [data-popover-content][data-state='open'][data-side='bottom'] {
+        animation-name: slideUpAndFade;
+      }
+
+      [data-popover-content][data-state='open'][data-side='left'] {
+        animation-name: slideRightAndFade;
+      }
+
+      [data-collapsible-content] {
+        overflow: hidden;
+      }
+
+      [data-collapsible-content][data-state='open'] {
+        animation: slideDown 240ms ease-out forwards;
+      }
+
+      [data-collapsible-content][data-state='closed'] {
+        animation: slideUp 220ms ease-in forwards;
+      }
+
+      [data-dialog-overlay][data-state='open'] {
+        animation: fadeIn 180ms ease-out forwards;
+      }
+
+      [data-dialog-overlay][data-state='closed'] {
+        animation: fadeOut 140ms ease-in forwards;
+      }
+
+      [data-dialog-content][data-state='open'] {
+        animation: zoomIn 220ms ease-out forwards;
+      }
+
+      [data-dialog-content][data-state='closed'] {
+        animation: zoomOut 160ms ease-in forwards;
+      }
+
+      [data-tabs-trigger][data-state='active'] {
+        background: rgb(15 23 42);
+        color: rgb(248 250 252);
+      }
+
+      [data-tabs-trigger][data-state='inactive'] {
+        color: rgb(148 163 184);
+      }
+
+      [data-separator='horizontal'] {
+        height: 2px;
+        width: 100%;
+      }
+
+      [data-separator='vertical'] {
+        height: 100%;
+        width: 2px;
+      }
+
+      @keyframes slideUpAndFade {
+        from {
+          opacity: 0;
+          transform: translateY(4px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes slideRightAndFade {
+        from {
+          opacity: 0;
+          transform: translateX(-4px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+        }
+      }
+
+      @keyframes slideDownAndFade {
+        from {
+          opacity: 0;
+          transform: translateY(-4px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes slideLeftAndFade {
+        from {
+          opacity: 0;
+          transform: translateX(4px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+        }
+      }
+
+      @keyframes slideDown {
+        from {
+          height: 0;
+        }
+        to {
+          height: var(--radix-collapsible-content-height);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          height: var(--radix-collapsible-content-height);
+        }
+        to {
+          height: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      @keyframes zoomIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes zoomOut {
+        from {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(8px) scale(0.96);
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <main class="mx-auto w-full max-w-7xl px-6 py-10 lg:px-10">
+      <header class="mb-8">
+        <h1 class="text-3xl font-semibold tracking-tight">Radix → shadcn replacement showcase</h1>
+        <p class="mt-2 max-w-4xl text-sm text-slate-300">
+          Standalone CDN demo of shadcn-equivalent components for the primitives in scope (Select,
+          Popover, Toggle Group, Collapsible, Dialog, Tabs, Separator, and Slot guidance).
+        </p>
+        <p class="mt-2 text-xs text-slate-400">
+          CDN imports used: <code>https://cdn.tailwindcss.com</code> and
+          <code>https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm</code>.
+        </p>
+      </header>
+
+      <section class="mb-8 rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+        <h2 class="text-sm font-semibold">Effect notes</h2>
+        <ul class="mt-3 space-y-2 text-xs text-slate-300">
+          <li>
+            <span class="rounded bg-cyan-500/20 px-2 py-1 font-semibold text-cyan-200"
+              >CSS / data-state</span
+            >
+            Select and Popover open/close animations, Collapsible height transitions, Dialog
+            overlay/content transitions, and Tabs active-state visuals.
+          </li>
+          <li>
+            <span class="rounded bg-fuchsia-500/20 px-2 py-1 font-semibold text-fuchsia-200"
+              >Motion-driven</span
+            >
+            Toggle Group active-pill movement uses Motion (spring animation) as a CDN-friendly
+            analogue of the framer-motion layout animation pattern seen on <code>main</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section class="grid gap-6 xl:grid-cols-2">
+        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="text-base font-semibold">Select (shadcn-style Select)</h3>
+          <p class="mt-1 text-xs text-slate-400">
+            Trigger + content + item pattern with data-state open/close behavior.
+          </p>
+
+          <div id="select-demo" class="relative mt-4 max-w-sm">
+            <button
+              id="select-trigger"
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-controls="select-content"
+              class="inline-flex w-full items-center justify-between rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-left text-sm hover:border-slate-600"
+            >
+              <span id="select-value">iPhone 15 Pro · 393×852</span>
+              <span class="text-slate-400">▾</span>
+            </button>
+
+            <div
+              id="select-content"
+              data-select-content
+              data-state="closed"
+              class="hidden absolute z-20 mt-2 w-full rounded-md border border-slate-700 bg-slate-900 p-1 shadow-xl"
+              role="listbox"
+            >
+              <button
+                type="button"
+                class="select-item flex w-full items-center justify-between rounded px-2 py-1.5 text-sm hover:bg-slate-800"
+                data-value="iPhone 15 Pro · 393×852"
+              >
+                iPhone 15 Pro <span class="text-xs text-slate-400">393×852</span>
+              </button>
+              <button
+                type="button"
+                class="select-item flex w-full items-center justify-between rounded px-2 py-1.5 text-sm hover:bg-slate-800"
+                data-value="Pixel 8 · 412×915"
+              >
+                Pixel 8 <span class="text-xs text-slate-400">412×915</span>
+              </button>
+              <button
+                type="button"
+                class="select-item flex w-full items-center justify-between rounded px-2 py-1.5 text-sm hover:bg-slate-800"
+                data-value="iPad Air · 820×1180"
+              >
+                iPad Air <span class="text-xs text-slate-400">820×1180</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="text-base font-semibold">Popover (shadcn-style Popover)</h3>
+          <p class="mt-1 text-xs text-slate-400">
+            Side-aware slide/fade classes mirror the Radix data-state + data-side pattern.
+          </p>
+
+          <div id="popover-demo" class="relative mt-4 inline-block">
+            <button
+              id="popover-trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls="popover-content"
+              class="inline-flex items-center rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm hover:border-slate-600"
+            >
+              Open popover
+            </button>
+            <div
+              id="popover-content"
+              data-popover-content
+              data-side="bottom"
+              data-state="closed"
+              class="hidden absolute left-0 z-20 mt-2 w-72 rounded-md border border-slate-700 bg-slate-900 p-3 shadow-xl"
+            >
+              <p class="text-sm font-medium text-slate-100">Send test email</p>
+              <p class="mt-1 text-xs text-slate-400">
+                Equivalent structure: <code>Popover</code> + <code>PopoverTrigger</code> +
+                <code>PopoverContent</code>.
+              </p>
+              <button
+                id="popover-close"
+                type="button"
+                class="mt-3 rounded border border-slate-600 px-2 py-1 text-xs hover:bg-slate-800"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="text-base font-semibold">Toggle Group (shadcn ToggleGroup)</h3>
+          <p class="mt-1 text-xs text-slate-400">
+            Data-state on/off styling + motion-driven active indicator (framer-motion analogue).
+          </p>
+
+          <div
+            id="toggle-group"
+            class="relative mt-4 inline-flex items-center gap-1 rounded-md border border-slate-700 bg-slate-950 p-1"
+          >
+            <span
+              id="toggle-highlight"
+              class="pointer-events-none absolute left-1 top-1 h-8 rounded bg-cyan-400/25"
+            ></span>
+            <button
+              type="button"
+              data-toggle-item
+              data-value="preview"
+              data-state="on"
+              class="relative z-10 rounded px-3 py-1.5 text-sm data-[state=on]:text-white data-[state=off]:text-slate-400"
+            >
+              Preview
+            </button>
+            <button
+              type="button"
+              data-toggle-item
+              data-value="code"
+              data-state="off"
+              class="relative z-10 rounded px-3 py-1.5 text-sm data-[state=on]:text-white data-[state=off]:text-slate-400"
+            >
+              Code
+            </button>
+            <button
+              type="button"
+              data-toggle-item
+              data-value="meta"
+              data-state="off"
+              class="relative z-10 rounded px-3 py-1.5 text-sm data-[state=on]:text-white data-[state=off]:text-slate-400"
+            >
+              Meta
+            </button>
+          </div>
+        </article>
+
+        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="text-base font-semibold">Collapsible (shadcn Collapsible)</h3>
+          <p class="mt-1 text-xs text-slate-400">
+            Uses <code>data-state</code> and
+            <code>--radix-collapsible-content-height</code>-style keyframes.
+          </p>
+
+          <div class="mt-4 rounded-lg border border-slate-700 bg-slate-950 p-3">
+            <button
+              id="collapsible-trigger"
+              type="button"
+              aria-expanded="false"
+              class="inline-flex w-full items-center justify-between text-sm"
+            >
+              <span class="font-medium">Email Templates</span>
+              <span id="collapsible-indicator" class="text-slate-400">+</span>
+            </button>
+            <div
+              id="collapsible-content"
+              data-collapsible-content
+              data-state="closed"
+              style="--radix-collapsible-content-height: 0px"
+              class="mt-3"
+            >
+              <ul class="space-y-2 rounded-md border border-slate-800 bg-slate-900 p-2 text-sm">
+                <li class="rounded px-2 py-1 hover:bg-slate-800">welcome-email.tsx</li>
+                <li class="rounded px-2 py-1 hover:bg-slate-800">receipt-email.tsx</li>
+                <li class="rounded px-2 py-1 hover:bg-slate-800">newsletter-email.tsx</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="text-base font-semibold">Dialog (shadcn Dialog)</h3>
+          <p class="mt-1 text-xs text-slate-400">
+            Overlay/content open-close transitions are data-state driven.
+          </p>
+
+          <button
+            id="dialog-open"
+            type="button"
+            class="mt-4 rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm hover:border-slate-600"
+          >
+            Open dialog
+          </button>
+
+          <div id="dialog-root" class="hidden fixed inset-0 z-40">
+            <div
+              id="dialog-overlay"
+              data-dialog-overlay
+              data-state="closed"
+              class="absolute inset-0 bg-black/70"
+            ></div>
+            <div class="relative z-50 flex min-h-screen items-center justify-center p-4">
+              <div
+                id="dialog-content"
+                data-dialog-content
+                data-state="closed"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="dialog-title"
+                class="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-4 shadow-2xl"
+              >
+                <h4 id="dialog-title" class="text-base font-semibold">Preview configuration</h4>
+                <p class="mt-2 text-sm text-slate-300">
+                  Equivalent to <code>DialogContent</code> with title/description and close action.
+                </p>
+                <div class="mt-4 flex justify-end gap-2">
+                  <button
+                    id="dialog-close"
+                    type="button"
+                    class="rounded border border-slate-600 px-2 py-1 text-sm hover:bg-slate-800"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="text-base font-semibold">Tabs + Separator</h3>
+          <p class="mt-1 text-xs text-slate-400">
+            Tabs use data-state active/inactive styling; Separator mirrors horizontal and vertical
+            forms.
+          </p>
+
+          <div class="mt-4">
+            <div class="inline-flex rounded-md bg-slate-800 p-1" role="tablist" aria-label="Preview tabs">
+              <button
+                type="button"
+                role="tab"
+                data-tabs-trigger
+                data-tab="preview"
+                data-state="active"
+                class="rounded px-3 py-1 text-sm transition-colors"
+              >
+                Preview
+              </button>
+              <button
+                type="button"
+                role="tab"
+                data-tabs-trigger
+                data-tab="code"
+                data-state="inactive"
+                class="rounded px-3 py-1 text-sm transition-colors"
+              >
+                Code
+              </button>
+            </div>
+
+            <div class="mt-3 rounded-md border border-slate-700 bg-slate-950 p-3">
+              <section id="tab-preview" data-tabs-content data-state="active" class="text-sm">
+                Active preview panel content.
+              </section>
+              <section id="tab-code" data-tabs-content data-state="inactive" class="hidden text-sm">
+                <pre class="overflow-x-auto text-xs text-slate-300"><code>&lt;Button asChild&gt;
+  &lt;a href="/docs"&gt;Read docs&lt;/a&gt;
+&lt;/Button&gt;</code></pre>
+              </section>
+            </div>
+
+            <div class="mt-4 rounded-md border border-slate-700 bg-slate-950 p-3">
+              <div class="h-2 rounded bg-slate-800" data-separator="horizontal"></div>
+              <div class="mt-3 flex h-10 items-center gap-3 text-xs text-slate-300">
+                <span>Left</span>
+                <div class="bg-slate-700" data-separator="vertical"></div>
+                <span>Right</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <h3 class="text-base font-semibold">Slot note (shadcn composition)</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          For <code>Slot</code>, shadcn does not replace Radix; it intentionally reuses
+          <code>@radix-ui/react-slot</code> for <code>asChild</code> polymorphism.
+        </p>
+        <pre class="mt-3 overflow-x-auto rounded-md border border-slate-700 bg-slate-950 p-3 text-xs text-slate-300"><code>import { Slot } from "@radix-ui/react-slot"
+
+function Button({ asChild, ...props }) {
+  const Comp = asChild ? Slot : "button"
+  return &lt;Comp {...props} /&gt;
+}</code></pre>
+      </section>
+    </main>
+
+    <script type="module">
+      import { animate, spring } from 'https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm';
+
+      function setAnimatedOpenState(element, open, closeMs = 150) {
+        if (!element) return;
+        if (element.__closeTimer) {
+          clearTimeout(element.__closeTimer);
+        }
+
+        if (open) {
+          element.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            element.dataset.state = 'open';
+          });
+          return;
+        }
+
+        element.dataset.state = 'closed';
+        element.__closeTimer = window.setTimeout(() => {
+          element.classList.add('hidden');
+        }, closeMs);
+      }
+
+      // Select
+      const selectDemo = document.getElementById('select-demo');
+      const selectTrigger = document.getElementById('select-trigger');
+      const selectContent = document.getElementById('select-content');
+      const selectValue = document.getElementById('select-value');
+      const selectItems = Array.from(document.querySelectorAll('.select-item'));
+      let selectOpen = false;
+
+      const setSelectOpen = (open) => {
+        selectOpen = open;
+        selectTrigger?.setAttribute('aria-expanded', String(open));
+        setAnimatedOpenState(selectContent, open, 130);
+      };
+
+      selectTrigger?.addEventListener('click', () => setSelectOpen(!selectOpen));
+      selectItems.forEach((item) => {
+        item.addEventListener('click', () => {
+          if (selectValue) selectValue.textContent = item.dataset.value ?? item.textContent ?? '';
+          setSelectOpen(false);
+        });
+      });
+
+      // Popover
+      const popoverDemo = document.getElementById('popover-demo');
+      const popoverTrigger = document.getElementById('popover-trigger');
+      const popoverContent = document.getElementById('popover-content');
+      const popoverClose = document.getElementById('popover-close');
+      let popoverOpen = false;
+
+      const setPopoverOpen = (open) => {
+        popoverOpen = open;
+        popoverTrigger?.setAttribute('aria-expanded', String(open));
+        setAnimatedOpenState(popoverContent, open, 130);
+      };
+
+      popoverTrigger?.addEventListener('click', () => setPopoverOpen(!popoverOpen));
+      popoverClose?.addEventListener('click', () => setPopoverOpen(false));
+
+      // Toggle group + motion-driven indicator
+      const toggleGroup = document.getElementById('toggle-group');
+      const toggleHighlight = document.getElementById('toggle-highlight');
+      const toggleItems = Array.from(document.querySelectorAll('[data-toggle-item]'));
+
+      function moveToggleHighlight(activeItem, shouldAnimate = true) {
+        if (!toggleGroup || !toggleHighlight || !activeItem) return;
+        const groupRect = toggleGroup.getBoundingClientRect();
+        const itemRect = activeItem.getBoundingClientRect();
+        const x = itemRect.left - groupRect.left;
+        const width = itemRect.width;
+
+        if (!shouldAnimate) {
+          toggleHighlight.style.transform = `translateX(${x}px)`;
+          toggleHighlight.style.width = `${width}px`;
+          return;
+        }
+
+        animate(
+          toggleHighlight,
+          { x, width },
+          { duration: 0.35, easing: spring({ stiffness: 420, damping: 36 }) }
+        );
+      }
+
+      function setToggleValue(nextValue) {
+        const activeItem = toggleItems.find((item) => item.dataset.value === nextValue) ?? toggleItems[0];
+        toggleItems.forEach((item) => {
+          item.dataset.state = item === activeItem ? 'on' : 'off';
+        });
+        moveToggleHighlight(activeItem, true);
+      }
+
+      toggleItems.forEach((item) => {
+        item.addEventListener('click', () => {
+          setToggleValue(item.dataset.value);
+        });
+      });
+
+      const initialToggle = toggleItems.find((item) => item.dataset.state === 'on') ?? toggleItems[0];
+      if (initialToggle) {
+        moveToggleHighlight(initialToggle, false);
+      }
+
+      // Collapsible
+      const collapsibleTrigger = document.getElementById('collapsible-trigger');
+      const collapsibleContent = document.getElementById('collapsible-content');
+      const collapsibleIndicator = document.getElementById('collapsible-indicator');
+      let collapsibleOpen = false;
+
+      function setCollapsibleOpen(open) {
+        if (!collapsibleContent) return;
+        collapsibleOpen = open;
+        const h = collapsibleContent.scrollHeight;
+        collapsibleContent.style.setProperty('--radix-collapsible-content-height', `${h}px`);
+        collapsibleContent.dataset.state = open ? 'open' : 'closed';
+        collapsibleTrigger?.setAttribute('aria-expanded', String(open));
+        if (collapsibleIndicator) collapsibleIndicator.textContent = open ? '−' : '+';
+      }
+
+      collapsibleTrigger?.addEventListener('click', () => setCollapsibleOpen(!collapsibleOpen));
+
+      // Dialog
+      const dialogRoot = document.getElementById('dialog-root');
+      const dialogOpen = document.getElementById('dialog-open');
+      const dialogClose = document.getElementById('dialog-close');
+      const dialogOverlay = document.getElementById('dialog-overlay');
+      const dialogContent = document.getElementById('dialog-content');
+      let dialogIsOpen = false;
+
+      function setDialogOpen(open) {
+        if (!dialogRoot || !dialogOverlay || !dialogContent) return;
+        dialogIsOpen = open;
+
+        if (open) {
+          dialogRoot.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            dialogOverlay.dataset.state = 'open';
+            dialogContent.dataset.state = 'open';
+          });
+          return;
+        }
+
+        dialogOverlay.dataset.state = 'closed';
+        dialogContent.dataset.state = 'closed';
+        window.setTimeout(() => {
+          dialogRoot.classList.add('hidden');
+        }, 170);
+      }
+
+      dialogOpen?.addEventListener('click', () => setDialogOpen(true));
+      dialogClose?.addEventListener('click', () => setDialogOpen(false));
+      dialogOverlay?.addEventListener('click', () => setDialogOpen(false));
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && dialogIsOpen) {
+          setDialogOpen(false);
+        }
+      });
+
+      // Tabs
+      const tabsTriggers = Array.from(document.querySelectorAll('[data-tabs-trigger]'));
+      const tabsContents = Array.from(document.querySelectorAll('[data-tabs-content]'));
+
+      function setTab(nextTab) {
+        tabsTriggers.forEach((trigger) => {
+          trigger.dataset.state = trigger.dataset.tab === nextTab ? 'active' : 'inactive';
+        });
+
+        tabsContents.forEach((content) => {
+          const isActive = content.id === `tab-${nextTab}`;
+          content.dataset.state = isActive ? 'active' : 'inactive';
+          content.classList.toggle('hidden', !isActive);
+        });
+      }
+
+      tabsTriggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          setTab(trigger.dataset.tab);
+        });
+      });
+
+      // Close select/popover on outside click
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (selectOpen && selectDemo && !selectDemo.contains(target)) {
+          setSelectOpen(false);
+        }
+        if (popoverOpen && popoverDemo && !popoverDemo.contains(target)) {
+          setPopoverOpen(false);
+        }
+      });
+
+      // Keep measured dimensions fresh on resize
+      window.addEventListener('resize', () => {
+        const activeToggle = toggleItems.find((item) => item.dataset.state === 'on') ?? toggleItems[0];
+        if (activeToggle) moveToggleHighlight(activeToggle, false);
+
+        if (collapsibleOpen && collapsibleContent) {
+          collapsibleContent.style.setProperty(
+            '--radix-collapsible-content-height',
+            `${collapsibleContent.scrollHeight}px`
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
