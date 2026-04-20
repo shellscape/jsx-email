@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Artifact 14 — JSX Email Design System Showcase</title>
+    <title>JSX Email Design System</title>
     <style>
       :root {
         color-scheme: dark;
@@ -354,7 +354,10 @@
         gap: 8px;
         padding: 6px 8px;
         text-decoration: none;
-        transition: transform 180ms ease, color 180ms ease, background-color 180ms ease;
+        transition:
+          transform 180ms ease,
+          color 180ms ease,
+          background-color 180ms ease;
         width: fit-content;
       }
 
@@ -366,7 +369,9 @@
         height: 6px;
         opacity: 0;
         transform: scale(0.7);
-        transition: opacity 180ms ease, transform 180ms ease;
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
         width: 6px;
       }
 
@@ -515,36 +520,122 @@
   </head>
   <body>
     <main class="page">
-      <h1>Artifact 14 — JSX Email design system showcase</h1>
-      <p class="lede">
-        Reframed from a Radix replacement demo into a focused JSX Email design-system artifact.
-        This file is intentionally <strong>HTML + scoped CSS + small vanilla JS</strong> (no framework
-        runtime, no CDN imports).
-      </p>
-      <p class="meta">
-        Palette source: <code>assets/design-system/11-design-system-combined.svg</code> • companion
-        style reference: <code>assets/design-system/12-design-system-combined.html</code>
-      </p>
-
+      <h1>JSX Email Design System</h1>
       <section class="surface" aria-labelledby="palette-title">
-        <h2 id="palette-title">Palette in use (explicit notation from artifact 11)</h2>
+        <h2 id="palette-title">Color Palette</h2>
         <div class="token-list">
-          <div class="token-item"><span class="swatch" style="background:#1A191A"></span><div><code>--bg: #1A191A</code><div class="token-note">page background</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#2C2A2B"></span><div><code>--surface: #2C2A2B</code><div class="token-note">card + panel backgrounds</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#343233"></span><div><code>--surface-raised: #343233</code><div class="token-note">component containers</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#434C56"></span><div><code>--border: #434C56</code><div class="token-note">primary borders</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#565656"></span><div><code>--border-soft: #565656</code><div class="token-note">subtle lines + separators</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#EFDAB9"></span><div><code>--text: #EFDAB9</code><div class="token-note">body text</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#949189"></span><div><code>--text-subtle: #949189</code><div class="token-note">supporting copy</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#FFD152"></span><div><code>--brand: #FFD152</code><div class="token-note">primary CTA base</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#FFC31F"></span><div><code>--brand-hover: #FFC31F</code><div class="token-note">brand hover</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#EBAC00"></span><div><code>--brand-active: #EBAC00</code><div class="token-note">brand active / press</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#61EFCE"></span><div><code>--mint: #61EFCE</code><div class="token-note">accent + alt-hover</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#78B0A0"></span><div><code>--teal: #78B0A0</code><div class="token-note">alt text</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#659CC8"></span><div><code>--blue: #659CC8</code><div class="token-note">info actions</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#719BC4"></span><div><code>--blue-hover: #719BC4</code><div class="token-note">info hover</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#C13F21"></span><div><code>--ember: #C13F21</code><div class="token-note">danger signal</div></div></div>
-          <div class="token-item"><span class="swatch" style="background:#D36E2D"></span><div><code>--warm: #D36E2D</code><div class="token-note">secondary warm accent</div></div></div>
+          <div class="token-item">
+            <span class="swatch" style="background: #1a191a"></span>
+            <div>
+              <code>--bg: #1A191A</code>
+              <div class="token-note">page background</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #2c2a2b"></span>
+            <div>
+              <code>--surface: #2C2A2B</code>
+              <div class="token-note">card + panel backgrounds</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #343233"></span>
+            <div>
+              <code>--surface-raised: #343233</code>
+              <div class="token-note">component containers</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #434c56"></span>
+            <div>
+              <code>--border: #434C56</code>
+              <div class="token-note">primary borders</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #565656"></span>
+            <div>
+              <code>--border-soft: #565656</code>
+              <div class="token-note">subtle lines + separators</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #efdab9"></span>
+            <div>
+              <code>--text: #EFDAB9</code>
+              <div class="token-note">body text</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #949189"></span>
+            <div>
+              <code>--text-subtle: #949189</code>
+              <div class="token-note">supporting copy</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #ffd152"></span>
+            <div>
+              <code>--brand: #FFD152</code>
+              <div class="token-note">primary CTA base</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #ffc31f"></span>
+            <div>
+              <code>--brand-hover: #FFC31F</code>
+              <div class="token-note">brand hover</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #ebac00"></span>
+            <div>
+              <code>--brand-active: #EBAC00</code>
+              <div class="token-note">brand active / press</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #61efce"></span>
+            <div>
+              <code>--mint: #61EFCE</code>
+              <div class="token-note">accent + alt-hover</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #78b0a0"></span>
+            <div>
+              <code>--teal: #78B0A0</code>
+              <div class="token-note">alt text</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #659cc8"></span>
+            <div>
+              <code>--blue: #659CC8</code>
+              <div class="token-note">info actions</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #719bc4"></span>
+            <div>
+              <code>--blue-hover: #719BC4</code>
+              <div class="token-note">info hover</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #c13f21"></span>
+            <div>
+              <code>--ember: #C13F21</code>
+              <div class="token-note">danger signal</div>
+            </div>
+          </div>
+          <div class="token-item">
+            <span class="swatch" style="background: #d36e2d"></span>
+            <div>
+              <code>--warm: #D36E2D</code>
+              <div class="token-note">secondary warm accent</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -592,52 +683,52 @@
         </article>
 
         <article class="card col-6" aria-labelledby="links-title">
-          <h2 id="links-title">Real links + hover transitions</h2>
+          <h2 id="links-title">Links</h2>
           <div class="link-stack">
-            <a class="sidebar-link" href="https://jsx.email/docs/introduction" target="_blank" rel="noreferrer">Docs introduction</a>
-            <a class="sidebar-link" href="https://jsx.email/docs/components/button" target="_blank" rel="noreferrer">Button component guide</a>
-            <a class="sidebar-link" href="https://github.com/shellscape/jsx-email" target="_blank" rel="noreferrer">GitHub repository</a>
+            <a
+              class="sidebar-link"
+              href="https://jsx.email/docs/introduction"
+              target="_blank"
+              rel="noreferrer"
+              >Docs introduction</a
+            >
+            <a
+              class="sidebar-link"
+              href="https://jsx.email/docs/components/button"
+              target="_blank"
+              rel="noreferrer"
+              >Button component guide</a
+            >
+            <a
+              class="sidebar-link"
+              href="https://github.com/shellscape/jsx-email"
+              target="_blank"
+              rel="noreferrer"
+              >GitHub repository</a
+            >
           </div>
           <p class="legend" style="margin-top: 10px">
             Inline link style:
-            <a class="inline-link" href="https://jsx.email/docs/introduction" target="_blank" rel="noreferrer">jsx.email/docs/introduction</a>
+            <a
+              class="inline-link"
+              href="https://jsx.email/docs/introduction"
+              target="_blank"
+              rel="noreferrer"
+              >jsx.email/docs/introduction</a
+            >
             with underline grow animation inspired by web docs interactions.
           </p>
-          <a class="ds-button brand cta-link" href="https://jsx.email/docs/introduction" target="_blank" rel="noreferrer">Read documentation</a>
-        </article>
-
-        <article class="card col-6" aria-labelledby="left-right-title">
-          <h2 id="left-right-title">Refined left/right tabs + separator rendering</h2>
-          <div class="segmented" data-segmented data-panel-group="alignment-mode">
-            <span class="segmented-indicator" aria-hidden="true"></span>
-            <button type="button" aria-pressed="true" data-target="left">Left</button>
-            <button type="button" aria-pressed="false" data-target="right">Right</button>
-          </div>
-
-          <div class="panel-stack" data-panel-group="alignment-mode">
-            <section class="tab-panel is-active" data-panel-name="left">
-              Left tab is active; separator block stays vertically centered and stroke weight remains
-              consistent at 1px.
-              <div class="separator-preview" role="presentation">
-                <span class="pill active-left">left</span>
-                <span class="separator-line" aria-hidden="true"></span>
-                <span class="pill">right</span>
-              </div>
-            </section>
-            <section class="tab-panel" data-panel-name="right">
-              Right tab is active with the same visual rhythm (no clipping, no uneven separator
-              height).
-              <div class="separator-preview" role="presentation">
-                <span class="pill">left</span>
-                <span class="separator-line" aria-hidden="true"></span>
-                <span class="pill active-right">right</span>
-              </div>
-            </section>
-          </div>
+          <a
+            class="ds-button brand cta-link"
+            href="https://jsx.email/docs/introduction"
+            target="_blank"
+            rel="noreferrer"
+            >Read documentation</a
+          >
         </article>
 
         <article class="card col-6" aria-labelledby="install-title">
-          <h2 id="install-title">Install tab-group pattern (pnpm / bun / npm / yarn)</h2>
+          <h2 id="install-title">Install Tab Group Pattern</h2>
           <div class="segmented" data-segmented data-panel-group="install-mode">
             <span class="segmented-indicator" aria-hidden="true"></span>
             <button type="button" aria-pressed="true" data-target="pnpm">pnpm</button>
@@ -647,10 +738,18 @@
           </div>
 
           <div class="panel-stack" data-panel-group="install-mode">
-            <section class="tab-panel is-active" data-panel-name="pnpm"><span class="command">pnpm add jsx-email</span></section>
-            <section class="tab-panel" data-panel-name="bun"><span class="command">bun add jsx-email</span></section>
-            <section class="tab-panel" data-panel-name="npm"><span class="command">npm add jsx-email</span></section>
-            <section class="tab-panel" data-panel-name="yarn"><span class="command">yarn add jsx-email</span></section>
+            <section class="tab-panel is-active" data-panel-name="pnpm">
+              <span class="command">pnpm add jsx-email</span>
+            </section>
+            <section class="tab-panel" data-panel-name="bun">
+              <span class="command">bun add jsx-email</span>
+            </section>
+            <section class="tab-panel" data-panel-name="npm">
+              <span class="command">npm add jsx-email</span>
+            </section>
+            <section class="tab-panel" data-panel-name="yarn">
+              <span class="command">yarn add jsx-email</span>
+            </section>
           </div>
         </article>
 
@@ -670,18 +769,8 @@ export const Welcome = () => (
 );</code></pre>
           </div>
           <p class="small" style="margin-top: 10px">
-            Inline example:
-            run <code class="inline">pnpm email create welcome-email</code> then
+            Inline example: run <code class="inline">pnpm email create welcome-email</code> then
             <code class="inline">pnpm email preview</code>.
-          </p>
-        </article>
-
-        <article class="card col-12" aria-labelledby="notes-title">
-          <h2 id="notes-title">Implementation notes</h2>
-          <p class="small">
-            This artifact intentionally avoids framework/CDN dependencies and uses only scoped styles
-            plus tiny vanilla JS for interaction demos. All explicit color tokens shown above are
-            pulled from <code class="inline">11-design-system-combined.svg</code>.
           </p>
         </article>
       </section>
@@ -721,7 +810,9 @@ export const Welcome = () => (
           const panelGroupName = group.getAttribute('data-panel-group');
           if (!panelGroupName) return;
 
-          const panelGroup = document.querySelector('.panel-stack[data-panel-group="' + panelGroupName + '"]');
+          const panelGroup = document.querySelector(
+            '.panel-stack[data-panel-group="' + panelGroupName + '"]'
+          );
           if (!panelGroup) return;
 
           panelGroup.querySelectorAll('[data-panel-name]').forEach((panel) => {
@@ -735,7 +826,9 @@ export const Welcome = () => (
 
           buttons.forEach((button) => {
             button.addEventListener('click', () => {
-              buttons.forEach((other) => other.setAttribute('aria-pressed', other === button ? 'true' : 'false'));
+              buttons.forEach((other) =>
+                other.setAttribute('aria-pressed', other === button ? 'true' : 'false')
+              );
               syncPanels(group, button.getAttribute('data-target'));
               updateIndicator(group);
             });
