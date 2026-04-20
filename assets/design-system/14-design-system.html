@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -10,22 +10,22 @@
         theme: {
           extend: {
             colors: {
-              "docs-bg": "var(--bg)",
-              "docs-surface": "var(--surface)",
-              "docs-surface-raised": "var(--surface-raised)",
-              "docs-border": "var(--border)",
-              "docs-border-soft": "var(--border-soft)",
-              "docs-text": "var(--text)",
-              "docs-text-subtle": "var(--text-subtle)",
-              "docs-text-strong": "var(--text-strong)",
-              "docs-brand": "var(--brand)",
-            },
-          },
-        },
+              'docs-bg': 'var(--bg)',
+              'docs-surface': 'var(--surface)',
+              'docs-surface-raised': 'var(--surface-raised)',
+              'docs-border': 'var(--border)',
+              'docs-border-soft': 'var(--border-soft)',
+              'docs-text': 'var(--text)',
+              'docs-text-subtle': 'var(--text-subtle)',
+              'docs-text-strong': 'var(--text-strong)',
+              'docs-brand': 'var(--brand)'
+            }
+          }
+        }
       };
     </script>
     <script type="module">
-      import { codeToHtml } from "https://esm.sh/shiki@1.29.2";
+      import { codeToHtml } from 'https://esm.sh/shiki@1.29.2';
 
       window.shikiCodeToHtml = codeToHtml;
       window.shikiReady = Promise.resolve();
@@ -33,43 +33,84 @@
     <style>
       :root {
         color-scheme: dark;
-        --bg: #1a191a;
-        --surface: #2c2a2b;
-        --surface-raised: #343233;
-        --surface-muted: #3d3a3a;
-        --border: #434c56;
-        --border-soft: #565656;
-        --text: #efdab9;
-        --text-subtle: #949189;
-        --text-strong: #faf6ec;
 
-        --brand: #ffd152;
-        --brand-hover: #ffc31f;
-        --brand-active: #ebac00;
-        --dark-bg-border: #1a191a;
-        --vp-code-tab-active-text-color: #efdab9;
-        --vp-code-tab-text-color: #8e8373;
+        /* Graphite & Slate Neutrals */
+        --graphite-0: #1a191a;
+        --graphite-1: #2c2a2b;
+        --graphite-2: #343233;
+        --graphite-3: #3d3a3a;
+        --graphite-4: #434c56;
+        --graphite-5: #47504e;
+        --graphite-6: #565656;
+
+        /* Warm Stone Neutrals */
+        --warm-stone-0: #584b4f;
+        --warm-stone-1: #574c4f;
+        --warm-stone-2: #66595c;
+        --warm-stone-3: #786f63;
+        --warm-stone-4: #8e8373;
+        --warm-stone-5: #949189;
+        --warm-stone-6: #efdab9;
+        --warm-stone-7: #efeae1;
+        --warm-stone-8: #faf6ec;
+
+        /* Teal & Mint Spectrum */
+        --teal-0: #78af9f;
+        --teal-1: #78b0a0;
+        --mint-0: #81c08b;
+        --mint-1: #2aeabd;
+        --mint-2: #45edc6;
+        --mint-3: #61efce;
+
+        /* Ember & Amber Spectrum */
+        --ember-0: #c13f21;
+        --amber-0: #d36e2d;
+        --amber-1: #dda032;
+        --amber-2: #ebac00;
+        --amber-3: #ffc31f;
+        --amber-4: #ffd152;
+
+        /* Signal Blues */
+        --signal-blue-0: #659cc8;
+        --signal-blue-1: #719bc4;
+
+        --bg: var(--graphite-0);
+        --surface: var(--graphite-1);
+        --surface-raised: var(--graphite-2);
+        --surface-muted: var(--graphite-3);
+        --border: var(--graphite-4);
+        --border-soft: var(--graphite-6);
+        --text: var(--warm-stone-6);
+        --text-subtle: var(--warm-stone-5);
+        --text-strong: var(--warm-stone-8);
+
+        --brand: var(--amber-4);
+        --brand-hover: var(--amber-3);
+        --brand-active: var(--amber-2);
+        --dark-bg-border: var(--graphite-0);
+        --vp-code-tab-active-text-color: var(--warm-stone-6);
+        --vp-code-tab-text-color: var(--warm-stone-4);
         --vp-code-tab-divider: #00000033;
 
-        --mint: #61efce;
-        --mint-hover: #45edc6;
-        --teal: #78b0a0;
+        --mint: var(--mint-3);
+        --mint-hover: var(--mint-2);
+        --teal: var(--teal-1);
 
-        --blue: #659cc8;
-        --blue-hover: #719bc4;
+        --blue: var(--signal-blue-0);
+        --blue-hover: var(--signal-blue-1);
 
-        --ember: #c13f21;
-        --warm: #d36e2d;
+        --ember: var(--ember-0);
+        --warm: var(--amber-0);
         --text-strong-border: rgba(250, 246, 236, 0.35);
         --card-highlight: rgba(250, 246, 236, 0.02);
         --button-pressed-shadow: rgba(26, 25, 26, 0.45);
-        --button-alt-bg: #47504e;
+        --button-alt-bg: var(--graphite-5);
         --button-info-fg: #101417;
         --ghost-hover-bg: rgba(101, 156, 200, 0.16);
         --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
         --chip-bg: rgb(142 131 115 / 20%);
         --chip-bg-hover: rgb(142 131 115 / 50%);
-        --chip-border-color: #8e8373;
+        --chip-border-color: var(--warm-stone-4);
         --preview-text-hover: #f3f5f7;
         --preview-icon: #9ba1aa;
         --pill-mint-bg: rgba(97, 239, 206, 0.22);
@@ -92,10 +133,11 @@
 
       body {
         margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        line-height: 1.45;
+        background: #10151c;
+        color: var(--warm-stone-6);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-weight: 300;
+        line-height: 1.5;
       }
 
       p {
@@ -136,6 +178,122 @@
         padding: 20px 24px !important;
         width: 100%;
       }
+
+      .mode-preview {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: inset 0 1px 0 var(--card-highlight);
+        color: var(--text);
+      }
+
+      .mode-preview--light {
+        color-scheme: light;
+        --bg: #efeae1;
+        --surface: var(--warm-stone-8);
+        --surface-raised: #f4eee3;
+        --surface-muted: #ece2d4;
+        --border: var(--warm-stone-3);
+        --border-soft: var(--warm-stone-5);
+        --text: var(--graphite-0);
+        --text-subtle: var(--warm-stone-0);
+        --text-strong: var(--graphite-1);
+        --brand: var(--amber-2);
+        --brand-hover: var(--amber-1);
+        --brand-active: var(--amber-0);
+        --dark-bg-border: var(--warm-stone-3);
+        --vp-code-tab-active-text-color: var(--graphite-1);
+        --vp-code-tab-text-color: var(--warm-stone-2);
+        --vp-code-tab-divider: rgba(88, 75, 79, 0.22);
+
+        --mint: var(--mint-2);
+        --mint-hover: var(--mint-1);
+        --teal: var(--teal-0);
+
+        --blue: var(--signal-blue-0);
+        --blue-hover: var(--signal-blue-1);
+
+        --ember: var(--ember-0);
+        --warm: var(--amber-0);
+        --text-strong-border: rgba(26, 25, 26, 0.22);
+        --card-highlight: rgba(255, 255, 255, 0.56);
+        --button-pressed-shadow: rgba(88, 75, 79, 0.2);
+        --button-alt-bg: color-mix(in srgb, var(--teal-1) 45%, white);
+        --button-info-fg: var(--graphite-0);
+        --ghost-hover-bg: rgba(101, 156, 200, 0.14);
+        --sidebar-marker-bg: rgba(88, 75, 79, 0.26);
+        --chip-bg: rgb(142 131 115 / 16%);
+        --chip-bg-hover: rgb(142 131 115 / 30%);
+        --chip-border-color: var(--warm-stone-3);
+        --preview-text-hover: var(--graphite-0);
+        --preview-icon: var(--warm-stone-2);
+        --pill-mint-bg: rgba(97, 239, 206, 0.26);
+        --pill-blue-bg: rgba(101, 156, 200, 0.26);
+        --lang-badge-bg: rgba(88, 75, 79, 0.12);
+        --lang-badge-border: rgba(88, 75, 79, 0.38);
+        --inline-code-bg: rgba(88, 75, 79, 0.12);
+        --inline-code-border: rgba(88, 75, 79, 0.18);
+        --code-lang-label: rgba(88, 75, 79, 0.65);
+        --plain-inline-code-bg: rgba(101, 117, 133, 0.12);
+        --plain-inline-code-text: var(--graphite-4);
+        --warn-inline-code-bg: rgba(211, 110, 45, 0.2);
+        --warn-inline-code-text: var(--ember-0);
+        --info-inline-code-bg: rgba(101, 156, 200, 0.14);
+      }
+
+      .mode-preview--dark {
+        color-scheme: dark;
+        --bg: var(--graphite-0);
+        --surface: var(--graphite-1);
+        --surface-raised: var(--graphite-2);
+        --surface-muted: var(--graphite-3);
+        --border: var(--graphite-4);
+        --border-soft: var(--graphite-6);
+        --text: var(--warm-stone-8);
+        --text-subtle: var(--graphite-6);
+        --text-strong: var(--warm-stone-8);
+
+        --brand: var(--amber-4);
+        --brand-hover: var(--amber-3);
+        --brand-active: var(--amber-2);
+        --dark-bg-border: var(--graphite-0);
+        --vp-code-tab-active-text-color: var(--warm-stone-8);
+        --vp-code-tab-text-color: var(--warm-stone-4);
+        --vp-code-tab-divider: #00000033;
+
+        --mint: var(--mint-3);
+        --mint-hover: var(--mint-2);
+        --teal: var(--teal-1);
+
+        --blue: var(--signal-blue-0);
+        --blue-hover: var(--signal-blue-1);
+
+        --ember: var(--ember-0);
+        --warm: var(--amber-0);
+        --text-strong-border: rgba(250, 246, 236, 0.35);
+        --card-highlight: rgba(250, 246, 236, 0.02);
+        --button-pressed-shadow: rgba(26, 25, 26, 0.45);
+        --button-alt-bg: var(--graphite-5);
+        --button-info-fg: #101417;
+        --ghost-hover-bg: rgba(101, 156, 200, 0.16);
+        --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
+        --chip-bg: rgb(142 131 115 / 20%);
+        --chip-bg-hover: rgb(142 131 115 / 50%);
+        --chip-border-color: var(--warm-stone-4);
+        --preview-text-hover: #f3f5f7;
+        --preview-icon: #9ba1aa;
+        --pill-mint-bg: rgba(97, 239, 206, 0.22);
+        --pill-blue-bg: rgba(101, 156, 200, 0.23);
+        --lang-badge-bg: rgba(101, 156, 200, 0.28);
+        --lang-badge-border: rgba(101, 156, 200, 0.65);
+        --inline-code-bg: rgba(67, 76, 86, 0.32);
+        --inline-code-border: rgba(120, 176, 160, 0.28);
+        --code-lang-label: rgba(239, 218, 185, 0.45);
+        --plain-inline-code-bg: #65758529;
+        --plain-inline-code-text: #9cdcfe;
+        --warn-inline-code-bg: rgba(234, 179, 8, 0.16);
+        --warn-inline-code-text: #f9b44e;
+        --info-inline-code-bg: rgba(101, 117, 133, 0.16);
+      }
     </style>
   </head>
   <body>
@@ -146,92 +304,353 @@
     <script type="text/babel" data-presets="react">
       const { useContext, useEffect, useMemo, useRef, useState } = React;
 
-      const TOKENS = [
-        ["--bg: #1A191A", "page background", "#1a191a"],
-        ["--surface: #2C2A2B", "card + panel backgrounds", "#2c2a2b"],
-        ["--surface-raised: #343233", "component containers", "#343233"],
-        ["--border: #434C56", "primary borders", "#434c56"],
-        ["--border-soft: #565656", "subtle lines + separators", "#565656"],
-        ["--text: #EFDAB9", "body text", "#efdab9"],
-        ["--text-subtle: #949189", "supporting copy", "#949189"],
-        ["--brand: #FFD152", "primary CTA base", "#ffd152"],
-        ["--brand-hover: #FFC31F", "brand hover", "#ffc31f"],
-        ["--brand-active: #EBAC00", "brand active / press", "#ebac00"],
-        ["--mint: #61EFCE", "accent + alt-hover", "#61efce"],
-        ["--teal: #78B0A0", "alt text", "#78b0a0"],
-        ["--blue: #659CC8", "info actions", "#659cc8"],
-        ["--blue-hover: #719BC4", "info hover", "#719bc4"],
-        ["--ember: #C13F21", "danger signal", "#c13f21"],
-        ["--warm: #D36E2D", "secondary warm accent", "#d36e2d"],
+      const CHIP_TEXT_DARK = '#F7FBFF';
+      const CHIP_TEXT_LIGHT = '#101417';
+
+      const COLOR_GROUPS = [
+        {
+          title: 'Graphite & Slate Neutrals',
+          description:
+            'Foundational dark surfaces and structural neutral depth. Darkest to lightest ordering is preserved left-to-right.',
+          colors: [
+            {
+              token: '--graphite-0',
+              hex: '#1A191A',
+              note: 'page background',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--graphite-1',
+              hex: '#2C2A2B',
+              note: 'core panel surface',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--graphite-2',
+              hex: '#343233',
+              note: 'raised panel surface',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--graphite-3',
+              hex: '#3D3A3A',
+              note: 'muted controls',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--graphite-4',
+              hex: '#434C56',
+              note: 'default border lines',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--graphite-5',
+              hex: '#47504E',
+              note: 'alt control background',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--graphite-6',
+              hex: '#565656',
+              note: 'dark-mode soft text',
+              chipText: CHIP_TEXT_DARK
+            }
+          ]
+        },
+        {
+          title: 'Warm Stone Neutrals',
+          description:
+            'Muted warm neutrals plus canvas tints for contrast balance. Darkest to lightest ordering is preserved left-to-right.',
+          colors: [
+            {
+              token: '--warm-stone-0',
+              hex: '#584B4F',
+              note: 'light-mode subtle copy',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--warm-stone-1',
+              hex: '#574C4F',
+              note: 'warm neutral shadow',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--warm-stone-2',
+              hex: '#66595C',
+              note: 'light-mode muted label',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--warm-stone-3',
+              hex: '#786F63',
+              note: 'mid-tone separators',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--warm-stone-4',
+              hex: '#8E8373',
+              note: 'tab and metadata text',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--warm-stone-5',
+              hex: '#949189',
+              note: 'supporting copy',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--warm-stone-6',
+              hex: '#EFDAB9',
+              note: 'dark-mode body text',
+              chipText: CHIP_TEXT_LIGHT
+            },
+            {
+              token: '--warm-stone-7',
+              hex: '#EFEAE1',
+              note: 'light-mode page background',
+              chipText: CHIP_TEXT_LIGHT
+            },
+            {
+              token: '--warm-stone-8',
+              hex: '#FAF6EC',
+              note: 'light canvas / dark-mode strong text',
+              chipText: CHIP_TEXT_LIGHT
+            }
+          ]
+        },
+        {
+          title: 'Teal & Mint Spectrum',
+          description:
+            'Cool accents sorted from grounded teals into bright mint highlights. Darkest to lightest ordering is preserved left-to-right.',
+          colors: [
+            {
+              token: '--teal-0',
+              hex: '#78AF9F',
+              note: 'quiet teal accent',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--teal-1',
+              hex: '#78B0A0',
+              note: 'alt text accent',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--mint-0',
+              hex: '#81C08B',
+              note: 'supportive positive tone',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--mint-1',
+              hex: '#2AEABD',
+              note: 'bright hover highlight',
+              chipText: CHIP_TEXT_LIGHT
+            },
+            {
+              token: '--mint-2',
+              hex: '#45EDC6',
+              note: 'pulse + hover accent',
+              chipText: CHIP_TEXT_LIGHT
+            },
+            {
+              token: '--mint-3',
+              hex: '#61EFCE',
+              note: 'primary mint accent',
+              chipText: CHIP_TEXT_LIGHT
+            }
+          ]
+        },
+        {
+          title: 'Ember & Amber Spectrum',
+          description:
+            'Warm signal tones spanning ember reds through bright yellow accents. Darkest to lightest ordering is preserved left-to-right.',
+          colors: [
+            {
+              token: '--ember-0',
+              hex: '#C13F21',
+              note: 'danger / warning text',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--amber-0',
+              hex: '#D36E2D',
+              note: 'pressed warm accent',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--amber-1',
+              hex: '#DDA032',
+              note: 'darkened light-mode CTA',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--amber-2',
+              hex: '#EBAC00',
+              note: 'active brand fill',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--amber-3',
+              hex: '#FFC31F',
+              note: 'brand hover',
+              chipText: CHIP_TEXT_LIGHT
+            },
+            {
+              token: '--amber-4',
+              hex: '#FFD152',
+              note: 'brand base',
+              chipText: CHIP_TEXT_LIGHT
+            }
+          ]
+        },
+        {
+          title: 'Signal Blues',
+          description:
+            'Blue communication hues, including the teletype line-work blue. Darkest to lightest ordering is preserved left-to-right.',
+          colors: [
+            {
+              token: '--signal-blue-0',
+              hex: '#659CC8',
+              note: 'info actions',
+              chipText: CHIP_TEXT_DARK
+            },
+            {
+              token: '--signal-blue-1',
+              hex: '#719BC4',
+              note: 'info hover',
+              chipText: CHIP_TEXT_DARK
+            }
+          ]
+        }
+      ];
+
+      const TYPOGRAPHY_FAMILIES = [
+        {
+          headline:
+            'System sans stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
+          detail:
+            'Primary reading and interface baseline. Matches apps/web and apps/preview base typography.'
+        },
+        {
+          headline: 'Code stack: SFMono-Regular, Consolas, Menlo, Monaco, monospace',
+          detail: 'Used for technical snippets, command examples, and dense metadata labels.'
+        },
+        {
+          headline: 'Iconography support: octicons and glyph companions',
+          detail: 'Symbol layer paired with text content where needed (docs + preview controls).'
+        }
+      ];
+
+      const TYPOGRAPHY_WEIGHTS = [
+        '300 / 400 / 500 are common body tiers.',
+        '200 / 600 / 700 remain emphasis accents.',
+        'Monospace content trends toward 500–700 for readability.'
+      ];
+
+      const TYPOGRAPHY_METRICS = [
+        'Display tier anchors around 42px.',
+        'Body and support baseline remains 16px / 14px.',
+        'Recommended line-height range: 1.45–1.55.'
+      ];
+
+      const TYPOGRAPHY_EXAMPLES = [
+        {
+          label: 'apps/web display',
+          scale: '2.3em → 3rem',
+          weight: '200 / 700',
+          example:
+            'Hero text (`.VPHomeHero .text`) and changelog timeline titles (`.timeline__titleblock_title`).'
+        },
+        {
+          label: 'apps/web navigation',
+          scale: '16px',
+          weight: '300 / 400',
+          example: 'Nav links and sidebar labels (`.VPNavBarMenuLink`, `.VPSidebarItem.level-0`).'
+        },
+        {
+          label: 'apps/preview controls',
+          scale: 'text-sm / text-base',
+          weight: '500 / 700',
+          example: 'Mode tabs (`NavButton`), page title (`Nav`) and send button labels (`Send`).'
+        },
+        {
+          label: 'apps/preview support copy',
+          scale: 'text-xs / text-sm',
+          weight: '300 / 500',
+          example: 'Recipient labels, popover content, and sidebar tree items.'
+        }
       ];
 
       const INSTALL_TABS = [
-        ["pnpm", "pnpm add jsx-email"],
-        ["bun", "bun add jsx-email"],
-        ["npm", "npm add jsx-email"],
-        ["yarn", "yarn add jsx-email"],
+        ['pnpm', 'pnpm add jsx-email'],
+        ['bun', 'bun add jsx-email'],
+        ['npm', 'npm add jsx-email'],
+        ['yarn', 'yarn add jsx-email']
       ];
 
       const PREVIEW_TABS = [
         [
-          "Desktop",
-          "Desktop preview mirrors the topbar control used in apps/preview, with the active slab filling the selected trigger.",
+          'Desktop',
+          'Desktop preview mirrors the topbar control used in apps/preview, with the active slab filling the selected trigger.'
         ],
         [
-          "Mobile",
-          "Mobile uses the same segmented surface and active highlight treatment as the preview app’s mode switcher.",
+          'Mobile',
+          'Mobile uses the same segmented surface and active highlight treatment as the preview app’s mode switcher.'
         ],
         [
-          "JSX",
-          "Code-oriented views sit in the same control group, using the identical label sizing and yellow active background.",
+          'JSX',
+          'Code-oriented views sit in the same control group, using the identical label sizing and yellow active background.'
         ],
         [
-          "HTML",
-          "HTML remains part of the same compact segmented row rather than switching to docs-style tabs.",
+          'HTML',
+          'HTML remains part of the same compact segmented row rather than switching to docs-style tabs.'
         ],
         [
-          "Plain",
-          "Plain text is still a first-class tab in apps/preview, so the showcase includes it in the same composition.",
-        ],
+          'Plain',
+          'Plain text is still a first-class tab in apps/preview, so the showcase includes it in the same composition.'
+        ]
       ];
 
       const TabsContext = React.createContext(null);
       const PopoverContext = React.createContext(null);
 
       function cn(...values) {
-        return values.filter(Boolean).join(" ");
+        return values.filter(Boolean).join(' ');
       }
 
-      function Card({ title, children, className = "" }) {
+      function Card({ title, children, className = '' }) {
         return (
           <article
             className={cn(
-              "rounded border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_var(--card-highlight)]",
-              className,
+              'rounded border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_var(--card-highlight)]',
+              className
             )}
           >
-            <h2 className="mb-3 text-[1.2rem] tracking-[0.01em] text-docs-text-strong">{title}</h2>
+            <h2 className="mb-3 text-[1.2rem] font-semibold tracking-[0.01em] text-docs-text-strong">
+              {title}
+            </h2>
             {children}
           </article>
         );
       }
 
-      function Button({ variant = "default", className = "", children, href, ...props }) {
+      function Button({ variant = 'default', className = '', children, href, ...props }) {
         const variants = {
           default:
-            "border-docs-border-soft bg-[var(--surface-muted)] text-docs-text hover:border-docs-border hover:bg-docs-surface-raised",
+            'border-docs-border-soft bg-[var(--surface-muted)] text-docs-text hover:border-docs-border hover:bg-docs-surface-raised',
           brand:
-            "border-[var(--brand-active)] bg-docs-brand text-docs-surface-raised hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]",
-          alt: "border-docs-border-soft bg-[var(--button-alt-bg)] text-[var(--teal)] hover:bg-[var(--mint)] hover:text-docs-surface-raised",
-          info: "border-[var(--blue-hover)] bg-[var(--blue)] text-[var(--button-info-fg)] hover:bg-[var(--blue-hover)]",
+            'border-[var(--brand-active)] bg-docs-brand text-docs-surface-raised hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]',
+          alt: 'border-docs-border-soft bg-[var(--button-alt-bg)] text-[var(--teal)] hover:bg-[var(--mint)] hover:text-docs-surface-raised',
+          info: 'border-[var(--blue-hover)] bg-[var(--blue)] text-[var(--button-info-fg)] hover:bg-[var(--blue-hover)]',
           ghost:
-            "border-docs-border-soft bg-transparent text-docs-text hover:border-[var(--blue)] hover:bg-[var(--ghost-hover-bg)]",
+            'border-docs-border-soft bg-transparent text-docs-text hover:border-[var(--blue)] hover:bg-[var(--ghost-hover-bg)]'
         };
 
         const classNames = cn(
-          "inline-flex min-h-[38px] items-center justify-center rounded border px-[13px] text-[0.86rem] font-semibold transition-colors duration-200",
+          'inline-flex min-h-[38px] items-center justify-center rounded border px-[13px] text-sm font-medium transition-colors duration-200',
           variants[variant],
-          className,
+          className
         );
 
         if (href) {
@@ -277,19 +696,19 @@
           };
 
           const handleKeyDown = (event) => {
-            if (event.key === "Escape") {
+            if (event.key === 'Escape') {
               setOpen(false);
             }
           };
 
-          document.addEventListener("mousedown", handlePointerDown);
-          document.addEventListener("touchstart", handlePointerDown);
-          document.addEventListener("keydown", handleKeyDown);
+          document.addEventListener('mousedown', handlePointerDown);
+          document.addEventListener('touchstart', handlePointerDown);
+          document.addEventListener('keydown', handleKeyDown);
 
           return () => {
-            document.removeEventListener("mousedown", handlePointerDown);
-            document.removeEventListener("touchstart", handlePointerDown);
-            document.removeEventListener("keydown", handleKeyDown);
+            document.removeEventListener('mousedown', handlePointerDown);
+            document.removeEventListener('touchstart', handlePointerDown);
+            document.removeEventListener('keydown', handleKeyDown);
           };
         }, [open]);
 
@@ -298,9 +717,9 @@
             open,
             setOpen,
             triggerRef,
-            contentRef,
+            contentRef
           }),
-          [open],
+          [open]
         );
 
         return (
@@ -324,8 +743,8 @@
                   context?.setOpen(!context?.open);
                 }
               },
-              "aria-expanded": context?.open ? "true" : "false",
-              "data-state": context?.open ? "open" : "closed",
+              'aria-expanded': context?.open ? 'true' : 'false',
+              'data-state': context?.open ? 'open' : 'closed'
             })}
           </span>
         );
@@ -333,62 +752,62 @@
 
       function PopoverContent({
         children,
-        className = "",
-        side = "bottom",
-        align = "center",
-        sideOffset = 4,
+        className = '',
+        side = 'bottom',
+        align = 'center',
+        sideOffset = 4
       }) {
         const context = useContext(PopoverContext);
 
         if (!context?.open) return null;
 
         const sideClasses = {
-          top: "bottom-full",
-          right: "left-full top-1/2 -translate-y-1/2",
-          bottom: "top-full",
-          left: "right-full top-1/2 -translate-y-1/2",
+          top: 'bottom-full',
+          right: 'left-full top-1/2 -translate-y-1/2',
+          bottom: 'top-full',
+          left: 'right-full top-1/2 -translate-y-1/2'
         };
 
         const alignClassesBySide = {
           top: {
-            start: "left-0",
-            center: "left-1/2 -translate-x-1/2",
-            end: "right-0",
+            start: 'left-0',
+            center: 'left-1/2 -translate-x-1/2',
+            end: 'right-0'
           },
           bottom: {
-            start: "left-0",
-            center: "left-1/2 -translate-x-1/2",
-            end: "right-0",
+            start: 'left-0',
+            center: 'left-1/2 -translate-x-1/2',
+            end: 'right-0'
           },
           right: {
-            start: "top-0",
-            center: "top-1/2 -translate-y-1/2",
-            end: "bottom-0",
+            start: 'top-0',
+            center: 'top-1/2 -translate-y-1/2',
+            end: 'bottom-0'
           },
           left: {
-            start: "top-0",
-            center: "top-1/2 -translate-y-1/2",
-            end: "bottom-0",
-          },
+            start: 'top-0',
+            center: 'top-1/2 -translate-y-1/2',
+            end: 'bottom-0'
+          }
         };
 
         const offsetStyle =
-          side === "bottom"
+          side === 'bottom'
             ? { marginTop: sideOffset }
-            : side === "top"
-              ? { marginBottom: sideOffset }
-              : side === "right"
-                ? { marginLeft: sideOffset }
-                : { marginRight: sideOffset };
+            : side === 'top'
+            ? { marginBottom: sideOffset }
+            : side === 'right'
+            ? { marginLeft: sideOffset }
+            : { marginRight: sideOffset };
 
         return (
           <div
             ref={context.contentRef}
             className={cn(
-              "absolute z-20",
+              'absolute z-20',
               sideClasses[side],
               alignClassesBySide[side][align],
-              className,
+              className
             )}
             data-state="open"
             data-side={side}
@@ -399,7 +818,7 @@
         );
       }
 
-      function PopoverClose({ children, className = "", ...props }) {
+      function PopoverClose({ children, className = '', ...props }) {
         const context = useContext(PopoverContext);
 
         return (
@@ -475,7 +894,7 @@
         return (
           <div className="grid gap-3">
             <div className="grid gap-2.5">
-              <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/web</div>
+              <div className="text-sm font-semibold text-docs-text-strong">apps/web</div>
               <div className="flex flex-wrap gap-2.5">
                 <a
                   href="/docs/quick-start"
@@ -490,14 +909,14 @@
                   View on Github
                 </Button>
               </div>
-              <p className="text-[0.75rem] text-docs-text-subtle">
+              <p className="text-xs text-docs-text-subtle">
                 These match the VitePress hero and changelog CTA treatment used in
                 <code className="inline"> apps/web </code>.
               </p>
             </div>
 
             <div className="grid gap-2.5">
-              <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+              <div className="text-sm font-semibold text-docs-text-strong">apps/preview</div>
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   type="button"
@@ -532,7 +951,7 @@
                   Read our Documentation
                 </a>
               </div>
-              <p className="text-[0.75rem] text-docs-text-subtle">
+              <p className="text-xs text-docs-text-subtle">
                 This covers the bare <code className="inline">?</code> trigger, the pulsing send
                 affordance, the send submit button, and the preview landing CTA from
                 <code className="inline"> apps/preview </code>.
@@ -545,7 +964,7 @@
       function PreviewPopoversShowcase() {
         return (
           <div className="grid gap-2.5">
-            <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+            <div className="text-sm font-semibold text-docs-text-strong">apps/preview</div>
             <div className="flex items-start gap-6 pb-[220px]">
               <Popover>
                 <PopoverTrigger>
@@ -617,7 +1036,7 @@
                     />
                     <div className="flex items-center justify-between">
                       <p className="inline-block text-xs">
-                        Powered by{" "}
+                        Powered by{' '}
                         <a
                           href="https://www.useplunk.com"
                           className="transition duration-300 ease-in-out hover:text-white"
@@ -643,23 +1062,23 @@
         );
       }
 
-      function Tabs({ defaultValue, className = "", children }) {
+      function Tabs({ defaultValue, className = '', children }) {
         const [value, setValue] = useState(defaultValue);
         const contextValue = useMemo(() => ({ value, setValue }), [value]);
 
         return (
           <TabsContext.Provider value={contextValue}>
-            <div className={cn("space-y-3", className)}>{children}</div>
+            <div className={cn('space-y-3', className)}>{children}</div>
           </TabsContext.Provider>
         );
       }
 
-      function TabsList({ className = "", children }) {
+      function TabsList({ className = '', children }) {
         return (
           <div
             className={cn(
-              "inline-block items-center overflow-hidden rounded border border-[var(--dark-bg-border)] bg-docs-surface",
-              className,
+              'inline-block items-center overflow-hidden rounded border border-[var(--dark-bg-border)] bg-docs-surface',
+              className
             )}
             role="tablist"
             aria-label="Preview mode"
@@ -669,7 +1088,7 @@
         );
       }
 
-      function TabsTrigger({ value, className = "", children }) {
+      function TabsTrigger({ value, className = '', children }) {
         const context = useContext(TabsContext);
         const isActive = context?.value === value;
 
@@ -681,21 +1100,21 @@
             tabIndex={isActive ? 0 : -1}
             onClick={() => context?.setValue(value)}
             className={cn(
-              "relative inline-flex px-3 py-2 text-sm font-medium transition duration-200 ease-in-out",
-              className,
+              'relative inline-flex px-3 py-2 text-sm font-medium transition duration-200 ease-in-out',
+              className
             )}
           >
             <span
               className={cn(
-                "absolute inset-0 bg-docs-brand transition-opacity duration-200 ease-in-out",
-                isActive ? "opacity-100" : "opacity-0",
+                'absolute inset-0 bg-docs-brand transition-opacity duration-200 ease-in-out',
+                isActive ? 'opacity-100' : 'opacity-0'
               )}
               aria-hidden="true"
             />
             <span
               className={cn(
-                "relative capitalize",
-                isActive ? "text-docs-surface-raised" : "text-docs-text",
+                'relative capitalize',
+                isActive ? 'text-docs-surface-raised' : 'text-docs-text'
               )}
             >
               {children}
@@ -704,15 +1123,15 @@
         );
       }
 
-      function TabsContent({ value, className = "", children }) {
+      function TabsContent({ value, className = '', children }) {
         const context = useContext(TabsContext);
         if (context?.value !== value) return null;
 
         return (
           <div
             className={cn(
-              "rounded border border-docs-border-soft bg-docs-surface px-3 py-[11px] text-docs-text",
-              className,
+              'rounded border border-docs-border-soft bg-docs-surface px-3 py-[11px] text-docs-text',
+              className
             )}
           >
             {children}
@@ -721,7 +1140,7 @@
       }
 
       function InstallTabs() {
-        const [active, setActive] = useState("pnpm");
+        const [active, setActive] = useState('pnpm');
         const command = INSTALL_TABS.find(([value]) => value === active)?.[1];
 
         return (
@@ -744,10 +1163,10 @@
                       onClick={() => setActive(value)}
                       className="relative inline-block shrink-0 whitespace-nowrap border-b border-transparent bg-transparent px-3 text-sm font-normal leading-[48px] [color:var(--tab-color)] transition-colors duration-[250ms] hover:[color:var(--vp-code-tab-active-text-color)] after:absolute after:bottom-[-1px] after:left-2 after:right-2 after:z-[1] after:h-[2px] after:rounded-[2px] after:[background-color:var(--tab-highlight)] after:transition-[background-color] after:duration-[250ms] hover:after:[background-color:var(--brand)]"
                       style={{
-                        "--tab-color": isActive
-                          ? "var(--vp-code-tab-active-text-color)"
-                          : "var(--vp-code-tab-text-color)",
-                        "--tab-highlight": isActive ? "var(--brand)" : "transparent",
+                        '--tab-color': isActive
+                          ? 'var(--vp-code-tab-active-text-color)'
+                          : 'var(--vp-code-tab-text-color)',
+                        '--tab-highlight': isActive ? 'var(--brand)' : 'transparent'
                       }}
                     >
                       {value}
@@ -763,8 +1182,8 @@
         );
       }
 
-      function CodeSample({ code, lang = "jsx", className = "" }) {
-        const [html, setHtml] = useState("");
+      function CodeSample({ code, lang = 'jsx', className = '' }) {
+        const [html, setHtml] = useState('');
 
         useEffect(() => {
           let cancelled = false;
@@ -776,14 +1195,14 @@
 
             const highlighted = await window.shikiCodeToHtml(code, {
               lang,
-              theme: "slack-dark",
+              theme: 'slack-dark'
             });
 
             if (!cancelled) setHtml(highlighted);
           }
 
           highlight().catch((error) => {
-            console.error("Failed to highlight code sample:", error);
+            console.error('Failed to highlight code sample:', error);
           });
 
           return () => {
@@ -802,8 +1221,8 @@
         return (
           <div
             className={cn(
-              "code-sample relative overflow-x-auto rounded bg-docs-surface",
-              className,
+              'code-sample relative overflow-x-auto rounded bg-docs-surface',
+              className
             )}
           >
             <span className="pointer-events-none absolute right-4 top-3 z-10 text-xs font-medium text-[var(--code-lang-label)] transition-opacity duration-300">
@@ -828,6 +1247,365 @@
         );
       }
 
+      function ColorPaletteSection() {
+        return (
+          <section className="mt-4 rounded border border-docs-border bg-docs-surface p-4">
+            <h2 className="text-[1.2rem] font-semibold tracking-[0.01em] text-docs-text-strong">
+              Color Palette
+            </h2>
+            <p className="mt-1 text-xs text-docs-text-subtle">
+              Full palette copied from{' '}
+              <code className="inline">12-design-system-combined.html</code>, grouped by likeness
+              and ordered darkest → lightest.
+            </p>
+
+            <div className="mt-3 grid gap-3">
+              {COLOR_GROUPS.map((group) => (
+                <article
+                  key={group.title}
+                  className="rounded border border-docs-border-soft bg-docs-surface px-3 py-3"
+                >
+                  <h3 className="text-base font-semibold text-docs-text-strong">{group.title}</h3>
+                  <p className="mt-1 text-xs text-docs-text-subtle">{group.description}</p>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {group.colors.map(({ token, hex, note, chipText }) => (
+                      <div
+                        key={token}
+                        className="w-[118px] rounded border border-docs-border-soft bg-docs-surface-raised p-1.5"
+                      >
+                        <div
+                          className="flex h-[56px] items-center justify-center rounded border border-[var(--text-strong-border)]"
+                          style={{ background: hex }}
+                        >
+                          <code
+                            className="font-mono text-[0.67rem] font-semibold tracking-[0.02em]"
+                            style={{ color: chipText }}
+                          >
+                            {hex}
+                          </code>
+                        </div>
+                        <code className="mt-1 block font-mono text-[0.7rem] text-docs-text-strong">
+                          {token}
+                        </code>
+                        <p className="mt-0.5 text-[0.68rem] leading-[1.3] text-docs-text-subtle">
+                          {note}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      }
+
+      function TypographySection() {
+        return (
+          <section className="mt-4 rounded border border-docs-border bg-docs-surface p-4">
+            <article className="rounded border border-docs-border-soft bg-docs-surface-raised p-3">
+              <h2 className="text-[1.2rem] font-semibold tracking-[0.01em] text-docs-text-strong">
+                2) Typography families and context
+              </h2>
+              <p className="mt-1 text-xs text-docs-text-subtle">
+                Source board: <code className="inline">10-typography-combined.svg</code>
+              </p>
+
+              <div className="mt-3 grid gap-2.5">
+                {TYPOGRAPHY_FAMILIES.map(({ headline, detail }) => (
+                  <div
+                    key={headline}
+                    className="rounded border border-docs-border-soft bg-docs-surface px-3 py-2.5"
+                  >
+                    <p className="text-sm text-docs-text">{headline}</p>
+                    <p className="mt-1 text-xs text-docs-text-subtle">{detail}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article className="mt-3 rounded border border-docs-border-soft bg-docs-surface-raised p-3">
+              <h2 className="text-[1.2rem] font-semibold tracking-[0.01em] text-docs-text-strong">
+                3) Weight, scale, and spacing
+              </h2>
+
+              <div className="mt-3 grid gap-3 lg:grid-cols-2">
+                <section className="rounded border border-docs-border-soft bg-docs-surface p-3">
+                  <h3 className="text-sm font-semibold text-docs-text-strong">Weight coverage</h3>
+                  <div className="mt-2 grid gap-2">
+                    {TYPOGRAPHY_WEIGHTS.map((weightNote) => (
+                      <p
+                        key={weightNote}
+                        className="rounded border border-docs-border-soft bg-docs-surface-raised px-2.5 py-2 text-sm text-docs-text"
+                      >
+                        {weightNote}
+                      </p>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="rounded border border-docs-border-soft bg-docs-surface p-3">
+                  <h3 className="text-sm font-semibold text-docs-text-strong">Size and spacing</h3>
+                  <div className="mt-2 grid gap-2">
+                    {TYPOGRAPHY_METRICS.map((metric) => (
+                      <p
+                        key={metric}
+                        className="rounded border border-docs-border-soft bg-docs-surface-raised px-2.5 py-2 text-sm text-docs-text"
+                      >
+                        {metric}
+                      </p>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="rounded border border-docs-border-soft bg-docs-surface p-3 lg:col-span-2">
+                  <h3 className="text-sm font-semibold text-docs-text-strong">
+                    apps/web + apps/preview font-size examples
+                  </h3>
+
+                  <div className="mt-2 hidden text-[0.72rem] uppercase tracking-[0.09em] text-docs-text-subtle md:grid md:grid-cols-[140px_120px_90px_1fr]">
+                    <span>Area</span>
+                    <span>Size</span>
+                    <span>Weight</span>
+                    <span>Example</span>
+                  </div>
+
+                  <div className="mt-1 grid gap-2">
+                    {TYPOGRAPHY_EXAMPLES.map(({ label, scale, weight, example }) => (
+                      <div
+                        key={label}
+                        className="grid gap-1.5 rounded border border-docs-border-soft bg-docs-surface-raised px-2.5 py-2 md:grid-cols-[140px_120px_90px_1fr] md:items-center md:gap-2"
+                      >
+                        <p className="text-xs font-semibold text-docs-text-strong md:font-medium">
+                          {label}
+                        </p>
+                        <p className="text-xs text-docs-text">{scale}</p>
+                        <p className="text-xs text-docs-text">{weight}</p>
+                        <p className="text-xs text-docs-text-subtle">{example}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            </article>
+          </section>
+        );
+      }
+
+      function ControlsShowcase() {
+        return (
+          <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <Card title="Buttons">
+              <PreviewButtonsShowcase />
+            </Card>
+
+            <Card title="Popovers">
+              <PreviewPopoversShowcase />
+            </Card>
+
+            <Card title="Tab Groups">
+              <Tabs defaultValue="Desktop">
+                <TabsList>
+                  {PREVIEW_TABS.map(([label]) => (
+                    <TabsTrigger key={label} value={label}>
+                      {label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                {PREVIEW_TABS.map(([label, content]) => (
+                  <TabsContent key={label} value={label}>
+                    {content}
+                  </TabsContent>
+                ))}
+              </Tabs>
+              <br />
+              <br />
+              <InstallTabs />
+            </Card>
+
+            <Card title="Links">
+              <div className="grid gap-3">
+                <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                  <div className="text-sm font-semibold text-docs-text-strong">
+                    Docs navigation and body links
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a
+                      href="/docs/introduction"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                    >
+                      Documentation
+                    </a>
+                    <a
+                      href="/docs/quick-start"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                    >
+                      Quick Start
+                    </a>
+                    <a
+                      href="/changelog"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                    >
+                      Changelog
+                    </a>
+                    <a
+                      href="http://samples.jsx.email"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                    >
+                      Email Samples
+                    </a>
+                  </div>
+                  <div className="grid gap-1.5">
+                    <a
+                      href="/docs/introduction"
+                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                    >
+                      Introduction
+                    </a>
+                    <a
+                      href="/docs/quick-start"
+                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                    >
+                      Quick Start
+                    </a>
+                    <a
+                      href="/docs/components/button"
+                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                    >
+                      Button
+                    </a>
+                  </div>
+                  <p className="text-xs text-docs-text-subtle">
+                    Docs body copy uses plain VitePress links like{' '}
+                    <a
+                      href="https://jsx.email/docs/introduction"
+                      className="text-docs-brand no-underline transition-colors duration-150 hover:text-[var(--brand-active)]"
+                    >
+                      jsx.email/docs/introduction
+                    </a>{' '}
+                    with no custom underline treatment.
+                  </p>
+                </div>
+
+                <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                  <div className="text-sm font-semibold text-docs-text-strong">
+                    Docs changelog links
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a
+                      href="https://github.com/example"
+                      className="inline-flex w-fit items-center gap-2.5 rounded-full bg-[var(--chip-bg)] p-2 text-xs font-medium leading-4 text-docs-text no-underline shadow-[0_0_1px_1px_var(--chip-border-color)] transition-colors duration-150 hover:bg-[var(--chip-bg-hover)]"
+                    >
+                      <span className="inline-block h-5 w-5 rounded-full bg-[var(--chip-border-color)]" />
+                      shellscape
+                    </a>
+                    <a
+                      href="https://github.com/shellscape/jsx-email/pull/999"
+                      className="text-docs-text no-underline transition-colors duration-150 hover:text-[var(--brand-hover)]"
+                    >
+                      #999: tighten docs tokens
+                    </a>
+                  </div>
+                  <p className="text-xs text-docs-text-subtle">
+                    The changelog page adds its own author chip link and a warm hover state on PR
+                    title links.
+                  </p>
+                </div>
+
+                <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                  <div className="text-sm font-semibold text-docs-text-strong">
+                    Preview links outside the tree view
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a
+                      href="https://www.useplunk.com"
+                      className="text-docs-text no-underline transition-colors duration-200 hover:text-[var(--preview-text-hover)]"
+                    >
+                      Powered by Plunk
+                    </a>
+                    <a
+                      href="#download"
+                      className="inline-flex items-center justify-center text-[var(--preview-icon)] no-underline transition-colors duration-200 hover:text-docs-text"
+                      aria-label="Download"
+                    >
+                      <DownloadIcon />
+                    </a>
+                  </div>
+                  <p className="text-xs text-docs-text-subtle">
+                    This mirrors the send-popover vendor link and the code-panel download action
+                    from <code className="inline">apps/preview</code>. Tree links are intentionally
+                    excluded.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <Card title="Code block + inline code treatment" className="lg:col-span-2">
+              <div>
+                <CodeSample
+                  lang="jsx"
+                  code={`import { Button, Text } from "jsx-email";
+
+export const Welcome = () => (
+  <Button href="https://jsx.email/docs" style={{ background: "var(--brand)", color: "var(--surface-raised)" }}>
+    Read docs
+  </Button>
+);`}
+                />
+              </div>
+              <p className="mt-2.5 text-xs text-docs-text-subtle">
+                Inline example: run{' '}
+                <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
+                  pnpm email create welcome-email
+                </code>{' '}
+                then{' '}
+                <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
+                  pnpm email preview
+                </code>
+                .
+              </p>
+              <p className="mt-2 text-xs text-docs-text-subtle">
+                Tip-block inline code style:{' '}
+                <code className="inline-block rounded-[4px] bg-[var(--blue-hover)] px-[6px] py-[3px] font-mono font-light text-docs-surface-raised">
+                  pnpm add jsx-email
+                </code>
+              </p>
+              <p className="mt-2 text-xs text-docs-text-subtle">
+                Warning-block inline code style:{' '}
+                <code className="inline-block rounded-[4px] bg-[var(--warn-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--warn-inline-code-text)]">
+                  Butan
+                </code>
+              </p>
+              <p className="mt-2 text-xs text-docs-text-subtle">
+                Info-block inline code style:{' '}
+                <code className="inline-block rounded-[4px] bg-[var(--info-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-docs-text">
+                  expression
+                </code>
+              </p>
+            </Card>
+          </section>
+        );
+      }
+
+      function ModePreview({ mode, title, note }) {
+        return (
+          <section
+            className={cn(
+              'mode-preview p-4',
+              mode === 'light' ? 'mode-preview--light' : 'mode-preview--dark'
+            )}
+            style={{ background: 'var(--bg)' }}
+          >
+            <header className="mb-4 rounded border border-docs-border-soft bg-docs-surface px-3 py-2.5">
+              <h2 className="text-[1.2rem] font-semibold text-docs-text-strong">{title}</h2>
+              <p className="mt-1 text-xs text-docs-text-subtle">{note}</p>
+            </header>
+            <ControlsShowcase />
+          </section>
+        );
+      }
+
       function ShowcaseApp() {
         return (
           <main className="mx-auto max-w-[1280px] px-5 pb-[52px] pt-7">
@@ -837,226 +1615,35 @@
               </h1>
             </header>
 
-            <section className="mt-4 rounded border border-docs-border bg-docs-surface p-4">
-              <h2 className="mb-3 text-[1.2rem] tracking-[0.01em] text-docs-text-strong">
-                Color Palette
-              </h2>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-2.5">
-                {TOKENS.map(([label, note, color]) => (
-                  <div
-                    key={label}
-                    className="grid grid-cols-[16px_1fr] items-center gap-2.5 rounded border border-docs-border-soft bg-docs-surface px-2.5 py-2"
-                  >
-                    <span
-                      className="h-4 w-4 rounded-full border border-[var(--text-strong-border)]"
-                      style={{ background: color }}
-                    />
-                    <div>
-                      <code className="font-mono text-[0.76rem] text-docs-text-strong">
-                        {label}
-                      </code>
-                      <div className="text-[0.74rem] text-docs-text-subtle">{note}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+            <ColorPaletteSection />
+            <TypographySection />
 
-            <section className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-              <Card title="Buttons">
-                <PreviewButtonsShowcase />
-              </Card>
+            <div className="mt-5 flex items-center gap-3">
+              <span className="h-px flex-1 bg-docs-border" />
+              <p className="text-[0.72rem] uppercase tracking-[0.18em] text-docs-text-subtle">
+                Controls · top: light mode · bottom: dark mode
+              </p>
+              <span className="h-px flex-1 bg-docs-border" />
+            </div>
 
-              <Card title="Popovers">
-                <PreviewPopoversShowcase />
-              </Card>
+            <section className="mt-4 grid gap-4">
+              <ModePreview
+                mode="light"
+                title="Light mode controls"
+                note="Base background #EFEAE1. Default text pairs Graphite darkest (#1A191A) with Warm Stone darkest (#584B4F)."
+              />
 
-              <Card title="Tab Groups">
-                <Tabs defaultValue="Desktop">
-                  <TabsList>
-                    {PREVIEW_TABS.map(([label]) => (
-                      <TabsTrigger key={label} value={label}>
-                        {label}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                  {PREVIEW_TABS.map(([label, content]) => (
-                    <TabsContent key={label} value={label}>
-                      {content}
-                    </TabsContent>
-                  ))}
-                </Tabs>
-                <br />
-                <br />
-                <InstallTabs />
-              </Card>
-
-              <Card title="Links">
-                <div className="grid gap-3">
-                  <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
-                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
-                      Docs navigation and body links
-                    </div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <a
-                        href="/docs/introduction"
-                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
-                      >
-                        Documentation
-                      </a>
-                      <a
-                        href="/docs/quick-start"
-                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
-                      >
-                        Quick Start
-                      </a>
-                      <a
-                        href="/changelog"
-                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
-                      >
-                        Changelog
-                      </a>
-                      <a
-                        href="http://samples.jsx.email"
-                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
-                      >
-                        Email Samples
-                      </a>
-                    </div>
-                    <div className="grid gap-1.5">
-                      <a
-                        href="/docs/introduction"
-                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
-                      >
-                        Introduction
-                      </a>
-                      <a
-                        href="/docs/quick-start"
-                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
-                      >
-                        Quick Start
-                      </a>
-                      <a
-                        href="/docs/components/button"
-                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
-                      >
-                        Button
-                      </a>
-                    </div>
-                    <p className="text-[0.75rem] text-docs-text-subtle">
-                      Docs body copy uses plain VitePress links like{" "}
-                      <a
-                        href="https://jsx.email/docs/introduction"
-                        className="text-docs-brand no-underline transition-colors duration-150 hover:text-[var(--brand-active)]"
-                      >
-                        jsx.email/docs/introduction
-                      </a>{" "}
-                      with no custom underline treatment.
-                    </p>
-                  </div>
-
-                  <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
-                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
-                      Docs changelog links
-                    </div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <a
-                        href="https://github.com/example"
-                        className="inline-flex w-fit items-center gap-2.5 rounded-full bg-[var(--chip-bg)] p-2 text-[0.75rem] font-medium leading-4 text-docs-text no-underline shadow-[0_0_1px_1px_var(--chip-border-color)] transition-colors duration-150 hover:bg-[var(--chip-bg-hover)]"
-                      >
-                        <span className="inline-block h-5 w-5 rounded-full bg-[var(--chip-border-color)]" />
-                        shellscape
-                      </a>
-                      <a
-                        href="https://github.com/shellscape/jsx-email/pull/999"
-                        className="text-docs-text no-underline transition-colors duration-150 hover:text-[var(--brand-hover)]"
-                      >
-                        #999: tighten docs tokens
-                      </a>
-                    </div>
-                    <p className="text-[0.75rem] text-docs-text-subtle">
-                      The changelog page adds its own author chip link and a warm hover state on PR
-                      title links.
-                    </p>
-                  </div>
-
-                  <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
-                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
-                      Preview links outside the tree view
-                    </div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <a
-                        href="https://www.useplunk.com"
-                        className="text-docs-text no-underline transition-colors duration-200 hover:text-[var(--preview-text-hover)]"
-                      >
-                        Powered by Plunk
-                      </a>
-                      <a
-                        href="#download"
-                        className="inline-flex items-center justify-center text-[var(--preview-icon)] no-underline transition-colors duration-200 hover:text-docs-text"
-                        aria-label="Download"
-                      >
-                        <DownloadIcon />
-                      </a>
-                    </div>
-                    <p className="text-[0.75rem] text-docs-text-subtle">
-                      This mirrors the send-popover vendor link and the code-panel download action
-                      from <code className="inline">apps/preview</code>. Tree links are
-                      intentionally excluded.
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card title="Code block + inline code treatment" className="lg:col-span-2">
-                <div>
-                  <CodeSample
-                    lang="jsx"
-                    code={`import { Button, Text } from "jsx-email";
-
-export const Welcome = () => (
-  <Button href="https://jsx.email/docs" style={{ background: "var(--brand)", color: "var(--surface-raised)" }}>
-    Read docs
-  </Button>
-);`}
-                  />
-                </div>
-                <p className="mt-2.5 text-[0.77rem] text-docs-text-subtle">
-                  Inline example: run{" "}
-                  <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
-                    pnpm email create welcome-email
-                  </code>{" "}
-                  then{" "}
-                  <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
-                    pnpm email preview
-                  </code>
-                  .
-                </p>
-                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
-                  Tip-block inline code style:{" "}
-                  <code className="inline-block rounded-[4px] bg-[var(--blue-hover)] px-[6px] py-[3px] font-mono font-light text-docs-surface-raised">
-                    pnpm add jsx-email
-                  </code>
-                </p>
-                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
-                  Warning-block inline code style:{" "}
-                  <code className="inline-block rounded-[4px] bg-[var(--warn-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--warn-inline-code-text)]">
-                    Butan
-                  </code>
-                </p>
-                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
-                  Info-block inline code style:{" "}
-                  <code className="inline-block rounded-[4px] bg-[var(--info-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-docs-text">
-                    expression
-                  </code>
-                </p>
-              </Card>
+              <ModePreview
+                mode="dark"
+                title="Dark mode controls"
+                note="Base background #1A191A. Default text pairs Warm Stone lightest (#FAF6EC) with Graphite lightest (#565656)."
+              />
             </section>
           </main>
         );
       }
 
-      ReactDOM.createRoot(document.getElementById("root")).render(<ShowcaseApp />);
+      ReactDOM.createRoot(document.getElementById('root')).render(<ShowcaseApp />);
     </script>
   </body>
 </html>
