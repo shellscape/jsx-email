@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -10,22 +10,22 @@
         theme: {
           extend: {
             colors: {
-              'docs-bg': 'var(--bg)',
-              'docs-surface': 'var(--surface)',
-              'docs-surface-raised': 'var(--surface-raised)',
-              'docs-border': 'var(--border)',
-              'docs-border-soft': 'var(--border-soft)',
-              'docs-text': 'var(--text)',
-              'docs-text-subtle': 'var(--text-subtle)',
-              'docs-text-strong': 'var(--text-strong)',
-              'docs-brand': 'var(--brand)'
-            }
-          }
-        }
+              "docs-bg": "var(--bg)",
+              "docs-surface": "var(--surface)",
+              "docs-surface-raised": "var(--surface-raised)",
+              "docs-border": "var(--border)",
+              "docs-border-soft": "var(--border-soft)",
+              "docs-text": "var(--text)",
+              "docs-text-subtle": "var(--text-subtle)",
+              "docs-text-strong": "var(--text-strong)",
+              "docs-brand": "var(--brand)",
+            },
+          },
+        },
       };
     </script>
     <script type="module">
-      import { codeToHtml } from 'https://esm.sh/shiki@1.29.2';
+      import { codeToHtml } from "https://esm.sh/shiki@1.29.2";
 
       window.shikiCodeToHtml = codeToHtml;
       window.shikiReady = Promise.resolve();
@@ -34,33 +34,33 @@
       :root {
         color-scheme: dark;
 
-        /* Graphite & Slate Neutrals */
-        --graphite-0: #1a191a;
-        --graphite-1: #2c2a2b;
-        --graphite-2: #343233;
-        --graphite-3: #3d3a3a;
-        --graphite-4: #434c56;
-        --graphite-5: #47504e;
-        --graphite-6: #565656;
+        /* Slate Neutrals */
+        --slate-0: #1a191a;
+        --slate-1: #2c2a2b;
+        --slate-2: #343233;
+        --slate-3: #3d3a3a;
+        --slate-4: #434c56;
+        --slate-5: #47504e;
+        --slate-6: #565656;
 
-        /* Warm Stone Neutrals */
-        --warm-stone-0: #584b4f;
-        --warm-stone-1: #574c4f;
-        --warm-stone-2: #66595c;
-        --warm-stone-3: #786f63;
-        --warm-stone-4: #8e8373;
-        --warm-stone-5: #949189;
-        --warm-stone-6: #efdab9;
-        --warm-stone-7: #efeae1;
-        --warm-stone-8: #faf6ec;
+        /* Stone Neutrals */
+        --stone-0: #584b4f;
+        --stone-1: #574c4f;
+        --stone-2: #66595c;
+        --stone-3: #786f63;
+        --stone-4: #8e8373;
+        --stone-5: #949189;
+        --stone-6: #efdab9;
+        --stone-7: #efeae1;
+        --stone-8: #faf6ec;
 
         /* Teal & Mint Spectrum */
-        --teal-0: #78af9f;
-        --teal-1: #78b0a0;
-        --mint-0: #81c08b;
-        --mint-1: #2aeabd;
-        --mint-2: #45edc6;
-        --mint-3: #61efce;
+        --mint-0: #78af9f;
+        --mint-1: #78b0a0;
+        --mint-2: #81c08b;
+        --mint-3: #2aeabd;
+        --mint-4: #45edc6;
+        --mint-5: #61efce;
 
         /* Ember & Amber Spectrum */
         --ember-0: #c13f21;
@@ -74,27 +74,27 @@
         --signal-blue-0: #659cc8;
         --signal-blue-1: #719bc4;
 
-        --bg: var(--graphite-0);
-        --surface: var(--graphite-1);
-        --surface-raised: var(--graphite-2);
-        --surface-muted: var(--graphite-3);
-        --border: var(--graphite-4);
-        --border-soft: var(--graphite-6);
-        --text: var(--warm-stone-6);
-        --text-subtle: var(--warm-stone-5);
-        --text-strong: var(--warm-stone-8);
+        --bg: var(--slate-0);
+        --surface: var(--slate-1);
+        --surface-raised: var(--slate-2);
+        --surface-muted: var(--slate-3);
+        --border: var(--slate-4);
+        --border-soft: var(--slate-6);
+        --text: var(--stone-6);
+        --text-subtle: var(--stone-5);
+        --text-strong: var(--stone-8);
 
         --brand: var(--amber-4);
         --brand-hover: var(--amber-3);
         --brand-active: var(--amber-2);
-        --dark-bg-border: var(--graphite-0);
-        --vp-code-tab-active-text-color: var(--warm-stone-6);
-        --vp-code-tab-text-color: var(--warm-stone-4);
+        --dark-bg-border: var(--slate-0);
+        --vp-code-tab-active-text-color: var(--stone-6);
+        --vp-code-tab-text-color: var(--stone-4);
         --vp-code-tab-divider: #00000033;
 
-        --mint: var(--mint-3);
-        --mint-hover: var(--mint-2);
-        --teal: var(--teal-1);
+        --mint: var(--mint-5);
+        --mint-hover: var(--mint-4);
+        --teal: var(--mint-1);
 
         --blue: var(--signal-blue-0);
         --blue-hover: var(--signal-blue-1);
@@ -104,13 +104,13 @@
         --text-strong-border: rgba(250, 246, 236, 0.35);
         --card-highlight: rgba(250, 246, 236, 0.02);
         --button-pressed-shadow: rgba(26, 25, 26, 0.45);
-        --button-alt-bg: var(--graphite-5);
+        --button-alt-bg: var(--slate-5);
         --button-info-fg: #101417;
         --ghost-hover-bg: rgba(101, 156, 200, 0.16);
         --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
         --chip-bg: rgb(142 131 115 / 20%);
         --chip-bg-hover: rgb(142 131 115 / 50%);
-        --chip-border-color: var(--warm-stone-4);
+        --chip-border-color: var(--stone-4);
         --preview-text-hover: #f3f5f7;
         --preview-icon: #9ba1aa;
         --pill-mint-bg: rgba(97, 239, 206, 0.22);
@@ -134,8 +134,8 @@
       body {
         margin: 0;
         background: #10151c;
-        color: var(--warm-stone-6);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        color: var(--stone-6);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         font-weight: 300;
         line-height: 1.5;
       }
@@ -189,25 +189,25 @@
       .mode-preview--light {
         color-scheme: light;
         --bg: #efeae1;
-        --surface: var(--warm-stone-8);
+        --surface: var(--stone-8);
         --surface-raised: #f4eee3;
         --surface-muted: #ece2d4;
-        --border: var(--warm-stone-3);
-        --border-soft: var(--warm-stone-5);
-        --text: var(--graphite-0);
-        --text-subtle: var(--warm-stone-0);
-        --text-strong: var(--graphite-1);
+        --border: var(--stone-3);
+        --border-soft: var(--stone-5);
+        --text: var(--slate-0);
+        --text-subtle: var(--stone-0);
+        --text-strong: var(--slate-1);
         --brand: var(--amber-2);
         --brand-hover: var(--amber-1);
         --brand-active: var(--amber-0);
-        --dark-bg-border: var(--warm-stone-3);
-        --vp-code-tab-active-text-color: var(--graphite-1);
-        --vp-code-tab-text-color: var(--warm-stone-2);
+        --dark-bg-border: var(--stone-3);
+        --vp-code-tab-active-text-color: var(--slate-1);
+        --vp-code-tab-text-color: var(--stone-2);
         --vp-code-tab-divider: rgba(88, 75, 79, 0.22);
 
-        --mint: var(--mint-2);
-        --mint-hover: var(--mint-1);
-        --teal: var(--teal-0);
+        --mint: var(--mint-4);
+        --mint-hover: var(--mint-3);
+        --teal: var(--mint-0);
 
         --blue: var(--signal-blue-0);
         --blue-hover: var(--signal-blue-1);
@@ -217,15 +217,15 @@
         --text-strong-border: rgba(26, 25, 26, 0.22);
         --card-highlight: rgba(255, 255, 255, 0.56);
         --button-pressed-shadow: rgba(88, 75, 79, 0.2);
-        --button-alt-bg: color-mix(in srgb, var(--teal-1) 45%, white);
-        --button-info-fg: var(--graphite-0);
+        --button-alt-bg: color-mix(in srgb, var(--mint-1) 45%, white);
+        --button-info-fg: var(--slate-0);
         --ghost-hover-bg: rgba(101, 156, 200, 0.14);
         --sidebar-marker-bg: rgba(88, 75, 79, 0.26);
         --chip-bg: rgb(142 131 115 / 16%);
         --chip-bg-hover: rgb(142 131 115 / 30%);
-        --chip-border-color: var(--warm-stone-3);
-        --preview-text-hover: var(--graphite-0);
-        --preview-icon: var(--warm-stone-2);
+        --chip-border-color: var(--stone-3);
+        --preview-text-hover: var(--slate-0);
+        --preview-icon: var(--stone-2);
         --pill-mint-bg: rgba(97, 239, 206, 0.26);
         --pill-blue-bg: rgba(101, 156, 200, 0.26);
         --lang-badge-bg: rgba(88, 75, 79, 0.12);
@@ -234,7 +234,7 @@
         --inline-code-border: rgba(88, 75, 79, 0.18);
         --code-lang-label: rgba(88, 75, 79, 0.65);
         --plain-inline-code-bg: rgba(101, 117, 133, 0.12);
-        --plain-inline-code-text: var(--graphite-4);
+        --plain-inline-code-text: var(--slate-4);
         --warn-inline-code-bg: rgba(211, 110, 45, 0.2);
         --warn-inline-code-text: var(--ember-0);
         --info-inline-code-bg: rgba(101, 156, 200, 0.14);
@@ -242,27 +242,27 @@
 
       .mode-preview--dark {
         color-scheme: dark;
-        --bg: var(--graphite-0);
-        --surface: var(--graphite-1);
-        --surface-raised: var(--graphite-2);
-        --surface-muted: var(--graphite-3);
-        --border: var(--graphite-4);
-        --border-soft: var(--graphite-6);
-        --text: var(--warm-stone-8);
-        --text-subtle: var(--graphite-6);
-        --text-strong: var(--warm-stone-8);
+        --bg: var(--slate-0);
+        --surface: var(--slate-1);
+        --surface-raised: var(--slate-2);
+        --surface-muted: var(--slate-3);
+        --border: var(--slate-4);
+        --border-soft: var(--slate-6);
+        --text: var(--stone-8);
+        --text-subtle: var(--slate-6);
+        --text-strong: var(--stone-8);
 
         --brand: var(--amber-4);
         --brand-hover: var(--amber-3);
         --brand-active: var(--amber-2);
-        --dark-bg-border: var(--graphite-0);
-        --vp-code-tab-active-text-color: var(--warm-stone-8);
-        --vp-code-tab-text-color: var(--warm-stone-4);
+        --dark-bg-border: var(--slate-0);
+        --vp-code-tab-active-text-color: var(--stone-8);
+        --vp-code-tab-text-color: var(--stone-4);
         --vp-code-tab-divider: #00000033;
 
-        --mint: var(--mint-3);
-        --mint-hover: var(--mint-2);
-        --teal: var(--teal-1);
+        --mint: var(--mint-5);
+        --mint-hover: var(--mint-4);
+        --teal: var(--mint-1);
 
         --blue: var(--signal-blue-0);
         --blue-hover: var(--signal-blue-1);
@@ -272,13 +272,13 @@
         --text-strong-border: rgba(250, 246, 236, 0.35);
         --card-highlight: rgba(250, 246, 236, 0.02);
         --button-pressed-shadow: rgba(26, 25, 26, 0.45);
-        --button-alt-bg: var(--graphite-5);
+        --button-alt-bg: var(--slate-5);
         --button-info-fg: #101417;
         --ghost-hover-bg: rgba(101, 156, 200, 0.16);
         --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
         --chip-bg: rgb(142 131 115 / 20%);
         --chip-bg-hover: rgb(142 131 115 / 50%);
-        --chip-border-color: var(--warm-stone-4);
+        --chip-border-color: var(--stone-4);
         --preview-text-hover: #f3f5f7;
         --preview-icon: #9ba1aa;
         --pill-mint-bg: rgba(97, 239, 206, 0.22);
@@ -304,225 +304,225 @@
     <script type="text/babel" data-presets="react">
       const { useContext, useEffect, useMemo, useRef, useState } = React;
 
-      const CHIP_TEXT_DARK = '#F7FBFF';
-      const CHIP_TEXT_LIGHT = '#101417';
+      const CHIP_TEXT_DARK = "#F7FBFF";
+      const CHIP_TEXT_LIGHT = "#101417";
 
       const COLOR_GROUPS = [
         {
-          title: 'Graphite & Slate Neutrals',
+          title: "Slate Neutrals",
           description:
-            'Foundational dark surfaces and structural neutral depth. Darkest to lightest ordering is preserved left-to-right.',
+            "Foundational dark surfaces and structural neutral depth. Darkest to lightest ordering is preserved left-to-right.",
           colors: [
             {
-              token: '--graphite-0',
-              hex: '#1A191A',
-              note: 'page background',
-              chipText: CHIP_TEXT_DARK
+              token: "--slate-0",
+              hex: "#1A191A",
+              note: "page background",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--graphite-1',
-              hex: '#2C2A2B',
-              note: 'core panel surface',
-              chipText: CHIP_TEXT_DARK
+              token: "--slate-1",
+              hex: "#2C2A2B",
+              note: "core panel surface",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--graphite-2',
-              hex: '#343233',
-              note: 'raised panel surface',
-              chipText: CHIP_TEXT_DARK
+              token: "--slate-2",
+              hex: "#343233",
+              note: "raised panel surface",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--graphite-3',
-              hex: '#3D3A3A',
-              note: 'muted controls',
-              chipText: CHIP_TEXT_DARK
+              token: "--slate-3",
+              hex: "#3D3A3A",
+              note: "muted controls",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--graphite-4',
-              hex: '#434C56',
-              note: 'default border lines',
-              chipText: CHIP_TEXT_DARK
+              token: "--slate-4",
+              hex: "#434C56",
+              note: "default border lines",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--graphite-5',
-              hex: '#47504E',
-              note: 'alt control background',
-              chipText: CHIP_TEXT_DARK
+              token: "--slate-5",
+              hex: "#47504E",
+              note: "alt control background",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--graphite-6',
-              hex: '#565656',
-              note: 'dark-mode soft text',
-              chipText: CHIP_TEXT_DARK
-            }
-          ]
+              token: "--slate-6",
+              hex: "#565656",
+              note: "dark-mode soft text",
+              chipText: CHIP_TEXT_DARK,
+            },
+          ],
         },
         {
-          title: 'Warm Stone Neutrals',
+          title: "Stone Neutrals",
           description:
-            'Muted warm neutrals plus canvas tints for contrast balance. Darkest to lightest ordering is preserved left-to-right.',
+            "Muted warm neutrals plus canvas tints for contrast balance. Darkest to lightest ordering is preserved left-to-right.",
           colors: [
             {
-              token: '--warm-stone-0',
-              hex: '#584B4F',
-              note: 'light-mode subtle copy',
-              chipText: CHIP_TEXT_DARK
+              token: "--stone-0",
+              hex: "#584B4F",
+              note: "light-mode subtle copy",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--warm-stone-1',
-              hex: '#574C4F',
-              note: 'warm neutral shadow',
-              chipText: CHIP_TEXT_DARK
+              token: "--stone-1",
+              hex: "#574C4F",
+              note: "warm neutral shadow",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--warm-stone-2',
-              hex: '#66595C',
-              note: 'light-mode muted label',
-              chipText: CHIP_TEXT_DARK
+              token: "--stone-2",
+              hex: "#66595C",
+              note: "light-mode muted label",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--warm-stone-3',
-              hex: '#786F63',
-              note: 'mid-tone separators',
-              chipText: CHIP_TEXT_DARK
+              token: "--stone-3",
+              hex: "#786F63",
+              note: "mid-tone separators",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--warm-stone-4',
-              hex: '#8E8373',
-              note: 'tab and metadata text',
-              chipText: CHIP_TEXT_DARK
+              token: "--stone-4",
+              hex: "#8E8373",
+              note: "tab and metadata text",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--warm-stone-5',
-              hex: '#949189',
-              note: 'supporting copy',
-              chipText: CHIP_TEXT_DARK
+              token: "--stone-5",
+              hex: "#949189",
+              note: "supporting copy",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--warm-stone-6',
-              hex: '#EFDAB9',
-              note: 'dark-mode body text',
-              chipText: CHIP_TEXT_LIGHT
+              token: "--stone-6",
+              hex: "#EFDAB9",
+              note: "dark-mode body text",
+              chipText: CHIP_TEXT_LIGHT,
             },
             {
-              token: '--warm-stone-7',
-              hex: '#EFEAE1',
-              note: 'light-mode page background',
-              chipText: CHIP_TEXT_LIGHT
+              token: "--stone-7",
+              hex: "#EFEAE1",
+              note: "light-mode page background",
+              chipText: CHIP_TEXT_LIGHT,
             },
             {
-              token: '--warm-stone-8',
-              hex: '#FAF6EC',
-              note: 'light canvas / dark-mode strong text',
-              chipText: CHIP_TEXT_LIGHT
-            }
-          ]
+              token: "--stone-8",
+              hex: "#FAF6EC",
+              note: "light canvas / dark-mode strong text",
+              chipText: CHIP_TEXT_LIGHT,
+            },
+          ],
         },
         {
-          title: 'Teal & Mint Spectrum',
+          title: "Teal & Mint Spectrum",
           description:
-            'Cool accents sorted from grounded teals into bright mint highlights. Darkest to lightest ordering is preserved left-to-right.',
+            "Cool accents sorted from grounded teals into bright mint highlights. Darkest to lightest ordering is preserved left-to-right.",
           colors: [
             {
-              token: '--teal-0',
-              hex: '#78AF9F',
-              note: 'quiet teal accent',
-              chipText: CHIP_TEXT_DARK
+              token: "--mint-0",
+              hex: "#78AF9F",
+              note: "quiet teal accent",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--teal-1',
-              hex: '#78B0A0',
-              note: 'alt text accent',
-              chipText: CHIP_TEXT_DARK
+              token: "--mint-1",
+              hex: "#78B0A0",
+              note: "alt text accent",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--mint-0',
-              hex: '#81C08B',
-              note: 'supportive positive tone',
-              chipText: CHIP_TEXT_DARK
+              token: "--mint-2",
+              hex: "#81C08B",
+              note: "supportive positive tone",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--mint-1',
-              hex: '#2AEABD',
-              note: 'bright hover highlight',
-              chipText: CHIP_TEXT_LIGHT
+              token: "--mint-3",
+              hex: "#2AEABD",
+              note: "bright hover highlight",
+              chipText: CHIP_TEXT_LIGHT,
             },
             {
-              token: '--mint-2',
-              hex: '#45EDC6',
-              note: 'pulse + hover accent',
-              chipText: CHIP_TEXT_LIGHT
+              token: "--mint-4",
+              hex: "#45EDC6",
+              note: "pulse + hover accent",
+              chipText: CHIP_TEXT_LIGHT,
             },
             {
-              token: '--mint-3',
-              hex: '#61EFCE',
-              note: 'primary mint accent',
-              chipText: CHIP_TEXT_LIGHT
-            }
-          ]
+              token: "--mint-5",
+              hex: "#61EFCE",
+              note: "primary mint accent",
+              chipText: CHIP_TEXT_LIGHT,
+            },
+          ],
         },
         {
-          title: 'Ember & Amber Spectrum',
+          title: "Ember & Amber Spectrum",
           description:
-            'Warm signal tones spanning ember reds through bright yellow accents. Darkest to lightest ordering is preserved left-to-right.',
+            "Warm signal tones spanning ember reds through bright yellow accents. Darkest to lightest ordering is preserved left-to-right.",
           colors: [
             {
-              token: '--ember-0',
-              hex: '#C13F21',
-              note: 'danger / warning text',
-              chipText: CHIP_TEXT_DARK
+              token: "--ember-0",
+              hex: "#C13F21",
+              note: "danger / warning text",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--amber-0',
-              hex: '#D36E2D',
-              note: 'pressed warm accent',
-              chipText: CHIP_TEXT_DARK
+              token: "--amber-0",
+              hex: "#D36E2D",
+              note: "pressed warm accent",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--amber-1',
-              hex: '#DDA032',
-              note: 'darkened light-mode CTA',
-              chipText: CHIP_TEXT_DARK
+              token: "--amber-1",
+              hex: "#DDA032",
+              note: "darkened light-mode CTA",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--amber-2',
-              hex: '#EBAC00',
-              note: 'active brand fill',
-              chipText: CHIP_TEXT_DARK
+              token: "--amber-2",
+              hex: "#EBAC00",
+              note: "active brand fill",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--amber-3',
-              hex: '#FFC31F',
-              note: 'brand hover',
-              chipText: CHIP_TEXT_LIGHT
+              token: "--amber-3",
+              hex: "#FFC31F",
+              note: "brand hover",
+              chipText: CHIP_TEXT_LIGHT,
             },
             {
-              token: '--amber-4',
-              hex: '#FFD152',
-              note: 'brand base',
-              chipText: CHIP_TEXT_LIGHT
-            }
-          ]
+              token: "--amber-4",
+              hex: "#FFD152",
+              note: "brand base",
+              chipText: CHIP_TEXT_LIGHT,
+            },
+          ],
         },
         {
-          title: 'Signal Blues',
+          title: "Signal Blues",
           description:
-            'Blue communication hues, including the teletype line-work blue. Darkest to lightest ordering is preserved left-to-right.',
+            "Blue communication hues, including the teletype line-work blue. Darkest to lightest ordering is preserved left-to-right.",
           colors: [
             {
-              token: '--signal-blue-0',
-              hex: '#659CC8',
-              note: 'info actions',
-              chipText: CHIP_TEXT_DARK
+              token: "--signal-blue-0",
+              hex: "#659CC8",
+              note: "info actions",
+              chipText: CHIP_TEXT_DARK,
             },
             {
-              token: '--signal-blue-1',
-              hex: '#719BC4',
-              note: 'info hover',
-              chipText: CHIP_TEXT_DARK
-            }
-          ]
-        }
+              token: "--signal-blue-1",
+              hex: "#719BC4",
+              note: "info hover",
+              chipText: CHIP_TEXT_DARK,
+            },
+          ],
+        },
       ];
 
       const TYPOGRAPHY_FAMILIES = [
@@ -530,101 +530,101 @@
           headline:
             'System sans stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
           detail:
-            'Primary reading and interface baseline. Matches apps/web and apps/preview base typography.'
+            "Primary reading and interface baseline. Matches apps/web and apps/preview base typography.",
         },
         {
-          headline: 'Code stack: SFMono-Regular, Consolas, Menlo, Monaco, monospace',
-          detail: 'Used for technical snippets, command examples, and dense metadata labels.'
+          headline: "Code stack: SFMono-Regular, Consolas, Menlo, Monaco, monospace",
+          detail: "Used for technical snippets, command examples, and dense metadata labels.",
         },
         {
-          headline: 'Iconography support: octicons and glyph companions',
-          detail: 'Symbol layer paired with text content where needed (docs + preview controls).'
-        }
+          headline: "Iconography support: octicons and glyph companions",
+          detail: "Symbol layer paired with text content where needed (docs + preview controls).",
+        },
       ];
 
       const TYPOGRAPHY_WEIGHTS = [
-        '300 / 400 / 500 are common body tiers.',
-        '200 / 600 / 700 remain emphasis accents.',
-        'Monospace content trends toward 500–700 for readability.'
+        "300 / 400 / 500 are common body tiers.",
+        "200 / 600 / 700 remain emphasis accents.",
+        "Monospace content trends toward 500–700 for readability.",
       ];
 
       const TYPOGRAPHY_METRICS = [
-        'Display tier anchors around 42px.',
-        'Body and support baseline remains 16px / 14px.',
-        'Recommended line-height range: 1.45–1.55.'
+        "Display tier anchors around 42px.",
+        "Body and support baseline remains 16px / 14px.",
+        "Recommended line-height range: 1.45–1.55.",
       ];
 
       const TYPOGRAPHY_EXAMPLES = [
         {
-          label: 'apps/web display',
-          scale: '2.3em → 3rem',
-          weight: '200 / 700',
+          label: "apps/web display",
+          scale: "2.3em → 3rem",
+          weight: "200 / 700",
           example:
-            'Hero text (`.VPHomeHero .text`) and changelog timeline titles (`.timeline__titleblock_title`).'
+            "Hero text (`.VPHomeHero .text`) and changelog timeline titles (`.timeline__titleblock_title`).",
         },
         {
-          label: 'apps/web navigation',
-          scale: '16px',
-          weight: '300 / 400',
-          example: 'Nav links and sidebar labels (`.VPNavBarMenuLink`, `.VPSidebarItem.level-0`).'
+          label: "apps/web navigation",
+          scale: "16px",
+          weight: "300 / 400",
+          example: "Nav links and sidebar labels (`.VPNavBarMenuLink`, `.VPSidebarItem.level-0`).",
         },
         {
-          label: 'apps/preview controls',
-          scale: 'text-sm / text-base',
-          weight: '500 / 700',
-          example: 'Mode tabs (`NavButton`), page title (`Nav`) and send button labels (`Send`).'
+          label: "apps/preview controls",
+          scale: "text-sm / text-base",
+          weight: "500 / 700",
+          example: "Mode tabs (`NavButton`), page title (`Nav`) and send button labels (`Send`).",
         },
         {
-          label: 'apps/preview support copy',
-          scale: 'text-xs / text-sm',
-          weight: '300 / 500',
-          example: 'Recipient labels, popover content, and sidebar tree items.'
-        }
+          label: "apps/preview support copy",
+          scale: "text-xs / text-sm",
+          weight: "300 / 500",
+          example: "Recipient labels, popover content, and sidebar tree items.",
+        },
       ];
 
       const INSTALL_TABS = [
-        ['pnpm', 'pnpm add jsx-email'],
-        ['bun', 'bun add jsx-email'],
-        ['npm', 'npm add jsx-email'],
-        ['yarn', 'yarn add jsx-email']
+        ["pnpm", "pnpm add jsx-email"],
+        ["bun", "bun add jsx-email"],
+        ["npm", "npm add jsx-email"],
+        ["yarn", "yarn add jsx-email"],
       ];
 
       const PREVIEW_TABS = [
         [
-          'Desktop',
-          'Desktop preview mirrors the topbar control used in apps/preview, with the active slab filling the selected trigger.'
+          "Desktop",
+          "Desktop preview mirrors the topbar control used in apps/preview, with the active slab filling the selected trigger.",
         ],
         [
-          'Mobile',
-          'Mobile uses the same segmented surface and active highlight treatment as the preview app’s mode switcher.'
+          "Mobile",
+          "Mobile uses the same segmented surface and active highlight treatment as the preview app’s mode switcher.",
         ],
         [
-          'JSX',
-          'Code-oriented views sit in the same control group, using the identical label sizing and yellow active background.'
+          "JSX",
+          "Code-oriented views sit in the same control group, using the identical label sizing and yellow active background.",
         ],
         [
-          'HTML',
-          'HTML remains part of the same compact segmented row rather than switching to docs-style tabs.'
+          "HTML",
+          "HTML remains part of the same compact segmented row rather than switching to docs-style tabs.",
         ],
         [
-          'Plain',
-          'Plain text is still a first-class tab in apps/preview, so the showcase includes it in the same composition.'
-        ]
+          "Plain",
+          "Plain text is still a first-class tab in apps/preview, so the showcase includes it in the same composition.",
+        ],
       ];
 
       const TabsContext = React.createContext(null);
       const PopoverContext = React.createContext(null);
 
       function cn(...values) {
-        return values.filter(Boolean).join(' ');
+        return values.filter(Boolean).join(" ");
       }
 
-      function Card({ title, children, className = '' }) {
+      function Card({ title, children, className = "" }) {
         return (
           <article
             className={cn(
-              'rounded border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_var(--card-highlight)]',
-              className
+              "rounded border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_var(--card-highlight)]",
+              className,
             )}
           >
             <h2 className="mb-3 text-[1.2rem] font-semibold tracking-[0.01em] text-docs-text-strong">
@@ -635,22 +635,22 @@
         );
       }
 
-      function Button({ variant = 'default', className = '', children, href, ...props }) {
+      function Button({ variant = "default", className = "", children, href, ...props }) {
         const variants = {
           default:
-            'border-docs-border-soft bg-[var(--surface-muted)] text-docs-text hover:border-docs-border hover:bg-docs-surface-raised',
+            "border-docs-border-soft bg-[var(--surface-muted)] text-docs-text hover:border-docs-border hover:bg-docs-surface-raised",
           brand:
-            'border-[var(--brand-active)] bg-docs-brand text-docs-surface-raised hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]',
-          alt: 'border-docs-border-soft bg-[var(--button-alt-bg)] text-[var(--teal)] hover:bg-[var(--mint)] hover:text-docs-surface-raised',
-          info: 'border-[var(--blue-hover)] bg-[var(--blue)] text-[var(--button-info-fg)] hover:bg-[var(--blue-hover)]',
+            "border-[var(--brand-active)] bg-docs-brand text-docs-surface-raised hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]",
+          alt: "border-docs-border-soft bg-[var(--button-alt-bg)] text-[var(--teal)] hover:bg-[var(--mint)] hover:text-docs-surface-raised",
+          info: "border-[var(--blue-hover)] bg-[var(--blue)] text-[var(--button-info-fg)] hover:bg-[var(--blue-hover)]",
           ghost:
-            'border-docs-border-soft bg-transparent text-docs-text hover:border-[var(--blue)] hover:bg-[var(--ghost-hover-bg)]'
+            "border-docs-border-soft bg-transparent text-docs-text hover:border-[var(--blue)] hover:bg-[var(--ghost-hover-bg)]",
         };
 
         const classNames = cn(
-          'inline-flex min-h-[38px] items-center justify-center rounded border px-[13px] text-sm font-medium transition-colors duration-200',
+          "inline-flex min-h-[38px] items-center justify-center rounded border px-[13px] text-sm font-medium transition-colors duration-200",
           variants[variant],
-          className
+          className,
         );
 
         if (href) {
@@ -696,19 +696,19 @@
           };
 
           const handleKeyDown = (event) => {
-            if (event.key === 'Escape') {
+            if (event.key === "Escape") {
               setOpen(false);
             }
           };
 
-          document.addEventListener('mousedown', handlePointerDown);
-          document.addEventListener('touchstart', handlePointerDown);
-          document.addEventListener('keydown', handleKeyDown);
+          document.addEventListener("mousedown", handlePointerDown);
+          document.addEventListener("touchstart", handlePointerDown);
+          document.addEventListener("keydown", handleKeyDown);
 
           return () => {
-            document.removeEventListener('mousedown', handlePointerDown);
-            document.removeEventListener('touchstart', handlePointerDown);
-            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener("mousedown", handlePointerDown);
+            document.removeEventListener("touchstart", handlePointerDown);
+            document.removeEventListener("keydown", handleKeyDown);
           };
         }, [open]);
 
@@ -717,9 +717,9 @@
             open,
             setOpen,
             triggerRef,
-            contentRef
+            contentRef,
           }),
-          [open]
+          [open],
         );
 
         return (
@@ -743,8 +743,8 @@
                   context?.setOpen(!context?.open);
                 }
               },
-              'aria-expanded': context?.open ? 'true' : 'false',
-              'data-state': context?.open ? 'open' : 'closed'
+              "aria-expanded": context?.open ? "true" : "false",
+              "data-state": context?.open ? "open" : "closed",
             })}
           </span>
         );
@@ -752,62 +752,62 @@
 
       function PopoverContent({
         children,
-        className = '',
-        side = 'bottom',
-        align = 'center',
-        sideOffset = 4
+        className = "",
+        side = "bottom",
+        align = "center",
+        sideOffset = 4,
       }) {
         const context = useContext(PopoverContext);
 
         if (!context?.open) return null;
 
         const sideClasses = {
-          top: 'bottom-full',
-          right: 'left-full top-1/2 -translate-y-1/2',
-          bottom: 'top-full',
-          left: 'right-full top-1/2 -translate-y-1/2'
+          top: "bottom-full",
+          right: "left-full top-1/2 -translate-y-1/2",
+          bottom: "top-full",
+          left: "right-full top-1/2 -translate-y-1/2",
         };
 
         const alignClassesBySide = {
           top: {
-            start: 'left-0',
-            center: 'left-1/2 -translate-x-1/2',
-            end: 'right-0'
+            start: "left-0",
+            center: "left-1/2 -translate-x-1/2",
+            end: "right-0",
           },
           bottom: {
-            start: 'left-0',
-            center: 'left-1/2 -translate-x-1/2',
-            end: 'right-0'
+            start: "left-0",
+            center: "left-1/2 -translate-x-1/2",
+            end: "right-0",
           },
           right: {
-            start: 'top-0',
-            center: 'top-1/2 -translate-y-1/2',
-            end: 'bottom-0'
+            start: "top-0",
+            center: "top-1/2 -translate-y-1/2",
+            end: "bottom-0",
           },
           left: {
-            start: 'top-0',
-            center: 'top-1/2 -translate-y-1/2',
-            end: 'bottom-0'
-          }
+            start: "top-0",
+            center: "top-1/2 -translate-y-1/2",
+            end: "bottom-0",
+          },
         };
 
         const offsetStyle =
-          side === 'bottom'
+          side === "bottom"
             ? { marginTop: sideOffset }
-            : side === 'top'
-            ? { marginBottom: sideOffset }
-            : side === 'right'
-            ? { marginLeft: sideOffset }
-            : { marginRight: sideOffset };
+            : side === "top"
+              ? { marginBottom: sideOffset }
+              : side === "right"
+                ? { marginLeft: sideOffset }
+                : { marginRight: sideOffset };
 
         return (
           <div
             ref={context.contentRef}
             className={cn(
-              'absolute z-20',
+              "absolute z-20",
               sideClasses[side],
               alignClassesBySide[side][align],
-              className
+              className,
             )}
             data-state="open"
             data-side={side}
@@ -818,7 +818,7 @@
         );
       }
 
-      function PopoverClose({ children, className = '', ...props }) {
+      function PopoverClose({ children, className = "", ...props }) {
         const context = useContext(PopoverContext);
 
         return (
@@ -1036,7 +1036,7 @@
                     />
                     <div className="flex items-center justify-between">
                       <p className="inline-block text-xs">
-                        Powered by{' '}
+                        Powered by{" "}
                         <a
                           href="https://www.useplunk.com"
                           className="transition duration-300 ease-in-out hover:text-white"
@@ -1062,23 +1062,23 @@
         );
       }
 
-      function Tabs({ defaultValue, className = '', children }) {
+      function Tabs({ defaultValue, className = "", children }) {
         const [value, setValue] = useState(defaultValue);
         const contextValue = useMemo(() => ({ value, setValue }), [value]);
 
         return (
           <TabsContext.Provider value={contextValue}>
-            <div className={cn('space-y-3', className)}>{children}</div>
+            <div className={cn("space-y-3", className)}>{children}</div>
           </TabsContext.Provider>
         );
       }
 
-      function TabsList({ className = '', children }) {
+      function TabsList({ className = "", children }) {
         return (
           <div
             className={cn(
-              'inline-block items-center overflow-hidden rounded border border-[var(--dark-bg-border)] bg-docs-surface',
-              className
+              "inline-block items-center overflow-hidden rounded border border-[var(--dark-bg-border)] bg-docs-surface",
+              className,
             )}
             role="tablist"
             aria-label="Preview mode"
@@ -1088,7 +1088,7 @@
         );
       }
 
-      function TabsTrigger({ value, className = '', children }) {
+      function TabsTrigger({ value, className = "", children }) {
         const context = useContext(TabsContext);
         const isActive = context?.value === value;
 
@@ -1100,21 +1100,21 @@
             tabIndex={isActive ? 0 : -1}
             onClick={() => context?.setValue(value)}
             className={cn(
-              'relative inline-flex px-3 py-2 text-sm font-medium transition duration-200 ease-in-out',
-              className
+              "relative inline-flex px-3 py-2 text-sm font-medium transition duration-200 ease-in-out",
+              className,
             )}
           >
             <span
               className={cn(
-                'absolute inset-0 bg-docs-brand transition-opacity duration-200 ease-in-out',
-                isActive ? 'opacity-100' : 'opacity-0'
+                "absolute inset-0 bg-docs-brand transition-opacity duration-200 ease-in-out",
+                isActive ? "opacity-100" : "opacity-0",
               )}
               aria-hidden="true"
             />
             <span
               className={cn(
-                'relative capitalize',
-                isActive ? 'text-docs-surface-raised' : 'text-docs-text'
+                "relative capitalize",
+                isActive ? "text-docs-surface-raised" : "text-docs-text",
               )}
             >
               {children}
@@ -1123,15 +1123,15 @@
         );
       }
 
-      function TabsContent({ value, className = '', children }) {
+      function TabsContent({ value, className = "", children }) {
         const context = useContext(TabsContext);
         if (context?.value !== value) return null;
 
         return (
           <div
             className={cn(
-              'rounded border border-docs-border-soft bg-docs-surface px-3 py-[11px] text-docs-text',
-              className
+              "rounded border border-docs-border-soft bg-docs-surface px-3 py-[11px] text-docs-text",
+              className,
             )}
           >
             {children}
@@ -1140,7 +1140,7 @@
       }
 
       function InstallTabs() {
-        const [active, setActive] = useState('pnpm');
+        const [active, setActive] = useState("pnpm");
         const command = INSTALL_TABS.find(([value]) => value === active)?.[1];
 
         return (
@@ -1163,10 +1163,10 @@
                       onClick={() => setActive(value)}
                       className="relative inline-block shrink-0 whitespace-nowrap border-b border-transparent bg-transparent px-3 text-sm font-normal leading-[48px] [color:var(--tab-color)] transition-colors duration-[250ms] hover:[color:var(--vp-code-tab-active-text-color)] after:absolute after:bottom-[-1px] after:left-2 after:right-2 after:z-[1] after:h-[2px] after:rounded-[2px] after:[background-color:var(--tab-highlight)] after:transition-[background-color] after:duration-[250ms] hover:after:[background-color:var(--brand)]"
                       style={{
-                        '--tab-color': isActive
-                          ? 'var(--vp-code-tab-active-text-color)'
-                          : 'var(--vp-code-tab-text-color)',
-                        '--tab-highlight': isActive ? 'var(--brand)' : 'transparent'
+                        "--tab-color": isActive
+                          ? "var(--vp-code-tab-active-text-color)"
+                          : "var(--vp-code-tab-text-color)",
+                        "--tab-highlight": isActive ? "var(--brand)" : "transparent",
                       }}
                     >
                       {value}
@@ -1182,8 +1182,8 @@
         );
       }
 
-      function CodeSample({ code, lang = 'jsx', className = '' }) {
-        const [html, setHtml] = useState('');
+      function CodeSample({ code, lang = "jsx", className = "" }) {
+        const [html, setHtml] = useState("");
 
         useEffect(() => {
           let cancelled = false;
@@ -1195,14 +1195,14 @@
 
             const highlighted = await window.shikiCodeToHtml(code, {
               lang,
-              theme: 'slack-dark'
+              theme: "slack-dark",
             });
 
             if (!cancelled) setHtml(highlighted);
           }
 
           highlight().catch((error) => {
-            console.error('Failed to highlight code sample:', error);
+            console.error("Failed to highlight code sample:", error);
           });
 
           return () => {
@@ -1221,8 +1221,8 @@
         return (
           <div
             className={cn(
-              'code-sample relative overflow-x-auto rounded bg-docs-surface',
-              className
+              "code-sample relative overflow-x-auto rounded bg-docs-surface",
+              className,
             )}
           >
             <span className="pointer-events-none absolute right-4 top-3 z-10 text-xs font-medium text-[var(--code-lang-label)] transition-opacity duration-300">
@@ -1254,7 +1254,7 @@
               Color Palette
             </h2>
             <p className="mt-1 text-xs text-docs-text-subtle">
-              Full palette copied from{' '}
+              Full palette copied from{" "}
               <code className="inline">12-design-system-combined.html</code>, grouped by likeness
               and ordered darkest → lightest.
             </p>
@@ -1477,13 +1477,13 @@
                     </a>
                   </div>
                   <p className="text-xs text-docs-text-subtle">
-                    Docs body copy uses plain VitePress links like{' '}
+                    Docs body copy uses plain VitePress links like{" "}
                     <a
                       href="https://jsx.email/docs/introduction"
                       className="text-docs-brand no-underline transition-colors duration-150 hover:text-[var(--brand-active)]"
                     >
                       jsx.email/docs/introduction
-                    </a>{' '}
+                    </a>{" "}
                     with no custom underline treatment.
                   </p>
                 </div>
@@ -1555,30 +1555,30 @@ export const Welcome = () => (
                 />
               </div>
               <p className="mt-2.5 text-xs text-docs-text-subtle">
-                Inline example: run{' '}
+                Inline example: run{" "}
                 <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
                   pnpm email create welcome-email
-                </code>{' '}
-                then{' '}
+                </code>{" "}
+                then{" "}
                 <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
                   pnpm email preview
                 </code>
                 .
               </p>
               <p className="mt-2 text-xs text-docs-text-subtle">
-                Tip-block inline code style:{' '}
+                Tip-block inline code style:{" "}
                 <code className="inline-block rounded-[4px] bg-[var(--blue-hover)] px-[6px] py-[3px] font-mono font-light text-docs-surface-raised">
                   pnpm add jsx-email
                 </code>
               </p>
               <p className="mt-2 text-xs text-docs-text-subtle">
-                Warning-block inline code style:{' '}
+                Warning-block inline code style:{" "}
                 <code className="inline-block rounded-[4px] bg-[var(--warn-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--warn-inline-code-text)]">
                   Butan
                 </code>
               </p>
               <p className="mt-2 text-xs text-docs-text-subtle">
-                Info-block inline code style:{' '}
+                Info-block inline code style:{" "}
                 <code className="inline-block rounded-[4px] bg-[var(--info-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-docs-text">
                   expression
                 </code>
@@ -1592,10 +1592,10 @@ export const Welcome = () => (
         return (
           <section
             className={cn(
-              'mode-preview p-4',
-              mode === 'light' ? 'mode-preview--light' : 'mode-preview--dark'
+              "mode-preview p-4",
+              mode === "light" ? "mode-preview--light" : "mode-preview--dark",
             )}
-            style={{ background: 'var(--bg)' }}
+            style={{ background: "var(--bg)" }}
           >
             <header className="mb-4 rounded border border-docs-border-soft bg-docs-surface px-3 py-2.5">
               <h2 className="text-[1.2rem] font-semibold text-docs-text-strong">{title}</h2>
@@ -1643,7 +1643,7 @@ export const Welcome = () => (
         );
       }
 
-      ReactDOM.createRoot(document.getElementById('root')).render(<ShowcaseApp />);
+      ReactDOM.createRoot(document.getElementById("root")).render(<ShowcaseApp />);
     </script>
   </body>
 </html>
