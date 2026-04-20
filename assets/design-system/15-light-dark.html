@@ -105,7 +105,13 @@
         --card-highlight: rgba(250, 246, 236, 0.02);
         --button-pressed-shadow: rgba(26, 25, 26, 0.45);
         --button-alt-bg: var(--slate-5);
+        --button-alt-border: var(--border-soft);
+        --button-alt-fg: var(--teal);
+        --button-alt-hover-bg: var(--mint);
+        --button-alt-hover-border: var(--mint);
+        --button-alt-hover-fg: var(--surface-raised);
         --button-info-fg: #101417;
+        --brand-button-fg: var(--surface-raised);
         --ghost-hover-bg: rgba(101, 156, 200, 0.16);
         --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
         --chip-bg: rgb(142 131 115 / 20%);
@@ -256,7 +262,13 @@
         --card-highlight: rgba(255, 255, 255, 0.56);
         --button-pressed-shadow: rgba(88, 75, 79, 0.2);
         --button-alt-bg: color-mix(in srgb, var(--mint-1) 45%, white);
+        --button-alt-border: var(--button-alt-bg);
+        --button-alt-fg: var(--slate-5);
+        --button-alt-hover-bg: var(--mint-2);
+        --button-alt-hover-border: var(--mint-2);
+        --button-alt-hover-fg: var(--slate-3);
         --button-info-fg: var(--slate-0);
+        --brand-button-fg: var(--slate-3);
         --ghost-hover-bg: rgba(101, 156, 200, 0.14);
         --sidebar-marker-bg: rgba(88, 75, 79, 0.26);
         --chip-bg: rgb(142 131 115 / 16%);
@@ -322,7 +334,13 @@
         --card-highlight: rgba(250, 246, 236, 0.02);
         --button-pressed-shadow: rgba(26, 25, 26, 0.45);
         --button-alt-bg: var(--slate-5);
+        --button-alt-border: var(--border-soft);
+        --button-alt-fg: var(--teal);
+        --button-alt-hover-bg: var(--mint);
+        --button-alt-hover-border: var(--mint);
+        --button-alt-hover-fg: var(--surface-raised);
         --button-info-fg: #101417;
+        --brand-button-fg: var(--surface-raised);
         --ghost-hover-bg: rgba(101, 156, 200, 0.16);
         --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
         --chip-bg: rgb(142 131 115 / 20%);
@@ -856,8 +874,8 @@
           default:
             "border-docs-border-soft bg-[var(--surface-muted)] text-docs-text hover:border-docs-border hover:bg-docs-surface-raised",
           brand:
-            "border-[var(--brand-active)] bg-docs-brand text-docs-surface-raised hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]",
-          alt: "border-docs-border-soft bg-[var(--button-alt-bg)] text-[var(--teal)] hover:bg-[var(--mint)] hover:text-docs-surface-raised",
+            "border-[var(--brand-active)] bg-docs-brand [color:var(--brand-button-fg)] hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]",
+          alt: "border-[var(--button-alt-border)] bg-[var(--button-alt-bg)] [color:var(--button-alt-fg)] hover:border-[var(--button-alt-hover-border)] hover:bg-[var(--button-alt-hover-bg)] hover:[color:var(--button-alt-hover-fg)]",
           info: "border-[var(--blue-hover)] bg-[var(--blue)] text-[var(--button-info-fg)] hover:bg-[var(--blue-hover)]",
           ghost:
             "border-docs-border-soft bg-transparent text-docs-text hover:border-[var(--blue)] hover:bg-[var(--ghost-hover-bg)]",
@@ -1481,7 +1499,7 @@
               <div className="flex flex-wrap gap-2.5">
                 <a
                   href="/docs/quick-start"
-                  className="inline-flex rounded-[5px] bg-docs-brand px-[2em] py-[0.1em] font-medium leading-[38px] text-docs-surface-raised no-underline transition-colors duration-200 hover:bg-[var(--brand-hover)]"
+                  className="inline-flex rounded-[5px] bg-docs-brand px-[2em] py-[0.1em] font-medium leading-[38px] [color:var(--brand-button-fg)] no-underline transition-colors duration-200 hover:bg-[var(--brand-hover)]"
                 >
                   Quick Start
                 </a>
@@ -1522,14 +1540,14 @@
 
                 <button
                   type="button"
-                  className="disabled:border-transparent relative rounded-md bg-docs-brand px-3 py-1 text-sm font-medium text-docs-surface-raised transition duration-200 ease-in-out"
+                  className="disabled:border-transparent relative rounded-md bg-docs-brand px-3 py-1 text-sm font-medium [color:var(--brand-button-fg)] transition duration-200 ease-in-out"
                 >
                   Send
                 </button>
 
                 <a
                   href="https://jsx.email/docs/introduction"
-                  className="inline-block rounded bg-docs-brand px-4 py-2 text-base font-normal text-docs-surface-raised transition duration-200 ease-in-out hover:bg-[var(--brand-hover)] focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20"
+                  className="inline-block rounded bg-docs-brand px-4 py-2 text-base font-normal [color:var(--brand-button-fg)] transition duration-200 ease-in-out hover:bg-[var(--brand-hover)] focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20"
                 >
                   Read our Documentation
                 </a>
@@ -1632,7 +1650,7 @@
                       </p>
                       <button
                         type="button"
-                        className="relative rounded-md bg-docs-brand px-3 py-1 text-sm font-medium text-docs-surface-raised transition duration-200 ease-in-out"
+                        className="relative rounded-md bg-docs-brand px-3 py-1 text-sm font-medium [color:var(--brand-button-fg)] transition duration-200 ease-in-out"
                       >
                         Send
                       </button>
@@ -1697,7 +1715,7 @@
             <span
               className={cn(
                 "relative capitalize",
-                isActive ? "text-docs-surface-raised" : "text-docs-text",
+                isActive ? "[color:var(--brand-button-fg)]" : "text-docs-text",
               )}
             >
               {children}
