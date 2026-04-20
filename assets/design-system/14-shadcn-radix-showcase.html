@@ -10,15 +10,15 @@
         theme: {
           extend: {
             colors: {
-              "docs-bg": "#1a191a",
-              "docs-surface": "#2c2a2b",
-              "docs-surface-raised": "#343233",
-              "docs-border": "#434c56",
-              "docs-border-soft": "#565656",
-              "docs-text": "#efdab9",
-              "docs-text-subtle": "#949189",
-              "docs-text-strong": "#faf6ec",
-              "docs-brand": "#ffd152",
+              "docs-bg": "var(--bg)",
+              "docs-surface": "var(--surface)",
+              "docs-surface-raised": "var(--surface-raised)",
+              "docs-border": "var(--border)",
+              "docs-border-soft": "var(--border-soft)",
+              "docs-text": "var(--text)",
+              "docs-text-subtle": "var(--text-subtle)",
+              "docs-text-strong": "var(--text-strong)",
+              "docs-brand": "var(--brand)",
             },
           },
         },
@@ -48,6 +48,7 @@
         --brand-active: #ebac00;
         --vp-code-tab-active-text-color: #efdab9;
         --vp-code-tab-text-color: #8e8373;
+        --vp-code-tab-divider: #00000033;
 
         --mint: #61efce;
         --mint-hover: #45edc6;
@@ -58,6 +59,30 @@
 
         --ember: #c13f21;
         --warm: #d36e2d;
+        --text-strong-border: rgba(250, 246, 236, 0.35);
+        --card-highlight: rgba(250, 246, 236, 0.02);
+        --button-pressed-shadow: rgba(26, 25, 26, 0.45);
+        --button-alt-bg: #47504e;
+        --button-info-fg: #101417;
+        --ghost-hover-bg: rgba(101, 156, 200, 0.16);
+        --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
+        --chip-bg: rgb(142 131 115 / 20%);
+        --chip-bg-hover: rgb(142 131 115 / 50%);
+        --chip-border-color: #8e8373;
+        --preview-text-hover: #f3f5f7;
+        --preview-icon: #9ba1aa;
+        --pill-mint-bg: rgba(97, 239, 206, 0.22);
+        --pill-blue-bg: rgba(101, 156, 200, 0.23);
+        --lang-badge-bg: rgba(101, 156, 200, 0.28);
+        --lang-badge-border: rgba(101, 156, 200, 0.65);
+        --inline-code-bg: rgba(67, 76, 86, 0.32);
+        --inline-code-border: rgba(120, 176, 160, 0.28);
+        --code-lang-label: rgba(239, 218, 185, 0.45);
+        --plain-inline-code-bg: #65758529;
+        --plain-inline-code-text: #9cdcfe;
+        --warn-inline-code-bg: rgba(234, 179, 8, 0.16);
+        --warn-inline-code-text: #f9b44e;
+        --info-inline-code-bg: rgba(101, 117, 133, 0.16);
       }
 
       * {
@@ -72,585 +97,9 @@
         line-height: 1.45;
       }
 
-      .page {
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 28px 20px 52px;
-      }
-
-      h1 {
-        margin: 0;
-        font-size: clamp(1.9rem, 4vw, 2.45rem);
-        color: var(--text-strong);
-        line-height: 1.1;
-      }
-
-      h2 {
-        margin: 0 0 12px;
-        font-size: 1.2rem;
-        letter-spacing: 0.01em;
-        color: var(--text-strong);
-      }
-
-      h3 {
-        margin: 0 0 8px;
-        font-size: 0.96rem;
-        color: var(--text-strong);
-      }
-
       p {
         margin: 0;
       }
-
-      .lede {
-        margin-top: 10px;
-        max-width: 82ch;
-        color: var(--text);
-        font-size: 0.98rem;
-      }
-
-      .meta {
-        margin-top: 10px;
-        color: var(--text-subtle);
-        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
-        font-size: 0.8rem;
-      }
-
-      .surface {
-        margin-top: 16px;
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        background: var(--surface);
-        padding: 16px;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 16px;
-        margin-top: 16px;
-      }
-
-      .card {
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        background: var(--surface-raised);
-        padding: 14px;
-      }
-
-      .col-6 {
-        grid-column: span 6;
-      }
-
-      .col-12 {
-        grid-column: span 12;
-      }
-
-      .token-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-        gap: 10px;
-      }
-
-      .token-item {
-        display: grid;
-        grid-template-columns: 16px 1fr;
-        gap: 10px;
-        align-items: center;
-        border: 1px solid var(--border-soft);
-        border-radius: 10px;
-        background: var(--surface);
-        padding: 8px 10px;
-      }
-
-      .swatch {
-        width: 16px;
-        height: 16px;
-        border-radius: 999px;
-        border: 1px solid rgba(250, 246, 236, 0.35);
-      }
-
-      .token-item code {
-        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
-        color: var(--text-strong);
-        font-size: 0.76rem;
-      }
-
-      .token-note {
-        color: var(--text-subtle);
-        font-size: 0.74rem;
-      }
-
-      .button-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .ds-button {
-        --btn-bg: var(--surface-muted);
-        --btn-fg: var(--text);
-        --btn-border: var(--border-soft);
-
-        align-items: center;
-        appearance: none;
-        background: var(--btn-bg);
-        border: 1px solid var(--btn-border);
-        border-radius: 10px;
-        color: var(--btn-fg);
-        cursor: pointer;
-        display: inline-flex;
-        font-size: 0.86rem;
-        font-weight: 600;
-        gap: 8px;
-        min-height: 38px;
-        padding: 0 13px;
-        text-decoration: none;
-        transition:
-          transform 130ms ease,
-          background-color 180ms ease,
-          color 180ms ease,
-          box-shadow 180ms ease,
-          border-color 180ms ease;
-      }
-
-      .ds-button:active,
-      .ds-button.is-pressed {
-        box-shadow: inset 0 1px 0 rgba(26, 25, 26, 0.45);
-      }
-
-      .ds-button.brand {
-        --btn-bg: var(--brand);
-        --btn-fg: var(--surface-raised);
-        --btn-border: var(--brand-active);
-      }
-
-      .ds-button.brand:hover {
-        background: var(--brand-hover);
-      }
-
-      .ds-button.brand:active,
-      .ds-button.brand.is-pressed {
-        background: var(--brand-active);
-      }
-
-      .ds-button.alt {
-        --btn-bg: #47504e;
-        --btn-fg: var(--teal);
-        --btn-border: var(--border-soft);
-      }
-
-      .ds-button.alt:hover {
-        --btn-bg: var(--mint);
-        --btn-fg: var(--surface-raised);
-      }
-
-      .ds-button.info {
-        --btn-bg: var(--blue);
-        --btn-fg: #101417;
-        --btn-border: var(--blue-hover);
-      }
-
-      .ds-button.info:hover {
-        background: var(--blue-hover);
-      }
-
-      .ds-button.ghost {
-        --btn-bg: transparent;
-        --btn-fg: var(--text);
-        --btn-border: var(--border-soft);
-      }
-
-      .ds-button.ghost:hover {
-        background: rgba(101, 156, 200, 0.16);
-        border-color: var(--blue);
-      }
-
-      .legend {
-        margin-top: 10px;
-        color: var(--text-subtle);
-        font-size: 0.77rem;
-      }
-
-      .segmented {
-        align-items: center;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 11px;
-        display: inline-grid;
-        grid-auto-flow: column;
-        gap: 2px;
-        padding: 4px;
-        position: relative;
-      }
-
-      .segmented-indicator {
-        background: var(--brand);
-        border-radius: 8px;
-        height: calc(100% - 8px);
-        left: 4px;
-        opacity: 0;
-        position: absolute;
-        top: 4px;
-        transform: translateX(0);
-        transition:
-          transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1),
-          width 280ms cubic-bezier(0.2, 0.8, 0.2, 1),
-          opacity 120ms ease;
-        width: 0;
-        z-index: 0;
-      }
-
-      .segmented button {
-        appearance: none;
-        background: transparent;
-        border: 0;
-        border-radius: 8px;
-        color: var(--text);
-        cursor: pointer;
-        font: inherit;
-        font-size: 0.82rem;
-        font-weight: 600;
-        min-height: 34px;
-        min-width: 76px;
-        padding: 0 12px;
-        position: relative;
-        transition: color 150ms ease;
-        z-index: 1;
-      }
-
-      .segmented button[aria-pressed="true"] {
-        color: var(--surface-raised);
-      }
-
-      .segmented button[aria-pressed="false"]:hover {
-        color: var(--brand);
-      }
-
-      .panel-stack {
-        margin-top: 12px;
-      }
-
-      .tab-panel {
-        background: var(--surface);
-        border: 1px solid var(--border-soft);
-        border-radius: 10px;
-        color: var(--text);
-        display: none;
-        padding: 11px 12px;
-      }
-
-      .tab-panel.is-active {
-        display: block;
-        animation: panel-fade 180ms ease;
-      }
-
-      @keyframes panel-fade {
-        from {
-          opacity: 0;
-          transform: translateY(2px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .command {
-        color: var(--text-strong);
-        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
-        font-size: 0.8rem;
-      }
-
-      .links-showcase {
-        display: grid;
-        gap: 12px;
-      }
-
-      .link-cluster {
-        background: var(--surface);
-        border: 1px solid var(--border-soft);
-        border-radius: 10px;
-        display: grid;
-        gap: 10px;
-        padding: 12px;
-      }
-
-      .link-cluster-title {
-        color: var(--text-strong);
-        font-size: 0.8rem;
-        font-weight: 600;
-      }
-
-      .link-cluster-note {
-        color: var(--text-subtle);
-        font-size: 0.75rem;
-      }
-
-      .docs-nav-row,
-      .docs-cta-row,
-      .preview-link-row {
-        align-items: center;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .docs-nav-link {
-        color: var(--text);
-        font-size: 16px;
-        font-weight: 300;
-        text-decoration: none;
-        transition: color 150ms ease;
-      }
-
-      .docs-nav-link:hover {
-        color: var(--brand);
-      }
-
-      .docs-sidebar-stack {
-        display: grid;
-        gap: 6px;
-      }
-
-      .docs-sidebar-link {
-        color: #8e8373;
-        display: inline-flex;
-        font-size: 0.88rem;
-        padding-left: 18px;
-        position: relative;
-        text-decoration: none;
-        transition: color 0.25s, opacity 0.25s;
-        width: fit-content;
-      }
-
-      .docs-sidebar-link:hover {
-        color: var(--brand);
-      }
-
-      .docs-sidebar-link::before {
-        background: rgba(120, 111, 99, 0.2);
-        border-radius: 999px;
-        content: "";
-        height: 6px;
-        left: 0;
-        opacity: 0;
-        position: absolute;
-        top: 0.45rem;
-        transition: opacity 0.25s;
-        width: 6px;
-      }
-
-      .docs-sidebar-link:hover::before {
-        opacity: 1;
-      }
-
-      .docs-inline-link {
-        color: var(--brand);
-        text-decoration: none;
-        transition: color 150ms ease;
-      }
-
-      .docs-inline-link:hover {
-        color: var(--brand-active);
-      }
-
-      .docs-pr-link {
-        color: var(--text);
-        text-decoration: none;
-        transition: color 150ms ease;
-      }
-
-      .docs-pr-link:hover {
-        color: var(--brand-hover);
-      }
-
-      .docs-chip-link {
-        align-items: center;
-        background: rgb(142 131 115 / 20%);
-        border-radius: 999px;
-        box-shadow: 0 0 1px 1px #8e8373;
-        color: var(--text);
-        display: inline-flex;
-        font-size: 0.75rem;
-        font-weight: 500;
-        gap: 10px;
-        line-height: 1rem;
-        padding: 0.5rem;
-        text-decoration: none;
-        width: fit-content;
-      }
-
-      .docs-chip-link:hover {
-        background: rgb(142 131 115 / 50%);
-      }
-
-      .docs-chip-avatar {
-        background: #8e8373;
-        border-radius: 999px;
-        display: inline-block;
-        height: 20px;
-        width: 20px;
-      }
-
-      .preview-text-link {
-        color: var(--text);
-        text-decoration: none;
-        transition: color 200ms ease;
-      }
-
-      .preview-text-link:hover {
-        color: #f3f5f7;
-      }
-
-      .preview-icon-link {
-        align-items: center;
-        color: #9ba1aa;
-        display: inline-flex;
-        justify-content: center;
-        text-decoration: none;
-        transition: color 200ms ease;
-      }
-
-      .preview-icon-link:hover {
-        color: var(--text);
-      }
-
-      .install-shell {
-        border-radius: 10px;
-        overflow: hidden;
-      }
-
-      .install-tabs {
-        background: #2c2a2b;
-        display: flex;
-        min-width: max-content;
-        margin: 0;
-        padding: 0;
-        box-shadow: inset 0 -1px #00000033;
-      }
-
-      .install-tab {
-        appearance: none;
-        position: relative;
-        display: inline-block;
-        background: transparent;
-        border: 0;
-        color: var(--vp-code-tab-text-color);
-        cursor: pointer;
-        flex: 0 0 auto;
-        font-family: inherit;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 48px;
-        margin: 0;
-        border-bottom: 1px solid transparent;
-        padding: 0 12px;
-        white-space: nowrap;
-        transition: color 0.25s;
-      }
-
-      .install-tab::after {
-        background-color: transparent;
-        border-radius: 2px;
-        bottom: -1px;
-        content: "";
-        height: 2px;
-        left: 8px;
-        position: absolute;
-        right: 8px;
-        transition: background-color 0.25s;
-        z-index: 1;
-      }
-
-      .install-tab[aria-selected="true"] {
-        color: var(--vp-code-tab-active-text-color);
-      }
-
-      .install-tab:hover::after,
-      .install-tab[aria-selected="true"]::after {
-        background-color: var(--brand);
-      }
-
-      .install-code {
-        margin-top: 0;
-      }
-
-      .install-code .code-sample {
-        border-radius: 0 0 10px 10px;
-      }
-
-      .separator-preview {
-        align-items: center;
-        background: var(--surface);
-        border: 1px solid var(--border-soft);
-        border-radius: 10px;
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-        min-height: 48px;
-        padding: 0 12px;
-      }
-
-      .separator-preview .pill {
-        align-items: center;
-        border-radius: 999px;
-        display: inline-flex;
-        font-size: 0.76rem;
-        font-weight: 600;
-        min-height: 24px;
-        padding: 0 10px;
-      }
-
-      .pill.active-left {
-        background: rgba(97, 239, 206, 0.22);
-        color: var(--mint);
-      }
-
-      .pill.active-right {
-        background: rgba(101, 156, 200, 0.23);
-        color: var(--blue-hover);
-      }
-
-      .separator-line {
-        align-self: stretch;
-        background: var(--border-soft);
-        width: 1px;
-      }
-
-      .code-card {
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        overflow: hidden;
-      }
-
-      .code-head {
-        align-items: center;
-        background: var(--surface);
-        border-bottom: 1px solid var(--border-soft);
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 10px;
-      }
-
-      .code-head strong {
-        color: var(--text-strong);
-        font-size: 0.82rem;
-      }
-
-      .lang-badge {
-        background: rgba(101, 156, 200, 0.28);
-        border: 1px solid rgba(101, 156, 200, 0.65);
-        border-radius: 999px;
-        color: var(--blue-hover);
-        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
-        font-size: 0.71rem;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-        padding: 2px 8px;
-        text-transform: lowercase;
-      }
-
       pre {
         margin: 0;
         overflow-x: auto;
@@ -664,22 +113,17 @@
       }
 
       code.inline {
-        background: rgba(67, 76, 86, 0.32);
-        border: 1px solid rgba(120, 176, 160, 0.28);
+        background: var(--inline-code-bg);
+        border: 1px solid var(--inline-code-border);
         border-radius: 6px;
         display: inline-block;
         font-size: 0.81em;
         padding: 1px 6px;
       }
 
-      .small {
-        color: var(--text-subtle);
-        font-size: 0.77rem;
-      }
-
       .code-sample .shiki,
       .code-sample .shiki code {
-        background: #2c2a2b !important;
+        background: var(--surface) !important;
       }
 
       .code-sample .shiki {
@@ -690,12 +134,6 @@
         overflow-x: auto;
         padding: 20px 24px !important;
         width: 100%;
-      }
-
-      @media (max-width: 920px) {
-        .col-6 {
-          grid-column: span 12;
-        }
       }
     </style>
   </head>
@@ -760,7 +198,7 @@
         return (
           <article
             className={cn(
-              "rounded-xl border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_rgba(250,246,236,0.02)]",
+              "rounded-xl border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_var(--card-highlight)]",
               className,
             )}
           >
@@ -773,13 +211,13 @@
       function Button({ variant = "default", className = "", children, href, ...props }) {
         const variants = {
           default:
-            "border-docs-border-soft bg-[#3d3a3a] text-docs-text hover:border-docs-border hover:bg-[#474343]",
+            "border-docs-border-soft bg-[var(--surface-muted)] text-docs-text hover:border-docs-border hover:bg-docs-surface-raised",
           brand:
-            "border-[#ebac00] bg-docs-brand text-docs-surface-raised hover:bg-[#ffc31f] active:bg-[#ebac00]",
-          alt: "border-docs-border-soft bg-[#47504e] text-[#78b0a0] hover:bg-[#61efce] hover:text-docs-surface-raised",
-          info: "border-[#719bc4] bg-[#659cc8] text-[#101417] hover:bg-[#719bc4]",
+            "border-[var(--brand-active)] bg-docs-brand text-docs-surface-raised hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]",
+          alt: "border-docs-border-soft bg-[var(--button-alt-bg)] text-[var(--teal)] hover:bg-[var(--mint)] hover:text-docs-surface-raised",
+          info: "border-[var(--blue-hover)] bg-[var(--blue)] text-[var(--button-info-fg)] hover:bg-[var(--blue-hover)]",
           ghost:
-            "border-docs-border-soft bg-transparent text-docs-text hover:border-[#659cc8] hover:bg-[rgba(101,156,200,0.16)]",
+            "border-docs-border-soft bg-transparent text-docs-text hover:border-[var(--blue)] hover:bg-[var(--ghost-hover-bg)]",
         };
 
         const classNames = cn(
@@ -841,9 +279,13 @@
         const command = INSTALL_TABS.find(([value]) => value === active)?.[1];
 
         return (
-          <div className="install-shell">
+          <div className="overflow-hidden rounded-[10px]">
             <div className="overflow-x-auto">
-              <div className="install-tabs" role="tablist" aria-label="Package manager">
+              <div
+                className="flex min-w-max bg-docs-surface shadow-[inset_0_-1px_var(--vp-code-tab-divider)]"
+                role="tablist"
+                aria-label="Package manager"
+              >
                 {INSTALL_TABS.map(([value]) => {
                   const isActive = value === active;
                   return (
@@ -854,7 +296,13 @@
                       aria-selected={isActive}
                       tabIndex={isActive ? 0 : -1}
                       onClick={() => setActive(value)}
-                      className="install-tab"
+                      className="relative inline-block shrink-0 whitespace-nowrap border-b border-transparent bg-transparent px-3 text-sm font-normal leading-[48px] [color:var(--tab-color)] transition-colors duration-[250ms] hover:[color:var(--vp-code-tab-active-text-color)] after:absolute after:bottom-[-1px] after:left-2 after:right-2 after:z-[1] after:h-[2px] after:rounded-[2px] after:[background-color:var(--tab-highlight)] after:transition-[background-color] after:duration-[250ms] hover:after:[background-color:var(--brand)]"
+                      style={{
+                        "--tab-color": isActive
+                          ? "var(--vp-code-tab-active-text-color)"
+                          : "var(--vp-code-tab-text-color)",
+                        "--tab-highlight": isActive ? "var(--brand)" : "transparent",
+                      }}
                     >
                       {value}
                     </button>
@@ -862,8 +310,8 @@
                 })}
               </div>
             </div>
-            <div className="install-code">
-              <CodeSample code={command} lang="console" className="install-code-sample" />
+            <div>
+              <CodeSample code={command} lang="console" className="rounded-t-none" />
             </div>
           </div>
         );
@@ -907,7 +355,7 @@
 
         return (
           <div className={cn("code-sample relative overflow-x-auto rounded-lg bg-docs-surface", className)}>
-            <span className="pointer-events-none absolute right-4 top-3 z-10 text-xs font-medium text-[rgba(239,218,185,0.45)] transition-opacity duration-300">
+            <span className="pointer-events-none absolute right-4 top-3 z-10 text-xs font-medium text-[var(--code-lang-label)] transition-opacity duration-300">
               {lang}
             </span>
             <div dangerouslySetInnerHTML={{ __html: html }} />
@@ -949,7 +397,7 @@
                     className="grid grid-cols-[16px_1fr] items-center gap-2.5 rounded-[10px] border border-docs-border-soft bg-docs-surface px-2.5 py-2"
                   >
                     <span
-                      className="h-4 w-4 rounded-full border border-[rgba(250,246,236,0.35)]"
+                      className="h-4 w-4 rounded-full border border-[var(--text-strong-border)]"
                       style={{ background: color }}
                     />
                     <div>
@@ -982,74 +430,114 @@
               </Card>
 
               <Card title="Links">
-                <div className="links-showcase">
-                  <div className="link-cluster">
-                    <div className="link-cluster-title">Docs navigation and body links</div>
-                    <div className="docs-nav-row">
-                      <a href="/docs/introduction" className="docs-nav-link">
+                <div className="grid gap-3">
+                  <div className="grid gap-2.5 rounded-[10px] border border-docs-border-soft bg-docs-surface p-3">
+                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
+                      Docs navigation and body links
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="/docs/introduction"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
                         Documentation
                       </a>
-                      <a href="/docs/quick-start" className="docs-nav-link">
+                      <a
+                        href="/docs/quick-start"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
                         Quick Start
                       </a>
-                      <a href="/changelog" className="docs-nav-link">
+                      <a
+                        href="/changelog"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
                         Changelog
                       </a>
-                      <a href="http://samples.jsx.email" className="docs-nav-link">
+                      <a
+                        href="http://samples.jsx.email"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
                         Email Samples
                       </a>
                     </div>
-                    <div className="docs-sidebar-stack">
-                      <a href="/docs/introduction" className="docs-sidebar-link">
+                    <div className="grid gap-1.5">
+                      <a
+                        href="/docs/introduction"
+                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      >
                         Introduction
                       </a>
-                      <a href="/docs/quick-start" className="docs-sidebar-link">
+                      <a
+                        href="/docs/quick-start"
+                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      >
                         Quick Start
                       </a>
-                      <a href="/docs/components/button" className="docs-sidebar-link">
+                      <a
+                        href="/docs/components/button"
+                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      >
                         Button
                       </a>
                     </div>
-                    <p className="link-cluster-note">
+                    <p className="text-[0.75rem] text-docs-text-subtle">
                       Docs body copy uses plain VitePress links like{" "}
-                      <a href="https://jsx.email/docs/introduction" className="docs-inline-link">
+                      <a
+                        href="https://jsx.email/docs/introduction"
+                        className="text-docs-brand no-underline transition-colors duration-150 hover:text-[var(--brand-active)]"
+                      >
                         jsx.email/docs/introduction
                       </a>{" "}
                       with no custom underline treatment.
                     </p>
                   </div>
 
-                  <div className="link-cluster">
-                    <div className="link-cluster-title">Docs changelog links</div>
-                    <div className="preview-link-row">
-                      <a href="https://github.com/example" className="docs-chip-link">
-                        <span className="docs-chip-avatar" />
+                  <div className="grid gap-2.5 rounded-[10px] border border-docs-border-soft bg-docs-surface p-3">
+                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
+                      Docs changelog links
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="https://github.com/example"
+                        className="inline-flex w-fit items-center gap-2.5 rounded-full bg-[var(--chip-bg)] p-2 text-[0.75rem] font-medium leading-4 text-docs-text no-underline shadow-[0_0_1px_1px_var(--chip-border-color)] transition-colors duration-150 hover:bg-[var(--chip-bg-hover)]"
+                      >
+                        <span className="inline-block h-5 w-5 rounded-full bg-[var(--chip-border-color)]" />
                         shellscape
                       </a>
                       <a
                         href="https://github.com/shellscape/jsx-email/pull/999"
-                        className="docs-pr-link"
+                        className="text-docs-text no-underline transition-colors duration-150 hover:text-[var(--brand-hover)]"
                       >
                         #999: tighten docs tokens
                       </a>
                     </div>
-                    <p className="link-cluster-note">
+                    <p className="text-[0.75rem] text-docs-text-subtle">
                       The changelog page adds its own author chip link and a warm hover state on PR
                       title links.
                     </p>
                   </div>
 
-                  <div className="link-cluster">
-                    <div className="link-cluster-title">Preview links outside the tree view</div>
-                    <div className="preview-link-row">
-                      <a href="https://www.useplunk.com" className="preview-text-link">
+                  <div className="grid gap-2.5 rounded-[10px] border border-docs-border-soft bg-docs-surface p-3">
+                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
+                      Preview links outside the tree view
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="https://www.useplunk.com"
+                        className="text-docs-text no-underline transition-colors duration-200 hover:text-[var(--preview-text-hover)]"
+                      >
                         Powered by Plunk
                       </a>
-                      <a href="#download" className="preview-icon-link" aria-label="Download">
+                      <a
+                        href="#download"
+                        className="inline-flex items-center justify-center text-[var(--preview-icon)] no-underline transition-colors duration-200 hover:text-docs-text"
+                        aria-label="Download"
+                      >
                         <DownloadIcon />
                       </a>
                     </div>
-                    <p className="link-cluster-note">
+                    <p className="text-[0.75rem] text-docs-text-subtle">
                       This mirrors the send-popover vendor link and the code-panel download action
                       from <code className="inline">apps/preview</code>. Tree links are
                       intentionally excluded.
@@ -1067,37 +555,37 @@
                   <CodeSample lang="jsx" code={`import { Button, Text } from "jsx-email";
 
 export const Welcome = () => (
-  <Button href="https://jsx.email/docs" style={{ background: "#FFD152", color: "#343233" }}>
+  <Button href="https://jsx.email/docs" style={{ background: "var(--brand)", color: "var(--surface-raised)" }}>
     Read docs
   </Button>
 );`} />
                 </div>
                 <p className="mt-2.5 text-[0.77rem] text-docs-text-subtle">
                   Inline example: run{" "}
-                  <code className="inline-block rounded-[4px] bg-[#65758529] px-[6px] py-[3px] font-mono font-light text-[#9cdcfe]">
+                  <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
                     pnpm email create welcome-email
                   </code>{" "}
                   then{" "}
-                  <code className="inline-block rounded-[4px] bg-[#65758529] px-[6px] py-[3px] font-mono font-light text-[#9cdcfe]">
+                  <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
                     pnpm email preview
                   </code>
                   .
                 </p>
                 <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
                   Tip-block inline code style:{" "}
-                  <code className="inline-block rounded-[4px] bg-[#719bc4] px-[6px] py-[3px] font-mono font-light text-[#343233]">
+                  <code className="inline-block rounded-[4px] bg-[var(--blue-hover)] px-[6px] py-[3px] font-mono font-light text-docs-surface-raised">
                     pnpm add jsx-email
                   </code>
                 </p>
                 <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
                   Warning-block inline code style:{" "}
-                  <code className="inline-block rounded-[4px] bg-[rgba(234,179,8,0.16)] px-[6px] py-[3px] font-mono font-light text-[#f9b44e]">
+                  <code className="inline-block rounded-[4px] bg-[var(--warn-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--warn-inline-code-text)]">
                     Butan
                   </code>
                 </p>
                 <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
                   Info-block inline code style:{" "}
-                  <code className="inline-block rounded-[4px] bg-[rgba(101,117,133,0.16)] px-[6px] py-[3px] font-mono font-light text-docs-text">
+                  <code className="inline-block rounded-[4px] bg-[var(--info-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-docs-text">
                     expression
                   </code>
                 </p>
