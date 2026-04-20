@@ -181,6 +181,40 @@
         width: 100%;
       }
 
+      @keyframes nav-fade-in {
+        0% {
+          opacity: 0;
+          margin-left: -30px;
+        }
+        100% {
+          opacity: 1;
+          margin-left: 0;
+        }
+      }
+
+      .animate-nav-fade-in {
+        animation: nav-fade-in 500ms ease-in-out forwards;
+      }
+
+      .collapsible-content {
+        display: grid;
+        overflow: hidden;
+        transition:
+          grid-template-rows 300ms ease-out,
+          opacity 300ms ease-out,
+          margin-top 300ms ease-out;
+      }
+
+      .collapsible-content[data-state="open"] {
+        grid-template-rows: 1fr;
+        opacity: 1;
+      }
+
+      .collapsible-content[data-state="closed"] {
+        grid-template-rows: 0fr;
+        opacity: 0;
+      }
+
       .mode-preview {
         border: 1px solid var(--border);
         border-radius: 4px;
@@ -232,6 +266,13 @@
         --preview-icon: var(--stone-2);
         --mode-card-border: var(--stone-7);
         --send-trigger-bg: var(--stone-7);
+        --select-surface: var(--stone-7);
+        --select-text: var(--stone-1);
+        --select-hover-bg: rgba(88, 75, 79, 0.08);
+        --tree-line: rgba(120, 111, 99, 0.45);
+        --tree-active-bg: rgba(120, 176, 160, 0.18);
+        --tree-active-line: var(--mint-0);
+        --tree-current-text: var(--signal-blue-0);
         --pill-mint-bg: rgba(97, 239, 206, 0.26);
         --pill-blue-bg: rgba(101, 156, 200, 0.26);
         --lang-badge-bg: rgba(88, 75, 79, 0.12);
@@ -291,6 +332,13 @@
         --preview-icon: #9ba1aa;
         --mode-card-border: var(--slate-1);
         --send-trigger-bg: var(--surface);
+        --select-surface: var(--stone-7);
+        --select-text: var(--stone-1);
+        --select-hover-bg: rgba(88, 75, 79, 0.12);
+        --tree-line: rgba(86, 86, 86, 0.75);
+        --tree-active-bg: rgba(120, 176, 160, 0.3);
+        --tree-active-line: var(--mint);
+        --tree-current-text: rgba(126, 231, 255, 0.92);
         --pill-mint-bg: rgba(97, 239, 206, 0.22);
         --pill-blue-bg: rgba(101, 156, 200, 0.23);
         --lang-badge-bg: rgba(101, 156, 200, 0.28);
@@ -721,8 +769,40 @@
 
       const TabsContext = React.createContext(null);
       const PopoverContext = React.createContext(null);
-      const SUBCARD_CLASS =
-        "rounded border border-[var(--mode-card-border)] bg-transparent";
+      const SelectContext = React.createContext(null);
+      const TreeContext = React.createContext(null);
+      const SUBCARD_CLASS = "rounded border border-[var(--mode-card-border)] bg-transparent";
+      const DEVICE_GROUPS = {
+        phones: [
+          { name: "iPhone 14 Pro Max", value: "430,932" },
+          { name: "iPhone SE", value: "375,667" },
+          { name: "Pixel 8", value: "412,915" },
+        ],
+        tablets: [
+          { name: "iPad Air", value: "820,1180" },
+          { name: "iPad Mini", value: "744,1133" },
+        ],
+      };
+      const TREE_ITEMS = [
+        {
+          name: "Transactional",
+          children: [
+            { name: "welcome-email.tsx", current: true },
+            { name: "password-reset.tsx" },
+            { name: "magic-link.tsx" },
+          ],
+        },
+        {
+          name: "Marketing",
+          children: [
+            { name: "newsletter.tsx" },
+            {
+              name: "Campaigns",
+              children: [{ name: "spring-sale.tsx" }, { name: "product-launch.tsx" }],
+            },
+          ],
+        },
+      ];
 
       function cn(...values) {
         return values.filter(Boolean).join(" ");
@@ -755,10 +835,7 @@
           <Card title="Text Color Samples" className="lg:col-span-2">
             <div className="grid gap-2 md:grid-cols-3">
               {samples.map(({ label, token, color, note }) => (
-                <div
-                  key={`${mode}-${label}`}
-                  className={cn(SUBCARD_CLASS, "px-3 py-2.5")}
-                >
+                <div key={`${mode}-${label}`} className={cn(SUBCARD_CLASS, "px-3 py-2.5")}>
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-xs font-semibold text-docs-text-strong">{label}</p>
                     <code className="text-[0.68rem] text-docs-text-subtle">{token}</code>
@@ -972,6 +1049,267 @@
         );
       }
 
+      function Select({ defaultValue, children }) {
+        const [value, setValue] = useState(defaultValue);
+        const [open, setOpen] = useState(false);
+        const rootRef = useRef(null);
+        const contextValue = useMemo(() => ({ value, setValue, open, setOpen }), [value, open]);
+
+        useEffect(() => {
+          if (!open) return undefined;
+
+          const handlePointerDown = (event) => {
+            if (rootRef.current?.contains(event.target)) return;
+            setOpen(false);
+          };
+
+          const handleKeyDown = (event) => {
+            if (event.key === "Escape") setOpen(false);
+          };
+
+          document.addEventListener("mousedown", handlePointerDown);
+          document.addEventListener("touchstart", handlePointerDown);
+          document.addEventListener("keydown", handleKeyDown);
+
+          return () => {
+            document.removeEventListener("mousedown", handlePointerDown);
+            document.removeEventListener("touchstart", handlePointerDown);
+            document.removeEventListener("keydown", handleKeyDown);
+          };
+        }, [open]);
+
+        return (
+          <SelectContext.Provider value={contextValue}>
+            <div ref={rootRef} className="relative inline-block">
+              {children}
+            </div>
+          </SelectContext.Provider>
+        );
+      }
+
+      function SelectTrigger({ className = "", children }) {
+        const context = useContext(SelectContext);
+
+        return (
+          <button
+            type="button"
+            onClick={() => context?.setOpen(!context?.open)}
+            className={cn(
+              "inline-flex select-none items-center justify-center rounded-md bg-[var(--select-surface)] px-4 py-2 text-xs font-medium text-[var(--select-text)] transition duration-200 ease-in-out",
+              className,
+            )}
+            aria-expanded={context?.open ? "true" : "false"}
+          >
+            {children}
+          </button>
+        );
+      }
+
+      function SelectValue() {
+        const context = useContext(SelectContext);
+        const entry = Object.values(DEVICE_GROUPS)
+          .flat()
+          .find((item) => item.value === context?.value);
+
+        return <span>{entry?.name ?? "Select device"}</span>;
+      }
+
+      function SelectContent({ className = "", children }) {
+        const context = useContext(SelectContext);
+        if (!context?.open) return null;
+
+        return (
+          <div
+            className={cn(
+              "absolute left-0 top-full z-20 mt-2 min-w-[220px] rounded-md bg-[var(--select-surface)] p-2 text-[var(--select-text)] shadow-md",
+              className,
+            )}
+          >
+            {children}
+          </div>
+        );
+      }
+
+      function SelectItem({ value, children }) {
+        const context = useContext(SelectContext);
+        const isActive = context?.value === value;
+
+        return (
+          <button
+            type="button"
+            onClick={() => {
+              context?.setValue(value);
+              context?.setOpen(false);
+            }}
+            className="relative flex w-full items-center rounded-md px-4 py-2 text-left text-xs text-[var(--select-text)] transition duration-200 ease-in-out hover:bg-[var(--select-hover-bg)]"
+          >
+            {isActive ? (
+              <span className="absolute left-1 inline-flex items-center">
+                <PreviewCheckIcon />
+              </span>
+            ) : null}
+            <span>{children}</span>
+          </button>
+        );
+      }
+
+      function PreviewSelectShowcase() {
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-sm font-semibold text-docs-text-strong">apps/preview</div>
+            <div className={cn("px-6 py-4", SUBCARD_CLASS)}>
+              <Select defaultValue="430,932">
+                <div>
+                  <SelectTrigger>
+                    <SelectValue />
+                    <span className="ml-2">
+                      <PreviewChevronDownIcon />
+                    </span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <div className="grid gap-0.5">
+                      {DEVICE_GROUPS.phones.map((device) => (
+                        <SelectItem key={device.value} value={device.value}>
+                          {device.name}
+                        </SelectItem>
+                      ))}
+                    </div>
+                    <div className="mx-3 my-3 h-px bg-[var(--select-text)] opacity-20" />
+                    <div className="grid gap-0.5">
+                      {DEVICE_GROUPS.tablets.map((device) => (
+                        <SelectItem key={device.value} value={device.value}>
+                          {device.name}
+                        </SelectItem>
+                      ))}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between px-1">
+                      <span className="flex h-[25px] items-center justify-center text-[var(--select-text)]">
+                        <PreviewChevronUpIcon />
+                      </span>
+                      <span className="flex h-[25px] items-center justify-center text-[var(--select-text)]">
+                        <PreviewChevronDownIcon />
+                      </span>
+                    </div>
+                  </SelectContent>
+                </div>
+              </Select>
+            </div>
+            <p className="text-xs text-docs-text-subtle">
+              The preview mobile-device picker uses a compact select trigger with a light-toned
+              dropdown surface and small option rows.
+            </p>
+          </div>
+        );
+      }
+
+      function TreeNode({ item, depth = 0 }) {
+        const tree = useContext(TreeContext);
+        const containsSelected = item.children?.some(
+          (child) =>
+            child.name === tree?.selected ||
+            child.children?.some((nested) => nested.name === tree?.selected),
+        );
+        const [open, setOpen] = useState(item.current || containsSelected);
+        const isBranch = !!item.children?.length;
+        const isCurrent = tree?.selected === item.name;
+
+        useEffect(() => {
+          if (containsSelected) setOpen(true);
+        }, [containsSelected]);
+
+        if (!isBranch) {
+          return (
+            <button
+              type="button"
+              onClick={() => tree?.setSelected(item.name)}
+              className="block w-full appearance-none border-0 bg-transparent p-0 text-left text-inherit"
+            >
+              <span
+                className={cn(
+                  "relative flex h-8 w-full items-center gap-2 rounded-md pl-4 text-[14px] transition duration-200 ease-in-out",
+                  isCurrent
+                    ? "font-medium [color:var(--tree-current-text)]"
+                    : "hover:text-docs-text-strong",
+                )}
+              >
+                {isCurrent ? (
+                  <span className="absolute inset-0 rounded-md bg-[var(--tree-active-bg)] animate-nav-fade-in">
+                    <span className="absolute left-2.5 top-1 h-6 w-px bg-[var(--tree-active-line)]" />
+                  </span>
+                ) : null}
+                <span className="relative z-[1]">
+                  <FileNameIcon />
+                </span>
+                <span className="relative z-[1]">{item.name}</span>
+              </span>
+            </button>
+          );
+        }
+
+        return (
+          <div className={"py-1"}>
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              className="flex appearance-none items-center gap-1 border-0 bg-transparent p-0 text-inherit"
+            >
+              {open ? <FolderMinusIcon /> : <FolderPlusIcon />}
+              <span className="flex items-center">
+                <span className={cn("text-sm", depth === 0 ? "font-medium" : "ml-2")}>
+                  {item.name}
+                </span>
+              </span>
+            </button>
+            <div
+              className="relative collapsible-content"
+              data-state={open ? "open" : "closed"}
+              style={{ marginTop: open ? 4 : 0 }}
+            >
+              <div className="absolute left-2.5 top-0 h-full w-px bg-[var(--tree-line)]" />
+              <div
+                className={cn(
+                  "min-h-0 overflow-hidden flex flex-col truncate",
+                  depth > 0 ? "py-0" : "",
+                )}
+              >
+                {item.children.map((child) =>
+                  child.children?.length ? (
+                    <div className="pl-4" key={child.name}>
+                      <TreeNode item={child} depth={depth + 1} />
+                    </div>
+                  ) : (
+                    <TreeNode key={child.name} item={child} depth={depth + 1} />
+                  ),
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function PreviewTreeShowcase() {
+        const [selected, setSelected] = useState("welcome-email.tsx");
+
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-sm font-semibold text-docs-text-strong">apps/preview</div>
+            <div className={cn("p-6", SUBCARD_CLASS)}>
+              <div className="w-full max-w-[275px] border-r border-[var(--mode-card-border)] pr-4">
+                <TreeContext.Provider value={{ selected, setSelected }}>
+                  {TREE_ITEMS.map((item) => (
+                    <TreeNode key={item.name} item={item} />
+                  ))}
+                </TreeContext.Provider>
+              </div>
+            </div>
+            <p className="text-xs text-docs-text-subtle">
+              The preview sidebar tree uses collapsible folder rows, a vertical guide rail, and an
+              active-file slab with a colored accent line.
+            </p>
+          </div>
+        );
+      }
+
       function PreviewQuestionIcon() {
         return (
           <svg width="20" height="20" viewBox="0 0 15 15" fill="none" aria-hidden="true">
@@ -1008,6 +1346,104 @@
               stroke="currentColor"
               strokeWidth="1.2"
               strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewChevronDownIcon() {
+        return (
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m4.5 6 3 3 3-3"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewChevronUpIcon() {
+        return (
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m4.5 9 3-3 3 3"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewCheckIcon() {
+        return (
+          <svg width="14" height="14" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m3.5 7.5 2.25 2.25 5-5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function FolderPlusIcon() {
+        return (
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="ml-1 h-4 w-4 shrink-0"
+            aria-hidden="true"
+          >
+            <path d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V10.5Z" />
+          </svg>
+        );
+      }
+
+      function FolderMinusIcon() {
+        return (
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="ml-1 h-4 w-4 shrink-0"
+            aria-hidden="true"
+          >
+            <path d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15ZM9 12.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z" />
+          </svg>
+        );
+      }
+
+      function FileNameIcon() {
+        return (
+          <svg
+            className="shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
+              stroke="currentColor"
+              strokeOpacity="0.927"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M18 9.25H13.75V5"
+              stroke="currentColor"
+              strokeOpacity="0.927"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         );
@@ -1505,9 +1941,7 @@
                 </section>
 
                 <section className="rounded border border-docs-border-soft bg-docs-surface p-3">
-                  <h3 className="text-sm font-semibold text-docs-text-strong">
-                    Text size samples
-                  </h3>
+                  <h3 className="text-sm font-semibold text-docs-text-strong">Text size samples</h3>
                   <div className="mt-2 grid gap-2">
                     {TYPOGRAPHY_SIZE_SAMPLES.map(({ label, className, weight, note }) => (
                       <div
@@ -1723,6 +2157,14 @@
                   </p>
                 </div>
               </div>
+            </Card>
+
+            <Card title="Select">
+              <PreviewSelectShowcase />
+            </Card>
+
+            <Card title="Tree View">
+              <PreviewTreeShowcase />
             </Card>
 
             <Card title="Code block + inline code treatment" className="lg:col-span-2">

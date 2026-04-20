@@ -136,6 +136,40 @@
         padding: 20px 24px !important;
         width: 100%;
       }
+
+      @keyframes nav-fade-in {
+        0% {
+          opacity: 0;
+          margin-left: -30px;
+        }
+        100% {
+          opacity: 1;
+          margin-left: 0;
+        }
+      }
+
+      .animate-nav-fade-in {
+        animation: nav-fade-in 500ms ease-in-out forwards;
+      }
+
+      .collapsible-content {
+        display: grid;
+        overflow: hidden;
+        transition:
+          grid-template-rows 300ms ease-out,
+          opacity 300ms ease-out,
+          margin-top 300ms ease-out;
+      }
+
+      .collapsible-content[data-state="open"] {
+        grid-template-rows: 1fr;
+        opacity: 1;
+      }
+
+      .collapsible-content[data-state="closed"] {
+        grid-template-rows: 0fr;
+        opacity: 0;
+      }
     </style>
   </head>
   <body>
@@ -197,6 +231,44 @@
 
       const TabsContext = React.createContext(null);
       const PopoverContext = React.createContext(null);
+      const SelectContext = React.createContext(null);
+      const TreeContext = React.createContext(null);
+
+      const DEVICE_GROUPS = {
+        phones: [
+          { name: "iPhone 14 Pro Max", value: "430,932" },
+          { name: "iPhone SE", value: "375,667" },
+          { name: "Pixel 8", value: "412,915" },
+        ],
+        tablets: [
+          { name: "iPad Air", value: "820,1180" },
+          { name: "iPad Mini", value: "744,1133" },
+        ],
+      };
+
+      const TREE_ITEMS = [
+        {
+          name: "Transactional",
+          children: [
+            { name: "welcome-email.tsx", current: true },
+            { name: "password-reset.tsx" },
+            { name: "magic-link.tsx" },
+          ],
+        },
+        {
+          name: "Marketing",
+          children: [
+            { name: "newsletter.tsx" },
+            {
+              name: "Campaigns",
+              children: [
+                { name: "spring-sale.tsx" },
+                { name: "product-launch.tsx" },
+              ],
+            },
+          ],
+        },
+      ];
 
       function cn(...values) {
         return values.filter(Boolean).join(" ");
@@ -450,6 +522,104 @@
               stroke="currentColor"
               strokeWidth="1.2"
               strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewChevronDownIcon() {
+        return (
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m4.5 6 3 3 3-3"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewChevronUpIcon() {
+        return (
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m4.5 9 3-3 3 3"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewCheckIcon() {
+        return (
+          <svg width="14" height="14" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m3.5 7.5 2.25 2.25 5-5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function FolderPlusIcon() {
+        return (
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="ml-1 h-4 w-4 shrink-0"
+            aria-hidden="true"
+          >
+            <path d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V10.5Z" />
+          </svg>
+        );
+      }
+
+      function FolderMinusIcon() {
+        return (
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="ml-1 h-4 w-4 shrink-0"
+            aria-hidden="true"
+          >
+            <path d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15ZM9 12.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z" />
+          </svg>
+        );
+      }
+
+      function FileNameIcon() {
+        return (
+          <svg
+            className="shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
+              stroke="currentColor"
+              strokeOpacity="0.927"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M18 9.25H13.75V5"
+              stroke="currentColor"
+              strokeOpacity="0.927"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         );
@@ -716,6 +886,270 @@
             )}
           >
             {children}
+          </div>
+        );
+      }
+
+      function Select({ defaultValue, children }) {
+        const [value, setValue] = useState(defaultValue);
+        const [open, setOpen] = useState(false);
+        const rootRef = useRef(null);
+        const contextValue = useMemo(() => ({ value, setValue, open, setOpen }), [value, open]);
+
+        useEffect(() => {
+          if (!open) return undefined;
+
+          const handlePointerDown = (event) => {
+            if (rootRef.current?.contains(event.target)) return;
+            setOpen(false);
+          };
+
+          const handleKeyDown = (event) => {
+            if (event.key === "Escape") setOpen(false);
+          };
+
+          document.addEventListener("mousedown", handlePointerDown);
+          document.addEventListener("touchstart", handlePointerDown);
+          document.addEventListener("keydown", handleKeyDown);
+
+          return () => {
+            document.removeEventListener("mousedown", handlePointerDown);
+            document.removeEventListener("touchstart", handlePointerDown);
+            document.removeEventListener("keydown", handleKeyDown);
+          };
+        }, [open]);
+
+        return (
+          <SelectContext.Provider value={contextValue}>
+            <div ref={rootRef} className="relative inline-block">
+              {children}
+            </div>
+          </SelectContext.Provider>
+        );
+      }
+
+      function SelectTrigger({ className = "", children }) {
+        const context = useContext(SelectContext);
+
+        return (
+          <button
+            type="button"
+            onClick={() => context?.setOpen(!context?.open)}
+            className={cn(
+              "inline-flex select-none items-center justify-center rounded-md bg-[var(--stone-7)] px-4 py-2 text-xs font-medium text-[var(--stone-1)] transition duration-200 ease-in-out",
+              className,
+            )}
+            aria-expanded={context?.open ? "true" : "false"}
+          >
+            {children}
+          </button>
+        );
+      }
+
+      function SelectValue() {
+        const context = useContext(SelectContext);
+        const entry = Object.values(DEVICE_GROUPS)
+          .flat()
+          .find((item) => item.value === context?.value);
+
+        return <span>{entry?.name ?? "Select device"}</span>;
+      }
+
+      function SelectContent({ className = "", children }) {
+        const context = useContext(SelectContext);
+        if (!context?.open) return null;
+
+        return (
+          <div
+            className={cn(
+              "absolute left-0 top-full z-20 mt-2 min-w-[220px] rounded-md bg-[var(--stone-7)] p-2 text-[var(--stone-1)] shadow-md",
+              className,
+            )}
+          >
+            {children}
+          </div>
+        );
+      }
+
+      function SelectItem({ value, children }) {
+        const context = useContext(SelectContext);
+        const isActive = context?.value === value;
+
+        return (
+          <button
+            type="button"
+            onClick={() => {
+              context?.setValue(value);
+              context?.setOpen(false);
+            }}
+            className="relative flex w-full items-center rounded-md px-4 py-2 text-left text-xs text-[var(--stone-1)] transition duration-200 ease-in-out hover:bg-[rgba(88,75,79,0.12)]"
+          >
+            {isActive ? (
+              <span className="absolute left-1 inline-flex items-center">
+                <PreviewCheckIcon />
+              </span>
+            ) : null}
+            <span>{children}</span>
+          </button>
+        );
+      }
+
+      function PreviewSelectShowcase() {
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+            <div className="rounded border border-[var(--dark-bg-border)] bg-[var(--surface-raised)] px-6 py-4">
+              <Select defaultValue="430,932">
+                <div>
+                  <SelectTrigger>
+                    <SelectValue />
+                    <span className="ml-2">
+                      <PreviewChevronDownIcon />
+                    </span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <div className="grid gap-0.5">
+                      {DEVICE_GROUPS.phones.map((device) => (
+                        <SelectItem key={device.value} value={device.value}>
+                          {device.name}
+                        </SelectItem>
+                      ))}
+                    </div>
+                    <div className="mx-3 my-3 h-px bg-[var(--stone-1)] opacity-20" />
+                    <div className="grid gap-0.5">
+                      {DEVICE_GROUPS.tablets.map((device) => (
+                        <SelectItem key={device.value} value={device.value}>
+                          {device.name}
+                        </SelectItem>
+                      ))}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between px-1">
+                      <span className="flex h-[25px] items-center justify-center text-[var(--stone-1)]">
+                        <PreviewChevronUpIcon />
+                      </span>
+                      <span className="flex h-[25px] items-center justify-center text-[var(--stone-1)]">
+                        <PreviewChevronDownIcon />
+                      </span>
+                    </div>
+                  </SelectContent>
+                </div>
+              </Select>
+            </div>
+            <p className="text-[0.75rem] text-docs-text-subtle">
+              The preview mobile-device picker uses a light dropdown surface on top of the dark app
+              chrome, with small-text options and a highlighted item row.
+            </p>
+          </div>
+        );
+      }
+
+      function TreeNode({ item, depth = 0 }) {
+        const tree = useContext(TreeContext);
+        const containsSelected = item.children?.some(
+          (child) =>
+            child.name === tree?.selected ||
+            child.children?.some((nested) => nested.name === tree?.selected),
+        );
+        const [open, setOpen] = useState(item.current || containsSelected);
+        const isBranch = !!item.children?.length;
+        const isCurrent = tree?.selected === item.name;
+
+        useEffect(() => {
+          if (containsSelected) setOpen(true);
+        }, [containsSelected]);
+
+        if (!isBranch) {
+          return (
+            <button
+              type="button"
+              onClick={() => tree?.setSelected(item.name)}
+              className="block w-full appearance-none border-0 bg-transparent p-0 text-left text-inherit"
+            >
+              <span
+                className={cn(
+                  "relative flex h-8 w-full items-center gap-2 rounded-md pl-4 text-[14px] transition duration-200 ease-in-out",
+                  isCurrent ? "font-medium text-[rgba(126,231,255,0.92)]" : "hover:text-[var(--text)]",
+                )}
+              >
+                {isCurrent ? (
+                  <span className="absolute inset-0 rounded-md bg-[rgba(120,176,160,0.3)] animate-nav-fade-in">
+                    <span className="absolute left-2.5 top-1 h-6 w-px bg-[var(--mint)]" />
+                  </span>
+                ) : null}
+                <span className="relative z-[1]">
+                  <FileNameIcon />
+                </span>
+                <span className="relative z-[1]">{item.name}</span>
+              </span>
+            </button>
+          );
+        }
+
+        return (
+          <div className="py-1">
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              className="flex appearance-none items-center gap-1 border-0 bg-transparent p-0 text-inherit"
+            >
+              {open ? <FolderMinusIcon /> : <FolderPlusIcon />}
+              <span className="flex items-center">
+                <span
+                  className={cn(
+                    "text-sm",
+                    depth === 0 ? "font-medium" : "ml-2",
+                  )}
+                >
+                  {item.name}
+                </span>
+              </span>
+            </button>
+            <div
+              className="relative collapsible-content"
+              data-state={open ? "open" : "closed"}
+              style={{ marginTop: open ? 4 : 0 }}
+            >
+                <div className="absolute left-2.5 top-0 h-full w-px bg-[rgba(86,86,86,0.75)]" />
+                <div
+                  className={cn(
+                    "min-h-0 overflow-hidden flex flex-col truncate",
+                    depth > 0 ? "py-0" : "",
+                  )}
+                >
+                  {item.children.map((child) =>
+                    child.children?.length ? (
+                      <div className="pl-4" key={child.name}>
+                        <TreeNode item={child} depth={depth + 1} />
+                      </div>
+                    ) : (
+                      <TreeNode key={child.name} item={child} depth={depth + 1} />
+                    ),
+                  )}
+                </div>
+              </div>
+          </div>
+        );
+      }
+
+      function PreviewTreeShowcase() {
+        const [selected, setSelected] = useState("welcome-email.tsx");
+
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+            <div className="rounded border border-[var(--dark-bg-border)] bg-[var(--surface-raised)] p-6">
+              <div className="w-full max-w-[275px] border-r border-[var(--dark-bg-border)] pr-4">
+                <TreeContext.Provider value={{ selected, setSelected }}>
+                  {TREE_ITEMS.map((item) => (
+                    <TreeNode key={item.name} item={item} />
+                  ))}
+                </TreeContext.Provider>
+              </div>
+            </div>
+            <p className="text-[0.75rem] text-docs-text-subtle">
+              The sidebar tree in the preview app combines collapsible folder rows, a vertical
+              guide line, and a tinted active-file slab with a mint accent rail.
+            </p>
           </div>
         );
       }
@@ -1006,6 +1440,14 @@
                     </p>
                   </div>
                 </div>
+              </Card>
+
+              <Card title="Select">
+                <PreviewSelectShowcase />
+              </Card>
+
+              <Card title="Tree View">
+                <PreviewTreeShowcase />
               </Card>
 
               <Card title="Code block + inline code treatment" className="lg:col-span-2">
