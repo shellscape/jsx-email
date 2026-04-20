@@ -144,7 +144,7 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel" data-presets="react">
-      const { useContext, useEffect, useMemo, useState } = React;
+      const { useContext, useEffect, useMemo, useRef, useState } = React;
 
       const TOKENS = [
         ["--bg: #1A191A", "page background", "#1a191a"],
@@ -196,6 +196,7 @@
       ];
 
       const TabsContext = React.createContext(null);
+      const PopoverContext = React.createContext(null);
 
       function cn(...values) {
         return values.filter(Boolean).join(" ");
@@ -248,6 +249,171 @@
         );
       }
 
+      function Popover({ open: controlledOpen, defaultOpen = false, onOpenChange, children }) {
+        const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+        const triggerRef = useRef(null);
+        const contentRef = useRef(null);
+        const open = controlledOpen ?? uncontrolledOpen;
+
+        const setOpen = (nextOpen) => {
+          if (controlledOpen === undefined) {
+            setUncontrolledOpen(nextOpen);
+          }
+
+          onOpenChange?.(nextOpen);
+        };
+
+        useEffect(() => {
+          if (!open) return undefined;
+
+          const handlePointerDown = (event) => {
+            const target = event.target;
+
+            if (triggerRef.current?.contains(target) || contentRef.current?.contains(target)) {
+              return;
+            }
+
+            setOpen(false);
+          };
+
+          const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+              setOpen(false);
+            }
+          };
+
+          document.addEventListener("mousedown", handlePointerDown);
+          document.addEventListener("touchstart", handlePointerDown);
+          document.addEventListener("keydown", handleKeyDown);
+
+          return () => {
+            document.removeEventListener("mousedown", handlePointerDown);
+            document.removeEventListener("touchstart", handlePointerDown);
+            document.removeEventListener("keydown", handleKeyDown);
+          };
+        }, [open]);
+
+        const contextValue = useMemo(
+          () => ({
+            open,
+            setOpen,
+            triggerRef,
+            contentRef,
+          }),
+          [open],
+        );
+
+        return (
+          <PopoverContext.Provider value={contextValue}>
+            <div className="relative inline-flex">{children}</div>
+          </PopoverContext.Provider>
+        );
+      }
+
+      function PopoverTrigger({ children }) {
+        const context = useContext(PopoverContext);
+        const child = React.Children.only(children);
+        const childProps = child.props ?? {};
+
+        return (
+          <span ref={context?.triggerRef} className="inline-flex">
+            {React.cloneElement(child, {
+              onClick: (event) => {
+                childProps.onClick?.(event);
+                if (!event.defaultPrevented) {
+                  context?.setOpen(!context?.open);
+                }
+              },
+              "aria-expanded": context?.open ? "true" : "false",
+              "data-state": context?.open ? "open" : "closed",
+            })}
+          </span>
+        );
+      }
+
+      function PopoverContent({
+        children,
+        className = "",
+        side = "bottom",
+        align = "center",
+        sideOffset = 4,
+      }) {
+        const context = useContext(PopoverContext);
+
+        if (!context?.open) return null;
+
+        const sideClasses = {
+          top: "bottom-full",
+          right: "left-full top-1/2 -translate-y-1/2",
+          bottom: "top-full",
+          left: "right-full top-1/2 -translate-y-1/2",
+        };
+
+        const alignClassesBySide = {
+          top: {
+            start: "left-0",
+            center: "left-1/2 -translate-x-1/2",
+            end: "right-0",
+          },
+          bottom: {
+            start: "left-0",
+            center: "left-1/2 -translate-x-1/2",
+            end: "right-0",
+          },
+          right: {
+            start: "top-0",
+            center: "top-1/2 -translate-y-1/2",
+            end: "bottom-0",
+          },
+          left: {
+            start: "top-0",
+            center: "top-1/2 -translate-y-1/2",
+            end: "bottom-0",
+          },
+        };
+
+        const offsetStyle =
+          side === "bottom"
+            ? { marginTop: sideOffset }
+            : side === "top"
+              ? { marginBottom: sideOffset }
+              : side === "right"
+                ? { marginLeft: sideOffset }
+                : { marginRight: sideOffset };
+
+        return (
+          <div
+            ref={context.contentRef}
+            className={cn(
+              "absolute z-20",
+              sideClasses[side],
+              alignClassesBySide[side][align],
+              className,
+            )}
+            data-state="open"
+            data-side={side}
+            style={offsetStyle}
+          >
+            {children}
+          </div>
+        );
+      }
+
+      function PopoverClose({ children, className = "", ...props }) {
+        const context = useContext(PopoverContext);
+
+        return (
+          <button
+            type="button"
+            className={className}
+            onClick={() => context?.setOpen(false)}
+            {...props}
+          >
+            {children}
+          </button>
+        );
+      }
+
       function PreviewQuestionIcon() {
         return (
           <svg width="20" height="20" viewBox="0 0 15 15" fill="none" aria-hidden="true">
@@ -271,6 +437,35 @@
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewCloseIcon() {
+        return (
+          <svg width="14" height="14" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="M11.78 3.22 3.22 11.78M3.22 3.22l8.56 8.56"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      function PlunkLogo() {
+        return (
+          <svg viewBox="0 0 1080 1080" fill="none" width="20" height="20" aria-hidden="true">
+            <rect width="1080" height="1080" fill="none" />
+            <path
+              d="M976 284.628C976 348.237 959.54 406.608 926.62 459.74C893.701 512.873 845.817 556.276 782.97 589.952C720.124 623.627 645.306 643.458 558.517 649.445L510.26 919.971C491.556 1023.99 440.68 1076 357.632 1076C311.993 1076 269.721 1062.53 230.816 1035.59C192.659 1008.65 161.984 967.49 138.79 912.113C115.597 856.736 104 788.637 104 707.816C104 555.902 128.316 427.187 176.947 321.671C226.327 215.407 292.166 136.082 374.466 83.6984C457.514 30.5661 548.791 4 648.299 4C718.627 4 778.107 16.3476 826.739 41.0429C876.118 65.7382 913.153 99.4136 937.843 142.069C963.281 183.976 976 231.496 976 284.628ZM578.718 533.826C732.094 514.369 808.783 434.671 808.783 294.731C808.783 245.34 792.323 205.304 759.403 174.622C727.231 143.192 677.103 127.476 609.019 127.476C531.957 127.476 464.621 151.798 407.012 200.44C350.15 249.082 306.008 316.807 274.584 403.615C243.909 489.674 228.571 588.081 228.571 698.836C228.571 745.233 233.06 786.392 242.039 822.312C251.765 858.232 263.736 886.295 277.951 906.501C292.915 925.957 307.13 935.686 320.597 935.686C339.302 935.686 353.517 909.868 363.243 858.232L400.278 646.078C371.099 641.587 358.38 639.717 362.121 640.465C339.676 636.723 325.086 629.988 318.353 620.26C311.619 609.783 308.252 596.687 308.252 580.972C308.252 564.508 312.741 551.412 321.719 541.684C331.446 531.955 344.539 527.091 360.999 527.091C368.481 527.091 374.092 527.465 377.833 528.214C395.789 531.207 409.63 533.078 419.357 533.826C429.083 475.455 442.924 397.254 460.88 299.221C465.369 273.777 475.47 255.817 491.182 245.34C507.641 234.115 526.72 228.503 548.417 228.503C573.107 228.503 590.689 233.367 601.163 243.095C612.386 252.075 617.997 266.668 617.997 286.873C617.997 298.847 617.249 308.575 615.753 316.059L578.718 533.826Z"
+              fill="currentColor"
+            />
+            <path
+              d="M304.835 467.541L426.099 489.952L411.851 580.937L391.091 699.816L266.088 676.643L304.835 467.541Z"
+              fill="var(--surface)"
             />
           </svg>
         );
@@ -342,6 +537,107 @@
                 affordance, the send submit button, and the preview landing CTA from
                 <code className="inline"> apps/preview </code>.
               </p>
+            </div>
+          </div>
+        );
+      }
+
+      function PreviewPopoversShowcase() {
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+            <div className="flex items-start gap-6 pb-[220px]">
+              <Popover>
+                <PopoverTrigger>
+                  <button
+                    type="button"
+                    aria-label="Preview Information"
+                    className="inline-flex h-5 w-5 items-center justify-center text-docs-text"
+                  >
+                    <PreviewQuestionIcon />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent
+                  side="bottom"
+                  sideOffset={16}
+                  className="w-[260px] rounded bg-white p-5 text-xs text-[#111] shadow-[0px_10px_38px_-10px_hsl(206_22%_7%_/_35%),0px_10px_20px_-15px_hsl(206_22%_7%_/_20%)]"
+                >
+                  <div className="pt-4">
+                    The Desktop and Mobile views are <em>an approximation</em> of what your email
+                    template will looke like on various devices. It should not be considered a
+                    source of truth, but rather a guide for styling and layout. Always send a test
+                    email to your target email clients for Quality Control, before sending emails in
+                    production.
+                  </div>
+                  <PopoverClose
+                    aria-label="Close"
+                    className="absolute right-[5px] top-[5px] inline-flex h-[25px] w-[25px] items-center justify-center rounded-full text-[#6f6f6f]"
+                  >
+                    <PreviewCloseIcon />
+                  </PopoverClose>
+                  <div className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white" />
+                </PopoverContent>
+              </Popover>
+
+              <Popover>
+                <PopoverTrigger>
+                  <span className="relative inline-flex h-7 w-7">
+                    <span className="absolute inset-0 rounded bg-[var(--teal)] animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]" />
+                    <button
+                      type="button"
+                      aria-label="Send preview email"
+                      className="absolute inset-0 inline-flex items-center justify-center rounded bg-[var(--surface)] p-1 text-docs-text focus:outline-none focus:ring-2 focus:ring-white/20"
+                    >
+                      <PreviewAirplaneIcon />
+                    </button>
+                  </span>
+                </PopoverTrigger>
+                <PopoverContent
+                  side="bottom"
+                  align="end"
+                  sideOffset={5}
+                  className="w-80 rounded-lg border border-[var(--dark-bg-border)] bg-[var(--surface-raised)] p-3 text-docs-text"
+                >
+                  <PopoverClose
+                    aria-label="Close"
+                    className="absolute right-2 inline-flex h-6 w-6 items-start justify-center rounded-full text-xs"
+                  >
+                    <PreviewCloseIcon />
+                  </PopoverClose>
+                  <form>
+                    <label htmlFor="showcase-to" className="mb-2 block text-xs uppercase">
+                      Recipient
+                    </label>
+                    <input
+                      id="showcase-to"
+                      type="email"
+                      placeholder="you@example.com"
+                      defaultValue=""
+                      className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 outline-none transition duration-300 ease-in-out placeholder:text-slate-10 focus:ring-1 focus:ring-slate-12"
+                    />
+                    <div className="flex items-center justify-between">
+                      <p className="inline-block text-xs">
+                        Powered by{" "}
+                        <a
+                          href="https://www.useplunk.com"
+                          className="transition duration-300 ease-in-out hover:text-white"
+                        >
+                          Plunk
+                          <span className="ml-1 inline-block align-middle">
+                            <PlunkLogo />
+                          </span>
+                        </a>
+                      </p>
+                      <button
+                        type="button"
+                        className="relative rounded-md bg-docs-brand px-3 py-1 text-sm font-medium text-docs-surface-raised transition duration-200 ease-in-out"
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </form>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         );
@@ -571,6 +867,10 @@
                 <PreviewButtonsShowcase />
               </Card>
 
+              <Card title="Popovers">
+                <PreviewPopoversShowcase />
+              </Card>
+
               <Card title="Tab Groups">
                 <Tabs defaultValue="Desktop">
                   <TabsList>
@@ -586,6 +886,9 @@
                     </TabsContent>
                   ))}
                 </Tabs>
+                <br />
+                <br />
+                <InstallTabs />
               </Card>
 
               <Card title="Links">
@@ -703,10 +1006,6 @@
                     </p>
                   </div>
                 </div>
-              </Card>
-
-              <Card title="Install Tab Group Pattern">
-                <InstallTabs />
               </Card>
 
               <Card title="Code block + inline code treatment" className="lg:col-span-2">
