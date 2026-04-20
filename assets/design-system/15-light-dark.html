@@ -1401,7 +1401,11 @@
             className="ml-1 h-4 w-4 shrink-0"
             aria-hidden="true"
           >
-            <path d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V10.5Z" />
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V10.5Z"
+            />
           </svg>
         );
       }
@@ -1414,7 +1418,11 @@
             className="ml-1 h-4 w-4 shrink-0"
             aria-hidden="true"
           >
-            <path d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15ZM9 12.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z" />
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15ZM9 12.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z"
+            />
           </svg>
         );
       }
@@ -1714,7 +1722,7 @@
         );
       }
 
-      function InstallTabs() {
+      function InstallTabs({ mode }) {
         const [active, setActive] = useState("pnpm");
         const command = INSTALL_TABS.find(([value]) => value === active)?.[1];
 
@@ -1751,15 +1759,20 @@
               </div>
             </div>
             <div>
-              <CodeSample code={command} lang="console" className="rounded-t-none" />
+              <CodeSample
+                code={command}
+                lang="console"
+                theme={mode === "light" ? "one-light" : "slack-dark"}
+                className="rounded-t-none"
+              />
             </div>
           </div>
         );
       }
 
-      function CodeSample({ code, lang = "jsx", className = "" }) {
+      function CodeSample({ code, lang = "jsx", className = "", theme = "slack-dark" }) {
         const [html, setHtml] = useState("");
-
+        const highlightLang = lang === "console" ? "sh" : lang;
         useEffect(() => {
           let cancelled = false;
 
@@ -1767,10 +1780,9 @@
             if (!window.shikiReady || !window.shikiCodeToHtml) return;
 
             await window.shikiReady;
-
             const highlighted = await window.shikiCodeToHtml(code, {
-              lang,
-              theme: "slack-dark",
+              lang: highlightLang,
+              theme,
             });
 
             if (!cancelled) setHtml(highlighted);
@@ -1783,7 +1795,7 @@
           return () => {
             cancelled = true;
           };
-        }, [code, lang]);
+        }, [code, highlightLang, theme]);
 
         if (!html) {
           return (
@@ -2011,7 +2023,7 @@
         );
       }
 
-      function ControlsShowcase() {
+      function ControlsShowcase({ mode }) {
         return (
           <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Card title="Buttons">
@@ -2039,7 +2051,7 @@
               </Tabs>
               <br />
               <br />
-              <InstallTabs />
+              <InstallTabs mode={mode} />
             </Card>
 
             <Card title="Links">
@@ -2168,9 +2180,10 @@
             </Card>
 
             <Card title="Code block + inline code treatment" className="lg:col-span-2">
-              <div>
+              <div className="grid gap-3">
                 <CodeSample
                   lang="jsx"
+                  theme={mode === "light" ? "one-light" : "slack-dark"}
                   code={`import { Button, Text } from "jsx-email";
 
 export const Welcome = () => (
@@ -2227,7 +2240,7 @@ export const Welcome = () => (
               <h2 className="text-[1.2rem] font-semibold text-docs-text-strong">{title}</h2>
               <p className="mt-1 text-xs text-docs-text-subtle">{note}</p>
             </header>
-            <ControlsShowcase />
+            <ControlsShowcase mode={mode} />
             <div className="mt-4">
               <TextColorSamplesCard mode={mode} />
             </div>
