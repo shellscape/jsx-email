@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Color Palette in Use — jsx-email + atom-editor.cc/packages</title>
+  <desc id="desc">Explicit in-use color swatches and derived gradient previews for jsx-email and atom-editor.cc/packages.</desc>
+  <defs>
+    <style>
+      .bg { fill: #111214; }
+      .panel { fill: #1a1c1f; stroke: #2a2d31; stroke-width: 2; }
+      .title { fill: #ffffff; font: 700 44px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .subtitle { fill: #b7bec8; font: 500 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .note { fill: #8f98a4; font: 500 18px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .label { fill: #f8fbff; font: 700 17px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .small { fill: #ced5de; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .pill { fill: #27303a; stroke: #3f4d5b; stroke-width: 1.5; }
+      .pill-text { fill: #d8e0e9; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .swatch-border { fill: none; stroke: #ffffff22; stroke-width: 1; }
+      .chip-dark { fill: #0e1012; stroke: #29303a; }
+      .chip-light { fill: #eceff3; stroke: #d2d7de; }
+      .chip-text-dark { fill: #e8edf4; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .chip-text-light { fill: #1f2833; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+    </style>
+    <linearGradient id="gradWarm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EFDAB9"/>
+      <stop offset="50%" stop-color="#FFD152"/>
+      <stop offset="100%" stop-color="#EBAC00"/>
+    </linearGradient>
+    <linearGradient id="gradMint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#78B0A0"/>
+      <stop offset="50%" stop-color="#61EFCE"/>
+      <stop offset="100%" stop-color="#2AEABD"/>
+    </linearGradient>
+    <linearGradient id="gradSlate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#434C56"/>
+      <stop offset="100%" stop-color="#719BC4"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1180"/>
+  <text class="title" x="72" y="82">Color Palette</text>
+  <text class="subtitle" x="72" y="118">Modern reference board with explicit “IN USE” values</text>
+  <rect class="pill" x="72" y="142" width="155" height="34" rx="17"/>
+  <text class="pill-text" x="149.5" y="164" text-anchor="middle">IN USE COLORS</text>
+
+  <g transform="translate(72,206)">
+    <rect class="panel" x="0" y="0" width="700" height="860" rx="18"/>
+    <text class="subtitle" x="24" y="44">jsx-email — IN USE</text>
+    <text class="note" x="24" y="72">Anchored to repository usage (core surfaces, text, links, accent states)</text>
+
+    <g transform="translate(24,102)">
+      <g>
+        <rect x="0" y="0" width="205" height="126" fill="#343233" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="label" x="14" y="98">#343233</text>
+        <rect class="chip-dark" x="132" y="14" width="58" height="22" rx="11"/>
+        <text class="chip-text-dark" x="161" y="29" text-anchor="middle">IN USE</text>
+      </g>
+      <g transform="translate(225,0)">
+        <rect x="0" y="0" width="205" height="126" fill="#2C2A2B" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="label" x="14" y="98">#2C2A2B</text>
+      </g>
+      <g transform="translate(450,0)">
+        <rect x="0" y="0" width="205" height="126" fill="#1A191A" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="label" x="14" y="98">#1A191A</text>
+      </g>
+
+      <g transform="translate(0,146)">
+        <rect x="0" y="0" width="205" height="126" fill="#EFDAB9" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#2F2A22">#EFDAB9</text>
+      </g>
+      <g transform="translate(225,146)">
+        <rect x="0" y="0" width="205" height="126" fill="#FFD152" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#3E2F00">#FFD152</text>
+      </g>
+      <g transform="translate(450,146)">
+        <rect x="0" y="0" width="205" height="126" fill="#FFC31F" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#3E2800">#FFC31F</text>
+      </g>
+
+      <g transform="translate(0,292)">
+        <rect x="0" y="0" width="205" height="126" fill="#EBAC00" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#342300">#EBAC00</text>
+      </g>
+      <g transform="translate(225,292)">
+        <rect x="0" y="0" width="205" height="126" fill="#61EFCE" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#1A3B34">#61EFCE</text>
+      </g>
+      <g transform="translate(450,292)">
+        <rect x="0" y="0" width="205" height="126" fill="#78B0A0" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#1F312C">#78B0A0</text>
+      </g>
+
+      <g transform="translate(0,438)">
+        <rect x="0" y="0" width="205" height="126" fill="#47504E" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="label" x="14" y="98">#47504E</text>
+      </g>
+      <g transform="translate(225,438)">
+        <rect x="0" y="0" width="205" height="126" fill="#EFEAE1" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#35302A">#EFEAE1</text>
+      </g>
+      <g transform="translate(450,438)">
+        <rect x="0" y="0" width="205" height="126" fill="#574C4F" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="label" x="14" y="98">#574C4F</text>
+      </g>
+
+      <g transform="translate(0,584)">
+        <rect x="0" y="0" width="205" height="126" fill="#8E8373" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#302A22">#8E8373</text>
+      </g>
+      <g transform="translate(225,584)">
+        <rect x="0" y="0" width="205" height="126" fill="#565656" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="label" x="14" y="98">#565656</text>
+      </g>
+      <g transform="translate(450,584)">
+        <rect x="0" y="0" width="205" height="126" fill="#719BC4" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="126" rx="12"/>
+        <text class="small" x="14" y="98" fill="#1E2C3B">#719BC4</text>
+      </g>
+
+      <g transform="translate(0,730)">
+        <rect x="0" y="0" width="205" height="100" fill="#434C56" rx="12"/>
+        <rect class="swatch-border" x="0" y="0" width="205" height="100" rx="12"/>
+        <text class="label" x="14" y="73">#434C56</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(824,206)">
+    <rect class="panel" x="0" y="0" width="704" height="860" rx="18"/>
+    <text class="subtitle" x="24" y="44">atom-editor.cc/packages — IN USE</text>
+    <text class="note" x="24" y="72">Includes shared brand tones + package/404-specific colors</text>
+
+    <g transform="translate(24,102)">
+      <g>
+        <rect x="0" y="0" width="152" height="104" fill="#584B4F" rx="11"/>
+        <text class="label" x="12" y="78">#584B4F</text>
+      </g>
+      <g transform="translate(166,0)">
+        <rect x="0" y="0" width="152" height="104" fill="#EFEAE1" rx="11"/>
+        <text class="small" x="12" y="78" fill="#35302A">#EFEAE1</text>
+      </g>
+      <g transform="translate(332,0)">
+        <rect x="0" y="0" width="152" height="104" fill="#81C08B" rx="11"/>
+        <text class="small" x="12" y="78" fill="#203326">#81C08B</text>
+      </g>
+      <g transform="translate(498,0)">
+        <rect x="0" y="0" width="152" height="104" fill="#343233" rx="11"/>
+        <text class="label" x="12" y="78">#343233</text>
+      </g>
+
+      <g transform="translate(0,120)">
+        <rect x="0" y="0" width="152" height="104" fill="#EFDAB9" rx="11"/>
+        <text class="small" x="12" y="78" fill="#312A1F">#EFDAB9</text>
+      </g>
+      <g transform="translate(166,120)">
+        <rect x="0" y="0" width="152" height="104" fill="#FFD152" rx="11"/>
+        <text class="small" x="12" y="78" fill="#3E2F00">#FFD152</text>
+      </g>
+      <g transform="translate(332,120)">
+        <rect x="0" y="0" width="152" height="104" fill="#FFC31F" rx="11"/>
+        <text class="small" x="12" y="78" fill="#3E2800">#FFC31F</text>
+      </g>
+      <g transform="translate(498,120)">
+        <rect x="0" y="0" width="152" height="104" fill="#EBAC00" rx="11"/>
+        <text class="small" x="12" y="78" fill="#382700">#EBAC00</text>
+      </g>
+
+      <g transform="translate(0,240)">
+        <rect x="0" y="0" width="152" height="104" fill="#D36E2D" rx="11"/>
+        <text class="small" x="12" y="78" fill="#2F180B">#D36E2D</text>
+      </g>
+      <g transform="translate(166,240)">
+        <rect x="0" y="0" width="152" height="104" fill="#8E8373" rx="11"/>
+        <text class="small" x="12" y="78" fill="#2D2822">#8E8373</text>
+      </g>
+      <g transform="translate(332,240)">
+        <rect x="0" y="0" width="152" height="104" fill="#786F63" rx="11"/>
+        <text class="small" x="12" y="78" fill="#27221D">#786F63</text>
+      </g>
+      <g transform="translate(498,240)">
+        <rect x="0" y="0" width="152" height="104" fill="#78B0A0" rx="11"/>
+        <text class="small" x="12" y="78" fill="#1F312C">#78B0A0</text>
+      </g>
+
+      <g transform="translate(0,360)">
+        <rect x="0" y="0" width="152" height="104" fill="#61EFCE" rx="11"/>
+        <text class="small" x="12" y="78" fill="#1A3B34">#61EFCE</text>
+      </g>
+      <g transform="translate(166,360)">
+        <rect x="0" y="0" width="152" height="104" fill="#45EDC6" rx="11"/>
+        <text class="small" x="12" y="78" fill="#153E32">#45EDC6</text>
+      </g>
+      <g transform="translate(332,360)">
+        <rect x="0" y="0" width="152" height="104" fill="#2AEABD" rx="11"/>
+        <text class="small" x="12" y="78" fill="#12372C">#2AEABD</text>
+      </g>
+      <g transform="translate(498,360)">
+        <rect x="0" y="0" width="152" height="104" fill="#3D3A3A" rx="11"/>
+        <text class="label" x="12" y="78">#3D3A3A</text>
+      </g>
+
+      <g transform="translate(0,480)">
+        <rect x="0" y="0" width="152" height="104" fill="#2C2A2B" rx="11"/>
+        <text class="label" x="12" y="78">#2C2A2B</text>
+      </g>
+      <g transform="translate(166,480)">
+        <rect x="0" y="0" width="152" height="104" fill="#574C4F" rx="11"/>
+        <text class="label" x="12" y="78">#574C4F</text>
+      </g>
+      <g transform="translate(332,480)">
+        <rect x="0" y="0" width="152" height="104" fill="#FAF6EC" rx="11"/>
+        <text class="small" x="12" y="78" fill="#413B31">#FAF6EC</text>
+      </g>
+      <g transform="translate(498,480)">
+        <rect x="0" y="0" width="152" height="104" fill="#949189" rx="11"/>
+        <text class="small" x="12" y="78" fill="#2F2D28">#949189</text>
+      </g>
+
+      <g transform="translate(0,600)">
+        <rect x="0" y="0" width="152" height="104" fill="#66595C" rx="11"/>
+        <text class="label" x="12" y="78">#66595C</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(824,1080)">
+    <rect class="panel" x="0" y="0" width="704" height="76" rx="14"/>
+    <text class="note" x="24" y="31">Derived / Preview gradients (not direct tokens)</text>
+    <rect x="24" y="42" width="200" height="18" fill="url(#gradWarm)" rx="9"/>
+    <text class="small" x="234" y="56">Warm ramp preview</text>
+    <rect x="364" y="42" width="200" height="18" fill="url(#gradMint)" rx="9"/>
+    <text class="small" x="574" y="56">Mint ramp preview</text>
+    <rect x="24" y="64" width="200" height="4" fill="url(#gradSlate)" rx="2"/>
+  </g>
+</svg>

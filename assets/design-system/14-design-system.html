@@ -1,0 +1,1512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JSX Email Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "docs-bg": "var(--bg)",
+              "docs-surface": "var(--surface)",
+              "docs-surface-raised": "var(--surface-raised)",
+              "docs-border": "var(--border)",
+              "docs-border-soft": "var(--border-soft)",
+              "docs-text": "var(--text)",
+              "docs-text-subtle": "var(--text-subtle)",
+              "docs-text-strong": "var(--text-strong)",
+              "docs-brand": "var(--brand)",
+            },
+          },
+        },
+      };
+    </script>
+    <script type="module">
+      import { codeToHtml } from "https://esm.sh/shiki@1.29.2";
+
+      window.shikiCodeToHtml = codeToHtml;
+      window.shikiReady = Promise.resolve();
+    </script>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #1a191a;
+        --surface: #2c2a2b;
+        --surface-raised: #343233;
+        --surface-muted: #3d3a3a;
+        --border: #434c56;
+        --border-soft: #565656;
+        --text: #efdab9;
+        --text-subtle: #949189;
+        --text-strong: #faf6ec;
+
+        --brand: #ffd152;
+        --brand-hover: #ffc31f;
+        --brand-active: #ebac00;
+        --dark-bg-border: #1a191a;
+        --vp-code-tab-active-text-color: #efdab9;
+        --vp-code-tab-text-color: #8e8373;
+        --vp-code-tab-divider: #00000033;
+
+        --mint: #61efce;
+        --mint-hover: #45edc6;
+        --teal: #78b0a0;
+
+        --blue: #659cc8;
+        --blue-hover: #719bc4;
+
+        --ember: #c13f21;
+        --warm: #d36e2d;
+        --text-strong-border: rgba(250, 246, 236, 0.35);
+        --card-highlight: rgba(250, 246, 236, 0.02);
+        --button-pressed-shadow: rgba(26, 25, 26, 0.45);
+        --button-alt-bg: #47504e;
+        --button-info-fg: #101417;
+        --ghost-hover-bg: rgba(101, 156, 200, 0.16);
+        --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
+        --chip-bg: rgb(142 131 115 / 20%);
+        --chip-bg-hover: rgb(142 131 115 / 50%);
+        --chip-border-color: #8e8373;
+        --preview-text-hover: #f3f5f7;
+        --preview-icon: #9ba1aa;
+        --pill-mint-bg: rgba(97, 239, 206, 0.22);
+        --pill-blue-bg: rgba(101, 156, 200, 0.23);
+        --lang-badge-bg: rgba(101, 156, 200, 0.28);
+        --lang-badge-border: rgba(101, 156, 200, 0.65);
+        --inline-code-bg: rgba(67, 76, 86, 0.32);
+        --inline-code-border: rgba(120, 176, 160, 0.28);
+        --code-lang-label: rgba(239, 218, 185, 0.45);
+        --plain-inline-code-bg: #65758529;
+        --plain-inline-code-text: #9cdcfe;
+        --warn-inline-code-bg: rgba(234, 179, 8, 0.16);
+        --warn-inline-code-text: #f9b44e;
+        --info-inline-code-bg: rgba(101, 117, 133, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        line-height: 1.45;
+      }
+
+      p {
+        margin: 0;
+      }
+      pre {
+        margin: 0;
+        overflow-x: auto;
+        padding: 12px;
+      }
+
+      pre code,
+      code.inline {
+        color: var(--text-strong);
+        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+      }
+
+      code.inline {
+        background: var(--inline-code-bg);
+        border: 1px solid var(--inline-code-border);
+        border-radius: 6px;
+        display: inline-block;
+        font-size: 0.81em;
+        padding: 1px 6px;
+      }
+
+      .code-sample .shiki,
+      .code-sample .shiki code {
+        background: var(--surface) !important;
+      }
+
+      .code-sample .shiki {
+        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace !important;
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+        margin: 0 !important;
+        overflow-x: auto;
+        padding: 20px 24px !important;
+        width: 100%;
+      }
+
+      @keyframes nav-fade-in {
+        0% {
+          opacity: 0;
+          margin-left: -30px;
+        }
+        100% {
+          opacity: 1;
+          margin-left: 0;
+        }
+      }
+
+      .animate-nav-fade-in {
+        animation: nav-fade-in 500ms ease-in-out forwards;
+      }
+
+      .collapsible-content {
+        display: grid;
+        overflow: hidden;
+        transition:
+          grid-template-rows 300ms ease-out,
+          opacity 300ms ease-out,
+          margin-top 300ms ease-out;
+      }
+
+      .collapsible-content[data-state="open"] {
+        grid-template-rows: 1fr;
+        opacity: 1;
+      }
+
+      .collapsible-content[data-state="closed"] {
+        grid-template-rows: 0fr;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" data-presets="react">
+      const { useContext, useEffect, useMemo, useRef, useState } = React;
+
+      const TOKENS = [
+        ["--bg: #1A191A", "page background", "#1a191a"],
+        ["--surface: #2C2A2B", "card + panel backgrounds", "#2c2a2b"],
+        ["--surface-raised: #343233", "component containers", "#343233"],
+        ["--border: #434C56", "primary borders", "#434c56"],
+        ["--border-soft: #565656", "subtle lines + separators", "#565656"],
+        ["--text: #EFDAB9", "body text", "#efdab9"],
+        ["--text-subtle: #949189", "supporting copy", "#949189"],
+        ["--brand: #FFD152", "primary CTA base", "#ffd152"],
+        ["--brand-hover: #FFC31F", "brand hover", "#ffc31f"],
+        ["--brand-active: #EBAC00", "brand active / press", "#ebac00"],
+        ["--mint: #61EFCE", "accent + alt-hover", "#61efce"],
+        ["--teal: #78B0A0", "alt text", "#78b0a0"],
+        ["--blue: #659CC8", "info actions", "#659cc8"],
+        ["--blue-hover: #719BC4", "info hover", "#719bc4"],
+        ["--ember: #C13F21", "danger signal", "#c13f21"],
+        ["--warm: #D36E2D", "secondary warm accent", "#d36e2d"],
+      ];
+
+      const INSTALL_TABS = [
+        ["pnpm", "pnpm add jsx-email"],
+        ["bun", "bun add jsx-email"],
+        ["npm", "npm add jsx-email"],
+        ["yarn", "yarn add jsx-email"],
+      ];
+
+      const PREVIEW_TABS = [
+        [
+          "Desktop",
+          "Desktop preview mirrors the topbar control used in apps/preview, with the active slab filling the selected trigger.",
+        ],
+        [
+          "Mobile",
+          "Mobile uses the same segmented surface and active highlight treatment as the preview app’s mode switcher.",
+        ],
+        [
+          "JSX",
+          "Code-oriented views sit in the same control group, using the identical label sizing and yellow active background.",
+        ],
+        [
+          "HTML",
+          "HTML remains part of the same compact segmented row rather than switching to docs-style tabs.",
+        ],
+        [
+          "Plain",
+          "Plain text is still a first-class tab in apps/preview, so the showcase includes it in the same composition.",
+        ],
+      ];
+
+      const TabsContext = React.createContext(null);
+      const PopoverContext = React.createContext(null);
+      const SelectContext = React.createContext(null);
+      const TreeContext = React.createContext(null);
+
+      const DEVICE_GROUPS = {
+        phones: [
+          { name: "iPhone 14 Pro Max", value: "430,932" },
+          { name: "iPhone SE", value: "375,667" },
+          { name: "Pixel 8", value: "412,915" },
+        ],
+        tablets: [
+          { name: "iPad Air", value: "820,1180" },
+          { name: "iPad Mini", value: "744,1133" },
+        ],
+      };
+
+      const TREE_ITEMS = [
+        {
+          name: "Transactional",
+          children: [
+            { name: "welcome-email.tsx", current: true },
+            { name: "password-reset.tsx" },
+            { name: "magic-link.tsx" },
+          ],
+        },
+        {
+          name: "Marketing",
+          children: [
+            { name: "newsletter.tsx" },
+            {
+              name: "Campaigns",
+              children: [
+                { name: "spring-sale.tsx" },
+                { name: "product-launch.tsx" },
+              ],
+            },
+          ],
+        },
+      ];
+
+      function cn(...values) {
+        return values.filter(Boolean).join(" ");
+      }
+
+      function Card({ title, children, className = "" }) {
+        return (
+          <article
+            className={cn(
+              "rounded border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_var(--card-highlight)]",
+              className,
+            )}
+          >
+            <h2 className="mb-3 text-[1.2rem] tracking-[0.01em] text-docs-text-strong">{title}</h2>
+            {children}
+          </article>
+        );
+      }
+
+      function Button({ variant = "default", className = "", children, href, ...props }) {
+        const variants = {
+          default:
+            "border-docs-border-soft bg-[var(--surface-muted)] text-docs-text hover:border-docs-border hover:bg-docs-surface-raised",
+          brand:
+            "border-[var(--brand-active)] bg-docs-brand text-docs-surface-raised hover:bg-[var(--brand-hover)] active:bg-[var(--brand-active)]",
+          alt: "border-docs-border-soft bg-[var(--button-alt-bg)] text-[var(--teal)] hover:bg-[var(--mint)] hover:text-docs-surface-raised",
+          info: "border-[var(--blue-hover)] bg-[var(--blue)] text-[var(--button-info-fg)] hover:bg-[var(--blue-hover)]",
+          ghost:
+            "border-docs-border-soft bg-transparent text-docs-text hover:border-[var(--blue)] hover:bg-[var(--ghost-hover-bg)]",
+        };
+
+        const classNames = cn(
+          "inline-flex min-h-[38px] items-center justify-center rounded border px-[13px] text-[0.86rem] font-semibold transition-colors duration-200",
+          variants[variant],
+          className,
+        );
+
+        if (href) {
+          return (
+            <a href={href} className={classNames} {...props}>
+              {children}
+            </a>
+          );
+        }
+
+        return (
+          <button className={classNames} {...props}>
+            {children}
+          </button>
+        );
+      }
+
+      function Popover({ open: controlledOpen, defaultOpen = false, onOpenChange, children }) {
+        const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+        const triggerRef = useRef(null);
+        const contentRef = useRef(null);
+        const open = controlledOpen ?? uncontrolledOpen;
+
+        const setOpen = (nextOpen) => {
+          if (controlledOpen === undefined) {
+            setUncontrolledOpen(nextOpen);
+          }
+
+          onOpenChange?.(nextOpen);
+        };
+
+        useEffect(() => {
+          if (!open) return undefined;
+
+          const handlePointerDown = (event) => {
+            const target = event.target;
+
+            if (triggerRef.current?.contains(target) || contentRef.current?.contains(target)) {
+              return;
+            }
+
+            setOpen(false);
+          };
+
+          const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+              setOpen(false);
+            }
+          };
+
+          document.addEventListener("mousedown", handlePointerDown);
+          document.addEventListener("touchstart", handlePointerDown);
+          document.addEventListener("keydown", handleKeyDown);
+
+          return () => {
+            document.removeEventListener("mousedown", handlePointerDown);
+            document.removeEventListener("touchstart", handlePointerDown);
+            document.removeEventListener("keydown", handleKeyDown);
+          };
+        }, [open]);
+
+        const contextValue = useMemo(
+          () => ({
+            open,
+            setOpen,
+            triggerRef,
+            contentRef,
+          }),
+          [open],
+        );
+
+        return (
+          <PopoverContext.Provider value={contextValue}>
+            <div className="relative inline-flex">{children}</div>
+          </PopoverContext.Provider>
+        );
+      }
+
+      function PopoverTrigger({ children }) {
+        const context = useContext(PopoverContext);
+        const child = React.Children.only(children);
+        const childProps = child.props ?? {};
+
+        return (
+          <span ref={context?.triggerRef} className="inline-flex">
+            {React.cloneElement(child, {
+              onClick: (event) => {
+                childProps.onClick?.(event);
+                if (!event.defaultPrevented) {
+                  context?.setOpen(!context?.open);
+                }
+              },
+              "aria-expanded": context?.open ? "true" : "false",
+              "data-state": context?.open ? "open" : "closed",
+            })}
+          </span>
+        );
+      }
+
+      function PopoverContent({
+        children,
+        className = "",
+        side = "bottom",
+        align = "center",
+        sideOffset = 4,
+      }) {
+        const context = useContext(PopoverContext);
+
+        if (!context?.open) return null;
+
+        const sideClasses = {
+          top: "bottom-full",
+          right: "left-full top-1/2 -translate-y-1/2",
+          bottom: "top-full",
+          left: "right-full top-1/2 -translate-y-1/2",
+        };
+
+        const alignClassesBySide = {
+          top: {
+            start: "left-0",
+            center: "left-1/2 -translate-x-1/2",
+            end: "right-0",
+          },
+          bottom: {
+            start: "left-0",
+            center: "left-1/2 -translate-x-1/2",
+            end: "right-0",
+          },
+          right: {
+            start: "top-0",
+            center: "top-1/2 -translate-y-1/2",
+            end: "bottom-0",
+          },
+          left: {
+            start: "top-0",
+            center: "top-1/2 -translate-y-1/2",
+            end: "bottom-0",
+          },
+        };
+
+        const offsetStyle =
+          side === "bottom"
+            ? { marginTop: sideOffset }
+            : side === "top"
+              ? { marginBottom: sideOffset }
+              : side === "right"
+                ? { marginLeft: sideOffset }
+                : { marginRight: sideOffset };
+
+        return (
+          <div
+            ref={context.contentRef}
+            className={cn(
+              "absolute z-20",
+              sideClasses[side],
+              alignClassesBySide[side][align],
+              className,
+            )}
+            data-state="open"
+            data-side={side}
+            style={offsetStyle}
+          >
+            {children}
+          </div>
+        );
+      }
+
+      function PopoverClose({ children, className = "", ...props }) {
+        const context = useContext(PopoverContext);
+
+        return (
+          <button
+            type="button"
+            className={className}
+            onClick={() => context?.setOpen(false)}
+            {...props}
+          >
+            {children}
+          </button>
+        );
+      }
+
+      function PreviewQuestionIcon() {
+        return (
+          <svg width="20" height="20" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="M7.5 13.5a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-2.4v-.9m0-1.6c0-1 1.35-1.3 1.35-2.65 0-.8-.62-1.35-1.5-1.35-.7 0-1.17.3-1.58.75"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewAirplaneIcon() {
+        return (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewCloseIcon() {
+        return (
+          <svg width="14" height="14" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="M11.78 3.22 3.22 11.78M3.22 3.22l8.56 8.56"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewChevronDownIcon() {
+        return (
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m4.5 6 3 3 3-3"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewChevronUpIcon() {
+        return (
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m4.5 9 3-3 3 3"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewCheckIcon() {
+        return (
+          <svg width="14" height="14" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path
+              d="m3.5 7.5 2.25 2.25 5-5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function FolderPlusIcon() {
+        return (
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="ml-1 h-4 w-4 shrink-0"
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V10.5Z"
+            />
+          </svg>
+        );
+      }
+
+      function FolderMinusIcon() {
+        return (
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="ml-1 h-4 w-4 shrink-0"
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15ZM9 12.75a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5H9Z"
+            />
+          </svg>
+        );
+      }
+
+      function FileNameIcon() {
+        return (
+          <svg
+            className="shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
+              stroke="currentColor"
+              strokeOpacity="0.927"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M18 9.25H13.75V5"
+              stroke="currentColor"
+              strokeOpacity="0.927"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function PlunkLogo() {
+        return (
+          <svg viewBox="0 0 1080 1080" fill="none" width="20" height="20" aria-hidden="true">
+            <rect width="1080" height="1080" fill="none" />
+            <path
+              d="M976 284.628C976 348.237 959.54 406.608 926.62 459.74C893.701 512.873 845.817 556.276 782.97 589.952C720.124 623.627 645.306 643.458 558.517 649.445L510.26 919.971C491.556 1023.99 440.68 1076 357.632 1076C311.993 1076 269.721 1062.53 230.816 1035.59C192.659 1008.65 161.984 967.49 138.79 912.113C115.597 856.736 104 788.637 104 707.816C104 555.902 128.316 427.187 176.947 321.671C226.327 215.407 292.166 136.082 374.466 83.6984C457.514 30.5661 548.791 4 648.299 4C718.627 4 778.107 16.3476 826.739 41.0429C876.118 65.7382 913.153 99.4136 937.843 142.069C963.281 183.976 976 231.496 976 284.628ZM578.718 533.826C732.094 514.369 808.783 434.671 808.783 294.731C808.783 245.34 792.323 205.304 759.403 174.622C727.231 143.192 677.103 127.476 609.019 127.476C531.957 127.476 464.621 151.798 407.012 200.44C350.15 249.082 306.008 316.807 274.584 403.615C243.909 489.674 228.571 588.081 228.571 698.836C228.571 745.233 233.06 786.392 242.039 822.312C251.765 858.232 263.736 886.295 277.951 906.501C292.915 925.957 307.13 935.686 320.597 935.686C339.302 935.686 353.517 909.868 363.243 858.232L400.278 646.078C371.099 641.587 358.38 639.717 362.121 640.465C339.676 636.723 325.086 629.988 318.353 620.26C311.619 609.783 308.252 596.687 308.252 580.972C308.252 564.508 312.741 551.412 321.719 541.684C331.446 531.955 344.539 527.091 360.999 527.091C368.481 527.091 374.092 527.465 377.833 528.214C395.789 531.207 409.63 533.078 419.357 533.826C429.083 475.455 442.924 397.254 460.88 299.221C465.369 273.777 475.47 255.817 491.182 245.34C507.641 234.115 526.72 228.503 548.417 228.503C573.107 228.503 590.689 233.367 601.163 243.095C612.386 252.075 617.997 266.668 617.997 286.873C617.997 298.847 617.249 308.575 615.753 316.059L578.718 533.826Z"
+              fill="currentColor"
+            />
+            <path
+              d="M304.835 467.541L426.099 489.952L411.851 580.937L391.091 699.816L266.088 676.643L304.835 467.541Z"
+              fill="var(--surface)"
+            />
+          </svg>
+        );
+      }
+
+      function PreviewButtonsShowcase() {
+        return (
+          <div className="grid gap-3">
+            <div className="grid gap-2.5">
+              <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/web</div>
+              <div className="flex flex-wrap gap-2.5">
+                <a
+                  href="/docs/quick-start"
+                  className="inline-flex rounded-[5px] bg-docs-brand px-[2em] py-[0.1em] font-medium leading-[38px] text-docs-surface-raised no-underline transition-colors duration-200 hover:bg-[var(--brand-hover)]"
+                >
+                  Quick Start
+                </a>
+                <Button
+                  variant="alt"
+                  className="rounded-[5px] px-8 py-[0.1em] text-[0.98rem] font-medium leading-[38px]"
+                >
+                  View on Github
+                </Button>
+              </div>
+              <p className="text-[0.75rem] text-docs-text-subtle">
+                These match the VitePress hero and changelog CTA treatment used in
+                <code className="inline"> apps/web </code>.
+              </p>
+            </div>
+
+            <div className="grid gap-2.5">
+              <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+              <div className="flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  aria-label="Preview information"
+                  className="inline-flex h-5 w-5 items-center justify-center text-docs-text"
+                >
+                  <PreviewQuestionIcon />
+                </button>
+
+                <div className="relative h-7 w-7">
+                  <span className="absolute inset-0 rounded bg-[var(--teal)] animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]" />
+                  <button
+                    type="button"
+                    aria-label="Send preview email"
+                    className="absolute inset-0 inline-flex items-center justify-center rounded bg-[var(--surface)] p-1 text-docs-text focus:outline-none focus:ring-2 focus:ring-white/20"
+                  >
+                    <PreviewAirplaneIcon />
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  className="disabled:border-transparent relative rounded-md bg-docs-brand px-3 py-1 text-sm font-medium text-docs-surface-raised transition duration-200 ease-in-out"
+                >
+                  Send
+                </button>
+
+                <a
+                  href="https://jsx.email/docs/introduction"
+                  className="inline-block rounded bg-docs-brand px-4 py-2 text-base font-normal text-docs-surface-raised transition duration-200 ease-in-out hover:bg-[var(--brand-hover)] focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20"
+                >
+                  Read our Documentation
+                </a>
+              </div>
+              <p className="text-[0.75rem] text-docs-text-subtle">
+                This covers the bare <code className="inline">?</code> trigger, the pulsing send
+                affordance, the send submit button, and the preview landing CTA from
+                <code className="inline"> apps/preview </code>.
+              </p>
+            </div>
+          </div>
+        );
+      }
+
+      function PreviewPopoversShowcase() {
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+            <div className="flex items-start gap-6 pb-[220px]">
+              <Popover>
+                <PopoverTrigger>
+                  <button
+                    type="button"
+                    aria-label="Preview Information"
+                    className="inline-flex h-5 w-5 items-center justify-center text-docs-text"
+                  >
+                    <PreviewQuestionIcon />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent
+                  side="bottom"
+                  sideOffset={16}
+                  className="w-[260px] rounded bg-white p-5 text-xs text-[#111] shadow-[0px_10px_38px_-10px_hsl(206_22%_7%_/_35%),0px_10px_20px_-15px_hsl(206_22%_7%_/_20%)]"
+                >
+                  <div className="pt-4">
+                    The Desktop and Mobile views are <em>an approximation</em> of what your email
+                    template will looke like on various devices. It should not be considered a
+                    source of truth, but rather a guide for styling and layout. Always send a test
+                    email to your target email clients for Quality Control, before sending emails in
+                    production.
+                  </div>
+                  <PopoverClose
+                    aria-label="Close"
+                    className="absolute right-[5px] top-[5px] inline-flex h-[25px] w-[25px] items-center justify-center rounded-full text-[#6f6f6f]"
+                  >
+                    <PreviewCloseIcon />
+                  </PopoverClose>
+                  <div className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white" />
+                </PopoverContent>
+              </Popover>
+
+              <Popover>
+                <PopoverTrigger>
+                  <span className="relative inline-flex h-7 w-7">
+                    <span className="absolute inset-0 rounded bg-[var(--teal)] animate-[ping_1s_cubic-bezier(0,0,0.2,1)_2]" />
+                    <button
+                      type="button"
+                      aria-label="Send preview email"
+                      className="absolute inset-0 inline-flex items-center justify-center rounded bg-[var(--surface)] p-1 text-docs-text focus:outline-none focus:ring-2 focus:ring-white/20"
+                    >
+                      <PreviewAirplaneIcon />
+                    </button>
+                  </span>
+                </PopoverTrigger>
+                <PopoverContent
+                  side="bottom"
+                  align="end"
+                  sideOffset={5}
+                  className="w-80 rounded-lg border border-[var(--dark-bg-border)] bg-[var(--surface-raised)] p-3 text-docs-text"
+                >
+                  <PopoverClose
+                    aria-label="Close"
+                    className="absolute right-2 inline-flex h-6 w-6 items-start justify-center rounded-full text-xs"
+                  >
+                    <PreviewCloseIcon />
+                  </PopoverClose>
+                  <form>
+                    <label htmlFor="showcase-to" className="mb-2 block text-xs uppercase">
+                      Recipient
+                    </label>
+                    <input
+                      id="showcase-to"
+                      type="email"
+                      placeholder="you@example.com"
+                      defaultValue=""
+                      className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 outline-none transition duration-300 ease-in-out placeholder:text-slate-10 focus:ring-1 focus:ring-slate-12"
+                    />
+                    <div className="flex items-center justify-between">
+                      <p className="inline-block text-xs">
+                        Powered by{" "}
+                        <a
+                          href="https://www.useplunk.com"
+                          className="transition duration-300 ease-in-out hover:text-white"
+                        >
+                          Plunk
+                          <span className="ml-1 inline-block align-middle">
+                            <PlunkLogo />
+                          </span>
+                        </a>
+                      </p>
+                      <button
+                        type="button"
+                        className="relative rounded-md bg-docs-brand px-3 py-1 text-sm font-medium text-docs-surface-raised transition duration-200 ease-in-out"
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </form>
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+        );
+      }
+
+      function Tabs({ defaultValue, className = "", children }) {
+        const [value, setValue] = useState(defaultValue);
+        const contextValue = useMemo(() => ({ value, setValue }), [value]);
+
+        return (
+          <TabsContext.Provider value={contextValue}>
+            <div className={cn("space-y-3", className)}>{children}</div>
+          </TabsContext.Provider>
+        );
+      }
+
+      function TabsList({ className = "", children }) {
+        return (
+          <div
+            className={cn(
+              "inline-block items-center overflow-hidden rounded border border-[var(--dark-bg-border)] bg-docs-surface",
+              className,
+            )}
+            role="tablist"
+            aria-label="Preview mode"
+          >
+            {children}
+          </div>
+        );
+      }
+
+      function TabsTrigger({ value, className = "", children }) {
+        const context = useContext(TabsContext);
+        const isActive = context?.value === value;
+
+        return (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={isActive}
+            tabIndex={isActive ? 0 : -1}
+            onClick={() => context?.setValue(value)}
+            className={cn(
+              "relative inline-flex px-3 py-2 text-sm font-medium transition duration-200 ease-in-out",
+              className,
+            )}
+          >
+            <span
+              className={cn(
+                "absolute inset-0 bg-docs-brand transition-opacity duration-200 ease-in-out",
+                isActive ? "opacity-100" : "opacity-0",
+              )}
+              aria-hidden="true"
+            />
+            <span
+              className={cn(
+                "relative capitalize",
+                isActive ? "text-docs-surface-raised" : "text-docs-text",
+              )}
+            >
+              {children}
+            </span>
+          </button>
+        );
+      }
+
+      function TabsContent({ value, className = "", children }) {
+        const context = useContext(TabsContext);
+        if (context?.value !== value) return null;
+
+        return (
+          <div
+            className={cn(
+              "rounded border border-docs-border-soft bg-docs-surface px-3 py-[11px] text-docs-text",
+              className,
+            )}
+          >
+            {children}
+          </div>
+        );
+      }
+
+      function Select({ defaultValue, children }) {
+        const [value, setValue] = useState(defaultValue);
+        const [open, setOpen] = useState(false);
+        const rootRef = useRef(null);
+        const contextValue = useMemo(() => ({ value, setValue, open, setOpen }), [value, open]);
+
+        useEffect(() => {
+          if (!open) return undefined;
+
+          const handlePointerDown = (event) => {
+            if (rootRef.current?.contains(event.target)) return;
+            setOpen(false);
+          };
+
+          const handleKeyDown = (event) => {
+            if (event.key === "Escape") setOpen(false);
+          };
+
+          document.addEventListener("mousedown", handlePointerDown);
+          document.addEventListener("touchstart", handlePointerDown);
+          document.addEventListener("keydown", handleKeyDown);
+
+          return () => {
+            document.removeEventListener("mousedown", handlePointerDown);
+            document.removeEventListener("touchstart", handlePointerDown);
+            document.removeEventListener("keydown", handleKeyDown);
+          };
+        }, [open]);
+
+        return (
+          <SelectContext.Provider value={contextValue}>
+            <div ref={rootRef} className="relative inline-block">
+              {children}
+            </div>
+          </SelectContext.Provider>
+        );
+      }
+
+      function SelectTrigger({ className = "", children }) {
+        const context = useContext(SelectContext);
+
+        return (
+          <button
+            type="button"
+            onClick={() => context?.setOpen(!context?.open)}
+            className={cn(
+              "inline-flex select-none items-center justify-center rounded-md bg-[var(--stone-7)] px-4 py-2 text-xs font-medium text-[var(--stone-1)] transition duration-200 ease-in-out",
+              className,
+            )}
+            aria-expanded={context?.open ? "true" : "false"}
+          >
+            {children}
+          </button>
+        );
+      }
+
+      function SelectValue() {
+        const context = useContext(SelectContext);
+        const entry = Object.values(DEVICE_GROUPS)
+          .flat()
+          .find((item) => item.value === context?.value);
+
+        return <span>{entry?.name ?? "Select device"}</span>;
+      }
+
+      function SelectContent({ className = "", children }) {
+        const context = useContext(SelectContext);
+        if (!context?.open) return null;
+
+        return (
+          <div
+            className={cn(
+              "absolute left-0 top-full z-20 mt-2 min-w-[220px] rounded-md bg-[var(--stone-7)] p-2 text-[var(--stone-1)] shadow-md",
+              className,
+            )}
+          >
+            {children}
+          </div>
+        );
+      }
+
+      function SelectItem({ value, children }) {
+        const context = useContext(SelectContext);
+        const isActive = context?.value === value;
+
+        return (
+          <button
+            type="button"
+            onClick={() => {
+              context?.setValue(value);
+              context?.setOpen(false);
+            }}
+            className="relative flex w-full items-center rounded-md px-4 py-2 text-left text-xs text-[var(--stone-1)] transition duration-200 ease-in-out hover:bg-[rgba(88,75,79,0.12)]"
+          >
+            {isActive ? (
+              <span className="absolute left-1 inline-flex items-center">
+                <PreviewCheckIcon />
+              </span>
+            ) : null}
+            <span>{children}</span>
+          </button>
+        );
+      }
+
+      function PreviewSelectShowcase() {
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+            <div className="rounded border border-[var(--dark-bg-border)] bg-[var(--surface-raised)] px-6 py-4">
+              <Select defaultValue="430,932">
+                <div>
+                  <SelectTrigger>
+                    <SelectValue />
+                    <span className="ml-2">
+                      <PreviewChevronDownIcon />
+                    </span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <div className="grid gap-0.5">
+                      {DEVICE_GROUPS.phones.map((device) => (
+                        <SelectItem key={device.value} value={device.value}>
+                          {device.name}
+                        </SelectItem>
+                      ))}
+                    </div>
+                    <div className="mx-3 my-3 h-px bg-[var(--stone-1)] opacity-20" />
+                    <div className="grid gap-0.5">
+                      {DEVICE_GROUPS.tablets.map((device) => (
+                        <SelectItem key={device.value} value={device.value}>
+                          {device.name}
+                        </SelectItem>
+                      ))}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between px-1">
+                      <span className="flex h-[25px] items-center justify-center text-[var(--stone-1)]">
+                        <PreviewChevronUpIcon />
+                      </span>
+                      <span className="flex h-[25px] items-center justify-center text-[var(--stone-1)]">
+                        <PreviewChevronDownIcon />
+                      </span>
+                    </div>
+                  </SelectContent>
+                </div>
+              </Select>
+            </div>
+            <p className="text-[0.75rem] text-docs-text-subtle">
+              The preview mobile-device picker uses a light dropdown surface on top of the dark app
+              chrome, with small-text options and a highlighted item row.
+            </p>
+          </div>
+        );
+      }
+
+      function TreeNode({ item, depth = 0 }) {
+        const tree = useContext(TreeContext);
+        const containsSelected = item.children?.some(
+          (child) =>
+            child.name === tree?.selected ||
+            child.children?.some((nested) => nested.name === tree?.selected),
+        );
+        const [open, setOpen] = useState(item.current || containsSelected);
+        const isBranch = !!item.children?.length;
+        const isCurrent = tree?.selected === item.name;
+
+        useEffect(() => {
+          if (containsSelected) setOpen(true);
+        }, [containsSelected]);
+
+        if (!isBranch) {
+          return (
+            <button
+              type="button"
+              onClick={() => tree?.setSelected(item.name)}
+              className="block w-full appearance-none border-0 bg-transparent p-0 text-left text-inherit"
+            >
+              <span
+                className={cn(
+                  "relative flex h-8 w-full items-center gap-2 rounded-md pl-4 text-[14px] transition duration-200 ease-in-out",
+                  isCurrent ? "font-medium text-[rgba(126,231,255,0.92)]" : "hover:text-[var(--text)]",
+                )}
+              >
+                {isCurrent ? (
+                  <span className="absolute inset-0 rounded-md bg-[rgba(120,176,160,0.3)] animate-nav-fade-in">
+                    <span className="absolute left-2.5 top-1 h-6 w-px bg-[var(--mint)]" />
+                  </span>
+                ) : null}
+                <span className="relative z-[1]">
+                  <FileNameIcon />
+                </span>
+                <span className="relative z-[1]">{item.name}</span>
+              </span>
+            </button>
+          );
+        }
+
+        return (
+          <div className="py-1">
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              className="flex appearance-none items-center gap-1 border-0 bg-transparent p-0 text-inherit"
+            >
+              {open ? <FolderMinusIcon /> : <FolderPlusIcon />}
+              <span className="flex items-center">
+                <span
+                  className={cn(
+                    "text-sm",
+                    depth === 0 ? "font-medium" : "ml-2",
+                  )}
+                >
+                  {item.name}
+                </span>
+              </span>
+            </button>
+            <div
+              className="relative collapsible-content"
+              data-state={open ? "open" : "closed"}
+              style={{ marginTop: open ? 4 : 0 }}
+            >
+                <div className="absolute left-2.5 top-0 h-full w-px bg-[rgba(86,86,86,0.75)]" />
+                <div
+                  className={cn(
+                    "min-h-0 overflow-hidden flex flex-col truncate",
+                    depth > 0 ? "py-0" : "",
+                  )}
+                >
+                  {item.children.map((child) =>
+                    child.children?.length ? (
+                      <div className="pl-4" key={child.name}>
+                        <TreeNode item={child} depth={depth + 1} />
+                      </div>
+                    ) : (
+                      <TreeNode key={child.name} item={child} depth={depth + 1} />
+                    ),
+                  )}
+                </div>
+              </div>
+          </div>
+        );
+      }
+
+      function PreviewTreeShowcase() {
+        const [selected, setSelected] = useState("welcome-email.tsx");
+
+        return (
+          <div className="grid gap-2.5">
+            <div className="text-[0.8rem] font-semibold text-docs-text-strong">apps/preview</div>
+            <div className="rounded border border-[var(--dark-bg-border)] bg-[var(--surface-raised)] p-6">
+              <div className="w-full max-w-[275px] border-r border-[var(--dark-bg-border)] pr-4">
+                <TreeContext.Provider value={{ selected, setSelected }}>
+                  {TREE_ITEMS.map((item) => (
+                    <TreeNode key={item.name} item={item} />
+                  ))}
+                </TreeContext.Provider>
+              </div>
+            </div>
+            <p className="text-[0.75rem] text-docs-text-subtle">
+              The sidebar tree in the preview app combines collapsible folder rows, a vertical
+              guide line, and a tinted active-file slab with a mint accent rail.
+            </p>
+          </div>
+        );
+      }
+
+      function InstallTabs() {
+        const [active, setActive] = useState("pnpm");
+        const command = INSTALL_TABS.find(([value]) => value === active)?.[1];
+
+        return (
+          <div className="overflow-hidden rounded">
+            <div className="overflow-x-auto">
+              <div
+                className="flex min-w-max bg-docs-surface shadow-[inset_0_-1px_var(--vp-code-tab-divider)]"
+                role="tablist"
+                aria-label="Package manager"
+              >
+                {INSTALL_TABS.map(([value]) => {
+                  const isActive = value === active;
+                  return (
+                    <button
+                      key={value}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      tabIndex={isActive ? 0 : -1}
+                      onClick={() => setActive(value)}
+                      className="relative inline-block shrink-0 whitespace-nowrap border-b border-transparent bg-transparent px-3 text-sm font-normal leading-[48px] [color:var(--tab-color)] transition-colors duration-[250ms] hover:[color:var(--vp-code-tab-active-text-color)] after:absolute after:bottom-[-1px] after:left-2 after:right-2 after:z-[1] after:h-[2px] after:rounded-[2px] after:[background-color:var(--tab-highlight)] after:transition-[background-color] after:duration-[250ms] hover:after:[background-color:var(--brand)]"
+                      style={{
+                        "--tab-color": isActive
+                          ? "var(--vp-code-tab-active-text-color)"
+                          : "var(--vp-code-tab-text-color)",
+                        "--tab-highlight": isActive ? "var(--brand)" : "transparent",
+                      }}
+                    >
+                      {value}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              <CodeSample code={command} lang="console" className="rounded-t-none" />
+            </div>
+          </div>
+        );
+      }
+
+      function CodeSample({ code, lang = "jsx", className = "" }) {
+        const [html, setHtml] = useState("");
+
+        useEffect(() => {
+          let cancelled = false;
+
+          async function highlight() {
+            if (!window.shikiReady || !window.shikiCodeToHtml) return;
+
+            await window.shikiReady;
+
+            const highlighted = await window.shikiCodeToHtml(code, {
+              lang,
+              theme: "slack-dark",
+            });
+
+            if (!cancelled) setHtml(highlighted);
+          }
+
+          highlight().catch((error) => {
+            console.error("Failed to highlight code sample:", error);
+          });
+
+          return () => {
+            cancelled = true;
+          };
+        }, [code, lang]);
+
+        if (!html) {
+          return (
+            <pre className="overflow-x-auto p-3">
+              <code className="font-mono text-docs-text-strong">{code}</code>
+            </pre>
+          );
+        }
+
+        return (
+          <div
+            className={cn(
+              "code-sample relative overflow-x-auto rounded bg-docs-surface",
+              className,
+            )}
+          >
+            <span className="pointer-events-none absolute right-4 top-3 z-10 text-xs font-medium text-[var(--code-lang-label)] transition-opacity duration-300">
+              {lang}
+            </span>
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+          </div>
+        );
+      }
+
+      function DownloadIcon() {
+        return (
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M8 2.5V9.5M8 9.5L5.5 7M8 9.5L10.5 7M3 11.5H13"
+              stroke="currentColor"
+              strokeWidth="1.35"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function ShowcaseApp() {
+        return (
+          <main className="mx-auto max-w-[1280px] px-5 pb-[52px] pt-7">
+            <header>
+              <h1 className="m-0 text-[clamp(1.9rem,4vw,2.45rem)] leading-[1.1] text-docs-text-strong">
+                JSX Email Design System
+              </h1>
+            </header>
+
+            <section className="mt-4 rounded border border-docs-border bg-docs-surface p-4">
+              <h2 className="mb-3 text-[1.2rem] tracking-[0.01em] text-docs-text-strong">
+                Color Palette
+              </h2>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-2.5">
+                {TOKENS.map(([label, note, color]) => (
+                  <div
+                    key={label}
+                    className="grid grid-cols-[16px_1fr] items-center gap-2.5 rounded border border-docs-border-soft bg-docs-surface px-2.5 py-2"
+                  >
+                    <span
+                      className="h-4 w-4 rounded-full border border-[var(--text-strong-border)]"
+                      style={{ background: color }}
+                    />
+                    <div>
+                      <code className="font-mono text-[0.76rem] text-docs-text-strong">
+                        {label}
+                      </code>
+                      <div className="text-[0.74rem] text-docs-text-subtle">{note}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <Card title="Buttons">
+                <PreviewButtonsShowcase />
+              </Card>
+
+              <Card title="Popovers">
+                <PreviewPopoversShowcase />
+              </Card>
+
+              <Card title="Tab Groups">
+                <Tabs defaultValue="Desktop">
+                  <TabsList>
+                    {PREVIEW_TABS.map(([label]) => (
+                      <TabsTrigger key={label} value={label}>
+                        {label}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                  {PREVIEW_TABS.map(([label, content]) => (
+                    <TabsContent key={label} value={label}>
+                      {content}
+                    </TabsContent>
+                  ))}
+                </Tabs>
+                <br />
+                <br />
+                <InstallTabs />
+              </Card>
+
+              <Card title="Links">
+                <div className="grid gap-3">
+                  <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
+                      Docs navigation and body links
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="/docs/introduction"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
+                        Documentation
+                      </a>
+                      <a
+                        href="/docs/quick-start"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
+                        Quick Start
+                      </a>
+                      <a
+                        href="/changelog"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
+                        Changelog
+                      </a>
+                      <a
+                        href="http://samples.jsx.email"
+                        className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      >
+                        Email Samples
+                      </a>
+                    </div>
+                    <div className="grid gap-1.5">
+                      <a
+                        href="/docs/introduction"
+                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      >
+                        Introduction
+                      </a>
+                      <a
+                        href="/docs/quick-start"
+                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      >
+                        Quick Start
+                      </a>
+                      <a
+                        href="/docs/components/button"
+                        className="relative inline-flex w-fit pl-[18px] text-[0.88rem] text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      >
+                        Button
+                      </a>
+                    </div>
+                    <p className="text-[0.75rem] text-docs-text-subtle">
+                      Docs body copy uses plain VitePress links like{" "}
+                      <a
+                        href="https://jsx.email/docs/introduction"
+                        className="text-docs-brand no-underline transition-colors duration-150 hover:text-[var(--brand-active)]"
+                      >
+                        jsx.email/docs/introduction
+                      </a>{" "}
+                      with no custom underline treatment.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
+                      Docs changelog links
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="https://github.com/example"
+                        className="inline-flex w-fit items-center gap-2.5 rounded-full bg-[var(--chip-bg)] p-2 text-[0.75rem] font-medium leading-4 text-docs-text no-underline shadow-[0_0_1px_1px_var(--chip-border-color)] transition-colors duration-150 hover:bg-[var(--chip-bg-hover)]"
+                      >
+                        <span className="inline-block h-5 w-5 rounded-full bg-[var(--chip-border-color)]" />
+                        shellscape
+                      </a>
+                      <a
+                        href="https://github.com/shellscape/jsx-email/pull/999"
+                        className="text-docs-text no-underline transition-colors duration-150 hover:text-[var(--brand-hover)]"
+                      >
+                        #999: tighten docs tokens
+                      </a>
+                    </div>
+                    <p className="text-[0.75rem] text-docs-text-subtle">
+                      The changelog page adds its own author chip link and a warm hover state on PR
+                      title links.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                    <div className="text-[0.8rem] font-semibold text-docs-text-strong">
+                      Preview links outside the tree view
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="https://www.useplunk.com"
+                        className="text-docs-text no-underline transition-colors duration-200 hover:text-[var(--preview-text-hover)]"
+                      >
+                        Powered by Plunk
+                      </a>
+                      <a
+                        href="#download"
+                        className="inline-flex items-center justify-center text-[var(--preview-icon)] no-underline transition-colors duration-200 hover:text-docs-text"
+                        aria-label="Download"
+                      >
+                        <DownloadIcon />
+                      </a>
+                    </div>
+                    <p className="text-[0.75rem] text-docs-text-subtle">
+                      This mirrors the send-popover vendor link and the code-panel download action
+                      from <code className="inline">apps/preview</code>. Tree links are
+                      intentionally excluded.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+
+              <Card title="Select">
+                <PreviewSelectShowcase />
+              </Card>
+
+              <Card title="Tree View">
+                <PreviewTreeShowcase />
+              </Card>
+
+              <Card title="Code block + inline code treatment" className="lg:col-span-2">
+                <div>
+                  <CodeSample
+                    lang="jsx"
+                    code={`import { Button, Text } from "jsx-email";
+
+export const Welcome = () => (
+  <Button href="https://jsx.email/docs" style={{ background: "var(--brand)", color: "var(--surface-raised)" }}>
+    Read docs
+  </Button>
+);`}
+                  />
+                </div>
+                <p className="mt-2.5 text-[0.77rem] text-docs-text-subtle">
+                  Inline example: run{" "}
+                  <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
+                    pnpm email create welcome-email
+                  </code>{" "}
+                  then{" "}
+                  <code className="inline-block rounded-[4px] bg-[var(--plain-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--plain-inline-code-text)]">
+                    pnpm email preview
+                  </code>
+                  .
+                </p>
+                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
+                  Tip-block inline code style:{" "}
+                  <code className="inline-block rounded-[4px] bg-[var(--blue-hover)] px-[6px] py-[3px] font-mono font-light text-docs-surface-raised">
+                    pnpm add jsx-email
+                  </code>
+                </p>
+                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
+                  Warning-block inline code style:{" "}
+                  <code className="inline-block rounded-[4px] bg-[var(--warn-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--warn-inline-code-text)]">
+                    Butan
+                  </code>
+                </p>
+                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
+                  Info-block inline code style:{" "}
+                  <code className="inline-block rounded-[4px] bg-[var(--info-inline-code-bg)] px-[6px] py-[3px] font-mono font-light text-docs-text">
+                    expression
+                  </code>
+                </p>
+              </Card>
+            </section>
+          </main>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<ShowcaseApp />);
+    </script>
+  </body>
+</html>

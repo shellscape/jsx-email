@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typography — atom-editor.cc/packages</title>
+    <style>
+      :root {
+        --bg: #120f10;
+        --panel: #1b1618;
+        --border: #3d3336;
+        --text: #f8f1e5;
+        --muted: #c5b7a5;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif;
+        background: radial-gradient(circle at 15% -25%, #4f3832, var(--bg) 45%), var(--bg);
+      }
+      .wrap { max-width: 1140px; margin: 0 auto; padding: 38px 24px 56px; }
+      h1 { margin: 0 0 8px; font-size: 2.2rem; }
+      p { margin: 0; color: var(--muted); }
+      .badge {
+        display: inline-block; margin-top: 14px; padding: 5px 11px; border-radius: 999px;
+        border: 1px solid #7d6760; background: #362c2e; color: #f0e4d8; font-size: 0.74rem; font-weight: 700;
+      }
+      .layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 22px; }
+      .panel {
+        background: linear-gradient(180deg, #221b1d, var(--panel));
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+      }
+      .panel h2 { margin: 0 0 8px; font-size: 1.06rem; }
+      .stack {
+        margin: 0 0 16px;
+        color: #ceb9a6;
+        font: 500 13px/1.5 SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+      }
+      .sample { margin: 0 0 10px; }
+      .w300 { font-weight: 300; font-size: 2.2rem; }
+      .w400 { font-weight: 400; font-size: 1.95rem; }
+      .w500 { font-weight: 500; font-size: 1.7rem; }
+      .body16 {
+        margin: 8px 0;
+        font: 400 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: #efe5d7;
+      }
+      .body14 {
+        margin: 6px 0;
+        font: 400 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: #dbccb9;
+      }
+      .variant {
+        margin-top: 14px;
+        border: 1px solid #5a4a45;
+        border-radius: 10px;
+        background: #161213;
+        padding: 12px;
+      }
+      .variant h3 { margin: 0 0 8px; font-size: 0.95rem; }
+      .verdana-big {
+        margin: 0;
+        color: #f7efe2;
+        font: 400 27px/1.2 Verdana, "Verdana Ref", sans-serif;
+      }
+      .verdana-small {
+        margin: 7px 0 0;
+        color: #d4c2ad;
+        font: 400 14px/1.4 Verdana, "Verdana Ref", sans-serif;
+      }
+      .mono {
+        margin-top: 10px;
+        color: #d1c2b2;
+        font: 500 14px/1.4 SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+      }
+      ul { margin: 0; padding-left: 18px; color: #eadfcf; }
+      li { margin: 8px 0; font-size: 0.95rem; }
+      .small { color: var(--muted); font-size: 0.86rem; }
+      @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Typography — atom-editor.cc/packages</h1>
+      <p>HTML-only specimen covering package UI text, system fallback, 404 variant, and icon font reference.</p>
+      <span class="badge">IN USE TYPOGRAPHY</span>
+
+      <section class="layout">
+        <article class="panel">
+          <h2>Primary package stack (IN USE)</h2>
+          <p class="stack">"Helvetica Neue", Helvetica, arial, freesans, clean, sans-serif</p>
+
+          <p class="sample w300">Weight 300 — Package headline</p>
+          <p class="sample w400">Weight 400 — Navigation and body heading</p>
+          <p class="sample w500">Weight 500 — Emphasis labels and calls to action</p>
+
+          <p class="body16">16px system fallback sample: package descriptions and instruction copy remain readable and clean.</p>
+          <p class="body16">16px system fallback sample: install snippets and metadata context around package details.</p>
+          <p class="body14">14px support sample: low-emphasis text, statuses, and meta information.</p>
+
+          <div class="variant">
+            <h3>404 variant stack (IN USE)</h3>
+            <p class="stack">Verdana, "Verdana Ref", sans-serif</p>
+            <p class="verdana-big">404 — Not Found</p>
+            <p class="verdana-small">Representative fallback style used by the 404 page treatment.</p>
+          </div>
+
+          <div class="variant">
+            <h3>Icon font in use</h3>
+            <p class="stack">octicons</p>
+            <p class="mono">Used for icon glyphs adjacent to package and navigation labels.</p>
+          </div>
+        </article>
+
+        <aside class="panel">
+          <h2>Reference checklist</h2>
+          <ul>
+            <li>Primary package typography uses the Helvetica Neue stack.</li>
+            <li>System fallback stack is present for broader UI rendering.</li>
+            <li>Verdana stack is used for the 404 page style.</li>
+            <li>Octicons is used for iconography.</li>
+          </ul>
+          <p class="small">This page intentionally labels each stack that is actively in use.</p>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

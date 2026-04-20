@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1820" height="1652" viewBox="0 0 1820 1652" role="img" aria-labelledby="title desc">
+  <title id="title">Combined Color Palette — v2</title>
+  <desc id="desc">Grouped combined palette with teletype-graphic colors integrated. Colors are arranged by likeness and sorted darkest to lightest within each group.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0F1115; }
+      .panel { fill: #171B22; stroke: #2D3644; stroke-width: 2; }
+      .groupPanel { fill: #121821; stroke: #304055; stroke-width: 1.5; }
+      .title { fill: #F6FAFF; font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .sub { fill: #B9C7DA; font: 500 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .meta { fill: #A8B6C8; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .groupTitle { fill: #E8F1FD; font: 700 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .groupNote { fill: #B6C6DA; font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+      .card { fill: #11161D; stroke: #2C394B; stroke-width: 1.25; }
+      .hex { fill: #EAF2FC; font: 700 18px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .order { fill: #AEC0D5; font: 500 13px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .swatchLabelLight { fill: #101417; font: 700 11px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .swatchLabelDark { fill: #F7FBFF; font: 700 11px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .teleChip { fill: #D36E2D; }
+      .teleText { fill: #12161C; font: 700 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; letter-spacing: 0.2px; }
+    </style>
+  </defs>
+  <rect class="bg" width="1820" height="1652"/>
+  <rect class="panel" x="56" y="32" width="1708" height="1588" rx="20"/>
+  <text class="title" x="88" y="94">Combined color palette — v2</text>
+  <text class="sub" x="88" y="126">Likeness groups with darkest → lightest sequencing in every group</text>
+  <text class="meta" x="88" y="154">Total unique colors: 30 • Groups: 5 • Teletype colors integrated: #659CC8, #78AF9F, #C13F21, #D36E2D, #DDA032</text>
+  <text class="meta" x="88" y="176">Marker: orange "teletype" chip highlights colors sampled from index-teletype-graphic.svg.</text>
+  <text class="meta" x="88" y="198">Grouping method: by visual likeness (neutral, teal/mint, ember/amber, blue), then sorted by relative luminance.</text>
+  <rect class="groupPanel" x="76" y="236" width="1668" height="340" rx="14"/>
+  <text class="groupTitle" x="100" y="270">Graphite &amp; Slate Neutrals <tspan class="meta">(7 colors)</tspan></text>
+  <text class="groupNote" x="100" y="292">Foundational dark surfaces and structural neutral depth. Darkest swatch starts at position 1.</text>
+  <g transform="translate(98,304)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#1A191A"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#1A191A</text>
+    <text class="hex" x="110" y="48">#1A191A</text>
+    <text class="order" x="110" y="72">group rank 01</text>
+    <text class="order" x="110" y="94">luminance 0.010</text>
+  </g>
+  <g transform="translate(378,304)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#2C2A2B"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#2C2A2B</text>
+    <text class="hex" x="110" y="48">#2C2A2B</text>
+    <text class="order" x="110" y="72">group rank 02</text>
+    <text class="order" x="110" y="94">luminance 0.024</text>
+  </g>
+  <g transform="translate(658,304)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#343233"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#343233</text>
+    <text class="hex" x="110" y="48">#343233</text>
+    <text class="order" x="110" y="72">group rank 03</text>
+    <text class="order" x="110" y="94">luminance 0.033</text>
+  </g>
+  <g transform="translate(938,304)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#3D3A3A"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#3D3A3A</text>
+    <text class="hex" x="110" y="48">#3D3A3A</text>
+    <text class="order" x="110" y="72">group rank 04</text>
+    <text class="order" x="110" y="94">luminance 0.043</text>
+  </g>
+  <g transform="translate(1218,304)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#434C56"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#434C56</text>
+    <text class="hex" x="110" y="48">#434C56</text>
+    <text class="order" x="110" y="72">group rank 05</text>
+    <text class="order" x="110" y="94">luminance 0.070</text>
+  </g>
+  <g transform="translate(1498,304)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#47504E"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#47504E</text>
+    <text class="hex" x="110" y="48">#47504E</text>
+    <text class="order" x="110" y="72">group rank 06</text>
+    <text class="order" x="110" y="94">luminance 0.076</text>
+  </g>
+  <g transform="translate(98,440)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#565656"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#565656</text>
+    <text class="hex" x="110" y="48">#565656</text>
+    <text class="order" x="110" y="72">group rank 07</text>
+    <text class="order" x="110" y="94">luminance 0.093</text>
+  </g>
+  <rect class="groupPanel" x="76" y="596" width="1668" height="340" rx="14"/>
+  <text class="groupTitle" x="100" y="630">Warm Stone Neutrals <tspan class="meta">(9 colors)</tspan></text>
+  <text class="groupNote" x="100" y="652">Muted warm neutrals plus canvas tints for contrast balance. Darkest swatch starts at position 1.</text>
+  <g transform="translate(98,664)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#584B4F"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#584B4F</text>
+    <text class="hex" x="110" y="48">#584B4F</text>
+    <text class="order" x="110" y="72">group rank 01</text>
+    <text class="order" x="110" y="94">luminance 0.077</text>
+  </g>
+  <g transform="translate(378,664)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#574C4F"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#574C4F</text>
+    <text class="hex" x="110" y="48">#574C4F</text>
+    <text class="order" x="110" y="72">group rank 02</text>
+    <text class="order" x="110" y="94">luminance 0.078</text>
+  </g>
+  <g transform="translate(658,664)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#66595C"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#66595C</text>
+    <text class="hex" x="110" y="48">#66595C</text>
+    <text class="order" x="110" y="72">group rank 03</text>
+    <text class="order" x="110" y="94">luminance 0.107</text>
+  </g>
+  <g transform="translate(938,664)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#786F63"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#786F63</text>
+    <text class="hex" x="110" y="48">#786F63</text>
+    <text class="order" x="110" y="72">group rank 04</text>
+    <text class="order" x="110" y="94">luminance 0.163</text>
+  </g>
+  <g transform="translate(1218,664)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#8E8373"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#8E8373</text>
+    <text class="hex" x="110" y="48">#8E8373</text>
+    <text class="order" x="110" y="72">group rank 05</text>
+    <text class="order" x="110" y="94">luminance 0.232</text>
+  </g>
+  <g transform="translate(1498,664)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#949189"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#949189</text>
+    <text class="hex" x="110" y="48">#949189</text>
+    <text class="order" x="110" y="72">group rank 06</text>
+    <text class="order" x="110" y="94">luminance 0.284</text>
+  </g>
+  <g transform="translate(98,800)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#EFDAB9"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#EFDAB9</text>
+    <text class="hex" x="110" y="48">#EFDAB9</text>
+    <text class="order" x="110" y="72">group rank 07</text>
+    <text class="order" x="110" y="94">luminance 0.720</text>
+  </g>
+  <g transform="translate(378,800)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#EFEAE1"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#EFEAE1</text>
+    <text class="hex" x="110" y="48">#EFEAE1</text>
+    <text class="order" x="110" y="72">group rank 08</text>
+    <text class="order" x="110" y="94">luminance 0.826</text>
+  </g>
+  <g transform="translate(658,800)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#FAF6EC"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#FAF6EC</text>
+    <text class="hex" x="110" y="48">#FAF6EC</text>
+    <text class="order" x="110" y="72">group rank 09</text>
+    <text class="order" x="110" y="94">luminance 0.923</text>
+  </g>
+  <rect class="groupPanel" x="76" y="956" width="1668" height="204" rx="14"/>
+  <text class="groupTitle" x="100" y="990">Teal &amp; Mint Spectrum <tspan class="meta">(6 colors)</tspan></text>
+  <text class="groupNote" x="100" y="1012">Cool accents sorted from grounded teals into bright mint highlights. Darkest swatch starts at position 1.</text>
+  <g transform="translate(98,1024)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#78AF9F"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#78AF9F</text>
+    <text class="hex" x="110" y="48">#78AF9F</text>
+    <text class="order" x="110" y="72">group rank 01</text>
+    <text class="order" x="110" y="94">luminance 0.372</text>
+    <rect class="teleChip" x="168" y="88" width="82" height="22" rx="11"/>
+    <text class="teleText" x="209" y="103" text-anchor="middle">teletype</text>
+  </g>
+  <g transform="translate(378,1024)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#78B0A0"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#78B0A0</text>
+    <text class="hex" x="110" y="48">#78B0A0</text>
+    <text class="order" x="110" y="72">group rank 02</text>
+    <text class="order" x="110" y="94">luminance 0.376</text>
+  </g>
+  <g transform="translate(658,1024)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#81C08B"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#81C08B</text>
+    <text class="hex" x="110" y="48">#81C08B</text>
+    <text class="order" x="110" y="72">group rank 03</text>
+    <text class="order" x="110" y="94">luminance 0.442</text>
+  </g>
+  <g transform="translate(938,1024)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#2AEABD"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#2AEABD</text>
+    <text class="hex" x="110" y="48">#2AEABD</text>
+    <text class="order" x="110" y="72">group rank 04</text>
+    <text class="order" x="110" y="94">luminance 0.630</text>
+  </g>
+  <g transform="translate(1218,1024)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#45EDC6"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#45EDC6</text>
+    <text class="hex" x="110" y="48">#45EDC6</text>
+    <text class="order" x="110" y="72">group rank 05</text>
+    <text class="order" x="110" y="94">luminance 0.659</text>
+  </g>
+  <g transform="translate(1498,1024)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#61EFCE"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#61EFCE</text>
+    <text class="hex" x="110" y="48">#61EFCE</text>
+    <text class="order" x="110" y="72">group rank 06</text>
+    <text class="order" x="110" y="94">luminance 0.687</text>
+  </g>
+  <rect class="groupPanel" x="76" y="1180" width="1668" height="204" rx="14"/>
+  <text class="groupTitle" x="100" y="1214">Ember &amp; Amber Spectrum <tspan class="meta">(6 colors)</tspan></text>
+  <text class="groupNote" x="100" y="1236">Warm signal tones spanning ember reds through bright yellow accents. Darkest swatch starts at position 1.</text>
+  <g transform="translate(98,1248)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#C13F21"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#C13F21</text>
+    <text class="hex" x="110" y="48">#C13F21</text>
+    <text class="order" x="110" y="72">group rank 01</text>
+    <text class="order" x="110" y="94">luminance 0.150</text>
+    <rect class="teleChip" x="168" y="88" width="82" height="22" rx="11"/>
+    <text class="teleText" x="209" y="103" text-anchor="middle">teletype</text>
+  </g>
+  <g transform="translate(378,1248)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#D36E2D"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#D36E2D</text>
+    <text class="hex" x="110" y="48">#D36E2D</text>
+    <text class="order" x="110" y="72">group rank 02</text>
+    <text class="order" x="110" y="94">luminance 0.252</text>
+    <rect class="teleChip" x="168" y="88" width="82" height="22" rx="11"/>
+    <text class="teleText" x="209" y="103" text-anchor="middle">teletype</text>
+  </g>
+  <g transform="translate(658,1248)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#DDA032"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#DDA032</text>
+    <text class="hex" x="110" y="48">#DDA032</text>
+    <text class="order" x="110" y="72">group rank 03</text>
+    <text class="order" x="110" y="94">luminance 0.407</text>
+    <rect class="teleChip" x="168" y="88" width="82" height="22" rx="11"/>
+    <text class="teleText" x="209" y="103" text-anchor="middle">teletype</text>
+  </g>
+  <g transform="translate(938,1248)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#EBAC00"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#EBAC00</text>
+    <text class="hex" x="110" y="48">#EBAC00</text>
+    <text class="order" x="110" y="72">group rank 04</text>
+    <text class="order" x="110" y="94">luminance 0.472</text>
+  </g>
+  <g transform="translate(1218,1248)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#FFC31F"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#FFC31F</text>
+    <text class="hex" x="110" y="48">#FFC31F</text>
+    <text class="order" x="110" y="72">group rank 05</text>
+    <text class="order" x="110" y="94">luminance 0.604</text>
+  </g>
+  <g transform="translate(1498,1248)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#FFD152"/>
+    <text class="swatchLabelLight" x="55" y="66" text-anchor="middle">#FFD152</text>
+    <text class="hex" x="110" y="48">#FFD152</text>
+    <text class="order" x="110" y="72">group rank 06</text>
+    <text class="order" x="110" y="94">luminance 0.675</text>
+  </g>
+  <rect class="groupPanel" x="76" y="1404" width="1668" height="204" rx="14"/>
+  <text class="groupTitle" x="100" y="1438">Signal Blues <tspan class="meta">(2 colors)</tspan></text>
+  <text class="groupNote" x="100" y="1460">Blue communication hues, including the teletype line-work blue. Darkest swatch starts at position 1.</text>
+  <g transform="translate(98,1472)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#659CC8"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#659CC8</text>
+    <text class="hex" x="110" y="48">#659CC8</text>
+    <text class="order" x="110" y="72">group rank 01</text>
+    <text class="order" x="110" y="94">luminance 0.307</text>
+    <rect class="teleChip" x="168" y="88" width="82" height="22" rx="11"/>
+    <text class="teleText" x="209" y="103" text-anchor="middle">teletype</text>
+  </g>
+  <g transform="translate(378,1472)">
+    <rect class="card" width="264" height="120" rx="10"/>
+    <rect x="12" y="12" width="86" height="96" rx="8" fill="#719BC4"/>
+    <text class="swatchLabelDark" x="55" y="66" text-anchor="middle">#719BC4</text>
+    <text class="hex" x="110" y="48">#719BC4</text>
+    <text class="order" x="110" y="72">group rank 02</text>
+    <text class="order" x="110" y="94">luminance 0.309</text>
+  </g>
+</svg>
