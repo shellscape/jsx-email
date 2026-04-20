@@ -47,7 +47,7 @@ export const getRawPlugin = async () => {
         if (!parent || typeof index !== 'number') return;
         if (node.tagName !== 'jsx-email-raw') return;
 
-        matches.push({ index, node: node as Element, parent });
+        matches.push({ index, node, parent });
       });
 
       for (const { node, parent, index } of matches) {

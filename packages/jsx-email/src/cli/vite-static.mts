@@ -5,7 +5,7 @@ import { globby } from 'globby';
 import mime from 'mime-types';
 // Note: another tshy problem https://github.com/isaacs/tshy/issues/96
 // @ts-ignore
-import type { PluginOption, ViteDevServer } from 'vite';
+import { normalizePath, type PluginOption, type ViteDevServer } from 'vite';
 
 interface ViteStaticOptions {
   paths: string[];
@@ -52,7 +52,7 @@ interface MiddlwareParams {
 const middleware = async (params: MiddlwareParams) => {
   const { options, server } = params;
   const { paths } = options;
-  const files = await globby(paths);
+  const files = await globby(paths.map((path) => normalizePath(path)));
 
   return () => {
     // Note: another tshy problem https://github.com/isaacs/tshy/issues/96
