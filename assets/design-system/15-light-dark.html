@@ -53,6 +53,7 @@
         --stone-6: #efdab9;
         --stone-7: #efeae1;
         --stone-8: #faf6ec;
+        --stone-9: #fdfaf2;
 
         /* Teal & Mint Spectrum */
         --mint-0: #78af9f;
@@ -87,6 +88,8 @@
         --brand: var(--amber-4);
         --brand-hover: var(--amber-3);
         --brand-active: var(--amber-2);
+        --link-accent: var(--brand);
+        --link-accent-hover: var(--brand-active);
         --dark-bg-border: var(--slate-0);
         --vp-code-tab-active-text-color: var(--stone-6);
         --vp-code-tab-text-color: var(--stone-4);
@@ -230,7 +233,7 @@
 
       .mode-preview--light {
         color-scheme: light;
-        --bg: var(--stone-8);
+        --bg: var(--stone-9);
         --surface: var(--stone-8);
         --surface-raised: #f4eee3;
         --surface-muted: #ece2d4;
@@ -242,6 +245,8 @@
         --brand: var(--amber-2);
         --brand-hover: var(--amber-1);
         --brand-active: var(--amber-0);
+        --link-accent: var(--brand-active);
+        --link-accent-hover: var(--brand);
         --dark-bg-border: var(--stone-3);
         --vp-code-tab-active-text-color: var(--slate-1);
         --vp-code-tab-text-color: var(--stone-2);
@@ -314,6 +319,8 @@
         --brand: var(--amber-4);
         --brand-hover: var(--amber-3);
         --brand-active: var(--amber-2);
+        --link-accent: var(--brand);
+        --link-accent-hover: var(--brand-active);
         --dark-bg-border: var(--slate-0);
         --vp-code-tab-active-text-color: var(--stone-8);
         --vp-code-tab-text-color: var(--stone-4);
@@ -490,6 +497,12 @@
               token: "--stone-8",
               hex: "#FAF6EC",
               note: "light canvas / dark-mode strong text",
+              chipText: CHIP_TEXT_LIGHT,
+            },
+            {
+              token: "--stone-9",
+              hex: "#FDFAF2",
+              note: "light-mode page background",
               chipText: CHIP_TEXT_LIGHT,
             },
           ],
@@ -2081,25 +2094,25 @@
                   <div className="flex flex-wrap items-center gap-3">
                     <a
                       href="/docs/introduction"
-                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:[color:var(--link-accent-hover)]"
                     >
                       Documentation
                     </a>
                     <a
                       href="/docs/quick-start"
-                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:[color:var(--link-accent-hover)]"
                     >
                       Quick Start
                     </a>
                     <a
                       href="/changelog"
-                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:[color:var(--link-accent-hover)]"
                     >
                       Changelog
                     </a>
                     <a
                       href="http://samples.jsx.email"
-                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:text-docs-brand"
+                      className="text-base font-light text-docs-text no-underline transition-colors duration-150 hover:[color:var(--link-accent-hover)]"
                     >
                       Email Samples
                     </a>
@@ -2107,19 +2120,19 @@
                   <div className="grid gap-1.5">
                     <a
                       href="/docs/introduction"
-                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:[color:var(--link-accent-hover)] hover:before:opacity-100"
                     >
                       Introduction
                     </a>
                     <a
                       href="/docs/quick-start"
-                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:[color:var(--link-accent-hover)] hover:before:opacity-100"
                     >
                       Quick Start
                     </a>
                     <a
                       href="/docs/components/button"
-                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:text-docs-brand hover:before:opacity-100"
+                      className="relative inline-flex w-fit pl-[18px] text-sm text-[var(--vp-code-tab-text-color)] no-underline transition-colors duration-[250ms] before:absolute before:left-0 before:top-[0.45rem] before:h-[6px] before:w-[6px] before:rounded-full before:bg-[var(--sidebar-marker-bg)] before:opacity-0 before:transition-opacity before:duration-[250ms] hover:[color:var(--link-accent-hover)] hover:before:opacity-100"
                     >
                       Button
                     </a>
@@ -2128,7 +2141,7 @@
                     Docs body copy uses plain VitePress links like{" "}
                     <a
                       href="https://jsx.email/docs/introduction"
-                      className="text-docs-brand no-underline transition-colors duration-150 hover:text-[var(--brand-active)]"
+                      className="[color:var(--link-accent)] no-underline transition-colors duration-150 hover:[color:var(--link-accent-hover)]"
                     >
                       jsx.email/docs/introduction
                     </a>{" "}
@@ -2150,7 +2163,7 @@
                     </a>
                     <a
                       href="https://github.com/shellscape/jsx-email/pull/999"
-                      className="text-docs-text no-underline transition-colors duration-150 hover:text-[var(--brand-hover)]"
+                      className="text-docs-text no-underline transition-colors duration-150 hover:[color:var(--link-accent-hover)]"
                     >
                       #999: tighten docs tokens
                     </a>
@@ -2290,7 +2303,7 @@ export const Welcome = () => (
               <ModePreview
                 mode="light"
                 title="Light mode controls"
-                note="Base background var(--stone-8) / #FAF6EC. Default text pairs Graphite darkest (#1A191A) with Warm Stone darkest (#584B4F)."
+                note="Base background var(--stone-9) / #FDFAF2. Default text pairs Graphite darkest (#1A191A) with Warm Stone darkest (#584B4F)."
               />
 
               <ModePreview
