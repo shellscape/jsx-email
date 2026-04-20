@@ -188,7 +188,7 @@
 
       .mode-preview--light {
         color-scheme: light;
-        --bg: #efeae1;
+        --bg: var(--stone-8);
         --surface: var(--stone-8);
         --surface-raised: #f4eee3;
         --surface-muted: #ece2d4;
@@ -554,6 +554,11 @@
         "Recommended line-height range: 1.45–1.55.",
       ];
 
+      const TYPOGRAPHY_SELECTION = [
+        "Text selection: no project-specific `::selection` colors were found in the local apps/web theme files, so selection uses browser/VitePress defaults.",
+        "Focus color: no custom focus color override was found in the local apps/web theme files.",
+      ];
+
       const TYPOGRAPHY_EXAMPLES = [
         {
           label: "apps/web display",
@@ -622,10 +627,7 @@
       function Card({ title, children, className = "" }) {
         return (
           <article
-            className={cn(
-              "rounded border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_var(--card-highlight)]",
-              className,
-            )}
+            className={cn("rounded border border-[var(--slate-1)] bg-transparent p-4", className)}
           >
             <h2 className="mb-3 text-[1.2rem] font-semibold tracking-[0.01em] text-docs-text-strong">
               {title}
@@ -1359,6 +1361,22 @@
                   </div>
                 </section>
 
+                <section className="rounded border border-docs-border-soft bg-docs-surface p-3">
+                  <h3 className="text-sm font-semibold text-docs-text-strong">
+                    Selection and focus
+                  </h3>
+                  <div className="mt-2 grid gap-2">
+                    {TYPOGRAPHY_SELECTION.map((item) => (
+                      <p
+                        key={item}
+                        className="rounded border border-docs-border-soft bg-docs-surface-raised px-2.5 py-2 text-sm text-docs-text"
+                      >
+                        {item}
+                      </p>
+                    ))}
+                  </div>
+                </section>
+
                 <section className="rounded border border-docs-border-soft bg-docs-surface p-3 lg:col-span-2">
                   <h3 className="text-sm font-semibold text-docs-text-strong">
                     apps/web + apps/preview font-size examples
@@ -1630,7 +1648,7 @@ export const Welcome = () => (
               <ModePreview
                 mode="light"
                 title="Light mode controls"
-                note="Base background #EFEAE1. Default text pairs Graphite darkest (#1A191A) with Warm Stone darkest (#584B4F)."
+                note="Base background var(--stone-8) / #FAF6EC. Default text pairs Graphite darkest (#1A191A) with Warm Stone darkest (#584B4F)."
               />
 
               <ModePreview
