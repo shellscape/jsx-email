@@ -10,19 +10,25 @@
         theme: {
           extend: {
             colors: {
-              'docs-bg': '#1a191a',
-              'docs-surface': '#2c2a2b',
-              'docs-surface-raised': '#343233',
-              'docs-border': '#434c56',
-              'docs-border-soft': '#565656',
-              'docs-text': '#efdab9',
-              'docs-text-subtle': '#949189',
-              'docs-text-strong': '#faf6ec',
-              'docs-brand': '#ffd152'
-            }
-          }
-        }
+              "docs-bg": "#1a191a",
+              "docs-surface": "#2c2a2b",
+              "docs-surface-raised": "#343233",
+              "docs-border": "#434c56",
+              "docs-border-soft": "#565656",
+              "docs-text": "#efdab9",
+              "docs-text-subtle": "#949189",
+              "docs-text-strong": "#faf6ec",
+              "docs-brand": "#ffd152",
+            },
+          },
+        },
       };
+    </script>
+    <script type="module">
+      import { codeToHtml } from 'https://esm.sh/shiki@1.29.2';
+
+      window.shikiCodeToHtml = codeToHtml;
+      window.shikiReady = Promise.resolve();
     </script>
     <style>
       :root {
@@ -40,6 +46,8 @@
         --brand: #ffd152;
         --brand-hover: #ffc31f;
         --brand-active: #ebac00;
+        --vp-code-tab-active-text-color: #efdab9;
+        --vp-code-tab-text-color: #8e8373;
 
         --mint: #61efce;
         --mint-hover: #45edc6;
@@ -354,79 +362,222 @@
         font-size: 0.8rem;
       }
 
-      .link-stack {
+      .links-showcase {
         display: grid;
-        gap: 8px;
-        margin-top: 4px;
+        gap: 12px;
       }
 
-      .sidebar-link {
+      .link-cluster {
+        background: var(--surface);
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .link-cluster-title {
+        color: var(--text-strong);
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .link-cluster-note {
+        color: var(--text-subtle);
+        font-size: 0.75rem;
+      }
+
+      .docs-nav-row,
+      .docs-cta-row,
+      .preview-link-row {
         align-items: center;
-        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .docs-nav-link {
         color: var(--text);
-        display: inline-flex;
-        font-size: 0.86rem;
-        gap: 8px;
-        padding: 6px 8px;
+        font-size: 16px;
+        font-weight: 300;
         text-decoration: none;
-        transition:
-          transform 180ms ease,
-          color 180ms ease,
-          background-color 180ms ease;
+        transition: color 150ms ease;
+      }
+
+      .docs-nav-link:hover {
+        color: var(--brand);
+      }
+
+      .docs-sidebar-stack {
+        display: grid;
+        gap: 6px;
+      }
+
+      .docs-sidebar-link {
+        color: #8e8373;
+        display: inline-flex;
+        font-size: 0.88rem;
+        padding-left: 18px;
+        position: relative;
+        text-decoration: none;
+        transition: color 0.25s, opacity 0.25s;
         width: fit-content;
       }
 
-      .sidebar-link::before {
-        background: rgba(120, 176, 160, 0.45);
+      .docs-sidebar-link:hover {
+        color: var(--brand);
+      }
+
+      .docs-sidebar-link::before {
+        background: rgba(120, 111, 99, 0.2);
         border-radius: 999px;
         content: "";
-        display: inline-block;
         height: 6px;
+        left: 0;
         opacity: 0;
-        transform: scale(0.7);
-        transition:
-          opacity 180ms ease,
-          transform 180ms ease;
+        position: absolute;
+        top: 0.45rem;
+        transition: opacity 0.25s;
         width: 6px;
       }
 
-      .sidebar-link:hover {
-        background: rgba(71, 80, 78, 0.35);
-        color: var(--mint);
-        transform: translateX(6px);
-      }
-
-      .sidebar-link:hover::before {
+      .docs-sidebar-link:hover::before {
         opacity: 1;
-        transform: scale(1);
       }
 
-      .inline-link {
+      .docs-inline-link {
         color: var(--brand);
-        position: relative;
         text-decoration: none;
+        transition: color 150ms ease;
       }
 
-      .inline-link::after {
-        background: var(--brand-hover);
-        bottom: -2px;
-        content: "";
-        height: 1px;
-        left: 0;
-        position: absolute;
-        transform: scaleX(0.38);
-        transform-origin: left;
-        transition: transform 180ms ease;
-        width: 100%;
+      .docs-inline-link:hover {
+        color: var(--brand-active);
       }
 
-      .inline-link:hover::after {
-        transform: scaleX(1);
+      .docs-pr-link {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 150ms ease;
       }
 
-      .cta-link {
+      .docs-pr-link:hover {
+        color: var(--brand-hover);
+      }
+
+      .docs-chip-link {
+        align-items: center;
+        background: rgb(142 131 115 / 20%);
+        border-radius: 999px;
+        box-shadow: 0 0 1px 1px #8e8373;
+        color: var(--text);
         display: inline-flex;
-        margin-top: 10px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        gap: 10px;
+        line-height: 1rem;
+        padding: 0.5rem;
+        text-decoration: none;
+        width: fit-content;
+      }
+
+      .docs-chip-link:hover {
+        background: rgb(142 131 115 / 50%);
+      }
+
+      .docs-chip-avatar {
+        background: #8e8373;
+        border-radius: 999px;
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+      }
+
+      .preview-text-link {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 200ms ease;
+      }
+
+      .preview-text-link:hover {
+        color: #f3f5f7;
+      }
+
+      .preview-icon-link {
+        align-items: center;
+        color: #9ba1aa;
+        display: inline-flex;
+        justify-content: center;
+        text-decoration: none;
+        transition: color 200ms ease;
+      }
+
+      .preview-icon-link:hover {
+        color: var(--text);
+      }
+
+      .install-shell {
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .install-tabs {
+        background: #2c2a2b;
+        display: flex;
+        min-width: max-content;
+        margin: 0;
+        padding: 0;
+        box-shadow: inset 0 -1px #00000033;
+      }
+
+      .install-tab {
+        appearance: none;
+        position: relative;
+        display: inline-block;
+        background: transparent;
+        border: 0;
+        color: var(--vp-code-tab-text-color);
+        cursor: pointer;
+        flex: 0 0 auto;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 48px;
+        margin: 0;
+        border-bottom: 1px solid transparent;
+        padding: 0 12px;
+        white-space: nowrap;
+        transition: color 0.25s;
+      }
+
+      .install-tab::after {
+        background-color: transparent;
+        border-radius: 2px;
+        bottom: -1px;
+        content: "";
+        height: 2px;
+        left: 8px;
+        position: absolute;
+        right: 8px;
+        transition: background-color 0.25s;
+        z-index: 1;
+      }
+
+      .install-tab[aria-selected="true"] {
+        color: var(--vp-code-tab-active-text-color);
+      }
+
+      .install-tab:hover::after,
+      .install-tab[aria-selected="true"]::after {
+        background-color: var(--brand);
+      }
+
+      .install-code {
+        margin-top: 0;
+      }
+
+      .install-code .code-sample {
+        border-radius: 0 0 10px 10px;
       }
 
       .separator-preview {
@@ -526,6 +677,21 @@
         font-size: 0.77rem;
       }
 
+      .code-sample .shiki,
+      .code-sample .shiki code {
+        background: #2c2a2b !important;
+      }
+
+      .code-sample .shiki {
+        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace !important;
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+        margin: 0 !important;
+        overflow-x: auto;
+        padding: 20px 24px !important;
+        width: 100%;
+      }
+
       @media (max-width: 920px) {
         .col-6 {
           grid-column: span 12;
@@ -534,393 +700,414 @@
     </style>
   </head>
   <body>
-    <main class="page">
-      <h1>JSX Email Design System</h1>
-      <section class="surface" aria-labelledby="palette-title">
-        <h2 id="palette-title">Color Palette</h2>
-        <div class="token-list">
-          <div class="token-item">
-            <span class="swatch" style="background: #1a191a"></span>
-            <div>
-              <code>--bg: #1A191A</code>
-              <div class="token-note">page background</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #2c2a2b"></span>
-            <div>
-              <code>--surface: #2C2A2B</code>
-              <div class="token-note">card + panel backgrounds</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #343233"></span>
-            <div>
-              <code>--surface-raised: #343233</code>
-              <div class="token-note">component containers</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #434c56"></span>
-            <div>
-              <code>--border: #434C56</code>
-              <div class="token-note">primary borders</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #565656"></span>
-            <div>
-              <code>--border-soft: #565656</code>
-              <div class="token-note">subtle lines + separators</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #efdab9"></span>
-            <div>
-              <code>--text: #EFDAB9</code>
-              <div class="token-note">body text</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #949189"></span>
-            <div>
-              <code>--text-subtle: #949189</code>
-              <div class="token-note">supporting copy</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #ffd152"></span>
-            <div>
-              <code>--brand: #FFD152</code>
-              <div class="token-note">primary CTA base</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #ffc31f"></span>
-            <div>
-              <code>--brand-hover: #FFC31F</code>
-              <div class="token-note">brand hover</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #ebac00"></span>
-            <div>
-              <code>--brand-active: #EBAC00</code>
-              <div class="token-note">brand active / press</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #61efce"></span>
-            <div>
-              <code>--mint: #61EFCE</code>
-              <div class="token-note">accent + alt-hover</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #78b0a0"></span>
-            <div>
-              <code>--teal: #78B0A0</code>
-              <div class="token-note">alt text</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #659cc8"></span>
-            <div>
-              <code>--blue: #659CC8</code>
-              <div class="token-note">info actions</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #719bc4"></span>
-            <div>
-              <code>--blue-hover: #719BC4</code>
-              <div class="token-note">info hover</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #c13f21"></span>
-            <div>
-              <code>--ember: #C13F21</code>
-              <div class="token-note">danger signal</div>
-            </div>
-          </div>
-          <div class="token-item">
-            <span class="swatch" style="background: #d36e2d"></span>
-            <div>
-              <code>--warm: #D36E2D</code>
-              <div class="token-note">secondary warm accent</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" data-presets="react">
+      const { useEffect, useState } = React;
 
-      <section class="grid">
-        <article class="card col-6" aria-labelledby="buttons-title">
-          <h2 id="buttons-title">Buttons — web/main style color behavior</h2>
-          <div class="button-row">
-            <button type="button" class="ds-button brand" data-pressable>Primary brand</button>
-            <button type="button" class="ds-button alt" data-pressable>Alt / secondary</button>
-            <button type="button" class="ds-button info" data-pressable>Info action</button>
-            <button type="button" class="ds-button ghost" data-pressable>Ghost action</button>
-          </div>
-          <p class="legend">
-            Hover + mousedown behavior mirrors docs/preview intent:
-            <code class="inline">#FFD152 → #FFC31F → #EBAC00</code> for primary, with pressed-state
-            depth shift via <code class="inline">transform + inset shadow</code>.
-          </p>
-        </article>
+      const TOKENS = [
+        ["--bg: #1A191A", "page background", "#1a191a"],
+        ["--surface: #2C2A2B", "card + panel backgrounds", "#2c2a2b"],
+        ["--surface-raised: #343233", "component containers", "#343233"],
+        ["--border: #434C56", "primary borders", "#434c56"],
+        ["--border-soft: #565656", "subtle lines + separators", "#565656"],
+        ["--text: #EFDAB9", "body text", "#efdab9"],
+        ["--text-subtle: #949189", "supporting copy", "#949189"],
+        ["--brand: #FFD152", "primary CTA base", "#ffd152"],
+        ["--brand-hover: #FFC31F", "brand hover", "#ffc31f"],
+        ["--brand-active: #EBAC00", "brand active / press", "#ebac00"],
+        ["--mint: #61EFCE", "accent + alt-hover", "#61efce"],
+        ["--teal: #78B0A0", "alt text", "#78b0a0"],
+        ["--blue: #659CC8", "info actions", "#659cc8"],
+        ["--blue-hover: #719BC4", "info hover", "#719bc4"],
+        ["--ember: #C13F21", "danger signal", "#c13f21"],
+        ["--warm: #D36E2D", "secondary warm accent", "#d36e2d"],
+      ];
 
-        <article class="card col-6" aria-labelledby="toggle-title">
-          <h2 id="toggle-title">Toggle group with animated active indicator</h2>
-          <div class="segmented" data-segmented data-panel-group="view-mode">
-            <span class="segmented-indicator" aria-hidden="true"></span>
-            <button type="button" aria-pressed="true" data-target="preview">Preview</button>
-            <button type="button" aria-pressed="false" data-target="jsx">JSX</button>
-            <button type="button" aria-pressed="false" data-target="html">HTML</button>
-            <button type="button" aria-pressed="false" data-target="plain">Plain</button>
-          </div>
+      const INSTALL_TABS = [
+        ["pnpm", "pnpm add jsx-email"],
+        ["bun", "bun add jsx-email"],
+        ["npm", "npm add jsx-email"],
+        ["yarn", "yarn add jsx-email"],
+      ];
 
-          <div class="panel-stack" data-panel-group="view-mode">
-            <section class="tab-panel is-active" data-panel-name="preview">
-              Framer-motion-like indicator movement is implemented with pure CSS transitions and
-              minimal JS geometry updates.
-            </section>
-            <section class="tab-panel" data-panel-name="jsx">
-              Active slab glides to the clicked option; text color swaps to maintain contrast.
-            </section>
-            <section class="tab-panel" data-panel-name="html">
-              Same interaction model can drive preview mode selectors without runtime dependencies.
-            </section>
-            <section class="tab-panel" data-panel-name="plain">
-              Layout keeps indicator width aligned to each label, not fixed-width segments.
-            </section>
-          </div>
-        </article>
+      const PREVIEW_TABS = [
+        [
+          "preview",
+          "Shadcn-style tabs replace the previous hand-wired segmented control and run entirely through React state.",
+        ],
+        [
+          "jsx",
+          "The install pattern can now be reused as a React component instead of a DOM-specific script.",
+        ],
+        [
+          "html",
+          "Tailwind utilities and token colors stay in the file, so iteration is still fast for design-system work.",
+        ],
+        [
+          "plain",
+          "This setup matches the CDN-prototype workflow you described: React in the page, no Radix runtime.",
+        ],
+      ];
 
-        <article class="card col-6" aria-labelledby="links-title">
-          <h2 id="links-title">Links</h2>
-          <div class="link-stack">
-            <a
-              class="sidebar-link"
-              href="https://jsx.email/docs/introduction"
-              target="_blank"
-              rel="noreferrer"
-              >Docs introduction</a
-            >
-            <a
-              class="sidebar-link"
-              href="https://jsx.email/docs/components/button"
-              target="_blank"
-              rel="noreferrer"
-              >Button component guide</a
-            >
-            <a
-              class="sidebar-link"
-              href="https://github.com/shellscape/jsx-email"
-              target="_blank"
-              rel="noreferrer"
-              >GitHub repository</a
-            >
-          </div>
-          <p class="legend" style="margin-top: 10px">
-            Inline link style:
-            <a
-              class="inline-link"
-              href="https://jsx.email/docs/introduction"
-              target="_blank"
-              rel="noreferrer"
-              >jsx.email/docs/introduction</a
-            >
-            with underline grow animation inspired by web docs interactions.
-          </p>
-          <a
-            class="ds-button brand cta-link"
-            href="https://jsx.email/docs/introduction"
-            target="_blank"
-            rel="noreferrer"
-            >Read documentation</a
+      function cn(...values) {
+        return values.filter(Boolean).join(" ");
+      }
+
+      function Card({ title, children, className = "" }) {
+        return (
+          <article
+            className={cn(
+              "rounded-xl border border-docs-border bg-docs-surface-raised p-4 shadow-[inset_0_1px_0_rgba(250,246,236,0.02)]",
+              className,
+            )}
           >
-        </article>
+            <h2 className="mb-3 text-[1.2rem] tracking-[0.01em] text-docs-text-strong">{title}</h2>
+            {children}
+          </article>
+        );
+      }
 
-        <article class="card col-6" aria-labelledby="install-title">
-          <h2 id="install-title">Install Tab Group Pattern</h2>
-          <div class="overflow-x-auto" data-install-tabs data-panel-group="install-mode">
-            <div
-              class="flex min-w-max list-none border-b-2 border-docs-border-soft p-0"
-              role="tablist"
-              aria-label="Package manager"
-            >
-              <button
-                type="button"
-                role="tab"
-                aria-selected="true"
-                tabindex="0"
-                data-target="pnpm"
-                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-brand px-5 py-[0.275rem] text-[0.82rem] font-semibold leading-[1.4] text-docs-text-strong outline-offset-[-4px] transition-colors duration-150"
-              >
-                pnpm
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected="false"
-                tabindex="-1"
-                data-target="bun"
-                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-border-soft px-5 py-[0.275rem] text-[0.82rem] font-normal leading-[1.4] text-docs-text-subtle outline-offset-[-4px] transition-colors duration-150 hover:text-docs-text"
-              >
-                bun
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected="false"
-                tabindex="-1"
-                data-target="npm"
-                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-border-soft px-5 py-[0.275rem] text-[0.82rem] font-normal leading-[1.4] text-docs-text-subtle outline-offset-[-4px] transition-colors duration-150 hover:text-docs-text"
-              >
-                npm
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected="false"
-                tabindex="-1"
-                data-target="yarn"
-                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-border-soft px-5 py-[0.275rem] text-[0.82rem] font-normal leading-[1.4] text-docs-text-subtle outline-offset-[-4px] transition-colors duration-150 hover:text-docs-text"
-              >
-                yarn
-              </button>
+      function Button({ variant = "default", className = "", children, href, ...props }) {
+        const variants = {
+          default:
+            "border-docs-border-soft bg-[#3d3a3a] text-docs-text hover:border-docs-border hover:bg-[#474343]",
+          brand:
+            "border-[#ebac00] bg-docs-brand text-docs-surface-raised hover:bg-[#ffc31f] active:bg-[#ebac00]",
+          alt: "border-docs-border-soft bg-[#47504e] text-[#78b0a0] hover:bg-[#61efce] hover:text-docs-surface-raised",
+          info: "border-[#719bc4] bg-[#659cc8] text-[#101417] hover:bg-[#719bc4]",
+          ghost:
+            "border-docs-border-soft bg-transparent text-docs-text hover:border-[#659cc8] hover:bg-[rgba(101,156,200,0.16)]",
+        };
+
+        const classNames = cn(
+          "inline-flex min-h-[38px] items-center justify-center rounded-[10px] border px-[13px] text-[0.86rem] font-semibold transition-colors duration-200",
+          variants[variant],
+          className,
+        );
+
+        if (href) {
+          return (
+            <a href={href} className={classNames} {...props}>
+              {children}
+            </a>
+          );
+        }
+
+        return (
+          <button className={classNames} {...props}>
+            {children}
+          </button>
+        );
+      }
+
+      function Tabs({ tabs, defaultValue }) {
+        const [active, setActive] = useState(defaultValue ?? tabs[0][0]);
+        const activeContent = tabs.find(([value]) => value === active)?.[1];
+
+        return (
+          <div className="space-y-3">
+            <div className="inline-flex h-10 items-center justify-center rounded-lg border border-docs-border bg-docs-surface p-1 text-docs-text-subtle">
+              {tabs.map(([value]) => {
+                const isActive = value === active;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setActive(value)}
+                    className={cn(
+                      "inline-flex min-w-[76px] items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-[0.82rem] font-medium capitalize ring-offset-docs-bg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-docs-brand focus-visible:ring-offset-2",
+                      isActive
+                        ? "bg-docs-brand text-docs-surface-raised shadow-sm"
+                        : "text-docs-text hover:text-docs-brand",
+                    )}
+                  >
+                    {value}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="rounded-[10px] border border-docs-border-soft bg-docs-surface px-3 py-[11px] text-docs-text">
+              {activeContent}
             </div>
           </div>
+        );
+      }
 
-          <div class="panel-stack" data-panel-group="install-mode">
-            <section class="tab-panel is-active" data-panel-name="pnpm">
-              <span class="command">pnpm add jsx-email</span>
-            </section>
-            <section class="tab-panel" data-panel-name="bun">
-              <span class="command">bun add jsx-email</span>
-            </section>
-            <section class="tab-panel" data-panel-name="npm">
-              <span class="command">npm add jsx-email</span>
-            </section>
-            <section class="tab-panel" data-panel-name="yarn">
-              <span class="command">yarn add jsx-email</span>
-            </section>
-          </div>
-        </article>
+      function InstallTabs() {
+        const [active, setActive] = useState("pnpm");
+        const command = INSTALL_TABS.find(([value]) => value === active)?.[1];
 
-        <article class="card col-6" aria-labelledby="code-title">
-          <h2 id="code-title">Code block + inline code treatment</h2>
-          <div class="code-card" aria-label="Code snippet with language badge">
-            <div class="code-head">
-              <strong>Email component snippet</strong>
-              <span class="lang-badge">jsx</span>
+        return (
+          <div className="install-shell">
+            <div className="overflow-x-auto">
+              <div className="install-tabs" role="tablist" aria-label="Package manager">
+                {INSTALL_TABS.map(([value]) => {
+                  const isActive = value === active;
+                  return (
+                    <button
+                      key={value}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      tabIndex={isActive ? 0 : -1}
+                      onClick={() => setActive(value)}
+                      className="install-tab"
+                    >
+                      {value}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <pre><code>import { Button, Text } from "jsx-email";
+            <div className="install-code">
+              <CodeSample code={command} lang="console" className="install-code-sample" />
+            </div>
+          </div>
+        );
+      }
+
+      function CodeSample({ code, lang = "jsx", className = "" }) {
+        const [html, setHtml] = useState("");
+
+        useEffect(() => {
+          let cancelled = false;
+
+          async function highlight() {
+            if (!window.shikiReady || !window.shikiCodeToHtml) return;
+
+            await window.shikiReady;
+
+            const highlighted = await window.shikiCodeToHtml(code, {
+              lang,
+              theme: "slack-dark",
+            });
+
+            if (!cancelled) setHtml(highlighted);
+          }
+
+          highlight().catch((error) => {
+            console.error("Failed to highlight code sample:", error);
+          });
+
+          return () => {
+            cancelled = true;
+          };
+        }, [code, lang]);
+
+        if (!html) {
+          return (
+            <pre className="overflow-x-auto p-3">
+              <code className="font-mono text-docs-text-strong">{code}</code>
+            </pre>
+          );
+        }
+
+        return (
+          <div className={cn("code-sample relative overflow-x-auto rounded-lg bg-docs-surface", className)}>
+            <span className="pointer-events-none absolute right-4 top-3 z-10 text-xs font-medium text-[rgba(239,218,185,0.45)] transition-opacity duration-300">
+              {lang}
+            </span>
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+          </div>
+        );
+      }
+
+      function DownloadIcon() {
+        return (
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M8 2.5V9.5M8 9.5L5.5 7M8 9.5L10.5 7M3 11.5H13"
+              stroke="currentColor"
+              strokeWidth="1.35"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function ShowcaseApp() {
+        return (
+          <main className="mx-auto max-w-[1280px] px-5 pb-[52px] pt-7">
+            <header>
+              <h1 className="m-0 text-[clamp(1.9rem,4vw,2.45rem)] leading-[1.1] text-docs-text-strong">
+                JSX Email Design System
+              </h1>
+            </header>
+
+            <section className="mt-4 rounded-[14px] border border-docs-border bg-docs-surface p-4">
+              <h2 className="mb-3 text-[1.2rem] tracking-[0.01em] text-docs-text-strong">
+                Color Palette
+              </h2>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-2.5">
+                {TOKENS.map(([label, note, color]) => (
+                  <div
+                    key={label}
+                    className="grid grid-cols-[16px_1fr] items-center gap-2.5 rounded-[10px] border border-docs-border-soft bg-docs-surface px-2.5 py-2"
+                  >
+                    <span
+                      className="h-4 w-4 rounded-full border border-[rgba(250,246,236,0.35)]"
+                      style={{ background: color }}
+                    />
+                    <div>
+                      <code className="font-mono text-[0.76rem] text-docs-text-strong">
+                        {label}
+                      </code>
+                      <div className="text-[0.74rem] text-docs-text-subtle">{note}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <Card title="Buttons — shadcn-style primitives">
+                <div className="flex flex-wrap gap-2.5">
+                  <Button variant="brand">Primary brand</Button>
+                  <Button variant="alt">Alt / secondary</Button>
+                  <Button variant="info">Info action</Button>
+                  <Button variant="ghost">Ghost action</Button>
+                </div>
+                <p className="mt-2.5 text-[0.77rem] text-docs-text-subtle">
+                  Buttons are now React components with shared utility classes, which makes this
+                  file behave like a real shadcn prototyping surface instead of isolated markup.
+                </p>
+              </Card>
+
+              <Card title="Tabs — componentized control pattern">
+                <Tabs tabs={PREVIEW_TABS} defaultValue="preview" />
+              </Card>
+
+              <Card title="Links">
+                <div className="links-showcase">
+                  <div className="link-cluster">
+                    <div className="link-cluster-title">Docs navigation and body links</div>
+                    <div className="docs-nav-row">
+                      <a href="/docs/introduction" className="docs-nav-link">
+                        Documentation
+                      </a>
+                      <a href="/docs/quick-start" className="docs-nav-link">
+                        Quick Start
+                      </a>
+                      <a href="/changelog" className="docs-nav-link">
+                        Changelog
+                      </a>
+                      <a href="http://samples.jsx.email" className="docs-nav-link">
+                        Email Samples
+                      </a>
+                    </div>
+                    <div className="docs-sidebar-stack">
+                      <a href="/docs/introduction" className="docs-sidebar-link">
+                        Introduction
+                      </a>
+                      <a href="/docs/quick-start" className="docs-sidebar-link">
+                        Quick Start
+                      </a>
+                      <a href="/docs/components/button" className="docs-sidebar-link">
+                        Button
+                      </a>
+                    </div>
+                    <p className="link-cluster-note">
+                      Docs body copy uses plain VitePress links like{" "}
+                      <a href="https://jsx.email/docs/introduction" className="docs-inline-link">
+                        jsx.email/docs/introduction
+                      </a>{" "}
+                      with no custom underline treatment.
+                    </p>
+                  </div>
+
+                  <div className="link-cluster">
+                    <div className="link-cluster-title">Docs changelog links</div>
+                    <div className="preview-link-row">
+                      <a href="https://github.com/example" className="docs-chip-link">
+                        <span className="docs-chip-avatar" />
+                        shellscape
+                      </a>
+                      <a
+                        href="https://github.com/shellscape/jsx-email/pull/999"
+                        className="docs-pr-link"
+                      >
+                        #999: tighten docs tokens
+                      </a>
+                    </div>
+                    <p className="link-cluster-note">
+                      The changelog page adds its own author chip link and a warm hover state on PR
+                      title links.
+                    </p>
+                  </div>
+
+                  <div className="link-cluster">
+                    <div className="link-cluster-title">Preview links outside the tree view</div>
+                    <div className="preview-link-row">
+                      <a href="https://www.useplunk.com" className="preview-text-link">
+                        Powered by Plunk
+                      </a>
+                      <a href="#download" className="preview-icon-link" aria-label="Download">
+                        <DownloadIcon />
+                      </a>
+                    </div>
+                    <p className="link-cluster-note">
+                      This mirrors the send-popover vendor link and the code-panel download action
+                      from <code className="inline">apps/preview</code>. Tree links are
+                      intentionally excluded.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+
+              <Card title="Install Tab Group Pattern">
+                <InstallTabs />
+              </Card>
+
+              <Card title="Code block + inline code treatment" className="lg:col-span-2">
+                <div>
+                  <CodeSample lang="jsx" code={`import { Button, Text } from "jsx-email";
 
 export const Welcome = () => (
-  &lt;Button href="https://jsx.email/docs" style={{ background: "#FFD152", color: "#343233" }}&gt;
+  <Button href="https://jsx.email/docs" style={{ background: "#FFD152", color: "#343233" }}>
     Read docs
-  &lt;/Button&gt;
-);</code></pre>
-          </div>
-          <p class="small" style="margin-top: 10px">
-            Inline example: run <code class="inline">pnpm email create welcome-email</code> then
-            <code class="inline">pnpm email preview</code>.
-          </p>
-        </article>
-      </section>
-    </main>
+  </Button>
+);`} />
+                </div>
+                <p className="mt-2.5 text-[0.77rem] text-docs-text-subtle">
+                  Inline example: run{" "}
+                  <code className="inline-block rounded-[4px] bg-[#65758529] px-[6px] py-[3px] font-mono font-light text-[#9cdcfe]">
+                    pnpm email create welcome-email
+                  </code>{" "}
+                  then{" "}
+                  <code className="inline-block rounded-[4px] bg-[#65758529] px-[6px] py-[3px] font-mono font-light text-[#9cdcfe]">
+                    pnpm email preview
+                  </code>
+                  .
+                </p>
+                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
+                  Tip-block inline code style:{" "}
+                  <code className="inline-block rounded-[4px] bg-[#719bc4] px-[6px] py-[3px] font-mono font-light text-[#343233]">
+                    pnpm add jsx-email
+                  </code>
+                </p>
+                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
+                  Warning-block inline code style:{" "}
+                  <code className="inline-block rounded-[4px] bg-[rgba(234,179,8,0.16)] px-[6px] py-[3px] font-mono font-light text-[#f9b44e]">
+                    Butan
+                  </code>
+                </p>
+                <p className="mt-2 text-[0.77rem] text-docs-text-subtle">
+                  Info-block inline code style:{" "}
+                  <code className="inline-block rounded-[4px] bg-[rgba(101,117,133,0.16)] px-[6px] py-[3px] font-mono font-light text-docs-text">
+                    expression
+                  </code>
+                </p>
+              </Card>
+            </section>
+          </main>
+        );
+      }
 
-    <script>
-      (function () {
-        const pressableButtons = document.querySelectorAll("[data-pressable]");
-
-        pressableButtons.forEach((button) => {
-          const release = () => button.classList.remove("is-pressed");
-
-          button.addEventListener("pointerdown", () => button.classList.add("is-pressed"));
-          button.addEventListener("pointerup", release);
-          button.addEventListener("pointerleave", release);
-          button.addEventListener("blur", release);
-        });
-
-        const segmentedGroups = document.querySelectorAll("[data-segmented]");
-        const installTabGroups = document.querySelectorAll("[data-install-tabs]");
-
-        const updateIndicator = (group) => {
-          const indicator = group.querySelector(".segmented-indicator");
-          const activeButton = group.querySelector('button[aria-pressed="true"]');
-
-          if (!indicator || !activeButton) return;
-
-          const groupRect = group.getBoundingClientRect();
-          const buttonRect = activeButton.getBoundingClientRect();
-          const offsetLeft = buttonRect.left - groupRect.left;
-
-          indicator.style.width = buttonRect.width + "px";
-          indicator.style.transform = "translateX(" + offsetLeft + "px)";
-          indicator.style.opacity = "1";
-        };
-
-        const syncPanels = (group, target) => {
-          const panelGroupName = group.getAttribute("data-panel-group");
-          if (!panelGroupName) return;
-
-          const panelGroup = document.querySelector(
-            '.panel-stack[data-panel-group="' + panelGroupName + '"]',
-          );
-          if (!panelGroup) return;
-
-          panelGroup.querySelectorAll("[data-panel-name]").forEach((panel) => {
-            const isActive = panel.getAttribute("data-panel-name") === target;
-            panel.classList.toggle("is-active", isActive);
-          });
-        };
-
-        segmentedGroups.forEach((group) => {
-          const buttons = group.querySelectorAll("button[data-target]");
-
-          buttons.forEach((button) => {
-            button.addEventListener("click", () => {
-              buttons.forEach((other) =>
-                other.setAttribute("aria-pressed", other === button ? "true" : "false"),
-              );
-              syncPanels(group, button.getAttribute("data-target"));
-              updateIndicator(group);
-            });
-          });
-
-          updateIndicator(group);
-        });
-
-        installTabGroups.forEach((group) => {
-          const buttons = group.querySelectorAll('button[role="tab"][data-target]');
-
-          buttons.forEach((button) => {
-            button.addEventListener("click", () => {
-              buttons.forEach((other) => {
-                const isActive = other === button;
-
-                other.setAttribute("aria-selected", isActive ? "true" : "false");
-                other.setAttribute("tabindex", isActive ? "0" : "-1");
-                other.classList.toggle("border-docs-brand", isActive);
-                other.classList.toggle("border-docs-border-soft", !isActive);
-                other.classList.toggle("text-docs-text-strong", isActive);
-                other.classList.toggle("text-docs-text-subtle", !isActive);
-                other.classList.toggle("font-semibold", isActive);
-                other.classList.toggle("font-normal", !isActive);
-              });
-
-              syncPanels(group, button.getAttribute("data-target"));
-            });
-          });
-        });
-
-        window.addEventListener("resize", () => {
-          segmentedGroups.forEach(updateIndicator);
-        });
-      })();
+      ReactDOM.createRoot(document.getElementById("root")).render(<ShowcaseApp />);
     </script>
   </body>
 </html>
