@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Typography in Use — jsx-email</title>
+  <desc id="desc">Typography specimen for jsx-email including sans and monospace stacks, in-use weights and representative sizes.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0f1114; }
+      .panel { fill: #171b21; stroke: #2c3440; stroke-width: 2; }
+      .tag { fill: #212a35; stroke: #4b5a6f; stroke-width: 1.5; }
+      .tag-text { fill: #e1e8f0; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .title { fill: #f8fbff; font: 700 44px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .subtitle { fill: #afbac8; font: 500 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .label { fill: #dce4ee; font: 600 18px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .mono { fill: #8da0b5; font: 500 15px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, 'Lucida Console', 'DejaVu Sans Mono', 'Courier New', monospace; }
+      .sans200 { fill: #f5f8fc; font: 200 46px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .sans300 { fill: #f5f8fc; font: 300 42px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .sans400 { fill: #f5f8fc; font: 400 38px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .sans500 { fill: #f5f8fc; font: 500 34px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .sans600 { fill: #f5f8fc; font: 600 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .sans700 { fill: #f5f8fc; font: 700 26px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .body16 { fill: #e4ecf5; font: 400 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .body14 { fill: #d7e0ea; font: 400 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .mono-sample { fill: #d6e2f0; font: 500 19px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, 'Lucida Console', 'DejaVu Sans Mono', 'Courier New', monospace; }
+      .mono-small { fill: #b9c7d8; font: 500 14px SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, 'Lucida Console', 'DejaVu Sans Mono', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="1040"/>
+  <text class="title" x="64" y="84">Typography — jsx-email</text>
+  <text class="subtitle" x="64" y="120">IN USE font stacks, weights, and sizes</text>
+
+  <rect class="tag" x="64" y="144" width="108" height="34" rx="17"/>
+  <text class="tag-text" x="118" y="166" text-anchor="middle">IN USE</text>
+
+  <g transform="translate(64,206)">
+    <rect class="panel" width="960" height="770" rx="18"/>
+    <text class="label" x="28" y="44">Primary sans stack (in use)</text>
+    <text class="mono" x="28" y="70">-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'</text>
+
+    <text class="sans200" x="28" y="136">Weight 200 — Heading display</text>
+    <text class="sans300" x="28" y="198">Weight 300 — Hero headline</text>
+    <text class="sans400" x="28" y="255">Weight 400 — Standard heading</text>
+    <text class="sans500" x="28" y="307">Weight 500 — Emphasized heading</text>
+    <text class="sans600" x="28" y="353">Weight 600 — Section heading</text>
+    <text class="sans700" x="28" y="394">Weight 700 — Strong heading</text>
+
+    <rect x="28" y="426" width="904" height="150" rx="12" fill="#12161b" stroke="#2c3440"/>
+    <text class="label" x="46" y="457">Representative body scales in use</text>
+    <text class="body16" x="46" y="491">16px body: The JSX Email ecosystem focuses on readable defaults, clean hierarchy, and practical spacing.</text>
+    <text class="body16" x="46" y="515">16px body: Build, style, and ship email components with composable DX-first ergonomics.</text>
+    <text class="body14" x="46" y="543">14px body/meta: Supporting text, metadata, and secondary labels commonly render at this scale.</text>
+
+    <rect x="28" y="604" width="904" height="136" rx="12" fill="#10151a" stroke="#2c3440"/>
+    <text class="label" x="46" y="634">Monospace stack for code (in use)</text>
+    <text class="mono" x="46" y="658">SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Monaco, 'Lucida Console', 'DejaVu Sans Mono', 'Courier New'</text>
+    <text class="mono-sample" x="46" y="691">const template = render(&lt;EmailLayout subject=\"Welcome\" /&gt;);</text>
+    <text class="mono-small" x="46" y="717">Inline code / CLI: pnpm jsx-email build --watch</text>
+  </g>
+
+  <g transform="translate(1052,206)">
+    <rect class="panel" width="484" height="770" rx="18"/>
+    <text class="label" x="24" y="44">Quick spec snapshot</text>
+    <text class="body16" x="24" y="84">• Primary stack: modern system sans stack (IN USE)</text>
+    <text class="body16" x="24" y="114">• Code stack: SFMono/Consolas/Menlo family (IN USE)</text>
+    <text class="body16" x="24" y="144">• Weights represented: 200, 300, 400, 500, 600, 700</text>
+    <text class="body16" x="24" y="174">• Base sizes represented: 14px and 16px body scales</text>
+
+    <rect x="24" y="212" width="436" height="176" rx="12" fill="#12161b" stroke="#2c3440"/>
+    <text class="label" x="42" y="244">Hierarchy example</text>
+    <text class="sans500" x="42" y="286">Section title</text>
+    <text class="body16" x="42" y="316">Body copy at 16px for readability.</text>
+    <text class="body14" x="42" y="340">Support text at 14px for secondary details.</text>
+    <text class="mono-small" x="42" y="366">Code token: `jsx-email`</text>
+
+    <rect x="24" y="418" width="436" height="324" rx="12" fill="#12161b" stroke="#2c3440"/>
+    <text class="label" x="42" y="448">Usage guidance</text>
+    <text class="body14" x="42" y="480">• Reserve weight 200/300 for large headline moments.</text>
+    <text class="body14" x="42" y="508">• Use 400/500 for most UI text and supporting headings.</text>
+    <text class="body14" x="42" y="536">• Use 600/700 sparingly for emphasis and section anchors.</text>
+    <text class="body14" x="42" y="564">• Keep code contexts in monospace for clarity and scan speed.</text>
+    <text class="body14" x="42" y="592">• Preserve 14px/16px rhythm for consistent readability.</text>
+  </g>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1060" viewBox="0 0 1600 1060" role="img" aria-labelledby="title desc">
+  <title id="title">Typography in Use — atom-editor.cc/packages</title>
+  <desc id="desc">Typography specimen covering package pages and 404 variants for atom-editor.cc.</desc>
+  <defs>
+    <style>
+      .bg { fill: #111011; }
+      .panel { fill: #1a1718; stroke: #3a3436; stroke-width: 2; }
+      .title { fill: #faf5ea; font: 700 44px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .subtitle { fill: #ccc4b8; font: 500 24px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .tag { fill: #352f31; stroke: #73676a; stroke-width: 1.5; }
+      .tag-text { fill: #efe8dc; font: 600 13px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .label { fill: #f5eee2; font: 600 18px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      .stack { fill: #bfb4a5; font: 500 15px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+      .hn300 { fill: #fbf6ec; font: 300 42px "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif; }
+      .hn400 { fill: #fbf6ec; font: 400 36px "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif; }
+      .hn500 { fill: #fbf6ec; font: 500 30px "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif; }
+      .sys16 { fill: #f0e7dc; font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+      .sys14 { fill: #d8cec1; font: 400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+      .verdana { fill: #f7f1e8; font: 400 26px Verdana, "Verdana Ref", sans-serif; }
+      .verdanaSmall { fill: #d6cbbb; font: 400 14px Verdana, "Verdana Ref", sans-serif; }
+      .mono { fill: #cdbfae; font: 500 14px SFMono-Regular, Consolas, Menlo, Monaco, monospace; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="1060"/>
+  <text class="title" x="62" y="84">Typography — atom-editor.cc/packages</text>
+  <text class="subtitle" x="62" y="120">IN USE stacks for package pages and 404 experiences</text>
+  <rect class="tag" x="62" y="146" width="108" height="34" rx="17"/>
+  <text class="tag-text" x="116" y="168" text-anchor="middle">IN USE</text>
+
+  <g transform="translate(62,208)">
+    <rect class="panel" width="980" height="790" rx="18"/>
+    <text class="label" x="28" y="46">Primary package UI stack</text>
+    <text class="stack" x="28" y="72">"Helvetica Neue", Helvetica, arial, freesans, clean, sans-serif</text>
+
+    <text class="hn300" x="28" y="142">Weight 300 — Package headline</text>
+    <text class="hn400" x="28" y="194">Weight 400 — Standard title and nav copy</text>
+    <text class="hn500" x="28" y="239">Weight 500 — Strong labels / buttons</text>
+
+    <rect x="28" y="274" width="924" height="184" rx="12" fill="#131112" stroke="#3a3436"/>
+    <text class="label" x="48" y="304">System UI fallback stack (in use)</text>
+    <text class="stack" x="48" y="330">-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"</text>
+    <text class="sys16" x="48" y="364">16px copy: package metadata, descriptions, and install guidance.</text>
+    <text class="sys16" x="48" y="392">16px copy: readable UI body text across docs-like sections.</text>
+    <text class="sys14" x="48" y="420">14px support text: timestamps, labels, and secondary info.</text>
+
+    <rect x="28" y="484" width="924" height="130" rx="12" fill="#131112" stroke="#3a3436"/>
+    <text class="label" x="48" y="516">404 page stack variant (in use)</text>
+    <text class="stack" x="48" y="540">Verdana, "Verdana Ref", sans-serif</text>
+    <text class="verdana" x="48" y="578">404 — Not Found</text>
+    <text class="verdanaSmall" x="312" y="578">Representative fallback rendering for legacy tone.</text>
+
+    <rect x="28" y="640" width="924" height="122" rx="12" fill="#131112" stroke="#3a3436"/>
+    <text class="label" x="48" y="672">Iconography font in use</text>
+    <text class="stack" x="48" y="698">octicons</text>
+    <text class="mono" x="48" y="726">Used for icon glyph delivery alongside text labels in package UI contexts.</text>
+  </g>
+
+  <g transform="translate(1070,208)">
+    <rect class="panel" width="468" height="790" rx="18"/>
+    <text class="label" x="24" y="46">Typography checklist</text>
+    <text class="sys16" x="24" y="86">• "Helvetica Neue" family is primary for package pages.</text>
+    <text class="sys16" x="24" y="118">• System sans stack appears in modernized UI sections.</text>
+    <text class="sys16" x="24" y="150">• Verdana variant is used by 404 page treatment.</text>
+    <text class="sys16" x="24" y="182">• octicons font supports iconography.</text>
+
+    <rect x="24" y="220" width="420" height="188" rx="12" fill="#131112" stroke="#3a3436"/>
+    <text class="label" x="42" y="252">Scale guidance</text>
+    <text class="sys14" x="42" y="282">• 26px+ for splash/error headline moments</text>
+    <text class="sys14" x="42" y="309">• 16px for normal body readability</text>
+    <text class="sys14" x="42" y="336">• 14px for metadata and low-emphasis support copy</text>
+    <text class="sys14" x="42" y="363">• 300–500 weights cover most usage</text>
+
+    <rect x="24" y="434" width="420" height="328" rx="12" fill="#131112" stroke="#3a3436"/>
+    <text class="label" x="42" y="466">Sample UI line</text>
+    <text class="hn500" x="42" y="513">Featured Package</text>
+    <text class="sys16" x="42" y="545">A concise package summary with install command.</text>
+    <text class="mono" x="42" y="575">apm install atom-package-name</text>
+    <text class="verdanaSmall" x="42" y="607">404 fallback: page not found — check URL and retry.</text>
+  </g>
+</svg>

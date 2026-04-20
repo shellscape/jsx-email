@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Palette — jsx-email + atom-editor.cc/packages</title>
+    <style>
+      :root {
+        --bg: #0f1114;
+        --panel: #171b20;
+        --border: #2a313b;
+        --text: #f2f5f8;
+        --muted: #a2adba;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        background: radial-gradient(circle at 20% -10%, #2b3340 0%, var(--bg) 40%), var(--bg);
+        color: var(--text);
+      }
+      .wrap {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 40px 28px 56px;
+      }
+      h1 { margin: 0 0 8px; font-size: 2.4rem; }
+      p { margin: 0; color: var(--muted); }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+        gap: 24px;
+        margin-top: 28px;
+      }
+      .panel {
+        background: linear-gradient(180deg, #1c2229 0%, var(--panel) 100%);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .panel h2 { margin: 0 0 4px; font-size: 1.2rem; }
+      .panel .hint { color: var(--muted); margin-bottom: 14px; font-size: 0.95rem; }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+      }
+      .swatch {
+        border: 1px solid #ffffff22;
+        border-radius: 10px;
+        overflow: hidden;
+        min-height: 88px;
+      }
+      .swatch .color {
+        height: 54px;
+      }
+      .swatch .meta {
+        background: #12161b;
+        border-top: 1px solid #ffffff12;
+        padding: 8px 9px;
+        font: 600 12px/1.2 SFMono-Regular, Consolas, Menlo, monospace;
+      }
+      .in-use {
+        display: inline-block;
+        margin-bottom: 10px;
+        font-size: 0.72rem;
+        padding: 4px 9px;
+        border-radius: 999px;
+        border: 1px solid #4c5c6f;
+        color: #dbe5f0;
+        background: #202935;
+      }
+      .derived {
+        margin-top: 24px;
+        padding: 16px;
+        border: 1px dashed #4b5666;
+        border-radius: 12px;
+        background: #12171d;
+      }
+      .derived h3 { margin: 0 0 10px; font-size: 1rem; }
+      .gradient-row { display: grid; gap: 10px; }
+      .gradient {
+        height: 34px;
+        border-radius: 8px;
+        border: 1px solid #ffffff33;
+      }
+      .legend {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+      @media (max-width: 980px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Color Palette</h1>
+      <p>Explicitly labeled <strong>IN USE</strong> colors from jsx-email and atom-editor.cc/packages.</p>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>jsx-email</h2>
+          <span class="in-use">IN USE SWATCHES</span>
+          <div class="swatches">
+            <div class="swatch"><div class="color" style="background:#343233"></div><div class="meta">#343233</div></div>
+            <div class="swatch"><div class="color" style="background:#2C2A2B"></div><div class="meta">#2C2A2B</div></div>
+            <div class="swatch"><div class="color" style="background:#1A191A"></div><div class="meta">#1A191A</div></div>
+            <div class="swatch"><div class="color" style="background:#EFDAB9"></div><div class="meta">#EFDAB9</div></div>
+            <div class="swatch"><div class="color" style="background:#FFD152"></div><div class="meta">#FFD152</div></div>
+            <div class="swatch"><div class="color" style="background:#FFC31F"></div><div class="meta">#FFC31F</div></div>
+            <div class="swatch"><div class="color" style="background:#EBAC00"></div><div class="meta">#EBAC00</div></div>
+            <div class="swatch"><div class="color" style="background:#61EFCE"></div><div class="meta">#61EFCE</div></div>
+            <div class="swatch"><div class="color" style="background:#78B0A0"></div><div class="meta">#78B0A0</div></div>
+            <div class="swatch"><div class="color" style="background:#47504E"></div><div class="meta">#47504E</div></div>
+            <div class="swatch"><div class="color" style="background:#EFEAE1"></div><div class="meta">#EFEAE1</div></div>
+            <div class="swatch"><div class="color" style="background:#574C4F"></div><div class="meta">#574C4F</div></div>
+            <div class="swatch"><div class="color" style="background:#8E8373"></div><div class="meta">#8E8373</div></div>
+            <div class="swatch"><div class="color" style="background:#565656"></div><div class="meta">#565656</div></div>
+            <div class="swatch"><div class="color" style="background:#719BC4"></div><div class="meta">#719BC4</div></div>
+            <div class="swatch"><div class="color" style="background:#434C56"></div><div class="meta">#434C56</div></div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>atom-editor.cc/packages (+ 404)</h2>
+          <span class="in-use">IN USE SWATCHES</span>
+          <div class="swatches">
+            <div class="swatch"><div class="color" style="background:#584B4F"></div><div class="meta">#584B4F</div></div>
+            <div class="swatch"><div class="color" style="background:#EFEAE1"></div><div class="meta">#EFEAE1</div></div>
+            <div class="swatch"><div class="color" style="background:#81C08B"></div><div class="meta">#81C08B</div></div>
+            <div class="swatch"><div class="color" style="background:#343233"></div><div class="meta">#343233</div></div>
+            <div class="swatch"><div class="color" style="background:#EFDAB9"></div><div class="meta">#EFDAB9</div></div>
+            <div class="swatch"><div class="color" style="background:#FFD152"></div><div class="meta">#FFD152</div></div>
+            <div class="swatch"><div class="color" style="background:#FFC31F"></div><div class="meta">#FFC31F</div></div>
+            <div class="swatch"><div class="color" style="background:#EBAC00"></div><div class="meta">#EBAC00</div></div>
+            <div class="swatch"><div class="color" style="background:#D36E2D"></div><div class="meta">#D36E2D</div></div>
+            <div class="swatch"><div class="color" style="background:#8E8373"></div><div class="meta">#8E8373</div></div>
+            <div class="swatch"><div class="color" style="background:#786F63"></div><div class="meta">#786F63</div></div>
+            <div class="swatch"><div class="color" style="background:#78B0A0"></div><div class="meta">#78B0A0</div></div>
+            <div class="swatch"><div class="color" style="background:#61EFCE"></div><div class="meta">#61EFCE</div></div>
+            <div class="swatch"><div class="color" style="background:#45EDC6"></div><div class="meta">#45EDC6</div></div>
+            <div class="swatch"><div class="color" style="background:#2AEABD"></div><div class="meta">#2AEABD</div></div>
+            <div class="swatch"><div class="color" style="background:#3D3A3A"></div><div class="meta">#3D3A3A</div></div>
+            <div class="swatch"><div class="color" style="background:#2C2A2B"></div><div class="meta">#2C2A2B</div></div>
+            <div class="swatch"><div class="color" style="background:#574C4F"></div><div class="meta">#574C4F</div></div>
+            <div class="swatch"><div class="color" style="background:#FAF6EC"></div><div class="meta">#FAF6EC</div></div>
+            <div class="swatch"><div class="color" style="background:#949189"></div><div class="meta">#949189</div></div>
+            <div class="swatch"><div class="color" style="background:#66595C"></div><div class="meta">#66595C</div></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="derived">
+        <h3>Derived gradient previews (clearly not direct tokens)</h3>
+        <div class="gradient-row">
+          <div class="gradient" style="background:linear-gradient(90deg,#EFDAB9,#FFD152,#EBAC00)"></div>
+          <div class="gradient" style="background:linear-gradient(90deg,#78B0A0,#61EFCE,#2AEABD)"></div>
+          <div class="gradient" style="background:linear-gradient(90deg,#434C56,#719BC4)"></div>
+        </div>
+        <div class="legend">All flat swatches above are <strong>IN USE</strong>; gradients are visual previews derived from those in-use swatches.</div>
+      </section>
+    </main>
+  </body>
+</html>
