@@ -81,7 +81,7 @@
         --border: var(--slate-4);
         --border-soft: var(--slate-6);
         --text: var(--stone-6);
-        --text-subtle: var(--stone-5);
+        --text-subtle: var(--stone-4);
         --text-strong: var(--stone-8);
 
         --brand: var(--amber-4);
@@ -156,17 +156,19 @@
       }
 
       code.inline {
-        background: var(--inline-code-bg);
-        border: 1px solid var(--inline-code-border);
-        border-radius: 6px;
+        background: var(--plain-inline-code-bg);
+        border: 0;
+        border-radius: 4px;
         display: inline-block;
+        color: var(--plain-inline-code-text);
         font-size: 0.81em;
-        padding: 1px 6px;
+        font-weight: 300;
+        padding: 3px 6px;
       }
 
       .code-sample .shiki,
       .code-sample .shiki code {
-        background: var(--surface) !important;
+        background: var(--code-block-bg) !important;
       }
 
       .code-sample .shiki {
@@ -181,7 +183,7 @@
 
       .mode-preview {
         border: 1px solid var(--border);
-        border-radius: 12px;
+        border-radius: 4px;
         box-shadow: inset 0 1px 0 var(--card-highlight);
         color: var(--text);
       }
@@ -194,8 +196,8 @@
         --surface-muted: #ece2d4;
         --border: var(--stone-3);
         --border-soft: var(--stone-5);
-        --text: var(--slate-0);
-        --text-subtle: var(--stone-0);
+        --text: var(--stone-1);
+        --text-subtle: var(--stone-2);
         --text-strong: var(--slate-1);
         --brand: var(--amber-2);
         --brand-hover: var(--amber-1);
@@ -204,6 +206,8 @@
         --vp-code-tab-active-text-color: var(--slate-1);
         --vp-code-tab-text-color: var(--stone-2);
         --vp-code-tab-divider: rgba(88, 75, 79, 0.22);
+        --install-tabs-bg: var(--stone-7);
+        --code-block-bg: var(--stone-7);
 
         --mint: var(--mint-4);
         --mint-hover: var(--mint-3);
@@ -226,6 +230,8 @@
         --chip-border-color: var(--stone-3);
         --preview-text-hover: var(--slate-0);
         --preview-icon: var(--stone-2);
+        --mode-card-border: var(--stone-7);
+        --send-trigger-bg: var(--stone-7);
         --pill-mint-bg: rgba(97, 239, 206, 0.26);
         --pill-blue-bg: rgba(101, 156, 200, 0.26);
         --lang-badge-bg: rgba(88, 75, 79, 0.12);
@@ -248,8 +254,8 @@
         --surface-muted: var(--slate-3);
         --border: var(--slate-4);
         --border-soft: var(--slate-6);
-        --text: var(--stone-8);
-        --text-subtle: var(--slate-6);
+        --text: var(--stone-6);
+        --text-subtle: var(--stone-4);
         --text-strong: var(--stone-8);
 
         --brand: var(--amber-4);
@@ -259,6 +265,8 @@
         --vp-code-tab-active-text-color: var(--stone-8);
         --vp-code-tab-text-color: var(--stone-4);
         --vp-code-tab-divider: #00000033;
+        --install-tabs-bg: var(--slate-1);
+        --code-block-bg: var(--slate-1);
 
         --mint: var(--mint-5);
         --mint-hover: var(--mint-4);
@@ -281,6 +289,8 @@
         --chip-border-color: var(--stone-4);
         --preview-text-hover: #f3f5f7;
         --preview-icon: #9ba1aa;
+        --mode-card-border: var(--slate-1);
+        --send-trigger-bg: var(--surface);
         --pill-mint-bg: rgba(97, 239, 206, 0.22);
         --pill-blue-bg: rgba(101, 156, 200, 0.23);
         --lang-badge-bg: rgba(101, 156, 200, 0.28);
@@ -543,9 +553,26 @@
       ];
 
       const TYPOGRAPHY_WEIGHTS = [
-        "300 / 400 / 500 are common body tiers.",
-        "200 / 600 / 700 remain emphasis accents.",
-        "Monospace content trends toward 500–700 for readability.",
+        {
+          label: "are common body tiers.",
+          samples: [
+            { text: "300", className: "font-[300]" },
+            { text: "400", className: "font-[400]" },
+            { text: "500", className: "font-[500]" },
+          ],
+        },
+        {
+          label: "remain emphasis accents.",
+          samples: [
+            { text: "200", className: "font-[200]" },
+            { text: "600", className: "font-[600]" },
+            { text: "700", className: "font-[700]" },
+          ],
+        },
+        {
+          label: "Monospace content trends toward 500–700 for readability.",
+          samples: [{ text: "SFMono 500–700", className: "font-mono font-[500]" }],
+        },
       ];
 
       const TYPOGRAPHY_METRICS = [
@@ -559,13 +586,88 @@
         "Focus color: no custom focus color override was found in the local apps/web theme files.",
       ];
 
+      const MODE_TEXT_COLOR_SAMPLES = {
+        dark: [
+          {
+            label: "Body text",
+            token: "--stone-6",
+            color: "var(--stone-6)",
+            note: "apps/web body copy and apps/preview dark-surface text",
+          },
+          {
+            label: "Muted text",
+            token: "--stone-4",
+            color: "var(--stone-4)",
+            note: "docs metadata, secondary labels, and sidebar defaults",
+          },
+          {
+            label: "Strong text",
+            token: "--stone-8",
+            color: "var(--stone-8)",
+            note: "high-emphasis text on dark surfaces",
+          },
+        ],
+        light: [
+          {
+            label: "Body text",
+            token: "--stone-1",
+            color: "var(--stone-1)",
+            note: "apps/preview light UI text (`light-bg-text` family)",
+          },
+          {
+            label: "Muted text",
+            token: "--stone-2",
+            color: "var(--stone-2)",
+            note: "subtle light-mode labels and supporting copy",
+          },
+          {
+            label: "Strong text",
+            token: "--slate-0",
+            color: "var(--slate-0)",
+            note: "highest-contrast text on light surfaces",
+          },
+        ],
+      };
+
+      const TYPOGRAPHY_SIZE_SAMPLES = [
+        {
+          label: "12px / text-xs",
+          className: "text-xs",
+          weight: "300 / 500",
+          note: "Popover text, recipient labels, support copy",
+        },
+        {
+          label: "14px / text-sm",
+          className: "text-sm",
+          weight: "400 / 500",
+          note: "Preview mode tabs, buttons, docs support labels",
+        },
+        {
+          label: "16px / text-base",
+          className: "text-base",
+          weight: "300 / 400 / 700",
+          note: "Docs nav links, preview titles, landing CTA copy",
+        },
+        {
+          label: "2em",
+          className: "text-[2em] leading-[1.1]",
+          weight: "200",
+          note: "apps/web `h2` styling from the VitePress theme",
+        },
+        {
+          label: "2.3em",
+          className: "text-[2.3em] leading-[1.1]",
+          weight: "200",
+          note: "apps/web home hero `.VPHomeHero .text`",
+        },
+      ];
+
       const TYPOGRAPHY_EXAMPLES = [
         {
           label: "apps/web display",
-          scale: "2.3em → 3rem",
-          weight: "200 / 700",
-          example:
-            "Hero text (`.VPHomeHero .text`) and changelog timeline titles (`.timeline__titleblock_title`).",
+          scale: "2em / 2.3em",
+          weight: "200",
+          example: "Theme `h2` and home hero text in apps/web.",
         },
         {
           label: "apps/web navigation",
@@ -575,13 +677,13 @@
         },
         {
           label: "apps/preview controls",
-          scale: "text-sm / text-base",
+          scale: "14px / 16px",
           weight: "500 / 700",
-          example: "Mode tabs (`NavButton`), page title (`Nav`) and send button labels (`Send`).",
+          example: "Mode tabs (`NavButton`), page title (`Nav`), and send button labels.",
         },
         {
           label: "apps/preview support copy",
-          scale: "text-xs / text-sm",
+          scale: "12px / 14px",
           weight: "300 / 500",
           example: "Recipient labels, popover content, and sidebar tree items.",
         },
@@ -619,6 +721,8 @@
 
       const TabsContext = React.createContext(null);
       const PopoverContext = React.createContext(null);
+      const SUBCARD_CLASS =
+        "rounded border border-[var(--mode-card-border)] bg-transparent";
 
       function cn(...values) {
         return values.filter(Boolean).join(" ");
@@ -627,13 +731,46 @@
       function Card({ title, children, className = "" }) {
         return (
           <article
-            className={cn("rounded border border-[var(--slate-1)] bg-transparent p-4", className)}
+            className={cn(
+              "rounded border border-[var(--mode-card-border)] bg-transparent p-4",
+              className,
+            )}
           >
             <h2 className="mb-3 text-[1.2rem] font-semibold tracking-[0.01em] text-docs-text-strong">
               {title}
             </h2>
             {children}
           </article>
+        );
+      }
+
+      function InlineCode({ children }) {
+        return <code className="inline">{children}</code>;
+      }
+
+      function TextColorSamplesCard({ mode }) {
+        const samples = MODE_TEXT_COLOR_SAMPLES[mode];
+
+        return (
+          <Card title="Text Color Samples" className="lg:col-span-2">
+            <div className="grid gap-2 md:grid-cols-3">
+              {samples.map(({ label, token, color, note }) => (
+                <div
+                  key={`${mode}-${label}`}
+                  className={cn(SUBCARD_CLASS, "px-3 py-2.5")}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-xs font-semibold text-docs-text-strong">{label}</p>
+                    <code className="text-[0.68rem] text-docs-text-subtle">{token}</code>
+                  </div>
+                  <p className="mt-1 text-sm" style={{ color }}>
+                    Sphinx of black quartz, judge my vow.
+                  </p>
+                  <p className="mt-1 text-xs text-docs-text-subtle">{note}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
         );
       }
 
@@ -913,7 +1050,7 @@
               </div>
               <p className="text-xs text-docs-text-subtle">
                 These match the VitePress hero and changelog CTA treatment used in
-                <code className="inline"> apps/web </code>.
+                <InlineCode>apps/web</InlineCode>.
               </p>
             </div>
 
@@ -933,7 +1070,7 @@
                   <button
                     type="button"
                     aria-label="Send preview email"
-                    className="absolute inset-0 inline-flex items-center justify-center rounded bg-[var(--surface)] p-1 text-docs-text focus:outline-none focus:ring-2 focus:ring-white/20"
+                    className="absolute inset-0 inline-flex items-center justify-center rounded bg-[var(--send-trigger-bg)] p-1 text-docs-text focus:outline-none focus:ring-2 focus:ring-white/20"
                   >
                     <PreviewAirplaneIcon />
                   </button>
@@ -954,9 +1091,9 @@
                 </a>
               </div>
               <p className="text-xs text-docs-text-subtle">
-                This covers the bare <code className="inline">?</code> trigger, the pulsing send
+                This covers the bare <InlineCode>?</InlineCode> trigger, the pulsing send
                 affordance, the send submit button, and the preview landing CTA from
-                <code className="inline"> apps/preview </code>.
+                <InlineCode>apps/preview</InlineCode>.
               </p>
             </div>
           </div>
@@ -1007,7 +1144,7 @@
                     <button
                       type="button"
                       aria-label="Send preview email"
-                      className="absolute inset-0 inline-flex items-center justify-center rounded bg-[var(--surface)] p-1 text-docs-text focus:outline-none focus:ring-2 focus:ring-white/20"
+                      className="absolute inset-0 inline-flex items-center justify-center rounded bg-[var(--send-trigger-bg)] p-1 text-docs-text focus:outline-none focus:ring-2 focus:ring-white/20"
                     >
                       <PreviewAirplaneIcon />
                     </button>
@@ -1149,7 +1286,7 @@
           <div className="overflow-hidden rounded">
             <div className="overflow-x-auto">
               <div
-                className="flex min-w-max bg-docs-surface shadow-[inset_0_-1px_var(--vp-code-tab-divider)]"
+                className="flex min-w-max bg-[var(--install-tabs-bg)] shadow-[inset_0_-1px_var(--vp-code-tab-divider)]"
                 role="tablist"
                 aria-label="Package manager"
               >
@@ -1336,12 +1473,18 @@
                 <section className="rounded border border-docs-border-soft bg-docs-surface p-3">
                   <h3 className="text-sm font-semibold text-docs-text-strong">Weight coverage</h3>
                   <div className="mt-2 grid gap-2">
-                    {TYPOGRAPHY_WEIGHTS.map((weightNote) => (
+                    {TYPOGRAPHY_WEIGHTS.map(({ label, samples }) => (
                       <p
-                        key={weightNote}
+                        key={label}
                         className="rounded border border-docs-border-soft bg-docs-surface-raised px-2.5 py-2 text-sm text-docs-text"
                       >
-                        {weightNote}
+                        {samples.map(({ text, className }, index) => (
+                          <React.Fragment key={text}>
+                            {index > 0 ? <span className="text-docs-text-subtle"> / </span> : null}
+                            <span className={className}>{text}</span>
+                          </React.Fragment>
+                        ))}{" "}
+                        <span>{label}</span>
                       </p>
                     ))}
                   </div>
@@ -1357,6 +1500,29 @@
                       >
                         {metric}
                       </p>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="rounded border border-docs-border-soft bg-docs-surface p-3">
+                  <h3 className="text-sm font-semibold text-docs-text-strong">
+                    Text size samples
+                  </h3>
+                  <div className="mt-2 grid gap-2">
+                    {TYPOGRAPHY_SIZE_SAMPLES.map(({ label, className, weight, note }) => (
+                      <div
+                        key={label}
+                        className="rounded border border-docs-border-soft bg-docs-surface-raised px-2.5 py-2"
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="text-xs font-semibold text-docs-text-strong">{label}</p>
+                          <p className="text-[0.68rem] text-docs-text-subtle">{weight}</p>
+                        </div>
+                        <p className={cn("mt-1 text-docs-text", className)}>
+                          Typography size sample
+                        </p>
+                        <p className="mt-1 text-xs text-docs-text-subtle">{note}</p>
+                      </div>
                     ))}
                   </div>
                 </section>
@@ -1444,7 +1610,7 @@
 
             <Card title="Links">
               <div className="grid gap-3">
-                <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                <div className={cn("grid gap-2.5 p-3", SUBCARD_CLASS)}>
                   <div className="text-sm font-semibold text-docs-text-strong">
                     Docs navigation and body links
                   </div>
@@ -1506,7 +1672,7 @@
                   </p>
                 </div>
 
-                <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                <div className={cn("grid gap-2.5 p-3", SUBCARD_CLASS)}>
                   <div className="text-sm font-semibold text-docs-text-strong">
                     Docs changelog links
                   </div>
@@ -1531,7 +1697,7 @@
                   </p>
                 </div>
 
-                <div className="grid gap-2.5 rounded border border-docs-border-soft bg-docs-surface p-3">
+                <div className={cn("grid gap-2.5 p-3", SUBCARD_CLASS)}>
                   <div className="text-sm font-semibold text-docs-text-strong">
                     Preview links outside the tree view
                   </div>
@@ -1552,7 +1718,7 @@
                   </div>
                   <p className="text-xs text-docs-text-subtle">
                     This mirrors the send-popover vendor link and the code-panel download action
-                    from <code className="inline">apps/preview</code>. Tree links are intentionally
+                    from <InlineCode>apps/preview</InlineCode>. Tree links are intentionally
                     excluded.
                   </p>
                 </div>
@@ -1615,11 +1781,14 @@ export const Welcome = () => (
             )}
             style={{ background: "var(--bg)" }}
           >
-            <header className="mb-4 rounded border border-docs-border-soft bg-docs-surface px-3 py-2.5">
+            <header className={cn("mb-4 px-3 py-2.5", SUBCARD_CLASS)}>
               <h2 className="text-[1.2rem] font-semibold text-docs-text-strong">{title}</h2>
               <p className="mt-1 text-xs text-docs-text-subtle">{note}</p>
             </header>
             <ControlsShowcase />
+            <div className="mt-4">
+              <TextColorSamplesCard mode={mode} />
+            </div>
           </section>
         );
       }
