@@ -4,6 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>JSX Email Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'docs-bg': '#1a191a',
+              'docs-surface': '#2c2a2b',
+              'docs-surface-raised': '#343233',
+              'docs-border': '#434c56',
+              'docs-border-soft': '#565656',
+              'docs-text': '#efdab9',
+              'docs-text-subtle': '#949189',
+              'docs-text-strong': '#faf6ec',
+              'docs-brand': '#ffd152'
+            }
+          }
+        }
+      };
+    </script>
     <style>
       :root {
         color-scheme: dark;
@@ -40,7 +60,7 @@
         margin: 0;
         background: var(--bg);
         color: var(--text);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         line-height: 1.45;
       }
 
@@ -186,13 +206,8 @@
           border-color 180ms ease;
       }
 
-      .ds-button:hover {
-        transform: translateY(-1px);
-      }
-
       .ds-button:active,
       .ds-button.is-pressed {
-        transform: translateY(1px) scale(0.988);
         box-shadow: inset 0 1px 0 rgba(26, 25, 26, 0.45);
       }
 
@@ -296,11 +311,11 @@
         z-index: 1;
       }
 
-      .segmented button[aria-pressed='true'] {
+      .segmented button[aria-pressed="true"] {
         color: var(--surface-raised);
       }
 
-      .segmented button[aria-pressed='false']:hover {
+      .segmented button[aria-pressed="false"]:hover {
         color: var(--brand);
       }
 
@@ -364,7 +379,7 @@
       .sidebar-link::before {
         background: rgba(120, 176, 160, 0.45);
         border-radius: 999px;
-        content: '';
+        content: "";
         display: inline-block;
         height: 6px;
         opacity: 0;
@@ -395,7 +410,7 @@
       .inline-link::after {
         background: var(--brand-hover);
         bottom: -2px;
-        content: '';
+        content: "";
         height: 1px;
         left: 0;
         position: absolute;
@@ -729,12 +744,53 @@
 
         <article class="card col-6" aria-labelledby="install-title">
           <h2 id="install-title">Install Tab Group Pattern</h2>
-          <div class="segmented" data-segmented data-panel-group="install-mode">
-            <span class="segmented-indicator" aria-hidden="true"></span>
-            <button type="button" aria-pressed="true" data-target="pnpm">pnpm</button>
-            <button type="button" aria-pressed="false" data-target="bun">bun</button>
-            <button type="button" aria-pressed="false" data-target="npm">npm</button>
-            <button type="button" aria-pressed="false" data-target="yarn">yarn</button>
+          <div class="overflow-x-auto" data-install-tabs data-panel-group="install-mode">
+            <div
+              class="flex min-w-max list-none border-b-2 border-docs-border-soft p-0"
+              role="tablist"
+              aria-label="Package manager"
+            >
+              <button
+                type="button"
+                role="tab"
+                aria-selected="true"
+                tabindex="0"
+                data-target="pnpm"
+                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-brand px-5 py-[0.275rem] text-[0.82rem] font-semibold leading-[1.4] text-docs-text-strong outline-offset-[-4px] transition-colors duration-150"
+              >
+                pnpm
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+                data-target="bun"
+                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-border-soft px-5 py-[0.275rem] text-[0.82rem] font-normal leading-[1.4] text-docs-text-subtle outline-offset-[-4px] transition-colors duration-150 hover:text-docs-text"
+              >
+                bun
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+                data-target="npm"
+                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-border-soft px-5 py-[0.275rem] text-[0.82rem] font-normal leading-[1.4] text-docs-text-subtle outline-offset-[-4px] transition-colors duration-150 hover:text-docs-text"
+              >
+                npm
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+                data-target="yarn"
+                class="-mb-[2px] inline-flex items-center border-b-2 border-docs-border-soft px-5 py-[0.275rem] text-[0.82rem] font-normal leading-[1.4] text-docs-text-subtle outline-offset-[-4px] transition-colors duration-150 hover:text-docs-text"
+              >
+                yarn
+              </button>
+            </div>
           </div>
 
           <div class="panel-stack" data-panel-group="install-mode">
@@ -778,21 +834,22 @@ export const Welcome = () => (
 
     <script>
       (function () {
-        const pressableButtons = document.querySelectorAll('[data-pressable]');
+        const pressableButtons = document.querySelectorAll("[data-pressable]");
 
         pressableButtons.forEach((button) => {
-          const release = () => button.classList.remove('is-pressed');
+          const release = () => button.classList.remove("is-pressed");
 
-          button.addEventListener('pointerdown', () => button.classList.add('is-pressed'));
-          button.addEventListener('pointerup', release);
-          button.addEventListener('pointerleave', release);
-          button.addEventListener('blur', release);
+          button.addEventListener("pointerdown", () => button.classList.add("is-pressed"));
+          button.addEventListener("pointerup", release);
+          button.addEventListener("pointerleave", release);
+          button.addEventListener("blur", release);
         });
 
-        const segmentedGroups = document.querySelectorAll('[data-segmented]');
+        const segmentedGroups = document.querySelectorAll("[data-segmented]");
+        const installTabGroups = document.querySelectorAll("[data-install-tabs]");
 
         const updateIndicator = (group) => {
-          const indicator = group.querySelector('.segmented-indicator');
+          const indicator = group.querySelector(".segmented-indicator");
           const activeButton = group.querySelector('button[aria-pressed="true"]');
 
           if (!indicator || !activeButton) return;
@@ -801,35 +858,35 @@ export const Welcome = () => (
           const buttonRect = activeButton.getBoundingClientRect();
           const offsetLeft = buttonRect.left - groupRect.left;
 
-          indicator.style.width = buttonRect.width + 'px';
-          indicator.style.transform = 'translateX(' + offsetLeft + 'px)';
-          indicator.style.opacity = '1';
+          indicator.style.width = buttonRect.width + "px";
+          indicator.style.transform = "translateX(" + offsetLeft + "px)";
+          indicator.style.opacity = "1";
         };
 
         const syncPanels = (group, target) => {
-          const panelGroupName = group.getAttribute('data-panel-group');
+          const panelGroupName = group.getAttribute("data-panel-group");
           if (!panelGroupName) return;
 
           const panelGroup = document.querySelector(
-            '.panel-stack[data-panel-group="' + panelGroupName + '"]'
+            '.panel-stack[data-panel-group="' + panelGroupName + '"]',
           );
           if (!panelGroup) return;
 
-          panelGroup.querySelectorAll('[data-panel-name]').forEach((panel) => {
-            const isActive = panel.getAttribute('data-panel-name') === target;
-            panel.classList.toggle('is-active', isActive);
+          panelGroup.querySelectorAll("[data-panel-name]").forEach((panel) => {
+            const isActive = panel.getAttribute("data-panel-name") === target;
+            panel.classList.toggle("is-active", isActive);
           });
         };
 
         segmentedGroups.forEach((group) => {
-          const buttons = group.querySelectorAll('button[data-target]');
+          const buttons = group.querySelectorAll("button[data-target]");
 
           buttons.forEach((button) => {
-            button.addEventListener('click', () => {
+            button.addEventListener("click", () => {
               buttons.forEach((other) =>
-                other.setAttribute('aria-pressed', other === button ? 'true' : 'false')
+                other.setAttribute("aria-pressed", other === button ? "true" : "false"),
               );
-              syncPanels(group, button.getAttribute('data-target'));
+              syncPanels(group, button.getAttribute("data-target"));
               updateIndicator(group);
             });
           });
@@ -837,7 +894,30 @@ export const Welcome = () => (
           updateIndicator(group);
         });
 
-        window.addEventListener('resize', () => {
+        installTabGroups.forEach((group) => {
+          const buttons = group.querySelectorAll('button[role="tab"][data-target]');
+
+          buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              buttons.forEach((other) => {
+                const isActive = other === button;
+
+                other.setAttribute("aria-selected", isActive ? "true" : "false");
+                other.setAttribute("tabindex", isActive ? "0" : "-1");
+                other.classList.toggle("border-docs-brand", isActive);
+                other.classList.toggle("border-docs-border-soft", !isActive);
+                other.classList.toggle("text-docs-text-strong", isActive);
+                other.classList.toggle("text-docs-text-subtle", !isActive);
+                other.classList.toggle("font-semibold", isActive);
+                other.classList.toggle("font-normal", !isActive);
+              });
+
+              syncPanels(group, button.getAttribute("data-target"));
+            });
+          });
+        });
+
+        window.addEventListener("resize", () => {
           segmentedGroups.forEach(updateIndicator);
         });
       })();
