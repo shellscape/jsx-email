@@ -1,10 +1,178 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
-import Default from '@astrojs/starlight/components/Header.astro';
+import config from 'virtual:starlight/user-config';
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 ---
 
-// Pass through all props to the default Header component
+<script is:inline>
+  document.documentElement.classList.toggle(
+    'dark',
+    document.documentElement.dataset.theme === 'dark'
+  );
+</script>
 
-<Default {...Astro.props}>
-  <slot />
-</Default> 
+<div class="header">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle />
+  </div>
+  <div class="sl-flex print:hidden">
+    {shouldRenderSearch && <Search />}
+  </div>
+  <div class="sl-hidden md:sl-flex print:hidden right-group">
+    <ThemeSelect />
+    <div class="sl-flex social-icons">
+      <SocialIcons />
+    </div>
+    <LanguageSelect />
+  </div>
+</div>
+
+<style>
+  @layer starlight.core {
+    .header {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      max-width: 1536px;
+      margin-inline: auto;
+    }
+
+    .title-wrapper {
+      overflow: clip;
+      padding: 0.25rem;
+      margin: -0.25rem;
+      min-width: 0;
+    }
+
+    .right-group,
+    .social-icons {
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .header > .sl-flex:not(.title-wrapper):not(.right-group) {
+      flex: 1 1 auto;
+      justify-content: center;
+      min-width: 0;
+    }
+  }
+</style>
+
+<style is:global>
+  @layer starlight.core {
+    :root {
+      --sl-nav-height: 4.25rem;
+      --sl-nav-pad-x: 1rem;
+      --sl-nav-pad-y: 1rem;
+    }
+
+    @media (min-width: 50rem) {
+      :root {
+        --sl-nav-pad-x: 1.5rem;
+      }
+    }
+
+    .page > header.header {
+      background-color: rgb(255 255 255 / 0.9);
+      border-bottom-color: rgb(229 231 235);
+      padding: 1rem;
+      padding-inline-end: calc(1rem + var(--sl-menu-button-size) + 1rem);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+
+    [data-has-sidebar] .page > header.header {
+      padding-inline-end: calc(1rem + var(--sl-menu-button-size) + 1rem);
+    }
+
+    [data-theme='dark'] .page > header.header {
+      background-color: rgb(0 0 0 / 0.9);
+      border-bottom-color: rgb(31 41 55);
+    }
+
+    .page > header.header .site-title img {
+      height: 2.25rem;
+    }
+
+    .page > header.header .site-title {
+      color: var(--sl-color-text);
+      gap: 0;
+    }
+
+    @media (min-width: 48rem) {
+      .page > header.header,
+      [data-has-sidebar] .page > header.header {
+        padding-inline: 1.5rem;
+      }
+    }
+
+    .page > header.header button[data-open-modal] {
+      color: rgb(107 114 128);
+    }
+
+    .page > header.header button[data-open-modal]:hover {
+      color: rgb(55 65 81);
+    }
+
+    [data-theme='dark'] .page > header.header button[data-open-modal] {
+      color: rgb(156 163 175);
+    }
+
+    [data-theme='dark'] .page > header.header button[data-open-modal]:hover {
+      color: rgb(209 213 219);
+    }
+
+    @media (min-width: 50rem) {
+      .page > header.header button[data-open-modal] {
+        background-color: transparent;
+        border-color: rgb(209 213 219);
+        border-radius: 0.375rem;
+      }
+
+      .page > header.header button[data-open-modal]:hover {
+        background-color: rgb(243 244 246);
+        border-color: rgb(156 163 175);
+      }
+
+      [data-theme='dark'] .page > header.header button[data-open-modal] {
+        border-color: rgb(55 65 81);
+      }
+
+      [data-theme='dark'] .page > header.header button[data-open-modal]:hover {
+        background-color: rgb(31 41 55);
+        border-color: rgb(75 85 99);
+      }
+    }
+
+    starlight-menu-button button {
+      border-radius: 0.375rem;
+      background-color: transparent;
+      color: rgb(107 114 128);
+      box-shadow: none;
+    }
+
+    starlight-menu-button button:hover {
+      background-color: rgb(243 244 246);
+      color: rgb(55 65 81);
+    }
+
+    [data-theme='dark'] starlight-menu-button button {
+      background-color: transparent;
+      color: rgb(156 163 175);
+    }
+
+    [data-theme='dark'] starlight-menu-button button:hover {
+      background-color: rgb(31 41 55);
+      color: rgb(209 213 219);
+    }
+  }
+</style>

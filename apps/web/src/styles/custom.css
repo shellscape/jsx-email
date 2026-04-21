@@ -3,7 +3,7 @@
 /* Color theme customization */
 :root[data-theme='light'] {
   --sl-color-text-accent: #000000 !important;
-  --sl-color-bg-nav: #f2f2f2 !important;
+  --sl-color-bg-nav: #ffffff !important;
   --sl-color-bg-sidebar: #f2f2f2 !important;
   --sl-color-bg: #f2f2f2 !important;
   --sl-color-hairline-shade: #cecece !important;

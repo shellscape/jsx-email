@@ -14,7 +14,7 @@ export default defineConfig({
   site: 'https://jsx.email',
   integrations: [
     starlight({
-      title: 'JSX Email',
+      title: '',
       logo: {
         src: './src/assets/logo.svg',
         alt: 'JSX Email Logo'
@@ -39,8 +39,7 @@ export default defineConfig({
       ],
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/shellscape/jsx-email' },
-        { icon: 'discord', label: 'Discord', href: 'https://discord.gg/FywZN57mTg' },
-        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/jsxemail' }
+        { icon: 'discord', label: 'Discord', href: 'https://discord.gg/FywZN57mTg' }
       ],
       sidebar: [
         {
@@ -72,10 +71,16 @@ export default defineConfig({
         }
       ],
       customCss: [
+        './src/styles/global.css',
         // Path to your custom CSS file
         './src/styles/custom.css'
       ],
       components: {
+        Footer: './src/components/starlight/Footer.astro',
+        Header: './src/components/starlight/Header.astro',
+        PageFrame: './src/components/starlight/PageFrame.astro',
+        SocialIcons: './src/components/starlight/SocialIcons.astro',
+        ThemeSelect: './src/components/starlight/ThemeSelect.astro',
         // Use our custom component to hide the title
         PageTitle: './src/components/starlight/PageTitle.astro'
       }
