@@ -70,6 +70,12 @@ export default defineConfig({
           autogenerate: { directory: 'upgrade' }
         }
       ],
+      expressiveCode: {
+        themes: ['one-light', 'slack-dark'],
+        frames: {
+          extractFileNameFromCode: false
+        }
+      },
       customCss: [
         './src/styles/global.css',
         // Path to your custom CSS file
