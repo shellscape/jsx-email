@@ -25,9 +25,9 @@ export function BlockPreview({
   };
 
   return (
-    <div className="block-preview border border-docs-border rounded overflow-hidden mb-8 bg-docs-surface">
+    <div className="block-preview rounded border border-[var(--mode-card-border)] bg-transparent overflow-hidden mb-8">
       <Tabs.Root defaultValue="preview" className="flex flex-col">
-        <div className="flex items-center justify-between border-b border-docs-border bg-docs-surface-raised px-4 py-2">
+        <div className="flex items-center justify-between border-b border-[var(--mode-card-border)] bg-transparent px-4 py-2">
           <h3 className="font-semibold text-docs-text-strong text-sm">{name}</h3>
           <Tabs.List className="flex gap-1 bg-[var(--surface-muted)] rounded p-1">
             <Tabs.Trigger
@@ -46,7 +46,7 @@ export function BlockPreview({
         </div>
 
         <div style={{ height }}>
-          <Tabs.Content value="preview" className="p-6 bg-docs-surface-raised h-full">
+          <Tabs.Content value="preview" className="p-6 bg-transparent h-full">
             <iframe
               srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
               className="border-0 w-full h-full bg-white rounded"

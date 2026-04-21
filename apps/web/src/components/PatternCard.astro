@@ -10,11 +10,11 @@ const { name, renderedHtml, code, id } = Astro.props;
 ---
 
 <div
-  class="pattern-card border border-docs-border rounded overflow-hidden mb-8 bg-docs-surface"
+  class="pattern-card rounded border border-[var(--mode-card-border)] bg-transparent overflow-hidden mb-8"
 >
   <!-- Header with title and tabs -->
   <div
-    class="flex items-center justify-between border-b border-docs-border bg-docs-surface-raised px-4 py-2"
+    class="flex items-center justify-between border-b border-[var(--mode-card-border)] bg-transparent px-4 py-2"
   >
     <h3 class="font-semibold text-docs-text-strong text-sm">{name}</h3>
 
@@ -39,7 +39,7 @@ const { name, renderedHtml, code, id } = Astro.props;
   </div>
 
   <!-- Preview Panel -->
-  <div id={`${id}-preview`} class="tab-panel p-6 bg-docs-surface-raised" data-visible="true">
+  <div id={`${id}-preview`} class="tab-panel p-6 bg-transparent" data-visible="true">
     <iframe
       srcdoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
       class="border-0 w-full bg-white rounded"

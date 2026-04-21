@@ -68,9 +68,9 @@ const categoryGroups: CategoryGroup[] = [
                 {group.blocks.map((block) => (
                   <a
                     href={`/blocks/${block.slug}`}
-                    class="group block bg-docs-surface border border-docs-border rounded overflow-hidden hover:border-docs-border-soft transition-colors"
+                    class="group block rounded border border-[var(--mode-card-border)] bg-transparent overflow-hidden hover:border-docs-border-soft transition-colors"
                   >
-                    <div class="aspect-[4/3] bg-docs-surface-raised flex items-center justify-center p-8">
+                    <div class="aspect-[4/3] bg-transparent flex items-center justify-center p-8">
                       <div class="block-icon" data-icon={block.icon}>
                         {block.icon === 'avatars' && (
                           <div class="flex -space-x-2">
