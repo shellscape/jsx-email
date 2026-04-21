@@ -56,8 +56,10 @@ import { Button } from '@/components/ui/button';
           stroke-linecap="round"
           stroke-linejoin="round"></line>
       </svg>
-      <div
-        class="inline-flex items-center rounded-full bg-docs-surface px-4 sm:px-6 py-2 text-sm text-docs-text-subtle"
+      <Button
+        href="#changelog"
+        variant="ghost"
+        className="min-h-0 rounded-[6px] border-transparent bg-docs-surface px-4 py-2 text-sm text-docs-text-subtle no-underline hover:border-transparent hover:bg-docs-surface hover:text-docs-text-subtle sm:px-6"
       >
         <span>jsx-email is a community open source project, see what's new </span>
         <svg
@@ -75,7 +77,7 @@ import { Button } from '@/components/ui/button';
             stroke-linecap="round"
             stroke-linejoin="round"></polyline>
         </svg>
-      </div>
+      </Button>
     </div>
 
     <!-- Main Headline -->
@@ -95,7 +97,7 @@ import { Button } from '@/components/ui/button';
       <Button
         href="/getting-started/quick-start"
         variant="brand"
-        className="rounded-[5px] border-transparent px-[2em] py-[0.1em] leading-[38px] no-underline hover:border-transparent"
+        className="rounded-[5px] border-transparent px-[2em] py-[0.1em] text-base font-medium leading-[38px] no-underline hover:border-transparent"
       >
         Quick Start
       </Button>
@@ -171,7 +173,7 @@ import { Button } from '@/components/ui/button';
   </div>
 
   <!-- Workflow Selection Pills -->
-  <div class="container mx-auto px-4 md:px-6 mt-6 sm:mt-8 text-center">
+  <!-- <div class="container mx-auto px-4 md:px-6 mt-6 sm:mt-8 text-center">
     <div
       class="inline-flex flex-wrap justify-center rounded border border-docs-border p-1"
     >
@@ -193,7 +195,7 @@ import { Button } from '@/components/ui/button';
         Standalone Builder
       </Button>
     </div>
-  </div>
+  </div> -->
 </section>
 
 <script>

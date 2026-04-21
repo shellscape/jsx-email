@@ -1,5 +1,6 @@
 ---
 import { Card } from '@/components/ui/card';
+import { TerminalCommand } from '@/components/ui/terminal-command';
 
 const cardReset = 'block gap-0 overflow-visible py-0 text-base text-docs-text shadow-none ring-0';
 ---
@@ -19,7 +20,7 @@ const cardReset = 'block gap-0 overflow-visible py-0 text-base text-docs-text sh
             Emails make heavy use of &lt;table&gt; based layouts for compatibility, jsx-email has
             you covered with over 20 custom components you can use directly in your email templates.
           </p>
-          <a href="/components" class="font-medium hover:underline">Components</a>
+          <a href="/components/avatar" class="font-medium hover:underline">Components</a>
         </div>
         <div class="flex justify-end">
           <img
@@ -42,7 +43,7 @@ const cardReset = 'block gap-0 overflow-visible py-0 text-base text-docs-text sh
           <p class="text-docs-text-subtle mb-4">
             Style your components your way using CSS-in-JS or TailwindCSS / UnoCSS.
           </p>
-          <a href="/styling-guide" class="font-medium hover:underline">Styling Guide</a>
+          <a href="/styling-guide" class="hidden font-medium hover:underline">Styling Guide</a>
 
           <div class="mt-8 flex justify-start pl-4">
             <img
@@ -61,18 +62,13 @@ const cardReset = 'block gap-0 overflow-visible py-0 text-base text-docs-text sh
           <p class="text-docs-text-subtle mb-4">
             Test the compatibility of your CSS with a single command.
           </p>
-          <a href="/cli-check" class="font-medium hover:underline">CLI: Check</a>
+          <a href="/core/cli/#check-command" class="font-medium hover:underline">CLI: Check</a>
 
-          <div
-            class="mt-8 flex items-center border-2 border-docs-border rounded-full py-3 px-6 font-mono text-lg"
-          >
-            <span class="text-docs-text-subtle mr-2">$</span>
-            <span class="text-docs-text-subtle"
-              >pnpm <span class="font-bold text-docs-text"
-                >email check ./templates</span
-              ></span
-            >
-          </div>
+          <TerminalCommand
+            className="mt-8"
+            runner="pnpm"
+            command="email check ./templates"
+          />
         </Card>
       </div>
 
@@ -85,7 +81,7 @@ const cardReset = 'block gap-0 overflow-visible py-0 text-base text-docs-text sh
           <p class="text-docs-text-subtle mb-4">
             Preview your templates as you're building them.
           </p>
-          <a href="/cli-preview" class="font-medium hover:underline">CLI: Preview</a>
+          <a href="/core/cli/#preview-command" class="font-medium hover:underline">CLI: Preview</a>
 
           <div
             class="mt-8 border border-docs-border rounded p-5 overflow-hidden w-full mb-[-28px]"
