@@ -117,6 +117,11 @@ Husky is enabled via the root `prepare` script. The `pre-commit` hook runs
 - Reuse schemas: if create and update payloads share a shape, use one schema (prefer `{ name }`). Only split when the shapes diverge, and extend from the shared base.
 - Prefer Valibot schemas for validation where validation is necessary and derive types from the schema (`InferInput`/`InferOutput`) instead of duplicating shapes in TypeScript.
 
+## App Conventions
+
+- Apps located at `/apps` are considered web applications
+- Apps should conform to the design-system at `/apps/web/public/design-system.html` for appearance and component structure. The design system uses shadcn and tailwind.
+
 ## General principles
 
 - Prefer DRY (Do Not Repeat Yourself).

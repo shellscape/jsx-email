@@ -15,12 +15,14 @@ export function ContributorPill({ author, className }: ContributorPillProps) {
     <Button
       nativeButton={false}
       render={<a href={author.url} target="_blank" rel="noopener noreferrer" />}
-      className={`mb-2 inline-flex h-auto items-center gap-2 rounded-[6px] border-transparent bg-docs-surface-raised px-3 py-1.5 text-xs text-docs-text transition-colors hover:border-transparent hover:bg-docs-border hover:text-docs-text-strong ${className ?? ''}`}
+      className={`mb-2 inline-flex h-auto items-center gap-2 rounded-[6px] border-transparent bg-docs-surface-raised px-3 py-1.5 text-xs text-docs-text transition-colors hover:border-transparent hover:bg-docs-border ${className ?? ''}`}
     >
       <Avatar className="size-5 after:border-0">
         <img src={author.img} alt={author.name} className="size-full rounded-full object-cover" />
       </Avatar>
-      {author.name}
+      <span className="text-docs-text transition-colors duration-150 group-hover/button:[color:var(--surface-raised)]">
+        {author.name}
+      </span>
     </Button>
   );
 }
