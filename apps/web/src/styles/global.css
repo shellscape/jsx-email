@@ -118,7 +118,6 @@
     --info-inline-code-bg: rgba(101, 156, 200, 0.14);
   }
 
-  :root.dark,
   :root[data-theme='dark'] {
     color-scheme: dark;
     --bg: var(--slate-0);

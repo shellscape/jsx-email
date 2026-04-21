@@ -4,6 +4,8 @@ import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import oneLightTheme from 'shiki/themes/one-light.mjs';
+import slackDarkTheme from 'shiki/themes/slack-dark.mjs';
 
 import react from '@astrojs/react';
 
@@ -71,10 +73,17 @@ export default defineConfig({
         }
       ],
       expressiveCode: {
-        themes: ['one-light', 'slack-dark'],
+        themes: [
+          { ...oneLightTheme, type: 'light' },
+          { ...slackDarkTheme, type: 'dark' }
+        ],
+        minSyntaxHighlightingColorContrast: 0,
+        useStarlightDarkModeSwitch: true,
         styleOverrides: {
           codeFontFamily: 'SFMono-Regular, Consolas, Menlo, Monaco, monospace',
           codeFontSize: '14px',
+          codeFontWeight: '300',
+          codeLineHeight: '1.7',
           codePaddingBlock: '20px',
           codePaddingInline: '24px'
         },

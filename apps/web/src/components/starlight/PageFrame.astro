@@ -192,8 +192,11 @@ import SiteFooter from './SiteFooter.astro';
     .sl-markdown-content .expressive-code .frame pre {
       border: 0 !important;
       border-radius: var(--radius) !important;
+      -moz-osx-font-smoothing: auto;
+      -webkit-font-smoothing: auto;
       font-family: var(--code-font-stack) !important;
       font-size: 14px !important;
+      font-weight: 300 !important;
       line-height: 1.7 !important;
       margin: 0 !important;
       padding: 20px 24px !important;
@@ -202,12 +205,22 @@ import SiteFooter from './SiteFooter.astro';
 
     .sl-markdown-content .expressive-code .frame pre code {
       display: block;
+      -moz-osx-font-smoothing: auto;
+      -webkit-font-smoothing: auto;
       font-family: var(--code-font-stack) !important;
-      padding-inline-end: 56px;
+      font-weight: 300 !important;
+      line-height: 1.7 !important;
+      padding: 0 !important;
+    }
+
+    .sl-markdown-content .expressive-code .ec-line .code {
+      border-inline-start: 0 !important;
+      padding-inline: 0 !important;
+      text-indent: 0 !important;
     }
 
     .sl-markdown-content .expressive-code .frame .copy {
-      display: none;
+      display: none !important;
     }
 
     .sl-markdown-content .expressive-code .frame pre[data-language]::before {
@@ -268,7 +281,8 @@ import SiteFooter from './SiteFooter.astro';
       flex-shrink: 0;
       font-size: 0.875rem;
       font-weight: 400;
-      line-height: 48px;
+      line-height: 20px;
+      padding-block: 8px;
       padding-inline: 12px;
       position: relative;
       text-decoration: none;
@@ -311,9 +325,11 @@ import SiteFooter from './SiteFooter.astro';
       padding: 0;
     }
 
-    .sl-markdown-content starlight-tabs [role='tabpanel'] > .expressive-code .frame {
+    .sl-markdown-content starlight-tabs [role='tabpanel'] .expressive-code .frame {
       border-start-end-radius: 0 !important;
       border-start-start-radius: 0 !important;
+      border-end-end-radius: var(--radius) !important;
+      border-end-start-radius: var(--radius) !important;
     }
   }
 </style>

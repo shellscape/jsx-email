@@ -57,7 +57,7 @@ Moved to [`tshy`](https://github.com/isaacs/tshy) for package building
 
 Templates must now use named exports instead of default exports:
 
-```tsx title="Before"
+```tsx
 export default function MyTemplate({ ... }) {
   ...
 };
@@ -66,7 +66,7 @@ MyTemplate.Name = 'MyTemplate';
 MyTemplate.PreviewProps = { ... };
 ```
 
-```tsx title="After"
+```tsx
 export const previewProps = { ... };
 export const templateName = 'MyTemplate';
 export const Template = ({ ... }) => {
@@ -118,7 +118,7 @@ withBackground?: boolean;
 
 #### Migration Example
 
-```tsx title="Before (now Butan)"
+```tsx
 <Butan
   style={{
     backgroundColor: '#ff5a5f',
@@ -137,7 +137,7 @@ withBackground?: boolean;
 </Butan>
 ```
 
-```tsx title="After (new Button)"
+```tsx
 <Button
   width={300}
   height={64}
