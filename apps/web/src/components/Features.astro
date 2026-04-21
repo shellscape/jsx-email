@@ -1,8 +1,14 @@
+---
+import { Card } from '@/components/ui/card';
+
+const cardReset = 'block gap-0 overflow-visible py-0 text-base text-docs-text shadow-none ring-0';
+---
+
 <section class="py-20 relative overflow-hidden">
   <div class="container-custom mx-auto px-4 md:px-6 relative z-10">
     <!-- Top Feature (Full Width) -->
-    <div
-      class="p-8 pr-0 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent mb-6"
+    <Card
+      className={`${cardReset} p-8 pr-0 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent mb-6`}
     >
       <div class="grid md:grid-cols-2 gap-8 items-center">
         <div>
@@ -23,14 +29,14 @@
           />
         </div>
       </div>
-    </div>
+    </Card>
 
     <!-- 2 col grid Features -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
       <div class="flex flex-col gap-6">
         <!-- Style with your tools -->
-        <div
-          class="p-8 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[360px]"
+        <Card
+          className={`${cardReset} p-8 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[360px]`}
         >
           <h3 class="text-2xl font-bold mb-2">Style with your tools.</h3>
           <p class="text-docs-text-subtle mb-4">
@@ -45,11 +51,11 @@
               class="w-full h-auto"
             />
           </div>
-        </div>
+        </Card>
 
         <!-- Check compatibility -->
-        <div
-          class="p-8 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[320px]"
+        <Card
+          className={`${cardReset} p-8 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[320px]`}
         >
           <h3 class="text-2xl font-bold mb-2">Check compatibility.</h3>
           <p class="text-docs-text-subtle mb-4">
@@ -67,13 +73,13 @@
               ></span
             >
           </div>
-        </div>
+        </Card>
       </div>
 
       <div class="flex flex-col gap-6">
         <!-- Preview while Building -->
-        <div
-          class="p-8 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[360px] overflow-hidden"
+        <Card
+          className={`${cardReset} p-8 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[360px] overflow-hidden`}
         >
           <h3 class="text-2xl font-bold mb-2">Preview while Building.</h3>
           <p class="text-docs-text-subtle mb-4">
@@ -96,11 +102,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </Card>
 
         <!-- Use anywhere -->
-        <div
-          class="p-8 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[320px]"
+        <Card
+          className={`${cardReset} p-8 pb-0 rounded border border-[var(--mode-card-border)] bg-transparent min-h-[320px]`}
         >
           <h3 class="text-2xl font-bold mb-2">Use anywhere.</h3>
           <p class="text-docs-text-subtle mb-4">
@@ -121,7 +127,7 @@
               class="w-full h-auto relative z-10"
             />
           </div>
-        </div>
+        </Card>
       </div>
     </div>
 

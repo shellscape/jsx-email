@@ -82,12 +82,10 @@ const shouldRenderSearch =
     }
 
     .page > header.header {
-      background-color: color-mix(in srgb, var(--bg) 90%, transparent);
+      background-color: var(--bg);
       border-bottom-color: var(--border);
       padding: 1rem;
       padding-inline-end: calc(1rem + var(--sl-menu-button-size) + 1rem);
-      -webkit-backdrop-filter: blur(4px);
-      backdrop-filter: blur(4px);
     }
 
     [data-has-sidebar] .page > header.header {

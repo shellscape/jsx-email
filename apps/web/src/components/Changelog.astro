@@ -1,4 +1,6 @@
 ---
+import { ContributorPill } from './contributor-pill';
+
 // Define types for our data structures
 interface Author {
   img: string;
@@ -100,7 +102,7 @@ try {
 
     <!-- Header Card -->
     <div
-      class="relative mt-16 mb-16 rounded border border-[var(--mode-card-border)] bg-transparent p-6 md:p-8 text-center max-w-2xl mx-auto z-10"
+      class="relative mt-16 mb-16 rounded border border-[var(--mode-card-border)] bg-docs-bg p-6 md:p-8 text-center max-w-2xl mx-auto z-10"
     >
       <h2 class="text-3xl md:text-4xl font-bold mb-3">Changelog</h2>
       <p class="text-docs-text-subtle mb-8">
@@ -147,18 +149,10 @@ try {
                 {/* <!-- Events for this day --> */}
                 {events.map((entry: PREntry) => (
                   <div class="mb-4">
-                    <a
-                      href={entry.author.url}
-                      target="_blank"
-                      class={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-docs-surface-raised text-docs-text text-xs hover:bg-docs-border transition-colors mb-2 ${index % 2 === 0 ? 'sm:self-start' : 'sm:self-end'}`}
-                    >
-                      <img
-                        src={entry.author.img}
-                        alt={entry.author.name}
-                        class="w-5 h-5 rounded-full"
-                      />
-                      {entry.author.name}
-                    </a>
+                    <ContributorPill
+                      author={entry.author}
+                      className={index % 2 === 0 ? 'sm:self-start' : 'sm:self-end'}
+                    />
                     <div class="text-sm text-docs-text">
                       #{entry.pr.number}:{' '}
                       <a
