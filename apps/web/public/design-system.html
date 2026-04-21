@@ -54,6 +54,7 @@
         --stone-7: #efeae1;
         --stone-8: #faf6ec;
         --stone-9: #fdfaf2;
+        --stone-10: #fefdf9;
 
         /* Teal & Mint Spectrum */
         --mint-0: #78af9f;
@@ -233,7 +234,7 @@
 
       .mode-preview--light {
         color-scheme: light;
-        --bg: var(--stone-9);
+        --bg: var(--stone-10);
         --surface: var(--stone-8);
         --surface-raised: #f4eee3;
         --surface-muted: #ece2d4;
@@ -502,6 +503,12 @@
             {
               token: "--stone-9",
               hex: "#FDFAF2",
+              note: "light-mode page background",
+              chipText: CHIP_TEXT_LIGHT,
+            },
+            {
+              token: "--stone-10",
+              hex: "#FEFDF9",
               note: "light-mode page background",
               chipText: CHIP_TEXT_LIGHT,
             },
@@ -2303,7 +2310,7 @@ export const Welcome = () => (
               <ModePreview
                 mode="light"
                 title="Light mode controls"
-                note="Base background var(--stone-9) / #FDFAF2. Default text pairs Graphite darkest (#1A191A) with Warm Stone darkest (#584B4F)."
+                note="Base background var(--stone-10) / #FEFDF9. Default text pairs Graphite darkest (#1A191A) with Warm Stone darkest (#584B4F)."
               />
 
               <ModePreview
