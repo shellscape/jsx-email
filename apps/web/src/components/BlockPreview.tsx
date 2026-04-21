@@ -1,6 +1,8 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { useState } from 'react';
 
+import { Button } from '@/components/ui/button';
+
 interface BlockPreviewProps {
   name: string;
   renderedHtml: string;
@@ -55,12 +57,15 @@ export function BlockPreview({
           </Tabs.Content>
 
           <Tabs.Content value="code" className="relative h-full bg-[#24292e]">
-            <button
+            <Button
+              type="button"
               onClick={copyCode}
-              className="absolute top-2 right-2 z-10 px-3 py-1 text-xs bg-docs-brand text-[var(--brand-button-fg)] rounded transition-colors hover:bg-docs-brand"
+              variant="brand"
+              size="xs"
+              className="absolute top-2 right-2 z-10"
             >
               {copied ? 'Copied!' : 'Copy'}
-            </button>
+            </Button>
             <div
               className="h-full overflow-auto [&>pre]:min-h-full [&>pre]:m-0 [&>pre]:p-4 [&>pre]:text-sm"
               dangerouslySetInnerHTML={{ __html: codeHtml }}

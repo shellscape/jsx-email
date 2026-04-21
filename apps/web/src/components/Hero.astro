@@ -1,3 +1,7 @@
+---
+import { Button } from '@/components/ui/button';
+---
+
 <section class="pt-24 sm:pt-28 md:pt-32 pb-10">
   <div class="mx-auto px-4 md:px-6 text-center">
     <!-- Announcement -->
@@ -88,15 +92,18 @@
 
     <!-- CTA Buttons -->
     <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-      <a
+      <Button
         href="/getting-started/quick-start"
-        class="inline-flex items-center justify-center py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-base font-medium rounded-full bg-docs-brand text-[var(--brand-button-fg)] transition-all hover:bg-docs-brand focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-docs-brand"
+        variant="brand"
+        className="rounded-[5px] border-transparent px-[2em] py-[0.1em] leading-[38px] no-underline hover:border-transparent"
       >
         Quick Start
-      </a>
-      <button
+      </Button>
+      <Button
         id="copy-command-btn"
-        class="inline-flex items-center justify-center py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-base font-medium rounded-full bg-docs-surface text-docs-text-strong border border-docs-border transition-all hover:bg-docs-surface-raised focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-docs-border"
+        type="button"
+        variant="alt"
+        className="rounded-[5px] px-8 py-[0.1em] text-[0.98rem] leading-[38px]"
       >
         pnpm add jsx-email
         <!-- Copy icon (default) -->
@@ -132,7 +139,7 @@
         >
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-      </button>
+      </Button>
     </div>
   </div>
 
@@ -166,19 +173,25 @@
   <!-- Workflow Selection Pills -->
   <div class="container mx-auto px-4 md:px-6 mt-6 sm:mt-8 text-center">
     <div
-      class="inline-flex flex-wrap justify-center rounded-full border border-docs-border p-1"
+      class="inline-flex flex-wrap justify-center rounded border border-docs-border p-1"
     >
       <span class="py-2 px-3 sm:px-5 text-sm font-medium">Workflows:</span>
-      <button
-        class="py-2 px-3 sm:px-5 rounded-full bg-docs-brand text-[var(--brand-button-fg)] text-sm font-medium"
+      <Button
+        type="button"
+        variant="brand"
+        size="sm"
+        className="px-3 py-2 sm:px-5"
       >
         Backend Integration
-      </button>
-      <button
-        class="py-2 px-3 sm:px-5 text-sm font-medium hover:bg-docs-surface rounded-full"
+      </Button>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        className="px-3 py-2 sm:px-5"
       >
         Standalone Builder
-      </button>
+      </Button>
     </div>
   </div>
 </section>

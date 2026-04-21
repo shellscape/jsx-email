@@ -1,4 +1,5 @@
 ---
+import { Button } from '@/components/ui/button';
 import { ContributorPill } from './contributor-pill';
 
 // Define types for our data structures
@@ -109,13 +110,15 @@ try {
         Explore the latest contributions to jsx-email
       </p>
 
-      <a
+      <Button
         href="https://github.com/shellscape/jsx-email/pulls?q=is%3Apr+is%3Aclosed+is%3Amerged"
         target="_blank"
-        class="inline-block px-8 py-3 rounded-full bg-docs-brand text-[var(--brand-button-fg)] text-base font-medium"
+        rel="noopener noreferrer"
+        variant="alt"
+        className="rounded-[5px] px-8 py-[0.1em] text-[0.98rem] leading-[38px] no-underline"
       >
         View on Github
-      </a>
+      </Button>
     </div>
 
     <!-- Timeline entries -->
@@ -181,13 +184,15 @@ try {
 
     <!-- Bottom link -->
     <div class="text-center z-10 relative">
-      <a
+      <Button
         href="https://github.com/shellscape/jsx-email/pulls?q=is%3Apr+is%3Aclosed+is%3Amerged"
         target="_blank"
-        class="inline-flex items-center justify-center py-2 px-6 text-sm font-medium rounded-full bg-docs-brand text-[var(--brand-button-fg)] transition-all hover:bg-[var(--brand-hover)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-docs-brand mb-16"
+        rel="noopener noreferrer"
+        variant="alt"
+        className="mb-16 rounded-[5px] px-8 py-[0.1em] text-[0.98rem] leading-[38px] no-underline"
       >
         <span>View all on Github</span>
-      </a>
+      </Button>
     </div>
   </div>
 </section>

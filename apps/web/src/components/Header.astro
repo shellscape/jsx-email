@@ -1,4 +1,5 @@
 ---
+import { Button } from '@/components/ui/button';
 import logo from '../assets/logo.svg';
 ---
 
@@ -76,10 +77,12 @@ import logo from '../assets/logo.svg';
     <!-- Right side icons -->
     <div class="flex items-center space-x-4">
       <!-- Theme Switcher -->
-      <button
+      <Button
         id="theme-toggle"
         type="button"
-        class="flex items-center justify-center p-1.5 rounded text-docs-text-subtle hover:text-docs-text-strong hover:bg-docs-surface focus:outline-none"
+        variant="ghost"
+        size="icon-sm"
+        className="border-transparent bg-transparent text-docs-text-subtle hover:border-transparent hover:bg-docs-surface hover:text-docs-text-strong"
         aria-label="Toggle dark mode"
       >
         <!-- Sun icon (shown in dark mode) -->
@@ -103,7 +106,7 @@ import logo from '../assets/logo.svg';
         >
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
         </svg>
-      </button>
+      </Button>
 
       <!-- Social Icons - Always visible -->
       <div class="flex items-center space-x-4">
@@ -157,10 +160,12 @@ import logo from '../assets/logo.svg';
       </div>
 
       <!-- Mobile menu button -->
-      <button
+      <Button
         id="mobile-menu-toggle"
         type="button"
-        class="lg:hidden inline-flex items-center justify-center p-2 rounded text-docs-text-subtle hover:text-docs-text-strong hover:bg-docs-surface focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-docs-bg focus:ring-docs-border"
+        variant="ghost"
+        size="icon"
+        className="lg:hidden text-docs-text-subtle hover:text-docs-text-strong"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >
@@ -197,7 +202,7 @@ import logo from '../assets/logo.svg';
             stroke-width="2"
             d="M6 18L18 6M6 6l12 12"></path>
         </svg>
-      </button>
+      </Button>
     </div>
   </div>
 
