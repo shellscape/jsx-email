@@ -13,7 +13,7 @@
   --sl-color-bg-nav: var(--bg) !important;
   --sl-color-bg-sidebar: var(--bg) !important;
   --sl-color-bg: var(--bg) !important;
-  --sl-color-bg-inline-code: var(--inline-code-bg) !important;
+  --sl-color-bg-inline-code: var(--plain-inline-code-bg) !important;
   --sl-color-bg-accent: var(--brand) !important;
   --sl-color-hairline: var(--border-soft) !important;
   --sl-color-hairline-light: var(--border) !important;
@@ -33,7 +33,7 @@
   --sl-color-bg-nav: var(--bg) !important;
   --sl-color-bg-sidebar: var(--bg) !important;
   --sl-color-bg: var(--bg) !important;
-  --sl-color-bg-inline-code: var(--inline-code-bg) !important;
+  --sl-color-bg-inline-code: var(--plain-inline-code-bg) !important;
   --sl-color-bg-accent: var(--brand) !important;
   --sl-color-hairline: var(--border-soft) !important;
   --sl-color-hairline-light: var(--border) !important;

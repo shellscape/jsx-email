@@ -61,170 +61,6 @@ import SiteFooter from './SiteFooter.astro';
       color: var(--link-accent-hover);
     }
 
-    .sl-markdown-content code:not(:where(pre *, .not-content *)) {
-      background-color: var(--plain-inline-code-bg);
-      border: 0;
-      border-radius: 4px;
-      color: var(--plain-inline-code-text);
-      display: inline-block;
-      margin-block: 0;
-      padding: 3px 6px;
-      font-size: 0.81em;
-      font-weight: 300;
-    }
-
-    .sl-markdown-content .starlight-aside--tip code:not(:where(pre *, .not-content *)) {
-      background-color: var(--blue-hover);
-      color: var(--surface-raised);
-    }
-
-    .sl-markdown-content .starlight-aside--note code:not(:where(pre *, .not-content *)) {
-      background-color: var(--info-inline-code-bg);
-      color: var(--text);
-    }
-
-    .sl-markdown-content .starlight-aside--caution code:not(:where(pre *, .not-content *)),
-    .sl-markdown-content .starlight-aside--danger code:not(:where(pre *, .not-content *)) {
-      background-color: var(--warn-inline-code-bg);
-      color: var(--warn-inline-code-text);
-    }
-
-    .sl-markdown-content pre:not(:where(.not-content *)),
-    .sl-markdown-content .expressive-code .frame,
-    .sl-markdown-content .expressive-code .frame pre,
-    .sl-markdown-content .expressive-code .frame pre code {
-      background-color: var(--code-block-bg) !important;
-    }
-
-    .sl-markdown-content pre:not(:where(.not-content *)) {
-      border: 0;
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      line-height: 1.7;
-    }
-
-    .sl-markdown-content .expressive-code .frame {
-      border: 0 !important;
-      border-radius: var(--radius) !important;
-      box-shadow: none !important;
-      overflow: hidden;
-    }
-
-    .sl-markdown-content .expressive-code .frame .header {
-      display: none !important;
-    }
-
-    .sl-markdown-content .expressive-code .frame pre {
-      border: 0 !important;
-      border-radius: var(--radius) !important;
-      line-height: 1.7 !important;
-      margin: 0 !important;
-      padding: 20px 24px !important;
-      position: relative;
-    }
-
-    .sl-markdown-content .expressive-code .frame pre code {
-      display: block;
-      padding-inline-end: 56px;
-    }
-
-    .sl-markdown-content .expressive-code .frame .copy {
-      display: none;
-    }
-
-    .sl-markdown-content .expressive-code .frame pre[data-language]::before {
-      color: var(--code-lang-label);
-      content: attr(data-language);
-      font-size: 0.75rem;
-      font-weight: 500;
-      inset-inline-end: 16px;
-      line-height: 1;
-      pointer-events: none;
-      position: absolute;
-      text-transform: lowercase;
-      top: 12px;
-      z-index: 1;
-    }
-
-    .sl-markdown-content starlight-tabs {
-      border-radius: var(--radius);
-      display: block;
-      overflow: hidden;
-    }
-
-    .sl-markdown-content starlight-tabs .tablist-wrapper {
-      background: var(--install-tabs-bg);
-      border: 0;
-      box-shadow: inset 0 -1px var(--vp-code-tab-divider);
-      overflow-x: auto;
-      padding: 0;
-    }
-
-    .sl-markdown-content starlight-tabs [role='tablist'] {
-      display: flex;
-      gap: 0;
-      list-style: none;
-      margin: 0;
-      min-width: max-content;
-      padding: 0;
-    }
-
-    .sl-markdown-content starlight-tabs [role='presentation'] {
-      margin: 0;
-      padding: 0;
-    }
-
-    .sl-markdown-content starlight-tabs [role='tab'] {
-      border-bottom: 1px solid transparent;
-      color: var(--vp-code-tab-text-color);
-      display: inline-block;
-      flex-shrink: 0;
-      font-size: 0.875rem;
-      font-weight: 400;
-      line-height: 48px;
-      padding-inline: 12px;
-      position: relative;
-      text-decoration: none;
-      transition: color 250ms;
-      white-space: nowrap;
-    }
-
-    .sl-markdown-content starlight-tabs [role='tab']::after {
-      background-color: transparent;
-      border-radius: 2px;
-      bottom: -1px;
-      content: '';
-      height: 2px;
-      inset-inline: 8px;
-      position: absolute;
-      transition: background-color 250ms;
-      z-index: 1;
-    }
-
-    .sl-markdown-content starlight-tabs [role='tab']:hover,
-    .sl-markdown-content starlight-tabs [role='tab']:focus-visible {
-      color: var(--vp-code-tab-active-text-color);
-    }
-
-    .sl-markdown-content starlight-tabs [role='tab']:hover::after,
-    .sl-markdown-content starlight-tabs [role='tab']:focus-visible::after,
-    .sl-markdown-content starlight-tabs [role='tab'][aria-selected='true']::after {
-      background-color: var(--brand);
-    }
-
-    .sl-markdown-content starlight-tabs [role='tab'][aria-selected='true'] {
-      color: var(--vp-code-tab-active-text-color);
-    }
-
-    .sl-markdown-content starlight-tabs [role='tabpanel'] {
-      margin-top: 0;
-    }
-
-    .sl-markdown-content starlight-tabs [role='tabpanel'] > .expressive-code .frame {
-      border-start-end-radius: 0 !important;
-      border-start-start-radius: 0 !important;
-    }
-
     .sidebar-content ul ul li {
       border-inline-start: 0;
       margin-inline-start: 0;
@@ -293,6 +129,191 @@ import SiteFooter from './SiteFooter.astro';
     .sidebar-content summary:hover .caret,
     .sidebar-content summary:focus-visible .caret {
       color: var(--link-accent-hover);
+    }
+  }
+
+  @layer starlight.content {
+    .sl-markdown-content code:not(:where(pre *, .not-content *)) {
+      background-color: var(--plain-inline-code-bg);
+      border: 0;
+      border-radius: 4px;
+      color: var(--plain-inline-code-text);
+      display: inline-block;
+      font-family: var(--code-font-stack);
+      font-size: 0.81em;
+      font-weight: 300;
+      margin-block: 0;
+      padding: 3px 6px;
+    }
+
+    .sl-markdown-content .starlight-aside--tip code:not(:where(pre *, .not-content *)) {
+      background-color: var(--blue-hover);
+      color: var(--surface-raised);
+    }
+
+    .sl-markdown-content .starlight-aside--note code:not(:where(pre *, .not-content *)) {
+      background-color: var(--info-inline-code-bg);
+      color: var(--text);
+    }
+
+    .sl-markdown-content .starlight-aside--caution code:not(:where(pre *, .not-content *)),
+    .sl-markdown-content .starlight-aside--danger code:not(:where(pre *, .not-content *)) {
+      background-color: var(--warn-inline-code-bg);
+      color: var(--warn-inline-code-text);
+    }
+
+    .sl-markdown-content pre:not(:where(.not-content *)),
+    .sl-markdown-content .expressive-code .frame,
+    .sl-markdown-content .expressive-code .frame pre,
+    .sl-markdown-content .expressive-code .frame pre code {
+      background-color: var(--code-block-bg) !important;
+    }
+
+    .sl-markdown-content pre:not(:where(.not-content *)) {
+      border: 0;
+      border-radius: var(--radius);
+      font-family: var(--code-font-stack);
+      font-size: 14px;
+      line-height: 1.7;
+      padding: 20px 24px;
+    }
+
+    .sl-markdown-content .expressive-code .frame {
+      border: 0 !important;
+      border-radius: var(--radius) !important;
+      box-shadow: none !important;
+      overflow: hidden;
+    }
+
+    .sl-markdown-content .expressive-code .frame .header {
+      display: none !important;
+    }
+
+    .sl-markdown-content .expressive-code .frame pre {
+      border: 0 !important;
+      border-radius: var(--radius) !important;
+      font-family: var(--code-font-stack) !important;
+      font-size: 14px !important;
+      line-height: 1.7 !important;
+      margin: 0 !important;
+      padding: 20px 24px !important;
+      position: relative;
+    }
+
+    .sl-markdown-content .expressive-code .frame pre code {
+      display: block;
+      font-family: var(--code-font-stack) !important;
+      padding-inline-end: 56px;
+    }
+
+    .sl-markdown-content .expressive-code .frame .copy {
+      display: none;
+    }
+
+    .sl-markdown-content .expressive-code .frame pre[data-language]::before {
+      color: var(--code-lang-label);
+      content: attr(data-language);
+      font-size: 0.75rem;
+      font-weight: 500;
+      inset-inline-end: 16px;
+      line-height: 1;
+      pointer-events: none;
+      position: absolute;
+      text-transform: lowercase;
+      top: 12px;
+      z-index: 1;
+    }
+  }
+
+  @layer starlight.components {
+    .sl-markdown-content starlight-tabs {
+      border-radius: var(--radius);
+      display: block;
+      overflow: hidden;
+    }
+
+    .sl-markdown-content starlight-tabs .tablist-wrapper {
+      background: var(--install-tabs-bg);
+      border: 0;
+      box-shadow: inset 0 -1px var(--vp-code-tab-divider);
+      overflow-x: auto;
+      padding: 0;
+    }
+
+    .sl-markdown-content starlight-tabs [role='tablist'] {
+      border-bottom: 0;
+      display: flex;
+      gap: 0;
+      list-style: none;
+      margin: 0;
+      min-width: max-content;
+      padding: 0;
+    }
+
+    .sl-markdown-content starlight-tabs [role='presentation'] {
+      margin: 0;
+      padding: 0;
+    }
+
+    .sl-markdown-content starlight-tabs .tab > [role='tab'] {
+      box-shadow: none;
+      border-radius: 0;
+      font-weight: 400;
+    }
+
+    .sl-markdown-content starlight-tabs [role='tab'] {
+      border-bottom: 1px solid transparent;
+      color: var(--vp-code-tab-text-color);
+      display: inline-block;
+      flex-shrink: 0;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 48px;
+      padding-inline: 12px;
+      position: relative;
+      text-decoration: none;
+      transition: color 250ms;
+      white-space: nowrap;
+    }
+
+    .sl-markdown-content starlight-tabs [role='tab']::after {
+      background-color: transparent;
+      border-radius: 2px;
+      bottom: -1px;
+      content: '';
+      height: 2px;
+      inset-inline: 8px;
+      position: absolute;
+      transition: background-color 250ms;
+      z-index: 1;
+    }
+
+    .sl-markdown-content starlight-tabs [role='tab']:hover,
+    .sl-markdown-content starlight-tabs [role='tab']:focus-visible {
+      color: var(--vp-code-tab-active-text-color);
+    }
+
+    .sl-markdown-content starlight-tabs [role='tab']:hover::after,
+    .sl-markdown-content starlight-tabs [role='tab']:focus-visible::after,
+    .sl-markdown-content starlight-tabs [role='tab'][aria-selected='true']::after {
+      background-color: var(--brand);
+    }
+
+    .sl-markdown-content starlight-tabs [role='tab'][aria-selected='true'] {
+      color: var(--vp-code-tab-active-text-color);
+    }
+
+    .sl-markdown-content starlight-tabs .tablist-wrapper ~ [role='tabpanel'],
+    .sl-markdown-content starlight-tabs [role='tabpanel'] {
+      border: 0;
+      border-radius: 0;
+      margin-top: 0;
+      padding: 0;
+    }
+
+    .sl-markdown-content starlight-tabs [role='tabpanel'] > .expressive-code .frame {
+      border-start-end-radius: 0 !important;
+      border-start-start-radius: 0 !important;
     }
   }
 </style>

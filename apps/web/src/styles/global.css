@@ -4,6 +4,7 @@
 @layer base {
   :root {
     --font-sans: 'Onest', system-ui, sans-serif;
+    --code-font-stack: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
     --radius: 4px;
 
     /* Slate Neutrals */

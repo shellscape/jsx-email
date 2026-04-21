@@ -72,6 +72,12 @@ export default defineConfig({
       ],
       expressiveCode: {
         themes: ['one-light', 'slack-dark'],
+        styleOverrides: {
+          codeFontFamily: 'SFMono-Regular, Consolas, Menlo, Monaco, monospace',
+          codeFontSize: '14px',
+          codePaddingBlock: '20px',
+          codePaddingInline: '24px'
+        },
         frames: {
           extractFileNameFromCode: false
         }
