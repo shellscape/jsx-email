@@ -87,26 +87,22 @@
       justify-content: center;
       gap: 0.375rem;
       padding: 0.375rem;
-      color: rgb(107 114 128);
+      border-radius: var(--radius);
+      color: var(--text-subtle);
       text-decoration: none;
+      transition: color 150ms;
     }
 
-    .docs-social-link:hover {
-      color: rgb(55 65 81);
-    }
-
-    :global([data-theme='dark']) .docs-social-link {
-      color: rgb(156 163 175);
-    }
-
-    :global([data-theme='dark']) .docs-social-link:hover {
-      color: rgb(229 231 235);
+    .docs-social-link:hover,
+    .docs-social-link:focus-visible {
+      color: var(--link-accent-hover);
     }
 
     .docs-github-stars {
       font-size: 0.75rem;
       font-weight: 500;
       line-height: 1rem;
+      color: var(--vp-code-tab-text-color);
     }
   }
 </style>

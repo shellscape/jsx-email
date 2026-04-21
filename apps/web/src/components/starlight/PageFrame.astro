@@ -18,3 +18,160 @@ import SiteFooter from './SiteFooter.astro';
   </script>
   <SiteFooter />
 </div>
+
+<style is:global>
+  @layer starlight.core {
+    .page > header.header {
+      border-bottom-color: transparent;
+    }
+
+    .content-panel + .content-panel {
+      border-top: 0;
+    }
+
+    @media (min-width: 50rem) {
+      .sidebar-pane {
+        border-inline-end: 0;
+      }
+    }
+
+    @media (min-width: 72rem) {
+      .right-sidebar {
+        border-inline-start: 0;
+      }
+    }
+
+    .sl-markdown-content a:not(:where(.not-content *)) {
+      color: var(--link-accent);
+      text-decoration: none;
+      transition: color 150ms;
+    }
+
+    .sl-markdown-content a:hover:not(:where(.not-content *)),
+    .sl-markdown-content a:focus-visible:not(:where(.not-content *)) {
+      color: var(--link-accent-hover);
+    }
+
+    .sl-markdown-content code:not(:where(pre *, .not-content *)) {
+      background-color: var(--plain-inline-code-bg);
+      border: 0;
+      border-radius: 4px;
+      color: var(--plain-inline-code-text);
+      display: inline-block;
+      margin-block: 0;
+      padding: 3px 6px;
+      font-size: 0.81em;
+      font-weight: 300;
+    }
+
+    .sl-markdown-content .starlight-aside--tip code:not(:where(pre *, .not-content *)) {
+      background-color: var(--blue-hover);
+      color: var(--surface-raised);
+    }
+
+    .sl-markdown-content .starlight-aside--note code:not(:where(pre *, .not-content *)) {
+      background-color: var(--info-inline-code-bg);
+      color: var(--text);
+    }
+
+    .sl-markdown-content .starlight-aside--caution code:not(:where(pre *, .not-content *)),
+    .sl-markdown-content .starlight-aside--danger code:not(:where(pre *, .not-content *)) {
+      background-color: var(--warn-inline-code-bg);
+      color: var(--warn-inline-code-text);
+    }
+
+    .sl-markdown-content pre:not(:where(.not-content *)),
+    .sl-markdown-content .expressive-code .frame,
+    .sl-markdown-content .expressive-code .frame pre {
+      background-color: var(--code-block-bg) !important;
+    }
+
+    .sl-markdown-content pre:not(:where(.not-content *)) {
+      border: 0;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      line-height: 1.7;
+    }
+
+    .sl-markdown-content .expressive-code .frame {
+      border: 0 !important;
+      border-radius: var(--radius) !important;
+      box-shadow: none !important;
+    }
+
+    .sl-markdown-content .expressive-code .frame .header {
+      border: 0 !important;
+      background-color: transparent !important;
+    }
+
+    .sidebar-content ul ul li {
+      border-inline-start: 0;
+      margin-inline-start: 0;
+      padding-inline-start: 0;
+    }
+
+    .sidebar-content a {
+      position: relative;
+      border-radius: 0;
+      color: var(--vp-code-tab-text-color);
+      padding-inline-start: 18px;
+      text-decoration: none;
+      transition: color 250ms;
+      font-weight: 400;
+    }
+
+    .sidebar-content a::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0.45rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background-color: var(--sidebar-marker-bg);
+      opacity: 0;
+      transition: opacity 250ms;
+    }
+
+    .sidebar-content a:hover,
+    .sidebar-content a:focus-visible {
+      color: var(--link-accent-hover);
+    }
+
+    .sidebar-content a:hover::before,
+    .sidebar-content a:focus-visible::before,
+    .sidebar-content a[aria-current='page']::before {
+      opacity: 1;
+    }
+
+    .sidebar-content a[aria-current='page'],
+    .sidebar-content a[aria-current='page']:hover,
+    .sidebar-content a[aria-current='page']:focus-visible {
+      background-color: transparent;
+      color: var(--link-accent-hover);
+      font-weight: 400;
+    }
+
+    .sidebar-content .group-label .large,
+    .sidebar-content summary .large {
+      color: var(--text);
+      font-weight: 300;
+      transition: color 150ms;
+    }
+
+    .sidebar-content summary:hover .large,
+    .sidebar-content summary:focus-visible .large {
+      color: var(--link-accent-hover);
+    }
+
+    .sidebar-content .caret {
+      color: var(--vp-code-tab-text-color);
+      transition: color 250ms, transform 0.2s ease-in-out;
+    }
+
+    .sidebar-content summary:hover .caret,
+    .sidebar-content summary:focus-visible .caret {
+      color: var(--link-accent-hover);
+    }
+  }
+</style>
