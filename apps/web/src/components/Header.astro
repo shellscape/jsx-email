@@ -3,7 +3,7 @@ import logo from '../assets/logo.svg';
 ---
 
 <header
-  class="fixed top-0 left-0 w-full z-50 bg-white/90 dark:bg-black/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800"
+  class="fixed top-0 left-0 w-full z-50 bg-docs-bg/90 text-docs-text backdrop-blur-sm border-b border-docs-border"
 >
   <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
     <!-- Logo -->
@@ -19,19 +19,19 @@ import logo from '../assets/logo.svg';
     <nav class="hidden lg:flex items-center space-x-6">
       <a
         href="/getting-started/introduction"
-        class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300"
+        class="text-sm font-medium hover:text-[var(--link-accent)]"
       >
         Documentation
       </a>
       <a
         href="/components/background"
-        class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300"
+        class="text-sm font-medium hover:text-[var(--link-accent)]"
       >
         Components
       </a>
       <a
         href="/blocks"
-        class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300"
+        class="text-sm font-medium hover:text-[var(--link-accent)]"
       >
         Blocks
       </a>
@@ -39,7 +39,7 @@ import logo from '../assets/logo.svg';
         href="http://samples.jsx.email"
         target="_blank"
         rel="noreferrer"
-        class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300"
+        class="text-sm font-medium hover:text-[var(--link-accent)]"
       >
         Samples
         <svg
@@ -57,7 +57,7 @@ import logo from '../assets/logo.svg';
         href="https://pro.jsx.email"
         target="_blank"
         rel="noreferrer"
-        class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300"
+        class="text-sm font-medium hover:text-[var(--link-accent)]"
       >
         Pro Templates
         <svg
@@ -79,7 +79,7 @@ import logo from '../assets/logo.svg';
       <button
         id="theme-toggle"
         type="button"
-        class="flex items-center justify-center p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 focus:outline-none"
+        class="flex items-center justify-center p-1.5 rounded text-docs-text-subtle hover:text-docs-text-strong hover:bg-docs-surface focus:outline-none"
         aria-label="Toggle dark mode"
       >
         <!-- Sun icon (shown in dark mode) -->
@@ -111,7 +111,7 @@ import logo from '../assets/logo.svg';
           href="https://discord.gg/FywZN57mTg"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center justify-center p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          class="flex items-center justify-center p-1.5 text-docs-text-subtle hover:text-docs-text-strong"
         >
           <svg
             width="20"
@@ -119,7 +119,7 @@ import logo from '../assets/logo.svg';
             viewBox="0 0 71 55"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="text-gray-500 flex-shrink-0"
+            class="flex-shrink-0"
           >
             <g clip-path="url(#clip0)">
               <path
@@ -138,7 +138,7 @@ import logo from '../assets/logo.svg';
           target="_blank"
           rel="noopener noreferrer"
           id="github-star-button"
-          class="flex items-center justify-center gap-1.5 p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          class="flex items-center justify-center gap-1.5 p-1.5 text-docs-text-subtle hover:text-docs-text-strong"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@ import logo from '../assets/logo.svg';
       <button
         id="mobile-menu-toggle"
         type="button"
-        class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+        class="lg:hidden inline-flex items-center justify-center p-2 rounded text-docs-text-subtle hover:text-docs-text-strong hover:bg-docs-surface focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-docs-bg focus:ring-docs-border"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >
@@ -204,23 +204,23 @@ import logo from '../assets/logo.svg';
   <!-- Mobile menu -->
   <div class="lg:hidden hidden" id="mobile-menu">
     <div
-      class="px-4 py-3 space-y-4 border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-black/95 backdrop-blur-sm"
+      class="px-4 py-3 space-y-4 border-t border-docs-border bg-docs-bg/95 backdrop-blur-sm"
     >
       <a
         href="/introduction"
-        class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2"
+        class="block text-base font-medium hover:text-[var(--link-accent)] py-2"
       >
         Documentation
       </a>
       <a
         href="/components"
-        class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2"
+        class="block text-base font-medium hover:text-[var(--link-accent)] py-2"
       >
         Components
       </a>
       <a
         href="/blocks"
-        class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2"
+        class="block text-base font-medium hover:text-[var(--link-accent)] py-2"
       >
         Blocks
       </a>
@@ -228,7 +228,7 @@ import logo from '../assets/logo.svg';
         href="http://samples.jsx.email"
         target="_blank"
         rel="noreferrer"
-        class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2"
+        class="block text-base font-medium hover:text-[var(--link-accent)] py-2"
       >
         Samples
         <svg
@@ -244,7 +244,7 @@ import logo from '../assets/logo.svg';
       </a>
       <a
         href="/pro-templates"
-        class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2"
+        class="block text-base font-medium hover:text-[var(--link-accent)] py-2"
       >
         Pro Templates
         <svg

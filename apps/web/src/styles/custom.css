@@ -2,21 +2,42 @@
 
 /* Color theme customization */
 :root[data-theme='light'] {
-  --sl-color-text-accent: #000000 !important;
-  --sl-color-bg-nav: #ffffff !important;
-  --sl-color-bg-sidebar: #f2f2f2 !important;
-  --sl-color-bg: #f2f2f2 !important;
-  --sl-color-hairline-shade: #cecece !important;
+  --sl-color-text: var(--text) !important;
+  --sl-color-white: var(--text-strong) !important;
+  --sl-color-gray-1: var(--text-strong) !important;
+  --sl-color-gray-2: var(--text) !important;
+  --sl-color-gray-3: var(--text-subtle) !important;
+  --sl-color-text-accent: var(--link-accent) !important;
+  --sl-color-accent: var(--brand) !important;
+  --sl-color-accent-high: var(--brand-active) !important;
+  --sl-color-bg-nav: var(--bg) !important;
+  --sl-color-bg-sidebar: var(--surface) !important;
+  --sl-color-bg: var(--bg) !important;
+  --sl-color-bg-inline-code: var(--inline-code-bg) !important;
+  --sl-color-bg-accent: var(--brand) !important;
+  --sl-color-hairline: var(--border-soft) !important;
+  --sl-color-hairline-light: var(--border) !important;
+  --sl-color-hairline-shade: var(--border) !important;
 }
 
 /* Dark mode */
 :root[data-theme='dark'] {
-  /* --sl-color-text-accent: #e6e6e6 !important; */
-  /* --sl-color-text-invert: #000000 !important; */
-  --sl-color-bg-nav: #000000 !important;
-  --sl-color-bg-sidebar: #000000 !important;
-  --sl-color-bg: #000000 !important;
-  --sl-color-hairline-shade: #262626 !important;
+  --sl-color-text: var(--text) !important;
+  --sl-color-white: var(--text-strong) !important;
+  --sl-color-gray-1: var(--text-strong) !important;
+  --sl-color-gray-2: var(--text) !important;
+  --sl-color-gray-3: var(--text-subtle) !important;
+  --sl-color-text-accent: var(--link-accent) !important;
+  --sl-color-accent: var(--brand) !important;
+  --sl-color-accent-high: var(--brand-hover) !important;
+  --sl-color-bg-nav: var(--bg) !important;
+  --sl-color-bg-sidebar: var(--surface) !important;
+  --sl-color-bg: var(--bg) !important;
+  --sl-color-bg-inline-code: var(--inline-code-bg) !important;
+  --sl-color-bg-accent: var(--brand) !important;
+  --sl-color-hairline: var(--border-soft) !important;
+  --sl-color-hairline-light: var(--border) !important;
+  --sl-color-hairline-shade: var(--border) !important;
 }
 
 /* Add spacing at the top of the content where the title would normally be */

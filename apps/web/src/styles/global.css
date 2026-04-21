@@ -4,16 +4,211 @@
 @layer base {
   :root {
     --font-sans: 'Onest', system-ui, sans-serif;
+    --radius: 4px;
+
+    /* Slate Neutrals */
+    --slate-0: #1a191a;
+    --slate-1: #2c2a2b;
+    --slate-2: #343233;
+    --slate-3: #3d3a3a;
+    --slate-4: #434c56;
+    --slate-5: #47504e;
+    --slate-6: #565656;
+
+    /* Stone Neutrals */
+    --stone-0: #584b4f;
+    --stone-1: #574c4f;
+    --stone-2: #66595c;
+    --stone-3: #786f63;
+    --stone-4: #8e8373;
+    --stone-5: #949189;
+    --stone-6: #efdab9;
+    --stone-7: #efeae1;
+    --stone-8: #faf6ec;
+    --stone-9: #fdfaf2;
+    --stone-10: #fefdf9;
+
+    /* Teal & Mint Spectrum */
+    --mint-0: #78af9f;
+    --mint-1: #78b0a0;
+    --mint-2: #81c08b;
+    --mint-3: #2aeabd;
+    --mint-4: #45edc6;
+    --mint-5: #61efce;
+
+    /* Ember & Amber Spectrum */
+    --ember-0: #c13f21;
+    --amber-0: #d36e2d;
+    --amber-1: #dda032;
+    --amber-2: #ebac00;
+    --amber-3: #ffc31f;
+    --amber-4: #ffd152;
+
+    /* Signal Blues */
+    --signal-blue-0: #659cc8;
+    --signal-blue-1: #719bc4;
+
+    color-scheme: light;
+    --bg: var(--stone-10);
+    --surface: var(--stone-8);
+    --surface-raised: #f4eee3;
+    --surface-muted: #ece2d4;
+    --border: var(--stone-3);
+    --border-soft: var(--stone-5);
+    --text: var(--stone-1);
+    --text-subtle: var(--stone-2);
+    --text-strong: var(--slate-1);
+    --brand: var(--amber-2);
+    --brand-hover: var(--amber-1);
+    --brand-active: var(--amber-0);
+    --link-accent: var(--brand-active);
+    --link-accent-hover: var(--brand);
+    --dark-bg-border: var(--stone-3);
+    --vp-code-tab-active-text-color: var(--slate-1);
+    --vp-code-tab-text-color: var(--stone-2);
+    --vp-code-tab-divider: rgba(88, 75, 79, 0.22);
+    --install-tabs-bg: var(--stone-7);
+    --code-block-bg: var(--stone-7);
+    --mint: var(--mint-4);
+    --mint-hover: var(--mint-3);
+    --teal: var(--mint-0);
+    --blue: var(--signal-blue-0);
+    --blue-hover: var(--signal-blue-1);
+    --ember: var(--ember-0);
+    --warm: var(--amber-0);
+    --text-strong-border: rgba(26, 25, 26, 0.22);
+    --card-highlight: rgba(255, 255, 255, 0.56);
+    --button-pressed-shadow: rgba(88, 75, 79, 0.2);
+    --button-alt-bg: color-mix(in srgb, var(--mint-1) 45%, white);
+    --button-alt-border: var(--button-alt-bg);
+    --button-alt-fg: var(--slate-5);
+    --button-alt-hover-bg: var(--mint-2);
+    --button-alt-hover-border: var(--mint-2);
+    --button-alt-hover-fg: var(--slate-3);
+    --button-info-fg: var(--slate-0);
+    --brand-button-fg: var(--slate-3);
+    --ghost-hover-bg: rgba(101, 156, 200, 0.14);
+    --sidebar-marker-bg: rgba(88, 75, 79, 0.26);
+    --chip-bg: rgb(142 131 115 / 16%);
+    --chip-bg-hover: rgb(142 131 115 / 30%);
+    --chip-border-color: var(--stone-3);
+    --preview-text-hover: var(--slate-0);
+    --preview-icon: var(--stone-2);
+    --mode-card-border: var(--stone-7);
+    --send-trigger-bg: var(--stone-7);
+    --select-surface: var(--stone-7);
+    --select-text: var(--stone-1);
+    --select-hover-bg: rgba(88, 75, 79, 0.08);
+    --tree-line: rgba(120, 111, 99, 0.45);
+    --tree-active-bg: rgba(120, 176, 160, 0.18);
+    --tree-active-line: var(--mint-0);
+    --tree-current-text: var(--signal-blue-0);
+    --pill-mint-bg: rgba(97, 239, 206, 0.26);
+    --pill-blue-bg: rgba(101, 156, 200, 0.26);
+    --lang-badge-bg: rgba(88, 75, 79, 0.12);
+    --lang-badge-border: rgba(88, 75, 79, 0.38);
+    --inline-code-bg: rgba(88, 75, 79, 0.12);
+    --inline-code-border: rgba(88, 75, 79, 0.18);
+    --code-lang-label: rgba(88, 75, 79, 0.65);
+    --plain-inline-code-bg: rgba(101, 117, 133, 0.12);
+    --plain-inline-code-text: var(--slate-4);
+    --warn-inline-code-bg: rgba(211, 110, 45, 0.2);
+    --warn-inline-code-text: var(--ember-0);
+    --info-inline-code-bg: rgba(101, 156, 200, 0.14);
+  }
+
+  :root.dark,
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --bg: var(--slate-0);
+    --surface: var(--slate-1);
+    --surface-raised: var(--slate-2);
+    --surface-muted: var(--slate-3);
+    --border: var(--slate-4);
+    --border-soft: var(--slate-6);
+    --text: var(--stone-6);
+    --text-subtle: var(--stone-4);
+    --text-strong: var(--stone-8);
+    --brand: var(--amber-4);
+    --brand-hover: var(--amber-3);
+    --brand-active: var(--amber-2);
+    --link-accent: var(--brand);
+    --link-accent-hover: var(--brand-active);
+    --dark-bg-border: var(--slate-0);
+    --vp-code-tab-active-text-color: var(--stone-8);
+    --vp-code-tab-text-color: var(--stone-4);
+    --vp-code-tab-divider: #00000033;
+    --install-tabs-bg: var(--slate-1);
+    --code-block-bg: var(--slate-1);
+    --mint: var(--mint-5);
+    --mint-hover: var(--mint-4);
+    --teal: var(--mint-1);
+    --blue: var(--signal-blue-0);
+    --blue-hover: var(--signal-blue-1);
+    --ember: var(--ember-0);
+    --warm: var(--amber-0);
+    --text-strong-border: rgba(250, 246, 236, 0.35);
+    --card-highlight: rgba(250, 246, 236, 0.02);
+    --button-pressed-shadow: rgba(26, 25, 26, 0.45);
+    --button-alt-bg: var(--slate-5);
+    --button-alt-border: var(--border-soft);
+    --button-alt-fg: var(--teal);
+    --button-alt-hover-bg: var(--mint);
+    --button-alt-hover-border: var(--mint);
+    --button-alt-hover-fg: var(--surface-raised);
+    --button-info-fg: #101417;
+    --brand-button-fg: var(--surface-raised);
+    --ghost-hover-bg: rgba(101, 156, 200, 0.16);
+    --sidebar-marker-bg: rgba(120, 111, 99, 0.2);
+    --chip-bg: rgb(142 131 115 / 20%);
+    --chip-bg-hover: rgb(142 131 115 / 50%);
+    --chip-border-color: var(--stone-4);
+    --preview-text-hover: #f3f5f7;
+    --preview-icon: #9ba1aa;
+    --mode-card-border: var(--slate-1);
+    --send-trigger-bg: var(--surface);
+    --select-surface: var(--stone-7);
+    --select-text: var(--stone-1);
+    --select-hover-bg: rgba(88, 75, 79, 0.12);
+    --tree-line: rgba(86, 86, 86, 0.75);
+    --tree-active-bg: rgba(120, 176, 160, 0.3);
+    --tree-active-line: var(--mint);
+    --tree-current-text: rgba(126, 231, 255, 0.92);
+    --pill-mint-bg: rgba(97, 239, 206, 0.22);
+    --pill-blue-bg: rgba(101, 156, 200, 0.23);
+    --lang-badge-bg: rgba(101, 156, 200, 0.28);
+    --lang-badge-border: rgba(101, 156, 200, 0.65);
+    --inline-code-bg: rgba(67, 76, 86, 0.32);
+    --inline-code-border: rgba(120, 176, 160, 0.28);
+    --code-lang-label: rgba(239, 218, 185, 0.45);
+    --plain-inline-code-bg: #65758529;
+    --plain-inline-code-text: #9cdcfe;
+    --warn-inline-code-bg: rgba(234, 179, 8, 0.16);
+    --warn-inline-code-text: #f9b44e;
+    --info-inline-code-bg: rgba(101, 117, 133, 0.16);
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: light dark;
   }
 
   body {
     font-family: 'Onest', system-ui, sans-serif;
-    @apply antialiased bg-white text-black dark:bg-black dark:text-white;
+    @apply bg-docs-bg text-docs-text antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong {
+    @apply text-docs-text-strong;
+  }
+
+  a {
+    @apply text-current;
   }
 }
 

@@ -10,17 +10,17 @@ const { name, renderedHtml, code, id } = Astro.props;
 ---
 
 <div
-  class="pattern-card border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden mb-8 bg-white dark:bg-gray-900"
+  class="pattern-card border border-docs-border rounded overflow-hidden mb-8 bg-docs-surface"
 >
   <!-- Header with title and tabs -->
   <div
-    class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2"
+    class="flex items-center justify-between border-b border-docs-border bg-docs-surface-raised px-4 py-2"
   >
-    <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-sm">{name}</h3>
+    <h3 class="font-semibold text-docs-text-strong text-sm">{name}</h3>
 
-    <div class="tabs flex gap-1 bg-gray-200 dark:bg-gray-700 rounded-md p-1">
+    <div class="tabs flex gap-1 bg-[var(--surface-muted)] rounded p-1">
       <button
-        class="tab-btn px-3 py-1 text-xs font-medium rounded transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white data-[active=true]:bg-white dark:data-[active=true]:bg-gray-600 data-[active=true]:text-gray-900 dark:data-[active=true]:text-white"
+        class="tab-btn px-3 py-1 text-xs font-medium rounded transition-colors text-docs-text-subtle hover:text-docs-text-strong data-[active=true]:bg-docs-bg data-[active=true]:text-docs-text-strong"
         data-tab="preview"
         data-target={`${id}-preview`}
         data-active="true"
@@ -28,7 +28,7 @@ const { name, renderedHtml, code, id } = Astro.props;
         Preview
       </button>
       <button
-        class="tab-btn px-3 py-1 text-xs font-medium rounded transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white data-[active=true]:bg-white dark:data-[active=true]:bg-gray-600 data-[active=true]:text-gray-900 dark:data-[active=true]:text-white"
+        class="tab-btn px-3 py-1 text-xs font-medium rounded transition-colors text-docs-text-subtle hover:text-docs-text-strong data-[active=true]:bg-docs-bg data-[active=true]:text-docs-text-strong"
         data-tab="code"
         data-target={`${id}-code`}
         data-active="false"
@@ -39,7 +39,7 @@ const { name, renderedHtml, code, id } = Astro.props;
   </div>
 
   <!-- Preview Panel -->
-  <div id={`${id}-preview`} class="tab-panel p-6 bg-white dark:bg-gray-900" data-visible="true">
+  <div id={`${id}-preview`} class="tab-panel p-6 bg-docs-surface-raised" data-visible="true">
     <iframe
       srcdoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
       class="border-0 w-full bg-white rounded"
@@ -50,13 +50,13 @@ const { name, renderedHtml, code, id } = Astro.props;
   <!-- Code Panel -->
   <div id={`${id}-code`} class="tab-panel hidden relative" data-visible="false">
     <button
-      class="copy-btn absolute top-2 right-2 z-10 px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
+      class="copy-btn absolute top-2 right-2 z-10 px-3 py-1 text-xs bg-docs-brand text-[var(--brand-button-fg)] rounded transition-colors hover:bg-docs-brand"
       data-code={code}
     >
       Copy
     </button>
     <pre
-      class="p-4 bg-gray-900 text-gray-100 text-sm overflow-auto max-h-[400px] m-0"><code>{code}</code></pre>
+      class="p-4 bg-[var(--code-block-bg)] text-docs-text-strong text-sm overflow-auto max-h-[400px] m-0"><code>{code}</code></pre>
   </div>
 </div>
 

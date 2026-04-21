@@ -25,20 +25,20 @@ export function BlockPreview({
   };
 
   return (
-    <div className="block-preview border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden mb-8 bg-white dark:bg-black">
+    <div className="block-preview border border-docs-border rounded overflow-hidden mb-8 bg-docs-surface">
       <Tabs.Root defaultValue="preview" className="flex flex-col">
-        <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-2">
-          <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-sm">{name}</h3>
-          <Tabs.List className="flex gap-1 bg-gray-200 dark:bg-gray-700 rounded-md p-1">
+        <div className="flex items-center justify-between border-b border-docs-border bg-docs-surface-raised px-4 py-2">
+          <h3 className="font-semibold text-docs-text-strong text-sm">{name}</h3>
+          <Tabs.List className="flex gap-1 bg-[var(--surface-muted)] rounded p-1">
             <Tabs.Trigger
               value="preview"
-              className="px-3 py-1 text-xs font-medium rounded transition-colors data-[state=active]:bg-white dark:data-[state=active]:bg-gray-600 data-[state=active]:text-gray-900 dark:data-[state=active]:text-white text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              className="px-3 py-1 text-xs font-medium rounded transition-colors data-[state=active]:bg-docs-bg data-[state=active]:text-docs-text-strong text-docs-text-subtle hover:text-docs-text-strong"
             >
               Preview
             </Tabs.Trigger>
             <Tabs.Trigger
               value="code"
-              className="px-3 py-1 text-xs font-medium rounded transition-colors data-[state=active]:bg-white dark:data-[state=active]:bg-gray-600 data-[state=active]:text-gray-900 dark:data-[state=active]:text-white text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              className="px-3 py-1 text-xs font-medium rounded transition-colors data-[state=active]:bg-docs-bg data-[state=active]:text-docs-text-strong text-docs-text-subtle hover:text-docs-text-strong"
             >
               Code
             </Tabs.Trigger>
@@ -46,7 +46,7 @@ export function BlockPreview({
         </div>
 
         <div style={{ height }}>
-          <Tabs.Content value="preview" className="p-6 bg-white dark:bg-gray-900 h-full">
+          <Tabs.Content value="preview" className="p-6 bg-docs-surface-raised h-full">
             <iframe
               srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
               className="border-0 w-full h-full bg-white rounded"
@@ -57,7 +57,7 @@ export function BlockPreview({
           <Tabs.Content value="code" className="relative h-full bg-[#24292e]">
             <button
               onClick={copyCode}
-              className="absolute top-2 right-2 z-10 px-3 py-1 text-xs bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
+              className="absolute top-2 right-2 z-10 px-3 py-1 text-xs bg-docs-brand text-[var(--brand-button-fg)] rounded transition-colors hover:bg-docs-brand"
             >
               {copied ? 'Copied!' : 'Copy'}
             </button>

@@ -58,24 +58,15 @@
       height: 2rem;
       padding: 0.375rem;
       border: 0;
-      border-radius: 0.375rem;
+      border-radius: var(--radius);
       background-color: transparent;
-      color: rgb(107 114 128);
+      color: var(--text-subtle);
       cursor: pointer;
     }
 
     [data-docs-theme-toggle]:hover {
-      background-color: rgb(243 244 246);
-      color: rgb(55 65 81);
-    }
-
-    :global([data-theme='dark']) [data-docs-theme-toggle] {
-      color: rgb(156 163 175);
-    }
-
-    :global([data-theme='dark']) [data-docs-theme-toggle]:hover {
-      background-color: rgb(31 41 55);
-      color: rgb(209 213 219);
+      background-color: var(--surface);
+      color: var(--text-strong);
     }
 
     .docs-theme-icon {

@@ -82,8 +82,8 @@ const shouldRenderSearch =
     }
 
     .page > header.header {
-      background-color: rgb(255 255 255 / 0.9);
-      border-bottom-color: rgb(229 231 235);
+      background-color: color-mix(in srgb, var(--bg) 90%, transparent);
+      border-bottom-color: var(--border);
       padding: 1rem;
       padding-inline-end: calc(1rem + var(--sl-menu-button-size) + 1rem);
       -webkit-backdrop-filter: blur(4px);
@@ -92,11 +92,6 @@ const shouldRenderSearch =
 
     [data-has-sidebar] .page > header.header {
       padding-inline-end: calc(1rem + var(--sl-menu-button-size) + 1rem);
-    }
-
-    [data-theme='dark'] .page > header.header {
-      background-color: rgb(0 0 0 / 0.9);
-      border-bottom-color: rgb(31 41 55);
     }
 
     .page > header.header .site-title img {
@@ -116,63 +111,36 @@ const shouldRenderSearch =
     }
 
     .page > header.header button[data-open-modal] {
-      color: rgb(107 114 128);
+      color: var(--text-subtle);
     }
 
     .page > header.header button[data-open-modal]:hover {
-      color: rgb(55 65 81);
-    }
-
-    [data-theme='dark'] .page > header.header button[data-open-modal] {
-      color: rgb(156 163 175);
-    }
-
-    [data-theme='dark'] .page > header.header button[data-open-modal]:hover {
-      color: rgb(209 213 219);
+      color: var(--text-strong);
     }
 
     @media (min-width: 50rem) {
       .page > header.header button[data-open-modal] {
         background-color: transparent;
-        border-color: rgb(209 213 219);
-        border-radius: 0.375rem;
+        border-color: var(--border);
+        border-radius: var(--radius);
       }
 
       .page > header.header button[data-open-modal]:hover {
-        background-color: rgb(243 244 246);
-        border-color: rgb(156 163 175);
-      }
-
-      [data-theme='dark'] .page > header.header button[data-open-modal] {
-        border-color: rgb(55 65 81);
-      }
-
-      [data-theme='dark'] .page > header.header button[data-open-modal]:hover {
-        background-color: rgb(31 41 55);
-        border-color: rgb(75 85 99);
+        background-color: var(--surface);
+        border-color: var(--border-soft);
       }
     }
 
     starlight-menu-button button {
-      border-radius: 0.375rem;
+      border-radius: var(--radius);
       background-color: transparent;
-      color: rgb(107 114 128);
+      color: var(--text-subtle);
       box-shadow: none;
     }
 
     starlight-menu-button button:hover {
-      background-color: rgb(243 244 246);
-      color: rgb(55 65 81);
-    }
-
-    [data-theme='dark'] starlight-menu-button button {
-      background-color: transparent;
-      color: rgb(156 163 175);
-    }
-
-    [data-theme='dark'] starlight-menu-button button:hover {
-      background-color: rgb(31 41 55);
-      color: rgb(209 213 219);
+      background-color: var(--surface);
+      color: var(--text-strong);
     }
   }
 </style>

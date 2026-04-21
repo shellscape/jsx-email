@@ -8,6 +8,26 @@ export default {
       sans: ['Onest', 'system-ui', 'sans-serif']
     },
     extend: {
+      colors: {
+        'docs-bg': 'var(--bg)',
+        'docs-surface': 'var(--surface)',
+        'docs-surface-raised': 'var(--surface-raised)',
+        'docs-border': 'var(--border)',
+        'docs-border-soft': 'var(--border-soft)',
+        'docs-text': 'var(--text)',
+        'docs-text-subtle': 'var(--text-subtle)',
+        'docs-text-strong': 'var(--text-strong)',
+        'docs-brand': 'var(--brand)'
+      },
+      borderRadius: {
+        DEFAULT: 'var(--radius)',
+        sm: 'var(--radius)',
+        md: 'var(--radius)',
+        lg: 'var(--radius)',
+        xl: 'var(--radius)',
+        '2xl': 'var(--radius)',
+        '3xl': 'var(--radius)'
+      },
       container: {
         center: true,
         padding: {
