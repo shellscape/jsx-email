@@ -140,8 +140,9 @@
 
         --bubble-warning-border: transparent;
         --bubble-warning-text: var(--text);
-        --bubble-warning-bg: rgba(234, 179, 8, 0.16);
+        --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 50%, transparent);
         --bubble-warning-code-bg: rgba(234, 179, 8, 0.16);
+        --bubble-warning-code-text: var(--bubble-warning-accent);
         --bubble-warning-accent: #f9b44e;
         --bubble-warning-accent-hover: #da8b17;
 
@@ -149,11 +150,12 @@
         --bubble-info-text: var(--text);
         --bubble-info-bg: rgba(101, 117, 133, 0.16);
         --bubble-info-code-bg: rgba(101, 117, 133, 0.16);
+        --bubble-info-code-text: var(--bubble-info-accent);
         --bubble-info-accent: var(--brand);
         --bubble-info-accent-hover: var(--brand-active);
 
         --bubble-tip-border: transparent;
-        --bubble-tip-text: var(--blue-hover);
+        --bubble-tip-text: var(--button-alt-fg);
         --bubble-tip-bg: var(--slate-4);
         --bubble-tip-code-bg: var(--blue-hover);
         --bubble-tip-code-text: var(--slate-2);
@@ -249,6 +251,15 @@
         color: var(--bubble-warning-accent);
       }
 
+      .info-bubble--warning code {
+        color: var(--bubble-warning-code-text);
+      }
+
+      .mode-preview--light .info-bubble--warning a {
+        font-weight: inherit;
+        text-decoration: none;
+      }
+
       .info-bubble--warning a:hover {
         color: var(--bubble-warning-accent-hover);
       }
@@ -268,6 +279,15 @@
         color: var(--bubble-info-accent);
       }
 
+      .info-bubble--info code {
+        color: var(--bubble-info-code-text);
+      }
+
+      .mode-preview--light .info-bubble--info a {
+        font-weight: inherit;
+        text-decoration: none;
+      }
+
       .info-bubble--info a:hover {
         color: var(--bubble-info-accent-hover);
       }
@@ -284,6 +304,11 @@
 
       .info-bubble--tip a {
         color: var(--bubble-tip-accent);
+      }
+
+      .mode-preview--light .info-bubble--tip a {
+        font-weight: inherit;
+        text-decoration: none;
       }
 
       .info-bubble--tip a:hover {
@@ -424,8 +449,9 @@
         --info-inline-code-bg: rgba(101, 156, 200, 0.14);
 
         --bubble-warning-text: var(--text);
-        --bubble-warning-bg: var(--warn-inline-code-bg);
+        --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 50%, transparent);
         --bubble-warning-code-bg: var(--warn-inline-code-bg);
+        --bubble-warning-code-text: var(--amber-0);
         --bubble-warning-accent: var(--warn-inline-code-text);
         --bubble-warning-accent-hover: color-mix(
           in srgb,
@@ -436,13 +462,14 @@
         --bubble-info-text: var(--text);
         --bubble-info-bg: var(--info-inline-code-bg);
         --bubble-info-code-bg: var(--info-inline-code-bg);
+        --bubble-info-code-text: var(--slate-4);
         --bubble-info-accent: var(--link-accent);
         --bubble-info-accent-hover: var(--link-accent-hover);
 
-        --bubble-tip-text: var(--blue-hover);
-        --bubble-tip-bg: color-mix(in srgb, var(--blue-hover) 24%, var(--stone-8));
-        --bubble-tip-code-bg: color-mix(in srgb, var(--blue-hover) 72%, var(--stone-9));
-        --bubble-tip-code-text: var(--slate-2);
+        --bubble-tip-text: var(--button-alt-fg);
+        --bubble-tip-bg: color-mix(in srgb, var(--mint-0) 25%, transparent);
+        --bubble-tip-code-bg: color-mix(in srgb, var(--mint-0) 25%, transparent);
+        --bubble-tip-code-text: var(--slate-5);
         --bubble-tip-accent: var(--link-accent);
         --bubble-tip-accent-hover: var(--link-accent-hover);
       }
@@ -521,14 +548,16 @@
         --info-inline-code-bg: rgba(101, 117, 133, 0.16);
 
         --bubble-warning-text: var(--text);
-        --bubble-warning-bg: var(--warn-inline-code-bg);
+        --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 50%, transparent);
         --bubble-warning-code-bg: var(--warn-inline-code-bg);
+        --bubble-warning-code-text: var(--bubble-warning-accent);
         --bubble-warning-accent: var(--warn-inline-code-text);
         --bubble-warning-accent-hover: #da8b17;
 
         --bubble-info-text: var(--text);
         --bubble-info-bg: var(--info-inline-code-bg);
         --bubble-info-code-bg: var(--info-inline-code-bg);
+        --bubble-info-code-text: var(--bubble-info-accent);
         --bubble-info-accent: var(--brand);
         --bubble-info-accent-hover: var(--brand-active);
 
@@ -2230,7 +2259,10 @@
         return (
           <div className="grid gap-3">
             <div className="grid gap-1.5">
-              <code className="inline w-fit">::: warning</code>
+              <div className="flex flex-wrap gap-2">
+                <code className="inline w-fit">::: warning</code>
+                <code className="inline w-fit">::: caution</code>
+              </div>
               <div className="info-bubble info-bubble--warning">
                 <p className="info-bubble__title">WARNING</p>
                 <p>
@@ -2245,7 +2277,10 @@
             </div>
 
             <div className="grid gap-1.5">
-              <code className="inline w-fit">::: info</code>
+              <div className="flex flex-wrap gap-2">
+                <code className="inline w-fit">::: info</code>
+                <code className="inline w-fit">::: note</code>
+              </div>
               <div className="info-bubble info-bubble--info">
                 <p className="info-bubble__title">INFO</p>
                 <p>
@@ -2459,7 +2494,7 @@ export const Welcome = () => (
               </p>
               <p className="mt-2 text-xs text-docs-text-subtle">
                 Tip-block inline code style:{" "}
-                <code className="inline-block rounded-[4px] bg-[var(--blue-hover)] px-[6px] py-[3px] font-mono font-light text-docs-surface-raised">
+                <code className="inline-block rounded-[4px] bg-[var(--bubble-tip-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--bubble-tip-code-text)]">
                   pnpm add jsx-email
                 </code>
               </p>
@@ -2479,11 +2514,6 @@ export const Welcome = () => (
 
             <Card title="Informational Bubbles" className="lg:col-span-2">
               <InformationalBubblesShowcase />
-              <p className="mt-2 text-xs text-docs-text-subtle">
-                Mirrors VitePress custom containers for <InlineCode>::: warning</InlineCode>,{" "}
-                <InlineCode>::: info</InlineCode>, and <InlineCode>::: tip</InlineCode> with this
-                board’s light/dark token mappings.
-              </p>
             </Card>
           </section>
         );
