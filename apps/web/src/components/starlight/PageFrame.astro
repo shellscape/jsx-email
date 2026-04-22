@@ -62,8 +62,8 @@ import SiteFooter from './SiteFooter.astro';
     }
 
     .sidebar-content ul ul li {
-      border-inline-start: 0;
-      margin-inline-start: 0;
+      border-inline-start: 1px solid var(--tree-line);
+      margin-inline-start: 0.6rem;
       padding-inline-start: 0;
     }
 
@@ -71,7 +71,7 @@ import SiteFooter from './SiteFooter.astro';
       position: relative;
       border-radius: 0;
       color: var(--vp-code-tab-text-color);
-      padding-inline-start: 18px;
+      padding-inline-start: 14px;
       text-decoration: none;
       transition: color 250ms;
       font-weight: 400;
@@ -80,13 +80,16 @@ import SiteFooter from './SiteFooter.astro';
     .sidebar-content a::before {
       content: '';
       position: absolute;
-      inset-inline-start: 0;
-      top: 0.45rem;
-      width: 6px;
-      height: 6px;
+      inset-inline-start: -3px;
+      top: 50%;
+      width: 5px;
+      height: 5px;
       border-radius: 999px;
-      background-color: var(--sidebar-marker-bg);
+      background:
+        radial-gradient(circle, var(--tree-line) 0 60%, transparent 61%),
+        var(--bg);
       opacity: 0;
+      transform: translateY(-50%);
       transition: opacity 250ms;
     }
 
@@ -132,6 +135,159 @@ import SiteFooter from './SiteFooter.astro';
     }
   }
 
+  @layer starlight.components {
+    .starlight-aside {
+      border: 1px solid transparent !important;
+      border-inline-start: 1px solid transparent !important;
+      border-radius: 8px;
+      font-size: var(--bubble-font-size);
+      line-height: 24px;
+      padding: 16px 16px 8px;
+    }
+
+    .starlight-aside p {
+      line-height: 24px;
+      margin: 8px 0;
+    }
+
+    .starlight-aside p:first-child {
+      margin-top: 0;
+    }
+
+    .starlight-aside .starlight-aside__title {
+      font-size: var(--bubble-font-size);
+      font-weight: 600;
+      line-height: 24px;
+      margin: 0;
+    }
+
+    .starlight-aside__title + .starlight-aside__content {
+      margin-top: 8px;
+    }
+
+    .starlight-aside__content > :last-child {
+      margin-bottom: 0;
+    }
+
+    .starlight-aside__icon {
+      display: none;
+    }
+
+    .starlight-aside a {
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 250ms ease;
+    }
+
+    .starlight-aside--tip {
+      background-color: var(--bubble-tip-bg) !important;
+      border-color: var(--bubble-tip-border) !important;
+      color: var(--bubble-tip-text);
+    }
+
+    .starlight-aside--tip .starlight-aside__title {
+      color: var(--bubble-tip-text);
+      display: block;
+      font-size: 0;
+      gap: 0;
+      line-height: 24px;
+    }
+
+    .starlight-aside--tip a {
+      color: var(--bubble-tip-accent);
+    }
+
+    .starlight-aside--tip .starlight-aside__title::after {
+      content: 'TIP';
+      color: var(--bubble-tip-text);
+      font-size: var(--bubble-font-size);
+      line-height: 24px;
+    }
+
+    .starlight-aside--tip a:hover,
+    .starlight-aside--tip a:focus-visible {
+      color: var(--bubble-tip-accent-hover);
+    }
+
+    .starlight-aside--note {
+      background-color: var(--bubble-info-bg) !important;
+      border-color: var(--bubble-info-border) !important;
+      color: var(--bubble-info-text);
+    }
+
+    .starlight-aside--note .starlight-aside__title {
+      color: var(--bubble-info-text);
+    }
+
+    .starlight-aside--note a {
+      color: var(--bubble-info-accent);
+    }
+
+    .starlight-aside--note .starlight-aside__title {
+      display: block;
+      font-size: 0;
+      gap: 0;
+      line-height: 24px;
+    }
+
+    .starlight-aside--note .starlight-aside__title::after {
+      content: 'INFO';
+      color: var(--bubble-info-text) !important;
+      font-size: var(--bubble-font-size);
+      line-height: 24px;
+    }
+
+    .starlight-aside--note a:hover,
+    .starlight-aside--note a:focus-visible {
+      color: var(--bubble-info-accent-hover);
+    }
+
+    .starlight-aside--caution,
+    .starlight-aside--danger {
+      background-color: var(--bubble-warning-bg) !important;
+      border-color: var(--bubble-warning-border) !important;
+      color: var(--bubble-warning-text);
+    }
+
+    .starlight-aside--caution .starlight-aside__title,
+    .starlight-aside--caution a,
+    .starlight-aside--danger .starlight-aside__title,
+    .starlight-aside--danger a {
+      color: var(--bubble-warning-accent);
+    }
+
+    .starlight-aside--caution .starlight-aside__title {
+      color: var(--bubble-warning-text);
+      display: block;
+      font-size: 0;
+      gap: 0;
+      line-height: 24px;
+    }
+
+    .starlight-aside--caution .starlight-aside__title::after {
+      content: 'WARNING';
+      color: var(--bubble-warning-text);
+      font-size: var(--bubble-font-size);
+      line-height: 24px;
+    }
+
+    .starlight-aside--caution a:hover,
+    .starlight-aside--caution a:focus-visible,
+    .starlight-aside--danger a:hover,
+    .starlight-aside--danger a:focus-visible {
+      color: var(--bubble-warning-accent-hover);
+    }
+
+    :root:not([data-theme='dark']) .starlight-aside--tip a,
+    :root:not([data-theme='dark']) .starlight-aside--note a,
+    :root:not([data-theme='dark']) .starlight-aside--caution a,
+    :root:not([data-theme='dark']) .starlight-aside--danger a {
+      font-weight: inherit;
+      text-decoration: none;
+    }
+  }
+
   @layer starlight.content {
     .sl-markdown-content code:not(:where(pre *, .not-content *)) {
       background-color: var(--plain-inline-code-bg);
@@ -146,20 +302,25 @@ import SiteFooter from './SiteFooter.astro';
       padding: 3px 6px;
     }
 
+    .sl-markdown-content .starlight-aside code:not(:where(pre *, .not-content *)) {
+      font-size: var(--bubble-code-font-size);
+      font-weight: 400;
+    }
+
     .sl-markdown-content .starlight-aside--tip code:not(:where(pre *, .not-content *)) {
-      background-color: var(--blue-hover);
-      color: var(--surface-raised);
+      background-color: var(--bubble-tip-code-bg);
+      color: var(--bubble-tip-code-text);
     }
 
     .sl-markdown-content .starlight-aside--note code:not(:where(pre *, .not-content *)) {
-      background-color: var(--info-inline-code-bg);
-      color: var(--text);
+      background-color: var(--bubble-info-code-bg);
+      color: var(--bubble-info-code-text);
     }
 
     .sl-markdown-content .starlight-aside--caution code:not(:where(pre *, .not-content *)),
     .sl-markdown-content .starlight-aside--danger code:not(:where(pre *, .not-content *)) {
-      background-color: var(--warn-inline-code-bg);
-      color: var(--warn-inline-code-text);
+      background-color: var(--bubble-warning-code-bg);
+      color: var(--bubble-warning-code-text);
     }
 
     .sl-markdown-content pre:not(:where(.not-content *)),

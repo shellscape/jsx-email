@@ -116,6 +116,33 @@
     --warn-inline-code-bg: rgba(211, 110, 45, 0.2);
     --warn-inline-code-text: var(--ember-0);
     --info-inline-code-bg: rgba(101, 156, 200, 0.14);
+    --bubble-font-size: 14px;
+    --bubble-code-font-size: 13px;
+    --bubble-warning-border: transparent;
+    --bubble-warning-text: var(--text);
+    --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 50%, transparent);
+    --bubble-warning-code-bg: var(--warn-inline-code-bg);
+    --bubble-warning-code-text: var(--amber-0);
+    --bubble-warning-accent: var(--warn-inline-code-text);
+    --bubble-warning-accent-hover: color-mix(
+      in srgb,
+      var(--warn-inline-code-text) 85%,
+      var(--slate-0)
+    );
+    --bubble-info-border: transparent;
+    --bubble-info-text: var(--text);
+    --bubble-info-bg: var(--info-inline-code-bg);
+    --bubble-info-code-bg: var(--info-inline-code-bg);
+    --bubble-info-code-text: var(--slate-4);
+    --bubble-info-accent: var(--link-accent);
+    --bubble-info-accent-hover: var(--link-accent-hover);
+    --bubble-tip-border: transparent;
+    --bubble-tip-text: var(--button-alt-fg);
+    --bubble-tip-bg: color-mix(in srgb, var(--mint-0) 25%, transparent);
+    --bubble-tip-code-bg: color-mix(in srgb, var(--mint-0) 25%, transparent);
+    --bubble-tip-code-text: var(--slate-5);
+    --bubble-tip-accent: var(--link-accent);
+    --bubble-tip-accent-hover: var(--link-accent-hover);
   }
 
   :root[data-theme='dark'] {
@@ -186,6 +213,29 @@
     --warn-inline-code-bg: rgba(234, 179, 8, 0.16);
     --warn-inline-code-text: #f9b44e;
     --info-inline-code-bg: rgba(101, 117, 133, 0.16);
+    --bubble-font-size: 14px;
+    --bubble-code-font-size: 13px;
+    --bubble-warning-border: transparent;
+    --bubble-warning-text: var(--text);
+    --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 25%, transparent);
+    --bubble-warning-code-bg: var(--warn-inline-code-bg);
+    --bubble-warning-code-text: var(--bubble-warning-accent);
+    --bubble-warning-accent: var(--warn-inline-code-text);
+    --bubble-warning-accent-hover: #da8b17;
+    --bubble-info-border: transparent;
+    --bubble-info-text: var(--blue-hover);
+    --bubble-info-bg: color-mix(in srgb, var(--slate-4) 50%, transparent);
+    --bubble-info-code-bg: var(--blue-hover);
+    --bubble-info-code-text: var(--slate-2);
+    --bubble-info-accent: var(--brand);
+    --bubble-info-accent-hover: var(--brand-active);
+    --bubble-tip-border: transparent;
+    --bubble-tip-text: var(--text);
+    --bubble-tip-bg: color-mix(in srgb, var(--info-inline-code-bg) 50%, transparent);
+    --bubble-tip-code-bg: var(--info-inline-code-bg);
+    --bubble-tip-code-text: var(--bubble-tip-accent);
+    --bubble-tip-accent: var(--brand);
+    --bubble-tip-accent-hover: var(--brand-active);
   }
 
   html {
