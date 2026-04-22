@@ -134,6 +134,33 @@
         --warn-inline-code-bg: rgba(234, 179, 8, 0.16);
         --warn-inline-code-text: #f9b44e;
         --info-inline-code-bg: rgba(101, 117, 133, 0.16);
+
+        --bubble-font-size: 14px;
+        --bubble-code-font-size: 13px;
+
+        --bubble-warning-border: transparent;
+        --bubble-warning-text: var(--text);
+        --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 50%, transparent);
+        --bubble-warning-code-bg: rgba(234, 179, 8, 0.16);
+        --bubble-warning-code-text: var(--bubble-warning-accent);
+        --bubble-warning-accent: #f9b44e;
+        --bubble-warning-accent-hover: #da8b17;
+
+        --bubble-info-border: transparent;
+        --bubble-info-text: var(--text);
+        --bubble-info-bg: rgba(101, 117, 133, 0.16);
+        --bubble-info-code-bg: rgba(101, 117, 133, 0.16);
+        --bubble-info-code-text: var(--bubble-info-accent);
+        --bubble-info-accent: var(--brand);
+        --bubble-info-accent-hover: var(--brand-active);
+
+        --bubble-tip-border: transparent;
+        --bubble-tip-text: var(--button-alt-fg);
+        --bubble-tip-bg: var(--slate-4);
+        --bubble-tip-code-bg: var(--blue-hover);
+        --bubble-tip-code-text: var(--slate-2);
+        --bubble-tip-accent: var(--brand);
+        --bubble-tip-accent-hover: var(--brand-active);
       }
 
       * {
@@ -173,6 +200,124 @@
         font-size: 0.81em;
         font-weight: 300;
         padding: 3px 6px;
+      }
+
+      .info-bubble {
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 16px 16px 8px;
+        font-size: var(--bubble-font-size);
+        line-height: 24px;
+      }
+
+      .info-bubble p {
+        margin: 8px 0;
+        line-height: 24px;
+      }
+
+      .info-bubble p:first-child {
+        margin: 0;
+      }
+
+      .info-bubble .info-bubble__title {
+        font-size: var(--bubble-font-size);
+        font-weight: 600;
+      }
+
+      .info-bubble a {
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 250ms ease;
+      }
+
+      .info-bubble code {
+        border-radius: 4px;
+        display: inline-block;
+        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+        font-size: var(--bubble-code-font-size);
+        font-weight: 400;
+        padding: 3px 6px;
+      }
+
+      .info-bubble--warning {
+        border-color: var(--bubble-warning-border);
+        color: var(--bubble-warning-text);
+        background-color: var(--bubble-warning-bg);
+      }
+
+      .info-bubble--warning a,
+      .info-bubble--warning code {
+        color: var(--bubble-warning-accent);
+      }
+
+      .info-bubble--warning code {
+        color: var(--bubble-warning-code-text);
+      }
+
+      .mode-preview--light .info-bubble--warning a {
+        font-weight: inherit;
+        text-decoration: none;
+      }
+
+      .info-bubble--warning a:hover {
+        color: var(--bubble-warning-accent-hover);
+      }
+
+      .info-bubble--warning code {
+        background-color: var(--bubble-warning-code-bg);
+      }
+
+      .info-bubble--info {
+        border-color: var(--bubble-info-border);
+        color: var(--bubble-info-text);
+        background-color: var(--bubble-info-bg);
+      }
+
+      .info-bubble--info a,
+      .info-bubble--info code {
+        color: var(--bubble-info-accent);
+      }
+
+      .info-bubble--info code {
+        color: var(--bubble-info-code-text);
+      }
+
+      .mode-preview--light .info-bubble--info a {
+        font-weight: inherit;
+        text-decoration: none;
+      }
+
+      .info-bubble--info a:hover {
+        color: var(--bubble-info-accent-hover);
+      }
+
+      .info-bubble--info code {
+        background-color: var(--bubble-info-code-bg);
+      }
+
+      .info-bubble--tip {
+        border-color: var(--bubble-tip-border);
+        color: var(--bubble-tip-text);
+        background-color: var(--bubble-tip-bg);
+      }
+
+      .info-bubble--tip a {
+        color: var(--bubble-tip-accent);
+      }
+
+      .mode-preview--light .info-bubble--tip a {
+        font-weight: inherit;
+        text-decoration: none;
+      }
+
+      .info-bubble--tip a:hover {
+        color: var(--bubble-tip-accent-hover);
+      }
+
+      .info-bubble--tip code {
+        color: var(--bubble-tip-code-text);
+        background-color: var(--bubble-tip-code-bg);
       }
 
       .code-sample .shiki,
@@ -302,6 +447,31 @@
         --warn-inline-code-bg: rgba(211, 110, 45, 0.2);
         --warn-inline-code-text: var(--ember-0);
         --info-inline-code-bg: rgba(101, 156, 200, 0.14);
+
+        --bubble-warning-text: var(--text);
+        --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 50%, transparent);
+        --bubble-warning-code-bg: var(--warn-inline-code-bg);
+        --bubble-warning-code-text: var(--amber-0);
+        --bubble-warning-accent: var(--warn-inline-code-text);
+        --bubble-warning-accent-hover: color-mix(
+          in srgb,
+          var(--warn-inline-code-text) 85%,
+          var(--slate-0)
+        );
+
+        --bubble-info-text: var(--text);
+        --bubble-info-bg: var(--info-inline-code-bg);
+        --bubble-info-code-bg: var(--info-inline-code-bg);
+        --bubble-info-code-text: var(--slate-4);
+        --bubble-info-accent: var(--link-accent);
+        --bubble-info-accent-hover: var(--link-accent-hover);
+
+        --bubble-tip-text: var(--button-alt-fg);
+        --bubble-tip-bg: color-mix(in srgb, var(--mint-0) 25%, transparent);
+        --bubble-tip-code-bg: color-mix(in srgb, var(--mint-0) 25%, transparent);
+        --bubble-tip-code-text: var(--slate-5);
+        --bubble-tip-accent: var(--link-accent);
+        --bubble-tip-accent-hover: var(--link-accent-hover);
       }
 
       .mode-preview--dark {
@@ -376,6 +546,37 @@
         --warn-inline-code-bg: rgba(234, 179, 8, 0.16);
         --warn-inline-code-text: #f9b44e;
         --info-inline-code-bg: rgba(101, 117, 133, 0.16);
+
+        --bubble-warning-text: var(--text);
+        --bubble-warning-bg: color-mix(in srgb, var(--amber-4) 25%, transparent);
+        --bubble-warning-code-bg: var(--warn-inline-code-bg);
+        --bubble-warning-code-text: var(--bubble-warning-accent);
+        --bubble-warning-accent: var(--warn-inline-code-text);
+        --bubble-warning-accent-hover: #da8b17;
+
+        --bubble-info-text: var(--text);
+        --bubble-info-bg: color-mix(in srgb, var(--info-inline-code-bg) 50%, transparent);
+        --bubble-info-code-bg: var(--info-inline-code-bg);
+        --bubble-info-code-text: var(--bubble-info-accent);
+        --bubble-info-accent: var(--brand);
+        --bubble-info-accent-hover: var(--brand-active);
+
+        --bubble-tip-text: var(--blue-hover);
+        --bubble-tip-bg: color-mix(in srgb, var(--slate-4) 50%, transparent);
+        --bubble-tip-code-bg: var(--blue-hover);
+        --bubble-tip-code-text: var(--slate-2);
+        --bubble-tip-accent: var(--brand);
+        --bubble-tip-accent-hover: var(--brand-active);
+      }
+
+      .mode-preview--dark .info-bubble a {
+        font-weight: inherit;
+        text-decoration: none;
+        transition: opacity 250ms ease;
+      }
+
+      .mode-preview--dark .info-bubble a:hover {
+        opacity: 0.75;
       }
     </style>
   </head>
@@ -2054,6 +2255,62 @@
         );
       }
 
+      function InformationalBubblesShowcase() {
+        return (
+          <div className="grid gap-3">
+            <div className="grid gap-1.5">
+              <div className="flex flex-wrap gap-2">
+                <code className="inline w-fit">::: warning</code>
+                <code className="inline w-fit">::: caution</code>
+              </div>
+              <div className="info-bubble info-bubble--warning">
+                <p className="info-bubble__title">WARNING</p>
+                <p>
+                  Preview panes are directional only, so validate final output with{" "}
+                  <code>pnpm email preview</code> before shipping.
+                </p>
+                <p>
+                  Confirm inbox behavior with a{" "}
+                  <a href="/docs/quick-start">full test-send checklist</a>.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-1.5">
+              <div className="flex flex-wrap gap-2">
+                <code className="inline w-fit">::: info</code>
+                <code className="inline w-fit">::: note</code>
+              </div>
+              <div className="info-bubble info-bubble--info">
+                <p className="info-bubble__title">INFO</p>
+                <p>
+                  JSX Email renders component trees to HTML and plain text, including helpers
+                  like <code>render</code>.
+                </p>
+                <p>
+                  See the <a href="/docs/introduction">documentation intro</a> for the rendering
+                  flow.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-1.5">
+              <code className="inline w-fit">::: tip</code>
+              <div className="info-bubble info-bubble--tip">
+                <p className="info-bubble__title">TIP</p>
+                <p>
+                  Keep templates consistent by sharing primitives and running{" "}
+                  <code>pnpm add jsx-email</code> in each workspace.
+                </p>
+                <p>
+                  Reuse the pattern in <a href="/docs/components/button">component docs</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
       function ControlsShowcase({ mode }) {
         return (
           <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -2237,7 +2494,7 @@ export const Welcome = () => (
               </p>
               <p className="mt-2 text-xs text-docs-text-subtle">
                 Tip-block inline code style:{" "}
-                <code className="inline-block rounded-[4px] bg-[var(--blue-hover)] px-[6px] py-[3px] font-mono font-light text-docs-surface-raised">
+                <code className="inline-block rounded-[4px] bg-[var(--bubble-tip-code-bg)] px-[6px] py-[3px] font-mono font-light text-[var(--bubble-tip-code-text)]">
                   pnpm add jsx-email
                 </code>
               </p>
@@ -2253,6 +2510,10 @@ export const Welcome = () => (
                   expression
                 </code>
               </p>
+            </Card>
+
+            <Card title="Informational Bubbles" className="lg:col-span-2">
+              <InformationalBubblesShowcase />
             </Card>
           </section>
         );
