@@ -10,13 +10,6 @@ const shouldRenderSearch =
   config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 ---
 
-<script is:inline>
-  document.documentElement.classList.toggle(
-    'dark',
-    document.documentElement.dataset.theme === 'dark'
-  );
-</script>
-
 <div class="header">
   <div class="title-wrapper sl-flex">
     <SiteTitle />

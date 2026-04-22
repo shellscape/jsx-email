@@ -1,0 +1,46 @@
+---
+import config from 'virtual:starlight/user-config';
+import logoMarkup from '../../assets/logo.svg?raw';
+
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+  <span class="site-title__logo" set:html={logoMarkup} />
+  <span class:list={{ 'sr-only': config.logo?.replacesTitle }} translate="no">
+    {siteTitle}
+  </span>
+</a>
+
+<style>
+  @layer starlight.core {
+    .site-title {
+      align-items: center;
+      gap: var(--sl-nav-gap);
+      font-size: var(--sl-text-h4);
+      font-weight: 600;
+      color: var(--sl-color-text-accent);
+      text-decoration: none;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    span {
+      overflow: hidden;
+    }
+
+    .site-title__logo {
+      display: block;
+      line-height: 0;
+    }
+
+    .site-title__logo :global(svg) {
+      display: block;
+      height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+      max-width: 100%;
+      object-fit: contain;
+      object-position: 0 50%;
+      width: auto;
+    }
+  }
+</style>

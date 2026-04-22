@@ -100,6 +100,7 @@ export default defineConfig({
         Footer: './src/components/starlight/Footer.astro',
         Header: './src/components/starlight/Header.astro',
         PageFrame: './src/components/starlight/PageFrame.astro',
+        SiteTitle: './src/components/starlight/SiteTitle.astro',
         SocialIcons: './src/components/starlight/SocialIcons.astro',
         ThemeSelect: './src/components/starlight/ThemeSelect.astro',
         // Use our custom component to hide the title
