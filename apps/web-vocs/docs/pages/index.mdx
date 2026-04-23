@@ -1,124 +1,16 @@
 ---
-layout: landing
+layout: minimal
 title: JSX Email
+showLogo: false
+showSidebar: false
+showOutline: false
+showTopNav: false
+content:
+  width: 100%
+  horizontalPadding: 0
+  verticalPadding: 0
 ---
 
-import { HomePage } from 'vocs/components'
+import { HomePage } from '../components/home/HomePage'
 
-<HomePage.Root>
-  <HomePage.Logo />
-  <HomePage.Tagline>Building Emails doesn't have to be Painful.</HomePage.Tagline>
-  <HomePage.Description>
-    Develop standards compliant emails with JSX or TSX and a delightful developer experience.
-  </HomePage.Description>
-  <HomePage.Buttons>
-    <HomePage.Button href="/getting-started/quick-start" variant="accent">Quick Start</HomePage.Button>
-    <HomePage.Button href="https://github.com/shellscape/jsx-email">GitHub</HomePage.Button>
-  </HomePage.Buttons>
-</HomePage.Root>
-
-<div className="jsx-home-grid">
-  <section className="jsx-home-card jsx-home-card--wide">
-    <div>
-      <h2>Compatibility is complicated, jsx-email makes it simple.</h2>
-      <p>
-        Emails rely on table-based layouts for compatibility. jsx-email gives you over 20
-        components built specifically for modern email client support.
-      </p>
-      <a href="/components/background">Explore components →</a>
-    </div>
-    <img src="/assets/compatibility-is-complicated.svg" alt="Email compatibility illustration" />
-  </section>
-
-  <section className="jsx-home-card">
-    <h3>Style with your tools.</h3>
-    <p>Use CSS-in-JS, TailwindCSS, or UnoCSS to style your email templates.</p>
-    <a href="/components/tailwind">Tailwind component docs →</a>
-    <img src="/assets/style-with-your-tools.svg" alt="Styling tools" />
-  </section>
-
-  <section className="jsx-home-card">
-    <h3>Use anywhere.</h3>
-    <p>
-      Integrate JSX Email in Next, Astro, Express, Koa, and any backend that can send HTML.
-    </p>
-    <a href="/getting-started/email-providers">Email provider integrations →</a>
-    <img src="/assets/use-anywhere.svg" alt="Use JSX Email anywhere" />
-  </section>
-</div>
-
-<div className="jsx-home-meta">
-  <p>
-    View merged pull requests and release activity in the
-    {' '}<a href="https://github.com/shellscape/jsx-email/pulls?q=is%3Apr+is%3Aclosed+is%3Amerged">project changelog</a>.
-  </p>
-</div>
-
-<style>{`
-  .jsx-home-grid {
-    margin: 2rem auto 0;
-    max-width: 1080px;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr;
-  }
-
-  .jsx-home-card {
-    border: 1px solid var(--vocs-color_border);
-    background: var(--vocs-color_backgroundSoft);
-    border-radius: 16px;
-    padding: 1.25rem;
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .jsx-home-card h2,
-  .jsx-home-card h3 {
-    margin: 0;
-    line-height: 1.25;
-  }
-
-  .jsx-home-card p {
-    margin: 0;
-    color: var(--vocs-color_text2);
-  }
-
-  .jsx-home-card a {
-    font-weight: 600;
-  }
-
-  .jsx-home-card img {
-    width: 100%;
-    max-height: 220px;
-    object-fit: contain;
-    border-radius: 8px;
-    background: var(--vocs-color_background);
-  }
-
-  .jsx-home-card--wide {
-    grid-template-columns: 1.3fr 1fr;
-    align-items: center;
-  }
-
-  .jsx-home-meta {
-    margin: 1.5rem auto 0;
-    text-align: center;
-    color: var(--vocs-color_text2);
-  }
-
-  @media (max-width: 900px) {
-    .jsx-home-card--wide {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (min-width: 901px) {
-    .jsx-home-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .jsx-home-card--wide {
-      grid-column: 1 / -1;
-    }
-  }
-`}</style>
+<HomePage />

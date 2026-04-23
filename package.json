@@ -20,11 +20,12 @@
     "husky": "^9.1.7",
     "jsx-email": "workspace:^",
     "lint-staged": "16.2.7",
+    "oxfmt": "^0.45.0",
     "oxlint": "^1.60.0",
+    "picocolors": "^1.1.1",
     "ts-node": "10.9.2",
     "typescript": "catalog:",
-    "vitest": "^4.0.17",
-    "oxfmt": "^0.45.0"
+    "vitest": "^4.0.17"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
