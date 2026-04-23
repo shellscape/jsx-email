@@ -1,0 +1,74 @@
+---
+title: Code
+description: A JSX email component which displays a syntax-highlighted code block using Shiki
+type: component
+---
+
+## Install
+
+:::code-group
+```sh [pnpm]
+pnpm add jsx-email
+```
+
+```sh [bun]
+bun add jsx-email
+```
+
+```sh [npm]
+npm add jsx-email
+```
+
+```sh [yarn]
+yarn add jsx-email
+```
+:::
+
+## Usage
+
+```jsx "Code"
+// CodeExample.jsx
+import { Code } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Code language="javascript">
+      {`
+        import { batman } from 'superheros';
+        import { joker } from 'villains';
+
+        const henchmen = joker.help();
+
+        batman.fight(henchmen);
+        batman.arrest(joker);
+      `}
+    </Code>
+  );
+};
+```
+
+## Props
+
+### Required Props
+
+#### language
+
+```ts
+language: string;
+```
+
+Syntax highlighting language. See [`shiki` supported languages](https://github.com/shikijs/shiki/blob/main/docs/languages.md).
+
+### Optional Props
+
+#### theme
+
+```ts
+theme?: string;
+```
+
+Color theme for syntax highlighting. Defaults to `'nord'`. See [`shiki` themes documentation](https://github.com/shikijs/shiki/blob/main/docs/themes.md).
+
+### Additional Props
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'pre'>`.

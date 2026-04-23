@@ -1,0 +1,46 @@
+---
+title: Preview
+description: Renders a preview text viewable in email clients' inbox list
+type: component
+---
+
+## Install
+
+:::code-group
+```sh [pnpm]
+pnpm add jsx-email
+```
+
+```sh [bun]
+bun add jsx-email
+```
+
+```sh [npm]
+npm add jsx-email
+```
+
+```sh [yarn]
+yarn add jsx-email
+```
+:::
+
+## Usage
+
+```jsx "Preview"
+// PreviewExample.jsx
+import { Preview } from 'jsx-email';
+
+const Email = () => {
+  return <Preview>Email preview text</Preview>;
+};
+```
+
+:::tip[Best Practice]
+Keep preview text under 90 characters for optimal display across email clients.
+:::
+
+## Props
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'div'>`.

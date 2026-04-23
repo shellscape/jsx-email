@@ -1,0 +1,145 @@
+---
+title: Quick Start
+description: Get started quickly with JSX email
+---
+
+## Prerequisites
+
+- Node.js [LTS version](https://github.com/nodejs/Release) (v22.0.0+)
+- React v18.2.0+
+
+:::info
+**New to Node.js?**
+
+Before starting, familiarize yourself with:
+
+- [Node Fundamentals](https://www.codecademy.com/learn/learn-nodejs-fundamentals/modules/intro-to-node-js/cheatsheet)
+- [NPM Fundamentals](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/)
+- [Executing Local NPM Packages](https://jaireina.medium.com/executing-local-npm-packages-226820ad2c31)
+- [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and [`pnpm exec`](https://pnpm.io/cli/exec)
+- [How to use relative paths on windows CMD?](https://superuser.com/a/1270599)
+:::
+
+## New Project Setup
+
+The fastest way to start is using our project creation tool:
+
+```sh
+npm create jsx-email
+```
+
+This creates an `email-project` directory with a starter template.
+
+### Installation
+
+Install JSX Email in your project:
+
+:::code-group
+```sh [pnpm]
+pnpm add jsx-email
+```
+
+```sh [bun]
+bun add jsx-email
+```
+
+```sh [npm]
+npm add jsx-email
+```
+
+```sh [yarn]
+yarn add jsx-email
+```
+:::
+
+### One-Time Execution
+
+Run commands without installation:
+
+:::code-group
+```sh [pnpm]
+pnpm dlx email <command>
+```
+
+```sh [npm]
+npx email <command>
+```
+
+```sh [yarn]
+yarn dlx email <command>
+```
+
+```sh [bun]
+bunx email <command>
+```
+:::
+
+## Creating Templates
+
+These steps will create a new template named `BatmanEmail.tsx` in the `./emails` directory.
+
+1. Create templates directory:
+
+   ```sh
+   mkdir ./emails
+   ```
+
+2. Generate template:
+
+   ```sh
+   email create BatmanEmail --out=./emails
+   ```
+
+:::tip
+Use `--jsx` flag to create `.jsx` files.
+:::
+
+## Development
+
+### Preview Server
+
+JSX-email includes a lightweight preview server with:
+
+- No additional dependencies
+- Simple setup
+- Monorepo support
+- Hot reloading
+
+Launch the preview server:
+
+```sh
+email preview ./emails
+```
+
+:::info
+**Windows users:** paths differ from Unix-like systems. See the link above about Windows relative paths if you are unfamiliar with command-line paths.
+:::
+
+The CLI will startup a preview server and open a new browser tab at `http://localhost:55420`.
+
+Preview server options:
+
+```sh
+email help preview
+```
+
+### Building Templates
+
+Build templates using either:
+
+- CLI for static output
+- [`render` method](/core/render) for dynamic runtime rendering
+
+#### CLI Build
+
+```sh
+email build ./emails/BatmanEmail.tsx
+```
+
+:::tip
+View build options:
+
+```sh
+email help build
+```
+:::

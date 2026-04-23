@@ -1,0 +1,147 @@
+---
+title: AvatarGroup
+description: Displays a group of avatars with optional overlap
+type: component
+---
+
+## Install
+
+:::code-group
+```sh [pnpm]
+pnpm add jsx-email
+```
+
+```sh [bun]
+bun add jsx-email
+```
+
+```sh [npm]
+npm add jsx-email
+```
+
+```sh [yarn]
+yarn add jsx-email
+```
+:::
+
+## Usage
+
+```jsx "AvatarGroup"
+// AvatarGroupExample.jsx
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup>
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+    </AvatarGroup>
+  );
+};
+```
+
+Enable overlap explicitly:
+
+```jsx "AvatarGroup"
+// AvatarGroupOverlapExample.jsx
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup overlap={true} spacing={10}>
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+    </AvatarGroup>
+  );
+};
+```
+
+Truncate long groups with a `+N` overflow token:
+
+```jsx "AvatarGroup"
+// AvatarGroupMaxExample.jsx
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup max={3}>
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+      <Avatar name="Diana Prince" />
+    </AvatarGroup>
+  );
+};
+```
+
+Render right-to-left order when needed:
+
+```jsx "AvatarGroup"
+// AvatarGroupDirectionExample.jsx
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup direction="rtl">
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+    </AvatarGroup>
+  );
+};
+```
+
+## Props
+
+### Optional Props
+
+#### direction
+
+```ts
+direction?: 'ltr' | 'rtl';
+```
+
+Controls group rendering order. Defaults to `"ltr"`.
+
+#### max
+
+```ts
+max?: number;
+```
+
+Maximum number of avatars to render before appending an overflow token (for example, `+2`).
+
+#### overlap
+
+```ts
+overlap?: boolean;
+```
+
+If `true`, overlaps avatars. Defaults to `false` for compatibility-safe rendering.
+
+#### spacing
+
+```ts
+spacing?: number;
+```
+
+Spacing in pixels between avatars. Defaults to `8`.
+
+#### disableDefaultStyle
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+## Caveats
+
+- `overlap={true}` is an enhanced mode that relies on negative margins and layered stacking.
+- Rendering can vary in stricter email clients, so keep overlap spacing conservative and verify with `email check`.
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`, except `cellPadding` and `cellSpacing`.

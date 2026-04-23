@@ -1,0 +1,26 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'release', 'test']
+
+tasks:
+  build:
+    command: vocs build
+    inputs:
+      - docs
+      - package.json
+      - vocs.config.ts
+    options:
+      cache: false
+
+  dev:
+    command: vocs dev
+    options:
+      cache: false
+
+  preview:
+    command: vocs preview
+    options:
+      cache: false

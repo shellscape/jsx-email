@@ -1,0 +1,65 @@
+---
+title: Container
+description: Horizontally center child components and content
+type: component
+---
+
+## Install
+
+:::code-group
+```sh [pnpm]
+pnpm add jsx-email
+```
+
+```sh [bun]
+bun add jsx-email
+```
+
+```sh [npm]
+npm add jsx-email
+```
+
+```sh [yarn]
+yarn add jsx-email
+```
+:::
+
+## Usage
+
+```jsx "Container"
+// ContainerExample.jsx
+import { Button, Container } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Container>
+      <Button width={200} height={40} href="https://example.com">
+        Click me
+      </Button>
+    </Container>
+  );
+};
+```
+
+:::warning[Table Usage]
+While `Container` uses a `<table>` element internally, it's designed for centering content. For table layouts, use [`Section`](/components/section) or [`Row`](/components/row) with [`Column`](/components/column).
+:::
+
+## Props
+
+### Optional Props
+
+#### disableDefaultStyle
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+
+### Additional Props
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for:
+
+- `cellPadding`
+- `cellSpacing`

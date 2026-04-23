@@ -1,0 +1,105 @@
+---
+title: Background
+description: A JSX email component for background images in your Email template
+type: component
+---
+
+## Install
+
+:::code-group
+```sh [pnpm]
+pnpm add jsx-email
+```
+
+```sh [bun]
+bun add jsx-email
+```
+
+```sh [npm]
+npm add jsx-email
+```
+
+```sh [yarn]
+yarn add jsx-email
+```
+:::
+
+## Usage
+
+```jsx "Background"
+// BackgroundExample.jsx
+import { Background, Body, Column, Html, Row, Section } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Body>
+        <Background src="https://example.com/image.jpg" bgColor="#FFFFFF" width={600}>
+          <Row>
+            <Column>Content goes here</Column>
+          </Row>
+        </Background>
+      </Body>
+    </Html>
+  );
+};
+```
+
+## Props
+
+### TypeScript Interface
+
+```ts
+interface BackgroundProps
+  extends Omit<React.ComponentPropsWithoutRef<'td'>, 'height' | 'width' | 'bgcolor'> {
+  src: string;
+  bgColor?: string;
+  bgRepeat?: 'repeat' | 'no-repeat';
+  height?: number;
+  width?: number;
+}
+```
+
+### Required Props
+
+#### src
+
+```ts
+src: string;
+```
+
+The path to the background image.
+
+### Optional Props
+
+#### bgColor
+
+```ts
+bgColor?: string;
+```
+
+Fallback background color (hex code) if the image fails to load.
+
+#### bgRepeat
+
+```ts
+bgRepeat?: 'repeat' | 'no-repeat';
+```
+
+Background repeat behavior, uses `background-repeat`. Defaults to `no-repeat`.
+
+#### height
+
+```ts
+height?: number;
+```
+
+Container height in pixels.
+
+#### width
+
+```ts
+width?: number;
+```
+
+Container width in pixels.
