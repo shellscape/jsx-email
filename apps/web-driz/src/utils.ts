@@ -146,7 +146,11 @@ export const getContentTree = async (props: ContentTreeProps) => {
   const buildTree = (items: SidebarItem[]): TreeNode[] => {
     const tree: TreeNode[] = [];
     for (const item of items) {
-      const parts = item.path?.split("/");
+      const pathParts = item.path?.split("/") ?? [];
+      const parts =
+        pathParts[0] === "docs" && pathParts.length > 2
+          ? [pathParts[0], pathParts.slice(1).join("/")]
+          : pathParts;
       let currentNode = tree;
       for (const part of parts) {
         const existingNode = currentNode.find((node) => node.name === part);

@@ -10,7 +10,7 @@ import CodeTab from '@mdx/CodeTab.astro';
 
 A JSX email component which styles an anchor element to appear as a button
 
-<Callout type="info">
+<Callout type="info" title="Tips">
 Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
 </Callout>
 
@@ -71,7 +71,7 @@ export interface ButtonProps extends BaseProps<'a'> {
 }
 ```
 
-<Callout type="info">
+<Callout type="info" title="Tips">
 It's **highly reccommended** for **optimal email client compatibility** to use the component props below to set styles, rather than CSS, the `style` property, or [`Tailwind`](/docs/components/tailwind) classes. This is especially important for Outlook.
 </Callout>
 
@@ -147,6 +147,6 @@ withBackground?: boolean;
 
 Set to `true` if `Button` is nested in a `Background` component. Neccessary for good Outlook compatibility.
 
-<Callout type="info">
+<Callout type="info" title="Tips">
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
 </Callout>

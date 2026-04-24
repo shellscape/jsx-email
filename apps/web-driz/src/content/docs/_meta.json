@@ -26,22 +26,150 @@
   ],
   "Components",
   [
-    "components",
-    "Components"
+    "components/avatar",
+    "Avatar"
+  ],
+  [
+    "components/avatar-group",
+    "AvatarGroup"
+  ],
+  [
+    "components/background",
+    "Background"
+  ],
+  [
+    "components/body",
+    "Body"
+  ],
+  [
+    "components/butan",
+    "Butan"
+  ],
+  [
+    "components/button",
+    "Button"
+  ],
+  [
+    "components/code",
+    "Code"
+  ],
+  [
+    "components/color-scheme",
+    "ColorScheme"
+  ],
+  [
+    "components/column",
+    "Column"
+  ],
+  [
+    "components/conditional",
+    "Conditional"
+  ],
+  [
+    "components/container",
+    "Container"
+  ],
+  [
+    "components/font",
+    "Font"
+  ],
+  [
+    "components/graph",
+    "Graph"
+  ],
+  [
+    "components/head",
+    "Head"
+  ],
+  [
+    "components/heading",
+    "Heading"
+  ],
+  [
+    "components/hr",
+    "Hr"
+  ],
+  [
+    "components/html",
+    "HTML"
+  ],
+  [
+    "components/image",
+    "Image"
+  ],
+  [
+    "components/link",
+    "Link"
+  ],
+  [
+    "components/markdown",
+    "Markdown"
+  ],
+  [
+    "components/preview",
+    "Preview"
+  ],
+  [
+    "components/raw",
+    "Raw"
+  ],
+  [
+    "components/row",
+    "Row"
+  ],
+  [
+    "components/section",
+    "Section"
+  ],
+  [
+    "components/tailwind",
+    "Tailwind"
+  ],
+  [
+    "components/text",
+    "Text"
   ],
   "Core",
   [
-    "core",
-    "Core"
+    "core/cli",
+    "CLI"
+  ],
+  [
+    "core/compile",
+    "Compile"
+  ],
+  [
+    "core/config",
+    "Configuration"
+  ],
+  [
+    "core/plugins",
+    "Plugins"
+  ],
+  [
+    "core/render",
+    "Render"
   ],
   "Plugins",
   [
-    "plugins",
-    "Plugins"
+    "plugins/inline",
+    "Inline CSS Plugin"
+  ],
+  [
+    "plugins/minify",
+    "Minify Plugin"
+  ],
+  [
+    "plugins/pretty",
+    "Pretty Plugin"
   ],
   "V2",
   [
-    "v2",
-    "V2"
+    "v2/migration",
+    "Migrating to v2"
+  ],
+  [
+    "v2/button",
+    "Button v2 Migration"
   ]
 ]

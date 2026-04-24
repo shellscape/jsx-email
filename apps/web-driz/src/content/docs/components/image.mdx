@@ -45,14 +45,14 @@ const Email = () => {
 };
 ```
 
-<Callout type="info">
+<Callout type="info" title="Tips">
 All email clients can display `.png`, `.gif`, and `.jpg` images.
 Unfortunately, `.svg` images are not well supported, regardless of how they're
 referenced, so avoid using these. See [Can I
 Email](https://www.caniemail.com/features/image-svg/) for more information.
 </Callout>
 
-<Callout type="info">
+<Callout type="info" title="Tips">
 To use local images during development, place the images in your templates directory. We recommend using a `assets/` or `static/` subdirectory. Images can then be accessed from the server root.
 Just remember, for production, you'll need to host the images somewhere and
 reference them with a URL.
@@ -103,6 +103,6 @@ width?: string;
 
 The width of an image in pixels
 
-<Callout type="info">
+<Callout type="info" title="Tips">
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`.
 </Callout>

@@ -99,9 +99,16 @@ function parseFrontmatter(raw) {
   };
 }
 
-function mapCalloutType(type) {
-  if (type === 'warning') return 'warning';
-  return 'info';
+function getCalloutProps(type) {
+  if (type === 'warning') {
+    return { type: 'warning', title: null };
+  }
+
+  if (type === 'tip') {
+    return { type: 'info', title: 'Tips' };
+  }
+
+  return { type: 'info', title: 'Info' };
 }
 
 function convertAdmonitions(input) {
@@ -114,7 +121,10 @@ function convertAdmonitions(input) {
       line.match(/^\s*:::(tip|warning|info)\s*$/i);
     if (!inAdmonition && open) {
       inAdmonition = true;
-      out.push(`<Callout type="${mapCalloutType(open[1].toLowerCase())}">`);
+      const { type, title } = getCalloutProps(open[1].toLowerCase());
+      out.push(title
+        ? `<Callout type="${type}" title="${title}">`
+        : `<Callout type="${type}">`);
       continue;
     }
 
@@ -197,6 +207,25 @@ async function writeFileEnsured(absPath, content) {
   await fs.writeFile(absPath, content, 'utf8');
 }
 
+function orderDirectoryEntries(dir, entries, directoryOrders) {
+  const desiredOrder = directoryOrders[dir] || entries.map((entry) => entry.slug).sort((a, b) => a.localeCompare(b));
+  const entryLookup = new Map(entries.map((entry) => [entry.slug, entry]));
+
+  const ordered = [];
+  for (const slug of desiredOrder) {
+    if (!entryLookup.has(slug)) continue;
+    const entry = entryLookup.get(slug);
+    ordered.push([entry.slug, entry.title]);
+    entryLookup.delete(slug);
+  }
+
+  for (const [slug, entry] of entryLookup.entries()) {
+    ordered.push([slug, entry.title]);
+  }
+
+  return ordered;
+}
+
 async function main() {
   const markdownFiles = await listMarkdownFiles(sourceDocsDir);
 
@@ -267,6 +296,12 @@ async function main() {
   const rootLookup = new Map(rootEntries.map((entry) => [entry.slug, entry.title]));
   const rootMeta = [];
 
+  const directoryOrders = {
+    core: ['cli', 'compile', 'config', 'plugins', 'render'],
+    plugins: ['inline', 'minify', 'pretty'],
+    v2: ['migration', 'button'],
+  };
+
   for (const section of rootSections) {
     rootMeta.push(section.label);
 
@@ -280,35 +315,20 @@ async function main() {
     }
 
     if (section.dir) {
-      rootMeta.push([section.dir, section.label]);
+      const sectionEntries = byDirectory.get(section.dir) || [];
+      const orderedSectionEntries = orderDirectoryEntries(section.dir, sectionEntries, directoryOrders);
+      for (const [slug, title] of orderedSectionEntries) {
+        rootMeta.push([`${section.dir}/${slug}`, title]);
+      }
     }
   }
 
   await writeFileEnsured(path.join(outputDocsDir, '_meta.json'), `${JSON.stringify(rootMeta, null, 2)}\n`);
 
-  const directoryOrders = {
-    core: ['cli', 'compile', 'config', 'plugins', 'render'],
-    plugins: ['inline', 'minify', 'pretty'],
-    v2: ['migration', 'button'],
-  };
-
   for (const [dir, entries] of byDirectory.entries()) {
     if (!dir) continue;
 
-    const desiredOrder = directoryOrders[dir] || entries.map((entry) => entry.slug).sort((a, b) => a.localeCompare(b));
-    const entryLookup = new Map(entries.map((entry) => [entry.slug, entry]));
-
-    const ordered = [];
-    for (const slug of desiredOrder) {
-      if (!entryLookup.has(slug)) continue;
-      const entry = entryLookup.get(slug);
-      ordered.push([entry.slug, entry.title]);
-      entryLookup.delete(slug);
-    }
-
-    for (const [slug, entry] of entryLookup.entries()) {
-      ordered.push([slug, entry.title]);
-    }
+    const ordered = orderDirectoryEntries(dir, entries, directoryOrders);
 
     await writeFileEnsured(path.join(outputDocsDir, dir, '_meta.json'), `${JSON.stringify(ordered, null, 2)}\n`);
   }
