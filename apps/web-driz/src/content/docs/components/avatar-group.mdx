@@ -4,31 +4,34 @@ description: Displays a group of avatars with optional overlap
 type: component
 ---
 
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
 Displays a group of avatars with optional overlap
 
-### pnpm
-
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
 ```sh
 pnpm add jsx-email
 ```
-
-### bun
-
+</CodeTab>
+<CodeTab>
 ```sh
 bun add jsx-email
 ```
-
-### npm
-
+</CodeTab>
+<CodeTab>
 ```sh
 npm add jsx-email
 ```
-
-### yarn
-
+</CodeTab>
+<CodeTab>
 ```sh
 yarn add jsx-email
 ```
+</CodeTab>
+</CodeTabs>
 
 ## Usage
 
@@ -134,6 +137,6 @@ If `true`, instructs the component _not to add_ default `style` properties to th
 - `overlap={true}` is an enhanced mode that depends on negative margins and layered stacking. Rendering can vary across older or stricter email clients.
 - Keep overlap values conservative and verify output with `email check` before sending.
 
-> **Tip:**
->
-> This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`, except `cellPadding` and `cellSpacing`.
+<Callout type="info">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`, except `cellPadding` and `cellSpacing`.
+</Callout>

@@ -4,39 +4,42 @@ description: Deprecated. The v1 Button component. Please upgrade to the new Butt
 type: component
 ---
 
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
 Deprecated. The v1 Button component. Please upgrade to the new Button component.
 
-> **Warning:**
->
-> This component is DEPRECATED and serves as a fallback for folks still wanting to use the v1 Button component. Please upgrade your templates to use the v2 Button. `Butan` will be removed in a future release.
+<Callout type="warning">
+This component is DEPRECATED and serves as a fallback for folks still wanting to use the v1 Button component. Please upgrade your templates to use the v2 Button. `Butan` will be removed in a future release.
+</Callout>
 
-> **Tip:**
->
-> Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
+<Callout type="info">
+Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
+</Callout>
 
-### pnpm
-
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
 ```sh
 pnpm add jsx-email
 ```
-
-### bun
-
+</CodeTab>
+<CodeTab>
 ```sh
 bun add jsx-email
 ```
-
-### npm
-
+</CodeTab>
+<CodeTab>
 ```sh
 npm add jsx-email
 ```
-
-### yarn
-
+</CodeTab>
+<CodeTab>
 ```sh
 yarn add jsx-email
 ```
+</CodeTab>
+</CodeTabs>
 
 ## Usage
 
@@ -68,6 +71,6 @@ target?: string;
 
 Specifies the value of the `"target"` attribute for the button `target`.
 
-> **Tip:**
->
-> This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+<Callout type="info">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+</Callout>

@@ -3,6 +3,8 @@ title: 'Migrating to v2'
 description: 'Migrating to Version 2.0.0'
 ---
 
+import Callout from '@mdx/Callout.astro';
+
 ## Migrating to Version 2.0.0
 
 Version 2.0.0 of `jsx-email` brings a lot of changes to the package, specifically breaking changes. There are also a whole host of new features.
@@ -81,9 +83,9 @@ import { Template as JokerTemplate } from './joker';
 
 ### `Button` Updates
 
-> **Info:**
->
-> Please see the separate [migration guide for `Button`](/docs/v2/button) for additional usage and comparison to the v1 `Button`.
+<Callout type="info">
+Please see the separate [migration guide for `Button`](/docs/v2/button) for additional usage and comparison to the v1 `Button`.
+</Callout>
 
 The [`Button`](/docs/components/button) component received a mountain of updates thanks to [@lordelogos](https://github.com/lordelogos). Amoung the updates was a complete refactoring of the component source and the HTML that it generates. This was done to address nagging and persistent issues with rendering buttons effectively across many clients. No surprise, Outlook was the worst offender. While these updates provide a lot of new props, the `Button` component remains backwards compatible in most situations.
 

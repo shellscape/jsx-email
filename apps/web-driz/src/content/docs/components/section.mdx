@@ -4,31 +4,34 @@ description: 'Creates section boundaries that can be formatted with columns and 
 type: component
 ---
 
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
 Creates section boundaries that can be formatted with columns and rows
 
-### pnpm
-
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
 ```sh
 pnpm add jsx-email
 ```
-
-### bun
-
+</CodeTab>
+<CodeTab>
 ```sh
 bun add jsx-email
 ```
-
-### npm
-
+</CodeTab>
+<CodeTab>
 ```sh
 npm add jsx-email
 ```
-
-### yarn
-
+</CodeTab>
+<CodeTab>
 ```sh
 yarn add jsx-email
 ```
+</CodeTab>
+</CodeTabs>
 
 ## Usage
 
@@ -61,9 +64,9 @@ const Email = () => {
 };
 ```
 
-> **Info:**
->
-> Though the `Section` component wraps a `<table>` element, it's not designed to mimic a `table` and has a specific use for email client compatibility and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Section` as a table, please consider using a `<table>` element. If using `Row` and `Column` with a `Section` and the need arises to set either `cellPadding` or `cellSpacing`, please set those properties on the appropriate `Row` component(s).
+<Callout type="info">
+Though the `Section` component wraps a `<table>` element, it's not designed to mimic a `table` and has a specific use for email client compatibility and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Section` as a table, please consider using a `<table>` element. If using `Row` and `Column` with a `Section` and the need arises to set either `cellPadding` or `cellSpacing`, please set those properties on the appropriate `Row` component(s).
+</Callout>
 
 ## Component Props
 

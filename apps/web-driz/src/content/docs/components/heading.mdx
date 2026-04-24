@@ -4,31 +4,34 @@ description: A stylable heading (h1, h2, etc) element
 type: component
 ---
 
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
 A stylable heading (h1, h2, etc) element
 
-### pnpm
-
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
 ```sh
 pnpm add jsx-email
 ```
-
-### bun
-
+</CodeTab>
+<CodeTab>
 ```sh
 bun add jsx-email
 ```
-
-### npm
-
+</CodeTab>
+<CodeTab>
 ```sh
 npm add jsx-email
 ```
-
-### yarn
-
+</CodeTab>
+<CodeTab>
 ```sh
 yarn add jsx-email
 ```
+</CodeTab>
+</CodeTabs>
 
 ## Usage
 
@@ -108,6 +111,6 @@ ml?: number | string;
 
 A shortcut for `margin-left` CSS property.
 
-> **Tip:**
->
-> This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.
+<Callout type="info">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.
+</Callout>

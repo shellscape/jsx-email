@@ -4,31 +4,34 @@ description: A JSX email component which displays columns that separate content 
 type: component
 ---
 
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
 A JSX email component which displays columns that separate content bounaries vertically
 
-### pnpm
-
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
 ```sh
 pnpm add jsx-email
 ```
-
-### bun
-
+</CodeTab>
+<CodeTab>
 ```sh
 bun add jsx-email
 ```
-
-### npm
-
+</CodeTab>
+<CodeTab>
 ```sh
 npm add jsx-email
 ```
-
-### yarn
-
+</CodeTab>
+<CodeTab>
 ```sh
 yarn add jsx-email
 ```
+</CodeTab>
+</CodeTabs>
 
 ## Usage
 
@@ -69,6 +72,6 @@ bgImage: string;
 
 Used to set background images in HTML email by wrapping the `background` property of `<td>` elements
 
-> **Tip:**
->
-> This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.
+<Callout type="info">
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.
+</Callout>

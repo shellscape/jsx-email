@@ -250,6 +250,44 @@ let i = 0;
                       )}
                     {n.children?.map((c) => (
                       <Fragment>
+                        {c.type === "mdx" && (
+                          <a
+                            data-nav-index={i++}
+                            class:list={[
+                              isActive(`${t.name}/${n.name}/${c.name}`)
+                                ? "nav-item--active"
+                                : "nav-item",
+                              "nav-item-2",
+                            ]}
+                            href={`/${t.name}/${n.name}/${c.name}`}
+                          >
+                            {c.title[0] === "`" &&
+                            c.title[c.title.length - 1] === "`" ? (
+                              <code>{c.title.replaceAll("`", "")}</code>
+                            ) : (
+                              c.title
+                            )}
+                          </a>
+                        )}
+                        {c.type === "subDir" && (
+                          <a
+                            data-nav-index={i++}
+                            class:list={[
+                              isActive(`${t.name}/${n.name}/${c.name}`)
+                                ? "nav-item--active"
+                                : "nav-item",
+                              "nav-item-2",
+                            ]}
+                            href={`/${t.name}/${n.name}/${c.name}/${c.children?.[0].name}`}
+                          >
+                            {c.title[0] === "`" &&
+                            c.title[c.title.length - 1] === "`" ? (
+                              <code>{c.title.replaceAll("`", "")}</code>
+                            ) : (
+                              c.title
+                            )}
+                          </a>
+                        )}
                         {headings &&
                           slug &&
                           slug.split("/")[2] === c.name &&
@@ -357,6 +395,42 @@ let i = 0;
               )}
             {n.children?.map((c) => (
               <Fragment>
+                {c.type === "mdx" && (
+                  <a
+                    data-nav-index={i++}
+                    class:list={[
+                      isActive(`${t.name}/${n.name}/${c.name}`)
+                        ? "nav-item--active"
+                        : "nav-item",
+                      "nav-item-2",
+                    ]}
+                    href={`/${t.name}/${n.name}/${c.name}`}
+                  >
+                    {c.title[0] === "`" && c.title[c.title.length - 1] === "`" ? (
+                      <code>{c.title.replaceAll("`", "")}</code>
+                    ) : (
+                      c.title
+                    )}
+                  </a>
+                )}
+                {c.type === "subDir" && (
+                  <a
+                    data-nav-index={i++}
+                    class:list={[
+                      isActive(`${t.name}/${n.name}/${c.name}`)
+                        ? "nav-item--active"
+                        : "nav-item",
+                      "nav-item-2",
+                    ]}
+                    href={`/${t.name}/${n.name}/${c.name}/${c.children?.[0].name}`}
+                  >
+                    {c.title[0] === "`" && c.title[c.title.length - 1] === "`" ? (
+                      <code>{c.title.replaceAll("`", "")}</code>
+                    ) : (
+                      c.title
+                    )}
+                  </a>
+                )}
                 {headings &&
                   slug &&
                   slug.split("/")[2] === c.name &&
