@@ -12,7 +12,6 @@ tasks:
       - .astro
       - package.json
       - src
-      - ../../docs
     options:
       cache: false
 
