@@ -1,0 +1,32 @@
+---
+import Flex from "@mdx/Flex.astro"
+import LinksList from "@mdx/LinksList.astro"
+---
+
+<Flex>
+  <LinksList 
+    title='Manage schema'
+    links={[
+        ["Drizzle Schema", "/docs/sql-schema-declaration"], 
+        ["PostgreSQL data types", "/docs/column-types/pg"], 
+        ["Indexes and Constraints", "/docs/indexes-constraints"],
+        ["Database Views", "/docs/views"],
+        ["Database Schemas", "/docs/schemas"],
+        ["Sequences", "/docs/sequences"],
+        ["Extensions", "/docs/extensions/pg"],
+      ]}
+  />
+  <LinksList 
+    title='Query data'
+    links={[
+        ["Relational Queries", "/docs/rqb"], 
+        ["Select", "/docs/select"], 
+        ["Insert", "/docs/insert"],
+        ["Update", "/docs/update"],
+        ["Delete", "/docs/delete"],
+        ["Filters", "/docs/operators"],
+        ["Joins", "/docs/joins"],
+        ["sql`` operator", "/docs/sql"],
+      ]}
+  />
+</Flex>

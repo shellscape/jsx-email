@@ -1,0 +1,30 @@
+import CodeTabs from "@mdx/CodeTabs.astro";
+
+Create a `index.ts` file in the `src` directory and initialize the connection:
+
+<CodeTabs items={["Turso Database", "Turso Database with config"]}>
+```typescript copy
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/tursodatabase/database';
+
+const db = drizzle(process.env.DB_FILE_NAME!);
+```
+```typescript copy
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/tursodatabase/database';
+
+// You can specify any property from the turso connection options
+const db = drizzle({ connection: { path: process.env.DB_FILE_NAME! }});
+```
+</CodeTabs>
+
+If you need to provide your existing driver:
+
+```typescript copy
+import 'dotenv/config';
+import { Database } from '@tursodatabase/database';
+import { drizzle } from 'drizzle-orm/tursodatabase/database';
+
+const client = new Database(process.env.DB_FILE_NAME!);
+const db = drizzle({ client });
+```

@@ -1,0 +1,153 @@
+.chart-wrap {
+  margin: 8px 0 0;
+	height: 84px;
+}
+
+.chart-wrap svg {
+  height: 100%;
+}
+
+html[class~=dark] .stats, html[class~=dark] .tooltip {
+	color: #f0f0f0;
+	background-color: rgb(17, 17, 17);
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.2) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px, rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+}
+
+.stats {
+  position: absolute;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	padding: 8px 16px;
+	white-space: nowrap;
+	border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow:
+		rgb(255, 255, 255) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+		rgba(0, 0, 0, 0.1) 0px 1px 2px 0px,
+		rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+	transform: translate(-50%, -100%);
+	pointer-events: none;
+	font-size: 12px;
+	line-height: 12px;
+	color: #222;
+	text-align: left;
+}
+
+.label {
+  position: relative;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: 500;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.tooltip {
+  position: absolute;
+	display: none;
+	flex-direction: column;
+	padding: 8px;
+	white-space: nowrap;
+	border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow:
+		rgb(255, 255, 255) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+		rgba(0, 0, 0, 0.1) 0px 1px 2px 0px,
+		rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+	bottom: 100%;
+	left: 50%;
+	transform: translate(-50%, -4px);
+	pointer-events: none;
+	font-size: 12px;
+	line-height: 12px;
+	color: #222;
+	text-align: left;
+}
+
+.info-wrap {
+  display: flex;
+	align-items: center;
+	font-size: 12px;
+	line-height: 12px;
+	white-space: pre-wrap;
+}
+
+.tooltip-wrap, .tooltip-wrap-underline {
+  position: relative;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: 500;
+}
+
+.tooltip-wrap-underline {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  cursor: help;
+}
+
+.tooltip-wrap-underline:hover .tooltip {
+  display: flex;
+}
+
+.success-icon-wrap {
+  display: flex;
+  width: 12px;
+  margin-right: 4px;
+}
+
+.success-icon-wrap svg {
+  color: #13862e;
+  width: 100%;
+  height: 100%;
+}
+
+
+html[class~=dark] .bar-chart-axis {
+	stroke: #4b3990;
+}
+
+.bar-chart-axis {
+	stroke: #b7a5fb;
+}
+
+html[class~=dark] .bar-chart-empty {
+	fill: #222;
+}
+
+.bar-chart-empty {
+	fill: #f0f0f0;
+}
+
+html[class~=dark] .bar-chart {
+	fill: #4b3990;
+}
+
+.bar-chart {
+	fill: #b7a5fb;
+}
+
+html[class~=dark] .selected-bar {
+	fill: #a18bf5;
+}
+
+.selected-bar {
+	fill: #5e49af;
+}
+
+html[class~=dark] .bar-chart-empty-hover {
+	fill: #333;
+}
+
+.bar-chart-empty-hover {
+	fill: #e0e0e0;
+}

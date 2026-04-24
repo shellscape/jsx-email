@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+
+import Link from '@mdx/Link.astro';
+import CustomHeader from '@components/CustomHeader.astro';
+import DocsLayout from '@/ui/DocsLayout.astro';
+
+export async function getStaticPaths() {
+  const metaFiles = import.meta.glob('../content/**/*.json');
+  const slugs: string[] = [];
+  const regex = /\.\.\/content\/(.*?)\/_meta\.json/;
+  
+  for(const meta in metaFiles) {
+    const {default: parsed} = await metaFiles[meta]() as {default: string[]};
+
+    const metaSlug = meta.match(regex);
+    if (metaSlug) {
+      const extractedText = metaSlug[1];
+
+      parsed.forEach((key) => {
+        if(Array.isArray(key)) {
+          slugs.push(`${extractedText}/${key[0]}`);
+        }
+      })
+    }
+  }
+
+  const docEntries = await getCollection("docs", (entry) => {
+    return slugs.includes(`docs/${entry.slug}`);
+  });
+  return docEntries.map(entry => ({
+    params: { slug: `docs/${entry.slug}` }, props: { entry, frontmatter: entry.data },
+  }));
+}
+
+const { entry, frontmatter } = Astro.props;
+
+const { Content, headings } = await entry.render();
+
+---
+<DocsLayout customTitle={entry.data.title} description={frontmatter.description} headings={headings}>
+  {frontmatter?.title && <CustomHeader>{frontmatter.title}</CustomHeader>}
+  <Content components={{ a: Link }} />
+</DocsLayout>

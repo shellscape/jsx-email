@@ -1,0 +1,47 @@
+[
+  "Getting Started",
+  [
+    "introduction",
+    "Introduction"
+  ],
+  [
+    "quick-start",
+    "Quick Start"
+  ],
+  [
+    "recipes",
+    "Recipes"
+  ],
+  [
+    "email-providers",
+    "Email Provider Integrations"
+  ],
+  [
+    "faq",
+    "Common Questions"
+  ],
+  [
+    "contributing",
+    "Contributing"
+  ],
+  "Components",
+  [
+    "components",
+    "Components"
+  ],
+  "Core",
+  [
+    "core",
+    "Core"
+  ],
+  "Plugins",
+  [
+    "plugins",
+    "Plugins"
+  ],
+  "Upgrade",
+  [
+    "v2",
+    "Upgrade"
+  ]
+]

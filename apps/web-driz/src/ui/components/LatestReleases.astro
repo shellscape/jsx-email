@@ -1,0 +1,189 @@
+---
+import { getCollection } from "astro:content";
+
+const articles = await getCollection("docs", ({ id }) => {
+  return id.startsWith('latest-releases/');
+});
+
+const filteredArticles = articles.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+);
+
+const options: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+};
+
+---
+
+<div class="learn__title-block">
+  <div class="latest-releases_title">Latest Releases</div>
+</div>
+<div class="latest-updates__cards">
+  {
+    filteredArticles.map((update) => (
+      <a
+        href={`/docs/${update.slug}`}
+        class="latest-updates__card"
+      >
+        <div class="latest-updates__card_title">{update.data.title}</div>
+        <div class="latest-updates__card_date">
+          {update.data.pubDate.toLocaleDateString("en-US", options)}
+        </div>
+        <div class="latest-updates__card_description">
+          {update.data.description}
+        </div>
+        <div class="latest-updates__card_link">Read more</div>
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  html.dark .latest-releases_title {
+    color: #c8c9ca;
+  }
+
+  .latest-releases_title {
+    color: #0f172a;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: -0.48px;
+    margin-bottom: 16px;
+    margin-top: 8px;
+  }
+
+  .latest-updates__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  html.dark .latest-updates__card {
+    background-color: #171717;
+    border: 1px solid #303030;
+  }
+
+  .latest-updates__card {
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    line-height: normal;
+    text-decoration: none;
+  }
+
+  html.dark .latest-updates__card_title {
+    color: #c8c9ca;
+  }
+
+  .latest-updates__card_title {
+    color: #222124;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.198px;
+  }
+
+  html.dark .latest-updates__card_date {
+    color: #c4c5c6;
+  }
+
+  .latest-updates__card_date {
+    color: #7e868c;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.132px;
+    margin-top: 8px;
+  }
+
+  html.dark .latest-updates__card_description {
+    color: #c4c5c6;
+  }
+
+  .latest-updates__card_description {
+    color: #5f5f61;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.176px;
+    margin-top: 16px;
+  }
+
+  .learn__title-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .latest-updates__card_link {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .latest-releases_title {
+      color: #303030;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.48px;
+      line-height: 31.2px;
+    }
+    .latest-updates__card_link {
+      display: flex;
+      margin-top: 8px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.71px;
+    }
+    .learn__description {
+      color: #303030;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18.2px;
+      letter-spacing: -0.5px;
+      margin-top: 8px;
+    }
+    html.dark .learn__title-block {
+      border-left: none;
+    }
+    .learn__title-block {
+      display: flex;
+      flex-direction: column;
+      max-width: 920px;
+      width: 100%;
+      margin: 0;
+      flex-shrink: 0;
+      border: none;
+    }
+    .latest-updates__card_title {
+      color: #222124;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -1.1%;
+      line-height: 19.09px;
+    }
+    .latest-updates__card_description {
+      color: #5f5f61;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.176px;
+      margin-top: 16px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+    }
+    .latest-updates__cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+      width: 100%;
+      padding-bottom: 52px;
+    }
+  }
+</style>

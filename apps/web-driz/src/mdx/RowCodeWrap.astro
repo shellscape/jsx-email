@@ -1,0 +1,13 @@
+<div class="row_code__wrap">
+  <slot/>
+</div>
+
+<style>
+  .row_code__wrap {
+    display: grid;
+    width: 100%;
+    margin-top: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+</style>

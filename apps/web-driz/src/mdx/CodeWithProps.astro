@@ -1,0 +1,12 @@
+---
+const props = Astro.props;
+let html = await Astro.slots.render('default');
+
+Object.entries(props).forEach(([key, value]) => {
+ html = html.replaceAll(`$${key}$`, value);
+})
+
+---
+<div>
+  <Fragment set:html={html}/>
+</div>

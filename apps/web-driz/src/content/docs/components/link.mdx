@@ -1,0 +1,70 @@
+---
+title: Link
+description: Renders a hyperlink to an external resource
+type: component
+---
+
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
+Renders a hyperlink to an external resource
+
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
+```sh
+pnpm add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+bun add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+npm add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+yarn add jsx-email
+```
+</CodeTab>
+</CodeTabs>
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Link } from 'jsx-email';
+
+const Email = () => {
+  return <Link href="https://example.com">Example</Link>;
+};
+```
+
+## Component Props
+
+```ts
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+```ts
+href: string;
+```
+
+Link to be triggered when the button is clicked.
+
+```ts
+target?: string;
+```
+
+Specify the target attribute for the button link.
+
+<Callout type="info">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+</Callout>

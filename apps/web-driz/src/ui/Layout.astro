@@ -1,0 +1,96 @@
+---
+import { getContentTree } from "@/utils";
+import NavigationAstro from "./components/NavigationAstro.astro";
+import Footer from "./components/Footer.astro";
+import BaseHead from "@/ui/BaseHead.astro";
+import Banner from "./components/Banner.astro";
+import DocsSidebar from "./components/DocsSidebar.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const { tree } = await getContentTree({});
+---
+
+<!doctype html>
+<html lang="en">
+  <BaseHead title={title} />
+  <body class="banner-shown">
+    <Banner />
+    <NavigationAstro />
+    <main class="landing-wrap scrollbar">
+      <div class="landing-content">
+        <div class="aside-wrap">
+          <DocsSidebar tree={tree} headings={[]} forLanding={true} />
+        </div>
+        <slot />
+      </div>
+      <div class="bottom-margin"></div>
+      <Footer />
+    </main>
+    <script>
+      document.addEventListener("astro:page-load", () => {
+        const copyBtn = document.querySelectorAll(
+          "[data-copy-btn]",
+        ) as NodeListOf<HTMLElement>;
+        copyBtn.forEach((n) => {
+          n.addEventListener("click", () => {
+            let timeouts: NodeJS.Timeout[] = [];
+
+            if (timeouts.length) {
+              timeouts.forEach((id) => {
+                clearTimeout(id);
+              });
+            }
+
+            navigator.clipboard.writeText(n.dataset.code!);
+
+            n.classList.add("copied");
+            n.classList.add("hide-svg");
+            timeouts.push(
+              setTimeout(() => {
+                n.classList.remove("copied");
+              }, 1500),
+            );
+            timeouts.push(
+              setTimeout(() => {
+                n.classList.remove("hide-svg");
+              }, 2000),
+            );
+          });
+        });
+      });
+    </script>
+    <style>
+      .landing-wrap {
+        width: 100%;
+        overflow-x: hidden;
+        overflow-wrap: break-word;
+        padding-left: max(env(safe-area-inset-left), 1.5rem);
+        padding-right: max(env(safe-area-inset-right), 1.5rem);
+        color: #334155;
+      }
+
+      .landing-content {
+        max-width: 1024px;
+        margin: 0 auto;
+      }
+
+      .aside-wrap {
+          display: none;
+      }
+
+      .bottom-margin {
+        margin-bottom: 4rem;
+      }
+
+      @media screen and (max-width: 768px) {
+          .aside-wrap {
+              display: block;
+          }
+      }
+    </style>
+  </body>
+</html>

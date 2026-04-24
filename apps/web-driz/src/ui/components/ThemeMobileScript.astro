@@ -1,0 +1,63 @@
+<script is:inline>
+  const themeMobileScript = () => {
+    const themeSelect = document.getElementById("theme__select");
+
+    const updateIconMobile = () => {
+      const currentThemeIcons = document.querySelectorAll(
+        "[data-current-theme-icon]",
+      );
+      const theme = localStorage.getItem("theme");
+      if (!theme || !currentThemeIcons) return;
+      currentThemeIcons.forEach((currentThemeIcon) => {
+        if (theme === "system") {
+          currentThemeIcon.innerHTML = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches
+            ? darkIconSvg
+            : lightIconSvg;
+        } else if (theme === "light") {
+          currentThemeIcon.innerHTML = lightIconSvg;
+        } else if (theme === "dark") {
+          currentThemeIcon.innerHTML = darkIconSvg;
+        }
+      });
+
+      if(themeSelect) {
+        themeSelect.value = theme;
+      }
+      let themeName = "";
+
+      if (theme === "system") {
+        themeName = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      } else {
+        themeName = theme;
+      }
+      if (window.inkeepWidget) {
+        window.inkeepWidget.render({
+          baseSettings: {
+            theme: {
+              colorMode: {
+                forcedColorMode: themeName,
+              },
+            },
+          },
+        });
+      }
+    };
+
+    if (themeSelect) {
+      themeSelect.addEventListener("change", (e) => {
+        const theme = e.target.value;
+        if (!theme) return;
+        setPreference(theme);
+        updateIconMobile();
+      });
+    }
+    updateIconMobile();
+  }
+
+  themeMobileScript();
+  document.addEventListener("astro:after-swap", themeMobileScript)
+</script>

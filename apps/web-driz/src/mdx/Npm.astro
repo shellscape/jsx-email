@@ -1,0 +1,90 @@
+---
+const items = ["npm", "yarn", "pnpm", "bun"];
+const html = await Astro.slots.render("default");
+const installCommands = ["npm i", "yarn add", "pnpm add", "bun add"];
+const installLines = html.replaceAll(/<\/?p>/g, "").replaceAll('—', '--').split("\n");
+
+const getCopyButton = (index: number) => {
+  return `<div class="btn-container">
+  <button
+    aria-label="Copy"
+    data-copy-btn
+    class="button-wrap"
+    data-code="${installLines.map(line => `${installCommands[index]} ${line}`).join("\n")}"
+  >
+    <svg
+      class="ready"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+      <path
+        d="M5 15H4C2.89543 15 2 14.1046 2 13V4C2 2.89543 2.89543 2 4 2H13C14.1046 2 15 2.89543 15 4V5"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path></svg
+    ><svg
+      class="success"
+      width="20"
+      height="20"
+      viewBox="0 0 12 12"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M10.0242 3.1758C10.1367 3.28832 10.1999 3.4409 10.1999 3.6C10.1999 3.7591 10.1367 3.91168 10.0242 4.0242L5.2242 8.8242C5.11168 8.93668 4.9591 8.99987 4.8 8.99987C4.6409 8.99987 4.48832 8.93668 4.3758 8.8242L1.9758 6.4242C1.86651 6.31104 1.80603 6.15948 1.8074 6.00216C1.80876 5.84484 1.87186 5.69435 1.98311 5.58311C2.09435 5.47186 2.24484 5.40876 2.40216 5.4074C2.55948 5.40603 2.71104 5.46651 2.8242 5.5758L4.8 7.5516L9.1758 3.1758C9.28832 3.06332 9.4409 3.00013 9.6 3.00013C9.7591 3.00013 9.91168 3.06332 10.0242 3.1758Z"
+      ></path>
+    </svg>
+  </button>
+</div>`;
+};
+
+const getInstallCommands = (index: number) =>
+  installLines
+    .map(
+      (line) =>
+        `<span class="line"><span style="color:var(--astro-code-token-function)">${installCommands[index]}</span><span style="color:var(--astro-code-token-string)"> ${line}</span></span>`,
+    )
+    .join("\n");
+const wrapCodeBlocks = () =>
+  installCommands.map(
+    (_, index) =>
+      `<figure style="position: relative;" class="${installLines.length === 1 && "one-line-btn-container "} code-snippet lang-shell ${
+        index !== 0 ? "hidden" : ""
+      }"><figcaption class="header"></figcaption><pre class="astro-code css-variables" style="background-color:var(--astro-code-color-background);color:var(--astro-code-color-text);overflow-x:auto" tabindex="0" lang="shell"><code>${getInstallCommands(
+        index,
+      )}</code></pre>
+      ${getCopyButton(index)}
+      </figure>`,
+  );
+---
+
+<div class="npm__wrapper">
+  <div class="npm__tabs">
+    {
+      items.map((item, index) => (
+        <div
+          class={index === 0 ? "npm__tab npm__tab--active" : "npm__tab"}
+          data-change-npm-btn
+        >
+          {item}
+        </div>
+      ))
+    }
+  </div>
+  <div class="npm__content">
+    <Fragment set:html={wrapCodeBlocks()} />
+  </div>
+</div>

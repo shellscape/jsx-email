@@ -1,0 +1,206 @@
+---
+import { Image } from "astro:assets";
+import type { ISupportingElement } from '@/types';
+import LiveOnTheEdge from "@/assets/images/LiveOnTheEdgeDark.webp";
+import ConnectEverywhere from "@/assets/images/ConnectEverywhereDark.webp";
+import SupportingElement from "./SupportingElement.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  items: string[];
+  rowsNum: number;
+  data: { [key: string]: ISupportingElement };
+  imageType: string;
+}
+
+const { title, description, items, rowsNum, data, imageType } = Astro.props;
+
+const svgs = import.meta.glob<Record<string, any>>('/public/svg/*.svg', { query: '?raw', import: "default" });
+---
+<div class="wrap">
+    <div class="leftside">
+      <div class="text_block">
+        <div class="title">{title}</div>
+        <div class="description">{description}</div>
+      </div>
+      <Image 
+        class:list={['image', imageType === "connecteverywhere" && 'bigImage']} 
+        src={imageType === "connecteverywhere" ? ConnectEverywhere : LiveOnTheEdge} 
+        alt={imageType === "connecteverywhere" ? "connect everywhere" : "live on the edge"} 
+        />
+    </div>
+    <div class="supporting__scroll">
+      <div class="grid_wrapper">
+        <div
+          class:list={['grid', `grid-template-${rowsNum}`]}
+        >
+          {items.map((a) => (
+            <SupportingElement item={data[a]} name={a} svgs={svgs}/>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<style>
+  .wrap {
+    margin: 200px auto 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 910px;
+    gap: 40px;
+  }
+
+  .text_block {
+
+  }
+
+  .title {
+      font-size: 32px;
+      font-weight: 600;
+  }
+
+  .description {
+      font-size: 20px;
+      color: #333;
+      font-weight: 500;
+  }
+
+  html[class~=dark] .description {
+      color: rgba(255, 255, 255, 0.8);
+  }
+
+  .leftside {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 40px;
+  }
+
+  .grid {
+      display: grid;
+      grid-template-columns: 220px 220px;
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+      height: fit-content;
+  }
+
+  .item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      padding-right: 10px;
+      font-weight: 600;
+      border: 1.7px solid rgba(33, 39, 46, 0.12);
+      background-color: rgba(240, 241, 242, 0.27);
+  }
+
+  html[class~=dark] .item {
+      border: 1.7px solid rgb(64,64,64);
+      background-color: #282828;
+  }
+
+  .img_block {
+      position: absolute;
+  }
+
+  .icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+      padding: 10px;
+      width: 48px;
+      height: 54px;
+      justify-content: center;
+      text-align: center;
+  }
+
+  .icon img {
+      height: 24px;
+  }
+
+  .image {
+      width: 30%;
+  }
+
+  .bigImage {
+      width: 52%;
+  }
+
+  @media (max-width: 900px) {
+      .title {
+          font-size: 20px;
+      }
+      .description {
+          font-size: 14px;
+      }
+  }
+
+  @media (max-width: 767px) {
+      .image {
+          max-width: 18%;
+          transform: rotateY(180deg);
+      }
+      .bigImage {
+          max-width: 30%;
+          transform: none;
+      }
+      .leftside {
+          flex-direction: row;
+          gap: 0;
+          align-items: center;
+      }
+      .wrap {
+          margin-top: 160px;
+          width: 100%;
+          flex-direction: column;
+      }
+      .grid {
+          grid-template-columns: 1fr 1fr;
+      }
+  }
+
+  @media (max-width: 500px) {
+      .supporting__scroll {
+          overflow-x: auto;
+          overflow-y: hidden;
+          width: 100vw;
+          margin-left: -24px;
+      }
+      .supporting__scroll::-webkit-scrollbar {
+          display: none;
+      }
+      .supporting__scroll {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      .grid_wrapper {
+          width: fit-content;
+      }
+      .image {
+          max-width: 70px;
+      }
+      .bigImage {
+          max-width: 120px;
+      }
+      .grid {
+          width: 100%;
+          margin-left: 24px;
+          grid-auto-flow: column;
+          grid-template-rows: repeat(3,1fr);
+          grid-template-columns: none;
+          grid-auto-columns: 220px;
+      }
+      .grid-template-3 {
+          grid-template-rows: repeat(3,1fr);
+      }
+      .grid-template-4 {
+          grid-template-rows: repeat(4,1fr);
+      }
+  }
+</style>

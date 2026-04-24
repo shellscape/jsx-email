@@ -1,0 +1,223 @@
+---
+import { Image } from "astro:assets";
+import DrizzleImgLight from "@/assets/images/drizzle-studio-light.webp";
+import DrizzleImgDark from "@/assets/images/drizzle-studio-dark.webp";
+---
+
+
+<div class="container">
+  <div class="text_container">
+    <div class="title">Drizzle Studio</div>
+    <div class="description">
+      Explore and manipulate your data
+    </div>
+  </div>
+  <div class="gradient_container">
+    <div class="image_container">
+      <Image
+        class="image light"
+        src={DrizzleImgLight}
+        alt="Drizzle Studio"
+        width={0}
+        height={0}
+        style={{ width: "100%", height: "auto" }}
+      />
+      <Image
+        class="image dark"
+        src={DrizzleImgDark}
+        alt="Drizzle Studio"
+        width={0}
+        height={0}
+        style={{ width: "100%", height: "auto" }}
+      />
+    </div>
+    <div class="image_container_separator" />
+  </div>
+  <div class="buttons">
+    <a class="button" href="/drizzle-studio/overview">
+      Documentation
+    </a>
+    <a class="button_accent" href="https://demo.drizzle.studio">
+      Live demo
+    </a>
+  </div>
+</div>
+
+<style>
+  html[class~=dark] .dark {
+    display: block;
+  }
+
+  html[class~=dark] .light {
+    display: none;
+  }
+
+  .dark {
+    display: none;
+  }
+
+  .light {
+    display: block;
+  }
+  .container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 160px;
+}
+
+.text_container {
+  text-align: center;
+  max-width: 514px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.gradient_container {
+  position: relative;
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+.gradient_container::after {
+  content: '';
+  position: absolute;
+  left: -24px;
+  bottom: -200px;
+  width: calc(100% + 48px);
+  height: 400px;
+  background: radial-gradient(50% 15% at center, rgba(17, 17, 21, 0.15) 50%, rgba(17, 17, 21, 0));
+}
+
+.image_container {
+  border-radius: 8px 8px 0 0;
+  padding: 4px 4px 0;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-bottom: none;
+}
+
+.image {
+  border-radius: 4px 4px 0 0;
+}
+
+.image_container_separator {
+  height: 1px;
+  margin-left: -24px;
+  width: calc(100% + 48px);
+  background: #e8e8e8;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+}
+
+.button {
+  width: 212px;
+  border-radius: 3px;
+  color: #282b3b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(33, 39, 46, 0.12);
+  background-color: rgba(240, 241, 242, 0.27);
+}
+
+.button_accent {
+  width: 212px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #282b3b;
+}
+
+html[class~='dark'] .button {
+  color: #cccccc;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+html[class~='dark'] .button_accent {
+  color: #282828;
+  background-color: rgb(226, 232, 240);
+}
+
+html[class~='dark'] .docs {
+  border: 1px solid rgb(64, 64, 64);
+  background-color: #282828;
+  color: rgb(226, 232, 240);
+}
+
+html[class~='dark'] .image_container {
+  border: 1px solid rgb(64, 64, 64);
+  border-bottom: none;
+  background-color: #282828;
+}
+
+html[class~='dark'] .image_container_separator {
+  background: rgb(64, 64, 64);
+}
+
+@media (max-width: 900px) {
+  .title {
+    font-size: 20px;
+  }
+  .description {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 599px) {
+  .container {
+    gap: 20px;
+  }
+
+  .buttons {
+    gap: 10px;
+  }
+
+  .button,
+  .button_accent {
+    font-size: 14px;
+    height: 46px;
+  }
+
+  .gradient_container {
+    padding: 0 12px;
+  }
+
+  .gradient_container::after {
+    left: -12px;
+    width: calc(100% + 24px);
+    bottom: -100px;
+    height: 200px;
+  }
+}
+</style>

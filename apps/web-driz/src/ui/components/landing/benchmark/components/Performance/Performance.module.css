@@ -1,0 +1,85 @@
+.wrap, .wrap-hide {
+  display: grid;
+	grid-template-columns: 1fr 1fr;
+	border-radius: 8px;
+	gap: 16px;
+	grid-area: 1 / 1;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace;
+}
+
+.wrap-hide {
+	visibility: hidden;
+}
+
+.compare-item-container {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.compare-item {
+  display: flex;
+	align-items: center;
+	padding: 8px 16px 8px 8px;
+	width: fit-content;
+	border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow:
+		rgb(255, 255, 255) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+		rgba(0, 0, 0, 0.1) 0px 1px 2px 0px,
+		rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+}
+
+.name {
+	text-transform: capitalize;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.version {
+	margin-top: 2px;
+	font-size: 10px;
+	line-height: 10px;
+	color: #999;
+}
+
+html[class~=dark] .block, html[class~=dark] .compare-item {
+	background-color: rgb(17, 17, 17);
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.2) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px, rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+}
+
+.block {
+  padding: 8px;
+	border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow:
+		rgb(255, 255, 255) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+		rgba(0, 0, 0, 0.1) 0px 1px 2px 0px,
+		rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	height: 100%;
+}
+
+.compare-icon-wrap {
+  margin-right: 8px;
+	width: 32px;
+	height: 32px;
+}
+
+.compare-icon-wrap svg {
+  width: 100%;
+	height: 100%;
+}

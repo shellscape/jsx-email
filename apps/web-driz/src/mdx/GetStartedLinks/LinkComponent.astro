@@ -1,0 +1,149 @@
+---
+import type { SVGProps } from '@/types';
+import type { CSSProperties } from 'react';
+
+interface Props {
+  link: {
+    name: string;
+    path: {
+      new: string;
+      existing: string;
+    };
+    icon: {
+      light: {
+        path: string;
+        style?: SVGProps;
+      };
+      dark: {
+        path: string;
+        style?: SVGProps;
+      };
+    };
+  };
+  svgs: Record<string, any>;
+}
+
+const { link, svgs } = Astro.props;
+const { icon } = link;
+
+let svgCodeLight = '';
+let svgCodeDark = '';
+
+const isSvg = icon.light.path.includes('.svg') || icon.dark.path.includes('.svg')
+
+if (isSvg) {
+  svgCodeLight = await (svgs[icon.light.path])();
+  svgCodeDark = await (svgs[icon.dark.path])();
+}
+
+const getImagePath = (src: string) => {
+  return src.replace('/public', '');
+}
+
+const getParamsString = (props?: SVGProps) => {
+  if (!props) return '';
+  return Object.entries(props).reduce((acc, [key, value]) => {
+    if (value === undefined) return acc;
+    return `${acc} ${key}="${value}"`;
+  }, '');
+}
+
+const lightStylesSVGString = svgCodeLight.replace(/<svg/, `<svg ${getParamsString(icon.light.style)}`);
+const darkStylesSVGString = svgCodeDark.replace(/<svg/, `<svg ${getParamsString(icon.dark.style)}`);
+---
+
+<a id={link.name} class="get-started-link" href={link.path.new}>
+  <div class="img_light">
+    {isSvg && <Fragment set:html={lightStylesSVGString} />}
+    {!isSvg && <img class="image" src={getImagePath(icon.light.path)} style={{...(icon.light.style as CSSProperties)}}/>}
+  </div>
+  <div class="img_dark">
+    {isSvg && <Fragment set:html={darkStylesSVGString} />}
+    {!isSvg && <img class="image" src={getImagePath(icon.dark.path)} style={{...(icon.dark.style as CSSProperties)}}/>}
+  </div>
+  <span class="link-name">{link.name}</span>
+</a>
+
+<style>
+    .get-started-link {
+        display: flex;
+        border: 1px solid #21272e1f;
+        border-radius: 2px;
+        align-items: center;
+        padding: 8px;
+        color: rgb(51, 65, 85);
+        text-decoration: none;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+        font-size: 14px;
+        overflow: hidden;
+        background-color: #fafafa;
+        transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    html.dark .get-started-link {
+        background-color: #1a1a1a;
+        color: #c4c5c6;
+        border-color: #292929;
+    }
+
+    .get-started-link:hover {
+        border-color: #c9cbcf;
+        background-color: #f5f5f5;
+    }
+
+    html.dark .get-started-link:hover {
+        background-color: #1f1f1f;
+        border-color: #2c2c2c;
+    }
+
+    .img_light {
+        visibility: visible;
+        display: flex;
+        margin-right: 8px;
+        border: 1px solid #e0e0e0;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        background: white;
+    }
+
+    .img_dark {
+        visibility: hidden;
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        border: 1px solid rgb(41 41 41);
+        background: #141414;
+        width: 0;
+        height: 0;
+        margin: 0;
+    }
+
+    .image {
+        width: 100%;
+        aspect-ratio: 1/1;
+    }
+
+    html.dark .img_light {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        border: none;
+        margin: 0;
+    }
+
+    html.dark .img_dark {
+        visibility: visible;
+        width: 36px;
+        height: 36px;
+        border: 1px solid #404040;
+        margin-right: 8px;
+    }
+</style>

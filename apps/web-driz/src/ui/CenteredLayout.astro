@@ -1,0 +1,331 @@
+---
+import EndOfContent from "./components/EndOfContent.astro";
+import MDXStyles from "./components/MDXStyles.astro";
+import Banner from "./components/Banner.astro";
+import BaseHead from "@/ui/BaseHead.astro";
+import Footer from "./components/Footer.astro";
+import type { IHeading } from "@/types";
+import NavigationAstro from "./components/NavigationAstro.astro";
+import DocsSidebar from "./components/DocsSidebar.astro";
+import { getContentTree } from "@/utils";
+
+interface Props {
+  customTitle?: string;
+  description?: string;
+  headings: IHeading[];
+  isStudio?: boolean;
+}
+
+const { customTitle, headings, description, isStudio } = Astro.props;
+const { slug } = Astro.params;
+const { title, tree } = await getContentTree({
+  headings,
+  slug,
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <BaseHead
+    title={`Drizzle ORM - ${customTitle || title}`}
+    description={description}
+  />
+  <body class="banner-shown">
+    <MDXStyles />
+    <Banner />
+    <NavigationAstro />
+    <div class="aside-wrap">
+      <DocsSidebar tree={tree} headings={[]} forLanding={true} />
+    </div>
+    <main
+      class:list={["documentation-container scrollbar", isStudio && "relative"]}
+    >
+      <div class="documentation-content">
+        <slot />
+        <EndOfContent />
+        <Footer isCenteredLayout />
+      </div>
+    </main>
+    <style>
+      .right-aside-container {
+        position: relative;
+      }
+
+      .aside-wrap {
+        display: none;
+      }
+
+      @media screen and (max-width: 1024px) {
+        .right-aside-container {
+          display: none;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .aside-wrap {
+          display: block;
+        }
+      }
+    </style>
+    <style is:global>
+      .navigation_nav_container_blur {
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        background-color: hsla(0, 0%, 100%, 0.85);
+        box-shadow:
+          0 0 0 0 transparent,
+          0 0 0 0 transparent,
+          0 2px 4px 0 rgba(0, 0, 0, 0.02),
+          0 1px 0 0 rgba(0, 0, 0, 0.06);
+      }
+      .navigation_nav_content_wrap {
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        height: 64px;
+        max-width: 1440px;
+        align-items: center;
+        gap: 8px;
+        padding-left: max(env(safe-area-inset-left), 24px);
+        padding-right: max(env(safe-area-inset-right), 24px);
+      }
+      .documentation-container {
+        width: 100%;
+        display: flex;
+        margin: 0 auto;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+
+      .documentation-content {
+        padding-left: 48px;
+        padding-right: 40px;
+        padding-top: 16px;
+        width: 100%;
+        max-width: 994px;
+        margin: 0 auto;
+      }
+
+      @media screen and (max-width: 1024px) {
+        .right-aside-container {
+          display: none;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .documentation-content {
+          padding-left: 16px;
+          padding-right: 16px;
+          padding-top: 1rem;
+          width: 100%;
+        }
+      }
+    </style>
+    <script>
+      const hash = window.location.hash;
+      if (hash !== "") {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          targetElement.scrollIntoView();
+        }
+      }
+    </script>
+    <script is:inline>
+      const changeNpmTab = () => {
+        const packageManagers = ["npm", "yarn", "pnpm", "bun"];
+        // @ts-nocheck
+        let packageManagerIndex = packageManagers.indexOf(packageManager);
+
+        const updateUI = (index) => {
+          npmContent.forEach((element) => {
+            Array.from(element.children).forEach((child, i) => {
+              child.classList.toggle("hidden", i !== index);
+            });
+          });
+          npmTabs.forEach((element) => {
+            Array.from(element.children).forEach((child, i) => {
+              child.classList.toggle("npm__tab--active", i === index);
+            });
+          });
+
+          npxSelectResizer.querySelector(".line span").innerText =
+            packageManagers[index];
+
+          npxSelects.forEach((element) => {
+            element.value = index;
+            element.style.width = `${npxSelectResizer.offsetWidth}px`;
+          });
+        };
+
+        const npmContent = document.querySelectorAll(".npm__content");
+        const npmTabs = document.querySelectorAll(".npm__tabs");
+        const npxSelects = document.querySelectorAll(".npx-select");
+        const npxSelectResizer = document.querySelector(".npx-select-resizer");
+
+        npmContent.forEach((content) => {
+          Array.from(content.children).forEach((child, index) => {
+            child.classList.toggle("hidden", index !== packageManagerIndex);
+          });
+        });
+
+        npmTabs.forEach((tab) => {
+          Array.from(tab.children).forEach((child, index) => {
+            child.classList.toggle(
+              "npm__tab--active",
+              index === packageManagerIndex,
+            );
+            child.addEventListener("click", () => {
+              // @ts-nocheck
+              packageManager = packageManagers[index];
+              // @ts-nocheck
+              localStorage.setItem("package-manager", packageManager);
+              updateUI(index);
+            });
+          });
+        });
+
+        npxSelects.forEach((element) => {
+          npxSelectResizer.querySelector(".line span").innerText =
+            packageManagers[packageManagerIndex];
+          element.value = packageManagerIndex;
+          setTimeout(
+            () => (element.style.width = `${npxSelectResizer.offsetWidth}px`),
+            1,
+          );
+          element.addEventListener("change", (e) => {
+            // @ts-nocheck
+            packageManager = packageManagers[Number(e.target.value)];
+            // @ts-nocheck
+            localStorage.setItem("package-manager", packageManager);
+            updateUI(Number(e.target.value));
+          });
+        });
+      };
+      changeNpmTab();
+    </script>
+    <script>
+      document.addEventListener("astro:page-load", () => {
+        const copyBtn = document.querySelectorAll(
+          "[data-copy-btn]",
+        ) as NodeListOf<HTMLElement>;
+        copyBtn.forEach((n) => {
+          n.addEventListener("click", () => {
+            let timeouts: NodeJS.Timeout[] = [];
+
+            if (timeouts.length) {
+              timeouts.forEach((id) => {
+                clearTimeout(id);
+              });
+            }
+
+            navigator.clipboard.writeText(n.dataset.code!);
+
+            n.classList.add("copied");
+            n.classList.add("hide-svg");
+            timeouts.push(
+              setTimeout(() => {
+                n.classList.remove("copied");
+              }, 1500),
+            );
+            timeouts.push(
+              setTimeout(() => {
+                n.classList.remove("hide-svg");
+              }, 2000),
+            );
+          });
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("astro:after-swap", () => {
+        const npmContent: NodeList = document.querySelectorAll(".npm__content");
+        const npmTabs: NodeList = document.querySelectorAll(".npm__tabs");
+        const npxSelects =
+          document.querySelectorAll<HTMLSelectElement>(".npx-select");
+        const npxSelectResizer = document.querySelector<HTMLDivElement>(
+          ".npx-select-resizer",
+        );
+        const packageManagers: string[] = ["npm", "yarn", "pnpm", "bun"];
+        let packageManager: string =
+          localStorage.getItem("package-manager") || "npm";
+        let packageManagerIndex: number =
+          packageManagers.indexOf(packageManager);
+
+        const updateUI = (index: number): void => {
+          npmContent.forEach((element) => {
+            Array.from((element as HTMLElement).children).forEach(
+              (child, i) => {
+                child.classList.toggle("hidden", i !== index);
+              },
+            );
+          });
+          npmTabs.forEach((element) => {
+            Array.from((element as HTMLElement).children).forEach(
+              (child, i) => {
+                child.classList.toggle("npm__tab--active", i === index);
+              },
+            );
+          });
+          const lineSpan =
+            npxSelectResizer?.querySelector<HTMLSpanElement>(".line span");
+          if (lineSpan) {
+            lineSpan.innerText = packageManagers[index];
+          }
+
+          npxSelects.forEach((element) => {
+            element.value = index.toString();
+            if (npxSelectResizer) {
+              element.style.width = `${npxSelectResizer.offsetWidth}px`;
+            }
+          });
+        };
+
+        npmContent.forEach((content) => {
+          Array.from((content as HTMLElement).children).forEach(
+            (child, index) => {
+              child.classList.toggle("hidden", index !== packageManagerIndex);
+            },
+          );
+        });
+
+        npmTabs.forEach((tab) => {
+          Array.from((tab as HTMLElement).children).forEach((child, index) => {
+            child.classList.toggle(
+              "npm__tab--active",
+              index === packageManagerIndex,
+            );
+            child.addEventListener("click", () => {
+              packageManager = packageManagers[index];
+              localStorage.setItem("package-manager", packageManager);
+              updateUI(index);
+            });
+          });
+        });
+
+        npxSelects.forEach((element) => {
+          const lineSpan =
+            npxSelectResizer?.querySelector<HTMLSpanElement>(".line span");
+          if (lineSpan) {
+            lineSpan.innerText = packageManagers[packageManagerIndex];
+          }
+
+          element.value = packageManagerIndex.toString();
+          if (npxSelectResizer) {
+            element.style.width = `${npxSelectResizer.offsetWidth}px`;
+          }
+          element.addEventListener("change", (e) => {
+            const selectElement = e.target as HTMLSelectElement;
+            packageManager = packageManagers[Number(selectElement.value)];
+            localStorage.setItem("package-manager", packageManager);
+            updateUI(Number(selectElement.value));
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

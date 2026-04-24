@@ -1,0 +1,88 @@
+---
+interface Props {
+  cards: Record<string, string>;
+}
+
+
+const { cards } = Astro.props;
+---
+<div class="cards">
+  {Object.keys(cards).map((card) => <a class="card" href={cards[card]}>
+    <div class="card-text">{card}</div>
+    <div class="card-arrow"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></div>
+    </a>)}
+</div>
+
+<style is:inline>
+  .cards {
+    margin-top: 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill,minmax(max(250px,calc((100% - 1rem*2)/3)),1fr));
+  }
+
+  html[class~=dark] .card {
+    border-color: #262626;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px
+  }
+
+  html[class~=dark] .card:hover {
+    border-color: #404040;
+    background-color: #171717;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+  }
+
+  .card {
+    text-decoration: none !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    padding: 1rem;
+    border-radius: .5rem !important;
+    border: 1px solid #e5e7eb;
+    background-color: transparent;
+    color: currentColor;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(243, 244, 246) 0px 1px 2px 0px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .2s;
+  }
+
+  .card:hover {
+    border-color: #d1d5db;
+    background-color: #f8fafc;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(243, 244, 246) 0px 4px 6px -1px, rgb(243, 244, 246) 0px 2px 4px -2px;
+  }
+
+  html[class~=dark] .card-text {
+    color: #e5e5e5;
+  }
+
+  .card-text {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  html[class~=dark] .card-arrow {
+    color: #e5e5e5;
+  }
+
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #374151;
+  }
+
+  .card-arrow svg { 
+    display: inline;
+    flex-shrink: 0;
+    height: 1.25rem;
+    vertical-align: middle;
+  }
+</style>

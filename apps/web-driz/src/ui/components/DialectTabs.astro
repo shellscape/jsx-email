@@ -1,0 +1,160 @@
+---
+import { dialects } from "@/data/dialects";
+import DialectTab from "./DialectTab.astro";
+
+const { slug = "" } = Astro.params;
+
+const current = Object.keys(dialects).find((key) => {
+  const item = dialects[key].href.split("/").at(-1);
+  const slugDialect = slug.split("/").at(-1);
+  return item === slugDialect;
+});
+
+const getLinkWithDialect = (dialect: string) => {
+  const slugDialect = slug.split("/").at(-1);
+  const slugWithoutDialect = slug.replace(`/${slugDialect}`, "");
+  return `/${slugWithoutDialect}${dialect}`;
+};
+---
+
+<div class="dialect-tabs__container">
+  <div class="dialect-tabs">
+    {
+      Object.keys(dialects).map((name) => (
+        <a
+          data-dialect-tab={name}
+          class:list={[
+            "dialect-tabs__tab",
+            current === name && "dialect-tabs__tab--active",
+          ]}
+          href={getLinkWithDialect(dialects[name].href)}
+        >
+          <DialectTab card={dialects[name]} />
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  html.dark .dialect-tabs__container {
+    background-color: #111;
+  }
+
+  .dialect-tabs__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 16px;
+      margin-top: -16px;
+    z-index: 19;
+    margin-bottom: 12px;
+    background-color: #fff;
+  }
+
+  html.dark .dialect-tabs__container::after {
+    background: linear-gradient(180deg, #111, transparent);
+  }
+
+  .dialect-tabs__container::after {
+    background: linear-gradient(180deg, #fff, transparent);
+    content: "";
+    height: 24px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+
+  html.dark .dialect-tabs {
+    background-color: #141414;
+    /* box-shadow: 0rem -.0625rem 0rem .0625rem #000000 inset, 0rem 0rem 0rem .0625rem #000000ff inset; */
+    box-shadow: none;
+      border: 1px solid #292929;
+  }
+
+  .dialect-tabs {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 40px;
+    position: relative;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 0 4px;
+    gap: 4px;
+    box-shadow:
+      rgba(0, 0, 0, 0.1) 0px 0px 0px 1px inset,
+      rgb(255, 255, 255) 0px 0.5px 0px 1.5px inset;
+      pointer-events: all;
+  }
+
+  html.dark .dialect-tabs__tab {
+    background-color: transparent;
+    color: #c8c9ca;
+    border: 1px solid transparent;
+  }
+
+  .dialect-tabs__tab {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: 0;
+    padding: 0 16px;
+    height: 32px;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    gap: 8px;
+    text-decoration: none;
+    color: rgb(33, 39, 46);
+    border-radius: 4px;
+  }
+
+
+  html.dark .dialect-tabs__tab:hover {
+    background-color: #282828;
+  }
+
+  html.dark .dialect-tabs__tab--active:hover {
+    background-color: #282828;
+  }
+
+
+  .dialect-tabs__tab:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  html.dark .dialect-tabs__tab--active {
+    background-color: #282828;
+    box-shadow: none;
+      border: 1px solid #555;
+  }
+
+  .dialect-tabs__tab--active {
+    background-color: #fff;
+    color: #000;
+    box-shadow:
+      rgb(181, 181, 181) 0px -1px 0px 0px inset,
+      rgba(0, 0, 0, 0.1) 0px 0px 0px 1px inset,
+      rgb(255, 255, 255) 0px 0.5px 0px 1.5px inset;
+  }
+
+  .dialect-tabs__tab--active:hover {
+    background-color: #fff;
+  }
+</style>
+<script>
+  import { updateDialectLinks } from "@/utils-client";
+
+  const typeSelectorBtn = document.querySelector(
+    ".dialect-tabs__tab--active",
+  ) as HTMLDivElement;
+
+  const dialect = typeSelectorBtn?.dataset?.dialectTab;
+  if (dialect) {
+    localStorage.setItem("dialect", dialect);
+    updateDialectLinks();
+  }
+</script>

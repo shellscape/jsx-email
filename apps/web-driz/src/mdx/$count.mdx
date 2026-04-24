@@ -1,0 +1,34 @@
+import Section from '@mdx/Section.astro';
+
+`db.$count()` is a utility wrapper of `count(*)`, it is a very flexible operator which can be used as is or as a subquery, more details in our [GitHub discussion](https://github.com/drizzle-team/drizzle-orm/discussions/3119).
+
+<Section>
+```ts
+const count = await db.$count(users);
+//    ^? number
+
+const count = await db.$count(users, eq(users.name, "Dan")); // works with filters
+```
+```sql
+select count(*) from "users";
+select count(*) from "users" where "name" = 'Dan';
+```
+</Section>
+
+It is exceptionally useful in [subqueries](/docs/select#select-from-subquery):
+
+```ts
+const users = await db.select({
+  ...users,
+  postsCount: db.$count(posts, eq(posts.authorId, users.id)),
+}).from(users);
+```
+
+usage example with [relational queries](/docs/rqb)
+```ts 
+const users = await db.query.users.findMany({
+  extras: {
+    postsCount: db.$count(posts, eq(posts.authorId, users.id)),
+  },
+});
+```

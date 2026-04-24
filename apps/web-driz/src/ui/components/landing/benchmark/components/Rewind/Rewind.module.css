@@ -1,0 +1,130 @@
+.wrap {
+	position: relative;
+}
+
+.wrap:hover .tooltip {
+	display: flex;
+}
+
+.rangeContainer {
+	position: relative;
+	height: 30px;
+	width: 350px;
+	border-radius: 2px;
+	border: 1px solid #cacaca;
+	display: flex;
+	overflow: hidden;
+	background: transparent;
+}
+
+.rangeStep {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 10px;
+	justify-content: center;
+	border-right: 1px dashed #cacaca;
+	z-index: 2;
+	user-select: none;
+	pointer-events: none;
+	margin: 4px 0;
+	font-weight: 600;
+}
+
+.progress-line {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	background: rgba(0, 0, 0, 0.04);
+	pointer-events: none;
+}
+
+html[class~=dark] .progress-line {
+	background: rgba(255, 255, 255, 0.04);
+}
+
+html[class~=dark] .rangeContainer {
+	border: 1px solid #545454;
+}
+
+html[class~=dark] .rangeStep {
+	border-right: 1px dashed #545454;
+}
+
+.rangeStep svg {
+	width: 10px;
+	height: 10px;
+}
+
+.rewind-input {
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	cursor: col-resize;
+	-webkit-appearance: none;
+	appearance: none;
+	background: transparent;
+	z-index: 1;
+}
+
+.rewind-input::-webkit-slider-runnable-track {
+	background: transparent;
+}
+
+.rewind-input::-moz-range-track {
+	background: transparent;
+}
+
+.rewind-input::-webkit-slider-thumb {
+	appearance: none;
+	background-color: #cccccc;
+	height: 28px;
+	width: 2px;
+}
+
+.rewind-input:hover::-webkit-slider-thumb {
+	background-color: #0d6ec5;
+	height: 30px;
+	margin-top: -1px;
+	z-index: 3;
+}
+
+html[class~=dark] .rewind-input::-webkit-slider-thumb {
+	background-color: #4d4d4d;
+}
+
+html[class~=dark] .rewind-input:hover::-webkit-slider-thumb {
+	background-color: #48b7f8;
+}
+
+.tooltip {
+	position: absolute;
+	display: none;
+	flex-direction: column;
+	padding: 8px;
+	white-space: nowrap;
+	border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow:
+			rgb(255, 255, 255) 0px 0px 0px 0px,
+			rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+			rgba(0, 0, 0, 0.1) 0px 1px 2px 0px,
+			rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+	bottom: 100%;
+	left: 0;
+	transform: translate(-50%, -4px);
+	pointer-events: none;
+	font-size: 12px;
+	line-height: 12px;
+	color: #222;
+	text-align: left;
+}
+
+html[class~=dark] .tooltip {
+	color: #f0f0f0;
+	background-color: rgb(17, 17, 17);
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.2) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px, rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+}

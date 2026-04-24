@@ -1,0 +1,29 @@
+---
+import Flex from "@mdx/Flex.astro"
+import LinksList from "@mdx/LinksList.astro"
+---
+
+<Flex>
+  <LinksList 
+    title='Manage schema'
+    links={[
+        ["Drizzle Schema", "/docs/sql-schema-declaration"], 
+        ["MSSQL data types", "/docs/column-types/mssql"], 
+        ["Indexes and Constraints", "/docs/indexes-constraints"],
+        ["Database Views", "/docs/views"],
+        ["Database Schemas", "/docs/schemas"],
+      ]}
+  />
+  <LinksList 
+    title='Query data'
+    links={[
+        ["Select", "/docs/select"], 
+        ["Insert", "/docs/insert"],
+        ["Update", "/docs/update"],
+        ["Delete", "/docs/delete"],
+        ["Filters", "/docs/operators"],
+        ["Joins", "/docs/joins"],
+        ["sql`` operator", "/docs/sql"],
+      ]}
+  />
+</Flex>

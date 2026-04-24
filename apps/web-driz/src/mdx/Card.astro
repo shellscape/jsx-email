@@ -1,0 +1,139 @@
+---
+import type { ICard, SVGProps } from '@/types'
+interface Props {
+  card: ICard;
+  svgs: Record<string, any>;
+}
+
+const { card, svgs } = Astro.props;
+
+const {
+    title, description, href, lightStyle, darkStyle, imageSrc,
+  } = card;
+
+const isForTheme = typeof imageSrc === 'object';
+const svgCodeLight = await (isForTheme ? svgs[imageSrc.lightThemeSrc] : svgs[imageSrc])();
+const svgCodeDark = await (isForTheme ? svgs[imageSrc.darkThemeSrc] : svgs[imageSrc])();
+
+const getParamsString = (props?: SVGProps) => {
+  if (!props) return '';
+  return Object.entries(props).reduce((acc, [key, value]) => {
+    if (value === undefined) return acc;
+    return `${acc} ${key}="${value}"`;
+  }, '');
+}
+
+const lightStylesSVGString = svgCodeLight.replace(/<svg/, `<svg ${getParamsString(lightStyle)}"`);
+const darkStylesSVGString = svgCodeDark.replace(/<svg/, `<svg ${getParamsString(darkStyle)}`);
+---
+<a class="link" href={href}>
+  <div class={"wrap"}>
+    <div class={"icon"}>
+      <div class={"img_light"}>
+        <Fragment set:html={lightStylesSVGString} />
+      </div>
+      <div class={"img_dark"}>
+        <Fragment set:html={darkStylesSVGString} />
+      </div>
+    </div>
+    <div>
+      <h3 class={"header"}>{title}</h3>
+      {description && <div class={"description"}>{description}</div>}
+    </div>
+  </div>
+</a>
+<style>
+
+  .link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  html[class~=dark] .wrap {
+    border-color: rgb(64 64 64);
+    background-color: #111111;
+  }
+
+  html[class~=dark] .wrap:hover {
+    background-color: rgb(23 23 23);
+    border-color: rgb(64 64 64);
+  }
+
+  html[class~=dark] .icon {
+    border: 1.7px solid rgb(64,64,64);
+    background-color: #282828;
+  }
+
+  html[class~=dark] .header {
+    color: rgb(243, 244, 246);
+  }
+
+  html[class~=dark] .img_light {
+    visibility: hidden;
+  }
+
+  .img_light {
+    visibility: visible;
+    position: absolute;
+  }
+
+  html[class~=dark] .img_dark {
+    visibility: visible;
+  }
+
+  .img_dark {
+    visibility: hidden;
+    position: absolute;
+  }
+
+
+  .wrap {
+    transition-duration: .2s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    padding: 1rem;
+    background-color: rgba(240, 241, 242, 0.27);
+    border: 1px solid rgba(33, 39, 46, 0.12);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .wrap:hover {
+    border-color: rgb(209 213 219);
+    background-color: rgb(248 250 252);
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    text-align: center;
+    border: 1.7px solid rgba(33, 39, 46, 0.08);
+    background-color: rgb(240, 241, 242);
+  }
+
+  .icon img {
+    height: 24px;
+  }
+
+  .header {
+    font-weight: 700;
+    font-size: 16px;
+    color: rgb(33, 39, 46);
+  }
+
+  .description {
+    font-size: 14px;
+    color: rgb(120, 124, 128);
+  }
+
+</style>

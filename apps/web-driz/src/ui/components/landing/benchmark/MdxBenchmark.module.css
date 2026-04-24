@@ -1,0 +1,40 @@
+.mdx-benchmark__wrap {
+  margin-top: 24px;
+  display: block;
+  width: fit-content;
+}
+
+html[class~=dark] .bottom a {
+  color: #f9f9f9;
+  font-size: 12px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.bottom a {
+  color: #444;
+  text-decoration: none;
+}
+
+.bottom a:hover {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+}
+
+@media screen and (max-width: 1200px) {
+  .mdx-benchmark__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .bottom {
+    display: none;
+  }
+}

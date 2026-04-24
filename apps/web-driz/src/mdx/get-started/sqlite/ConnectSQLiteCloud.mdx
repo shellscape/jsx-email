@@ -1,0 +1,22 @@
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from "@mdx/CodeTabs.astro";
+import Section from "@mdx/Section.astro";
+
+Create a `index.ts` file in the `src` directory and initialize the connection:
+
+```typescript
+import { drizzle } from 'drizzle-orm/sqlite-cloud';
+
+const db = drizzle(process.env.SQLITE_CLOUD_CONNECTION_STRING);
+```
+
+If you need a synchronous connection, you can use our additional connection API, 
+where you specify a driver connection and pass it to the Drizzle instance.
+
+```typescript
+import { Database } from '@sqlitecloud/drivers';
+import { drizzle } from 'drizzle-orm/sqlite-cloud';
+
+const client = new Database(process.env.SQLITE_CLOUD_CONNECTION_STRING!);
+const db = drizzle({ client });
+```

@@ -1,0 +1,153 @@
+---
+import {getStartedItems} from "./GetStartedLinks/data";
+
+const { slug } = Astro.params;
+
+const flatItems = getStartedItems.map((v) => v.items).flat(1)
+
+const currentItem = flatItems.find((item) => `/${slug}` === item.path.new || `/${slug}` === item.path.existing);
+
+const databaseType = `/${slug}` === currentItem?.path.new ? 'new' : 'existing';
+---
+
+<div class="breadcrumbs-container">
+  <div
+    id="db-resizer"
+    class="select"
+    style={{
+      position: "absolute",
+      top: "-9999px",
+      left: "-9999px",
+      visibility: "hidden",
+      whiteSpace: "nowrap",
+    }}
+  >
+    {currentItem?.name}
+  </div>
+  <div
+    id="db-type-resizer"
+    class="select"
+    style={{
+      position: "absolute",
+      top: "-9999px",
+      left: "-9999px",
+      visibility: "hidden",
+      whiteSpace: "nowrap",
+    }}
+  >
+    {databaseType === 'new' ? 'New database' : 'Existing database'}
+  </div>
+  <div>Meet Drizzle</div>
+  <div class="dot"></div>
+  <a class="link" href="/docs/get-started">Get started</a>
+  <div class="dot"></div>
+  <select id="db-type-select" class="select">
+    <option
+      value="new"
+      selected={databaseType === 'new'}
+    >
+      New database
+    </option>
+    <option
+      value="existing"
+      selected={databaseType === 'existing'}
+    >
+      Existing database
+    </option>
+  </select>
+  <div class="dot"></div>
+  <select id="db-select" class="select">
+    {flatItems.map((item) => (
+      <option id={item.name} value={item.name} selected={item.name === currentItem?.name}>
+        {item.name}
+      </option>
+    ))}
+  </select>
+</div>
+
+<script is:inline define:vars={{currentItem, flatItems, databaseType}}>
+  const dbSelect = document.getElementById('db-select');
+  const dbTypeSelect = document.getElementById('db-type-select');
+  const dbSelectResizer = document.getElementById('db-resizer');
+  const dbTypeSelectResizer = document.getElementById('db-type-resizer');
+
+  dbSelect.addEventListener('change', (e) => {
+    dbSelectResizer.innerText = e.target.value;
+    dbSelect.style.width = `${dbSelectResizer.offsetWidth}px`;
+    window.location.href = flatItems.find(({name}) => name === e.target.value).path[databaseType];
+  });
+  dbTypeSelect.addEventListener('change', (e) => {
+    dbTypeSelectResizer.innerText = e.target.value === 'new' ? 'New database' : 'Existing database'
+    dbTypeSelect.style.width = `${dbTypeSelectResizer.offsetWidth}px`;
+    window.location.href = currentItem.path[e.target.value]
+  });
+
+  dbSelect.style.width = `${dbSelectResizer.offsetWidth}px`;
+  dbTypeSelect.style.width = `${dbTypeSelectResizer.offsetWidth}px`;
+</script>
+
+<style>
+    .breadcrumbs-container {
+        display: flex;
+        align-items: center;
+        gap: 0px 8px;
+        font-weight: 500;
+        font-size: 14px;
+        color: #0f172a;
+        flex-wrap: wrap;
+    }
+
+    .breadcrumbs-container .link {
+        display: block;
+        text-decoration: none;
+        color: #0f172a;
+    }
+
+    html.dark .breadcrumbs-container {
+        color: #c4c5c6;
+    }
+
+    html.dark .breadcrumbs-container .link {
+        color: #c4c5c6;
+    }
+
+    .breadcrumbs-container .link:hover {
+        text-decoration: underline;
+    }
+
+
+    .breadcrumbs-container svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .select {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        height: 28px;
+        font-size: 14px;
+        border-radius: 4px;
+        background-color: transparent;
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+    }
+
+    .select:hover {
+        text-decoration: underline;
+    }
+
+    .dot {
+        width: 4px;
+        height: 4px;
+        background: #0f172a;
+        border-radius: 100%;
+        flex-shrink: 0;
+    }
+
+    html.dark .dot {
+        background: #f1f5f9;
+    }
+</style>

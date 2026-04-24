@@ -1,0 +1,30 @@
+import CodeTabs from "@mdx/CodeTabs.astro";
+
+Create a `index.ts` file in the `src` directory and initialize the connection:
+
+<CodeTabs items={["libsql", "libsql with config"]}>
+```typescript copy
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/libsql';
+
+const db = drizzle(process.env.DB_FILE_NAME!);
+```
+```typescript copy
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/libsql';
+
+// You can specify any property from the libsql connection options
+const db = drizzle({ connection: { url: process.env.DB_FILE_NAME! }});
+```
+</CodeTabs>
+
+If you need to provide your existing driver:
+
+```typescript copy
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
+
+const client = createClient({ url: process.env.DB_FILE_NAME! });
+const db = drizzle({ client });
+```

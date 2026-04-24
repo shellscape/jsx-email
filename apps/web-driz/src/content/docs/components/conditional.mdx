@@ -1,0 +1,74 @@
+---
+title: 'Conditional'
+description: Use HTML conditional comments effortlessly
+type: component
+---
+
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
+Use HTML conditional comments effortlessly
+
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
+```sh
+pnpm add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+bun add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+npm add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+yarn add jsx-email
+```
+</CodeTab>
+</CodeTabs>
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Conditional, Head } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Head>
+      <Conditional mso={true}>
+        <meta content="batman" />
+      </Conditional>
+    </Head>
+  );
+};
+```
+
+## Component Props
+
+```ts
+interface ConditionalProps {
+  children?: React.ReactNode;
+  expression?: string;
+  mso?: boolean;
+}
+```
+
+<Callout type="info">
+The `expression` prop or the `mso` prop must be defined, but not both.
+</Callout>
+
+### Props
+
+```ts
+expression?: string;
+```
+
+If provided, the string will be used as the conditional expression within the HTML comment. e.g. a value of `lt ie 10` would result in a conditional comment block starting with ` ... `.

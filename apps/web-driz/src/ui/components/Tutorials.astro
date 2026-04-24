@@ -1,0 +1,137 @@
+---
+import { getCollection } from "astro:content";
+
+const tutorials = await getCollection("docs", ({ id }) => {
+  return id.startsWith("tutorials/");
+});
+
+const formattedTutorials = tutorials
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .map((tutorial) => ({
+    ...tutorial,
+    slug: tutorial.slug.split("/").at(-1),
+  }));
+---
+
+<div class="learn__title-block">
+  <div class="tutorials_title">Tutorials</div>
+</div>
+<div class="tutorials__items">
+  {
+    formattedTutorials.map((tutorial) => (
+      <div class="tutorials__item">
+        <a
+          class="tutorials__item_link"
+          href={`/docs/tutorials/${tutorial.slug}`}
+        >
+          {tutorial.data.title}
+        </a>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .tutotials__section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    margin-bottom: 32px;
+  }
+
+  html.dark .tutorials_title {
+    color: #c8c9ca;
+  }
+
+  .tutorials_title {
+    color: #0f172a;
+    margin-top: 8px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: -0.48px;
+    margin-bottom: 16px;
+  }
+
+  html.dark .tutorials__section_title {
+    color: #e2e6f0;
+  }
+
+  .tutorials__section_title {
+    color: #303030;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.48px;
+    line-height: 130%;
+  }
+
+  .tutorials__items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  html.dark .tutorials__item:not(:last-child) {
+    border-bottom: 1px solid #262626;
+  }
+
+  .tutorials__item:not(:last-child) {
+    border-bottom: 1px solid #efefef;
+  }
+
+  .tutorials__item {
+    padding: 8px 0;
+  }
+
+  html.dark .tutorials__item_link {
+    color: #e2e6f0;
+  }
+
+  .tutorials__item_link {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 1px;
+  }
+
+  .learn__title-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 767px) {
+    html.dark .learn__title-block {
+      border-left: none;
+    }
+    .learn__title-block {
+      display: flex;
+      flex-direction: column;
+      max-width: 920px;
+      width: 100%;
+      margin: 0;
+      flex-shrink: 0;
+      border: none;
+    }
+    .tutorials_title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.48px;
+      line-height: 31.2px;
+      margin-bottom: 16px;
+    }
+
+    .tutorials__section_title {
+      color: #303030;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.48px;
+      line-height: 31.2px;
+    }
+    .tutotials__section {
+      display: flex;
+      flex-direction: column;
+      margin-top: 0px;
+      margin-bottom: 32px;
+    }
+  }
+</style>

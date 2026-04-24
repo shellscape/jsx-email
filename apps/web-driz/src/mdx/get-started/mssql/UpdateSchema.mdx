@@ -1,0 +1,16 @@
+If you want to update your table schema, you can do it in the `schema.ts` file. For example, let's add a new column `phone` to the `users_table`:
+
+```typescript copy filename="src/db/schema.ts" {8}
+import { mssqlTable, int, varchar, unique, primaryKey } from "drizzle-orm/mssql-core"
+
+export const users = mssqlTable("users", {
+ id: int(),
+ name: varchar({ length: 255 }).notNull(),
+ age: int().notNull(),
+ email: varchar({ length: 255 }).notNull(),
+ phone: varchar({ length: 255 })
+}, (table) => [
+ primaryKey({ columns: [table.id], name: "users_pkey"}),
+ unique("users_email_key").on(table.email)
+]);
+```

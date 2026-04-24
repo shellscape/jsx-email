@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import notFound from '@/assets/images/not_found.webp';
+import houstonAstronaut from '@/assets/images/houston_astronaut.webp';
+
+import Layout from '@/ui/Layout.astro';
+---
+
+<Layout title="Drizzle ORM - next gen TypeScript ORM.">
+  <div class="wrap">
+    <Image class='not_found' src={notFound} alt="Not found"/>
+    <Image class="astronaut" src={houstonAstronaut} alt="Astronaut"/>
+    <div class="content">
+      <div class="text">
+        <h1 class="title">404</h1>
+        <p class="description">This page isn’t in our solar system.</p>
+        <a href="/" class="back-link">Take me home.</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+<style>
+  .wrap {
+    padding-top: 24px;
+    margin: 0 -24px;
+    display: grid;
+    grid-template: 100% / 100%;
+    overflow: hidden;
+  }
+
+  .not_found {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    min-height: 45rem;
+    object-fit: cover;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    place-self: center;
+  }
+
+  .astronaut {
+    margin: 0;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    place-self: center;
+    width: 128px;
+    filter: drop-shadow(rgb(85, 89, 98) 0px 0px 3px);
+    transform: translate(-320px);
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+
+  .content {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    place-self: center;
+    margin-top: 24px;
+  }
+
+  .text {
+    text-align: center;
+    padding: 0 16px;
+    color: #c1c3c8;
+  }
+
+  .title {
+    font-weight: 600;
+    line-height: 1.2;
+    font-size: 96px;
+    color: #fff;
+  }
+
+  .description {
+    font-size: 20px;
+    margin-top: 24px;
+  }
+
+  .back-link {
+    color: hsl(224, 100%, 85%);
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width:768px) {
+    .astronaut {
+      transform: translateY(-192px);
+    }
+  }
+</style>

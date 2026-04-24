@@ -1,0 +1,143 @@
+---
+interface Props {
+  cards: Record<string, string>;
+}
+
+const { cards } = Astro.props;
+---
+
+<div class="anchor-cards">
+  {
+    Object.keys(cards).map((card) => (
+      <a class="anchor-cards__card" href={cards[card]}>
+        <div class="anchor-cards__card-hashtag">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12.085 6.17344C12.1461 5.93854 12.1137 5.68911 11.9946 5.47761C11.8756 5.26611 11.6791 5.10902 11.4466 5.0394C11.2141 4.96978 10.9636 4.99304 10.7479 5.1043C10.5322 5.21555 10.3681 5.40613 10.29 5.63594L9.365 8.71719H6.1875C5.93886 8.71719 5.7004 8.81596 5.52459 8.99177C5.34877 9.16759 5.25 9.40605 5.25 9.65469C5.25 9.90333 5.34877 10.1418 5.52459 10.3176C5.7004 10.4934 5.93886 10.5922 6.1875 10.5922H8.8025L7.865 13.7172H4.9375C4.68886 13.7172 4.4504 13.816 4.27459 13.9918C4.09877 14.1676 4 14.406 4 14.6547C4 14.9033 4.09877 15.1418 4.27459 15.3176C4.4504 15.4934 4.68886 15.5922 4.9375 15.5922H7.3025L6.54 18.1347C6.4772 18.3701 6.5085 18.6207 6.62727 18.8334C6.74605 19.0461 6.94297 19.2042 7.17631 19.2743C7.40966 19.3443 7.66111 19.3208 7.87739 19.2086C8.09367 19.0965 8.2578 18.9045 8.335 18.6734L9.26 15.5922H13.5525L12.79 18.1347C12.7272 18.3701 12.7585 18.6207 12.8773 18.8334C12.996 19.0461 13.193 19.2042 13.4263 19.2743C13.6597 19.3443 13.9111 19.3208 14.1274 19.2086C14.3437 19.0965 14.5078 18.9045 14.585 18.6734L15.51 15.5922H18.6875C18.9361 15.5922 19.1746 15.4934 19.3504 15.3176C19.5262 15.1418 19.625 14.9033 19.625 14.6547C19.625 14.406 19.5262 14.1676 19.3504 13.9918C19.1746 13.816 18.9361 13.7172 18.6875 13.7172H16.0725L17.01 10.5922H19.9375C20.1861 10.5922 20.4246 10.4934 20.6004 10.3176C20.7762 10.1418 20.875 9.90333 20.875 9.65469C20.875 9.40605 20.7762 9.16759 20.6004 8.99177C20.4246 8.81596 20.1861 8.71719 19.9375 8.71719H17.5725L18.335 6.17344C18.3961 5.93854 18.3637 5.68911 18.2446 5.47761C18.1256 5.26611 17.9291 5.10902 17.6966 5.0394C17.4641 4.96978 17.2136 4.99304 16.9979 5.1043C16.7822 5.21555 16.6181 5.40613 16.54 5.63594L15.615 8.71719H11.3225L12.085 6.17344ZM15.0525 10.5922L14.115 13.7172H9.8225L10.76 10.5922H15.0525Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div class="anchor-cards__card-text">{card}</div>
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .anchor-cards {
+    margin-top: 1rem;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(max(227px, calc((100% - 1rem * 2) / 2)), 1fr)
+    );
+  }
+
+  html[class~="dark"] .anchor-cards__card {
+    border-color: #303030;
+    box-shadow:
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+  }
+
+  html[class~="dark"] .anchor-cards__card:hover {
+    border-color: #303030;
+    background-color: #171717;
+    box-shadow:
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+  }
+
+  .anchor-cards__card {
+    text-decoration: none !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 16px;
+    height: 56px;
+    border-radius: 2px !important;
+    border: 1px solid #efefef;
+    gap: 8px;
+    background-color: transparent;
+    color: currentColor;
+    box-shadow:
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgb(243, 244, 246) 0px 1px 2px 0px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.2s;
+  }
+
+  .anchor-cards__card:hover {
+    border-color: #d1d5db;
+    background-color: #f8fafc;
+    box-shadow:
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgb(243, 244, 246) 0px 4px 6px -1px,
+      rgb(243, 244, 246) 0px 2px 4px -2px;
+  }
+
+  html[class~="dark"] .anchor-cards__card:hover .anchor-cards__card-hashtag {
+    color: #d5d5d5;
+  }
+
+  .anchor-cards__card:hover .anchor-cards__card-hashtag {
+    color: rgb(59, 63, 75);
+  }
+
+
+  html[class~="dark"] .anchor-cards__card-text {
+    color: #d5d5d5;
+  }
+
+  .anchor-cards__card-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(59, 63, 75);
+  }
+
+  html[class~="dark"] .anchor-cards__card-hashtag {
+    color: #6b7280;
+  }
+
+  .anchor-cards__card-hashtag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(107, 114, 128);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.2s;
+  }
+
+  .anchor-cards__card-hashtag svg {
+    display: inline;
+    flex-shrink: 0;
+    height: 24px;
+    vertical-align: middle;
+  }
+
+  @media screen and (max-width: 768px) {
+    .anchor-cards__card {
+      height: 48px;
+    }
+  }
+</style>

@@ -1,0 +1,81 @@
+
+<div class="prerequisites_wrap">
+  <div class="prerequisites_title">
+    This guide assumes familiarity with:
+  </div>
+  <slot />
+</div>
+<style is:global>
+
+  html.dark .prerequisites_wrap {
+      background-color: #171717;
+      border-color: #292929;
+  }
+
+  .prerequisites_wrap {
+    background-color: rgb(250, 250, 250);
+    padding: 16px;
+    border-radius: 2px;
+    line-height: normal;
+    margin: 6px 0;
+    border: 1px solid #e4e4e5;
+  }
+
+  .prerequisites_wrap li {
+     font-size: 14px;
+  }
+
+  .prerequisites_wrap .code-snippet > pre {
+      background-color: white !important;
+  }
+
+  html.dark .prerequisites_wrap .code-snippet > pre {
+      background-color: #141414 !important;
+  }
+
+  .prerequisites_wrap .npm__content:not(.hidden) figure {
+     margin-bottom: 0;
+  }
+
+  .prerequisites_wrap .npm__wrapper:last-child {
+      margin-bottom: 0;
+  }
+
+  html.dark .prerequisites_wrap .npm__tabs {
+      background-color: #171717;
+  }
+
+  html.dark .prerequisites_wrap .npm__tab {
+      background-color: #171717;
+  }
+
+  html.dark .prerequisites_wrap .npm__tab--active {
+      background-color: #141414;
+  }
+
+  .prerequisites_wrap .npm__tab--active {
+      background-color: white;
+  }
+
+  html.dark .prerequisites_wrap .codetabs_tab--active {
+      background-color: #141414;
+  }
+
+  html.dark .prerequisites_wrap .codetabs_tabs {
+      background-color: #171717;
+  }
+
+  html.dark .prerequisites_wrap .codetabs_tab {
+      background-color: #171717;
+  }
+
+  .prerequisites_wrap .codetabs_tab--active {
+      background-color: white;
+  }
+
+  .prerequisites_title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+</style>

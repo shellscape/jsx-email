@@ -1,0 +1,56 @@
+---
+interface Props {
+  title: string
+  links: [string, string][]
+}
+
+const { title, links } = Astro.props;
+---
+
+<div class="list-container">
+  { title && <p style="margin-bottom: 0.25rem;"><b>{title}</b></p> }
+  <div style="display: flex; flex-direction: column; gap: 0.25rem">
+    {links.map(([name, href]) => (
+      <a href={href} class="link">
+        <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill="currentColor"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M3.38893 1.88883C2.62187 1.88883 2.00004 2.51066 2.00004 3.27772V12.7222C2.00004 13.4892 2.62187 14.1111 3.38893 14.1111H10.6112C11.3782 14.1111 12 13.4892 12 12.7222V7.44439H8.38893C7.31504 7.44439 6.44448 6.57383 6.44448 5.49995V1.88883H3.38893ZM8.11115 3.06735L10.8215 5.77772H8.38893C8.23552 5.77772 8.11115 5.65336 8.11115 5.49995V3.06735ZM0.333374 3.27772C0.333374 1.59019 1.70139 0.222168 3.38893 0.222168H7.27782C7.49883 0.222168 7.71079 0.309965 7.86707 0.466246L13.4226 6.0218C13.5789 6.17808 13.6667 6.39004 13.6667 6.61106V12.7222C13.6667 14.4097 12.2987 15.7777 10.6112 15.7777H3.38893C1.70139 15.7777 0.333374 14.4097 0.333374 12.7222V3.27772Z"
+          />
+        </svg>
+        {name}
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .links-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 24px;
+  }
+
+  .link {
+      text-decoration: none;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+  }
+
+  html.dark .link {
+     color: #c4c5c6;
+  }
+
+  html.dark .link:hover {
+      color: #006be6;
+  }
+
+  .link:hover {
+      color: #006be6;
+  }
+</style>

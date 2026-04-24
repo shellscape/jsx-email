@@ -1,0 +1,56 @@
+---
+import { parse } from 'node-html-parser';
+
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+const slot = await Astro.slots.render('default');
+const parsedHtml = parse(slot);
+
+parsedHtml.querySelectorAll('.tab__content').forEach((tabContent, index) => {
+  if (index !== 0) tabContent.classList.add('hidden');
+});
+---
+
+<div class="tabs__wrap">
+  <div class="tabs__buttons">
+    {
+      items.map((item, index) => (
+        <div
+          class={index === 0 ? "tabs__button--active" : "tabs__button"}
+          data-change-tab-btn
+        >
+          {item}
+        </div>
+      ))
+    }
+  </div>
+  <div class="tabs__content">
+    <Fragment set:html={parsedHtml.toString()} />
+  </div>
+</div>
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll('[data-change-tab-btn]').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const target = e.target as Element;
+        const parent = target.parentElement as Element;
+        const index = Array.from(parent?.children || []).indexOf(target);
+        const code = parent.nextElementSibling as Element;
+
+        if (code) {
+          Array.from(code.children).forEach((child, codeIndex) => {
+            child.classList.toggle('hidden', codeIndex !== index);
+          });
+        }
+        Array.from(parent.children).forEach((child, codeIndex) => {
+          child.classList.toggle('tabs__button', codeIndex !== index);
+          child.classList.toggle('tabs__button--active', codeIndex === index);
+        });
+      });
+    });
+  })
+
+</script>

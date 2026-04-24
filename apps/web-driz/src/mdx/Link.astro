@@ -1,0 +1,14 @@
+---
+import { isAbsoluteUrl } from "@/utils";
+
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+const isAbsolute = isAbsoluteUrl(href);
+---
+<a href={href} class:list={[className]} target={isAbsolute ? "_blank": undefined} rel={
+  isAbsolute ? "nofollow noreferrer" : undefined
+}><slot/></a>

@@ -1,0 +1,33 @@
+import CodeTabs from "@mdx/CodeTabs.astro";
+
+Create a `index.ts` file in the `src/db` directory and initialize the connection:
+
+<CodeTabs items={["node-mssql", "node-mssql with config", "your node-mssql driver"]}>
+```typescript copy
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/node-mssql';
+
+const db = drizzle(process.env.DATABASE_URL!);
+```
+```typescript copy
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/node-mssql';
+
+// You can specify any property from the node-mssql connection options
+const db = drizzle({ 
+  connection: { 
+    connectionString: process.env.DATABASE_URL!,
+    ssl: true
+  }
+});
+```
+```typescript copy
+import { drizzle } from "drizzle-orm/node-mssql";
+import type { ConnectionPool } from 'mssql';
+
+const pool = await mssql.connect(connectionString);
+const db = drizzle({ client: pool });
+ 
+const result = await db.execute('select 1');
+```
+</CodeTabs>

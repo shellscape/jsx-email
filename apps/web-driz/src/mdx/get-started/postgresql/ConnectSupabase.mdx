@@ -1,0 +1,44 @@
+import Callout from '@mdx/Callout.astro';
+
+Create a `index.ts` file in the `src` directory and initialize the connection:
+
+```typescript copy filename="index.ts"
+import { drizzle } from 'drizzle-orm'
+
+async function main() {
+    const db = drizzle('postgres-js', process.env.DATABASE_URL);
+}
+
+main();
+```
+If you need a synchronous connection, you can use our additional connection API, 
+where you specify a driver connection and pass it to the Drizzle instance.
+
+```typescript copy filename="index.ts"
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
+
+async function main() {
+    const client = postgres(process.env.DATABASE_URL)
+    const db = drizzle({ client });
+}
+
+main();
+```
+
+<Callout title='tips'>
+If you decide to use connection pooling via Supabase (described [here](https://supabase.com/docs/guides/database/connecting-to-postgres#connection-pooler)), and have "Transaction" pool mode enabled, then ensure to turn off prepare, as prepared statements are not supported. 
+
+```typescript copy filename="index.ts"
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
+
+async function main() {
+    // Disable prefetch as it is not supported for "Transaction" pool mode 
+    const client = postgres(process.env.DATABASE_URL, { prepare: false })
+    const db = drizzle({ client });
+}
+
+main();
+```
+</Callout>

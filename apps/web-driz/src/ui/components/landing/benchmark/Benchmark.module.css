@@ -1,0 +1,226 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 160px;
+}
+
+.header {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+html[class~=dark] .description {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.description {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  color: #333333;
+}
+
+.description__line {
+  margin-bottom: 4px;
+}
+
+html[class~=dark] .container {
+  border: 1px solid #2b2b2b;
+  background-color: #1a1a1a;
+}
+
+.container {
+  background-color: #fafafa;
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 8px;
+  padding: 16px;
+  display: grid;
+  margin-top: 24px;
+  position: relative;
+}
+
+.image-dark, .image-light {
+  width: 910px;
+  min-width: 910px;
+  flex-shrink: 0;
+}
+
+.image-dark {
+  display: none;
+}
+
+.image-light {
+  display: block;
+}
+
+html[class~=dark] .image-light {
+  display: none;
+}
+
+html[class~=dark] .image-dark {
+  display: block;
+}
+
+html[class~=dark] .bottom {
+  color: #f9f9f9;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #444;
+  gap: 8px;
+}
+
+.how-it-works:hover, .github:hover {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+}
+
+.blurred {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  backdrop-filter: blur(3px);
+  z-index: 10;
+}
+
+.blur-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+html[class~=dark] .only-desktop {
+  color: #f0f0f0;
+  background-color: rgb(17, 17, 17);
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.2) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px, rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+}
+
+.only-desktop {
+  transform: translateY(-14px);
+  font-size: 14px;
+  margin-top: -30px;
+  line-height: 14px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px, rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+}
+
+html[class~=dark] .start, html[class~=dark] .start-shaked {
+  color: #282828;
+  background-color: rgb(226, 232, 240);
+}
+
+html[class~=dark] .benchmark_link {
+  color: #282828;
+  background-color: rgb(226, 232, 240);
+}
+
+.start, .start-shaked {
+  padding: 16px 32px;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  gap: 8px;
+  background-color: #282b3b;
+}
+
+.benchmark_link {
+  padding: 16px 32px;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  height: 48px;
+  cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  gap: 8px;
+  background-color: #282b3b;
+  margin-top: 24px;
+  display: flex;
+}
+
+.wrap-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.benchmark_link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.start svg {
+  width: 18px;
+  height: 18px;
+}
+
+.start-shaked svg {
+  width: 18px;
+  height: 18px;
+}
+
+.start-shaked {
+  animation: horizontal-shaking 0.3s ease-in-out;
+}
+
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+}
+
+@media (max-width: 1190px) {
+  .blurred {
+    display: flex;
+  }
+
+  .benchmark_link {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    font-size: 20px;
+  }
+  .description {
+    font-size: 14px;
+  }
+}

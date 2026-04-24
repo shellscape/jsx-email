@@ -1,0 +1,515 @@
+---
+import type { CSSProperties } from "react";
+import { asideSponsors } from "@/data/aside-sponsors";
+import { rotateArrayDaily } from "@/utils";
+
+const getStyleString = (style: CSSProperties) => {
+  return Object.keys(style).reduce((acc, key) => {
+    return (
+      acc +
+      `${key === "minWidth" ? "min-width" : key}: ${style[key as keyof CSSProperties]};`
+    );
+  }, "");
+};
+
+const superHeroSponsors = rotateArrayDaily(
+  asideSponsors.filter(({ tier }) => tier.name === "$5000 a month")
+);
+
+const heroSponsors = rotateArrayDaily(
+  asideSponsors.filter(({ tier }) => tier.name === "$2500 a month")
+);
+
+// Ensure placeholder sponsor is at the end
+const goldSponsors = (() => {
+  const rotated = rotateArrayDaily(
+    asideSponsors.filter(({ tier }) => tier.name === "$1000 a month")
+  );
+
+  const placeholder = rotated.find(
+    (sponsor) => sponsor.sponsorEntity.name === "Sponsor"
+  );
+
+  if (!placeholder) return rotated;
+
+  const rest = rotated.filter(
+    (sponsor) => sponsor.sponsorEntity.name !== "Sponsor"
+  );
+
+  return [...rest, placeholder];
+})();
+---
+
+<div class="aside-sponsors__wrap">
+  <div class="aside-sponsors__hero">
+    {superHeroSponsors.map((sponsor) => (
+      <a
+        class:list={[
+          "aside-sponsors__sponsor border-highlight",
+          "aside-sponsors__hero-sponsor",
+          "aside-sponsors__superhero-sponsor",
+        ]}
+        href={`https://${sponsor.sponsorEntity.login}`}
+        target="_blank"
+        rel={sponsor.followLink ? "" : "nofollow"}
+      >
+        <div class="aside-sponsors__sponsor-wrap">
+          {!!sponsor.badge && (
+            <div class="aside-sponsors__top-banner">
+              <span>{sponsor.badge}</span>
+            </div>
+          )}
+          <div
+            class="aside-sponsors__sponsor-image"
+            id="aside-sponsors-img-wrapper"
+          >
+            <img
+              class="aside-sponsors__light-img"
+              loading="lazy"
+              src={
+                "data:image/svg+xml;base64," +
+                btoa(sponsor.sponsorEntity.avatarUrl)
+              }
+              style={getStyleString(sponsor.lightStyle || {})}
+            />
+            <img
+              class="aside-sponsors__dark-img"
+              loading="lazy"
+              src={
+                "data:image/svg+xml;base64," +
+                btoa(sponsor.sponsorEntity.avatarUrl)
+              }
+              alt={sponsor.sponsorEntity.name || sponsor.sponsorEntity.login}
+              style={getStyleString(sponsor.darkStyle || {})}
+            />
+          </div>
+        </div>
+        {!!sponsor.popover && <div class="popover">{sponsor.popover}</div>}
+      </a>
+    ))}
+    {heroSponsors.map((sponsor) => (
+      <a
+        class:list={[
+          "aside-sponsors__sponsor border-highlight",
+          "aside-sponsors__hero-sponsor",
+        ]}
+        href={`https://${sponsor.sponsorEntity.login}`}
+        target="_blank"
+        rel={sponsor.followLink ? "" : "nofollow"}
+      >
+        <div class="aside-sponsors__sponsor-wrap">
+          {!!sponsor.badge && (
+            <div class="aside-sponsors__top-banner">
+              <span>{sponsor.badge}</span>
+            </div>
+          )}
+          <div
+            class="aside-sponsors__sponsor-image"
+            id="aside-sponsors-img-wrapper"
+          >
+            <img
+              class="aside-sponsors__light-img"
+              loading="lazy"
+              src={
+                "data:image/svg+xml;base64," +
+                btoa(sponsor.sponsorEntity.avatarUrl)
+              }
+              style={getStyleString(sponsor.lightStyle || {})}
+            />
+            <img
+              class="aside-sponsors__dark-img"
+              loading="lazy"
+              src={
+                "data:image/svg+xml;base64," +
+                btoa(sponsor.sponsorEntity.avatarUrl)
+              }
+              alt={sponsor.sponsorEntity.name || sponsor.sponsorEntity.login}
+              style={getStyleString(sponsor.darkStyle || {})}
+            />
+          </div>
+        </div>
+        {!!sponsor.popover && <div class="popover">{sponsor.popover}</div>}
+      </a>
+    ))}
+  </div>
+  <div class="aside-sponsors__gold">
+    {goldSponsors.map((sponsor) => (
+      <a
+        class:list={[
+          "aside-sponsors__sponsor border-highlight",
+          ["Sponsor"].includes(sponsor.sponsorEntity.name)
+            ? "aside-sponsors__sponsor--hide"
+            : "",
+        ]}
+        href={`https://${sponsor.sponsorEntity.login}`}
+        target="_blank"
+        rel={sponsor.followLink ? "" : "nofollow"}
+      >
+        <div class="aside-sponsors__sponsor-wrap">
+          <div
+            class="aside-sponsors__sponsor-image"
+            id="aside-sponsors-img-wrapper"
+          >
+            <img
+              class="aside-sponsors__light-img"
+              loading="lazy"
+              src={
+                "data:image/svg+xml;base64," +
+                btoa(sponsor.sponsorEntity.avatarUrl)
+              }
+              style={getStyleString(sponsor.lightStyle || {})}
+            />
+            <img
+              class="aside-sponsors__dark-img"
+              loading="lazy"
+              src={
+                "data:image/svg+xml;base64," +
+                btoa(sponsor.sponsorEntity.avatarUrl)
+              }
+              alt={
+                sponsor.sponsorEntity.name || sponsor.sponsorEntity.login
+              }
+              style={getStyleString(sponsor.darkStyle || {})}
+            />
+          </div>
+        </div>
+        {!!sponsor.popover && <div class="popover">{sponsor.popover}</div>}
+      </a>
+    ))}
+  </div>
+</div>
+<script is:inline type="module">
+  import {
+    computePosition,
+    shift,
+    offset,
+  } from "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.8/+esm";
+
+  const computePopovers = () => {
+    const cards = document.querySelectorAll(".aside-sponsors__sponsor");
+
+    cards.forEach((card) => {
+      const cardPopover = card.querySelector(".popover");
+
+      if (!cardPopover) return;
+
+      computePosition(card, cardPopover, {
+        placement: "top",
+        middleware: [shift({ padding: 12 }), offset(6)],
+      }).then(({ x, y }) => {
+        Object.assign(cardPopover.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+        });
+      });
+    });
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    computePopovers();
+    window.removeEventListener("resize", computePopovers, false);
+    window.addEventListener("resize", computePopovers);
+  });
+
+  computePopovers();
+</script>
+
+<style>
+  @property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+
+  .aside-sponsors__hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+  }
+
+  .aside-sponsors__hero .aside-sponsors__sponsor:first-child {
+      border-radius: 4px 4px 0 0;
+  }
+
+  .aside-sponsors__hero .aside-sponsors__sponsor:first-child .aside-sponsors__sponsor-wrap {
+      border-radius: 4px 4px 0 0;
+  }
+
+  .aside-sponsors__gold {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+  }
+
+  .aside-sponsors__gold .aside-sponsors__sponsor:nth-last-child(2) {
+      border-radius: 0 0 0 4px;
+  }
+
+  .aside-sponsors__gold .aside-sponsors__sponsor:nth-last-child(2) .aside-sponsors__sponsor-wrap {
+      border-radius: 0 0 0 4px;
+  }
+
+  .aside-sponsors__gold .aside-sponsors__sponsor:last-child {
+      border-radius: 0 0 4px 0;
+  }
+
+  .aside-sponsors__gold .aside-sponsors__sponsor:last-child .aside-sponsors__sponsor-wrap {
+      border-radius: 0 0 4px 0;
+  }
+
+  html.dark .aside-sponsors__dark-img {
+    display: block;
+  }
+
+  html.dark .aside-sponsors__light-img {
+    display: none;
+  }
+
+  .aside-sponsors__dark-img {
+    display: none;
+  }
+
+  .aside-sponsors__light-img {
+    display: block;
+  }
+
+  .aside-sponsors__wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    user-select: none;
+    min-width: 210px;
+  }
+
+
+  .aside-sponsors__sponsor {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: calc(100% + 2px);
+    justify-content: center;
+    overflow: hidden;
+    margin: -1px;
+    height: 74px;
+  }
+
+  .aside-sponsors__hero-sponsor .aside-sponsors__sponsor-wrap {
+    padding-top: 16px;
+  }
+
+  .aside-sponsors__superhero-sponsor {
+    height: 122px;
+  }
+
+  .aside-sponsors__superhero-sponsor .aside-sponsors__sponsor-image {
+    height: 96px;
+    width: 96px;
+  }
+
+  .aside-sponsors__sponsor:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: translate(-50%, -50%) rotate(45deg) scale(1.45);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(405deg) scale(1.45);
+    }
+  }
+
+  .aside-sponsors__sponsor:hover
+    .aside-sponsors__sponsor-image
+    .aside-sponsors__light-img,
+  .aside-sponsors__sponsor:hover
+    .aside-sponsors__sponsor-image
+    .aside-sponsors__dark-img {
+    filter: none !important;
+  }
+
+  .aside-sponsors__hero-sponsor .aside-sponsors__sponsor-image {
+    transition: filter 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  html.dark .aside-sponsors__sponsor-wrap:hover {
+    background-color: #282828;
+    color: #fff;
+  }
+
+  .aside-sponsors__sponsor-wrap:hover {
+    background-color: #eff1f4;
+    color: #000;
+  }
+
+  html.dark .aside-sponsors__sponsor-wrap {
+    background-color: #1c1c1c;
+  }
+
+  .aside-sponsors__sponsor-wrap {
+    position: absolute;
+    background-color: #f6f6f7;
+    left: 1px;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+
+  .aside-sponsors__sponsor-image {
+    transition: filter 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    width: 48px;
+  }
+
+  .aside-sponsors__sponsor-image img {
+    width: 100%;
+    transition: filter 0.2s;
+  }
+
+  .aside-sponsors__sponsor {
+    position: relative;
+  }
+
+  .aside-sponsors__top-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background: #f1f1f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    transition: background 0.2s ease;
+  }
+
+  .aside-sponsors__top-banner span {
+    font-size: 7px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #71717a;
+    transition: color 0.2s ease;
+  }
+
+  html.dark .aside-sponsors__top-banner {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  html.dark .aside-sponsors__top-banner span {
+    color: #71717a;
+  }
+
+  .aside-sponsors__hero-sponsor:hover .aside-sponsors__top-banner {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .aside-sponsors__hero-sponsor:hover .aside-sponsors__top-banner span {
+    color: #3f3f46;
+  }
+
+  html.dark .aside-sponsors__hero-sponsor:hover .aside-sponsors__top-banner {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  html.dark .aside-sponsors__hero-sponsor:hover .aside-sponsors__top-banner span {
+    color: #d4d4d8;
+  }
+
+  .popover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 12px;
+    background: white;
+    border-radius: 4px;
+    z-index: 999;
+    width: fit-content;
+    box-shadow:
+      0 0 0 0 #fff,
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 1px 2px 0 rgba(0, 0, 0, 0.1),
+      0 2px 4px 0 rgba(0, 0, 0, 0.075);
+    transition: opacity 0.3s;
+  }
+
+  html.dark .aside-sponsors__sponsor .popover {
+    background: #000;
+    box-shadow:
+      0 0 0 0 transparent,
+      0 0 0 0 transparent,
+      0 0 0 1px hsla(0, 0%, 100%, 0.2),
+      0 1px 2px 0 rgba(0, 0, 0, 0.1),
+      0 2px 4px 0 rgba(0, 0, 0, 0.075);
+  }
+
+  .aside-sponsors__sponsor:hover .popover {
+    opacity: 1;
+  }
+
+  @media screen and (max-height: 1012px) {
+    body:not(:has(#banner)) .aside-sponsors__sponsor {
+      height: 62px;
+    }
+
+    body:not(:has(#banner)) .aside-sponsors__superhero-sponsor {
+      height: 124px;
+    }
+
+    body:not(:has(#banner)) .aside-sponsors__sponsor-image {
+      height: 40px;
+      width: 40px;
+    }
+
+    body:not(:has(#banner)) .aside-sponsors__superhero-sponsor .aside-sponsors__sponsor-image {
+      height: 80px;
+      width: 80px;
+    }
+  }
+
+  @media screen and (max-height: 1027px) {
+      .aside-sponsors__sponsor--hide {
+          display: none;
+      }
+
+      .aside-sponsors__gold {
+         grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .aside-sponsors__gold .aside-sponsors__sponsor:nth-last-child(2) .aside-sponsors__sponsor-wrap {
+          border-radius: 0 0 4px 0;
+      }
+
+      .aside-sponsors__gold .aside-sponsors__sponsor:nth-last-child(2) {
+          border-radius: 0 0 4px 0;
+      }
+
+      .aside-sponsors__gold .aside-sponsors__sponsor:nth-last-child(4) .aside-sponsors__sponsor-wrap {
+          border-radius: 0 0 0 4px;
+      }
+
+      .aside-sponsors__gold .aside-sponsors__sponsor:nth-last-child(4) {
+          border-radius: 0 0 0 4px;
+      }
+  }
+</style>

@@ -1,0 +1,25 @@
+html[class~=dark] .button {
+	border: 1px solid #414141;
+	background-color: #111111;
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	height: 32px;
+	padding: 0px 20px;
+	width: 70px;
+  	font-size: 14px;
+	line-height: 14px;
+	border: 1px solid rgb(225, 225, 225);
+	border-radius: 2px;
+	background-color: #ffffff;
+	cursor: pointer;
+	outline: none;
+	appearance: none;
+	text-align: center;
+	text-align-last: center;
+	text-transform: uppercase;
+}

@@ -1,0 +1,16 @@
+Create a `index.ts` file in the `src` directory and initialize the connection:
+
+```typescript copy
+import { drizzle } from 'drizzle-orm/vercel-postgres';
+
+const db = drizzle();
+```
+
+If you need to provide your existing driver:
+
+```typescript copy
+import { sql } from '@vercel/postgres';
+import { drizzle } from 'drizzle-orm/vercel-postgres';
+
+const db = drizzle({ client: sql })
+```

@@ -1,0 +1,60 @@
+<div class="landing-navbar__wrap">
+  <div class="landing-navbar__wrap_buttons">
+    <a href="/docs/get-started" class="landing-navbar__wrap_button">Get Started</a>
+    <a href="/docs/introduction" class="landing-navbar__wrap_button">Documentation</a>
+    <a href="/drizzle-studio/overview" class="landing-navbar__wrap_button">Studio</a>
+    <a href="/benchmarks" class="landing-navbar__wrap_button">Benchmarks</a>
+  </div>
+</div>
+<style>
+  .landing-navbar__wrap {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-grow: 1;
+    max-width: 424px;
+  }
+
+  html.dark .landing-navbar__wrap_buttons {
+    background-color: #111;
+    border: 1px solid #ffffff14;
+  }
+
+  .landing-navbar__wrap_buttons {
+    display: flex;
+    border-radius: 40px;
+    padding: 4px 16px;
+    background-color: #fff;
+    border: 1px solid #00000014;
+  }
+
+  html.dark .landing-navbar__wrap_button {
+    color: #e1e3e6;
+  }
+
+  .landing-navbar__wrap_button {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 10px;
+    color: #4b5563;
+    transition: all .2s ease;
+    border-radius: 20px;
+    line-height: normal;
+  }
+
+  html.dark .landing-navbar__wrap_button:hover {
+    color: #fff;
+  }
+
+  .landing-navbar__wrap_button:hover {
+    color: #000;
+  }
+
+  @media screen and (max-width: 836px){
+    .landing-navbar__wrap {
+      display: none;
+    }    
+  }
+</style>

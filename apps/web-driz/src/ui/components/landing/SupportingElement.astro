@@ -1,0 +1,205 @@
+---
+import type { ISupportingElement, SVGProps } from '@/types';
+
+interface Props {
+  item: ISupportingElement;
+  name: string;
+  svgs: Record<string, any>;
+}
+
+const { item, name, svgs } = Astro.props;
+const { imageSrc, lightStyle, darkStyle } = item;
+
+const isForTheme = typeof imageSrc === 'object';
+
+let svgCodeLight = '';
+let svgCodeDark = '';
+
+const isSvg = 
+  typeof item.imageSrc === "object" && (item.imageSrc.darkThemeSrc.includes('.svg') || item.imageSrc.lightThemeSrc.includes('.svg')) || 
+  typeof item.imageSrc === "string" && item.imageSrc.includes('.svg');
+  
+if (isSvg) {  
+  svgCodeLight = await (typeof imageSrc === "object" ? svgs[imageSrc.lightThemeSrc] : svgs[imageSrc])();
+  svgCodeDark = await (typeof imageSrc === "object" ? svgs[imageSrc.darkThemeSrc] : svgs[imageSrc])();
+}
+
+const getImagePath = (src: string) => {
+  return src.replace('/public', '');
+}
+
+const getParamsString = (props?: SVGProps) => {
+  if (!props) return '';
+  return Object.entries(props).reduce((acc, [key, value]) => {
+    if (value === undefined) return acc;
+    return `${acc} ${key}="${value}"`;
+  }, '');
+}
+
+const lightStylesSVGString = svgCodeLight.replace(/<svg/, `<svg ${getParamsString(lightStyle)}"`);
+const darkStylesSVGString = svgCodeDark.replace(/<svg/, `<svg ${getParamsString(darkStyle)}`);
+---
+{item.sponsorUrl && (
+  <a href={item.sponsorUrl} target="_blank" rel="nofollow noreferrer">
+    <div class="item">
+      {name === "Prisma Postgres" && <div class="supporting__icon--blurred"></div>}
+      <div class="icon supporting__icon">
+        <div class={"img_light"} 
+          style={{
+            width: lightStyle?.width + 'px',
+            height: lightStyle?.width + 'px',
+          }}>
+            {isSvg && <Fragment set:html={lightStylesSVGString} />}
+            {!isSvg && <img class="image" src={getImagePath(isForTheme ? imageSrc?.lightThemeSrc : imageSrc)} style={{...lightStyle as any}}/>}
+          </div>
+        <div class={"img_dark"} 
+          style={{
+            width: darkStyle?.width + 'px',
+            height: darkStyle?.width + 'px',
+          }}>
+            {isSvg && <Fragment set:html={darkStylesSVGString} />}
+            {!isSvg && <img class="image" src={getImagePath(isForTheme ? imageSrc.darkThemeSrc : imageSrc)} style={{...darkStyle as any}}/>}
+          </div>
+      </div>
+      <div class="our_sponsor">
+        {item.badge ? item.badge : (name === "Prisma Postgres" ? "not yet" : "our") + " sponsor"}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      </div>
+      {name}
+    </div>
+  </a>
+)}
+{!item.sponsorUrl && (
+  <div class="item">
+    <div class="icon supporting__icon">
+      <div class={"img_light"}
+        style={{
+          width: lightStyle?.width + 'px',
+          height: lightStyle?.width + 'px',
+        }}>
+          {isSvg && <Fragment set:html={lightStylesSVGString} />}
+          {!isSvg && <img class="image" src={getImagePath(isForTheme ? imageSrc?.lightThemeSrc : imageSrc)} style={{...lightStyle as any}}/>}
+        </div>
+        <div class={"img_dark"} style={{
+          width: darkStyle?.width + 'px',
+          height: darkStyle?.width + 'px',
+        }}>
+          {isSvg && <Fragment set:html={darkStylesSVGString} />}
+          {!isSvg && <img class="image" src={getImagePath(isForTheme ? imageSrc.darkThemeSrc : imageSrc)} style={{...darkStyle as any}}/>}
+        </div>
+    </div>
+    {name}
+  </div>
+)}
+
+<style is:global define:vars={{widthLight: lightStyle && `${lightStyle.width}px`, widthDark: darkStyle && `${darkStyle.width}px`}}>
+  .supporting__icon svg, .supporting__icon img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .item .supporting__icon .img_light svg {
+      width: var(--widthLight);
+      height: var(--widthLight);
+  }
+
+  .item .supporting__icon .img_dark svg {
+      width: var(--widthDark);
+      height: var(--widthDark);
+  }
+</style>
+<style>
+  html[class~=dark] .img_light {
+    visibility: hidden;
+  }
+
+  html[class~=dark] .img_dark {
+    visibility: visible;
+  }
+
+  .img_light, .img_dark {
+    position: absolute;
+  }
+
+  .img_light {
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+  }
+
+  .img_dark {
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+  .item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-right: 10px;
+  font-weight: 600;
+  border: 1.7px solid rgba(33, 39, 46, 0.12);
+  background-color: rgba(240, 241, 242, 0.27);
+}
+
+.supporting__icon--blurred {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2.2px);
+  z-index: 1;
+}
+
+html[class~=dark] .item {
+  border: 1.7px solid rgb(64,64,64);
+  background-color: #282828;
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+  width: 48px;
+  height: 54px;
+  justify-content: center;
+  text-align: center;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+
+html[class~=dark] .our_sponsor {
+  background-color: #202020;
+}
+
+.our_sponsor {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #ecf1f1;
+}
+
+
+.our_sponsor svg {
+  color: #FD7776;
+  width: 10px;
+  height: 10px;
+  fill: #FD7776;
+}
+</style>

@@ -1,0 +1,35 @@
+.items {
+  font-size: 12px;
+}
+
+html[class~=dark] .main-info {
+  color: #f0f0f0;
+}
+
+.main-info {
+  font-size: 14px;
+  line-height: 14px;
+  color: #222222;
+}
+
+html[class~=dark] .additional-info {
+  color: #c0c0c0;
+}
+
+.additional-info {
+  font-size: 12px;
+  line-height: 12px;
+  color: #666666;
+}
+
+.main-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.additional-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

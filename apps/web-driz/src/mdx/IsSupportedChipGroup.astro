@@ -1,0 +1,81 @@
+---
+import IsSupportedChip from './IsSupportedChip.astro';
+
+interface Props {
+  chips: Record<string, boolean>;
+  joined?: boolean;
+}
+
+const { chips, joined } = Astro.props;
+---
+<div class:list={['is-supported-chip-group', joined ? 'is-supported-chip-group-joined' : '' ]}>
+  {
+    Object.entries(chips).map(([text, isSupported]) => (
+      <IsSupportedChip isSupported={isSupported} text={text} />
+    ))
+}
+</div>
+
+<style is:global>
+  .is-supported-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  background: #fafafa;
+  border: 1px solid rgba(33, 39, 46, .122);
+}
+
+.is-supported-yes svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 16px;
+}
+
+.is-supported-no svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 16px;
+}
+
+.is-supported-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.is-supported-chip-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 6px 0;
+}
+
+.is-supported-chip-group-joined {
+  gap: 0px;
+}
+
+.is-supported-chip-group-joined .is-supported-chip {
+  border-radius: 0px;
+  border-left: none;
+  padding-right: 10px;
+}
+
+.is-supported-chip-group-joined .is-supported-chip:first-child {
+  border-left: 1px solid #3F3D3F;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.is-supported-chip-group-joined .is-supported-chip:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
+html[class~=dark] .is-supported-chip {
+    background: #1a1a1a;
+    border-color: #292929;
+}
+</style>

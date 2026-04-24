@@ -1,0 +1,21 @@
+import CodeWithProps from "@mdx/CodeWithProps.astro";
+
+**Drizzle config** - a configuration file that is used by [Drizzle Kit](/docs/kit-overview) and contains all the information about your database connection, migration folder and schema files.
+
+Create a `drizzle.config.ts` file in the root of your project and add the following content:
+
+<CodeWithProps dialect={props.dialect} env_variable={props.env_variable}>
+```typescript copy filename="drizzle.config.ts"
+import 'dotenv/config';
+import { defineConfig } from 'drizzle-kit';
+
+export default defineConfig({
+  out: './drizzle',
+  schema: './src/db/schema.ts',
+  dialect: '$dialect$',
+  dbCredentials: {
+    url: process.env.$env_variable$!,
+  },
+});
+```
+</CodeWithProps>

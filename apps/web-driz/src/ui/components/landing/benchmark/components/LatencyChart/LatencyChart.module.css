@@ -1,0 +1,299 @@
+.label {
+	position: relative;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: 500;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.chart-wrap {
+  margin: 8px 0 0;
+	height: 84px;
+}
+
+.chart-wrap svg {
+  height: 100%;
+}
+
+
+html[class~=dark] .stats, html[class~=dark] .tooltip {
+	background-color: rgb(17, 17, 17);
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.2) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px, rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+}
+
+.stats {
+  position: absolute;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	padding: 8px 16px;
+	border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow:
+		rgb(255, 255, 255) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+		rgba(0, 0, 0, 0.1) 0px 1px 2px 0px,
+		rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: left;
+}
+
+.stats-item {
+  display: flex;
+	align-items: center;
+	color: #999;
+}
+
+.stats-item:not(:first-of-type) {
+  margin-top: 8px;
+}
+
+.circle {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin: 0 8px 0 0;
+}
+
+html[class~=dark] .accent-text {
+	color: #f0f0f0;
+}
+
+
+.accent-text {
+  color: #222;
+  margin-left: 8px;
+}
+
+.tooltip-wrap, .tooltip-wrap-underline {
+  position: relative;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: 500;
+}
+
+.tooltip-wrap-underline {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  cursor: help;
+}
+
+.tooltip-wrap-underline:hover .tooltip {
+  display: flex;
+}
+
+html[class~=dark] .tooltip {
+	color: #f0f0f0;
+}
+
+.success-values {
+	display: flex;
+	line-height: 12px;
+	white-space: pre;
+	font-size: 12px;
+}
+
+.tooltip {
+  position: absolute;
+	display: none;
+	flex-direction: column;
+	padding: 8px;
+	white-space: nowrap;
+	border-radius: 4px;
+	background-color: #ffffff;
+	box-shadow:
+		rgb(255, 255, 255) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+		rgba(0, 0, 0, 0.1) 0px 1px 2px 0px,
+		rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+	bottom: 100%;
+	left: 50%;
+	transform: translate(-50%, -4px);
+	pointer-events: none;
+	font-size: 12px;
+	line-height: 12px;
+	color: #222;
+	text-align: left;
+}
+
+
+.success-icon-wrap {
+  display: flex;
+	width: 12px;
+	margin-right: 4px;
+}
+
+.success-icon-wrap svg {
+  color: #13862e;
+  width: 100%;
+  height: 100%;
+}
+
+html[class~=dark] .dashed-line {
+	stroke: #414141;
+}
+
+.dashed-line {
+	stroke: #e1e1e1;
+}
+
+
+html[class~=dark] .avg-line {
+	stroke: #47b7f8;
+}
+
+html[class~=dark] .avg-polygon {
+	fill: #08204e;
+}
+
+.avg-line {
+	stroke: #0b6ec5;
+}
+.avg-polygon {
+	fill: #e2f4ff;
+}
+
+
+
+html[class~=dark] .p90-line {
+	stroke: #40d763;
+}
+
+html[class~=dark] .p90-polygon {
+	fill: #0a2b13;
+}
+
+.p90-line {
+	stroke: #13862e;
+}
+.p90-polygon {
+	fill: #ddfce4;
+}
+
+
+
+html[class~=dark] .p95-line {
+	stroke: #a18bf5;
+}
+
+html[class~=dark] .p95-polygon {
+	fill: #27124a;
+}
+
+.p95-line {
+	stroke: #5e49af;
+}
+.p95-polygon {
+	fill: #f1edfe;
+}
+
+
+html[class~=dark] .p99-line {
+	stroke: #fd812d;
+}
+
+html[class~=dark] .p99-polygon {
+	fill: #3c1403;
+}
+
+.p99-line {
+	stroke: #b83a05;
+}
+.p99-polygon {
+	fill: #ffebde;
+}
+
+html[class~=dark] .avg-circle {
+	fill: #111;
+	stroke: #47b7f8;
+}
+
+.avg-circle {
+	fill: #ffffff;
+	stroke: #0b6ec5;
+}
+
+
+html[class~=dark] .p90-circle {
+	fill: #111;
+	stroke: #40d763;
+}
+
+.p90-circle {
+	fill: #ffffff;
+	stroke: #13862e;
+}
+
+
+html[class~=dark] .p95-circle {
+	fill: #111;
+	stroke: #a18bf5;
+}
+
+.p95-circle {
+	fill: #ffffff;
+	stroke: #5e49af;
+}
+
+
+html[class~=dark] .p99-circle {
+	fill: #111;
+	stroke: #fd812d;
+}
+
+.p99-circle {
+	fill: #ffffff;
+	stroke: #b83a05;
+}
+
+
+html[class~=dark] .stats-avg {
+	background-color: #47b7f8;
+}
+
+.stats-avg {
+	background-color: #0b6ec5;
+}
+
+html[class~=dark] .stats-p90 {
+	background-color: #40d763;
+}
+
+.stats-p90 {
+	background-color: #13862e;
+}
+
+html[class~=dark] .stats-p95 {
+	background-color: #a18bf5;
+}
+
+.stats-p95 {
+	background-color: #5e49af;
+}
+
+html[class~=dark] .stats-p99 {
+	background-color: #fd812d;
+}
+
+.stats-p99 {
+	background-color: #b83a05;
+}
+
+html[class~=dark] .selected-line {
+	stroke: #909090;
+}
+
+.selected-line {
+	stroke: #000000;
+}

@@ -1,0 +1,71 @@
+---
+const logos = [
+  { href: 'https://sst.dev', src: 'sst-dev.svg', alt: 'SST' },
+  { href: 'https://rally.space', src: 'rally-space.svg', alt: 'Rally Space' },
+  { href: 'https://biblish.com/', src: 'biblish.svg', alt: 'Biblish' },
+  { href: 'https://estii.com/', src: 'estii.svg', alt: 'Estii' },
+  { href: 'https://helphero.co/', src: 'helphero.svg', alt: 'HelpHero' },
+  { href: 'https://www.konduktum.com/', src: 'konduktum.svg', alt: 'Konduktum' },
+  { href: 'https://requestmetrics.com', src: 'request-metrics.svg', alt: 'Request Metrics' }
+];
+
+const repeated = [...logos, ...logos];
+---
+
+<section class="py-12 border-y border-gray-200 dark:border-gray-800">
+  <div class="container-custom mx-auto px-4 md:px-6">
+    <div class="logos-marquee">
+      <div class="logos-track">
+        {
+          repeated.map((logo) => (
+            <a href={logo.href} target="_blank" rel="noreferrer" class="logo-item">
+              <img src={`/assets/trusted-by/${logo.src}`} alt={logo.alt} class="w-auto h-16" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .logos-marquee {
+    overflow: hidden;
+    position: relative;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .logos-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marquee-scroll 36s linear infinite;
+  }
+
+  .logos-marquee:hover .logos-track {
+    animation-play-state: paused;
+  }
+
+  .logo-item {
+    display: inline-flex;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .logo-item {
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

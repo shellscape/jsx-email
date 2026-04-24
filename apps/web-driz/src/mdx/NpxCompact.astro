@@ -1,0 +1,54 @@
+---
+const html = await Astro.slots.render("default");
+const installCommands = ["npx", "yarn", "pnpm", "bun"];
+const installLines = html.replaceAll(/<\/?p>/g, "").replaceAll('—', '--').split("\n");
+const getInstallCommands = () =>
+  installLines
+    .map(
+      (line) =>
+        `<span class="line"><span style="color:var(--astro-code-token-function)"><select class="npx-select">${installCommands.map((command, i) => `<option value=${i}>${command}</option>`)}</select></span><span style="color:var(--astro-code-token-string)"> ${line}</span></span>`,
+    )
+    .join("\n");
+const wrapCodeBlocks = () =>
+  installCommands.map(
+    (_, index) =>
+      `<figure style="position: relative;" class="code-snippet lang-shell ${
+        index !== 0 ? "hidden" : ""
+      }"><figcaption class="header"></figcaption><pre class="astro-code css-variables" style="background-color:var(--astro-code-color-background);color:var(--astro-code-color-text);overflow-x:auto" tabindex="0" lang="shell"><code>${getInstallCommands()}</code></pre></figure>`,
+  );
+---
+
+<>
+  <div
+    class="npx-select-resizer"
+    style={{
+      position: "absolute",
+      top: "-9999px",
+      left: "-9999px",
+      visibility: 'hidden',
+      whiteSpace: "nowrap",
+      fontSize: "13px",
+      fontFamily: "Menlo",
+    }}
+  >
+    <span class="line"><span style="color:var(--astro-code-token-function)">npx</span></span>
+  </div>
+  <div class="npm__content">
+    <Fragment set:html={wrapCodeBlocks()} />
+  </div>
+</>
+
+<style is:global>
+  .line select {
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+  }
+
+  .line select:hover {
+      text-decoration: underline;
+      text-decoration-style: solid;
+  }
+</style>

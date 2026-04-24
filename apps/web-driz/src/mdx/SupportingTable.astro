@@ -1,0 +1,87 @@
+---
+interface Props {
+  category: string;
+  items: {
+    name: string;
+    isSupported: boolean;
+    docsLink?: string;
+    websiteLink?: string;
+  }[];
+}
+
+const { category, items } = Astro.props;
+---
+
+<table class="supporting-table">
+  <thead>
+    <th>{category}</th>
+    <th>Support</th>
+    <th>Docs</th>
+    <th>Website</th>
+  </thead>
+  <tbody>
+    {
+      items.map((item) => (
+        <tr>
+          <td>{item.name}</td>
+          <td>
+            {item.isSupported ? (
+              <div class="supporting-table__support-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 22C7.286 22 4.929 22 3.464 20.535C2 19.072 2 16.714 2 12C2 7.286 2 4.929 3.464 3.464C4.93 2 7.286 2 12 2C16.714 2 19.071 2 20.535 3.464C22 4.93 22 7.286 22 12C22 16.714 22 19.071 20.535 20.535C19.072 22 16.714 22 12 22Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M16.03 8.97001C16.1705 9.11064 16.2493 9.30126 16.2493 9.50001C16.2493 9.69876 16.1705 9.88939 16.03 10.03L11.03 15.03C10.8894 15.1705 10.6988 15.2494 10.5 15.2494C10.3013 15.2494 10.1106 15.1705 9.97 15.03L7.97 13.03C7.89631 12.9613 7.83721 12.8785 7.79622 12.7865C7.75523 12.6946 7.73319 12.5952 7.73141 12.4945C7.72963 12.3938 7.74816 12.2938 7.78588 12.2004C7.8236 12.107 7.87974 12.0222 7.95096 11.951C8.02218 11.8798 8.10701 11.8236 8.2004 11.7859C8.29379 11.7482 8.39382 11.7296 8.49452 11.7314C8.59523 11.7332 8.69454 11.7552 8.78654 11.7962C8.87854 11.8372 8.96134 11.8963 9.03 11.97L10.5 13.44L14.97 8.97001C15.1106 8.82956 15.3013 8.75067 15.5 8.75067C15.6988 8.75067 15.8894 8.82956 16.03 8.97001Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+            ) : (
+              <div class="supporting-table__unsupported-icon">⏳</div>
+            )}
+          </td>
+          <td>{item.docsLink && <a href={item.docsLink}>Docs</a>}</td>
+          <td>
+            {item.websiteLink && (
+              <a
+                target="_blank"
+                rel="nofollow noreferrer"
+                href={item.websiteLink}
+              >
+                Website
+              </a>
+            )}
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+<style>
+  .supporting-table__support-icon {
+    color: #4bb74a;
+    display: flex;
+    justify-content: center;
+  }
+
+  .supporting-table__unsupported-icon {
+    display: flex;
+    justify-content: center;
+  }
+
+  .supporting-table th {
+    text-align: left;
+  }
+
+  .supporting-table td {
+    vertical-align: middle;
+  }
+</style>

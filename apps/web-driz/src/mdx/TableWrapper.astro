@@ -1,0 +1,18 @@
+<div class="custom-table">
+  <slot />
+</div>
+<style is:global>
+  .custom-table thead,
+  .custom-table tbody {
+    display: flex;
+    flex-direction: column;
+  }
+  .custom-table tr {
+    display: flex;
+    flex: 1;
+  }
+  .custom-table th,
+  .custom-table td {
+    flex: 1;
+  }
+</style>

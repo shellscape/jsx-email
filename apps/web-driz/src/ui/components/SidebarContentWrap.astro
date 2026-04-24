@@ -1,0 +1,411 @@
+---
+import type { IHeading, TreeNode } from '@/types';
+import AsideAstro from './AsideAstro.astro';
+
+interface Props {
+  slug?: string;
+  tree: TreeNode[];
+  filteredHeadings: IHeading[];
+  forLanding?: boolean;
+}
+
+const { slug, tree, filteredHeadings, forLanding } = Astro.props;
+---
+<div class="nav_sticky"></div>
+<AsideAstro tree={tree} headings={filteredHeadings} slug={slug!} forLanding={forLanding} />
+<style>
+
+html[class~="dark"] .nav_sticky {
+    background-color: #111111;
+  }
+
+  .nav_sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 0;
+    z-index: 5;
+  }
+
+  html.dark .nav_sticky::after {
+    background: linear-gradient(to bottom, #111111 0%, transparent 100%);
+  }
+
+  .nav_sticky::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(to bottom, #ffffff 0%, transparent 100%);
+    pointer-events: none;
+  }
+</style>
+<style is:global>
+  
+  html[class~=dark] .nav-item {
+    color: #B6B7B8;
+    border-left: 1px solid #303030;
+  }
+
+  html[class~=dark] .nav-item--active, html[class~=dark] .nav-item:hover {
+    color: #c8c9ca;
+    border-left: 1px solid #c8c9ca;
+  }
+
+  html[class~=dark] .nav-toc-item {
+    color: #B6B7B8;
+    border-left: 1px solid #303030;
+  }
+
+  html[class~=dark] .nav-toc-item--active, html[class~=dark] .nav-toc-item:hover {
+    color: #c8c9ca;
+    border-left: 1px solid #c8c9ca;
+  }
+
+  .aside-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .nav-items {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: auto;
+    padding: 0;
+  }
+
+  .nav-items-collapsable {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: auto;
+      overflow: hidden;
+  }
+
+  .nav-items-collapsable:hover .section-collapse-button {
+      opacity: 1;
+      pointer-events: all;
+  }
+
+  .fade {
+      position: absolute;
+      display: block;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 40px;
+      z-index: 2;
+      background: linear-gradient(0deg, #fff, transparent);
+  }
+
+  .expand-container {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 60px;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s;
+      background: linear-gradient(0deg, #fff ,80%, transparent);
+  }
+
+  html.dark .expand-container {
+      background: linear-gradient(0deg, #111111 ,80%, transparent);
+  }
+
+  .expand-container:hover {
+      opacity: 1;
+  }
+
+  .expand-container button {
+      color: #000;
+      font-size: 14px;
+      width: fit-content;
+      font-weight: 600;
+      height: 24px;
+      transition: opacity 0.2s;
+      opacity: 0;
+      margin-bottom: 6px;
+  }
+
+  html.dark .expand-container button {
+      color: #e1e3e6;
+  }
+
+  .expand-container:hover button {
+      opacity: 1;
+  }
+
+  html.dark .fade {
+      background: linear-gradient(0deg, #111111, transparent);
+  }
+
+  .expanded .fade {
+      display: none;
+  }
+
+  .expanded .expand-container {
+      display: none;
+  }
+
+  .section-collapse-button {
+      opacity: 0;
+      pointer-events: none;
+      border: none !important;
+      background: none !important;
+  }
+
+  .section-collapse-button {
+      opacity: 0;
+      pointer-events: none;
+  }
+
+  .expanded {
+      max-height: 100% !important;
+  }
+
+  .expanded .expand-icon {
+      display: none;
+  }
+
+  .expanded .collapse-icon {
+      display: block;
+  }
+
+  .nav-item--active {
+    border-left: 1px solid rgb(59, 63, 75);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 15px;
+    font-weight: 700;
+    color: rgb(59 63 75);
+  }
+
+  .nav-item--active:hover {
+    border-color: rgb(59 63 75);
+    color: rgb(20 21 26);
+  }
+
+  .nav-item {
+    border-left: 1px solid rgb(229, 231, 235);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 15px;
+    color: rgb(59 63 75);
+    display: block;
+  }
+
+  .nav-item:hover {
+    border-color: rgb(59 63 75);
+    color: rgb(20 21 26);
+  }
+
+  
+  .nav-toc-item:hover, .nav-toc-item--active {
+    display: block;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 14px;
+    color: rgb(107 114 128);
+    text-align: left;
+    border-left: 1px solid #9ca3af;
+  }
+
+  .nav-toc-item {
+    display: block;
+    border-left: 1px solid rgb(229, 231, 235);
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 14px;
+    color: rgb(107 114 128);
+    text-align: left;
+  }
+
+  html[class~=dark] .nav-separator {
+    color: #c8c9ca;
+  }
+
+  .nav-separator {
+    white-space: nowrap;
+    padding-bottom: 8px;
+    font-size: 14px;
+    color: #111827;
+    font-weight: 600;
+    font-variant: all-petite-caps;
+    display: flex;
+  }
+
+  .nav-separator-collapsable {
+      white-space: nowrap;
+      padding: 32px 0px 8px;
+      font-size: 14px;
+      color: #111827;
+      font-weight: 600;
+      font-variant: all-petite-caps;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .dot-separator {
+      height: 12px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: -1;
+      flex-shrink: 0;
+  }
+
+  .dot-separator::after {
+      content: '';
+      display: block;
+      width: 1px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background: #e5e7eb;
+  }
+
+  .dot-separator::before {
+      content: '';
+      display: block;
+      margin-left: 10px;
+      width: 100%;
+      border-bottom: 1px dashed #e5e7eb;
+  }
+
+  .dot-separator-secondary {
+      height: 10px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: -1;
+      flex-shrink: 0;
+      padding-left: 28px;
+      border-left: 1px solid #e5e7eb;
+  }
+
+  html.dark .dot-separator-secondary {
+      border-color: #303030;
+  }
+
+  html.dark .nav-toc-item--active + .dot-separator-secondary {
+      border-color: #c8c9ca;
+  }
+
+  .nav-toc-item--active + .dot-separator-secondary {
+      border-color: #9ca3af;
+  }
+
+  .dot-separator-secondary::before {
+      content: '';
+      display: block;
+      width: 100%;
+      border-bottom: 1px dashed #e5e7eb;
+  }
+
+  html.dark .dot-separator::after {
+      background: #303030;
+  }
+
+  html.dark .dot-separator-secondary::before {
+      border-color: #303030;
+  }
+
+  html.dark .dot-separator::before {
+      border-color: #303030;
+  }
+
+  .nav-separator:not(:first-child) {
+    padding-top: 32px;
+  }
+
+  .nav-separator:first-child {
+      padding-top: 24px;
+  }
+
+  .heading-1 {
+    padding-left: 16px;
+  }
+
+  .heading-2 {
+    padding-left: 28px;
+  }
+
+  .heading-3 {
+    padding-left: 40px;
+  }
+
+  .heading-4 {
+    padding-left: 52px;
+  }
+
+  .nav-item-1 {
+    padding-left: 16px;
+  }
+
+  .nav-item-2 {
+    padding-left: 28px;
+  }
+
+  html[class~=dark] code {
+    background-color: #1a1a1a;
+    border-color: #292929;
+    color: #c4c5c6;
+  }
+
+  code {
+      overflow-wrap: break-word;
+      border-radius: 2px;
+      border: 1px solid #21272e1f;
+      background: #fafafa;
+      padding: 3px 4px;
+      font-size: 13px;
+      color: #0a0a0a;
+      line-height: normal;
+  }
+
+  @media screen and (max-width: 768px) {
+    .aside {
+      display: none;
+    }
+
+    .fade {
+        display: none;
+    }
+
+    .nav-items-collapsable {
+        max-height: 100% !important;
+    }
+
+    .nav-items-collapsable .section-collapse-button  {
+        display: none;
+    }
+
+    .nav-items-collapsable .expand-container {
+        display: none;
+    }
+
+    .aside-content, body[class~=banner-shown] .aside-content {
+      height: inherit;
+      max-height: inherit;
+    }
+
+    [data-headings] {
+      display: none;
+    }
+  }
+</style>

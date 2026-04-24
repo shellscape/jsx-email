@@ -1,0 +1,15 @@
+If you want to update your table schema, you can do it in the `schema.ts` file. For example, let's add a new column `phone` to the `users_table`:
+
+```typescript copy filename="src/db/schema.ts" {9}
+import { cockroachTable, unique, int4, varchar } from "drizzle-orm/cockroach-core"
+
+export const users = cockroachTable("users", {
+	id: int4().primaryKey().generatedAlwaysAsIdentity({ name: "users_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	name: varchar({ length: 255 }).notNull(),
+	age: integer().notNull(),
+	email: varchar({ length: 255 }).notNull(),
+	phone: varchar(),
+}, (table) => [
+	unique("users_email_unique").on(table.email)
+]);
+```

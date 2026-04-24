@@ -1,0 +1,31 @@
+---
+const { style } = Astro.props;
+---
+
+<div class="tag" style={style}>
+  <slot/>
+</div>
+
+<style is:global>
+  .tag {
+      background: #fafafa;
+      border: 1px solid rgba(33, 39, 46, .122);
+      border-radius: 2px;
+      gap: 4px;
+      padding: 2px 6px;
+      margin: 6px 0;
+      width: fit-content;
+      font-size: 14px;
+  }
+
+  html.dark .tag {
+      background: #1a1a1a;
+      border-color: #292929;
+  }
+</style>
+
+<style is:global>
+  .tag p {
+      padding: 0 !important;
+  }
+</style>

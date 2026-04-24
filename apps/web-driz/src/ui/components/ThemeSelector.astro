@@ -1,0 +1,169 @@
+---
+import ThemeScript from './ThemeScript.astro';
+
+interface Props { 
+  isAccent?: boolean;
+}
+
+const { isAccent } = Astro.props;
+---
+
+<div class="theme__desktop">
+  <div class="theme__wrap">
+    <div class:list={["theme__current-btn", isAccent && 'theme__current-btn--accent']} id="theme-btn">
+      <div class="theme_icon" data-current-theme-icon>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92488 18.0751 1.00001 12 1V23Z" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+    <div id="theme-dropdown-items" class="theme__items">
+      <div data-theme-value="light" class="theme__item">
+        <div class="theme_icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+        Light
+      </div>
+      <div data-theme-value="dark" class="theme__item">
+        <div class="theme_icon">
+          <svg fill="none"viewBox="2 2 20 20"width="16"height="16"stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              fill="currentColor"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
+        </div>
+        Dark
+      </div>
+      <div data-theme-value="system" class="theme__item">
+        <div class="theme_icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92488 18.0751 1.00001 12 1V23Z" fill="currentColor"/>
+          </svg>
+        </div>
+        System
+      </div>
+    </div>
+  </div>
+</div>
+<ThemeScript />
+
+<style is:global>
+.theme__desktop {
+  display: contents;
+  color: #7E868C;
+}
+
+
+.theme__wrap {
+  position: relative;
+  user-select: none;
+}
+
+html[class~=dark] .theme__current-btn:hover {
+    background-color: #1a1a1a;
+    color: #c8c9ca;
+    border-color: #c8c9ca;
+}
+
+.theme__current-btn--accent {
+  color: #4b5563;
+}
+
+html[class~=dark] .theme__current-btn {
+    background-color: #111;
+    border-color: #292929;
+    color: #909090;
+}
+
+html.dark .theme__current-btn--accent {
+    color: #e1e3e6;
+}
+
+.theme__current-btn:hover {
+  border-color: #b8bfc8;
+}
+
+.theme__current-btn--accent:hover {
+  color: #000;
+}
+
+.theme__current-btn {
+  align-items: center;
+  background-color: hsla(210,7%,95%,.27);
+  border: 1px solid rgba(33,39,46,.12);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  border-radius: 8px;
+  font-weight: 600;
+  height: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  position: relative;
+  z-index: 5;
+  cursor: pointer;
+  gap: 2px;
+  transition: all .2s ease;
+}
+
+html[class~=dark] .theme__items {
+  background-color: #111;
+  border-color: #292929;
+  color: #909090
+}
+
+.theme__items {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  background-color: #FBFBFC;
+  border: 1px solid rgba(33,39,46,.12);
+  align-items: center;
+  border-radius: 4px;
+  padding: 8px;
+  top: calc(100% + 4px);
+  right: 0;
+  font-size: 13px;
+  z-index: 100;
+}
+
+html[class~=dark] .theme__item:hover {
+  background-color: #171717;
+}
+
+.theme__item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 10px;
+  gap: 10px;
+  height: 36px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.theme__item:hover {
+  background-color: #F5F5F7;
+}
+
+.theme_icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .theme__desktop {
+    display: none;
+  }
+}
+</style>

@@ -1,0 +1,311 @@
+---
+const toasts = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
+    title: "One Dollar Stats",
+    description: "$1 per mo web analytics",
+    href: "https://driz.link/onedollarstats",
+  },
+];
+---
+
+<div
+  data-toasts
+  class="toasts-wrap animated_bottom"
+  transition:persist="toasts"
+>
+  <div id="product-by-drizzle" class="by-drizzle fade-out">
+    Product by Drizzle Team
+  </div>
+  {
+    toasts.map((toast, index) => (
+      <a
+        href={toast.href}
+        target="_blank"
+        rel="noreferrer nofollow"
+        data-toast={index}
+        data-toast-name={toast.title}
+        style={`transform: translateY(${(toasts.length - index - 1) * 100}%) scale(${1 - (toasts.length - index - 1) * 0.06});`}
+        class="toast border-highlight"
+      >
+        <div class="toast-content">
+          <div class="toast-icon">
+            <Fragment set:html={toast.icon} />
+            <div class="toast-indicator" />
+          </div>
+          <div class="toast-text">
+            <span class="toast-title">{toast.title}</span>
+            <span class="toast-description">{toast.description}</span>
+          </div>
+          <div class="black-friday-wrap">
+            <div class="black-friday">
+              christmas
+              <br />
+              deal
+            </div>
+          </div>
+        </div>
+      </a>
+    ))
+  }
+</div>
+<style>
+  .toasts-wrap {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 1s;
+    margin-bottom: 36px;
+  }
+
+  .toasts-wrap-fade {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+
+  .toast {
+    position: relative;
+    padding: 1px;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.2s cubic-bezier(0.41, 0.41, 0.35, 1.3);
+  }
+
+  .toast:hover::before {
+    opacity: 1;
+  }
+
+  .toasts-wrap:has(.toast:hover) .toast {
+    transform: none !important;
+  }
+
+  .toasts-wrap-fade:has(.toast:hover) {
+    opacity: 1 !important;
+  }
+
+  html.dark .toast-content {
+    background: #111;
+    border: 1px solid #292929;
+  }
+
+  .toast-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: #fbfbfc;
+    border-radius: 8px;
+    border: 1px solid #e0e1e3;
+    overflow: hidden;
+  }
+
+  .toast-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .toast-title {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .toast-description {
+    font-size: 12px;
+    line-height: normal;
+  }
+
+  .toast:not(:last-child) .toast-content {
+    margin-bottom: 8px;
+  }
+
+  @keyframes bottom {
+    0% {
+      transform: translateY(150%);
+      opacity: 0;
+    }
+    75% {
+      transform: translateY(-15%);
+      opacity: 0.75;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animated_bottom {
+    animation: bottom 0.3s;
+  }
+
+  .animated_fadeout {
+    animation: fadeOut 3s;
+  }
+
+  html.dark .toast-icon {
+    background: #111;
+    border: 1px solid #292929;
+  }
+
+  .toast-icon {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    padding: 6px;
+    margin: 8px;
+    aspect-ratio: 1;
+    border: 1px solid #e0e1e3;
+  }
+
+  .toast-indicator {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 100%;
+    background: #ef4444;
+  }
+
+  html.dark .by-drizzle {
+    color: #909090;
+  }
+
+  .by-drizzle {
+    text-transform: uppercase;
+    font-size: 10px;
+    bottom: -32px;
+    position: absolute;
+    transition:
+      bottom 0.2s,
+      opacity 0.3s;
+    margin-bottom: 8px;
+    left: 50%;
+    color: #909090;
+    white-space: pre;
+    z-index: -1;
+    transform: translateX(-50%);
+    padding: 0 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    opacity: 1;
+  }
+
+  .fade-out {
+    opacity: 0;
+  }
+
+  .black-friday-wrap {
+    display: none;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .black-friday {
+    transform: rotateZ(45deg);
+    font-size: 7px;
+    text-transform: uppercase;
+    font-weight: 800;
+    background-color: #ff4545;
+    color: #fff;
+    padding: 2px;
+    border-radius: 3px;
+    line-height: normal;
+    text-align: center;
+  }
+
+  @media screen and (max-height: 870px) {
+    .toasts-wrap {
+      display: none;
+    }
+  }
+</style>
+<style is:global>
+  .toast-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<script is:inline>
+  const toasts = document.querySelectorAll("[data-toast]");
+  const localStorageItems = localStorage.getItem("toasts");
+  const storedToasts = localStorageItems ? JSON.parse(localStorageItems) : [];
+  toasts.forEach((toast) => {
+    const toastName = toast.dataset.toastName;
+    const toastIndicator = toast.querySelector(".toast-indicator");
+    if (storedToasts.includes(toastName) && toastIndicator) {
+      toastIndicator.style.display = "none";
+    }
+  });
+</script>
+<script>
+  const initToasts = () => {
+    const productByDrizzle = document.getElementById("product-by-drizzle");
+    if (productByDrizzle) {
+      setTimeout(() => {
+        productByDrizzle.classList.remove("fade-out");
+      }, 300);
+    }
+    const toasts = document.querySelectorAll(
+      "[data-toast]",
+    ) as NodeListOf<HTMLElement>;
+    const localStorageItems = localStorage.getItem("toasts");
+    const storedToasts = localStorageItems ? JSON.parse(localStorageItems) : [];
+
+    toasts.forEach((toast, index) => {
+      const toastName = toast.dataset.toastName;
+      const toastIndicator = toast.querySelector(
+        ".toast-indicator",
+      ) as HTMLElement;
+      if (storedToasts.includes(toastName) && toastIndicator) {
+        toastIndicator.style.display = "none";
+      }
+
+      toast.addEventListener("mouseenter", () => {
+        if (!storedToasts.includes(toastName)) {
+          storedToasts.push(toastName);
+          localStorage.setItem("toasts", JSON.stringify(storedToasts));
+        }
+        if (toastIndicator) {
+          toastIndicator.style.display = "none";
+        }
+      });
+
+      setTimeout(
+        () => {
+          toast.setAttribute(
+            "style",
+            `transform: translateY(calc(${(toasts.length - index - 1) * 100}% - ${(toasts.length - index - 1) * 12}px)) scale(${1 - (toasts.length - index - 1) * 0.06});`,
+          );
+        },
+        100 * toasts.length - index * 100,
+      );
+
+      if (index !== toasts.length - 1) {
+        toast.classList.add("animated_fadeout");
+      }
+    });
+
+    const toastsWrap = document.querySelector("[data-toasts]");
+    if (toastsWrap) {
+      setTimeout(() => {
+        toastsWrap.classList.remove("animated_bottom");
+      }, 300);
+      setTimeout(() => {
+        toastsWrap.classList.add("toasts-wrap-fade");
+      }, 3000);
+    }
+  };
+  document.addEventListener("astro:page-load", initToasts);
+</script>

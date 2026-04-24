@@ -1,0 +1,81 @@
+<div class="nav_search-wrap">
+  <div class="search-wrap--centered" id="docsearch"></div>
+  <div id="custom-button" class="nav_ai-btn"></div>
+</div>
+<script type="module" is:inline data-astro-rerun>
+  docsearch({
+    container: '#docsearch',
+    appId: "MXZNUT59HV",
+    apiKey: "7c390e262ac8858df0b6624d01d9dfef",
+    indexName: "orm-drizzle",
+    placeholder: "Search documentation...",
+  });
+
+  let themeName = localStorage.getItem('theme');
+  if(themeName === 'system') {
+    themeName = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  }
+
+  const properties = {
+    stylesheetUrls: ['/inkeep-styles.css'],
+    chatButtonType: 'ICON_TEXT',
+    isPositionFixed: false,
+    baseSettings: {
+      apiKey: '4f4da4a5733032ef8ff23e3b7906954877fd0ee54d58d1e0',
+      integrationId: 'clpbm8p9y002ns601vbbswj5i',
+      organizationId: 'clog94xy50001s601yapu7swn',
+      organizationDisplayName: 'Drizzle ORM',
+      primaryBrandColor: '#FFFFFF',
+      theme: {
+        colorMode: {
+          forcedColorMode: themeName,
+        },
+      },
+    },
+    style: {visibility: 'visible'},
+    modalSettings: {
+      areOpenHotKeysDisabled: true,
+    },
+    aiChatSettings: {
+      botAvatarSrcUrl: '/svg/drizzle.svg',
+    }
+  }
+
+  //@ts-ignore
+  const inkeepWidget = Inkeep().embed({
+    componentType: "ChatButton",
+    targetElement: document.getElementById("custom-button"),
+    properties,
+  });
+
+  window.inkeepWidget = inkeepWidget;
+</script>
+<style>
+  .nav_search-wrap {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    gap: 12px;
+    max-width: 420px;
+  }
+
+  html[class~=dark] .nav_ai-btn {
+    background-color: #1c1c1c;
+  }
+
+  .nav_ai-btn {
+    width: 108px;
+    height: 33px;
+    background-color: #F4F4F4;
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .nav_search-wrap {
+      display: none;
+    }
+    
+  }
+</style>

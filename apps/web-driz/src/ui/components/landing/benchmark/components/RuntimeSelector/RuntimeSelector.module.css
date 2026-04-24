@@ -1,0 +1,29 @@
+html[class~=dark] .button {
+	border: 1px solid #414141;
+	background-color: #111111;
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	height: 28px;
+  	font-size: 12px;
+	line-height: 14px;
+	box-shadow: 0 0 0 0 #fff,0 0 0 1px rgba(0,0,0,.08),0 1px 2px 0 rgba(0,0,0,.1),0 2px 4px 0 rgba(0,0,0,.075);
+	border-radius: 4px;
+	background-color: #ffffff;
+	cursor: pointer;
+	outline: none;
+	appearance: none;
+	padding: 0 12px 0 30px;
+	font-family: var(--default-font);
+}
+
+.icon {
+	margin-right: -24px;
+	position: relative;
+	z-index: 2;
+	pointer-events: none;
+}

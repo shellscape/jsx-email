@@ -1,0 +1,27 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'release', 'test']
+
+tasks:
+  build:
+    command: node scripts/process-docs.mjs && astro build
+    inputs:
+      - .astro
+      - package.json
+      - src
+      - ../../docs
+    options:
+      cache: false
+
+  dev:
+    command: node scripts/process-docs.mjs && astro dev --host
+    options:
+      cache: false
+
+  preview:
+    command: astro preview
+    options:
+      cache: false

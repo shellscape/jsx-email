@@ -1,0 +1,24 @@
+<div class="header__wrap">
+  <h1><slot/></h1>
+</div>
+
+<style>
+  .header__wrap h1 {
+    margin-top: 0;
+  }
+  .header__wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: 768px) {
+    .header__wrap {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .header__wrap h1 {
+      margin-bottom: 16px;
+    }
+  }
+</style>

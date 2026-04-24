@@ -1,0 +1,98 @@
+import CodeTabs from "@mdx/CodeTabs.astro";
+import Section from "@mdx/Section.astro";
+
+<CodeTabs items={["Example 1", "Example 2", "Example 3", "Example 4"]}>
+<Section>
+```plaintext {7}
+📦 <project root>
+ ├ ...
+ ├ 📂 drizzle
+ ├ 📂 src
+ │ ├ ...
+ │ ├ 📜 index.ts
+ │ └ 📜 schema.ts 
+ ├ 📜 drizzle.config.ts
+ └ 📜 package.json
+```
+```ts
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./src/schema.ts",
+});
+```
+</Section>
+<Section>
+```plaintext {7,10}
+📦 <project root>
+ ├ ...
+ ├ 📂 drizzle
+ ├ 📂 src
+ │ ├ 📂 user
+ │ │ ├ 📜 handler.ts 
+ │ │ └ 📜 schema.ts 
+ │ ├ 📂 posts
+ │ │ ├ 📜 handler.ts 
+ │ │ └ 📜 schema.ts 
+ │ └ 📜 index.ts
+ ├ 📜 drizzle.config.ts
+ └ 📜 package.json
+```
+```ts
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./src/**/schema.ts",
+  //or
+  schema: ["./src/user/schema.ts", "./src/posts/schema.ts"]
+});
+```
+</Section>
+<Section>
+```plaintext {6-8}
+📦 <project root>
+ ├ ...
+ ├ 📂 drizzle
+ ├ 📂 src
+ │ ├ 📂 schema
+ │ │ ├ 📜 user.ts 
+ │ │ ├ 📜 post.ts 
+ │ │ └ 📜 comment.ts 
+ │ └ 📜 index.ts
+ ├ 📜 drizzle.config.ts
+ └ 📜 package.json
+```
+```ts
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./src/schema/*",
+});
+```
+</Section>
+<Section>
+```plaintext {8,11}
+📦 <project root>
+ ├ ...
+ ├ 📂 drizzle
+ ├ 📂 src
+ │ ├ 📜 userById.ts 
+ │ ├ 📜 userByEmail.ts 
+ │ ├ 📜 listUsers.ts 
+ │ ├ 📜 user.sql.ts 
+ │ ├ 📜 postById.ts 
+ │ ├ 📜 listPosts.ts 
+ │ └ 📜 post.sql.ts 
+ │ 📜 index.ts
+ ├ 📜 drizzle.config.ts
+ └ 📜 package.json
+```
+```ts
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./src/**/*.sql.ts", // Dax's favourite
+});
+```
+</Section>
+</CodeTabs>

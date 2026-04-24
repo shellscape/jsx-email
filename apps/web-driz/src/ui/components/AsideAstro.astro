@@ -1,0 +1,537 @@
+---
+import type { IHeading, TreeNode } from "@/types";
+
+interface Props {
+  headings?: IHeading[];
+  tree: TreeNode[];
+  slug: string;
+  forLanding?: boolean;
+}
+
+const { headings, slug = "", tree, forLanding = false } = Astro.props;
+const isActive = (path: string) => {
+  const pathArray = path.split("/");
+  const slugArray = slug.split("/");
+  return pathArray.every((element, index) => element === slugArray[index]);
+};
+
+function modifyTree(tree: TreeNode[]): TreeNode[] {
+  const modifiedTree: TreeNode[] = [];
+  let currentCollapsableNode: TreeNode | null = null;
+
+  for (const node of tree) {
+    if (node.type === "collapsable") {
+      currentCollapsableNode = { ...node, items: [] };
+      modifiedTree.push(currentCollapsableNode);
+    } else if (node.type === "separator") {
+      currentCollapsableNode = null;
+      modifiedTree.push(node);
+    } else if (currentCollapsableNode) {
+      currentCollapsableNode.items?.push(node);
+    } else {
+      modifiedTree.push(node);
+    }
+  }
+
+  return modifiedTree;
+}
+
+const calculateMaxHeight = (items: TreeNode[]) => {
+  return (
+    items.reduce(
+      (acc, it) => {
+        if (acc.counter === 6) return acc;
+
+        if (it.type === "dot-separator") {
+          return { value: 12 + acc.value, counter: acc.counter };
+        } else {
+          return { value: 26.5 + acc.value, counter: acc.counter + 1 };
+        }
+      },
+      { value: 0, counter: 0 },
+    ).value + 61
+  );
+};
+
+const groupedTree = tree.map((t) => ({
+  ...t,
+  children: modifyTree(t.children),
+}));
+let i = 0;
+---
+
+<div class="nav-items">
+  {
+    groupedTree
+      .filter((t) => forLanding || isActive(t.name))
+      .map((t) =>
+        t.children?.map((n) => (
+          <Fragment key={n.name}>
+            {n.type === "separator" && (
+              <div class="nav-separator">{n.title}</div>
+            )}
+            {n.type === "collapsable" && (
+              <div
+                class={"nav-items-collapsable"}
+                id={n.title}
+                data-active-inner-item={
+                  n.items?.some((c) => isActive(`${t.name}/${c.name}`)) ? 1 : 0
+                }
+                style={
+                  n.items && `max-height: ${calculateMaxHeight(n.items)}px`
+                }
+              >
+                <div class="nav-separator nav-separator-collapsable">
+                  {n.title}
+                  <button
+                    data-collapse-btn
+                    type="button"
+                    class:list={["button-wrap", "section-collapse-button"]}
+                    aria-label="collaps"
+                  >
+                    <div class="expand-icon">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8.67383 5.36887L12.0427 2L15.4116 5.36887"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M15.4116 18.8443L12.0427 22.2132L8.67383 18.8443"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.0426 2.00003V10.0853"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.0426 22.2132V14.1279"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="collapse-icon">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8.67383 17.3689L12.0427 14L15.4116 17.3689"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M15.4116 6.7164L12.0427 10.0853L8.67383 6.7164"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.0426 14V22.0853"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.0426 10.0853V1.99999"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </button>
+                </div>
+                {n.items?.map((n) => (
+                  <>
+                    {n.type === "dot-separator" && (
+                      <div class="dot-separator" />
+                    )}
+                    {n.type === "mdx" && (
+                      <a
+                        data-nav-index={i++}
+                        class:list={[
+                          isActive(`${t.name}/${n.name}`)
+                            ? "nav-item--active"
+                            : "nav-item",
+                          "nav-item-1",
+                        ]}
+                        href={`/${t.name}/${n.name}`}
+                      >
+                        {n.title[0] === "`" &&
+                        n.title[n.title.length - 1] === "`" ? (
+                          <code>{n.title.replaceAll("`", "")}</code>
+                        ) : (
+                          n.title
+                        )}
+                      </a>
+                    )}
+                    {n.type === "subDir" && (
+                      <a
+                        data-nav-index={i++}
+                        class:list={[
+                          isActive(`${t.name}/${n.name}`)
+                            ? "nav-item--active"
+                            : "nav-item",
+                          "nav-item-1",
+                        ]}
+                        href={`/${t.name}/${n.name}/${n.children?.[0].name}`}
+                      >
+                        {n.title[0] === "`" &&
+                        n.title[n.title.length - 1] === "`" ? (
+                          <code>{n.title.replaceAll("`", "")}</code>
+                        ) : (
+                          n.title
+                        )}
+                      </a>
+                    )}
+                    {n.type === "withDialects" && (
+                      <a
+                        data-nav-index={i++}
+                        data-href={`/${t.name}/${n.name}`}
+                        class:list={[
+                          isActive(`${t.name}/${n.name}`)
+                            ? "nav-item--active"
+                            : "nav-item",
+                          "nav-item-1",
+                        ]}
+                      >
+                        {n.title[0] === "`" &&
+                        n.title[n.title.length - 1] === "`" ? (
+                          <code>{n.title.replaceAll("`", "")}</code>
+                        ) : (
+                          n.title
+                        )}
+                      </a>
+                    )}
+                    {headings &&
+                      slug &&
+                      slug.split("/")[1] === n.name &&
+                      slug === `${t.name}/${n.name}` && (
+                        <div data-headings>
+                          {headings.map((heading) =>
+                            heading.text === "---" ? (
+                              <div class="dot-separator-secondary" />
+                            ) : (
+                              <a
+                                data-slug={heading.slug}
+                                class:list={["nav-toc-item", "heading-2"]}
+                                href={`#${heading.slug}`}
+                              >
+                                {heading.text}
+                              </a>
+                            ),
+                          )}
+                        </div>
+                      )}
+                    {n.children?.map((c) => (
+                      <Fragment>
+                        {headings &&
+                          slug &&
+                          slug.split("/")[2] === c.name &&
+                          slug === `${t.name}/${n.name}/${c.name}` && (
+                            <div data-headings>
+                              {headings.map((heading) =>
+                                heading.text === "---" ? (
+                                  <div class="dot-separator-secondary" />
+                                ) : (
+                                  <a
+                                    data-slug={heading.slug}
+                                    class:list={["nav-toc-item", "heading-2"]}
+                                    href={`#${heading.slug}`}
+                                  >
+                                    {heading.text}
+                                  </a>
+                                ),
+                              )}
+                            </div>
+                          )}
+                      </Fragment>
+                    ))}
+                  </>
+                ))}
+                <div class="fade" />
+                <div class="expand-container">
+                  <button class="expand-container-button">Expand</button>
+                </div>
+              </div>
+            )}
+            {n.type === "dot-separator" && <div class="dot-separator" />}
+            {n.type === "mdx" && (
+              <a
+                data-nav-index={i++}
+                class:list={[
+                  isActive(`${t.name}/${n.name}`)
+                    ? "nav-item--active"
+                    : "nav-item",
+                  "nav-item-1",
+                ]}
+                href={`/${t.name}/${n.name}`}
+              >
+                {n.title[0] === "`" && n.title[n.title.length - 1] === "`" ? (
+                  <code>{n.title.replaceAll("`", "")}</code>
+                ) : (
+                  n.title
+                )}
+              </a>
+            )}
+            {n.type === "subDir" && (
+              <a
+                data-nav-index={i++}
+                class:list={[
+                  isActive(`${t.name}/${n.name}`)
+                    ? "nav-item--active"
+                    : "nav-item",
+                  "nav-item-1",
+                ]}
+                href={`/${t.name}/${n.name}/${n.children?.[0].name}`}
+              >
+                {n.title[0] === "`" && n.title[n.title.length - 1] === "`" ? (
+                  <code>{n.title.replaceAll("`", "")}</code>
+                ) : (
+                  n.title
+                )}
+              </a>
+            )}
+            {n.type === "withDialects" && (
+              <a
+                data-nav-index={i++}
+                data-href={`/${t.name}/${n.name}`}
+                class:list={[
+                  isActive(`${t.name}/${n.name}`)
+                    ? "nav-item--active"
+                    : "nav-item",
+                  "nav-item-1",
+                ]}
+              >
+                {n.title[0] === "`" && n.title[n.title.length - 1] === "`" ? (
+                  <code>{n.title.replaceAll("`", "")}</code>
+                ) : (
+                  n.title
+                )}
+              </a>
+            )}
+            {headings &&
+              slug &&
+              slug.split("/")[1] === n.name &&
+              slug === `${t.name}/${n.name}` && (
+                <div data-headings>
+                  {headings.map((heading) =>
+                    heading.text === "---" ? (
+                      <div class="dot-separator-secondary" />
+                    ) : (
+                      <a
+                        data-slug={heading.slug}
+                        class:list={["nav-toc-item", "heading-2"]}
+                        href={`#${heading.slug}`}
+                      >
+                        {heading.text}
+                      </a>
+                    ),
+                  )}
+                </div>
+              )}
+            {n.children?.map((c) => (
+              <Fragment>
+                {headings &&
+                  slug &&
+                  slug.split("/")[2] === c.name &&
+                  slug === `${t.name}/${n.name}/${c.name}` && (
+                    <div data-headings>
+                      {headings.map((heading) =>
+                        heading.text === "---" ? (
+                          <div class="dot-separator-secondary" />
+                        ) : (
+                          <a
+                            data-slug={heading.slug}
+                            class:list={["nav-toc-item", "heading-2"]}
+                            href={`#${heading.slug}`}
+                          >
+                            {heading.text}
+                          </a>
+                        ),
+                      )}
+                    </div>
+                  )}
+              </Fragment>
+            ))}
+          </Fragment>
+        )),
+      )
+  }
+</div>
+<script>
+  import throttle from "lodash.throttle";
+  import { handleAnchorHighlighting } from "@/utils-client";
+  import { updateDialectLinks } from "@/utils-client";
+
+  document.addEventListener("astro:after-swap", () => {
+    let expandedSections: string[] = JSON.parse(
+      localStorage.getItem("expandedSections") || "[]",
+    );
+    const updateCollapsedSections = () => {
+      document.querySelectorAll(".nav-items-collapsable").forEach((section) => {
+        if (
+          Number(section.getAttribute("data-active-inner-item")) &&
+          !expandedSections.find((v) => v === section.id)
+        ) {
+          expandedSections = [...expandedSections, section.id];
+        }
+        if (expandedSections.find((v) => v === section.id)) {
+          section.classList.add("expanded");
+        } else {
+          section.classList.remove("expanded");
+        }
+      });
+
+      localStorage.setItem(
+        "expandedSections",
+        JSON.stringify(expandedSections),
+      );
+    };
+
+    updateCollapsedSections();
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    const container = document.querySelector("html");
+    const anchors = document.querySelectorAll<HTMLElement>("h2, h3");
+    const links = document.querySelectorAll<HTMLElement>("[data-slug]");
+    let expandedSections: string[] = JSON.parse(
+      localStorage.getItem("expandedSections") || "[]",
+    );
+
+    const updateCollapsedSections = () => {
+      document.querySelectorAll(".nav-items-collapsable").forEach((section) => {
+        if (expandedSections.find((v) => v === section.id)) {
+          section.classList.add("expanded");
+        } else {
+          section.classList.remove("expanded");
+        }
+      });
+    };
+
+    const handleToggleSection = (id: string) => {
+      if (expandedSections?.find((v) => v === id)) {
+        expandedSections = expandedSections.filter((v) => v !== id);
+      } else {
+        expandedSections = expandedSections ? [...expandedSections, id] : [id];
+      }
+
+      updateCollapsedSections();
+      localStorage.setItem(
+        "expandedSections",
+        JSON.stringify(expandedSections),
+      );
+    };
+
+    document.querySelectorAll(".section-collapse-button").forEach((e) => {
+      e.addEventListener("click", () => {
+        if (e.parentElement?.parentElement) {
+          handleToggleSection(e.parentElement.parentElement.id);
+        }
+      });
+    });
+
+    document.querySelectorAll(".expand-container-button").forEach((e) => {
+      e.addEventListener("click", () => {
+        if (e.parentElement?.parentElement) {
+          handleToggleSection(e.parentElement.parentElement.id);
+        }
+      });
+    });
+
+    const updateLinks = () => {
+      if (!container || !links || !anchors) return;
+      const activeAnchors = handleAnchorHighlighting({
+        viewportHeight: window.innerHeight,
+        anchors: [...anchors].map((anchor) => ({
+          id: anchor.id,
+          offsetTop: anchor.offsetTop,
+        })),
+        scrollTop: container.scrollTop,
+      });
+
+      links.forEach((link) => {
+        const slug = link.dataset.slug;
+        if (!slug) return;
+        link.classList.toggle(
+          "nav-toc-item--active",
+          activeAnchors.includes(slug),
+        );
+        link.classList.toggle("nav-toc-item", !activeAnchors.includes(slug));
+      });
+    };
+
+    if (container && links) {
+      document.addEventListener("scroll", throttle(updateLinks, 80));
+      updateLinks();
+    }
+
+    updateDialectLinks();
+  });
+</script>
+<style>
+  html[class~="dark"] .button-wrap:hover {
+    color: #f9fafb;
+  }
+  html[class~="dark"] .button-wrap {
+    color: #9ca3af;
+  }
+  .button-wrap:hover {
+    color: #111827;
+  }
+
+  .button-wrap {
+    cursor: pointer;
+    text-transform: none;
+    font-size: 100%;
+    -webkit-transition-property: all;
+    -o-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.15s;
+    -o-transition-duration: 0.15s;
+    transition-duration: 0.15s;
+    -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    -o-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(75, 85, 99, 0.6);
+    z-index: 1;
+    position: static;
+    margin: -9px;
+  }
+
+  .collapse-icon {
+      display: none;
+  }
+</style>
+

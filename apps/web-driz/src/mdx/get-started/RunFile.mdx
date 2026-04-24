@@ -1,0 +1,22 @@
+import Npx from '@mdx/Npx.astro';
+import Callout from '@mdx/Callout.astro';
+
+To run any TypeScript files, you have several options, but let's stick with one: using `tsx`
+
+You've already installed `tsx`, so we can run our queries now
+
+**Run `index.ts` script**
+<Npx>
+  tsx src/index.ts
+</Npx>
+
+<Callout title='tips'>
+  We suggest using `bun` to run TypeScript files. With `bun`, such scripts can be executed without issues or additional 
+  settings, regardless of whether your project is configured with CommonJS (CJS), ECMAScript Modules (ESM), or any other module format. 
+  To run a script with `bun`, use the following command:
+  ```bash copy
+  bun src/index.ts
+  ```
+
+  If you don't have bun installed, check the [Bun installation docs](https://bun.sh/docs/installation#installing)
+</Callout>

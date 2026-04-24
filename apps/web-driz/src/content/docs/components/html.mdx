@@ -1,0 +1,77 @@
+---
+title: HTML
+description: Wraps the email document with a root element
+type: component
+---
+
+import Callout from '@mdx/Callout.astro';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
+
+Wraps the email document with a root element
+
+<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
+<CodeTab>
+```sh
+pnpm add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+bun add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+npm add jsx-email
+```
+</CodeTab>
+<CodeTab>
+```sh
+yarn add jsx-email
+```
+</CodeTab>
+</CodeTabs>
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Button, Html } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Button href="https://example.com" style={{ color: '#61dafb' }}>
+        Click me
+      </Button>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+```ts
+lang?: string;
+```
+
+Identify the language of text content on the email
+
+```ts
+dir?: string;
+```
+
+Identify the direction of text content on the email
+
+```ts
+enableVML?: boolean;
+```
+
+This is used the `xmlns:o` and `xmlns:v` attributes to the `html` element for maximum VML compatibility
+Default value is `true`
+
+<Callout type="info">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.
+</Callout>
