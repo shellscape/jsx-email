@@ -6,6 +6,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import sitemap from "@astrojs/sitemap";
 import yaml from "@rollup/plugin-yaml";
 import tailwindcss from "@tailwindcss/vite";
+import react from "@astrojs/react";
 import { codeSnippetTransformer } from "./src/transformers";
 import {
   transformerNotationDiff,
@@ -47,6 +48,7 @@ export default defineConfig({
     : undefined,
   integrations: [
     mdx(),
+    react(),
     ...(isProd ? [sitemap()] : []),
   ],
   markdown: {
