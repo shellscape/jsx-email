@@ -4,7 +4,6 @@ import MDXStyles from "./components/MDXStyles.astro";
 import Banner from "./components/Banner.astro";
 import BaseHead from "@/ui/BaseHead.astro";
 import Header from "./components/Header.astro";
-import RightAside from "./components/RightAside.astro";
 import DocsSidebar from "./components/DocsSidebar.astro";
 import { getContentTree } from "@/utils";
 import type { IHeading } from "@/types";
@@ -33,7 +32,7 @@ const pageHasDialects = Object.keys(dialects).includes(
 <!doctype html>
 <html lang="en">
   <BaseHead
-    title={`Drizzle ORM - ${customTitle || title}`}
+    title={`JSX Email - ${customTitle || title}`}
     description={description}
   />
   <body class="banner-shown">
@@ -49,9 +48,6 @@ const pageHasDialects = Object.keys(dialects).includes(
         />
         <div class="dialects-container">
           {pageHasDialects && <DialectTabs />}
-        </div>
-        <div class="right-aside-container">
-          <RightAside />
         </div>
       </div>
     </div>

@@ -16,7 +16,6 @@
     "@types/react-dom": "19.2.3",
     "astro": "^4.16.7",
     "autoprefixer": "^10.4.20",
-    "css-fade": "^1.0.9",
     "lodash.throttle": "^4.1.1",
     "motion": "^12.38.0",
     "node-html-parser": "^6.1.13",

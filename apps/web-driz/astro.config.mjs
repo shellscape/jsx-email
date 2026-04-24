@@ -23,7 +23,7 @@ const isProd = env.PROD_BUILD === "true";
 
 // https://astro.build/config
 export default defineConfig({
-  site: isProd ? "https://orm.drizzle.team" : "http://localhost:4321",
+  site: isProd ? "https://jsx.email" : "http://localhost:4321",
   build: {
     format: "file", // mandatory due to CloudFlare Pages trailing slash problem
   },

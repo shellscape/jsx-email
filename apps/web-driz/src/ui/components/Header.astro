@@ -1,9 +1,7 @@
 ---
-import CenteredSearchWithAI from "./CenteredSearchWithAI.astro";
 import ThemeSelector from "./ThemeSelector.astro";
 import Logo from "./Logo.astro";
 import GithubStars from "./GithubStars.astro";
-import AnnouncementsButton from "./AnnouncementsButton.astro";
 import DocsIcon from "@/assets/icons/DocsIcon.astro";
 ---
 
@@ -12,14 +10,13 @@ import DocsIcon from "@/assets/icons/DocsIcon.astro";
     <div class="header__logo">
       <Logo />
       <a class="docs-logo" href="/docs/introduction">
-        <div class="docs-logo-icon"><DocsIcon/></div>
+        <div class="docs-logo-icon"><DocsIcon /></div>
         <span>Documentation</span>
       </a>
     </div>
-    <CenteredSearchWithAI/>
+    <div class="header-spacer" />
     <div class="header_nav">
       <GithubStars />
-      <AnnouncementsButton />
       <ThemeSelector />
       <div class="burger" data-nav-burger-btn>
         <svg
@@ -70,11 +67,11 @@ import DocsIcon from "@/assets/icons/DocsIcon.astro";
       0 0 0 0 transparent,
       0 2px 4px #00000005,
       0 1px #0000000f;
-    
+
     z-index: 100;
     position: fixed;
-      left: 0;
-      right: 0;
+    left: 0;
+    right: 0;
     top: 40px;
   }
 
@@ -100,30 +97,34 @@ import DocsIcon from "@/assets/icons/DocsIcon.astro";
     gap: 10px;
   }
 
+  .header-spacer {
+    flex: 1;
+  }
+
   .docs-logo {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 6px 8px;
-      border-radius: 4px;
-      background-color: #f6f6f7;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 4px;
+    background-color: #f6f6f7;
   }
 
   html.dark .docs-logo {
-      background-color: #1a1a1a;
-      color: #c8c9ca;
+    background-color: #1a1a1a;
+    color: #c8c9ca;
   }
 
   .docs-logo-icon {
-      color: #555;
-      fill: #cccccc;
+    color: #555;
+    fill: #cccccc;
   }
 
   html.dark .docs-logo-icon {
-      color: #949393;
-      fill: #c8c9ca;
+    color: #949393;
+    fill: #c8c9ca;
   }
 
   .header_nav {
@@ -135,70 +136,44 @@ import DocsIcon from "@/assets/icons/DocsIcon.astro";
     width: 100%;
   }
 
-  html.dark .header_nav__link {
-    color: #9ca3af;
-  }
-
-  html.dark .header_nav__link:hover {
-    color: #e5e7eb;
-  }
-
   html.dark .burger {
-      color: #c4c5c6;
+    color: #c4c5c6;
   }
 
-  .header_nav__link {
+  .burger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: -8px;
     border-radius: 4px;
     cursor: pointer;
-    color: #4b5563;
-    display: inline-block;
-    font-size: 14px;
-    margin-left: -8px;
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    padding: 8px;
-    position: relative;
-    text-decoration: inherit;
-    white-space: nowrap;
-  }
-
-  .header_nav__link:hover {
-    color: rgb(31, 41, 55);
-  }
-
-  .progress-wrap {
-      width: 200px;
-  }
-
-  @media screen and (max-width: 1260px) {
-      .progress-wrap {
-          display: none;
-      }
   }
 
   @media screen and (max-width: 914px) {
-      .docs-logo  {
-          height: 33px;
-          padding: 6px 8px;
-      }
+    .docs-logo {
+      height: 33px;
+      padding: 6px 8px;
+    }
 
-      .docs-logo span {
-          display: none;
-      }
+    .docs-logo span {
+      display: none;
+    }
   }
 
   @media screen and (max-width: 768px) {
-    .header_nav__link {
+    .docs-logo {
       display: none;
-    }
-
-    .docs-logo  {
-        display: none;
     }
 
     .header_content {
       padding-left: 16px;
       padding-right: 16px;
+    }
+
+    .burger {
+      display: flex;
     }
   }
 </style>
@@ -214,150 +189,17 @@ import DocsIcon from "@/assets/icons/DocsIcon.astro";
   };
 
   document.addEventListener("astro:page-load", () => {
-    document.querySelector("[data-nav-burger-btn]").removeEventListener("click", toggleBurgerMenu, false)
-    if (document.querySelector("[data-nav-burger-btn]") && document.getElementById("header") && document.getElementById("aside")) {
-      document.querySelector("[data-nav-burger-btn]").addEventListener("click", toggleBurgerMenu)
-  }})
+    document
+      .querySelector("[data-nav-burger-btn]")
+      ?.removeEventListener("click", toggleBurgerMenu, false);
+    if (
+      document.querySelector("[data-nav-burger-btn]") &&
+      document.getElementById("header") &&
+      document.getElementById("aside")
+    ) {
+      document
+        .querySelector("[data-nav-burger-btn]")
+        ?.addEventListener("click", toggleBurgerMenu);
+    }
+  });
 </script>
-
-<style>
-  .nav_container {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    width: 100%;
-  }
-
-  html[class~="dark"] .nav_container_blur {
-    background-color: rgba(18, 18, 18, 0.8);
-    box-shadow:
-      0 0 transparent,
-      0 0 transparent,
-      0 -1px 0 hsla(0, 0%, 100%, 0.1) inset;
-  }
-
-  .nav_container_blur {
-    backdrop-filter: blur(12px);
-    pointer-events: none;
-    position: absolute;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    background-color: hsla(0, 0%, 100%, 0.85);
-    box-shadow:
-      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-      rgba(0, 0, 0, 0.02) 0px 2px 4px 0px,
-      rgba(0, 0, 0, 0.06) 0px 1px 0px 0px;
-  }
-
-  .nav_content_wrap {
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    height: 64px;
-    max-width: 1440px;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    padding-left: max(env(safe-area-inset-left), 24px);
-    padding-right: max(env(safe-area-inset-right), 24px);
-  }
-
-  .nav_logo {
-    outline-offset: 2px;
-    outline: 2px solid transparent;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-  }
-
-  .nav_desktop {
-    display: contents;
-  }
-
-  .nav_mobile {
-    display: none;
-  }
-
-  .nav_container_open .burger svg g {
-    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1) 0.2s;
-    transform-origin: 50%;
-  }
-
-  .nav_container_open .burger svg g:first-of-type {
-    transform: rotate(45deg);
-  }
-
-  .nav_container_open .burger svg g:first-of-type path {
-    transform: translateY(6px);
-    opacity: 1;
-  }
-
-  .nav_container_open .burger svg path {
-    opacity: 0;
-    transition:
-      transform 0.2s cubic-bezier(0.25, 1, 0.5, 1),
-      opacity 0s 0.2s;
-  }
-
-  .nav_container_open .burger svg g:nth-of-type(2) {
-    transform: rotate(-45deg);
-  }
-  .nav_container_open .burger svg g:nth-of-type(2) path {
-    opacity: 1;
-    transform: translateY(-6px);
-  }
-
-  .burger {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin-right: -8px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .burger:active {
-    background-color: rgba(156, 163, 175, 0.2);
-  }
-
-  .burger g {
-    transform-origin: 50%;
-    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .burger path {
-    opacity: 1;
-    transition:
-      transform 0.2s cubic-bezier(0.25, 1, 0.5, 1) 0.2s,
-      opacity 0.2s 0.2s;
-  }
-
-  @media screen and (max-width: 768px) {
-    .nav_content_wrap {
-      padding-left: max(env(safe-area-inset-left), 16px);
-      padding-right: max(env(safe-area-inset-right), 16px);
-    }
-
-    .nav_container {
-      top: 0px;
-    }
-    body[class~="banner-shown"] .nav_container {
-      top: 40px;
-    }
-    .nav_desktop {
-      display: none;
-    }
-    .nav_mobile {
-      display: contents;
-    }
-
-    .burger {
-      display: flex;
-    }
-  }
-</style>

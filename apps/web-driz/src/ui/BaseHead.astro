@@ -1,6 +1,7 @@
 ---
 import GlobalStyles from "@components/GlobalStyles.astro";
 import { ViewTransitions } from "astro:transitions";
+
 interface Props {
   title: string;
   description?: string;
@@ -8,7 +9,7 @@ interface Props {
 
 const { title, description } = Astro.props;
 const defaultDescription =
-  "Drizzle ORM is a lightweight and performant TypeScript ORM with developer experience in mind.";
+  "Build and send emails using JSX with a delightful developer experience.";
 const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD === "true";
 ---
 
@@ -22,16 +23,13 @@ const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD =
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
   <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-  <link
-    rel="preconnect"
-    href="https://MXZNUT59HV-dsn.algolia.net"
-    crossorigin
-  />
   <meta name="generator" content={Astro.generator} />
   <title>{title}</title>
-  <meta name="description" content={defaultDescription || description} />
+  <meta name="description" content={description || defaultDescription} />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content={defaultDescription || description} />
+  <meta property="og:description" content={description || defaultDescription} />
+  <meta property="og:image" content="https://jsx.email/og.png" />
+  <meta property="twitter:image" content="https://jsx.email/og.png" />
   <script is:inline>
     const transitionManager = () => {
       const style = document.createElement("style");
@@ -85,6 +83,7 @@ const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD =
       }
       return preference;
     };
+
     let packageManager = localStorage.getItem("package-manager") || "npm";
     let expandedSections = localStorage.getItem("expandedSections")
       ? JSON.parse(localStorage.getItem("expandedSections"))
@@ -122,23 +121,6 @@ const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD =
       }
     });
   </script>
-  <script
-    is:inline
-    type="module"
-    src="https://unpkg.com/@inkeep/widgets-embed@0.2.237/dist/embed.js"
-    defer></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <link rel="stylesheet" href="/preferred.css" />
-  <script
-    is:inline
-    defer
-    data-site-id="orm.drizzle.team"
-    src="https://assets.onedollarstats.com/tracker.js"></script>
-  <script
-    is:inline
-    src="https://analytics.ahrefs.com/analytics.js"
-    data-key="SKUeEfeeQbx1VaWCrIf53A"
-    async></script>
   <GlobalStyles />
 </head>

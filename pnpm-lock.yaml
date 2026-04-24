@@ -294,9 +294,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.21(postcss@8.5.10)
-      css-fade:
-        specifier: ^1.0.9
-        version: 1.0.9
       jsx-email:
         specifier: workspace:*
         version: link:../../packages/jsx-email
