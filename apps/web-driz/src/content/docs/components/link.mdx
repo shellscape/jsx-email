@@ -4,34 +4,31 @@ description: Renders a hyperlink to an external resource
 type: component
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 Renders a hyperlink to an external resource
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 ## Usage
 
@@ -65,6 +62,6 @@ target?: string;
 
 Specify the target attribute for the button link.
 
-<Callout type="info">
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
-</Callout>
+> **Tip:**
+>
+> This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.

@@ -4,34 +4,31 @@ description: Wraps the email document with a root element
 type: component
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 Wraps the email document with a root element
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 ## Usage
 
@@ -72,6 +69,6 @@ enableVML?: boolean;
 This is used the `xmlns:o` and `xmlns:v` attributes to the `html` element for maximum VML compatibility
 Default value is `true`
 
-<Callout type="info">
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.
-</Callout>
+> **Tip:**
+>
+> This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.

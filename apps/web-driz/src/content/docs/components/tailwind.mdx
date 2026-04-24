@@ -4,42 +4,39 @@ description: 'A JSX email component which enables using Tailwind-style CSS to st
 type: component
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 A JSX email component which enables using Tailwind-style CSS to style emails
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 Our `Tailwind` component is lightning quick and extensible. No other email template system is as flexible or renders smaller with Tailwind styles. That's because we leverage the insanely fast and flexible [UnoCSS](https://unocss.dev/) project for Atomic CSS - including Tailwind _and_ [Windi CSS](https://windicss.org/) support. Not only do you get Tailwind support, but also the vast ecosystem of UnoCSS possibilities.
 
-<Callout type="info">
-These are docs for the unified `jsx-email` package, and the Tailwind component contained within.
-
-Docs for the deprecated `@jsx-email/tailwind` v3.0.0+ can be found at https://github.com/shellscape/jsx-email/blob/tailwind-v3.0.4/docs/components/tailwind.md
-</Callout>
+> **Tip:**
+>
+> These are docs for the unified `jsx-email` package, and the Tailwind component contained within.
+>
+> Docs for the deprecated `@jsx-email/tailwind` v3.0.0+ can be found at https://github.com/shellscape/jsx-email/blob/tailwind-v3.0.4/docs/components/tailwind.md
 
 ## Usage
 
@@ -72,9 +69,9 @@ const Email = () => {
 };
 ```
 
-<Callout type="info">
-Note: Most email clients are style-limited and some styles may not work. It's always recommended to use `email check` to check your CSS for client compatibility.
-</Callout>
+> **Tip:**
+>
+> Note: Most email clients are style-limited and some styles may not work. It's always recommended to use `email check` to check your CSS for client compatibility.
 
 ## Component Props
 
@@ -99,9 +96,9 @@ production?: boolean;
 
 If true, any Tailwind class names will be converted to hashed names. e.g. The class `bg-purple-400` is transformed into `#ae387`, with an accompanying class in the associated `<style>` tag. This is adventageous as it reduces the overall size of the rendered email. In email, every byte counts towards your user's experience.
 
-<Callout type="info">
-Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind/>` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail's rules.
-</Callout>
+> **Tip:**
+>
+> Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind/>` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail's rules.
 
 ## Tailwind Plugins
 

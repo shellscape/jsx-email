@@ -5,34 +5,31 @@ params: -D
 type: package
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 The Command Line Interface and developer tooling for JSX email
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 Nearly all installations of this package will want it installed into `devDependencies` so please make sure to add the `-D` flag.
 
@@ -73,9 +70,9 @@ Examples
 
 ## Build
 
-<Callout type="info">
-To view info, flags, and options for the `build` command, run `email help build`.
-</Callout>
+> **Tip:**
+>
+> To view info, flags, and options for the `build` command, run `email help build`.
 
 The `build` command compiles and renders an email template to HTML for use with an email provider. The command takes a directory or single file as input:
 
@@ -95,9 +92,9 @@ To render using the sample props you export from a template file, pass the `--us
 
 ## Check
 
-<Callout type="info">
-To view info, flags, and options for the `check` command, run `email help check`.
-</Callout>
+> **Tip:**
+>
+> To view info, flags, and options for the `check` command, run `email help check`.
 
 `jsx-email` can run a client compatibility check on any template, comparing it to the compatibility tables from `[caniuse.com](https://caniemail.com/) and display any email client incompatibility issues. This check is incredibly helpful in diagnosing and debugging display issues between multiple email clients.
 
@@ -145,9 +142,9 @@ Check Complete: 14 error(s), 20 warning(s)
 
 ## Preview
 
-<Callout type="info">
-To view info, flags, and options for the `preview` command, run `email help preview`.
-</Callout>
+> **Tip:**
+>
+> To view info, flags, and options for the `preview` command, run `email help preview`.
 
 JSX email ships with a Preview Tool as part of the CLI. Our Preview is fast, simple, and smooth. It doesn't require installing any crazy dependencies, downloading additional "clients," or copying your project's dependencies. It just works. And the best part: it works with monorepos out of the box.
 

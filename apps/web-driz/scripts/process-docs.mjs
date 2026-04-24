@@ -12,29 +12,13 @@ const sourceDocsDir = path.resolve(repoRoot, 'docs');
 const outputDocsDir = path.resolve(appRoot, 'src/content/docs');
 
 const installSnippet = [
-  '<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>',
-  '<CodeTab>',
-  '```sh',
-  'pnpm add jsx-email',
-  '```',
-  '</CodeTab>',
-  '<CodeTab>',
-  '```sh',
-  'bun add jsx-email',
-  '```',
-  '</CodeTab>',
-  '<CodeTab>',
-  '```sh',
-  'npm add jsx-email',
-  '```',
-  '</CodeTab>',
-  '<CodeTab>',
-  '```sh',
-  'yarn add jsx-email',
-  '```',
-  '</CodeTab>',
-  '</CodeTabs>'
-].join('\n');
+  ['pnpm', 'pnpm add jsx-email'],
+  ['bun', 'bun add jsx-email'],
+  ['npm', 'npm add jsx-email'],
+  ['yarn', 'yarn add jsx-email'],
+]
+  .map(([manager, command]) => [`### ${manager}`, '', '```sh', command, '```'].join('\n'))
+  .join('\n\n');
 
 const humanize = (value) =>
   value
@@ -99,9 +83,10 @@ function parseFrontmatter(raw) {
   };
 }
 
-function mapCalloutType(type) {
-  if (type === 'warning') return 'warning';
-  return 'info';
+function mapAdmonitionLabel(type) {
+  if (type === 'warning') return 'Warning';
+  if (type === 'tip') return 'Tip';
+  return 'Info';
 }
 
 function convertAdmonitions(input) {
@@ -110,16 +95,22 @@ function convertAdmonitions(input) {
   let inAdmonition = false;
 
   for (const line of lines) {
-    const open = line.match(/^\s*:::\s*(tip|warning|info)\s*$/i) || line.match(/^\s*:::(tip|warning|info)\s*$/i);
+    const open = line.match(/^\s*:::\s*(tip|warning|info)\s*$/i);
     if (!inAdmonition && open) {
       inAdmonition = true;
-      out.push(`<Callout type="${mapCalloutType(open[1].toLowerCase())}">`);
+      out.push(`> **${mapAdmonitionLabel(open[1].toLowerCase())}:**`);
+      out.push('>');
       continue;
     }
 
     if (inAdmonition && /^\s*:::\s*$/.test(line)) {
       inAdmonition = false;
-      out.push('</Callout>');
+      out.push('');
+      continue;
+    }
+
+    if (inAdmonition) {
+      out.push(line.trim() ? `> ${line}` : '>');
       continue;
     }
 
@@ -127,7 +118,7 @@ function convertAdmonitions(input) {
   }
 
   if (inAdmonition) {
-    out.push('</Callout>');
+    out.push('');
   }
 
   return out.join('\n');
@@ -217,21 +208,9 @@ async function main() {
     body = convertAdmonitions(body);
     body = ensureSpacing(body.trim());
 
-    const imports = [];
-    if (body.includes('<Callout')) {
-      imports.push("import Callout from '@mdx/Callout.astro';");
-    }
-    if (body.includes('<CodeTabs')) {
-      imports.push("import CodeTabs from '@mdx/CodeTabs.astro';");
-    }
-    if (body.includes('<CodeTab')) {
-      imports.push("import CodeTab from '@mdx/CodeTab.astro';");
-    }
-
     const composed = [
       safeFrontmatter,
       '',
-      ...(imports.length ? [...imports, ''] : []),
       body,
       '',
     ].join('\n');

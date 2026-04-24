@@ -3,8 +3,6 @@ title: 'Configuration'
 description: 'Configuration'
 ---
 
-import Callout from '@mdx/Callout.astro';
-
 ## Configuring jsx-email
 
 When running `email` from the command line or programmatically using the [`render`](/docs/core/render) function, jsx-email will attempt to find and use a `jsx-email.config` file. jsx-email will traverse a directory structure looking for config files until it reaches a git repository root directory, or the OS's home directory. This is quite fast, and allows for scoping your configuration file at the filesystem level you'd like to. By default, jsx-email looks for configuration files with the following file extensions and locations:
@@ -24,9 +22,9 @@ jsx-email.config.cjs
 jsx-email.config.mjs
 ```
 
-<Callout type="info">
-jsx-email does not currently support TypeScript, YAML, or JSON files.
-</Callout>
+> **Info:**
+>
+> jsx-email does not currently support TypeScript, YAML, or JSON files.
 
 ### Config File
 
@@ -88,9 +86,9 @@ esbuild?: {
 
 _Optional_. Default: `undefined`. Allows the configuration file to specify [ESBuild Plugins](https://esbuild.github.io/plugins) to use during the initial transform from JSX/TSX to JavaScript for the `build` and `preview` commands.
 
-<Callout type="info">
-ESBuild plugins are only run when using the CLI's `build` or `preview` commands. ESBuild, and by extension the `esbuild` configuration option, are not used when using `render` directly in code
-</Callout>
+> **Tip:**
+>
+> ESBuild plugins are only run when using the CLI's `build` or `preview` commands. ESBuild, and by extension the `esbuild` configuration option, are not used when using `render` directly in code
 
 ```ts
 logLevel?: 'debug' | 'info' | 'warn' | 'error';

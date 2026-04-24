@@ -4,40 +4,37 @@ description: Renders a preview viewable in recipient email clients
 type: component
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 Renders a preview viewable in recipient email clients
 
-<Callout type="info">
-Email clients have this concept of “preview text” which gives insight into
-what's inside the email before you open. A good practice is to keep that text
-under 90 characters.
-</Callout>
+> **Tip:**
+>
+> Email clients have this concept of “preview text” which gives insight into
+> what's inside the email before you open. A good practice is to keep that text
+> under 90 characters.
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 ## Usage
 

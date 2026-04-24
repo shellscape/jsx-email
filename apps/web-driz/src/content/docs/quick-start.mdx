@@ -3,25 +3,21 @@ title: 'Quick Start'
 description: 'Quick Start'
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 ## Quick Start
 
 In this doc you'll find information on quickly getting started using JSX email. For more in-depth information, please see the other sections of our Documentation.
 
-<Callout type="info">
-This guide, along with the rest of the documentation here, assume that the reader has fundamental Node and NPM skills and is familiar with using command line tools on Window, Linux, or Mac OS.
-
-For those not familiar with the bits above, here are some links to resources that we'd recommend reading before working with this project:
-
-- [Node Fundamentals](https://www.codecademy.com/learn/learn-nodejs-fundamentals/modules/intro-to-node-js/cheatsheet)
-- [NPM Fundamentals](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/)
-- [Executing Local NPM Packages](https://jaireina.medium.com/executing-local-npm-packages-226820ad2c31)
-- [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and [`pnpm exec`](https://pnpm.io/cli/exec)
-- [How to use relative paths on windows CMD?](https://superuser.com/a/1270599)
-</Callout>
+> **Info:**
+>
+> This guide, along with the rest of the documentation here, assume that the reader has fundamental Node and NPM skills and is familiar with using command line tools on Window, Linux, or Mac OS.
+>
+> For those not familiar with the bits above, here are some links to resources that we'd recommend reading before working with this project:
+>
+> - [Node Fundamentals](https://www.codecademy.com/learn/learn-nodejs-fundamentals/modules/intro-to-node-js/cheatsheet)
+> - [NPM Fundamentals](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/)
+> - [Executing Local NPM Packages](https://jaireina.medium.com/executing-local-npm-packages-226820ad2c31)
+> - [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and [`pnpm exec`](https://pnpm.io/cli/exec)
+> - [How to use relative paths on windows CMD?](https://superuser.com/a/1270599)
 
 ## Prerequisites
 
@@ -44,28 +40,29 @@ While the _Existing Projects_ section below can be safely skipped, the informati
 
 The happy path for adding JSX email to an existing project is by using the JSX email CLI:
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 If you want to avoid global installation, you can use `pnpm dlx`, `npx`, or `yarn` instead like so:
 
@@ -84,9 +81,9 @@ $ email create BatmanEmail --out=./emails
 
 This command will create a new template named `BatmanEmail.tsx` in the `./emails` directory.
 
-<Callout type="info">
-If you'd rather create a `.jsx` file, use the `--jsx` flag
-</Callout>
+> **Tip:**
+>
+> If you'd rather create a `.jsx` file, use the `--jsx` flag
 
 ## Email Previews
 
@@ -97,15 +94,15 @@ One of the major benefits of JSX email over alternatives is our incredibly slim 
 $ email preview ./emails
 ```
 
-<Callout type="info">
-Windows paths are different than MacOS or Linux paths. `./emails` above will not work on Windows. Please see the link above regarding Windows relative paths if you are unfamiliar with how they work on the Command Line
-</Callout>
+> **Info:**
+>
+> Windows paths are different than MacOS or Linux paths. `./emails` above will not work on Windows. Please see the link above regarding Windows relative paths if you are unfamiliar with how they work on the Command Line
 
 The CLI will startup a preview server and open a new browser tab at `http://localhost:55420`. It's that simple.
 
-<Callout type="info">
-Please use `email help preview` to view optional flags, including setting the port.
-</Callout>
+> **Tip:**
+>
+> Please use `email help preview` to view optional flags, including setting the port.
 
 ## Building Your Template
 
@@ -115,6 +112,6 @@ The next step is to build your template. This can be done with the CLI, or with 
 $ email build ./emails/BatmanEmail.tsx
 ```
 
-<Callout type="info">
-Please use `email help build` to view optional flags, including providing props and setting the output path.
-</Callout>
+> **Tip:**
+>
+> Please use `email help build` to view optional flags, including providing props and setting the output path.

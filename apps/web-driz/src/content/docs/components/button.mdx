@@ -4,38 +4,35 @@ description: A JSX email component which styles an anchor element to appear as a
 type: component
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 A JSX email component which styles an anchor element to appear as a button
 
-<Callout type="info">
-Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
-</Callout>
+> **Tip:**
+>
+> Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 ## Usage
 
@@ -71,9 +68,9 @@ export interface ButtonProps extends BaseProps<'a'> {
 }
 ```
 
-<Callout type="info">
-It's **highly reccommended** for **optimal email client compatibility** to use the component props below to set styles, rather than CSS, the `style` property, or [`Tailwind`](/docs/components/tailwind) classes. This is especially important for Outlook.
-</Callout>
+> **Tip:**
+>
+> It's **highly reccommended** for **optimal email client compatibility** to use the component props below to set styles, rather than CSS, the `style` property, or [`Tailwind`](/docs/components/tailwind) classes. This is especially important for Outlook.
 
 ```ts
 href?: string;
@@ -147,6 +144,6 @@ withBackground?: boolean;
 
 Set to `true` if `Button` is nested in a `Background` component. Neccessary for good Outlook compatibility.
 
-<Callout type="info">
-This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
-</Callout>
+> **Tip:**
+>
+> This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.

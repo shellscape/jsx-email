@@ -4,34 +4,31 @@ description: Use HTML conditional comments effortlessly
 type: component
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 Use HTML conditional comments effortlessly
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 ## Usage
 
@@ -61,9 +58,9 @@ interface ConditionalProps {
 }
 ```
 
-<Callout type="info">
-The `expression` prop or the `mso` prop must be defined, but not both.
-</Callout>
+> **Info:**
+>
+> The `expression` prop or the `mso` prop must be defined, but not both.
 
 ### Props
 

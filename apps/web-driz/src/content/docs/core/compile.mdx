@@ -5,34 +5,31 @@ params: -D
 type: package
 ---
 
-import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
-
 Compile jsx-email templates into a bundle
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
+### pnpm
+
 ```sh
 pnpm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### bun
+
 ```sh
 bun add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### npm
+
 ```sh
 npm add jsx-email
 ```
-</CodeTab>
-<CodeTab>
+
+### yarn
+
 ```sh
 yarn add jsx-email
 ```
-</CodeTab>
-</CodeTabs>
 
 ## Usage
 
@@ -48,19 +45,19 @@ const outDir = resolve(__dirname, '.compiled');
 const compiledFiles = await compile({ files: [templatePath], hashFiles: false, outDir });
 ```
 
-<Callout type="info">
-Once compiled into a bundle, the file can be imported and passed to render such like:
-
-```jsx
-import { render } from 'jsx-email';
-
-import { Template } from './.compiled/batman.js';
-
-const html = render(<Template />);
-```
-
-Note that whether or not to use a file extension in the import depends on your project's settings. When using TypeScript you may have to adjust types to avoid errors, using this method.
-</Callout>
+> **Tip:**
+>
+> Once compiled into a bundle, the file can be imported and passed to render such like:
+>
+> ```jsx
+> import { render } from 'jsx-email';
+>
+> import { Template } from './.compiled/batman.js';
+>
+> const html = render(<Template />);
+> ```
+>
+> Note that whether or not to use a file extension in the import depends on your project's settings. When using TypeScript you may have to adjust types to avoid errors, using this method.
 
 ## Method Options
 
