@@ -18,7 +18,7 @@ const { type = 'default', title, collapsed } = Astro.props;
   {!!title && (
     <div class:list={["callout-label", type]}>{title}</div>
   )}
-  <div class:list={["callout-wrap", !!collapsed && 'callout-wrap-collapsed']}>
+  <div class:list={["callout-wrap", type, !!collapsed && 'callout-wrap-collapsed']}>
     <div class="callout-content">
       {!!collapsed && (
         <div style="display: flex; align-items: center; gap: 4px">
