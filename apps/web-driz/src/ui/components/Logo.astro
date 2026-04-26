@@ -12,10 +12,13 @@ import LogoWordmark from "./LogoWordmark.astro";
     align-items: center;
     cursor: pointer;
     min-height: 40px;
+    width: var(--sidebar-width);
+    max-width: 100%;
+    color: #000;
   }
 
-  :global(.logo-wrap .logo-wordmark) {
-    width: auto;
-    height: 24px;
+  html.dark .logo-wrap {
+    color: #fff;
   }
+
 </style>

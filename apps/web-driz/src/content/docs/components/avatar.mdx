@@ -5,33 +5,11 @@ type: component
 ---
 
 import Callout from '@mdx/Callout.astro';
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
+import InstallTabs from '@components/InstallTabs.mdx';
 
 Displays a profile avatar with image and fallback support
 
-<CodeTabs items={["pnpm", "bun", "npm", "yarn"]}>
-<CodeTab>
-```sh
-pnpm add jsx-email
-```
-</CodeTab>
-<CodeTab>
-```sh
-bun add jsx-email
-```
-</CodeTab>
-<CodeTab>
-```sh
-npm add jsx-email
-```
-</CodeTab>
-<CodeTab>
-```sh
-yarn add jsx-email
-```
-</CodeTab>
-</CodeTabs>
+<InstallTabs />
 
 ## Usage
 
@@ -62,7 +40,9 @@ const Email = () => {
 };
 ```
 
-### Fallback and accessibility precedence (when `src` is missing)
+### Fallback Mode
+
+`Avatar` ships with a fallback and accessibility precedence (when `src` is missing):
 
 - Visible fallback text uses this order:
   1. trimmed `fallback`

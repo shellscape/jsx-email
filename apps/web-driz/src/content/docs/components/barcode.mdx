@@ -1,0 +1,178 @@
+---
+title: Barcode
+description: Render email-safe 1D and 2D barcodes as HTML tables
+type: component
+---
+
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/InstallTabs.mdx';
+
+Render email-safe 1D and 2D barcodes as HTML tables
+
+<InstallTabs />
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Barcode } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Barcode
+      type="qrcode"
+      text="https://jsx.email/components/barcode"
+      ecLevel="M"
+      quietZone
+      cellSize={4}
+    />
+  );
+};
+```
+
+## Approved Named Components
+
+The component also exports typed wrappers with fixed `type` values:
+
+- `QrCode`
+- `AztecCode`
+- `DataMatrix`
+- `Code128Barcode`
+- `Code39Barcode`
+- `EanBarcode`
+- `UpcBarcode`
+
+```jsx
+import {
+  AztecCode,
+  Code128Barcode,
+  Code39Barcode,
+  DataMatrix,
+  EanBarcode,
+  QrCode,
+  UpcBarcode,
+} from 'jsx-email';
+
+const Email = () => {
+  return (
+    <>
+      <QrCode text="https://jsx.email" ecLevel="Q" />
+      <AztecCode text="AZTEC-2026" ecLevel="M" />
+      <DataMatrix text="DATAMATRIX-2026" />
+      <Code128Barcode text="CODE128-2026-HELLO" />
+      <Code39Barcode text="CODE39-2026" />
+      <EanBarcode text="590123412345" />
+      <UpcBarcode text="01234567890" />
+    </>
+  );
+};
+```
+
+## Component Props
+
+```ts
+type BarcodeType =
+  | 'qrcode'
+  | 'azteccode'
+  | 'datamatrix'
+  | 'code128'
+  | 'code39'
+  | 'ean13'
+  | 'upca';
+
+type BarcodeEcLevel = 'L' | 'M' | 'Q' | 'H';
+
+type BarcodeProps =
+  | {
+      type?: 'qrcode';
+      text: string;
+      ecLevel?: BarcodeEcLevel;
+      fgColor?: string;
+      bgColor?: string;
+      cellSize?: number;
+      quietZone?: boolean;
+      lossyEnabled?: boolean;
+      lossyBudget?: number;
+    }
+  | {
+      type: 'azteccode';
+      text: string;
+      ecLevel?: BarcodeEcLevel;
+      fgColor?: string;
+      bgColor?: string;
+      cellSize?: number;
+      quietZone?: boolean;
+      lossyEnabled?: boolean;
+      lossyBudget?: number;
+    }
+  | {
+      type: 'datamatrix' | 'code128' | 'code39' | 'ean13' | 'upca';
+      text: string;
+      ecLevel?: never;
+      fgColor?: string;
+      bgColor?: string;
+      cellSize?: number;
+      quietZone?: boolean;
+      lossyEnabled?: boolean;
+      lossyBudget?: number;
+    };
+```
+
+```ts
+text: string;
+```
+
+Barcode payload.
+
+```ts
+type?: BarcodeType;
+```
+
+Barcode symbology. Defaults to `qrcode`.
+
+```ts
+ecLevel?: 'L' | 'M' | 'Q' | 'H';
+```
+
+Error-correction level for `qrcode` and `azteccode` only.
+
+```ts
+fgColor?: string;
+```
+
+Foreground color for dark modules.
+
+```ts
+bgColor?: string;
+```
+
+Background color for light modules.
+
+```ts
+cellSize?: number;
+```
+
+Size in pixels for each rendered module.
+
+```ts
+quietZone?: boolean;
+```
+
+Adds a 4-module border when `true`.
+
+```ts
+lossyEnabled?: boolean;
+```
+
+Enables optional lossy compression.
+
+```ts
+lossyBudget?: number;
+```
+
+Compression budget between `0` and `1` (clamped at runtime).
+
+<Callout type="info" title="Tips">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
+</Callout>

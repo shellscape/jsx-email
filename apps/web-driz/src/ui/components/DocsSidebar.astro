@@ -101,6 +101,10 @@ const { tree, headings, forLanding, customSlug } = Astro.props;
 document.addEventListener("astro:after-swap", mainScript);
 </script>
 <style is:global>
+  :root {
+    --sidebar-width: 240px;
+  }
+
   html[class~="dark"] .aside {
     border-right: 1px solid #303030;
   }
@@ -110,7 +114,7 @@ document.addEventListener("astro:after-swap", mainScript);
     display: flex;
     flex-direction: column;
     position: static;
-    width: 240px;
+    width: var(--sidebar-width);
     flex-shrink: 0;
     align-self: flex-start;
     box-shadow:
