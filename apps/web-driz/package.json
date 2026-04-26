@@ -2,12 +2,6 @@
   "name": "web-driz",
   "type": "module",
   "version": "0.0.1",
-  "scripts": {
-    "dev": "node scripts/process-docs.mjs && astro dev --host",
-    "build": "node scripts/process-docs.mjs && astro build",
-    "preview": "astro preview",
-    "process-docs": "node scripts/process-docs.mjs"
-  },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.8",

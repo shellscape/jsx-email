@@ -212,6 +212,36 @@ html[class~="dark"] .nav_sticky {
     color: rgb(20 21 26);
   }
 
+  .nav-item-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-open-source-icon {
+    flex-shrink: 0;
+    color: #C13F21;
+    animation: nav-open-source-pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes nav-open-source-pulse {
+    0% {
+      color: #C13F21;
+    }
+
+    33.333% {
+      color: #D36E2D;
+    }
+
+    66.666% {
+      color: #DDA032;
+    }
+
+    100% {
+      color: #C13F21;
+    }
+  }
+
   
   .nav-toc-item:hover, .nav-toc-item--active {
     display: block;

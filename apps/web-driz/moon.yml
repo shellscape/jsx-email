@@ -7,16 +7,23 @@ workspace:
 
 tasks:
   build:
-    command: node scripts/process-docs.mjs && astro build
+    command: astro build
+    deps:
+      - ~:check
     inputs:
       - .astro
       - package.json
       - src
-    options:
-      cache: false
+
+  check:
+    command: astro check
+    inputs:
+      - .astro
+      - package.json
+      - src
 
   dev:
-    command: node scripts/process-docs.mjs && astro dev --host
+    command: astro dev --host
     options:
       cache: false
 

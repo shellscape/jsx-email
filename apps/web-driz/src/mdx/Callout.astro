@@ -16,7 +16,9 @@ const { type = 'default', title, collapsed } = Astro.props;
     <div class:list={["callout-label", type]}>{"WARNING"}</div>
   )}
   {!!title && (
-    <div class:list={["callout-label", type]}>{title}</div>
+    <div class:list={["callout-label", type, title === "Tips" && "tips"]}>
+      {title}
+    </div>
   )}
   <div class:list={["callout-wrap", !!collapsed && 'callout-wrap-collapsed']}>
     <div class="callout-content">
