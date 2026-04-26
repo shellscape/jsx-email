@@ -24,7 +24,25 @@
 
 /* Custom utilities */
 @layer utilities {
-  /* Add any custom utility classes here */
+  .fade-x-10 {
+    --fade-width: 2.5rem;
+    -webkit-mask:
+      linear-gradient(
+        to right,
+        rgb(255 255 255 / 0%) 0%,
+        rgb(255 255 255 / 100%) var(--fade-width),
+        rgb(255 255 255 / 100%) calc(100% - var(--fade-width)),
+        rgb(255 255 255 / 0%) 100%
+      );
+    mask:
+      linear-gradient(
+        to right,
+        rgb(255 255 255 / 0%) 0%,
+        rgb(255 255 255 / 100%) var(--fade-width),
+        rgb(255 255 255 / 100%) calc(100% - var(--fade-width)),
+        rgb(255 255 255 / 0%) 100%
+      );
+  }
 }
 
 /* Custom container with max-width override */

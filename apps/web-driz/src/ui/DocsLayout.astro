@@ -31,11 +31,12 @@ const pageHasDialects = Object.keys(dialects).includes(
 <!doctype html>
 <html lang="en">
   <BaseHead
-    title={`JSX Email - ${customTitle || title}`}
+    title={`JSX email - ${customTitle || title}`}
     description={description}
   />
-  <body class="banner-shown">
+  <body class="banner-shown docs-body">
     <MDXStyles />
+    <div class="docs-background" aria-hidden="true" />
     <Header />
     <div class="fixed-container">
       <div class="fixed-elements">
@@ -58,6 +59,28 @@ const pageHasDialects = Object.keys(dialects).includes(
       </div>
     </main>
     <style is:global>
+      .docs-body {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .docs-background {
+        position: absolute;
+        top: 8rem;
+        right: 0;
+        z-index: -1;
+        width: min(1200px, 90vw);
+        aspect-ratio: 1200 / 669;
+        transform: translateX(70%);
+        background-image: url("/landing-bg-muted.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: right top;
+        opacity: 0.9;
+        pointer-events: none;
+        user-select: none;
+      }
+
       .fixed-container {
         position: fixed;
         left: 0;
@@ -163,6 +186,11 @@ const pageHasDialects = Object.keys(dialects).includes(
       }
 
       @media screen and (max-width: 768px) {
+        .docs-background {
+          top: 6rem;
+          width: min(960px, 120vw);
+        }
+
         .documentation-content {
           padding-left: 16px;
           padding-right: 16px;

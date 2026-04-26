@@ -5,18 +5,26 @@ type: component
 ---
 
 import Callout from '@mdx/Callout.astro';
-import InstallTabs from '@components/InstallTabs.mdx';
+import CodeTabs from '@mdx/CodeTabs.astro';
+import CodeTab from '@mdx/CodeTab.astro';
 
 Use raw HTML and unescaped text effortlessly
 
-<InstallTabs />
+<CodeTabs items={['pnpm', 'bun', 'npm', 'yarn']}>
+  <CodeTab>```sh pnpm add jsx-email ```</CodeTab>
+  <CodeTab>```sh bun add jsx-email ```</CodeTab>
+  <CodeTab>```sh npm add jsx-email ```</CodeTab>
+  <CodeTab>```sh yarn add jsx-email ```</CodeTab>
+</CodeTabs>
 
 ## Usage
 
 This component is especially useful for placing additional templating languages in your rendered email templates, for use in email providers which have their own value injection, or for further processing later in a separate system.
 
 <Callout type="warning">
-It's important to understand that the values set as `content` will be placed into the rendered template unescaped. `jsx-email` goes to great lengths to validate and correct mistakes in HTML which may cause issues in email clients. Please use this component cautiously and thoughtfully.
+  It's important to understand that the values set as `content` will be placed into the rendered
+  template unescaped. `jsx-email` goes to great lengths to validate and correct mistakes in HTML
+  which may cause issues in email clients. Please use this component cautiously and thoughtfully.
 </Callout>
 
 Add the component to your email template. Include styles where needed.

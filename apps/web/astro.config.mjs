@@ -12,6 +12,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jsx.email',
+  server: {
+    port: 4322
+  },
   integrations: [
     starlight({
       title: 'JSX Email',
