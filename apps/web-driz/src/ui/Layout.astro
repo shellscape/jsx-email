@@ -3,7 +3,6 @@ import { getContentTree } from "@/utils";
 import NavigationAstro from "./components/NavigationAstro.astro";
 import Footer from "./components/Footer.astro";
 import BaseHead from "@/ui/BaseHead.astro";
-import Banner from "./components/Banner.astro";
 import DocsSidebar from "./components/DocsSidebar.astro";
 
 interface Props {
@@ -18,7 +17,6 @@ const { tree } = await getContentTree({});
 <html lang="en">
   <BaseHead title={title} />
   <body class="banner-shown">
-    <Banner />
     <NavigationAstro />
     <main class="landing-wrap scrollbar">
       <div class="landing-content">

@@ -490,7 +490,10 @@ let i = 0;
   });
 
   document.addEventListener("astro:page-load", () => {
-    const container = document.querySelector("html");
+    const container = document.documentElement;
+    const contentContainer = document.querySelector<HTMLElement>(
+      ".documentation-content, .landing-content",
+    );
     const anchors = document.querySelectorAll<HTMLElement>("h2, h3");
     const links = document.querySelectorAll<HTMLElement>("[data-slug]");
     let expandedSections: string[] = JSON.parse(
@@ -538,14 +541,18 @@ let i = 0;
     });
 
     const updateLinks = () => {
-      if (!container || !links || !anchors) return;
+      if (!container || !contentContainer || !links || !anchors.length) return;
+
+      const contentTop =
+        contentContainer.getBoundingClientRect().top + window.scrollY;
       const activeAnchors = handleAnchorHighlighting({
         viewportHeight: window.innerHeight,
         anchors: [...anchors].map((anchor) => ({
           id: anchor.id,
-          offsetTop: anchor.offsetTop,
+          offsetTop:
+            anchor.getBoundingClientRect().top + window.scrollY - contentTop,
         })),
-        scrollTop: container.scrollTop,
+        scrollTop: container.scrollTop - contentTop,
       });
 
       links.forEach((link) => {
@@ -559,7 +566,7 @@ let i = 0;
       });
     };
 
-    if (container && links) {
+    if (container && contentContainer && links.length) {
       document.addEventListener("scroll", throttle(updateLinks, 80));
       updateLinks();
     }
@@ -606,4 +613,3 @@ let i = 0;
       display: none;
   }
 </style>
-

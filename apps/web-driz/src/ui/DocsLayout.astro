@@ -1,7 +1,6 @@
 ---
 import EndOfContent from "./components/EndOfContent.astro";
 import MDXStyles from "./components/MDXStyles.astro";
-import Banner from "./components/Banner.astro";
 import BaseHead from "@/ui/BaseHead.astro";
 import Header from "./components/Header.astro";
 import DocsSidebar from "./components/DocsSidebar.astro";
@@ -37,7 +36,6 @@ const pageHasDialects = Object.keys(dialects).includes(
   />
   <body class="banner-shown">
     <MDXStyles />
-    <Banner />
     <Header />
     <div class="fixed-container">
       <div class="fixed-elements">

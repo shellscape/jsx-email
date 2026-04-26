@@ -2,7 +2,7 @@
 import ThemeSelector from "./ThemeSelector.astro";
 import Logo from "./Logo.astro";
 import GithubStars from "./GithubStars.astro";
-import DocsIcon from "@/assets/icons/DocsIcon.astro";
+import { Book } from "iconoir-react";
 ---
 
 <div class="header" id="header">
@@ -10,7 +10,9 @@ import DocsIcon from "@/assets/icons/DocsIcon.astro";
     <div class="header__logo">
       <Logo />
       <a class="docs-logo" href="/docs/introduction">
-        <div class="docs-logo-icon"><DocsIcon /></div>
+        <div class="docs-logo-icon">
+          <Book width="16" height="16" strokeWidth={1.75} />
+        </div>
         <span>Documentation</span>
       </a>
     </div>

@@ -12,10 +12,13 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.8",
     "@astrojs/react": "^4.2.1",
+    "@tailwindcss/vite": "^4.2.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "astro": "^4.16.7",
     "autoprefixer": "^10.4.20",
+    "iconoir-react": "^7.11.0",
+    "jsx-email": "workspace:*",
     "lodash.throttle": "^4.1.1",
     "motion": "^12.38.0",
     "node-html-parser": "^6.1.13",
@@ -24,10 +27,8 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "sharp": "^0.34.5",
-    "typescript": "5.6.3",
-    "@tailwindcss/vite": "^4.2.2",
     "tailwindcss": "^4.2.2",
-    "jsx-email": "workspace:*"
+    "typescript": "5.6.3"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.2.1",
