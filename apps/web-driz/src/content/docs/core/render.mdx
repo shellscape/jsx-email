@@ -5,17 +5,11 @@ params: -D
 type: package
 ---
 
-import CodeTabs from '@mdx/CodeTabs.astro';
-import CodeTab from '@mdx/CodeTab.astro';
+import InstallTabs from '@components/InstallTabs.mdx';
 
 Render JSX email components to HTML email
 
-<CodeTabs items={['pnpm', 'bun', 'npm', 'yarn']}>
-  <CodeTab>```sh pnpm add jsx-email ```</CodeTab>
-  <CodeTab>```sh bun add jsx-email ```</CodeTab>
-  <CodeTab>```sh npm add jsx-email ```</CodeTab>
-  <CodeTab>```sh yarn add jsx-email ```</CodeTab>
-</CodeTabs>
+<InstallTabs />
 
 ## Usage
 

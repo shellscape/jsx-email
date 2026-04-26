@@ -28,7 +28,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mdx}": [
-      "oxlint --format stylish --fix",
+      "oxlint --format stylish --fix --no-error-on-unmatched-pattern",
       "oxfmt --write"
     ],
     "**/(package|tsconfig(.*)?).json": [

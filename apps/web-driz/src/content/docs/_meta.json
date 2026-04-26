@@ -158,14 +158,5 @@
   [
     "plugins/pretty",
     "Pretty Plugin"
-  ],
-  "V2",
-  [
-    "v2/migration",
-    "Migrating to v2"
-  ],
-  [
-    "v2/button",
-    "Button v2 Migration"
   ]
 ]
