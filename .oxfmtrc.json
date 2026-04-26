@@ -12,6 +12,21 @@
     "^(../)+(.*)$",
     "^[./]"
   ],
+  "overrides": [
+    {
+      "files": ["**/*.astro"],
+      "options": {
+        "singleQuote": true
+      }
+    },
+    {
+      "files": ["**/*.mdx"],
+      "options": {
+        "proseWrap": "preserve",
+        "singleQuote": true
+      }
+    }
+  ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "sortPackageJson": false,

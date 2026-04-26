@@ -20,7 +20,7 @@ For those not familiar with the bits above, here are some links to resources tha
 - [Executing Local NPM Packages](https://jaireina.medium.com/executing-local-npm-packages-226820ad2c31)
 - [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and [`pnpm exec`](https://pnpm.io/cli/exec)
 - [How to use relative paths on windows CMD?](https://superuser.com/a/1270599)
-</Callout>
+  </Callout>
 
 ## Prerequisites
 
@@ -63,7 +63,7 @@ $ email create BatmanEmail --out=./emails
 This command will create a new template named `BatmanEmail.tsx` in the `./emails` directory.
 
 <Callout type="info" title="Tips">
-If you'd rather create a `.jsx` file, use the `--jsx` flag
+  If you'd rather create a `.jsx` file, use the `--jsx` flag
 </Callout>
 
 ## Email Previews
@@ -76,13 +76,15 @@ $ email preview ./emails
 ```
 
 <Callout type="info" title="Info">
-Windows paths are different than MacOS or Linux paths. `./emails` above will not work on Windows. Please see the link above regarding Windows relative paths if you are unfamiliar with how they work on the Command Line
+  Windows paths are different than MacOS or Linux paths. `./emails` above will not work on Windows.
+  Please see the link above regarding Windows relative paths if you are unfamiliar with how they
+  work on the Command Line
 </Callout>
 
 The CLI will startup a preview server and open a new browser tab at `http://localhost:55420`. It's that simple.
 
 <Callout type="info" title="Tips">
-Please use `email help preview` to view optional flags, including setting the port.
+  Please use `email help preview` to view optional flags, including setting the port.
 </Callout>
 
 ## Building Your Template
@@ -94,5 +96,8 @@ $ email build ./emails/BatmanEmail.tsx
 ```
 
 <Callout type="info" title="Tips">
-Please use `email help build` to view optional flags, including providing props and setting the output path.
+  Please use `email help build` to view optional flags, including providing props and setting the
+  output path.
 </Callout>
+
+<!-- lint-staged test -->
