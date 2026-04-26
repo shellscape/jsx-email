@@ -219,26 +219,47 @@ html[class~="dark"] .nav_sticky {
   }
 
   .nav-open-source-icon {
+    display: inline-block;
     flex-shrink: 0;
     color: #C13F21;
+    stroke: #C13F21;
     animation: nav-open-source-pulse 8s ease-in-out infinite;
   }
 
   @keyframes nav-open-source-pulse {
     0% {
       color: #C13F21;
+      stroke: #C13F21;
     }
 
-    33.333% {
+    20% {
       color: #D36E2D;
+      stroke: #D36E2D;
     }
 
-    66.666% {
+    40% {
       color: #DDA032;
+      stroke: #DDA032;
+    }
+
+    60% {
+      color: #EBAC00;
+      stroke: #EBAC00;
+    }
+
+    80% {
+      color: #FFC31F;
+      stroke: #FFC31F;
+    }
+
+    90% {
+      color: #FFD152;
+      stroke: #FFD152;
     }
 
     100% {
       color: #C13F21;
+      stroke: #C13F21;
     }
   }
 

@@ -1,5 +1,5 @@
 ---
-import { Github } from "iconoir-react";
+import { GithubCircle } from "iconoir-react";
 import type { IHeading, TreeNode } from "@/types";
 
 interface Props {
@@ -195,7 +195,7 @@ let i = 0;
                             getDisplayTitle(n.title)
                           )}
                           {hasOpenSourceBadge(n.title) && (
-                            <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                           )}
                         </span>
                       </a>
@@ -218,7 +218,7 @@ let i = 0;
                             getDisplayTitle(n.title)
                           )}
                           {hasOpenSourceBadge(n.title) && (
-                            <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                           )}
                         </span>
                       </a>
@@ -241,7 +241,7 @@ let i = 0;
                             getDisplayTitle(n.title)
                           )}
                           {hasOpenSourceBadge(n.title) && (
-                            <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                           )}
                         </span>
                       </a>
@@ -259,7 +259,13 @@ let i = 0;
                                 class:list={["nav-toc-item", "heading-2"]}
                                 href={`#${heading.slug}`}
                               >
-                                {heading.text}
+                                <span class="nav-item-label">
+                                  {heading.text}
+                                  {(heading.text === "Plunk" ||
+                                    heading.text === "useSend") && (
+                                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                                  )}
+                                </span>
                               </a>
                             ),
                           )}
@@ -285,7 +291,7 @@ let i = 0;
                                 getDisplayTitle(c.title)
                               )}
                               {hasOpenSourceBadge(c.title) && (
-                                <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                                <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                               )}
                             </span>
                           </a>
@@ -308,7 +314,7 @@ let i = 0;
                                 getDisplayTitle(c.title)
                               )}
                               {hasOpenSourceBadge(c.title) && (
-                                <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                                <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                               )}
                             </span>
                           </a>
@@ -327,7 +333,13 @@ let i = 0;
                                     class:list={["nav-toc-item", "heading-2"]}
                                     href={`#${heading.slug}`}
                                   >
-                                    {heading.text}
+                                    <span class="nav-item-label">
+                                      {heading.text}
+                                      {(heading.text === "Plunk" ||
+                                        heading.text === "useSend") && (
+                                        <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                                      )}
+                                    </span>
                                   </a>
                                 ),
                               )}
@@ -362,7 +374,7 @@ let i = 0;
                     getDisplayTitle(n.title)
                   )}
                   {hasOpenSourceBadge(n.title) && (
-                    <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                   )}
                 </span>
               </a>
@@ -385,7 +397,7 @@ let i = 0;
                     getDisplayTitle(n.title)
                   )}
                   {hasOpenSourceBadge(n.title) && (
-                    <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                   )}
                 </span>
               </a>
@@ -408,7 +420,7 @@ let i = 0;
                     getDisplayTitle(n.title)
                   )}
                   {hasOpenSourceBadge(n.title) && (
-                    <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                   )}
                 </span>
               </a>
@@ -426,7 +438,13 @@ let i = 0;
                         class:list={["nav-toc-item", "heading-2"]}
                         href={`#${heading.slug}`}
                       >
-                        {heading.text}
+                        <span class="nav-item-label">
+                          {heading.text}
+                          {(heading.text === "Plunk" ||
+                            heading.text === "useSend") && (
+                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                          )}
+                        </span>
                       </a>
                     ),
                   )}
@@ -452,7 +470,7 @@ let i = 0;
                         getDisplayTitle(c.title)
                       )}
                       {hasOpenSourceBadge(c.title) && (
-                        <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                        <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                       )}
                     </span>
                   </a>
@@ -475,7 +493,7 @@ let i = 0;
                         getDisplayTitle(c.title)
                       )}
                       {hasOpenSourceBadge(c.title) && (
-                        <Github class="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                        <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
                       )}
                     </span>
                   </a>
@@ -494,7 +512,13 @@ let i = 0;
                             class:list={["nav-toc-item", "heading-2"]}
                             href={`#${heading.slug}`}
                           >
-                            {heading.text}
+                            <span class="nav-item-label">
+                              {heading.text}
+                              {(heading.text === "Plunk" ||
+                                heading.text === "useSend") && (
+                                <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
+                              )}
+                            </span>
                           </a>
                         ),
                       )}
