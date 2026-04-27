@@ -1,5 +1,5 @@
 ---
-import { GithubCircle } from "iconoir-react";
+import NavItemLabel from "./NavItemLabel.astro";
 import type { IHeading, TreeNode } from "@/types";
 
 interface Props {
@@ -15,11 +15,6 @@ const isActive = (path: string) => {
   const slugArray = slug.split("/");
   return pathArray.every((element, index) => element === slugArray[index]);
 };
-const hasOpenSourceBadge = (title: string) =>
-  title === "Plunk" || title === "useSend";
-const isCodeTitle = (title: string) =>
-  title[0] === "`" && title[title.length - 1] === "`";
-const getDisplayTitle = (title: string) => title.replaceAll("`", "");
 
 function modifyTree(tree: TreeNode[]): TreeNode[] {
   const modifiedTree: TreeNode[] = [];
@@ -188,16 +183,7 @@ let i = 0;
                         ]}
                         href={`/${t.name}/${n.name}`}
                       >
-                        <span class="nav-item-label">
-                          {isCodeTitle(n.title) ? (
-                            <code>{getDisplayTitle(n.title)}</code>
-                          ) : (
-                            getDisplayTitle(n.title)
-                          )}
-                          {hasOpenSourceBadge(n.title) && (
-                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                          )}
-                        </span>
+                        <NavItemLabel title={n.title} />
                       </a>
                     )}
                     {n.type === "subDir" && (
@@ -211,16 +197,7 @@ let i = 0;
                         ]}
                         href={`/${t.name}/${n.name}/${n.children?.[0].name}`}
                       >
-                        <span class="nav-item-label">
-                          {isCodeTitle(n.title) ? (
-                            <code>{getDisplayTitle(n.title)}</code>
-                          ) : (
-                            getDisplayTitle(n.title)
-                          )}
-                          {hasOpenSourceBadge(n.title) && (
-                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                          )}
-                        </span>
+                        <NavItemLabel title={n.title} />
                       </a>
                     )}
                     {n.type === "withDialects" && (
@@ -234,16 +211,7 @@ let i = 0;
                           "nav-item-1",
                         ]}
                       >
-                        <span class="nav-item-label">
-                          {isCodeTitle(n.title) ? (
-                            <code>{getDisplayTitle(n.title)}</code>
-                          ) : (
-                            getDisplayTitle(n.title)
-                          )}
-                          {hasOpenSourceBadge(n.title) && (
-                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                          )}
-                        </span>
+                        <NavItemLabel title={n.title} />
                       </a>
                     )}
                     {headings &&
@@ -259,13 +227,7 @@ let i = 0;
                                 class:list={["nav-toc-item", "heading-2"]}
                                 href={`#${heading.slug}`}
                               >
-                                <span class="nav-item-label">
-                                  {heading.text}
-                                  {(heading.text === "Plunk" ||
-                                    heading.text === "useSend") && (
-                                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                                  )}
-                                </span>
+                                <NavItemLabel title={heading.text} />
                               </a>
                             ),
                           )}
@@ -284,16 +246,7 @@ let i = 0;
                             ]}
                             href={`/${t.name}/${n.name}/${c.name}`}
                           >
-                            <span class="nav-item-label">
-                              {isCodeTitle(c.title) ? (
-                                <code>{getDisplayTitle(c.title)}</code>
-                              ) : (
-                                getDisplayTitle(c.title)
-                              )}
-                              {hasOpenSourceBadge(c.title) && (
-                                <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                              )}
-                            </span>
+                            <NavItemLabel title={c.title} />
                           </a>
                         )}
                         {c.type === "subDir" && (
@@ -307,16 +260,7 @@ let i = 0;
                             ]}
                             href={`/${t.name}/${n.name}/${c.name}/${c.children?.[0].name}`}
                           >
-                            <span class="nav-item-label">
-                              {isCodeTitle(c.title) ? (
-                                <code>{getDisplayTitle(c.title)}</code>
-                              ) : (
-                                getDisplayTitle(c.title)
-                              )}
-                              {hasOpenSourceBadge(c.title) && (
-                                <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                              )}
-                            </span>
+                            <NavItemLabel title={c.title} />
                           </a>
                         )}
                         {headings &&
@@ -333,13 +277,7 @@ let i = 0;
                                     class:list={["nav-toc-item", "heading-2"]}
                                     href={`#${heading.slug}`}
                                   >
-                                    <span class="nav-item-label">
-                                      {heading.text}
-                                      {(heading.text === "Plunk" ||
-                                        heading.text === "useSend") && (
-                                        <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                                      )}
-                                    </span>
+                                    <NavItemLabel title={heading.text} />
                                   </a>
                                 ),
                               )}
@@ -367,16 +305,7 @@ let i = 0;
                 ]}
                 href={`/${t.name}/${n.name}`}
               >
-                <span class="nav-item-label">
-                  {isCodeTitle(n.title) ? (
-                    <code>{getDisplayTitle(n.title)}</code>
-                  ) : (
-                    getDisplayTitle(n.title)
-                  )}
-                  {hasOpenSourceBadge(n.title) && (
-                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                  )}
-                </span>
+                <NavItemLabel title={n.title} />
               </a>
             )}
             {n.type === "subDir" && (
@@ -390,16 +319,7 @@ let i = 0;
                 ]}
                 href={`/${t.name}/${n.name}/${n.children?.[0].name}`}
               >
-                <span class="nav-item-label">
-                  {isCodeTitle(n.title) ? (
-                    <code>{getDisplayTitle(n.title)}</code>
-                  ) : (
-                    getDisplayTitle(n.title)
-                  )}
-                  {hasOpenSourceBadge(n.title) && (
-                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                  )}
-                </span>
+                <NavItemLabel title={n.title} />
               </a>
             )}
             {n.type === "withDialects" && (
@@ -413,16 +333,7 @@ let i = 0;
                   "nav-item-1",
                 ]}
               >
-                <span class="nav-item-label">
-                  {isCodeTitle(n.title) ? (
-                    <code>{getDisplayTitle(n.title)}</code>
-                  ) : (
-                    getDisplayTitle(n.title)
-                  )}
-                  {hasOpenSourceBadge(n.title) && (
-                    <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                  )}
-                </span>
+                <NavItemLabel title={n.title} />
               </a>
             )}
             {headings &&
@@ -438,13 +349,7 @@ let i = 0;
                         class:list={["nav-toc-item", "heading-2"]}
                         href={`#${heading.slug}`}
                       >
-                        <span class="nav-item-label">
-                          {heading.text}
-                          {(heading.text === "Plunk" ||
-                            heading.text === "useSend") && (
-                            <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                          )}
-                        </span>
+                        <NavItemLabel title={heading.text} />
                       </a>
                     ),
                   )}
@@ -463,16 +368,7 @@ let i = 0;
                     ]}
                     href={`/${t.name}/${n.name}/${c.name}`}
                   >
-                    <span class="nav-item-label">
-                      {isCodeTitle(c.title) ? (
-                        <code>{getDisplayTitle(c.title)}</code>
-                      ) : (
-                        getDisplayTitle(c.title)
-                      )}
-                      {hasOpenSourceBadge(c.title) && (
-                        <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                      )}
-                    </span>
+                    <NavItemLabel title={c.title} />
                   </a>
                 )}
                 {c.type === "subDir" && (
@@ -486,16 +382,7 @@ let i = 0;
                     ]}
                     href={`/${t.name}/${n.name}/${c.name}/${c.children?.[0].name}`}
                   >
-                    <span class="nav-item-label">
-                      {isCodeTitle(c.title) ? (
-                        <code>{getDisplayTitle(c.title)}</code>
-                      ) : (
-                        getDisplayTitle(c.title)
-                      )}
-                      {hasOpenSourceBadge(c.title) && (
-                        <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                      )}
-                    </span>
+                    <NavItemLabel title={c.title} />
                   </a>
                 )}
                 {headings &&
@@ -512,13 +399,7 @@ let i = 0;
                             class:list={["nav-toc-item", "heading-2"]}
                             href={`#${heading.slug}`}
                           >
-                            <span class="nav-item-label">
-                              {heading.text}
-                              {(heading.text === "Plunk" ||
-                                heading.text === "useSend") && (
-                                <GithubCircle className="nav-open-source-icon" width="14" height="14" strokeWidth="1.75" />
-                              )}
-                            </span>
+                            <NavItemLabel title={heading.text} />
                           </a>
                         ),
                       )}

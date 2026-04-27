@@ -11,6 +11,47 @@ Using JSX email with email providers or integrations is as simple as rendering t
 
 While JSX email can be used with just about any email provider that takes a string for content input, this page will demonstrate use with a few popular providers.
 
+## Plunk
+
+```tsx
+import Plunk from '@plunk/node';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const plunk = new Plunk(process.env.PLUNK_API_KEY);
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+plunk.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  body: html
+});
+```
+
+## useSend
+
+useSend accepts both text and HTML content, which makes it a good fit when you want to send rendered JSX email output through its API.
+
+```tsx
+import { render } from 'jsx-email';
+import { UseSend } from 'usesend-js';
+
+import { Template } from './emails/Batman.tsx';
+
+const usesend = new UseSend(process.env.USESEND_API_KEY!);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await usesend.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
 ## AWS SES
 
 ```tsx
@@ -248,26 +289,6 @@ await transport.sendMail({
 });
 ```
 
-## Plunk
-
-```tsx
-import Plunk from '@plunk/node';
-import { render } from 'jsx-email';
-
-import { Template } from './emails/Batman.tsx';
-
-const plunk = new Plunk(process.env.PLUNK_API_KEY);
-
-const html = render(<Template firstName="Bruce" lastName="Wayne" />);
-
-plunk.emails.send({
-  from: 'penguin@joker.us',
-  to: 'bruce@wayneinc.com',
-  subject: 'Did you get that thing I sent you?',
-  body: html
-});
-```
-
 ## Postmark
 
 ```tsx
@@ -392,26 +413,5 @@ await sequenzy.transactional.send({
   to: 'bruce@wayneinc.com',
   subject: 'Did you get that thing I sent you?',
   body: html
-});
-```
-
-## useSend
-
-useSend accepts both text and HTML content, which makes it a good fit when you want to send rendered JSX email output through its API.
-
-```tsx
-import { render } from 'jsx-email';
-import { UseSend } from 'usesend-js';
-
-import { Template } from './emails/Batman.tsx';
-
-const usesend = new UseSend(process.env.USESEND_API_KEY!);
-const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
-
-await usesend.emails.send({
-  from: 'penguin@joker.us',
-  to: 'bruce@wayneinc.com',
-  subject: 'Did you get that thing I sent you?',
-  html
 });
 ```

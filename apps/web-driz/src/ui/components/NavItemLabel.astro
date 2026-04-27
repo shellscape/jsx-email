@@ -1,0 +1,33 @@
+---
+import { GithubCircle } from "iconoir-react";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const hasOpenSourceBadge = title === "Plunk" || title === "useSend";
+const isCodeTitle = title[0] === "`" && title[title.length - 1] === "`";
+const displayTitle = title.replaceAll("`", "");
+---
+
+<span class="nav-item-label">
+  {isCodeTitle ? <code>{displayTitle}</code> : displayTitle}
+  {hasOpenSourceBadge && (
+    <span
+      class="nav-open-source-icon-wrap"
+      aria-label="Open Source"
+      role="img"
+      title="Open Source"
+    >
+      <GithubCircle
+        className="nav-open-source-icon"
+        width="20"
+        height="20"
+        strokeWidth="1.8"
+        aria-hidden="true"
+      />
+    </span>
+  )}
+</span>
