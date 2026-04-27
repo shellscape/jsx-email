@@ -1,4 +1,3 @@
-import { motion, useAnimation, useInView } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 
 export const FadeBlock = ({
@@ -15,45 +14,54 @@ export const FadeBlock = ({
   [key: string]: any;
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
-
   const [localVisibilityAmount, setLocalVisibilityAmount] = useState(0.25);
-
-  const isInView = useInView(ref, {
-    amount: localVisibilityAmount,
-    once: true
-  });
-  const controls = useAnimation();
+  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     const componentVisibilityAmount = window.innerWidth < 1025 ? 0.25 : visibilityAmount;
     setLocalVisibilityAmount(componentVisibilityAmount);
-  }, [isInView]);
+  }, [visibilityAmount]);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: localVisibilityAmount
+      }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [localVisibilityAmount]);
 
   useEffect(() => {
     if (setIsInViewport) {
       setIsInViewport(isInView);
     }
-
-    if (isInView) {
-      controls.start('visible');
-    } else {
-      controls.start('hidden');
-    }
-  }, [isInView, controls]);
+  }, [isInView, setIsInViewport]);
 
   return (
     <div ref={ref} className={`${fadeEdges ? 'relative overflow-hidden fade-x-10' : ''}`} {...rest}>
-      <motion.div
-        variants={{
-          hidden: { opacity: 0.5, scale: 0.99, y: 5 },
-          visible: { opacity: 1, scale: 1, y: 0 }
+      <div
+        style={{
+          opacity: isInView ? 1 : 0.5,
+          transform: isInView ? 'translateY(0) scale(1)' : 'translateY(5px) scale(0.99)',
+          transition: 'opacity 0.5s ease, transform 0.5s ease'
         }}
-        initial="hidden"
-        animate={controls}
-        transition={{ duration: 0.5 }}
       >
         {children}
-      </motion.div>
+      </div>
     </div>
   );
 };

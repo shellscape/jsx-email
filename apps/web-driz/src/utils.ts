@@ -1,4 +1,4 @@
-import type { IHeading, TreeNode } from "@/types";
+import type { IHeading, TreeNode } from '@/types';
 
 export const addNofollowToExternalLinks = (html: string): string => {
   const externalLinkPattern =
@@ -8,7 +8,6 @@ export const addNofollowToExternalLinks = (html: string): string => {
     .replace(externalLinkPattern, '<a $1 rel="nofollow">')
     .replace(/<a(?![^>]*\btarget=["'][^"']*["'])/gi, '<a target="_blank"');
 };
-
 
 export type Months = Record<string, string[]>;
 
@@ -30,11 +29,11 @@ export const fillMonthsGaps = (monthsObject: Months): Months => {
   };
 
   const formatDate = (date: Date): string => {
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
   };
 
   const sortedKeys = Object.keys(months).sort(
-    (a, b) => parseDate(a).getTime() - parseDate(b).getTime(),
+    (a, b) => parseDate(a).getTime() - parseDate(b).getTime()
   );
 
   let currentMonthStart = getMonthStart(parseDate(sortedKeys[0]));
@@ -66,16 +65,15 @@ export const fillMonthsGaps = (monthsObject: Months): Months => {
 };
 
 export interface SidebarItem {
-  type:
-    | "mdx"
-    | "subDir"
-    | "separator"
-    | "empty"
-    | "dot-separator"
-    | "collapsable";
+  type: 'mdx' | 'subDir' | 'separator' | 'empty' | 'dot-separator' | 'collapsable';
   title: string;
   path: string;
+  badge?: string;
 }
+
+type MetaBadge = 'open-source' | 'new-component';
+type MetaTuple = [path: string, title: string, badge?: MetaBadge];
+type MetaEntry = string | MetaTuple;
 
 interface ContentTreeProps {
   headings?: IHeading[];
@@ -84,77 +82,103 @@ interface ContentTreeProps {
 
 export const getContentTree = async (props: ContentTreeProps) => {
   const [metaFiles, mdxFiles] = await Promise.all([
-    import.meta.glob("./content/**/*.json"),
-    import.meta.glob<Array<string | string[]>>("./content/**/*.mdx"),
+    import.meta.glob('./content/**/*.json'),
+    import.meta.glob('./content/**/*.mdx')
   ]);
 
-  const mdxPaths = Object.keys(mdxFiles);  
+  const mdxPaths = Object.keys(mdxFiles);
   const regex = /\.\/content\/(.*?)\/_meta\.json/;
 
   const navItems: SidebarItem[] = [];
+  const headingBadges = new Map<string, MetaBadge>();
 
-  const getTypeOfFile = (value: string): SidebarItem["type"] => {
+  const getTypeOfFile = (value: string): SidebarItem['type'] => {
     if (mdxPaths.includes(`./content/${value}.mdx`)) {
-      return "mdx";
+      return 'mdx';
     }
     if (mdxPaths.some((path) => path.includes(value))) {
-      return "subDir";
+      return 'subDir';
     }
-    return "empty";
+    return 'empty';
   };
 
-  for (const meta in metaFiles) {
-    const { default: parsed } = await metaFiles[meta]() as { default: string[] };
-    const metaSlug = meta.match(regex);
-    if (metaSlug) {
-      const extractedText = metaSlug[1];
-      parsed.forEach((key, i) => {
-        if (Array.isArray(key)) {
-          navItems.push({
-            type: getTypeOfFile(`${metaSlug[1]}/${key[0]}`),
-            title: key[1],
-            path: `${extractedText}/${key[0]}`,
-          });
-        }
-        if (typeof key === "string") {
-          if (key === "---") {
-            navItems.push({
-              type: "dot-separator",
-              title: "dot-separator",
-              path: `${extractedText}/${key}${i}`,
-            });
-          } else if (key.includes("::")) {
-            navItems.push({
-              type: "collapsable",
-              title: key.replace("::", ""),
-              path: `${extractedText}/${key}`,
-            });
-          } else {
-            navItems.push({
-              type: "separator",
-              title: key,
-              path: `${extractedText}/${key}`,
-            });
-          }
-        }
-      });
-    }
-  }
+  const parsedMetaFiles = await Promise.all(
+    Object.entries(metaFiles).map(async ([metaPath, loader]) => ({
+      metaPath,
+      parsed: (await loader()) as { default: MetaEntry[] }
+    }))
+  );
 
-  const dialectNames = ["sqlite", "pg", "mysql"];
+  parsedMetaFiles.forEach(({ metaPath, parsed }) => {
+    const metaSlug = metaPath.match(regex);
+
+    if (!metaSlug) {
+      return;
+    }
+
+    const extractedText = metaSlug[1];
+
+    parsed.default.forEach((entry, i) => {
+      if (Array.isArray(entry)) {
+        const [path, title, badge] = entry;
+
+        if (path.includes('#')) {
+          if (badge) {
+            headingBadges.set(`${extractedText}/${path}`, badge);
+          }
+
+          return;
+        }
+
+        navItems.push({
+          type: getTypeOfFile(`${metaSlug[1]}/${path}`),
+          title,
+          path: `${extractedText}/${path}`,
+          badge
+        });
+
+        return;
+      }
+
+      if (entry === '---') {
+        navItems.push({
+          type: 'dot-separator',
+          title: 'dot-separator',
+          path: `${extractedText}/${entry}${i}`
+        });
+      } else if (entry.includes('::')) {
+        navItems.push({
+          type: 'collapsable',
+          title: entry.replace('::', ''),
+          path: `${extractedText}/${entry}`
+        });
+      } else {
+        navItems.push({
+          type: 'separator',
+          title: entry,
+          path: `${extractedText}/${entry}`
+        });
+      }
+    });
+  });
+
+  const dialectNames = ['sqlite', 'pg', 'mysql'];
 
   const buildTree = (items: SidebarItem[]): TreeNode[] => {
     const tree: TreeNode[] = [];
     for (const item of items) {
-      const pathParts = item.path?.split("/") ?? [];
+      const pathParts = item.path?.split('/') ?? [];
       const parts =
-        pathParts[0] === "docs" && pathParts.length > 2
-          ? [pathParts[0], pathParts.slice(1).join("/")]
+        pathParts[0] === 'docs' && pathParts.length > 2
+          ? [pathParts[0], pathParts.slice(1).join('/')]
           : pathParts;
       let currentNode = tree;
       for (const part of parts) {
         const existingNode = currentNode.find((node) => node.name === part);
         if (existingNode && existingNode.children) {
+          if (part === parts.at(-1) && item.badge) {
+            existingNode.badge = item.badge;
+          }
           currentNode = existingNode.children;
         } else {
           const newNode: TreeNode = {
@@ -162,6 +186,7 @@ export const getContentTree = async (props: ContentTreeProps) => {
             type: item.type,
             title: item.title,
             children: [],
+            badge: item.badge
           };
           currentNode.push(newNode);
           currentNode = newNode.children;
@@ -171,11 +196,9 @@ export const getContentTree = async (props: ContentTreeProps) => {
 
     const findDialects = (node: TreeNode) => {
       if (node.children) {
-        const dialects = node.children.filter((child) =>
-          dialectNames.includes(child.name),
-        );
+        const dialects = node.children.filter((child) => dialectNames.includes(child.name));
         if (dialects.length > 0) {
-          node.type = "withDialects";
+          node.type = 'withDialects';
         }
         node.children.forEach((child) => findDialects(child));
       }
@@ -189,21 +212,16 @@ export const getContentTree = async (props: ContentTreeProps) => {
   const tree = buildTree(navItems);
 
   const filteredHeadings =
-    props.headings?.filter(
-      (heading) => heading.depth === 2 || heading.depth === 3,
-    ) ?? [];
+    props.headings
+      ?.filter((heading) => heading.depth === 2 || heading.depth === 3)
+      .map((heading) => ({
+        ...heading,
+        badge: props.slug ? headingBadges.get(`${props.slug}#${heading.slug}`) : undefined
+      })) ?? [];
 
-  const findTitleBySlug = (
-    tree: TreeNode[],
-    slug: string,
-  ): string | undefined => {
-    const traverse = (
-      node: TreeNode,
-      currentSlug: string,
-    ): string | undefined => {
-      const currentPath = currentSlug
-        ? `${currentSlug}/${node.name}`
-        : node.name;
+  const findTitleBySlug = (tree: TreeNode[], slug: string): string | undefined => {
+    const traverse = (node: TreeNode, currentSlug: string): string | undefined => {
+      const currentPath = currentSlug ? `${currentSlug}/${node.name}` : node.name;
       if (currentPath === slug) {
         return node.title;
       }
@@ -216,7 +234,7 @@ export const getContentTree = async (props: ContentTreeProps) => {
       return undefined;
     };
     for (const node of tree) {
-      const result = traverse(node, "");
+      const result = traverse(node, '');
       if (result !== undefined) {
         return result;
       }
@@ -224,12 +242,12 @@ export const getContentTree = async (props: ContentTreeProps) => {
     return undefined;
   };
 
-  const title = findTitleBySlug(tree, props.slug ?? "");
+  const title = findTitleBySlug(tree, props.slug ?? '');
 
   return {
     tree,
     filteredHeadings,
-    title,
+    title
   };
 };
 
@@ -239,29 +257,31 @@ export const getMonthLabel = (startDate: string): string => {
 
   const inputMonthStart = new Date(start.getFullYear(), start.getMonth(), 1);
 
-  const diffMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+  const diffMonths =
+    (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
 
   if (diffMonths === 0) {
-    return "this month";
-  } else {
-    if (start.getFullYear() !== now.getFullYear()) {
-      return inputMonthStart.toLocaleString("en-US", {
-        month: "long",
-        year: "numeric",
-      });
-    } else {
-      return inputMonthStart.toLocaleString("en-US", {
-        month: "long",
-      });
-    }
+    return 'this month';
   }
+
+  if (start.getFullYear() !== now.getFullYear()) {
+    return inputMonthStart.toLocaleString('en-US', {
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
+  return inputMonthStart.toLocaleString('en-US', {
+    month: 'long'
+  });
 };
 
 export const isAbsoluteUrl = (url: string) => {
   try {
-    new URL(url);
+    const parsedUrl = new URL(url);
+    void parsedUrl;
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 };

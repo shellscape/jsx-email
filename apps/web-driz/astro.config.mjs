@@ -29,6 +29,9 @@ export default defineConfig({
   },
   vite: {
     plugins: [yaml(), tailwindcss()],
+    optimizeDeps: {
+      include: ["motion", "motion/react"],
+    },
     css: {
       preprocessorOptions: {
         scss: {

@@ -1,11 +1,18 @@
 [
   [
     "avatar",
-    "Avatar"
+    "Avatar",
+    "new-component"
   ],
   [
     "avatar-group",
-    "AvatarGroup"
+    "AvatarGroup",
+    "new-component"
+  ],
+  [
+    "barcode",
+    "Barcode",
+    "new-component"
   ],
   [
     "background",
@@ -45,7 +52,8 @@
   ],
   [
     "graph",
-    "Graph"
+    "Graph",
+    "new-component"
   ],
   [
     "head",

@@ -1,9 +1,10 @@
-import { type CSSProperties } from "react";
+import { type CSSProperties } from 'react';
 
 export interface IHeading {
   depth: number;
   slug: string;
   text: string;
+  badge?: string;
 }
 
 export interface TreeNode {
@@ -12,6 +13,7 @@ export interface TreeNode {
   title: string;
   children: TreeNode[];
   items?: TreeNode[];
+  badge?: string;
 }
 
 declare global {
@@ -23,8 +25,8 @@ declare global {
 }
 
 interface SponsorCSS extends CSSProperties {
-  "max-width"?: string;
-  "aspect-ratio"?: string | number;
+  'max-width'?: string;
+  'aspect-ratio'?: string | number;
 }
 
 export interface ISponsor {
@@ -49,8 +51,8 @@ export interface ISponsor {
 }
 
 export enum ImageType {
-  IMAGE = "image",
-  SVG = "svg",
+  IMAGE = 'image',
+  SVG = 'svg'
 }
 
 type ImageSrc =
@@ -72,8 +74,7 @@ export type ErrorCallback = (error: Error | FetchError) => void;
 export type LoadCallback = (src: string, isCached: boolean) => void;
 export type PlainObject<T = unknown> = Record<string | number | symbol, T>;
 export type PreProcessorCallback = (code: string) => string;
-export interface SVGProps
-  extends Omit<React.SVGProps<SVGElement>, "onLoad" | "onError" | "ref"> {
+export interface SVGProps extends Omit<React.SVGProps<SVGElement>, 'onLoad' | 'onError' | 'ref'> {
   baseURL?: string;
   cacheRequests?: boolean;
   children?: React.ReactNode;

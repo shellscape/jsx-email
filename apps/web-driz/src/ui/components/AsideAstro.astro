@@ -183,7 +183,7 @@ let i = 0;
                         ]}
                         href={`/${t.name}/${n.name}`}
                       >
-                        <NavItemLabel title={n.title} />
+                        <NavItemLabel title={n.title} badge={n.badge} />
                       </a>
                     )}
                     {n.type === "subDir" && (
@@ -197,7 +197,7 @@ let i = 0;
                         ]}
                         href={`/${t.name}/${n.name}/${n.children?.[0].name}`}
                       >
-                        <NavItemLabel title={n.title} />
+                        <NavItemLabel title={n.title} badge={n.badge} />
                       </a>
                     )}
                     {n.type === "withDialects" && (
@@ -211,7 +211,7 @@ let i = 0;
                           "nav-item-1",
                         ]}
                       >
-                        <NavItemLabel title={n.title} />
+                        <NavItemLabel title={n.title} badge={n.badge} />
                       </a>
                     )}
                     {headings &&
@@ -227,7 +227,7 @@ let i = 0;
                                 class:list={["nav-toc-item", "heading-2"]}
                                 href={`#${heading.slug}`}
                               >
-                                <NavItemLabel title={heading.text} />
+                                <NavItemLabel title={heading.text} badge={heading.badge} />
                               </a>
                             ),
                           )}
@@ -246,7 +246,7 @@ let i = 0;
                             ]}
                             href={`/${t.name}/${n.name}/${c.name}`}
                           >
-                            <NavItemLabel title={c.title} />
+                            <NavItemLabel title={c.title} badge={c.badge} />
                           </a>
                         )}
                         {c.type === "subDir" && (
@@ -260,7 +260,7 @@ let i = 0;
                             ]}
                             href={`/${t.name}/${n.name}/${c.name}/${c.children?.[0].name}`}
                           >
-                            <NavItemLabel title={c.title} />
+                            <NavItemLabel title={c.title} badge={c.badge} />
                           </a>
                         )}
                         {headings &&
@@ -277,7 +277,7 @@ let i = 0;
                                     class:list={["nav-toc-item", "heading-2"]}
                                     href={`#${heading.slug}`}
                                   >
-                                    <NavItemLabel title={heading.text} />
+                                    <NavItemLabel title={heading.text} badge={heading.badge} />
                                   </a>
                                 ),
                               )}
@@ -305,7 +305,7 @@ let i = 0;
                 ]}
                 href={`/${t.name}/${n.name}`}
               >
-                <NavItemLabel title={n.title} />
+                <NavItemLabel title={n.title} badge={n.badge} />
               </a>
             )}
             {n.type === "subDir" && (
@@ -319,7 +319,7 @@ let i = 0;
                 ]}
                 href={`/${t.name}/${n.name}/${n.children?.[0].name}`}
               >
-                <NavItemLabel title={n.title} />
+                <NavItemLabel title={n.title} badge={n.badge} />
               </a>
             )}
             {n.type === "withDialects" && (
@@ -333,7 +333,7 @@ let i = 0;
                   "nav-item-1",
                 ]}
               >
-                <NavItemLabel title={n.title} />
+                <NavItemLabel title={n.title} badge={n.badge} />
               </a>
             )}
             {headings &&
@@ -349,7 +349,7 @@ let i = 0;
                         class:list={["nav-toc-item", "heading-2"]}
                         href={`#${heading.slug}`}
                       >
-                        <NavItemLabel title={heading.text} />
+                        <NavItemLabel title={heading.text} badge={heading.badge} />
                       </a>
                     ),
                   )}
@@ -368,7 +368,7 @@ let i = 0;
                     ]}
                     href={`/${t.name}/${n.name}/${c.name}`}
                   >
-                    <NavItemLabel title={c.title} />
+                    <NavItemLabel title={c.title} badge={c.badge} />
                   </a>
                 )}
                 {c.type === "subDir" && (
@@ -382,7 +382,7 @@ let i = 0;
                     ]}
                     href={`/${t.name}/${n.name}/${c.name}/${c.children?.[0].name}`}
                   >
-                    <NavItemLabel title={c.title} />
+                    <NavItemLabel title={c.title} badge={c.badge} />
                   </a>
                 )}
                 {headings &&
@@ -399,7 +399,7 @@ let i = 0;
                             class:list={["nav-toc-item", "heading-2"]}
                             href={`#${heading.slug}`}
                           >
-                            <NavItemLabel title={heading.text} />
+                            <NavItemLabel title={heading.text} badge={heading.badge} />
                           </a>
                         ),
                       )}
