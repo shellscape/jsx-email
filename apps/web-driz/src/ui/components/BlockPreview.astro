@@ -48,9 +48,9 @@ const previewId = `block-preview-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-'
       />
     </div>
 
-    <div class="relative hidden h-full bg-[#24292e]" data-block-panel="code">
+    <div class="code-panel relative hidden h-full" data-block-panel="code">
       <button
-        class="absolute right-2 top-2 z-10 rounded bg-gray-700 px-3 py-1 text-xs text-white transition-colors hover:bg-gray-600"
+        class="copy-code-button absolute right-2 top-2 z-10"
         type="button"
         data-copy-block-code
       >
@@ -58,7 +58,7 @@ const previewId = `block-preview-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-'
       </button>
       <textarea class="hidden" data-block-code-source>{code}</textarea>
       <div
-        class="h-full overflow-auto [&>pre]:m-0 [&>pre]:min-h-full [&>pre]:p-4 [&>pre]:text-sm"
+        class="code-scroll h-full overflow-auto"
         set:html={codeHtml}
       />
     </div>
@@ -122,8 +122,98 @@ const previewId = `block-preview-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-'
     color: rgb(17 24 39);
   }
 
+  .block-preview {
+    --astro-code-background: var(--astro-code-color-background);
+    --astro-code-color-text: #414141;
+    --astro-code-color-background: transparent;
+    --astro-code-foreground: var(--astro-code-color-text);
+    --astro-code-token-constant: #1976d2;
+    --astro-code-token-string: #22863a;
+    --astro-code-token-comment: #aaa;
+    --astro-code-token-keyword: #d32f2f;
+    --astro-code-token-parameter: #ff9800;
+    --astro-code-token-function: #6f42c1;
+    --astro-code-token-string-expression: #22863a;
+    --astro-code-token-punctuation: #212121;
+    --astro-code-token-link: #22863a;
+  }
+
+  .code-panel {
+    background-color: #fafafa;
+  }
+
+  .copy-code-button {
+    background: #f5f5f5;
+    border: 1px solid #e0e1e3;
+    border-radius: 2px;
+    color: #111827;
+    font-size: 13px;
+    padding: 4px 12px;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .copy-code-button:hover {
+    background: #eeeeee;
+    border-color: #d1d5db;
+  }
+
+  .code-scroll :global(pre) {
+    background-color: #fafafa !important;
+    border: 1px solid rgb(228 228 229);
+    border-radius: 2px;
+    font-family:
+      Menlo,
+      ui-monospace,
+      SFMono-Regular,
+      Monaco,
+      Consolas,
+      Liberation Mono,
+      Courier New,
+      monospace;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.25rem;
+    margin: 0;
+    min-height: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+    tab-size: 2;
+    -webkit-font-smoothing: auto;
+  }
+
+  .code-scroll :global(code) {
+    background: none !important;
+    border-style: none !important;
+    display: grid;
+    line-height: 1.25rem;
+    min-width: 100%;
+    padding: 0 !important;
+  }
+
+  .code-scroll :global(.line) {
+    display: block;
+    min-height: 1.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   html.dark .block-preview-tab {
     color: rgb(156 163 175);
+  }
+
+  html.dark .block-preview {
+    --astro-code-color-text: #d1d1d1;
+    --astro-code-token-constant: #79b8ff;
+    --astro-code-token-string: #ffab70;
+    --astro-code-token-comment: #6b737c;
+    --astro-code-token-keyword: #f97583;
+    --astro-code-token-parameter: #ff9800;
+    --astro-code-token-function: #b392f0;
+    --astro-code-token-string-expression: #4bb74a;
+    --astro-code-token-punctuation: #bbb;
+    --astro-code-token-link: #ffab70;
   }
 
   html.dark .block-preview-tab:hover,
@@ -134,5 +224,24 @@ const previewId = `block-preview-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-'
   html.dark .block-preview-tab-active {
     background-color: rgb(75 85 99);
   }
-</style>
 
+  html.dark .code-panel,
+  html.dark .code-scroll :global(pre) {
+    background-color: #1a1a1a !important;
+  }
+
+  html.dark .code-scroll :global(pre) {
+    border-color: #292929;
+  }
+
+  html.dark .copy-code-button {
+    background-color: #141414;
+    border-color: #292929;
+    color: #c4c5c6;
+  }
+
+  html.dark .copy-code-button:hover {
+    background-color: #1f1f1f;
+    border-color: #3a3a3a;
+  }
+</style>

@@ -1,6 +1,6 @@
 import { Button, Container, Heading, Section, Tailwind, Text, render } from 'jsx-email';
 import React from 'react';
-import { codeToHtml } from 'shiki';
+import { highlightCode } from './helpers/highlight-code';
 
 export interface Block {
   name: string;
@@ -154,14 +154,6 @@ const newsletterCtaCode = `import { Button, Container, Heading, Section, Text, T
 // Helper to render a component to HTML
 async function renderBlock(Component: React.FC): Promise<string> {
   return await render(<Component />);
-}
-
-// Helper to highlight code with Shiki
-async function highlightCode(code: string): Promise<string> {
-  return await codeToHtml(code, {
-    lang: 'tsx',
-    theme: 'github-dark'
-  });
 }
 
 // Export function to get all rendered blocks
