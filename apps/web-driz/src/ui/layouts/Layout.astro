@@ -24,52 +24,100 @@ const { title = "jsx.email - Building Emails doesn't have to be Painful" } = Ast
       rel="stylesheet"
     />
 
-    <!-- Initialize theme -->
     <script is:inline>
-      // Check for saved theme preference, check Starlight theme first for consistency
       const starlightTheme = localStorage.getItem('starlight-theme');
-      const savedTheme = starlightTheme || localStorage.getItem('theme') || 'auto';
+      const savedTheme = starlightTheme || localStorage.getItem('theme') || 'system';
+      const normalizedTheme = savedTheme === 'auto' ? 'system' : savedTheme;
+      const resolvedTheme =
+        normalizedTheme === 'system'
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+          : normalizedTheme;
 
-      if (
-        savedTheme === 'dark' ||
-        (savedTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+      document.documentElement.classList.toggle('light', resolvedTheme !== 'dark');
+      document.documentElement.style.colorScheme = resolvedTheme;
     </script>
   </head>
   <body class="bg-white dark:bg-black text-black dark:text-white font-sans antialiased">
     <slot />
 
-    <!-- Theme toggle script -->
     <script is:inline>
-      function toggleTheme() {
-        const isDark = document.documentElement.classList.contains('dark');
-        const newTheme = isDark ? 'light' : 'dark';
+      const themeCycle = ['light', 'dark', 'system'];
+      const prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-        // Toggle the class
-        document.documentElement.classList.toggle('dark');
-
-        // Save the theme in both formats for cross-site consistency
-        localStorage.setItem('theme', newTheme);
-        localStorage.setItem('starlight-theme', newTheme);
+      function getStoredTheme() {
+        const storedTheme = localStorage.getItem('theme') || localStorage.getItem('starlight-theme');
+        return storedTheme === 'auto' ? 'system' : storedTheme || 'system';
       }
 
-      // Add event listener to theme toggle button if it exists
+      function getResolvedTheme(theme) {
+        if (theme === 'system') {
+          return prefersDarkQuery.matches ? 'dark' : 'light';
+        }
+
+        return theme;
+      }
+
+      function getNextTheme(theme) {
+        return themeCycle[(themeCycle.indexOf(theme) + 1) % themeCycle.length];
+      }
+
+      function applyTheme(theme) {
+        const resolvedTheme = getResolvedTheme(theme);
+
+        document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+        document.documentElement.classList.toggle('light', resolvedTheme !== 'dark');
+        document.documentElement.style.colorScheme = resolvedTheme;
+      }
+
+      function updateThemeToggle(theme = getStoredTheme()) {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (!themeToggle) return;
+
+        const nextTheme = getNextTheme(theme);
+        themeToggle.title = `Switch to ${nextTheme[0].toUpperCase()}${nextTheme.slice(1)} Mode`;
+        themeToggle.setAttribute('aria-label', themeToggle.title);
+
+        document.querySelectorAll('[data-theme-toggle-icon]').forEach((icon) => {
+          icon.classList.toggle('hidden', icon.dataset.themeToggleIcon !== nextTheme);
+        });
+      }
+
+      function setHomepageTheme(theme) {
+        localStorage.setItem('theme', theme);
+        localStorage.setItem('starlight-theme', theme);
+        applyTheme(theme);
+        updateThemeToggle(theme);
+      }
+
+      function cycleTheme() {
+        setHomepageTheme(getNextTheme(getStoredTheme()));
+      }
+
       document.addEventListener('DOMContentLoaded', () => {
         const themeToggle = document.getElementById('theme-toggle');
         if (themeToggle) {
-          themeToggle.addEventListener('click', toggleTheme);
+          themeToggle.addEventListener('click', cycleTheme);
+        }
+
+        applyTheme(getStoredTheme());
+        updateThemeToggle();
+      });
+
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'starlight-theme' || e.key === 'theme') {
+          const newTheme = e.newValue === 'auto' ? 'system' : e.newValue || 'system';
+          applyTheme(newTheme);
+          updateThemeToggle(newTheme);
         }
       });
 
-      // Listen for storage events to sync between tabs
-      window.addEventListener('storage', (e) => {
-        if (e.key === 'starlight-theme' || e.key === 'theme') {
-          const newTheme = e.newValue;
-          document.documentElement.classList.toggle('dark', newTheme === 'dark');
+      prefersDarkQuery.addEventListener('change', () => {
+        if (getStoredTheme() === 'system') {
+          applyTheme('system');
+          updateThemeToggle('system');
         }
       });
     </script>
