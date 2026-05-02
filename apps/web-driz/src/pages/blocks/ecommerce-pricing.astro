@@ -7,6 +7,10 @@ import BlockPreview from '@components/BlockPreview.astro';
 import { getRenderedBlocks, type Block } from '@/blocks/ecommerce-pricing';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
+const previewHeights: Record<string, number> = {
+  'Product Price Card': 430,
+  'Pricing Comparison': 610
+};
 ---
 
 <Layout title="Ecommerce Pricing - Blocks - JSX Email">
@@ -29,7 +33,7 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
               renderedHtml={block.renderedHtml}
               code={block.code}
               codeHtml={block.codeHtml}
-              height={300}
+              height={previewHeights[block.name] ?? 300}
             />
           ))
         }

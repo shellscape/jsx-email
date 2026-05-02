@@ -7,6 +7,10 @@ import BlockPreview from '@components/BlockPreview.astro';
 import { getRenderedBlocks, type Block } from '@/blocks/gallery';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
+const previewHeights: Record<string, number> = {
+  'Two Column Images': 400,
+  'Three Column Images': 400
+};
 ---
 
 <Layout title="Gallery - Blocks - JSX Email">
@@ -29,7 +33,7 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
               renderedHtml={block.renderedHtml}
               code={block.code}
               codeHtml={block.codeHtml}
-              height={350}
+              height={previewHeights[block.name] ?? 540}
             />
           ))
         }

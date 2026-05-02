@@ -7,6 +7,9 @@ import BlockPreview from '@components/BlockPreview.astro';
 import { getRenderedBlocks, type Block } from '@/blocks/marketing';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
+const previewHeights: Record<string, number> = {
+  'Hero Section': 350
+};
 ---
 
 <Layout title="Marketing - Blocks - JSX Email">
@@ -29,7 +32,7 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
               renderedHtml={block.renderedHtml}
               code={block.code}
               codeHtml={block.codeHtml}
-              height={300}
+              height={previewHeights[block.name] ?? 300}
             />
           ))
         }

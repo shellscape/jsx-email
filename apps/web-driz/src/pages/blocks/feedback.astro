@@ -7,6 +7,9 @@ import BlockPreview from '@components/BlockPreview.astro';
 import { getRenderedBlocks, type Block } from '@/blocks/feedback';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
+const previewHeights: Record<string, number> = {
+  'Emoji Feedback': 300
+};
 ---
 
 <Layout title="Feedback - Blocks - JSX Email">
@@ -29,7 +32,7 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
               renderedHtml={block.renderedHtml}
               code={block.code}
               codeHtml={block.codeHtml}
-              height={250}
+              height={previewHeights[block.name] ?? 250}
             />
           ))
         }

@@ -7,6 +7,11 @@ import BlockPreview from '@components/BlockPreview.astro';
 import { getRenderedBlocks, type Block } from '@/blocks/surveys';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
+const previewHeights: Record<string, number> = {
+  'Satisfaction Survey': 560,
+  'Survey Section': 370,
+  'Customer Reviews': 600
+};
 ---
 
 <Layout title="Surveys - Blocks - JSX Email">
@@ -23,18 +28,15 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
 
       <section class="mb-16">
         {
-          renderedBlocks.map((block) => {
-            const height = block.name === 'Survey Section' ? 300 : 400;
-            return (
-              <BlockPreview
-                name={block.name}
-                renderedHtml={block.renderedHtml}
-                code={block.code}
-                codeHtml={block.codeHtml}
-                height={height}
-              />
-            );
-          })
+          renderedBlocks.map((block) => (
+            <BlockPreview
+              name={block.name}
+              renderedHtml={block.renderedHtml}
+              code={block.code}
+              codeHtml={block.codeHtml}
+              height={previewHeights[block.name] ?? 400}
+            />
+          ))
         }
       </section>
     </div>
