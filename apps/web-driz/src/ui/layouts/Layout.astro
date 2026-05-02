@@ -43,83 +43,35 @@ const { title = "jsx.email - Building Emails doesn't have to be Painful" } = Ast
   <body class="bg-white dark:bg-black text-black dark:text-white font-sans antialiased">
     <slot />
 
-    <script is:inline>
-      const themeCycle = ['light', 'dark', 'system'];
-      const prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    <script>
+      import { initHomepageThemeToggle } from '@components/theme-toggle';
 
-      function getStoredTheme() {
-        const storedTheme = localStorage.getItem('theme') || localStorage.getItem('starlight-theme');
-        return storedTheme === 'auto' ? 'system' : storedTheme || 'system';
-      }
-
-      function getResolvedTheme(theme) {
-        if (theme === 'system') {
-          return prefersDarkQuery.matches ? 'dark' : 'light';
-        }
-
-        return theme;
-      }
-
-      function getNextTheme(theme) {
-        return themeCycle[(themeCycle.indexOf(theme) + 1) % themeCycle.length];
-      }
-
-      function applyTheme(theme) {
-        const resolvedTheme = getResolvedTheme(theme);
-
-        document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
-        document.documentElement.classList.toggle('light', resolvedTheme !== 'dark');
-        document.documentElement.style.colorScheme = resolvedTheme;
-      }
-
-      function updateThemeToggle(theme = getStoredTheme()) {
-        const themeToggle = document.getElementById('theme-toggle');
-        if (!themeToggle) return;
-
-        const nextTheme = getNextTheme(theme);
-        themeToggle.title = `Switch to ${nextTheme[0].toUpperCase()}${nextTheme.slice(1)} Mode`;
-        themeToggle.setAttribute('aria-label', themeToggle.title);
-
-        document.querySelectorAll('[data-theme-toggle-icon]').forEach((icon) => {
-          icon.classList.toggle('hidden', icon.dataset.themeToggleIcon !== nextTheme);
-        });
-      }
-
-      function setHomepageTheme(theme) {
-        localStorage.setItem('theme', theme);
-        localStorage.setItem('starlight-theme', theme);
-        applyTheme(theme);
-        updateThemeToggle(theme);
-      }
-
-      function cycleTheme() {
-        setHomepageTheme(getNextTheme(getStoredTheme()));
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-          themeToggle.addEventListener('click', cycleTheme);
-        }
-
-        applyTheme(getStoredTheme());
-        updateThemeToggle();
-      });
-
-      window.addEventListener('storage', (e) => {
-        if (e.key === 'starlight-theme' || e.key === 'theme') {
-          const newTheme = e.newValue === 'auto' ? 'system' : e.newValue || 'system';
-          applyTheme(newTheme);
-          updateThemeToggle(newTheme);
-        }
-      });
-
-      prefersDarkQuery.addEventListener('change', () => {
-        if (getStoredTheme() === 'system') {
-          applyTheme('system');
-          updateThemeToggle('system');
-        }
-      });
+      initHomepageThemeToggle();
     </script>
+    <style is:global>
+      .tippy-box[data-theme~='jsx-email'] {
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.08),
+          0 4px 6px -4px rgb(0 0 0 / 0.08);
+        color: #374151;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1;
+        padding: 2px 4px;
+      }
+
+      html.dark .tippy-box[data-theme~='jsx-email'] {
+        background-color: #111827;
+        border-color: #1f2937;
+        color: #e5e7eb;
+      }
+
+      .tippy-box[data-theme~='jsx-email'] > .tippy-content {
+        padding: 4px 6px;
+      }
+    </style>
   </body>
 </html>
