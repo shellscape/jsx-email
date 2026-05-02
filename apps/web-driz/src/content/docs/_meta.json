@@ -2,6 +2,7 @@
   "Getting Started",
   ["introduction", "Introduction"],
   ["quick-start", "Quick Start"],
+  ["v3/migration", "Migrating to v3"],
   ["recipes", "Recipes"],
   ["email-providers", "Email Integrations"],
   ["email-providers#plunk", "Plunk", "open-source"],
