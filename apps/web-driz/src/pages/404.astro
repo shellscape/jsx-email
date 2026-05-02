@@ -1,91 +1,95 @@
 ---
-import { Image } from 'astro:assets';
-import notFound from '@/assets/images/not_found.webp';
-import houstonAstronaut from '@/assets/images/houston_astronaut.webp';
+import '../styles/home.css';
 
+import Footer from '@components/Footer.astro';
+import Header from '@components/Header.astro';
 import Layout from '@/ui/layouts/Layout.astro';
 ---
 
 <Layout title="JSX email - Build beautiful emails with JSX">
-  <div class="wrap">
-    <Image class='not_found' src={notFound} alt="Not found"/>
-    <Image class="astronaut" src={houstonAstronaut} alt="Astronaut"/>
-    <div class="content">
-      <div class="text">
-        <h1 class="title">404</h1>
-        <p class="description">This page couldn’t be delivered.</p>
-        <a href="/" class="back-link">Take me home.</a>
+  <Header />
+  <main>
+    <div class="wrap">
+      <div class="not-found" aria-hidden="true"></div>
+      <div class="content">
+        <div class="actions" aria-label="404 navigation">
+          <button
+            class="back-action inline-flex min-h-[44px] items-center justify-center rounded-[6px] px-6 py-3 font-semibold no-underline transition-colors cursor-pointer"
+            type="button"
+            data-history-back
+          >
+            Back from whence ye came
+          </button>
+          <a
+            href="/"
+            class="inline-flex min-h-[44px] items-center justify-center rounded-[6px] border border-gray-300 bg-white px-6 py-3 font-semibold text-gray-900 no-underline transition-colors hover:border-gray-400 hover:bg-gray-100"
+            >Take me home</a
+          >
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+  <Footer />
 </Layout>
+
+<script>
+  document.querySelector("[data-history-back]")?.addEventListener("click", () => {
+    history.back();
+  });
+</script>
+
 <style>
   .wrap {
-    padding-top: 24px;
-    margin: 0 -24px;
-    display: grid;
-    grid-template: 100% / 100%;
-    overflow: hidden;
-  }
-
-  .not_found {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    min-height: 45rem;
-    object-fit: cover;
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    place-self: center;
-  }
-
-  .astronaut {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 4vw, 40px);
+    justify-content: center;
     margin: 0;
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    place-self: center;
-    width: 128px;
-    filter: drop-shadow(rgb(85, 89, 98) 0px 0px 3px);
-    transform: translate(-320px);
-    display: block;
+    min-height: calc(100svh - 160px);
+    overflow: hidden;
+    padding: clamp(72px, 10vw, 112px) 24px clamp(48px, 8vw, 96px);
+  }
+
+  .not-found {
+    aspect-ratio: 3 / 2;
+    background-image: url("/assets/404.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 150%;
     max-width: 100%;
-    height: auto;
-    margin-top: 24px;
+    width: min(100%, 960px, 76svh);
   }
 
   .content {
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    place-self: center;
-    margin-top: 24px;
+    display: grid;
+    place-items: center;
+    width: 100%;
   }
 
-  .text {
-    text-align: center;
+  .actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
     padding: 0 16px;
-    color: #c1c3c8;
   }
 
-  .title {
-    font-weight: 600;
-    line-height: 1.2;
-    font-size: 96px;
+  .back-action {
+    background: #24292e;
+    border: 1px solid #111827;
     color: #fff;
   }
 
-  .description {
-    font-size: 20px;
-    margin-top: 24px;
+  .back-action:hover {
+    background: #000;
+    border-color: #374151;
   }
 
-  .back-link {
-    color: hsl(224, 100%, 85%);
-    text-decoration: underline;
-  }
-
-  @media screen and (max-width:768px) {
-    .astronaut {
-      transform: translateY(-192px);
+  @media (max-width: 520px) {
+    .actions > * {
+      width: min(100%, 18rem);
     }
   }
 </style>

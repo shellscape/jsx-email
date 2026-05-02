@@ -1,5 +1,5 @@
-import Marquee from './Marquee';
 import { FadeBlock } from './fade-block';
+import { Marquee } from './marquee';
 
 type TrustedByItemProps = {
   href: string;
@@ -16,7 +16,7 @@ const TrustedByItem = ({ href, src }: TrustedByItemProps) => {
 export const TrustedBy = () => {
   return (
     <FadeBlock className="faq" visibilityAmount={0.4}>
-      <Marquee autoFill pauseOnHover>
+      <Marquee pauseOnHover>
         <TrustedByItem href="https://sst.dev" src="sst-dev.svg" />
         <TrustedByItem href="https://rally.space" src="rally-space.svg" />
         <TrustedByItem href="https://biblish.com/" src="biblish.svg" />

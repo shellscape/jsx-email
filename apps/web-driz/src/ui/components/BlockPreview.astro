@@ -1,0 +1,138 @@
+---
+interface Props {
+  name: string;
+  renderedHtml: string;
+  code: string;
+  codeHtml: string;
+  height?: number;
+}
+
+const { name, renderedHtml, code, codeHtml, height = 200 } = Astro.props;
+const previewId = `block-preview-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+
+<div
+  class="block-preview mb-8 overflow-hidden rounded-[6px] border border-gray-200 bg-white dark:border-gray-800 dark:bg-black"
+  data-block-preview={previewId}
+>
+  <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800">
+    <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">{name}</h3>
+    <div class="flex gap-1 rounded-[6px] bg-gray-200 p-1 dark:bg-gray-700" role="tablist">
+      <button
+        class="block-preview-tab block-preview-tab-active"
+        type="button"
+        role="tab"
+        aria-selected="true"
+        data-block-tab="preview"
+      >
+        Preview
+      </button>
+      <button
+        class="block-preview-tab"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        data-block-tab="code"
+      >
+        Code
+      </button>
+    </div>
+  </div>
+
+  <div style={`height: ${height}px`}>
+    <div class="h-full bg-white p-6 dark:bg-gray-900" data-block-panel="preview">
+      <iframe
+        srcdoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body>${renderedHtml}</body></html>`}
+        class="h-full w-full rounded border-0 bg-white"
+        title={`Preview: ${name}`}
+      />
+    </div>
+
+    <div class="relative hidden h-full bg-[#24292e]" data-block-panel="code">
+      <button
+        class="absolute right-2 top-2 z-10 rounded bg-gray-700 px-3 py-1 text-xs text-white transition-colors hover:bg-gray-600"
+        type="button"
+        data-copy-block-code
+      >
+        Copy
+      </button>
+      <textarea class="hidden" data-block-code-source>{code}</textarea>
+      <div
+        class="h-full overflow-auto [&>pre]:m-0 [&>pre]:min-h-full [&>pre]:p-4 [&>pre]:text-sm"
+        set:html={codeHtml}
+      />
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.querySelectorAll("[data-block-preview]").forEach((preview) => {
+    if (preview.dataset.initialized) return;
+    preview.dataset.initialized = "true";
+
+    const tabs = preview.querySelectorAll("[data-block-tab]");
+    const panels = preview.querySelectorAll("[data-block-panel]");
+    const copyButton = preview.querySelector("[data-copy-block-code]");
+    const codeSource = preview.querySelector("[data-block-code-source]");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const activeTab = tab.dataset.blockTab;
+
+        tabs.forEach((item) => {
+          const isActive = item.dataset.blockTab === activeTab;
+          item.classList.toggle("block-preview-tab-active", isActive);
+          item.setAttribute("aria-selected", String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.blockPanel !== activeTab);
+        });
+      });
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      if (!codeSource?.value) return;
+
+      await navigator.clipboard.writeText(codeSource.value);
+      copyButton.textContent = "Copied!";
+      setTimeout(() => {
+        copyButton.textContent = "Copy";
+      }, 2000);
+    });
+  });
+</script>
+
+<style>
+  .block-preview-tab {
+    border-radius: 4px;
+    color: rgb(75 85 99);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 12px;
+    transition: color 150ms ease, background-color 150ms ease;
+  }
+
+  .block-preview-tab:hover {
+    color: rgb(17 24 39);
+  }
+
+  .block-preview-tab-active {
+    background-color: #fff;
+    color: rgb(17 24 39);
+  }
+
+  html.dark .block-preview-tab {
+    color: rgb(156 163 175);
+  }
+
+  html.dark .block-preview-tab:hover,
+  html.dark .block-preview-tab-active {
+    color: #fff;
+  }
+
+  html.dark .block-preview-tab-active {
+    background-color: rgb(75 85 99);
+  }
+</style>
+

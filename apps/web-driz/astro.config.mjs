@@ -32,6 +32,9 @@ export default defineConfig({
     optimizeDeps: {
       include: ["motion", "motion/react"],
     },
+    ssr: {
+      external: ["jsx-email"],
+    },
     css: {
       preprocessorOptions: {
         scss: {
