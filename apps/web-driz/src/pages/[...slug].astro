@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 
 import Link from '@mdx/Link.astro';
-import CustomHeader from '@components/CustomHeader.astro';
-import DocsLayout from '@/ui/DocsLayout.astro';
+import CustomHeader from '@components/docs/CustomHeader.astro';
+import DocsLayout from '@/ui/layouts/DocsLayout.astro';
 
 export async function getStaticPaths() {
   const metaFiles = import.meta.glob('../content/**/*.json');

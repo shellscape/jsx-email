@@ -1,13 +1,13 @@
 ---
-import EndOfContent from "./components/EndOfContent.astro";
-import MDXStyles from "./components/MDXStyles.astro";
+import EndOfContent from "@components/docs/EndOfContent.astro";
+import MDXStyles from "@components/docs/MDXStyles.astro";
 import BaseHead from "@/ui/BaseHead.astro";
-import Header from "./components/Header.astro";
-import DocsSidebar from "./components/DocsSidebar.astro";
+import Header from "@components/docs/Header.astro";
+import DocsSidebar from "@components/docs/DocsSidebar.astro";
 import { getContentTree } from "@/utils";
 import type { IHeading } from "@/types";
-import DialectTabs from "./components/DialectTabs.astro";
-import { dialects } from "../data/dialects";
+import DialectTabs from "@components/docs/DialectTabs.astro";
+import { dialects } from "@/data/dialects";
 
 interface Props {
   customTitle?: string;
