@@ -30,6 +30,7 @@ export default defineConfig({
   vite: {
     plugins: [yaml(), tailwindcss()],
     optimizeDeps: {
+      exclude: ["bwip-js", "jsx-email"],
       include: ["motion", "motion/react"],
     },
     ssr: {

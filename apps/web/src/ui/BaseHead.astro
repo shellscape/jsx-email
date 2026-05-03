@@ -51,24 +51,26 @@ const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD =
       transitions.disable();
       localStorage.setItem("theme", themeName);
       if (!document.firstElementChild) return;
+      let resolvedThemeName = themeName;
       if (themeName === "system") {
-        themeName = window.matchMedia("(prefers-color-scheme: dark)").matches
+        resolvedThemeName = window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
       }
-      document.firstElementChild.classList.toggle("dark", themeName === "dark");
+      document.firstElementChild.classList.toggle("dark", resolvedThemeName === "dark");
       document.firstElementChild.classList.toggle(
         "light",
-        themeName !== "dark",
+        resolvedThemeName !== "dark",
       );
       document.firstElementChild.setAttribute(
         "style",
-        themeName === "dark" ? "color-scheme: dark" : "color-scheme: light",
+        resolvedThemeName === "dark" ? "color-scheme: dark" : "color-scheme: light",
       );
 
-      window.getComputedStyle(transitions.style).opacity;
+      void window.getComputedStyle(transitions.style).opacity;
       transitions.enable();
     };
+    window.setPreference = setPreference;
 
     const getColorPreference = () => {
       let preference = localStorage.getItem("theme");
@@ -83,11 +85,6 @@ const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD =
       }
       return preference;
     };
-
-    let packageManager = localStorage.getItem("package-manager") || "npm";
-    let expandedSections = localStorage.getItem("expandedSections")
-      ? JSON.parse(localStorage.getItem("expandedSections"))
-      : [];
 
     setPreference(getColorPreference());
     document.addEventListener("astro:page-load", () =>

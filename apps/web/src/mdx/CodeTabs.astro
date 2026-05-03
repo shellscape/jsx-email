@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { items } = Astro.props;
-let slot = await Astro.slots.render('default');
+const slot = await Astro.slots.render('default');
 const parsedHtml = parse(slot);
 
 parsedHtml.childNodes.forEach((tabContent, index) => {

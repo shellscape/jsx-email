@@ -10,9 +10,13 @@ export async function getStaticPaths() {
   const slugs: string[] = [];
   const regex = /\.\.\/content\/(.*?)\/_meta\.json/;
   
-  for(const meta in metaFiles) {
-    const {default: parsed} = await metaFiles[meta]() as {default: string[]};
-
+  const parsedMetaFiles = await Promise.all(
+    Object.entries(metaFiles).map(async ([meta, loadMeta]) => ({
+      meta,
+      parsed: ((await loadMeta()) as { default: string[] }).default,
+    })),
+  );
+  for (const { meta, parsed } of parsedMetaFiles) {
     const metaSlug = meta.match(regex);
     if (metaSlug) {
       const extractedText = metaSlug[1];

@@ -220,7 +220,7 @@ const pageHasDialects = Object.keys(dialects).includes(
       }
     </style>
     <script>
-      const hash = window.location.hash;
+      const { hash } = window.location;
       if (hash !== "") {
         const targetElement = document.querySelector(hash);
         if (targetElement) {
@@ -231,8 +231,9 @@ const pageHasDialects = Object.keys(dialects).includes(
     <script is:inline>
       const changeNpmTab = () => {
         const packageManagers = ["npm", "yarn", "pnpm", "bun"];
+        let packageManager = localStorage.getItem("package-manager") || "npm";
 
-        let packageManagerIndex = packageManagers.indexOf(packageManager);
+        const packageManagerIndex = packageManagers.indexOf(packageManager);
 
         const updateUI = (index) => {
           npmContent.forEach((element) => {
@@ -297,6 +298,10 @@ const pageHasDialects = Object.keys(dialects).includes(
       };
 
       const updateCollapsedSections = () => {
+        let expandedSections = localStorage.getItem("expandedSections")
+          ? JSON.parse(localStorage.getItem("expandedSections"))
+          : [];
+
         document
           .querySelectorAll(".nav-items-collapsable")
           .forEach((section) => {
@@ -398,21 +403,12 @@ const pageHasDialects = Object.keys(dialects).includes(
     </script>
     <script>
       class Rem1Element extends HTMLElement {
-        constructor() {
-          super();
-        }
       }
 
       class Rem025Element extends HTMLElement {
-        constructor() {
-          super();
-        }
       }
 
       class Rem05Element extends HTMLElement {
-        constructor() {
-          super();
-        }
       }
 
       customElements.define("rem-1", Rem1Element);
@@ -421,7 +417,9 @@ const pageHasDialects = Object.keys(dialects).includes(
     </script>
     <script is:inline data-astro-rerun>
       document.querySelectorAll("h2").forEach((el) => {
-        if (el.innerText === "---") {
+        // Note: The silly concat below is to avoid an oxlint bug https://github.com/oxc-project/oxc/issues/22090
+        // oxlint-disable-next-line  eslint(no-useless-concat
+        if (el.innerText === "--" + "-") {
           el.classList.add("hidden-separator");
         }
       });
@@ -433,7 +431,7 @@ const pageHasDialects = Object.keys(dialects).includes(
         ) as NodeListOf<HTMLElement>;
         copyBtn.forEach((n) => {
           n.addEventListener("click", () => {
-            let timeouts: NodeJS.Timeout[] = [];
+            const timeouts: NodeJS.Timeout[] = [];
 
             if (timeouts.length) {
               timeouts.forEach((id) => {
@@ -471,7 +469,7 @@ const pageHasDialects = Object.keys(dialects).includes(
         const packageManagers: string[] = ["npm", "yarn", "pnpm", "bun"];
         let packageManager: string =
           localStorage.getItem("package-manager") || "npm";
-        let packageManagerIndex: number =
+        const packageManagerIndex: number =
           packageManagers.indexOf(packageManager);
 
         const updateUI = (index: number): void => {

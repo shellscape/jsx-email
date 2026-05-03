@@ -73,7 +73,7 @@
         element.addEventListener("click", () => {
           const theme = element.dataset.themeValue;
           if (!theme) return;
-          setPreference(theme);
+          window.setPreference(theme);
           updateIcon();
           dropdownItems.classList.remove("d-flex");
         });
