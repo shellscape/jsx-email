@@ -1,24 +1,26 @@
 ---
-title: Head
-description: A JSX email component which creates an HTML head element
+title: 'Head'
+description: |
+  A JSX email component which creates an HTML head element
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+|
 
-:::note[Outlook Compatibility]
-Required for VML compatibility in Outlook when using elements like `<style>` and `<meta>`.
-:::
+<Callout type="info" title="Tips">
+This component is required VML in outlook compatibility for adding elements such as `<style>` and `meta` directly to the document
+</Callout>
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Head"
-// HeadExample.jsx
+Add the component to your email template. Include children tags where needed.
+
+```jsx
 import { Head } from 'jsx-email';
 
 const Email = () => {
@@ -30,13 +32,7 @@ const Email = () => {
 };
 ```
 
-:::tip[Common Usage]
-Place metadata, styles, and format detection settings in the `Head` component.
-:::
-
-## Props
-
-### TypeScript Interface
+## Component Props
 
 ```tsx
 export interface HeadProps extends BaseProps<'head'> {
@@ -44,16 +40,13 @@ export interface HeadProps extends BaseProps<'head'> {
 }
 ```
 
-### Optional Props
-
-#### enableFormatDetection
-
-```ts
+```tsx
 enableFormatDetection?: boolean;
 ```
 
-Controls the `format-detection` meta tag. Defaults to `false`.
+This is used to disable the `format-detection` meta (will be useful for some very specific use-cases)
+Default value is `false`
 
-### Additional Props
-
+<Callout type="info" title="Tips">
 This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'head'>`.
+</Callout>

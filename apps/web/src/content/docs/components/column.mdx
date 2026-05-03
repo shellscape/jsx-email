@@ -1,20 +1,21 @@
 ---
 title: Column
-description: A JSX email component which displays columns that separate content boundaries vertically
+description: A JSX email component which displays columns that separate content bounaries vertically
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+A JSX email component which displays columns that separate content bounaries vertically
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Column"
-// ColumnExample.jsx
+Add the component to your email template. Include styles where needed.
+
+```jsx
 import { Column, Row } from 'jsx-email';
 
 const Email = () => {
@@ -28,39 +29,27 @@ const Email = () => {
 };
 ```
 
-:::note[HTML Output]
-Renders as a `<td>` element within an email table structure.
-:::
+## Component Props
 
-## Props
-
-### TypeScript Interface
-
-```ts
+```tsx
 export interface ColumnProps extends BaseProps<'td'> {
   bgColor?: string;
   bgImage?: string;
 }
 ```
 
-### Optional Props
-
-#### bgColor
-
-```ts
-bgColor?: string;
+```tsx
+bgColor: string;
 ```
 
-Sets the background color using HTML email's `bgcolor` property.
+Used to set the background color in HTML email by wrapping the `bgcolor` property of `<td>` elements
 
-#### bgImage
-
-```ts
-bgImage?: string;
+```tsx
+bgImage: string;
 ```
 
-Sets the background image using HTML email's `background` property.
+Used to set background images in HTML email by wrapping the `background` property of `<td>` elements
 
-### Additional Props
-
+<Callout type="info" title="Tips">
 This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.
+</Callout>

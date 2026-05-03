@@ -1,9 +1,24 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "./src/ui/BaseHead.astro",
+    "./src/ui/layouts/Layout.astro",
+    "./src/ui/layouts/DocsLayout.astro",
+    "./src/ui/CenteredLayout.astro"
+  ],
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@mdx/*": ["mdx/*"],
+      "@components/*": ["ui/components/*"],
+      "@/*": ["*"]
+    },
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
-  }
+    "jsxImportSource": "react",
+    "types": ["vite/client"]
+  },
+  "include": ["./src/", "./src/types/declarations.d.ts"]
 }

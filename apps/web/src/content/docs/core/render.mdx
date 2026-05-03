@@ -1,31 +1,27 @@
 ---
-title: Render
-description: Render JSX email components to HTML email
-type: core
+title: 'Render'
+description: 'Render JSX email components to HTML email'
+params: -D
+type: package
 ---
 
-import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
-import Install from '@components/mdx/install.mdx';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Render JSX email components to HTML email
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-Convert JSX email templates to HTML:
-
 ```jsx
 import { render } from 'jsx-email';
+
 import { Template } from './emails/Batman';
 
 const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
 ```
 
-## Options
-
-The render method accepts these options:
+## Method Options
 
 ```ts
 export interface Options {
@@ -37,79 +33,40 @@ export interface Options {
 }
 ```
 
-### disableDefaultStyle (optional)
-
-Disable default component styles:
+### Options
 
 ```ts
 disableDefaultStyle?: boolean;
 ```
 
-When `true`, removes all default styles from components during rendering.
-
-### inline (optional)
-
-Convert class-based styles to inline styles:
+If `true`, disables all of the default styles for all components for the rendering operation.
 
 ```ts
-inline?: boolean;
+inlineCss?: boolean;
 ```
 
-When `true`, converts CSS classes to inline style attributes. Uses [`plugin-inline`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline).
-
-### minify (optional)
-
-Minify output HTML:
+If `true`, converts any elements with CSS class names to use style attributes with the combined CSS styles from the class names on the element. This option loads the [`plugin-inline`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline) plugin.
 
 ```ts
 minify?: boolean;
 ```
 
-When `true`, compresses the HTML output. Uses the [`plugin-minify`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) plugin.
-
-### plainText (optional)
-
-Generate plain text version:
+If `true`, minifies the HTML for rendered templates. This option loads the [`plugin-minify`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) plugin.
 
 ```ts
-plainText?: boolean | PlainTextOptions;
+plainText?: boolean  | PlainTextOptions;
 ```
 
-Options:
-
-- `true`: Generates plain text version
-- `object`: Customize conversion using [`html-to-text` options](https://github.com/html-to-text/node-html-to-text/blob/master/packages/html-to-text/README.md#options)
-
-### pretty (optional)
-
-Beautify output HTML:
+If `true` or an `object`, renders the target email(s) to plain text. If you need to modify how the target is rendered to plain text, an `object` representing [`html-to-text` options](https://github.com/html-to-text/node-html-to-text/blob/master/packages/html-to-text/README.md#options) should be used.
 
 ```ts
 pretty?: boolean;
 ```
 
-When `true`, formats HTML for readability. Uses the [`plugin-pretty`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty) plugin.
+If `true`, beautifies the HTML output for each target email. This option loads the [`plugin-pretty`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty) plugin.
 
-## Development
+## Debugging
 
-### Debugging
+The rendered HTML can often be difficult to trace or match back to the JSX source template. To make things easier, users can enable a debugging flag which will output jsx-email-specific `data-type` attributes in the HTML. To enable this, set an environment variable like so: `DEBUG=jsx-email:elements`.
 
-To debug template rendering:
-
-<Steps>
-
-1. Enable debugging attributes by setting the `DEBUG` environment variable:
-
-   ```text title=".env"
-   DEBUG=jsx-email:elements
-   ```
-
-2. Disable minification in render options:
-
-   ```js
-   await render(template, { minify: false });
-   ```
-
-</Steps>
-
-This adds `data-type` attributes to HTML elements for easier template tracing.
+Users may also wish to pass the `{ minify: false }` option to the `render` method.

@@ -8,14 +8,22 @@ workspace:
 tasks:
   build:
     command: astro build
+    deps:
+      - ~:check
     inputs:
       - .astro
       - package.json
-    options:
-      cache: false
+      - src
+
+  check:
+    command: astro check
+    inputs:
+      - .astro
+      - package.json
+      - src
 
   dev:
-    command: astro dev
+    command: astro dev --host
     options:
       cache: false
 

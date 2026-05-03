@@ -1,26 +1,27 @@
 ---
-title: Container
+title: 'Container'
 description: Horizontally center child components and content
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Horizontally center child components and content
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Container"
-// ContainerExample.jsx
+Add the component to your email template. Include styles where needed.
+
+```jsx
 import { Button, Container } from 'jsx-email';
 
 const Email = () => {
   return (
     <Container>
-      <Button width={200} height={40} href="https://example.com">
+      <Button href="https://example.com" style={{ color: '#61dafb' }}>
         Click me
       </Button>
     </Container>
@@ -28,25 +29,18 @@ const Email = () => {
 };
 ```
 
-:::caution[Table Usage]
-While `Container` uses a `<table>` element internally, it's designed for centering content. For table layouts, use [`Section`](/components/section) or [`Row`](/components/row) with [`Column`](/components/column).
-:::
+<Callout type="info" title="Info">
+Though the `Container` component wraps a `<table>` element, it has a specific use-case and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Container` as a table, please consider using a `Section` component or a combination of `Row` and `Column`.
+</Callout>
 
-## Props
-
-### Optional Props
-
-#### disableDefaultStyle
+## Component Props
 
 ```ts
 disableDefaultStyle?: boolean;
 ```
 
-When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
-### Additional Props
-
-This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for:
-
-- `cellPadding`
-- `cellSpacing`
+<Callout type="info" title="Tips">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for `cellPadding` and `cellSpacing`.
+</Callout>

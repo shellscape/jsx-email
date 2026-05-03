@@ -1,24 +1,25 @@
 ---
-title: Raw
+title: 'Raw'
 description: Use raw HTML and unescaped text effortlessly
 type: component
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Use raw HTML and unescaped text effortlessly
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
 This component is especially useful for placing additional templating languages in your rendered email templates, for use in email providers which have their own value injection, or for further processing later in a separate system.
 
-:::caution
-It's important to understand that the values set as `content` will be placed into the rendered template unescaped. `jsx-email` goes to great lengths to validate and correct mistakes in HTML which may cause issues in email clients. Please use this component cautiously and thoughtfully.
-:::
+<Callout type="warning">
+  It's important to understand that the values set as `content` will be placed into the rendered
+  template unescaped. `jsx-email` goes to great lengths to validate and correct mistakes in HTML
+  which may cause issues in email clients. Please use this component cautiously and thoughtfully.
+</Callout>
 
 Add the component to your email template. Include styles where needed.
 
@@ -46,19 +47,13 @@ Which if used in a template, would yield the following when rendered:
 </#if>
 ```
 
-## Props
-
-### Optional Props
-
-#### content
+## Component Props
 
 ```ts
 content?: string;
 ```
 
 The raw text content to render into a template
-
-#### disablePlainTextOutput
 
 ```ts
 disablePlainTextOutput?: boolean;

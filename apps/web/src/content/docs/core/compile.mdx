@@ -1,16 +1,16 @@
 ---
-title: Compile
-description: Compile jsx-email templates into a bundle
-type: core
+title: 'Compile'
+description: 'Compile jsx-email templates into a bundle'
+params: -D
+type: package
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Compile jsx-email templates into a bundle
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
@@ -21,28 +21,27 @@ import { resolve } from 'node:path';
 import { compile } from 'jsx-email/compile';
 
 const templatePath = resolve(__dirname, './emails/Batman');
-const outputDir = resolve(__dirname, '.compiled');
+const outDir = resolve(__dirname, '.compiled');
 
 const compiledFiles = await compile({ files: [templatePath], hashFiles: false, outDir });
 ```
 
-:::tip
+<Callout type="info" title="Tips">
 Once compiled into a bundle, the file can be imported and passed to render such like:
 
 ```jsx
-import { Template } from './.compiled/batman.js';
-
 import { render } from 'jsx-email';
+
+import { Template } from './.compiled/batman.js';
 
 const html = render(<Template />);
 ```
 
 Note that whether or not to use a file extension in the import depends on your project's settings. When using TypeScript you may have to adjust types to avoid errors, using this method.
-:::
 
-## Options
+</Callout>
 
-The compile method accepts these options:
+## Method Options
 
 ```ts
 export interface Options {
@@ -54,7 +53,7 @@ export interface Options {
 }
 ```
 
-### files
+### Options
 
 ```ts
 files: string[];
@@ -62,23 +61,17 @@ files: string[];
 
 An array of absolute paths for JSX/TSX template files to compile
 
-### hashFiles (optional)
-
 ```ts
 hashFiles?: boolean;
 ```
 
 Default: true. If `true`, adds the build hash to compiled file names. Set this to `false` if hashing and unique output filenames aren't needed.
 
-### outDir
-
 ```ts
 outDir: string;
 ```
 
 An absolute path to output the compiled file(s)
-
-### writeMeta (optional)
 
 ```ts
 writeMeta?: boolean;

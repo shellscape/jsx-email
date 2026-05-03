@@ -1,31 +1,14 @@
 ---
-title: Minify Plugin
-description: Reduce HTML size through minification for better email delivery
-type: plugin
+title: 'Minify Plugin'
+description: 'The Minify Plugin'
 ---
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+## Inline Plugin
 
-## Overview
+The `@jsx-email/plugin-minify` package provides a plugin to [minify](<https://en.wikipedia.org/wiki/Minification_(programming)>) an email's HTML output. This plugin is a `peerDependency` of `jsx-email` and is loaded automatically if the [`minify` render option](https://jsx.email/docs/core/render#method-options) is set.
 
-The `@jsx-email/plugin-minify` plugin reduces HTML size by removing unnecessary whitespace and formatting.
+Browse this plugin's [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify)
 
-:::note[Automatic Loading]
-This plugin is a `peerDependency` of `jsx-email` and loads automatically when the [`minify` render option](/core/render#method-options) is enabled.
-:::
+## Why
 
-## Benefits
-
-- Reduces email size
-- Prevents email clipping in clients
-- Improves delivery performance
-
-:::caution[Size Monitoring]
-Monitor console output during rendering for size warnings to avoid email clipping in clients like Gmail.
-:::
-
-## Resources
-
-- [Source Code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify)
-- [About Minification](<https://en.wikipedia.org/wiki/Minification_(programming)>)
+Minifying the HTML for an email is very beneficial when working with emails that have a large amount of content. Email clients (like Gmail) will clip an email if it surpases their size limits, forcing a recipient to click a "Show Full Message" button at the bottom of their email. Be sure to keep an eye on the console output when running [`render`](https://jsx.email/docs/core/render) as it will alert you if the size of the HTML is too large.
