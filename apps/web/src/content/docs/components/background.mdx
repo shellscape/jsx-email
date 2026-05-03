@@ -1,31 +1,27 @@
 ---
-title: Background
-description: A JSX email component for background images in your Email template
+title: 'Background'
+description: 'A JSX email component for background images in your Email template'
 type: component
-sidebar:
-  badge:
-    text: New
-    variant: success
 ---
 
-import Install from '@components/mdx/install.mdx';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+A JSX email component for background images in your Email template
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Background"
-// BackgroundExample.jsx
-import { Background, Body, Column, Html, Row, Section } from 'jsx-email';
+Add the background component to your email template.
+
+```jsx
+import { Body, Column, Html, Section } from 'jsx-email';
 
 const Email = () => {
   return (
     <Html lang="en">
       <Body>
-        <Background src="https://example.com/image.jpg" bgColor="#FFFFFF" width={600}>
+        <Background src="link-to-image" bgColor="#FFFFFF" width={600}>
           <Row>
             <Column>Content goes here</Column>
           </Row>
@@ -36,13 +32,13 @@ const Email = () => {
 };
 ```
 
-## Props
+## Component Props
 
-### TypeScript Interface
-
-```ts
-interface BackgroundProps
-  extends Omit<React.ComponentPropsWithoutRef<'td'>, 'height' | 'width' | 'bgcolor'> {
+```tsx
+interface BackgroundProps extends Omit<
+  React.ComponentPropsWithoutRef<'td'>,
+  'height' | 'width' | 'bgcolor'
+> {
   src: string;
   bgColor?: string;
   bgRepeat?: 'repeat' | 'no-repeat';
@@ -51,46 +47,33 @@ interface BackgroundProps
 }
 ```
 
-### Required Props
-
-#### src
-
-```ts
+```tsx
 src: string;
 ```
 
-The path to the background image.
+The path to the image
 
-### Optional Props
-
-#### bgColor
-
-```ts
+```tsx
 bgColor?: string;
 ```
 
-Fallback background color (hex code) if the image fails to load.
+The hex code that represents the fallback `background-color` incase the image doesn't load
 
-#### bgRepeat
-
-```ts
+```tsx
 bgRepeat?: 'repeat' | 'no-repeat';
 ```
 
-Background repeat behavior, uses `background-repeat`. Defaults to `no-repeat`.
+A string that represents the value of `background-repeat`.
+Default value is `no-repeat`
 
-#### height
-
-```ts
+```tsx
 height?: number;
 ```
 
-Container height in pixels.
+The `height` of the container in pixels
 
-#### width
-
-```ts
+```tsx
 width?: number;
 ```
 
-Container width in pixels.
+The `width` of the container in pixels

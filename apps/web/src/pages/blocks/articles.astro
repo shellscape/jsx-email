@@ -1,10 +1,10 @@
 ---
-import '../../styles/global.css';
-import Layout from '../../components/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { BlockPreview } from '../../components/BlockPreview';
-import { getRenderedBlocks, type Block } from '../../blocks/articles';
+import '../../styles/home.css';
+import Layout from '@/ui/layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import BlockPreview from '@components/BlockPreview.astro';
+import { getRenderedBlocks, type Block } from '@/blocks/articles';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
 ---
@@ -25,12 +25,11 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
         {
           renderedBlocks.map((block) => (
             <BlockPreview
-              client:load
               name={block.name}
               renderedHtml={block.renderedHtml}
               code={block.code}
               codeHtml={block.codeHtml}
-              height={450}
+              height={620}
             />
           ))
         }

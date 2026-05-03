@@ -25,8 +25,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash 
 $SHELL -c "source $SHELL_PROFILE"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-echo -e $(date "+\n[%H:%M:%S]")"${BLUE} Installing Node v18...\n${RESET}"
-nvm install 18 >/dev/null
+echo -e $(date "+\n[%H:%M:%S]")"${BLUE} Installing Node v24...\n${RESET}"
+nvm install 24 >/dev/null
 
 # install pnpm
 echo -e $(date "+\n[%H:%M:%S]")"${BLUE} Installing PNPM...\n${RESET}"
@@ -34,13 +34,4 @@ curl -fsSL https://get.pnpm.io/install.sh | bash -
 
 # install moon
 echo -e $(date "+\n[%H:%M:%S]")"${BLUE} Installing Moon...\n${RESET}"
-pnpm add @moonrepo/cli@latest -g >/dev/null
-
-# install Golang - https://github.com/canha/golang-tools-install-script
-# kick out an extra newline into the profile so the golang script doesn't cause a syntax error
-# https://github.com/canha/golang-tools-install-script/issues/68
-echo "" >> $SHELL_PROFILE
-echo -e $(date "+[%H:%M:%S]")"${BLUE} Installing Go...\n${RESET}"
-curl -L https://git.io/vQhTU | bash >/dev/null
-$SHELL -c "source $SHELL_PROFILE"
-
+pnpm add @moonrepo/cli@1.41.7 -g >/dev/null

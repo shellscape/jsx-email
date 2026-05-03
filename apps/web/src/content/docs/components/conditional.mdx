@@ -1,42 +1,35 @@
 ---
-title: Conditional
+title: 'Conditional'
 description: Use HTML conditional comments effortlessly
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Use HTML conditional comments effortlessly
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Conditional"
-// ConditionalExample.jsx
+Add the component to your email template. Include styles where needed.
+
+```jsx
 import { Conditional, Head } from 'jsx-email';
 
 const Email = () => {
   return (
     <Head>
-      {/* MSO-specific content */}
       <Conditional mso={true}>
-        <meta content="mso-content" />
-      </Conditional>
-
-      {/* Custom conditional */}
-      <Conditional expression="lt ie 10">
-        <meta content="legacy-ie" />
+        <meta content="batman" />
       </Conditional>
     </Head>
   );
 };
 ```
 
-## Props
-
-### TypeScript Interface
+## Component Props
 
 ```ts
 interface ConditionalProps {
@@ -46,41 +39,14 @@ interface ConditionalProps {
 }
 ```
 
-:::caution[Props Usage]
-Either `expression` or `mso` must be defined, but not both simultaneously.
-:::
+<Callout type="info" title="Info">
+  The `expression` prop or the `mso` prop must be defined, but not both.
+</Callout>
 
-### Optional Props
-
-#### expression
+### Props
 
 ```ts
 expression?: string;
 ```
 
-Custom conditional expression for HTML comment. Example: `'lt ie 10'` produces `<!--[if lt ie 10]>`.
-
-#### head
-
-```ts
-head?: boolean;
-```
-
-Places the conditional in the email template's `head` section.
-
-#### mso
-
-```ts
-mso?: boolean;
-```
-
-- When `true`: Outputs `<!--[if mso]>`
-- When `false`: Outputs `<!--[if !mso]><!--> ... <!--<![endif]-->`
-
-### Children Props
-
-```ts
-children?: React.ReactNode;
-```
-
-Content to be wrapped in the conditional comment.
+If provided, the string will be used as the conditional expression within the HTML comment. e.g. a value of `lt ie 10` would result in a conditional comment block starting with `...`.

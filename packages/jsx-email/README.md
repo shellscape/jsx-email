@@ -76,13 +76,7 @@ We 💛 contributions! After all, this is a community-driven project. We have no
 
 Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
-## Attribution 🧡
-
-This project was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
-
-`jsx-email` is a fork of `react-email`.
-
-We (the maintainers) use JSX email daily. This fork was originally created as a canary channel for fixes from pull requests and issues that had been left unaddressed. JSX email grew faster, and the upstream team didn't give the project the love we felt it needed. When our help wasn't accepted, we felt a new direction was warranted.
+We (the maintainers) use JSX email daily
 
 ## License
 

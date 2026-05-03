@@ -27,6 +27,12 @@
       }
     },
     {
+      "files": ["**/*.{astro,mdx}"],
+      "globals": {
+        "Astro": "readonly"
+      }
+    },
+    {
       "files": ["**/test/**/*.{js,jsx,ts,tsx}", "**/tests/**/*.{js,jsx,ts,tsx}"],
       "env": {
         "jest": true

@@ -1,0 +1,96 @@
+---
+import ThemeMobileScript from './ThemeMobileScript.astro';
+---
+
+<div class="theme__mobile">
+  <div class="theme__current-btn theme__current-btn-select">
+    <select
+      id="theme__select"
+      aria-label="Theme selector"
+      title="Select theme"
+      class="theme__select"
+    >
+      <option value="system">System</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+    <div class="theme_icon" data-current-theme-icon>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92488 18.0751 1.00001 12 1V23Z"
+          fill="currentColor"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+<ThemeMobileScript />
+<style is:global>
+  .theme__mobile {
+    display: none;
+    color: #7e868c;
+  }
+
+  .theme__select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    appearance: none;
+    cursor: pointer;
+    color: transparent;
+    background: none;
+  }
+
+.theme__current-btn:hover {
+  border-color: #b8bfc8;
+  color: #000;
+}
+
+.theme__current-btn {
+  align-items: center;
+  background-color: hsla(210,7%,95%,.27);
+  border: 1px solid rgba(33,39,46,.12);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  border-radius: 8px;
+  font-weight: 600;
+  height: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  position: relative;
+  z-index: 5;
+  cursor: pointer;
+  gap: 2px;
+}
+
+  .theme_icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+
+  @media screen and (max-width: 768px) {
+  .theme__mobile {
+    display: contents;
+  } 
+}
+</style>

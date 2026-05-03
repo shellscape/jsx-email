@@ -1,5 +1,3 @@
-import cssFade from 'css-fade/tailwindcss';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -21,5 +19,5 @@ export default {
     }
   },
   darkMode: 'class',
-  plugins: [cssFade]
+  plugins: []
 };

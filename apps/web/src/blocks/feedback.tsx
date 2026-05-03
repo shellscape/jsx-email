@@ -1,6 +1,6 @@
 import { Column, Container, Link, Row, Section, Tailwind, Text, render } from 'jsx-email';
 import React from 'react';
-import { codeToHtml } from 'shiki';
+import { highlightCode } from './helpers/highlight-code';
 
 export interface Block {
   name: string;
@@ -179,14 +179,6 @@ const emojiFeedbackCode = `import { Column, Container, Link, Row, Section, Text,
 // Helper to render a component to HTML
 async function renderBlock(Component: React.FC): Promise<string> {
   return await render(<Component />);
-}
-
-// Helper to highlight code with Shiki
-async function highlightCode(code: string): Promise<string> {
-  return await codeToHtml(code, {
-    lang: 'tsx',
-    theme: 'github-dark'
-  });
 }
 
 // Export function to get all rendered blocks

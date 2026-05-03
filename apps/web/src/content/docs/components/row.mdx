@@ -4,17 +4,18 @@ description: Separates content boundaries horizontally
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Separates content boundaries horizontally
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Row"
-// RowExample.jsx
+Add the component to your email template. Include styles where needed.
+
+```jsx
 import { Column, Row, Section } from 'jsx-email';
 
 const Email = () => {
@@ -34,18 +35,22 @@ const Email = () => {
 };
 ```
 
-## Props
+<Callout type="info" title="Info">
+  Though the `Row` component wraps a `table` element, it is not designed to identically mimic a
+  `table`, rather provide a visual row element that has maximum email client compatibility. Setting
+  `cellPadding` or `cellSpacing` on a `Row` component can achieve similar results to using a custom
+  `table` element, but it's not recommended. For custom behavior and for needs like `cellPadding`
+  it's recommended to use a `table` element instead of `Row`.
+</Callout>
 
-### Optional Props
-
-#### disableDefaultStyle
+## Component Props
 
 ```ts
 disableDefaultStyle?: boolean;
 ```
 
-When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
-### Additional Props
-
-This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
+<Callout type="info" title="Tips">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
+</Callout>

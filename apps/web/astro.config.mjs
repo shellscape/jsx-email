@@ -1,95 +1,95 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
-import tailwindcss from '@tailwindcss/vite';
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { defineConfig } from "astro/config";
+import { loadEnv } from "vite";
+import mdx from "@astrojs/mdx";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import sitemap from "@astrojs/sitemap";
+import yaml from "@rollup/plugin-yaml";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@astrojs/react";
+import { codeSnippetTransformer } from "./src/transformers";
+import {
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+  transformerNotationFocus,
+  transformerNotationErrorLevel,
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+} from "@shikijs/transformers";
 
-import react from '@astrojs/react';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const isProd = env.PROD_BUILD === "true";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://jsx.email',
-  integrations: [
-    starlight({
-      title: 'JSX Email',
-      logo: {
-        src: './src/assets/logo.svg',
-        alt: 'JSX Email Logo'
-      },
-      description: 'Build and send emails using JSX with a delightful developer experience',
-      defaultLocale: 'en',
-      head: [
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:image',
-            content: 'https://jsx.email/og.png'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'twitter:image',
-            content: 'https://jsx.email/og.png'
-          }
-        }
-      ],
-      social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/shellscape/jsx-email' },
-        { icon: 'discord', label: 'Discord', href: 'https://discord.gg/FywZN57mTg' },
-        { icon: 'twitter', label: 'Twitter', href: 'https://twitter.com/jsxemail' }
-      ],
-      sidebar: [
-        {
-          label: 'Getting Started',
-          items: [
-            { label: 'Introduction', link: '/getting-started/introduction' },
-            { label: 'Quick Start', link: '/getting-started/quick-start' },
-            { label: 'Recipes', link: '/getting-started/recipes' },
-            { label: 'Email Providers', link: '/getting-started/email-providers' },
-            { label: 'FAQ', link: '/getting-started/faq' },
-            { label: 'Contributing', link: '/getting-started/contributing' }
-          ]
-        },
-        {
-          label: 'Components',
-          autogenerate: { directory: 'components' }
-        },
-        {
-          label: 'Core',
-          autogenerate: { directory: 'core' }
-        },
-        {
-          label: 'Plugins',
-          autogenerate: { directory: 'plugins' }
-        },
-        {
-          label: 'Upgrade',
-          autogenerate: { directory: 'upgrade' }
-        }
-      ],
-      customCss: [
-        // Path to your custom CSS file
-        './src/styles/custom.css'
-      ],
-      components: {
-        // Use our custom component to hide the title
-        PageTitle: './src/components/starlight/PageTitle.astro'
-      }
-    }),
-    react()
-  ],
-  // Define content directories that exist outside of the typical src/content
+  site: isProd ? "https://jsx.email" : "http://localhost:4321",
+  build: {
+    format: "file", // mandatory due to CloudFlare Pages trailing slash problem
+  },
   vite: {
-    plugins: [tailwindcss()],
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-        '@components': path.resolve(__dirname, './src/components')
+    plugins: [yaml(), tailwindcss()],
+    optimizeDeps: {
+      exclude: ["bwip-js", "jsx-email"],
+      include: ["motion", "motion/react"],
+    },
+    ssr: {
+      external: ["jsx-email"],
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
+  },
+  image: {
+    domains: ["img.youtube.com"],
+  },
+  prefetch: isProd
+    ? {
+        prefetchAll: true,
+        defaultStrategy: "viewport",
       }
-    }
-  }
+    : undefined,
+  integrations: [
+    mdx(),
+    react(),
+    ...(isProd ? [sitemap()] : []),
+  ],
+  markdown: {
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+          properties: {
+            class: "autolink-header",
+            ariaHidden: true,
+            tabIndex: -1,
+          },
+          test: ["h2", "h3", "h4", "h5"],
+        },
+      ],
+    ],
+    shikiConfig: {
+      theme: "css-variables",
+      transformers: [
+        codeSnippetTransformer(),
+        transformerNotationDiff(),
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+        transformerNotationFocus(),
+        transformerNotationErrorLevel(),
+        transformerMetaHighlight(),
+        transformerMetaWordHighlight(),
+      ],
+    },
+  },
+  shikiConfig: {
+    wrap: true,
+    skipInline: false,
+  },
 });

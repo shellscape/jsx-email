@@ -1,0 +1,572 @@
+---
+import EndOfContent from "@components/docs/EndOfContent.astro";
+import MDXStyles from "@components/docs/MDXStyles.astro";
+import BaseHead from "@/ui/BaseHead.astro";
+import Header from "@components/docs/Header.astro";
+import DocsSidebar from "@components/docs/DocsSidebar.astro";
+import { getContentTree } from "@/utils";
+import type { IHeading } from "@/types";
+import DialectTabs from "@components/docs/DialectTabs.astro";
+import { dialects } from "@/data/dialects";
+
+interface Props {
+  customTitle?: string;
+  customSlug?: string;
+  description?: string;
+  headings: IHeading[];
+}
+
+const { customTitle, headings, description, customSlug } = Astro.props;
+const { slug } = Astro.params;
+const { tree, filteredHeadings, title } = await getContentTree({
+  headings,
+  slug,
+});
+
+const pageHasDialects = Object.keys(dialects).includes(
+  slug?.split("/").at(-1)!,
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <BaseHead
+    title={`JSX email - ${customTitle || title}`}
+    description={description}
+  />
+  <body class="banner-shown docs-body">
+    <MDXStyles />
+    <div class="docs-background" aria-hidden="true" />
+    <Header />
+    <div class="fixed-container">
+      <div class="fixed-elements">
+        <DocsSidebar
+          tree={tree}
+          customSlug={customSlug}
+          headings={filteredHeadings}
+        />
+        <div class="dialects-container">
+          {pageHasDialects && <DialectTabs />}
+        </div>
+      </div>
+    </div>
+    <main class="documentation-container">
+      <div class="documentation-content">
+        {pageHasDialects && <div style="height: 52px" />}
+        <slot />
+        <EndOfContent />
+        <!-- <Footer /> -->
+      </div>
+    </main>
+    <style is:global>
+      .docs-body {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .docs-background {
+        position: absolute;
+        top: 8rem;
+        right: 0;
+        z-index: -1;
+        width: min(1200px, 90vw);
+        aspect-ratio: 1200 / 669;
+        transform: translateX(70%);
+        background-image: url("/landing-bg-muted.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: right top;
+        opacity: 0.9;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .fixed-container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 99;
+        pointer-events: none;
+      }
+
+      .fixed-elements {
+        max-width: 1440px;
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        margin: 0 auto;
+        padding-left: 24px;
+        padding-right: 22px;
+      }
+
+      .right-aside-container {
+        pointer-events: all;
+      }
+
+      .navigation_nav_container_blur {
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        background-color: hsla(0, 0%, 100%, 0.85);
+        box-shadow:
+          0 0 0 0 transparent,
+          0 0 0 0 transparent,
+          0 2px 4px 0 rgba(0, 0, 0, 0.02),
+          0 1px 0 0 rgba(0, 0, 0, 0.06);
+      }
+      .navigation_nav_content_wrap {
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        height: 64px;
+        max-width: 1440px;
+        align-items: center;
+        gap: 8px;
+        padding-left: max(env(safe-area-inset-left), 24px);
+        padding-right: max(env(safe-area-inset-right), 24px);
+      }
+      .documentation-container {
+        max-width: 1440px;
+        width: 100%;
+        display: flex;
+        margin: 0 auto;
+        padding-left: calc(240px + 24px);
+        padding-right: calc(240px + 24px);
+      }
+
+      .documentation-content {
+        padding-left: 48px;
+        padding-right: 48px;
+        padding-top: 1rem;
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      .dialects-container {
+        padding-left: 48px;
+        padding-right: 48px;
+        padding-top: 1rem;
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      @media screen and (max-width: 1279px) {
+        .documentation-content {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .dialects-container {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+      }
+
+      @media screen and (max-width: 1024px) {
+        .right-aside-container {
+          display: none;
+        }
+
+        .documentation-container {
+          padding-right: 24px;
+        }
+
+        .documentation-content {
+          padding-right: 0;
+        }
+
+        .dialects-container {
+          padding-right: 0;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .docs-background {
+          top: 6rem;
+          width: min(960px, 120vw);
+        }
+
+        .documentation-content {
+          padding-left: 16px;
+          padding-right: 16px;
+          padding-top: 1rem;
+          width: 100%;
+        }
+
+        .dialects-container {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .documentation-container {
+          padding: 0;
+        }
+
+        .fixed-elements {
+          padding: 0;
+        }
+      }
+    </style>
+    <style>
+      @media screen and (max-width: 1024px) {
+        .right-aside-container {
+          display: none;
+        }
+      }
+    </style>
+    <script>
+      const { hash } = window.location;
+      if (hash !== "") {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          setTimeout(() => targetElement.scrollIntoView(), 10);
+        }
+      }
+    </script>
+    <script is:inline>
+      const changeNpmTab = () => {
+        const packageManagers = ["npm", "yarn", "pnpm", "bun"];
+        let packageManager = localStorage.getItem("package-manager") || "npm";
+
+        const packageManagerIndex = packageManagers.indexOf(packageManager);
+
+        const updateUI = (index) => {
+          npmContent.forEach((element) => {
+            Array.from(element.children).forEach((child, i) => {
+              child.classList.toggle("hidden", i !== index);
+            });
+          });
+          npmTabs.forEach((element) => {
+            Array.from(element.children).forEach((child, i) => {
+              child.classList.toggle("npm__tab--active", i === index);
+            });
+          });
+
+          npxSelectResizer.querySelector(".line span").innerText =
+            packageManagers[index];
+
+          npxSelects.forEach((element) => {
+            element.value = index;
+            element.style.width = `${npxSelectResizer.offsetWidth}px`;
+          });
+        };
+
+        const npmContent = document.querySelectorAll(".npm__content");
+        const npmTabs = document.querySelectorAll(".npm__tabs");
+        const npxSelects = document.querySelectorAll(".npx-select");
+        const npxSelectResizer = document.querySelector(".npx-select-resizer");
+
+        npmContent.forEach((content) => {
+          Array.from(content.children).forEach((child, index) => {
+            child.classList.toggle("hidden", index !== packageManagerIndex);
+          });
+        });
+
+        npmTabs.forEach((tab) => {
+          Array.from(tab.children).forEach((child, index) => {
+            child.classList.toggle(
+              "npm__tab--active",
+              index === packageManagerIndex,
+            );
+            child.addEventListener("click", () => {
+              packageManager = packageManagers[index];
+              localStorage.setItem("package-manager", packageManager);
+              updateUI(index);
+            });
+          });
+        });
+
+        npxSelects.forEach((element) => {
+          npxSelectResizer.querySelector(".line span").innerText =
+            packageManagers[packageManagerIndex];
+          element.value = packageManagerIndex;
+          setTimeout(
+            () => (element.style.width = `${npxSelectResizer.offsetWidth}px`),
+            1,
+          );
+          element.addEventListener("change", (e) => {
+            packageManager = packageManagers[Number(e.target.value)];
+            localStorage.setItem("package-manager", packageManager);
+            updateUI(Number(e.target.value));
+          });
+        });
+      };
+
+      const updateCollapsedSections = () => {
+        let expandedSections = localStorage.getItem("expandedSections")
+          ? JSON.parse(localStorage.getItem("expandedSections"))
+          : [];
+
+        document
+          .querySelectorAll(".nav-items-collapsable")
+          .forEach((section) => {
+            if (
+              Number(section.getAttribute("data-active-inner-item")) &&
+              !expandedSections.find((v) => v === section.id)
+            ) {
+              expandedSections = [...expandedSections, section.id];
+            }
+            if (expandedSections.find((v) => v === section.id)) {
+              section.classList.add("expanded");
+            } else {
+              section.classList.remove("expanded");
+            }
+          });
+
+        localStorage.setItem(
+          "expandedSections",
+          JSON.stringify(expandedSections),
+        );
+      };
+
+      const scrollSidebar = () => {
+        const expandedSections = localStorage.getItem("expandedSections")
+          ? JSON.parse(localStorage.getItem("expandedSections"))
+          : [];
+
+        document
+          .querySelectorAll(".nav-items-collapsable")
+          .forEach((section) => {
+            if (expandedSections.find((v) => v === section.id)) {
+              section.classList.add("expanded");
+            } else {
+              section.classList.remove("expanded");
+            }
+          });
+
+        const leftSidebar = document.querySelector(".aside-scroll");
+        const navItems = document.querySelectorAll("[data-nav-index]");
+        const headingsContainer = document.querySelector("[data-headings]");
+        const headingsContainerHeight = headingsContainer?.clientHeight || 0;
+        let itemIndex = 0;
+
+        const activeNavItem = Array.from(navItems).find((item) => {
+          return item.classList.contains("nav-item--active");
+        });
+
+        if (activeNavItem) {
+          itemIndex = +(activeNavItem.getAttribute("data-nav-index") || 0);
+        }
+        if (navItems && leftSidebar) {
+          navItems.forEach((item) => {
+            item.addEventListener("click", () => {
+              const nextIndex = +item.getAttribute("data-nav-index");
+              const scrollTop =
+                leftSidebar.scrollTop -
+                (nextIndex > itemIndex ? headingsContainerHeight : 0);
+              localStorage.setItem("sidebar-scroll", scrollTop.toString());
+            });
+          });
+
+          const findPreviousNavSeparator = (element) => {
+            if (!element) return null;
+
+            let previousElement = element.previousElementSibling;
+
+            while (previousElement) {
+              if (previousElement.classList.contains("nav-separator")) {
+                return previousElement;
+              }
+              previousElement = previousElement.previousElementSibling;
+            }
+
+            return null;
+          };
+
+          const leftSidebarScroll = localStorage.getItem("sidebar-scroll");
+          if (leftSidebarScroll !== null) {
+            leftSidebar.scrollTop = parseInt(leftSidebarScroll, 10);
+          } else if (activeNavItem) {
+            if (
+              findPreviousNavSeparator(activeNavItem)?.classList.contains(
+                "nav-separator-collapsable",
+              )
+            ) {
+              leftSidebar.scrollTop =
+                findPreviousNavSeparator(activeNavItem).parentElement.offsetTop;
+            } else {
+              leftSidebar.scrollTop =
+                findPreviousNavSeparator(activeNavItem).offsetTop;
+            }
+          }
+        }
+      };
+
+      scrollSidebar();
+      updateCollapsedSections();
+      changeNpmTab();
+    </script>
+    <script>
+      class Rem1Element extends HTMLElement {
+      }
+
+      class Rem025Element extends HTMLElement {
+      }
+
+      class Rem05Element extends HTMLElement {
+      }
+
+      customElements.define("rem-1", Rem1Element);
+      customElements.define("rem-025", Rem025Element);
+      customElements.define("rem-05", Rem05Element);
+    </script>
+    <script is:inline data-astro-rerun>
+      document.querySelectorAll("h2").forEach((el) => {
+        // Note: The silly concat below is to avoid an oxlint bug https://github.com/oxc-project/oxc/issues/22090
+        // oxlint-disable-next-line  eslint(no-useless-concat
+        if (el.innerText === "--" + "-") {
+          el.classList.add("hidden-separator");
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("astro:page-load", () => {
+        const copyBtn = document.querySelectorAll(
+          "[data-copy-btn]",
+        ) as NodeListOf<HTMLElement>;
+        copyBtn.forEach((n) => {
+          n.addEventListener("click", () => {
+            const timeouts: NodeJS.Timeout[] = [];
+
+            if (timeouts.length) {
+              timeouts.forEach((id) => {
+                clearTimeout(id);
+              });
+            }
+
+            navigator.clipboard.writeText(n.dataset.code!);
+
+            n.classList.add("copied");
+            n.classList.add("hide-svg");
+            timeouts.push(
+              setTimeout(() => {
+                n.classList.remove("copied");
+              }, 1500),
+            );
+            timeouts.push(
+              setTimeout(() => {
+                n.classList.remove("hide-svg");
+              }, 2000),
+            );
+          });
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("astro:after-swap", () => {
+        const npmContent: NodeList = document.querySelectorAll(".npm__content");
+        const npmTabs: NodeList = document.querySelectorAll(".npm__tabs");
+        const npxSelects =
+          document.querySelectorAll<HTMLSelectElement>(".npx-select");
+        const npxSelectResizer = document.querySelector<HTMLDivElement>(
+          ".npx-select-resizer",
+        );
+        const packageManagers: string[] = ["npm", "yarn", "pnpm", "bun"];
+        let packageManager: string =
+          localStorage.getItem("package-manager") || "npm";
+        const packageManagerIndex: number =
+          packageManagers.indexOf(packageManager);
+
+        const updateUI = (index: number): void => {
+          npmContent.forEach((element) => {
+            Array.from((element as HTMLElement).children).forEach(
+              (child, i) => {
+                child.classList.toggle("hidden", i !== index);
+              },
+            );
+          });
+          npmTabs.forEach((element) => {
+            Array.from((element as HTMLElement).children).forEach(
+              (child, i) => {
+                child.classList.toggle("npm__tab--active", i === index);
+              },
+            );
+          });
+          const lineSpan =
+            npxSelectResizer?.querySelector<HTMLSpanElement>(".line span");
+          if (lineSpan) {
+            lineSpan.innerText = packageManagers[index];
+          }
+
+          npxSelects.forEach((element) => {
+            element.value = index.toString();
+            if (npxSelectResizer) {
+              element.style.width = `${npxSelectResizer.offsetWidth}px`;
+            }
+          });
+        };
+
+        npmContent.forEach((content) => {
+          Array.from((content as HTMLElement).children).forEach(
+            (child, index) => {
+              child.classList.toggle("hidden", index !== packageManagerIndex);
+            },
+          );
+        });
+
+        npmTabs.forEach((tab) => {
+          Array.from((tab as HTMLElement).children).forEach((child, index) => {
+            child.classList.toggle(
+              "npm__tab--active",
+              index === packageManagerIndex,
+            );
+            child.addEventListener("click", () => {
+              packageManager = packageManagers[index];
+              localStorage.setItem("package-manager", packageManager);
+              updateUI(index);
+            });
+          });
+        });
+
+        npxSelects.forEach((element) => {
+          const lineSpan =
+            npxSelectResizer?.querySelector<HTMLSpanElement>(".line span");
+              if(lineSpan) {
+                lineSpan.innerText = packageManagers[packageManagerIndex];
+              }
+
+          element.value = packageManagerIndex.toString();
+          if (npxSelectResizer) {
+            element.style.width = `${npxSelectResizer.offsetWidth}px`;
+          }
+          element.addEventListener("change", (e) => {
+            const selectElement = e.target as HTMLSelectElement;
+            packageManager = packageManagers[Number(selectElement.value)];
+            localStorage.setItem("package-manager", packageManager);
+            updateUI(Number(selectElement.value));
+          });
+        });
+      });
+    </script>
+    <style is:global>
+      rem-1 {
+        display: block;
+        height: 1rem;
+      }
+
+      rem-025 {
+        display: block;
+        height: 0.25rem;
+      }
+
+      rem-05 {
+        display: block;
+        height: 0.5rem;
+      }
+
+      .hidden-separator {
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        overflow: hidden;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    </style>
+  </body>
+</html>

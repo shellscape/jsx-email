@@ -1,0 +1,14 @@
+[
+  [
+    "inline",
+    "Inline CSS Plugin"
+  ],
+  [
+    "minify",
+    "Minify Plugin"
+  ],
+  [
+    "pretty",
+    "Pretty Plugin"
+  ]
+]

@@ -1,0 +1,164 @@
+---
+import type { IHeading, TreeNode } from "@/types";
+import AsideSocials from "./AsideSocials.astro";
+import SidebarContentWrap from "./SidebarContentWrap.astro";
+import ThemeSelectorMobile from "../ThemeSelectorMobile.astro";
+
+interface Props {
+  tree: TreeNode[];
+  headings: IHeading[];
+  forLanding?: boolean;
+  customSlug?: string;
+}
+
+const { slug } = Astro.params;
+const { tree, headings, forLanding, customSlug } = Astro.props;
+---
+
+<div class="aside invisible" id="aside">
+  <div class="aside-content aside-scroll scrollbar">
+    <SidebarContentWrap filteredHeadings={headings} slug={customSlug || slug} tree={tree} forLanding={forLanding} />
+    <ThemeSelectorMobile />
+    <AsideSocials />
+  </div>
+</div>
+<script>
+  const mainScript = () => {
+  const expandedSections: string[] = localStorage.getItem("expandedSections")
+    ? JSON.parse(localStorage.getItem("expandedSections")!)
+    : [];
+
+  document.querySelectorAll(".nav-items-collapsable").forEach((section) => {
+    if (expandedSections.find((v) => v === section.id)) {
+      section.classList.add("expanded");
+    } else {
+      section.classList.remove("expanded");
+    }
+  });
+
+  const leftSidebar = document.querySelector(".aside-scroll");
+  const navItems = document.querySelectorAll("[data-nav-index]");
+  const headingsContainer = document.querySelector("[data-headings]");
+  const headingsContainerHeight = headingsContainer?.clientHeight || 0;
+  let itemIndex = 0;
+
+  const activeNavItem = Array.from(navItems).find((item) => {
+    return item.classList.contains("nav-item--active");
+  });
+
+  if (activeNavItem) {
+    itemIndex = +(activeNavItem.getAttribute("data-nav-index") || 0);
+  }
+  if (navItems && leftSidebar) {
+    navItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const nextIndex = +item.getAttribute("data-nav-index")!;
+        const scrollTop =
+          leftSidebar.scrollTop -
+          (nextIndex > itemIndex ? headingsContainerHeight : 0);
+        localStorage.setItem("sidebar-scroll", scrollTop.toString());
+      });
+    });
+
+    const findPreviousNavSeparator = (
+      element: Element | null,
+    ): HTMLElement | null => {
+      if (!element) return null;
+
+      let previousElement =
+        element.previousElementSibling as HTMLElement | null;
+
+      while (previousElement) {
+        if (previousElement.classList.contains("nav-separator")) {
+          return previousElement;
+        }
+        previousElement =
+          previousElement.previousElementSibling as HTMLElement | null;
+      }
+
+      return null;
+    };
+
+    const leftSidebarScroll = localStorage.getItem("sidebar-scroll");
+    if (leftSidebarScroll !== null) {
+      leftSidebar.scrollTop = parseInt(leftSidebarScroll, 10);
+    } else if (activeNavItem) {
+      if (
+        findPreviousNavSeparator(activeNavItem)?.classList.contains(
+          "nav-separator-collapsable",
+        )
+      ) {
+        leftSidebar.scrollTop =
+          findPreviousNavSeparator(activeNavItem)!.parentElement!.offsetTop;
+      } else {
+        leftSidebar.scrollTop =
+          findPreviousNavSeparator(activeNavItem)!.offsetTop;
+      }
+    }
+  }
+};
+
+document.addEventListener("astro:after-swap", mainScript);
+</script>
+<style is:global>
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  html[class~="dark"] .aside {
+    border-right: 1px solid #303030;
+  }
+
+  .aside {
+    border-right: 1px solid #efefef;
+    display: flex;
+    flex-direction: column;
+    position: static;
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+    align-self: flex-start;
+    box-shadow:
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0.02) 0px 2px 4px 0px,
+      rgba(0, 0, 0, 0.06) 1px 0px 0px 0px;
+    mask-image: linear-gradient(
+      to bottom,
+      #000,
+      #000 calc(100% - 20px),
+      transparent
+    );
+      pointer-events: all;
+  }
+
+  .aside-scroll {
+    padding: 0 16px 0 0;
+    overscroll-behavior: contain;
+  }
+
+  @media screen and (max-width: 768px) {
+    html.dark .aside {
+      background: #111;
+      border-right: none;
+    }
+
+    .aside {
+      z-index: 100;
+      position: fixed;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: #fff;
+      mask-image: none;
+      border-right: none;
+    }
+
+    .aside .logo-wrap {
+      display: none;
+    }
+
+    .aside-scroll {
+      padding: 0 16px 0 16px;
+    }
+  }
+</style>

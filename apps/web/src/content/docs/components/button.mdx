@@ -1,24 +1,25 @@
 ---
-title: Button
+title: 'Button'
 description: A JSX email component which styles an anchor element to appear as a button
 type: component
-sidebar:
-  badge:
-    text: Major update
-    variant: danger
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+A JSX email component which styles an anchor element to appear as a button
 
-<Install type={frontmatter.type} />
+<Callout type="info" title="Tips">
+Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
+</Callout>
+
+<InstallTabs />
 
 ## Usage
 
-```jsx "Button"
-// ButtonExample.jsx
+Add the component to your email template. Include styles where needed.
+
+```jsx
 import { Button } from 'jsx-email';
 
 const Email = () => {
@@ -30,13 +31,7 @@ const Email = () => {
 };
 ```
 
-:::note[HTML Output]
-Renders as an `<a>` element styled to look like a button.
-:::
-
-## Props
-
-### TypeScript Interface
+## Component Props
 
 ```ts
 export interface ButtonProps extends BaseProps<'a'> {
@@ -54,110 +49,84 @@ export interface ButtonProps extends BaseProps<'a'> {
 }
 ```
 
-:::caution[Email Client Compatibility]
-For optimal compatibility (especially with Outlook), use the component props below instead of CSS, `style` property, or [`Tailwind`](/components/tailwind) classes.
-:::
-
-### Required Props
-
-#### width
-
-```ts
-width: number;
-```
-
-Button width in pixels.
-
-#### height
-
-```ts
-height: number;
-```
-
-Button height in pixels.
-
-### Optional Props
-
-#### href
+<Callout type="info" title="Tips">
+  It's **highly reccommended** for **optimal email client compatibility** to use the component props
+  below to set styles, rather than CSS, the `style` property, or
+  [`Tailwind`](/docs/components/tailwind) classes. This is especially important for Outlook.
+</Callout>
 
 ```ts
 href?: string;
 ```
 
-URL to navigate to when clicked.
+The url to navigate to when the button is clicked.
 
-#### align
+```ts
+width: number;
+```
+
+Specifies the `width` of the Button in pixels
+
+```ts
+height: number;
+```
+
+Specifies the `height` of the Button in pixels
 
 ```ts
 align?: 'left' | 'center' | 'right';
 ```
 
-Horizontal alignment in container. Defaults to `left`.
-
-#### backgroundColor
-
-```ts
-backgroundColor?: string;
-```
-
-Button background color (hex value).
-
-#### borderColor
-
-```ts
-borderColor?: string;
-```
-
-Border color (hex value).
-
-#### borderRadius
-
-```ts
-borderRadius?: number;
-```
-
-Border radius in pixels.
-
-#### borderSize
-
-```ts
-borderSize?: number;
-```
-
-Border width in pixels.
-
-#### fontSize
-
-```ts
-fontSize?: number;
-```
-
-Text size in pixels.
-
-#### target
+Specifies the horizontal alignment of the Button in the container. Default value is `left`
 
 ```ts
 target?: string;
 ```
 
-Value for the HTML `target` attribute.
+Specifies the value of the `"target"` attribute for the button `target`.
 
-#### textColor
+```ts
+backgroundColor?: string;
+```
+
+Specifies the hex value for the `background-color` of the button
+
+```ts
+borderColor?: string;
+```
+
+Specifies the hex value `border-color` for the button
+
+```ts
+borderRadius?: number;
+```
+
+Specifies the `border-radius` value for the button in pixels
+
+```ts
+borderSize?: number;
+```
+
+Specifies the `border-width` value in pixels
+
+```ts
+fontSize?: number;
+```
+
+Specifies the `font-size` value in pixels
 
 ```ts
 textColor?: string;
 ```
 
-Text color (hex value).
-
-#### withBackground
+Specifies the hex value for the `color` of the text
 
 ```ts
 withBackground?: boolean;
 ```
 
-Set to `true` when nested in a `Background` component for Outlook compatibility.
+Set to `true` if `Button` is nested in a `Background` component. Neccessary for good Outlook compatibility.
 
-### Additional Props
-
+<Callout type="info" title="Tips">
 This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+</Callout>

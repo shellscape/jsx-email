@@ -4,17 +4,18 @@ description: Displays a group of avatars with optional overlap
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Displays a group of avatars with optional overlap
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "AvatarGroup"
-// AvatarGroupExample.jsx
+`AvatarGroup` arranges `Avatar` children in a row.
+
+```jsx
 import { Avatar, AvatarGroup } from 'jsx-email';
 
 const Email = () => {
@@ -28,10 +29,9 @@ const Email = () => {
 };
 ```
 
-Enable overlap explicitly:
+Use overlap only when needed:
 
-```jsx "AvatarGroup"
-// AvatarGroupOverlapExample.jsx
+```jsx
 import { Avatar, AvatarGroup } from 'jsx-email';
 
 const Email = () => {
@@ -47,8 +47,7 @@ const Email = () => {
 
 Truncate long groups with a `+N` overflow token:
 
-```jsx "AvatarGroup"
-// AvatarGroupMaxExample.jsx
+```jsx
 import { Avatar, AvatarGroup } from 'jsx-email';
 
 const Email = () => {
@@ -63,10 +62,9 @@ const Email = () => {
 };
 ```
 
-Render right-to-left order when needed:
+Render in reverse order for right-to-left layouts:
 
-```jsx "AvatarGroup"
-// AvatarGroupDirectionExample.jsx
+```jsx
 import { Avatar, AvatarGroup } from 'jsx-email';
 
 const Email = () => {
@@ -80,11 +78,7 @@ const Email = () => {
 };
 ```
 
-## Props
-
-### Optional Props
-
-#### direction
+## Component Props
 
 ```ts
 direction?: 'ltr' | 'rtl';
@@ -92,15 +86,11 @@ direction?: 'ltr' | 'rtl';
 
 Controls group rendering order. Defaults to `"ltr"`.
 
-#### max
-
 ```ts
 max?: number;
 ```
 
 Maximum number of avatars to render before appending an overflow token (for example, `+2`).
-
-#### overlap
 
 ```ts
 overlap?: boolean;
@@ -108,27 +98,23 @@ overlap?: boolean;
 
 If `true`, overlaps avatars. Defaults to `false` for compatibility-safe rendering.
 
-#### spacing
-
 ```ts
 spacing?: number;
 ```
 
 Spacing in pixels between avatars. Defaults to `8`.
 
-#### disableDefaultStyle
-
 ```ts
 disableDefaultStyle?: boolean;
 ```
 
-When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
 ## Caveats
 
-- `overlap={true}` is an enhanced mode that relies on negative margins and layered stacking.
-- Rendering can vary in stricter email clients, so keep overlap spacing conservative and verify with `email check`.
+- `overlap={true}` is an enhanced mode that depends on negative margins and layered stacking. Rendering can vary across older or stricter email clients.
+- Keep overlap values conservative and verify output with `email check` before sending.
 
-### Additional Props
-
-This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`, except `cellPadding` and `cellSpacing`.
+<Callout type="info" title="Tips">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`, except `cellPadding` and `cellSpacing`.
+</Callout>

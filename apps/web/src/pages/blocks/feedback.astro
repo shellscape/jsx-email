@@ -1,12 +1,15 @@
 ---
-import '../../styles/global.css';
-import Layout from '../../components/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { BlockPreview } from '../../components/BlockPreview';
-import { getRenderedBlocks, type Block } from '../../blocks/feedback';
+import '../../styles/home.css';
+import Layout from '@/ui/layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import BlockPreview from '@components/BlockPreview.astro';
+import { getRenderedBlocks, type Block } from '@/blocks/feedback';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
+const previewHeights: Record<string, number> = {
+  'Emoji Feedback': 300
+};
 ---
 
 <Layout title="Feedback - Blocks - JSX Email">
@@ -25,12 +28,11 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
         {
           renderedBlocks.map((block) => (
             <BlockPreview
-              client:load
               name={block.name}
               renderedHtml={block.renderedHtml}
               code={block.code}
               codeHtml={block.codeHtml}
-              height={250}
+              height={previewHeights[block.name] ?? 250}
             />
           ))
         }

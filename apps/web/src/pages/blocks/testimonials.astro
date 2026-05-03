@@ -1,10 +1,10 @@
 ---
-import '../../styles/global.css';
-import Layout from '../../components/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { BlockPreview } from '../../components/BlockPreview';
-import { getRenderedBlocks, type Block } from '../../blocks/testimonials';
+import '../../styles/home.css';
+import Layout from '@/ui/layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import BlockPreview from '@components/BlockPreview.astro';
+import { getRenderedBlocks, type Block } from '@/blocks/testimonials';
 
 const renderedBlocks: Block[] = await getRenderedBlocks();
 ---
@@ -27,7 +27,6 @@ const renderedBlocks: Block[] = await getRenderedBlocks();
             const height = block.name === 'Testimonial with large avatar' ? 400 : 300;
             return (
               <BlockPreview
-                client:load
                 name={block.name}
                 renderedHtml={block.renderedHtml}
                 code={block.code}

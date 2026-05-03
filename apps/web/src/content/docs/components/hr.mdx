@@ -4,42 +4,33 @@ description: Creates divider (horizontal rule) that separates content
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Creates divider (horizontal rule) that separates content
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Hr"
-// HrExample.jsx
+Add the component to your email template. Include styles where needed.
+
+```jsx
 import { Hr } from 'jsx-email';
 
 const Email = () => {
-  return (
-    <>
-      <p>Content above</p>
-      <Hr />
-      <p>Content below</p>
-    </>
-  );
+  return <Hr />;
 };
 ```
 
-## Props
-
-### Optional Props
-
-#### disableDefaultStyle
+## Component Props
 
 ```ts
 disableDefaultStyle?: boolean;
 ```
 
-When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
-### Additional Props
-
-This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'hr'>`.
+<Callout type="info" title="Tips">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'hr'>`.
+</Callout>

@@ -111,6 +111,7 @@
       ]
     },
     "Markdown": {
+      "soft_wrap": "editor_width",
       "format_on_save": "on",
       "prettier": {
         "allowed": false
@@ -124,6 +125,7 @@
       ]
     },
     "MDX": {
+      "soft_wrap": "editor_width",
       "format_on_save": "on",
       "prettier": {
         "allowed": false

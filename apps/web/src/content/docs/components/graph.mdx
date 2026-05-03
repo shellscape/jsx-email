@@ -1,29 +1,27 @@
 ---
-title: Graph
-description: A JSX email component for displaying graphs in your Email template
+title: 'Graph'
+description: 'A JSX email component for displaying graphs in your Email template'
 type: component
-sidebar:
-  badge:
-    text: New
-    variant: success
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+A JSX email component for displaying graphs in your Email template
 
-:::note[API Integration]
-This component uses [QuickChart API](https://quickchart.io/) to generate email-compatible charts.
-:::
+<Callout type="info" title="Tips">
+  This component is wrapper around [QuickChart API](https://quickchart.io/) for generating email
+  compatible charts
+</Callout>
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Graph"
-// GraphExample.jsx
-import { Html, Body, Section, Graph } from 'jsx-email';
+Add the graph component to your email template.
+
+```jsx
+import { Body, Graph, Html, Section } from 'jsx-email';
 
 const Email = () => {
   return (
@@ -53,60 +51,45 @@ const Email = () => {
 };
 ```
 
-:::tip[Chart Configuration]
-Test your chart configurations in the [QuickChart playground](https://quickchart.io/sandbox).
-:::
+## Component Props
 
-## Props
-
-### Required Props
-
-#### config
-
-```ts
+```tsx
 config: ChartConfiguration & Record<string, any>;
 ```
 
-Chart configuration object following [Chart.js v2.9.4](https://www.chartjs.org/docs/2.9.4/charts/) format.
+An object that contains the chart configuration settings, combining [ChartConfiguration](https://www.chartjs.org/docs/2.9.4/charts/) properties.
 
-#### title
+<Callout type="info" title="Tips">
+  You can play around with your chart configuration in this
+  [playground](https://quickchart.io/sandbox)
+</Callout>
 
-```ts
+```tsx
 title: string;
 ```
 
-Graph title.
+This is a required string that provides the title of the graph.
 
-### Optional Props
-
-#### background
-
-```ts
+```tsx
 background?: string;
 ```
 
-Graph background color.
+An optional string that sets the background color of the graph.
 
-#### className
-
-```ts
+```tsx
 className?: string;
 ```
 
-Custom CSS class for additional styling.
+This is optional string that applies a custom CSS class to the graph component for additional styling.
 
-#### height
-
-```ts
+```tsx
 height?: number;
 ```
 
-Graph height in pixels.
+This is an optional number that specifies the height of the graph in pixels.
 
-#### width
-
-```ts
+```tsx
 width?: number;
 ```
 
-Graph width in pixels.
+This is an optional number that specifies the width of the graph in pixels.

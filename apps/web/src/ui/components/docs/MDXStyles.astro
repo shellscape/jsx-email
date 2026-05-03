@@ -1,0 +1,379 @@
+<style is:global lang="scss">
+  .documentation-content {
+    -webkit-font-smoothing: auto;
+    color: #37352f;
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: #0f172a;
+      padding: 4px 0 6px;
+    }
+
+    blockquote {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 8px 12px;
+        background: #f3f4f6;
+        font-size: 14px;
+        margin: 6px 0;
+    }
+
+  blockquote::before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 4px;
+      background: #37352f;
+  }
+
+  blockquote p:first-child {
+      padding-top: 0;
+  }
+
+  blockquote p:last-child {
+      padding-bottom: 0;
+  }
+
+  em {
+      font-style: italic;
+  }
+
+    p {
+      padding: 6px 0;
+      line-height: 1.5em;
+    }
+
+    strong {
+      font-weight: bolder;
+    }
+
+    a {
+      text-decoration: none;
+      outline-offset: 2px;
+      outline: 2px solid transparent;
+      border-radius: 0.25rem;
+      color: #006be6;
+      text-decoration-thickness: from-font;
+      text-underline-position: from-font;
+    }
+
+    p + h3 {
+        margin-top: 23px;
+    }
+
+    p + h4 {
+        margin-top: 23px;
+    }
+
+    p + h2 {
+        margin-top: 23px;
+    }
+
+    h1 + p {
+        padding-top: 3px;
+    }
+
+    h2 + p {
+        padding-top: 3px;
+    }
+
+    h3 + p {
+        padding-top: 3px;
+    }
+
+    h4 + p {
+        padding-top: 3px;
+    }
+
+    h4 + p {
+        padding-top: 3px;
+    }
+
+    h2 {
+      margin: 32px 0 0;
+      padding: 3px 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: #0f172a;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      padding: 3px 0;
+      margin-top: 32px;
+      margin-bottom: 1px;
+    }
+
+    h4 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      padding: 3px 0;
+      margin-top: 32px;
+      margin-bottom: 1px;
+      color: #0f172a;
+    }
+
+    h5 {
+      margin-top: 16px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: #0f172a;
+    }
+
+    h6 {
+      margin-top: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: #0f172a;
+    }
+
+    h1 code,
+    h2 code,
+    h3 code,
+    h4 code,
+    h5 code,
+    h6 code {
+        font-size: 0.8125em;
+    }
+
+    hr {
+      height: 0;
+      color: inherit;
+      border-top-width: 1px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    p + ul {
+       margin-top: -4px;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin: 0 0 0 1.2rem ;
+    }
+
+    ol {
+      margin: 0 0 0 1.2rem ;
+      list-style-type: decimal;
+    }
+
+    li {
+      padding: 2px 0;
+    }
+
+    li p {
+        padding: 0;
+    }
+
+    li ul {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    p code {
+        white-space: nowrap;
+        font-size: 0.8125em;
+    }
+
+    li code {
+        white-space: nowrap;
+        font-size: 0.8125em;
+    }
+
+    code {
+      overflow-wrap: break-word;
+      border-radius: 2px;
+      border: 1px solid #21272e1f;
+      background: #fafafa;
+      padding: 2px 3px;
+      font-size: 13px;
+      color: #0a0a0a;
+      line-height: normal;
+    }
+
+    table {
+      text-indent: 0;
+      border-color: inherit;
+      border-collapse: collapse;
+      display: block;
+      overflow-x: scroll;
+      scrollbar-gutter: stable;
+      margin: -2px 0 6px;
+      width: 100%;
+    }
+
+    table::-webkit-scrollbar {
+      height: 0.75rem;
+      width: 0.75rem;
+    }
+
+    table::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+    }
+
+    table::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
+    }
+
+    @supports (color: lab(0% 0 0)) {
+      table {
+        scrollbar-color: lab(48.438% 0 0/0.4) transparent;
+      }
+    }
+
+    @supports (color: color(display-p3 0 0 0)) {
+      table {
+        scrollbar-color: color(display-p3 0.45095 0.45095 0.45095/0.4)
+          transparent;
+      }
+    }
+
+    tr th {
+      border-bottom: 1px solid #c9cbcf;
+      padding: 8px 12px;
+      font-weight: 600;
+    }
+
+    tr th:empty {
+        padding: 0 12px 8px !important;
+    }
+
+    tr th:first-child {
+        padding: 8px 12px 8px 0;
+    }
+
+    tr th:last-child {
+        padding: 8px 0 8px 12px;
+    }
+
+    tr td code {
+        font-size: 0.8125em;
+        white-space: nowrap;
+    }
+
+    tr th code {
+        font-size: 0.8125em;
+        white-space: nowrap;
+    }
+
+    tr td {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+
+    tbody tr:last-child td {
+        border-color: #c9cbcf;
+    }
+
+    tr td:first-child {
+        padding: 8px 12px 8px 0;
+    }
+
+    tr td:last-child {
+        padding: 8px 0 8px 12px;
+        width: 100%;
+    }
+
+    h1 .autolink-header {
+      display: none;
+    }
+
+    h2:hover .autolink-header,
+    h3:hover .autolink-header,
+    h4:hover .autolink-header,
+    h5:hover .autolink-header {
+      opacity: 1;
+    }
+
+    .autolink-header {
+      opacity: 0;
+      transition: opacity 0.1s ease-in-out;
+      margin-left: 4px;
+      text-decoration: none;
+    }
+
+    .autolink-header::after {
+      content: "#";
+      color: rgba(209, 213, 219, 1);
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+  }
+
+  .dark .documentation-content {
+    color: #c4c5c6;
+    blockquote {
+        background: #282a36;
+        border: none;
+    }
+
+    h2 {
+      color: #c8c9ca;
+    }
+
+    h1,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: #c8c9ca;
+    }
+
+    tr th {
+        border-color: #404040;
+    }
+
+    tr td {
+        border-color: #292929;
+    }
+
+    tbody tr:last-child td {
+        border-color: #404040;
+    }
+  }
+
+  html[class~="dark"] .autolink-header::after {
+    color: rgb(64, 64, 64);
+  }
+
+  html.dark .documentation-content blockquote {
+    background: #1a1a1a;
+  }
+
+  html.dark .documentation-content blockquote::before {
+      background: #c4c5c6;
+  }
+
+  html.dark code {
+      background-color: #1a1a1a;
+      color: #c4c5c6;
+      border-color: #292929;
+  }
+
+  @media screen and (max-width: 768px) {
+    .documentation-content {
+      h1 {
+        font-size: 24px;
+      }
+    }
+  }
+</style>

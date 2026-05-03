@@ -1,0 +1,72 @@
+---
+import { Discord, Heart } from "iconoir-react";
+---
+
+<div class="aside-socials__wrap">
+  <a class="aside-socials__item" href="https://github.com/sponsors/shellscape" target="_blank" rel="nofollow noreferrer">
+    <div class="aside-socials__item-icon">
+      <Heart width="20" height="20" strokeWidth={1.75} />
+    </div>
+    <div class="aside-socials__item-text">Become a Sponsor</div>
+  </a>
+  <a class="aside-socials__item" href="https://discord.gg/FywZN57mTg" rel="nofollow noreferrer" target="_blank">
+    <div class="aside-socials__item-icon">
+      <Discord width="20" height="20" strokeWidth={1.75} />
+    </div>
+    <div class="aside-socials__item-text">Discord</div>
+  </a>
+</div>
+
+<style>
+  .aside-socials__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 24px 16px 16px 0;
+    margin-top: 40px;
+  }
+
+  .aside-socials__item {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+    cursor: pointer;
+  }
+
+  .aside-socials__item-icon {
+    align-items: center;
+    border-radius: 9px;
+    color: #909090;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    width: 32px;
+    fill: #b9b9b9;
+    transition-duration: 0.15s;
+    transition-property: color, background-color, border-color, fill;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aside-socials__item-text {
+    color: #909090;
+    font-size: 14px;
+    transition-duration: 0.15s;
+    transition-property: color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html.dark .aside-socials__item-icon,
+  html.dark .aside-socials__item-text {
+    color: #737373;
+  }
+
+  html.dark .aside-socials__item:hover .aside-socials__item-icon,
+  html.dark .aside-socials__item:hover .aside-socials__item-text {
+    color: #f9fafb;
+  }
+
+  .aside-socials__item:hover .aside-socials__item-text,
+  .aside-socials__item:hover .aside-socials__item-icon {
+    color: #111827;
+  }
+</style>

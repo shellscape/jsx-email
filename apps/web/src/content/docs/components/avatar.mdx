@@ -4,17 +4,18 @@ description: Displays a profile avatar with image and fallback support
 type: component
 ---
 
-import Install from '@components/mdx/install.mdx';
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
 
-<h1>{frontmatter.title}</h1>
-<p>{frontmatter.description}</p>
+Displays a profile avatar with image and fallback support
 
-<Install type={frontmatter.type} />
+<InstallTabs />
 
 ## Usage
 
-```jsx "Avatar"
-// AvatarExample.jsx
+Use `Avatar` for profile images. If `src` is missing, it renders fallback text.
+
+```jsx
 import { Avatar } from 'jsx-email';
 
 const Email = () => {
@@ -31,8 +32,7 @@ const Email = () => {
 
 Fallback-only example:
 
-```jsx "Avatar"
-// AvatarFallbackExample.jsx
+```jsx
 import { Avatar } from 'jsx-email';
 
 const Email = () => {
@@ -40,12 +40,12 @@ const Email = () => {
 };
 ```
 
-### Fallback and accessibility precedence (when `src` is missing)
+### Image Fallbacks
 
 - Visible fallback text uses this order:
   1. trimmed `fallback`
   2. derived initials from `name`
-  3. `?`
+  3. literal `"?"`
 - Non-decorative fallback avatars (`decorative={false}`) use this accessible label order:
   1. trimmed `alt`
   2. `name`
@@ -53,11 +53,7 @@ const Email = () => {
 - Decorative fallback avatars (`decorative={true}`) render with `role="presentation"` and
   `aria-hidden="true"`.
 
-## Props
-
-### Optional Props
-
-#### src
+## Component Props
 
 ```ts
 src?: string;
@@ -65,15 +61,11 @@ src?: string;
 
 Path or URL for the avatar image.
 
-#### alt
-
 ```ts
 alt?: string;
 ```
 
 Accessible alt text for image avatars. If omitted, the component derives text from `name` or `fallback`.
-
-#### name
 
 ```ts
 name?: string;
@@ -81,15 +73,11 @@ name?: string;
 
 A readable label used for alt derivation and fallback initials.
 
-#### fallback
-
 ```ts
 fallback?: string;
 ```
 
 Fallback text used when `src` is not provided.
-
-#### decorative
 
 ```ts
 decorative?: boolean;
@@ -97,23 +85,17 @@ decorative?: boolean;
 
 Marks the avatar as decorative. Decorative avatars use presentational accessibility attributes.
 
-#### disableDefaultStyle
-
 ```ts
 disableDefaultStyle?: boolean;
 ```
 
-When `true`, removes default styles. Useful when using [`Tailwind`](/components/tailwind) or custom classes.
-
-#### width
+If `true`, instructs the component _not to add_ default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
 
 ```ts
 width?: string | number;
 ```
 
 Avatar width. Defaults to `40` when no explicit size is provided.
-
-#### height
 
 ```ts
 height?: string | number;
@@ -123,10 +105,10 @@ Avatar height. Defaults to `40` when no explicit size is provided.
 
 ## Caveats
 
-- Default avatar images use `object-fit: cover` to keep circular crops consistent.
-- Some email clients may ignore `object-fit`, which can produce stretching or letterboxing.
-- For consistent rendering, provide pre-cropped square images and explicit `width`/`height`.
+- Default avatar images use `object-fit: cover` to maintain rounded presentation.
+- Some email clients may not fully support `object-fit`, so source images may appear stretched or letterboxed.
+- For the most consistent results, provide pre-cropped square images and explicit `width`/`height`.
 
-### Additional Props
-
-This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`, except `children`.
+<Callout type="info" title="Tips">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`, except `children`.
+</Callout>
