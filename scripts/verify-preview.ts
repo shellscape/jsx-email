@@ -319,6 +319,28 @@ async function main() {
     results.uniqueFocus = { firstCount, secondCount };
   }
 
+  if (check === 'all' || check === 'close-unfocused') {
+    await openPreview('close-unfocused');
+    await addTemplate('airbnb-review.tsx');
+    await addTemplate('apple-receipt.tsx');
+    const before = {
+      ...(await readSelected()),
+      geometry: await readSelectedScrollGeometry()
+    };
+    await page.getByRole('button', { exact: true, name: 'Remove Airbnb Review' }).click();
+    await page.waitForTimeout(900);
+    const after = {
+      ...(await readSelected()),
+      cardCount: await page.locator('main iframe').count(),
+      geometry: await readSelectedScrollGeometry()
+    };
+
+    results.closeUnfocused = {
+      after,
+      before
+    };
+  }
+
   if (check === 'all' || check === 'tree') {
     await openPreview('tree');
     await addTemplate('airbnb-review.tsx');

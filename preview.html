@@ -1127,6 +1127,9 @@
                     event.stopPropagation();
                     remove(card.id);
                   },
+                  onPointerDown: (event) => {
+                    event.stopPropagation();
+                  },
                   className: 'px-2'
                 }, h(Icon, { name: 'xmark' }))
               )
@@ -1172,6 +1175,7 @@
         const canvasRef = useRef(null);
         const cardNodes = useRef(new Map());
         const canvasInitialized = useRef(false);
+        const preserveSelectionPosition = useRef(null);
         const previousCardCount = useRef(0);
 
         const selected = cards.find((c) => c.id === selectedId) || null;
@@ -1250,10 +1254,33 @@
               behavior: previousCardCount.current === 0 ? 'auto' : 'smooth'
             });
             previousCardCount.current = cards.length;
+            setFocusTarget(null);
           });
 
           return () => cancelAnimationFrame(frame);
         }, [focusTarget, cards.length]);
+
+        useLayoutEffect(() => {
+          const preserved = preserveSelectionPosition.current;
+          if (!preserved) return;
+
+          const frame = requestAnimationFrame(() => {
+            const canvas = canvasRef.current;
+            const card = cardNodes.current.get(preserved.id);
+            if (!canvas || !card) return;
+
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+            canvas.scrollTo({
+              left: canvas.scrollLeft + cardCenter - preserved.center,
+              top: canvas.scrollTop,
+              behavior: 'auto'
+            });
+            preserveSelectionPosition.current = null;
+          });
+
+          return () => cancelAnimationFrame(frame);
+        }, [cards]);
 
         function setCardNode(id, node) {
           if (node) {
@@ -1280,8 +1307,23 @@
           focusCard(id);
         }
         function remove(id) {
+          if (selectedId && selectedId !== id) {
+            const selectedNode = cardNodes.current.get(selectedId);
+            if (selectedNode) {
+              const selectedRect = selectedNode.getBoundingClientRect();
+              preserveSelectionPosition.current = {
+                center: selectedRect.left + selectedRect.width / 2,
+                id: selectedId
+              };
+            }
+          }
+
           setCards((cs) => cs.filter((c) => c.id !== id));
-          if (selectedId === id) setSelectedId(null);
+          if (selectedId === id) {
+            setSelectedId(null);
+            setFocusTarget(null);
+            preserveSelectionPosition.current = null;
+          }
         }
         function handleCanvasClickCapture(event) {
           if (!isZoomKeyDown) return;
