@@ -23,15 +23,24 @@
 
 export const presets = {
   /**
-   * Gmail web generally does not perform the same aggressive full inversion
-   * observed in Gmail iOS. Treat as no-op unless your own tests show otherwise.
+   * Gmail web is lower-confidence than Gmail iOS/Android.
+   *
+   * It should NOT be treated as a guaranteed no-op. Public reports indicate
+   * Gmail web dark mode may alter parts of message rendering, including some
+   * backgrounds and image/content colors, but it does not appear to behave like
+   * Gmail iOS's aggressive full inversion.
+   *
+   * Default model: conservative partial transform.
    */
-  "gmail-web": {
-    description: "Mostly no-op / theme-dependent.",
-    transform: "none",
-    preserveBackgroundImage: true,
+  'gmail-web': {
+    description: 'Low-confidence partial Gmail dark-mode transform, not a guaranteed no-op.',
+    transform: 'partial-gmail-dark-mode-unknown',
+    preserveBackgroundImage: 'unknown',
+    transformCssBackgroundColor: 'maybe',
+    transformCssTextColor: 'maybe',
     transformLargeImages: false,
-    transformTinyImages: false,
+    transformTinyImages: 'maybe',
+    contrastCorrection: true
   },
 
   /**
@@ -43,13 +52,13 @@ export const presets = {
    * - background-color is transformed
    * - background-image linear-gradient hacks may survive differently
    */
-  "gmail-ios": {
-    description: "Aggressive full inversion over CSS paint colors.",
-    transform: "full-rgb-invert",
+  'gmail-ios': {
+    description: 'Role-aware dark-mode transform over CSS paint colors.',
+    transform: 'role-aware-hue-preserving-lightness',
     preserveBackgroundImage: true,
     transformLargeImages: false,
-    transformTinyImages: "unknown",
-    contrastCorrection: true,
+    transformTinyImages: 'unknown',
+    contrastCorrection: true
   },
 
   /**
@@ -60,33 +69,33 @@ export const presets = {
    * They are Chromium/WebView-style forced-dark defaults used as a practical
    * approximation until calibrated against real Gmail Android screenshots.
    */
-  "gmail-android": {
-    description: "Partial role-aware darkening, Chromium/WebView-style approximation.",
-    transform: "role-aware-lab-lightness-invert",
+  'gmail-android': {
+    description: 'Partial role-aware darkening, Chromium/WebView-style approximation.',
+    transform: 'role-aware-lab-lightness-invert',
     foregroundBrightnessThreshold: 150,
     backgroundBrightnessThreshold: 205,
     preserveBackgroundImage: true,
     transformLargeImages: false,
-    transformTinyImages: "maybe",
-    contrastCorrection: true,
-  },
+    transformTinyImages: 'maybe',
+    contrastCorrection: true
+  }
 };
 
 const ROLE_ALIASES = {
-  color: "text",
-  "text-color": "text",
-  foreground: "text",
-  "background": "background-color",
-  bg: "background-color",
-  border: "border-color",
-  "border-top-color": "border-color",
-  "border-right-color": "border-color",
-  "border-bottom-color": "border-color",
-  "border-left-color": "border-color",
-  image: "image",
-  img: "image",
-  "background-image": "background-image",
-  gradient: "background-image",
+  color: 'text',
+  'text-color': 'text',
+  foreground: 'text',
+  background: 'background-color',
+  bg: 'background-color',
+  border: 'border-color',
+  'border-top-color': 'border-color',
+  'border-right-color': 'border-color',
+  'border-bottom-color': 'border-color',
+  'border-left-color': 'border-color',
+  image: 'image',
+  img: 'image',
+  'background-image': 'background-image',
+  gradient: 'background-image'
 };
 
 export function approximateGmailCssColor(input, role, platform, options = {}) {
@@ -94,7 +103,7 @@ export function approximateGmailCssColor(input, role, platform, options = {}) {
   if (!rgb) return input;
 
   const output = approximateGmailColor(rgb, normalizeRole(role), platform, options);
-  return rgbToHex(output);
+  return rgbToCssColor(output);
 }
 
 export function approximateGmailColor(rgb, role, platform, options = {}) {
@@ -102,13 +111,13 @@ export function approximateGmailColor(rgb, role, platform, options = {}) {
   const normalizedPlatform = normalizePlatform(platform);
 
   switch (normalizedPlatform) {
-    case "gmail-web":
-      return clampRgb(rgb);
+    case 'gmail-web':
+      return approximateGmailWeb(rgb, normalizedRole, options);
 
-    case "gmail-ios":
+    case 'gmail-ios':
       return approximateGmailIos(rgb, normalizedRole, options);
 
-    case "gmail-android":
+    case 'gmail-android':
       return approximateGmailAndroid(rgb, normalizedRole, options);
 
     default:
@@ -116,67 +125,30 @@ export function approximateGmailColor(rgb, role, platform, options = {}) {
   }
 }
 
-export function approximateGmailIos(rgb, role, options = {}) {
+export function approximateGmailWeb(rgb, role, options = {}) {
   const {
     preserveBackgroundImage = true,
     transformLargeImages = false,
-    transformTinyImages = false,
+    transformTinyImages = 'maybe',
     imageSize = null,
     contrastCorrection = true,
+    lightBackgroundThreshold = 220,
+    darkTextThreshold = 64,
+    inversionSpace = 'rgb'
   } = options;
 
-  if (role === "background-image" && preserveBackgroundImage) {
+  if (role === 'background-image' && preserveBackgroundImage) {
     return clampRgb(rgb);
   }
 
-  if (role === "image") {
-    if (transformLargeImages === true) {
-      return invertRgb(rgb);
-    }
-
-    if (
-      transformTinyImages === true ||
-      (transformTinyImages === "maybe" && isTinyImage(imageSize))
-    ) {
-      return invertRgb(rgb);
-    }
-
-    return clampRgb(rgb);
-  }
-
-  const inverted = invertRgb(rgb);
-
-  if (!contrastCorrection) {
-    return inverted;
-  }
-
-  return contrastSnap(inverted, role, "gmail-ios");
-}
-
-export function approximateGmailAndroid(rgb, role, options = {}) {
-  const {
-    foregroundBrightnessThreshold = presets["gmail-android"].foregroundBrightnessThreshold,
-    backgroundBrightnessThreshold = presets["gmail-android"].backgroundBrightnessThreshold,
-    preserveBackgroundImage = true,
-    transformLargeImages = false,
-    transformTinyImages = "maybe",
-    imageSize = null,
-    inversionSpace = "lab",
-    contrastCorrection = true,
-  } = options;
-
-  if (role === "background-image" && preserveBackgroundImage) {
-    return clampRgb(rgb);
-  }
-
-  if (role === "image") {
+  if (role === 'image') {
     if (transformLargeImages === true) {
       return invertBySpace(rgb, inversionSpace);
     }
 
     if (
       transformTinyImages === true ||
-      (transformTinyImages === "maybe" && isTinyImage(imageSize))
+      (transformTinyImages === 'maybe' && isTinyImage(imageSize))
     ) {
       return invertBySpace(rgb, inversionSpace);
     }
@@ -186,7 +158,103 @@ export function approximateGmailAndroid(rgb, role, options = {}) {
 
   const brightnessValue = brightness(rgb);
 
-  if (role === "text") {
+  if (role === 'background-color') {
+    if (brightnessValue <= lightBackgroundThreshold) {
+      return clampRgb(rgb);
+    }
+
+    const transformed = invertBySpace(rgb, inversionSpace);
+    return contrastCorrection ? contrastSnap(transformed, role, 'gmail-web') : transformed;
+  }
+
+  if (role === 'text') {
+    if (brightnessValue >= darkTextThreshold) {
+      return clampRgb(rgb);
+    }
+
+    const transformed = invertBySpace(rgb, inversionSpace);
+    return contrastCorrection ? contrastSnap(transformed, role, 'gmail-web') : transformed;
+  }
+
+  if (role === 'border-color') {
+    if (brightnessValue > lightBackgroundThreshold || brightnessValue < darkTextThreshold) {
+      const transformed = invertBySpace(rgb, inversionSpace);
+      return contrastCorrection ? contrastSnap(transformed, role, 'gmail-web') : transformed;
+    }
+  }
+
+  return clampRgb(rgb);
+}
+
+export function approximateGmailIos(rgb, role, options = {}) {
+  const {
+    preserveBackgroundImage = true,
+    transformLargeImages = false,
+    transformTinyImages = false,
+    imageSize = null,
+    saturationScale = 0.8
+  } = options;
+
+  if (role === 'background-image' && preserveBackgroundImage) {
+    return clampRgb(rgb);
+  }
+
+  if (role === 'image') {
+    if (transformLargeImages === true) {
+      return transformDarkModeLightness(rgb, 'foreground', saturationScale);
+    }
+
+    if (
+      transformTinyImages === true ||
+      (transformTinyImages === 'maybe' && isTinyImage(imageSize))
+    ) {
+      return transformDarkModeLightness(rgb, 'foreground', saturationScale);
+    }
+
+    return clampRgb(rgb);
+  }
+
+  return transformDarkModeLightness(
+    rgb,
+    role === 'background-color' || role === 'border-color' ? 'background' : 'foreground',
+    saturationScale
+  );
+}
+
+export function approximateGmailAndroid(rgb, role, options = {}) {
+  const {
+    foregroundBrightnessThreshold = presets['gmail-android'].foregroundBrightnessThreshold,
+    backgroundBrightnessThreshold = presets['gmail-android'].backgroundBrightnessThreshold,
+    preserveBackgroundImage = true,
+    transformLargeImages = false,
+    transformTinyImages = 'maybe',
+    imageSize = null,
+    inversionSpace = 'lab',
+    contrastCorrection = true
+  } = options;
+
+  if (role === 'background-image' && preserveBackgroundImage) {
+    return clampRgb(rgb);
+  }
+
+  if (role === 'image') {
+    if (transformLargeImages === true) {
+      return invertBySpace(rgb, inversionSpace);
+    }
+
+    if (
+      transformTinyImages === true ||
+      (transformTinyImages === 'maybe' && isTinyImage(imageSize))
+    ) {
+      return invertBySpace(rgb, inversionSpace);
+    }
+
+    return clampRgb(rgb);
+  }
+
+  const brightnessValue = brightness(rgb);
+
+  if (role === 'text') {
     // Chromium-style forced dark approximation:
     // dark foreground colors are inverted/lightened; already-light text often stays.
     if (brightnessValue >= foregroundBrightnessThreshold) {
@@ -194,10 +262,10 @@ export function approximateGmailAndroid(rgb, role, options = {}) {
     }
 
     const transformed = invertBySpace(rgb, inversionSpace);
-    return contrastCorrection ? contrastSnap(transformed, role, "gmail-android") : transformed;
+    return contrastCorrection ? contrastSnap(transformed, role, 'gmail-android') : transformed;
   }
 
-  if (role === "background-color" || role === "border-color") {
+  if (role === 'background-color' || role === 'border-color') {
     // Chromium-style forced dark approximation:
     // light backgrounds are inverted/darkened; already-dark backgrounds often stay.
     if (brightnessValue <= backgroundBrightnessThreshold) {
@@ -205,20 +273,20 @@ export function approximateGmailAndroid(rgb, role, options = {}) {
     }
 
     const transformed = invertBySpace(rgb, inversionSpace);
-    return contrastCorrection ? contrastSnap(transformed, role, "gmail-android") : transformed;
+    return contrastCorrection ? contrastSnap(transformed, role, 'gmail-android') : transformed;
   }
 
   return clampRgb(rgb);
 }
 
-export function invertBySpace(rgb, space = "lab") {
+export function invertBySpace(rgb, space = 'lab') {
   switch (space) {
-    case "rgb":
+    case 'rgb':
       return invertRgb(rgb);
-    case "hsl":
+    case 'hsl':
       return invertHslLightness(rgb);
-    case "lab":
-    case "cielab":
+    case 'lab':
+    case 'cielab':
       return invertLabLightness(rgb);
     default:
       throw new Error(`Unsupported inversion space: ${space}`);
@@ -231,13 +299,34 @@ export function invertRgb(rgb) {
     r: 255 - c.r,
     g: 255 - c.g,
     b: 255 - c.b,
-    a: c.a,
+    a: c.a
   };
 }
 
 export function invertHslLightness(rgb) {
   const hsl = rgbToHsl(rgb);
   hsl.l = 1 - hsl.l;
+  return hslToRgb(hsl);
+}
+
+export function transformDarkModeLightness(rgb, role, saturationScale = 0.8) {
+  const hsl = rgbToHsl(rgb);
+  const isNeutral = hsl.s < 0.12;
+
+  if (role === 'background') {
+    if (hsl.l >= 0.5) {
+      hsl.l = 0.5 - (hsl.l - 0.5) * 0.75;
+    }
+  } else if (isNeutral && hsl.l < 0.5) {
+    hsl.l = 0.95 - hsl.l * 0.75;
+  } else if (!isNeutral && hsl.l <= 0.52) {
+    hsl.l = 0.92 - hsl.l * 0.56;
+  } else if (isNeutral && hsl.l < 0.7) {
+    hsl.l += 0.1;
+  }
+
+  hsl.s *= saturationScale;
+
   return hslToRgb(hsl);
 }
 
@@ -253,29 +342,39 @@ export function invertLabLightness(rgb) {
  * This is intentionally conservative. Gmail's real correction, if any, is not
  * public. Tune these values against screenshots from your own test emails.
  */
-export function contrastSnap(rgb, role, platform = "gmail-ios") {
+export function contrastSnap(rgb, role, platform = 'gmail-ios') {
   const c = clampRgb(rgb);
   const b = brightness(c);
 
-  if (role === "text") {
-    if (platform === "gmail-ios") {
+  if (role === 'text') {
+    if (platform === 'gmail-web') {
+      if (b > 96 && b < 160) return setRgbLightnessApprox(c, 88);
+      return c;
+    }
+
+    if (platform === 'gmail-ios') {
       if (b > 96 && b < 160) return setRgbLightnessApprox(c, 24);
       return c;
     }
 
-    if (platform === "gmail-android") {
+    if (platform === 'gmail-android') {
       if (b > 80 && b < 170) return setRgbLightnessApprox(c, 88);
       return c;
     }
   }
 
-  if (role === "background-color") {
-    if (platform === "gmail-ios") {
+  if (role === 'background-color') {
+    if (platform === 'gmail-web') {
+      if (b > 96 && b < 160) return setRgbLightnessApprox(c, 18);
+      return c;
+    }
+
+    if (platform === 'gmail-ios') {
       if (b > 96 && b < 160) return setRgbLightnessApprox(c, 92);
       return c;
     }
 
-    if (platform === "gmail-android") {
+    if (platform === 'gmail-android') {
       if (b > 80 && b < 170) return setRgbLightnessApprox(c, 14);
       return c;
     }
@@ -285,17 +384,22 @@ export function contrastSnap(rgb, role, platform = "gmail-ios") {
 }
 
 export function normalizePlatform(platform) {
-  const key = String(platform || "").toLowerCase().trim();
+  const key = String(platform || '')
+    .toLowerCase()
+    .trim();
 
-  if (key === "web" || key === "desktop" || key === "gmail-web") return "gmail-web";
-  if (key === "ios" || key === "iphone" || key === "ipad" || key === "gmail-ios") return "gmail-ios";
-  if (key === "android" || key === "gmail-android") return "gmail-android";
+  if (key === 'web' || key === 'desktop' || key === 'gmail-web') return 'gmail-web';
+  if (key === 'ios' || key === 'iphone' || key === 'ipad' || key === 'gmail-ios')
+    return 'gmail-ios';
+  if (key === 'android' || key === 'gmail-android') return 'gmail-android';
 
   return key;
 }
 
 export function normalizeRole(role) {
-  const key = String(role || "").toLowerCase().trim();
+  const key = String(role || '')
+    .toLowerCase()
+    .trim();
   return ROLE_ALIASES[key] || key;
 }
 
@@ -311,7 +415,7 @@ export function isTinyImage(imageSize) {
 }
 
 export function parseCssColor(input) {
-  if (typeof input !== "string") return null;
+  if (typeof input !== 'string') return null;
 
   const value = input.trim().toLowerCase();
 
@@ -332,7 +436,10 @@ function parseHexColor(raw) {
   let h = raw;
 
   if (h.length === 3 || h.length === 4) {
-    h = h.split("").map((x) => x + x).join("");
+    h = h
+      .split('')
+      .map((x) => x + x)
+      .join('');
   }
 
   if (h.length !== 6 && h.length !== 8) return null;
@@ -346,9 +453,9 @@ function parseHexColor(raw) {
 }
 
 function parseRgbFunction(raw) {
-  const normalized = raw.replace(/\s*\/\s*/g, ",");
+  const normalized = raw.replace(/\s*\/\s*/g, ',');
   const parts = normalized
-    .split(",")
+    .split(',')
     .map((x) => x.trim())
     .filter(Boolean);
 
@@ -365,7 +472,7 @@ function parseRgbFunction(raw) {
 }
 
 function parseCssChannel(value) {
-  if (value.endsWith("%")) {
+  if (value.endsWith('%')) {
     return (parseFloat(value) / 100) * 255;
   }
 
@@ -373,7 +480,7 @@ function parseCssChannel(value) {
 }
 
 function parseAlpha(value) {
-  if (value.endsWith("%")) {
+  if (value.endsWith('%')) {
     return clamp(parseFloat(value) / 100, 0, 1);
   }
 
@@ -385,8 +492,24 @@ export function rgbToHex(rgb) {
   return `#${toHex(c.r)}${toHex(c.g)}${toHex(c.b)}`;
 }
 
+export function rgbToCssColor(rgb) {
+  const c = clampRgb(rgb);
+
+  if (c.a < 1) {
+    return `rgba(${Math.round(c.r)}, ${Math.round(c.g)}, ${Math.round(c.b)}, ${formatAlpha(c.a)})`;
+  }
+
+  return rgbToHex(c);
+}
+
+function formatAlpha(value) {
+  return String(Math.round(clamp(value, 0, 1) * 1000) / 1000);
+}
+
 function toHex(value) {
-  return Math.round(clamp(value, 0, 255)).toString(16).padStart(2, "0");
+  return Math.round(clamp(value, 0, 255))
+    .toString(16)
+    .padStart(2, '0');
 }
 
 export function clampRgb(rgb) {
@@ -394,7 +517,7 @@ export function clampRgb(rgb) {
     r: clamp(Number(rgb.r), 0, 255),
     g: clamp(Number(rgb.g), 0, 255),
     b: clamp(Number(rgb.b), 0, 255),
-    a: rgb.a == null ? 1 : clamp(Number(rgb.a), 0, 1),
+    a: rgb.a == null ? 1 : clamp(Number(rgb.a), 0, 1)
   };
 }
 
@@ -417,7 +540,7 @@ function setRgbLightnessApprox(rgb, targetBrightness) {
     r: c.r * scale,
     g: c.g * scale,
     b: c.b * scale,
-    a: c.a,
+    a: c.a
   });
 }
 
@@ -483,7 +606,7 @@ export function hslToRgb(hsl) {
     r: (r1 + m) * 255,
     g: (g1 + m) * 255,
     b: (b1 + m) * 255,
-    a: hsl.a == null ? 1 : hsl.a,
+    a: hsl.a == null ? 1 : hsl.a
   });
 }
 
@@ -522,7 +645,7 @@ export function rgbToXyz(rgb) {
     x: r * 0.4124 + g * 0.3576 + b * 0.1805,
     y: r * 0.2126 + g * 0.7152 + b * 0.0722,
     z: r * 0.0193 + g * 0.1192 + b * 0.9505,
-    a: c.a,
+    a: c.a
   };
 }
 
@@ -533,7 +656,7 @@ export function xyzToRgb(xyz, alpha = 1) {
 
   let r = x * 3.2406 + y * -1.5372 + z * -0.4986;
   let g = x * -0.9689 + y * 1.8758 + z * 0.0415;
-  let b = x * 0.0557 + y * -0.2040 + z * 1.0570;
+  let b = x * 0.0557 + y * -0.204 + z * 1.057;
 
   r = r > 0.0031308 ? 1.055 * Math.pow(r, 1 / 2.4) - 0.055 : 12.92 * r;
   g = g > 0.0031308 ? 1.055 * Math.pow(g, 1 / 2.4) - 0.055 : 12.92 * g;
@@ -543,13 +666,13 @@ export function xyzToRgb(xyz, alpha = 1) {
     r: r * 255,
     g: g * 255,
     b: b * 255,
-    a: alpha,
+    a: alpha
   });
 }
 
 export function xyzToLab(xyz) {
   const refX = 95.047;
-  const refY = 100.000;
+  const refY = 100.0;
   const refZ = 108.883;
 
   let x = xyz.x / refX;
@@ -564,13 +687,13 @@ export function xyzToLab(xyz) {
     l: 116 * y - 16,
     a: 500 * (x - y),
     b: 200 * (y - z),
-    alpha: xyz.a == null ? 1 : xyz.a,
+    alpha: xyz.a == null ? 1 : xyz.a
   };
 }
 
 export function labToXyz(lab) {
   const refX = 95.047;
-  const refY = 100.000;
+  const refY = 100.0;
   const refZ = 108.883;
 
   const y = (lab.l + 16) / 116;
@@ -581,12 +704,12 @@ export function labToXyz(lab) {
     x: refX * labPivotReverse(x),
     y: refY * labPivotReverse(y),
     z: refZ * labPivotReverse(z),
-    a: lab.alpha == null ? 1 : lab.alpha,
+    a: lab.alpha == null ? 1 : lab.alpha
   };
 }
 
 function labPivotForward(value) {
-  return value > 0.008856 ? Math.cbrt(value) : (7.787 * value) + (16 / 116);
+  return value > 0.008856 ? Math.cbrt(value) : 7.787 * value + 16 / 116;
 }
 
 function labPivotReverse(value) {
@@ -595,17 +718,19 @@ function labPivotReverse(value) {
 }
 
 const NAMED_COLORS = {
-  black: "#000000",
-  white: "#ffffff",
-  red: "#ff0000",
-  green: "#008000",
-  blue: "#0000ff",
-  transparent: "#00000000",
+  black: '#000000',
+  white: '#ffffff',
+  red: '#ff0000',
+  green: '#008000',
+  blue: '#0000ff',
+  transparent: '#00000000'
 };
 
 /**
  * Tiny smoke tests. Uncomment to run directly with Node:
  *
+ * console.log("Web bg #fff", approximateGmailCssColor("#fff", "background-color", "gmail-web"));
+ * console.log("Web text #000", approximateGmailCssColor("#000", "text", "gmail-web"));
  * console.log("iOS bg #000", approximateGmailCssColor("#000", "background-color", "gmail-ios"));
  * console.log("iOS text #fff", approximateGmailCssColor("#fff", "text", "gmail-ios"));
  * console.log("Android bg #fff", approximateGmailCssColor("#fff", "background-color", "gmail-android"));

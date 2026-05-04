@@ -372,6 +372,31 @@
         height: 17px;
         justify-content: center;
       }
+      .send-spin {
+        animation: send-spin 900ms linear infinite;
+      }
+      .send-button {
+        background: var(--control-active);
+        border: 1px solid var(--control-active);
+        color: var(--control-active-text);
+        transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease,
+          opacity 150ms ease;
+      }
+      .send-button:disabled {
+        background: var(--surface-muted);
+        border-color: var(--border);
+        color: var(--text-subtle);
+        cursor: not-allowed;
+        opacity: 0.58;
+      }
+      @keyframes send-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
       .switch {
         align-items: center;
         border: 1px solid var(--border);
@@ -433,9 +458,6 @@
       .preview-frame-shell.is-mobile {
         margin: 0 auto;
       }
-      .preview-frame-shell.is-inverted {
-        filter: invert(1) hue-rotate(180deg);
-      }
       .preview-frame-shell.is-dark-scheme {
         background: #111111;
       }
@@ -490,8 +512,11 @@
       window.dispatchEvent(new Event('preview-shiki-ready'));
     </script>
 
-    <script>
-      const { useEffect, useLayoutEffect, useRef, useState } = React;
+    <script type="module">
+      import { approximateGmailCssColor } from './inversion.js';
+      import { createStore } from 'https://esm.sh/zustand@4.5.5/vanilla';
+
+      const { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } = React;
       const h = React.createElement;
 
       const templates = [
@@ -692,19 +717,176 @@
       const zoomStep = 10;
       const canvasOrigin = 50000;
       const previewPresets = [
-        { name: 'Full Width', width: null, label: '100%' },
-        { name: 'iPhone 15 Pro Max', width: 430, label: '430px' },
-        { name: 'iPhone 15 Pro', width: 393, label: '393px' },
-        { name: 'iPhone 13 mini', width: 375, label: '375px' },
-        { name: 'Gmail Mobile', width: 360, label: '360px' },
-        { name: 'iPad Air 4', width: 820, height: 1180, label: '820x1180' },
-        { name: 'iPad Pro 10.5"', width: 834, height: 1112, label: '834x1112' },
-        { name: 'iPad Mini 4', width: 768, height: 1024, label: '768x1024' },
-        { name: 'iPad 3 / 4', width: 768, height: 1024, label: '768x1024' }
+        { name: 'Full Width', width: null, label: '100%', gmailPlatform: 'gmail-ios' },
+        { name: 'iPhone 15 Pro Max', width: 430, label: '430px', gmailPlatform: 'gmail-ios' },
+        { name: 'iPhone 15 Pro', width: 393, label: '393px', gmailPlatform: 'gmail-ios' },
+        { name: 'iPhone 13 mini', width: 375, label: '375px', gmailPlatform: 'gmail-ios' },
+        { name: 'Gmail Mobile', width: 360, label: '360px', gmailPlatform: 'gmail-android' },
+        { name: 'iPad Air 4', width: 820, height: 1180, label: '820x1180', gmailPlatform: 'gmail-ios' },
+        { name: 'iPad Pro 10.5"', width: 834, height: 1112, label: '834x1112', gmailPlatform: 'gmail-ios' },
+        { name: 'iPad Mini 4', width: 768, height: 1024, label: '768x1024', gmailPlatform: 'gmail-ios' },
+        { name: 'iPad 3 / 4', width: 768, height: 1024, label: '768x1024', gmailPlatform: 'gmail-ios' }
       ];
+      const colorProperties = [
+        'color',
+        'background-color',
+        'border-color',
+        'border-top-color',
+        'border-right-color',
+        'border-bottom-color',
+        'border-left-color',
+        'outline-color',
+        'text-decoration-color',
+        'caret-color',
+        'column-rule-color'
+      ];
+      const plunkApiBearerTokenProvidedOnlyForJsxEmailUiDoNotUseElsewhere =
+        'sk_dbed12137c418c4b2d278d84a634394b2209931a4a239b6f';
+      const defaultLabState = () => ({
+        colorScheme: false,
+        invertColors: false,
+        preset: 'Full Width',
+        sendEmail: '',
+        sendError: null,
+        sendState: 'idle'
+      });
+      const labStore = createStore((set, get) => ({
+        labs: {},
+        panelCollapsed: true,
+        ensureCard(cardId) {
+          if (!cardId || get().labs[cardId]) return;
+          set((state) => ({ labs: { ...state.labs, [cardId]: defaultLabState() } }));
+        },
+        removeCard(cardId) {
+          set((state) => {
+            const next = { ...state.labs };
+            delete next[cardId];
+            return { labs: next };
+          });
+        },
+        updateCard(cardId, patch) {
+          if (!cardId) return;
+          set((state) => ({
+            labs: {
+              ...state.labs,
+              [cardId]: {
+                ...defaultLabState(),
+                ...state.labs[cardId],
+                ...patch
+              }
+            }
+          }));
+        },
+        setColorScheme(cardId, value) {
+          get().updateCard(cardId, {
+            colorScheme: value,
+            invertColors: value ? false : getLabState(cardId).invertColors
+          });
+        },
+        setInvertColors(cardId, value) {
+          const lab = getLabState(cardId);
+          get().updateCard(cardId, {
+            colorScheme: value ? false : lab.colorScheme,
+            invertColors: value
+          });
+        },
+        setPanelCollapsed(value) {
+          set({ panelCollapsed: value });
+        }
+      }));
+
+      function getLabState(cardId) {
+        if (!cardId) return defaultLabState();
+        return labStore.getState().labs[cardId] || defaultLabState();
+      }
+      function useLabValue(cardId, selector) {
+        return useSyncExternalStore(
+          labStore.subscribe,
+          () => selector(getLabState(cardId)),
+          () => selector(getLabState(cardId))
+        );
+      }
+      function useLabStoreValue(selector) {
+        return useSyncExternalStore(labStore.subscribe, () => selector(labStore.getState()), () =>
+          selector(labStore.getState())
+        );
+      }
 
       function cn() {
         return Array.from(arguments).filter(Boolean).join(' ');
+      }
+      function platformForPreset(presetName) {
+        return (
+          previewPresets.find((item) => item.name === presetName)?.gmailPlatform || 'gmail-ios'
+        );
+      }
+      function transformColorDeclaration(style, property, platform) {
+        const value = style.getPropertyValue(property);
+        if (!value) return;
+
+        const transformed = approximateGmailCssColor(value, property, platform);
+        if (transformed === value) return;
+
+        style.setProperty(property, transformed, style.getPropertyPriority(property));
+      }
+      function transformStyleDeclaration(style, platform) {
+        colorProperties.forEach((property) => transformColorDeclaration(style, property, platform));
+      }
+      function transformCssRules(rules, platform) {
+        Array.from(rules).forEach((rule) => {
+          if (rule.style) {
+            transformStyleDeclaration(rule.style, platform);
+          }
+
+          try {
+            if (rule.cssRules) {
+              transformCssRules(rule.cssRules, platform);
+            }
+          } catch {
+            // Some grouping rules can reject cssRules access; leave them unchanged.
+          }
+        });
+      }
+      function transformStyleBlock(css, platform) {
+        if (!window.CSSStyleSheet) return css;
+
+        try {
+          const sheet = new CSSStyleSheet();
+          sheet.replaceSync(css);
+          transformCssRules(sheet.cssRules, platform);
+          return Array.from(sheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join('\n');
+        } catch {
+          return css;
+        }
+      }
+      function applyGmailInversion(html, platform) {
+        try {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+
+          if (doc.body) {
+            if (!doc.body.style.color) {
+              doc.body.style.color = '#000000';
+            }
+
+            if (!doc.body.style.background && !doc.body.style.backgroundColor) {
+              doc.body.style.backgroundColor = '#ffffff';
+            }
+          }
+
+          doc.querySelectorAll('[style]').forEach((element) => {
+            transformStyleDeclaration(element.style, platform);
+          });
+
+          doc.querySelectorAll('style').forEach((styleElement) => {
+            styleElement.textContent = transformStyleBlock(styleElement.textContent || '', platform);
+          });
+
+          return '<!doctype html>\n' + doc.documentElement.outerHTML;
+        } catch {
+          return html;
+        }
       }
       function nextZoom(value, direction) {
         if (direction > 0) {
@@ -816,8 +998,8 @@
       function isZoomKey(event) {
         return event.code === 'KeyZ' || event.key.toLowerCase() === 'z';
       }
-      function Icon({ name }) {
-        return h('i', { className: 'iconoir-' + name, 'aria-hidden': 'true' });
+      function Icon({ className, name }) {
+        return h('i', { className: cn('iconoir-' + name, className), 'aria-hidden': 'true' });
       }
       function LogoWordmark() {
         return h('span', {
@@ -1245,21 +1427,66 @@
       }
 
       function ToolPanel({
-        colorScheme,
-        invertColors,
-        panelCollapsed,
-        preset,
-        setColorScheme,
-        setInvertColors,
-        setPanelCollapsed,
-        setPreset
+        cardId,
+        template
       }) {
+        const colorScheme = useLabValue(cardId, (state) => state.colorScheme);
+        const invertColors = useLabValue(cardId, (state) => state.invertColors);
+        const panelCollapsed = useLabStoreValue((state) => state.panelCollapsed);
+        const preset = useLabValue(cardId, (state) => state.preset);
+        const sendEmail = useLabValue(cardId, (state) => state.sendEmail);
+        const sendError = useLabValue(cardId, (state) => state.sendError);
+        const sendState = useLabValue(cardId, (state) => state.sendState);
         const activePreset = previewPresets.find((item) => item.name === preset) || previewPresets[0];
         const collapsedSections = [
           ['Color mode', 'half-moon', 'is-color'],
           ['Presets', 'smartphone-device', 'is-presets'],
           ['Send email', 'send', 'is-send']
         ];
+        const updateCard = (patch) => labStore.getState().updateCard(cardId, patch);
+        async function handleSend(event) {
+          event.preventDefault();
+          if (!template || !sendEmail || sendState === 'sending') return;
+
+          updateCard({ sendError: null, sendState: 'sending' });
+
+          try {
+            const startedAt = Date.now();
+            const response = await fetch('https://api.useplunk.com/v1/send', {
+              body: JSON.stringify({
+                body: template.html,
+                subject: 'Test jsx-email template',
+                to: sendEmail
+              }),
+              headers: {
+                Authorization: `Bearer ${plunkApiBearerTokenProvidedOnlyForJsxEmailUiDoNotUseElsewhere}`,
+                'Content-Type': 'application/json'
+              },
+              method: 'POST'
+            });
+            const waitMs = Math.max(0, 4000 - (Date.now() - startedAt));
+            if (waitMs > 0) {
+              await new Promise((resolve) => window.setTimeout(resolve, waitMs));
+            }
+
+            if (response.status !== 200) {
+              updateCard({ sendError: await response.text(), sendState: 'error' });
+              return;
+            }
+
+            updateCard({ sendError: null, sendState: 'sent' });
+            window.setTimeout(() => {
+              if (getLabState(cardId).sendState === 'sent') {
+                updateCard({ sendState: 'idle' });
+              }
+            }, 3000);
+          } catch {
+            updateCard({
+              sendError: 'Something went wrong. Please try again.',
+              sendState: 'error'
+            });
+          }
+        }
 
         return h(
           'aside',
@@ -1293,7 +1520,7 @@
                 {
                   'aria-label': panelCollapsed ? 'Expand tool panel' : 'Collapse tool panel',
                   className: 'min-h-0 px-1.5 py-1',
-                  onClick: () => setPanelCollapsed(!panelCollapsed),
+                  onClick: () => labStore.getState().setPanelCollapsed(!panelCollapsed),
                   title: panelCollapsed ? 'Expand tool panel' : 'Collapse tool panel'
                 },
                 h(Icon, { name: panelCollapsed ? 'nav-arrow-left' : 'nav-arrow-right' })
@@ -1334,13 +1561,13 @@
                   h(SwitchControl, {
                     checked: colorScheme,
                     label: 'Dark Mode color scheme',
-                    onChange: setColorScheme,
+                    onChange: (value) => labStore.getState().setColorScheme(cardId, value),
                     tooltip: 'Apple Mail supports dark/light schemes'
                   }),
                   h(SwitchControl, {
                     checked: invertColors,
                     label: 'Invert colors',
-                    onChange: setInvertColors,
+                    onChange: (value) => labStore.getState().setInvertColors(cardId, value),
                     tooltip: 'Gmail inverts colors for dark mode'
                   })
                 ),
@@ -1358,7 +1585,7 @@
                           key: item.name,
                           'aria-pressed': activePreset.name === item.name,
                           className: cn('preset-pill', activePreset.name === item.name && 'is-active'),
-                          onClick: () => setPreset(item.name),
+                          onClick: () => updateCard({ preset: item.name }),
                           type: 'button'
                         },
                         h('span', null, item.name),
@@ -1374,9 +1601,7 @@
                   h(
                     'form',
                     {
-                      onSubmit: (event) => {
-                        event.preventDefault();
-                      }
+                      onSubmit: handleSend
                     },
                     h(
                       'label',
@@ -1390,10 +1615,24 @@
                     h('input', {
                       className: 'send-input mb-3',
                       id: 'preview-send-to',
+                      onChange: (event) =>
+                        updateCard({
+                          sendEmail: event.target.value,
+                          sendError: null,
+                          sendState: sendState === 'error' ? 'idle' : sendState
+                        }),
                       placeholder: 'you@example.com',
                       required: true,
-                      type: 'email'
+                      type: 'email',
+                      value: sendEmail
                     }),
+                    sendError &&
+                      h(
+                        'p',
+                        { className: 'mb-3 text-xs leading-5', style: { color: 'var(--text)' } },
+                        'Error while sending email: ',
+                        sendError
+                      ),
                     h(
                       'div',
                       { className: 'flex items-center justify-between gap-3' },
@@ -1405,7 +1644,7 @@
                           'a',
                           {
                             className: 'inline-flex items-center gap-1 hover:underline',
-                            href: 'https://www.useplunk.com',
+                            href: 'https://useplunk.com',
                             rel: 'noreferrer',
                             target: '_blank'
                           },
@@ -1416,15 +1655,15 @@
                       h(
                         'button',
                         {
-                          className: 'inline-flex h-9 items-center justify-center gap-1.5 rounded-[6px] px-3 text-sm font-medium',
-                          style: {
-                            background: 'var(--control-active)',
-                            color: 'var(--control-active-text)'
-                          },
+                          className:
+                            'send-button inline-flex h-9 items-center justify-center gap-1.5 rounded-[6px] px-3 text-sm font-medium',
+                          disabled: !sendEmail.trim().length || sendState === 'sending' || sendState === 'sent',
                           type: 'submit'
                         },
-                        h(Icon, { name: 'send' }),
-                        'Send'
+                        sendState === 'idle' && 'Send',
+                        sendState === 'sending' && h(Icon, { name: 'refresh', className: 'send-spin' }),
+                        sendState === 'sent' && h(React.Fragment, null, h(Icon, { name: 'mail-out' }), 'Sent!'),
+                        sendState === 'error' && 'Error'
                       )
                     )
                   )
@@ -1434,18 +1673,54 @@
         );
       }
 
+      function PreviewIframe({ html, title }) {
+        const [renderedHtml, setRenderedHtml] = useState(html);
+        const iframeRef = useRef(null);
+        const pendingScroll = useRef(null);
+
+        useLayoutEffect(() => {
+          if (html === renderedHtml) return;
+
+          const frame = iframeRef.current;
+          pendingScroll.current = {
+            x: frame?.contentWindow?.scrollX || 0,
+            y: frame?.contentWindow?.scrollY || 0
+          };
+          setRenderedHtml(html);
+        }, [html, renderedHtml]);
+
+        return h('iframe', {
+          ref: iframeRef,
+          title,
+          srcDoc: renderedHtml,
+          sandbox: 'allow-same-origin',
+          onLoad: () => {
+            const scroll = pendingScroll.current;
+            const frame = iframeRef.current;
+            if (!scroll || !frame?.contentWindow) return;
+
+            frame.contentWindow.scrollTo(scroll.x, scroll.y);
+            pendingScroll.current = null;
+          },
+          style: { width: '100%', height: '100%', border: 0, display: 'block' }
+        });
+      }
+
       function TemplateCard({
         card,
-        colorScheme,
-        invertColors,
-        preset,
         select,
         selected,
         remove,
         setCardNode
       }) {
+        useEffect(() => {
+          labStore.getState().ensureCard(card.id);
+        }, [card.id]);
         const [tab, setTab] = useState('preview');
         const t = templates.find((x) => x.id === card.templateId);
+        const colorScheme = useLabValue(card.id, (state) => state.colorScheme);
+        const invertColors = useLabValue(card.id, (state) => state.invertColors);
+        const preset = useLabValue(card.id, (state) => state.preset);
         const isSelected = selected && selected.id === card.id;
         const tabs = [
           ['preview', 'Preview'],
@@ -1458,6 +1733,9 @@
         const sourceFileName =
           t.id + (tab === 'jsx' ? '.tsx' : tab === 'html' ? '.html' : '.txt');
         const activePreset = previewPresets.find((item) => item.name === preset) || previewPresets[0];
+        const previewHtml = invertColors
+          ? applyGmailInversion(t.html, platformForPreset(activePreset.name))
+          : t.html;
         return h(
           'div',
           {
@@ -1548,8 +1826,7 @@
                       className: cn(
                         'preview-frame-shell h-full overflow-hidden shadow-sm',
                         activePreset.width && 'is-mobile',
-                        colorScheme && 'is-dark-scheme',
-                        invertColors && 'is-inverted'
+                        colorScheme && 'is-dark-scheme'
                       ),
                       style: {
                         border: '1px solid var(--border)',
@@ -1557,12 +1834,7 @@
                         width: activePreset.width ? activePreset.width + 'px' : '100%'
                       },
                     },
-                    h('iframe', {
-                      title: t.name,
-                      srcDoc: t.html,
-                      sandbox: '',
-                      style: { width: '100%', height: '100%', border: 0, display: 'block' }
-                    })
+                    h(PreviewIframe, { html: previewHtml, title: t.name })
                   )
                 : h(CodeBlock, { code: source, fileName: sourceFileName, lang: sourceLang })
             )
@@ -1575,10 +1847,6 @@
         const [cards, setCards] = useState([]);
         const [selectedId, setSelectedId] = useState(null);
         const [focusTarget, setFocusTarget] = useState(null);
-        const [colorScheme, setColorScheme] = useState(false);
-        const [invertColors, setInvertColors] = useState(false);
-        const [preset, setPreset] = useState('Full Width');
-        const [toolPanelCollapsed, setToolPanelCollapsed] = useState(true);
         const [zoom, setZoom] = useState(100);
         const [isZoomKeyDown, setIsZoomKeyDown] = useState(false);
         const [isAltDown, setIsAltDown] = useState(false);
@@ -1606,7 +1874,7 @@
           });
 
           return () => instances.forEach((instance) => instance.destroy());
-        }, [toolPanelCollapsed]);
+        }, [selectedId]);
 
         useLayoutEffect(() => {
           const frame = requestAnimationFrame(() => {
@@ -1724,10 +1992,12 @@
 
           const id = templateId + '-' + Date.now() + '-' + Math.random().toString(16).slice(2);
           const next = { id, templateId };
+          labStore.getState().ensureCard(id);
           setCards((cs) => [...cs, next]);
           focusCard(id, cards.length === 0 ? 'auto' : 'smooth');
         }
         function remove(id) {
+          labStore.getState().removeCard(id);
           setCards((cs) => cs.filter((c) => c.id !== id));
           if (selectedId && selectedId !== id) {
             preserveSelectionPosition.current = null;
@@ -1758,7 +2028,6 @@
           event.currentTarget.style.setProperty('--grid-x', '-999px');
           event.currentTarget.style.setProperty('--grid-y', '-999px');
         }
-
         return h(
           'div',
           {
@@ -1771,14 +2040,8 @@
           }),
           selected &&
             h(ToolPanel, {
-              colorScheme,
-              invertColors,
-              panelCollapsed: toolPanelCollapsed,
-              preset,
-              setColorScheme,
-              setInvertColors,
-              setPanelCollapsed: setToolPanelCollapsed,
-              setPreset
+              cardId: selected.id,
+              template: templates.find((template) => template.id === selected.templateId)
             }),
           h(
             'main',
@@ -1888,9 +2151,6 @@
                       h(TemplateCard, {
                         key: card.id,
                         card,
-                        colorScheme,
-                        invertColors,
-                        preset,
                         selected,
                         select: (c) => focusCard(c.id),
                         remove,

@@ -17,6 +17,22 @@ async function main() {
   });
   const page = await context.newPage();
   const results: Record<string, unknown> = {};
+  const plunkRequests: Array<{
+    authorization?: string;
+    body?: unknown;
+    contentType?: string;
+  }> = [];
+
+  await page.route('https://api.useplunk.com/v1/send', async (route) => {
+    const request = route.request();
+    const headers = request.headers();
+    plunkRequests.push({
+      authorization: headers.authorization,
+      body: JSON.parse(request.postData() || '{}'),
+      contentType: headers['content-type']
+    });
+    await route.fulfill({ body: '', status: 200 });
+  });
 
   async function openPreview(suffix: string) {
     await page.goto(`${url}?verify=${suffix}-${Date.now()}`, { waitUntil: 'networkidle' });
@@ -173,17 +189,61 @@ async function main() {
       };
     });
     await page.getByRole('button', { exact: true, name: 'Dark Mode color scheme' }).click();
+    const darkSchemeState = {
+      darkPressed: await page
+        .getByRole('button', { exact: true, name: 'Dark Mode color scheme' })
+        .getAttribute('aria-pressed'),
+      invertPressed: await page
+        .getByRole('button', { exact: true, name: 'Invert colors' })
+        .getAttribute('aria-pressed'),
+      shellClass: await page.locator('main .ring-2 iframe').evaluate((frame) => frame.parentElement?.className)
+    };
     await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.waitForTimeout(800);
     const colorState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
+      bodyBackground: frame.contentDocument?.body.style.backgroundColor,
+      darkPressed: document
+        .querySelector('[aria-label="Dark Mode color scheme"]')
+        ?.getAttribute('aria-pressed'),
+      invertPressed: document.querySelector('[aria-label="Invert colors"]')?.getAttribute('aria-pressed'),
       shellClass: frame.parentElement?.className
     }));
+    const inversionScroll = await page.locator('main .ring-2 iframe').evaluate((frame) => {
+      frame.contentWindow?.scrollTo(0, 160);
+      return frame.contentWindow?.scrollY || 0;
+    });
+    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.waitForTimeout(250);
+    const inversionOffState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
+      bodyBackground: frame.contentDocument?.body.style.backgroundColor,
+      scrollY: frame.contentWindow?.scrollY || 0
+    }));
+    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.waitForTimeout(250);
     await page.getByText('Dark Mode color scheme', { exact: true }).click();
     const labelClickColorState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
+      darkPressed: document
+        .querySelector('[aria-label="Dark Mode color scheme"]')
+        ?.getAttribute('aria-pressed'),
+      invertPressed: document.querySelector('[aria-label="Invert colors"]')?.getAttribute('aria-pressed'),
       shellClass: frame.parentElement?.className
     }));
     await page.getByText('Dark Mode color scheme', { exact: true }).click();
     const plunkLink = await page.getByRole('link', { name: /Plunk/ }).getAttribute('href');
     const sendInput = await page.locator('#preview-send-to').getAttribute('placeholder');
+    const sendDisabledState = await page
+      .locator('#tool-panel button[type="submit"]')
+      .evaluate((button) => {
+        const styles = getComputedStyle(button);
+
+        return {
+          backgroundColor: styles.backgroundColor,
+          color: styles.color,
+          cursor: styles.cursor,
+          disabled: (button as HTMLButtonElement).disabled,
+          opacity: styles.opacity
+        };
+      });
     const panelBefore = await page
       .locator('#tool-panel')
       .evaluate((element) => element.getBoundingClientRect().width);
@@ -233,11 +293,143 @@ async function main() {
         panelHeight: panel.height
       };
     });
+    await openPreview('tool-panel-css');
+    await addTemplate('netlify-welcome.tsx');
+    await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
+    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.waitForTimeout(800);
+    const cssInversion = await page.locator('main .ring-2 iframe').evaluate((frame) => {
+      const styleText = [...(frame.contentDocument?.querySelectorAll('style') || [])]
+        .map((style) => style.textContent || '')
+        .join('\n');
+
+      return {
+        hasDarkBackgroundRule: styleText.includes('background-color: rgb(32, 32, 32)'),
+        hasLightTextRule: styleText.includes('color: rgb(242, 242, 242)')
+      };
+    });
+    await openPreview('tool-panel-apple-preset');
+    await addTemplate('apple-receipt.tsx');
+    await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
+    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.waitForTimeout(800);
+    const appleFullWidthColor = await page.locator('main .ring-2 iframe').evaluate((frame) => {
+      const link = frame.contentDocument?.querySelector('a');
+      return link ? getComputedStyle(link).color : null;
+    });
+    await page.getByRole('button', { exact: true, name: 'iPhone 15 Pro Max 430px' }).click();
+    await page.waitForTimeout(800);
+    const appleIphoneColor = await page.locator('main .ring-2 iframe').evaluate((frame) => {
+      const link = frame.contentDocument?.querySelector('a');
+      return link ? getComputedStyle(link).color : null;
+    });
+    const applePresetInversion = {
+      fullWidthLinkColor: appleFullWidthColor,
+      iphoneLinkColor: appleIphoneColor,
+      fullWidthUsesIosBlue:
+        appleFullWidthColor === 'rgb(94, 163, 233)' || appleFullWidthColor === 'rgb(91, 152, 237)',
+      iphoneUsesIosBlue:
+        appleIphoneColor === 'rgb(94, 163, 233)' || appleIphoneColor === 'rgb(91, 152, 237)'
+    };
+    await openPreview('tool-panel-apple-ios-inversion');
+    await addTemplate('apple-receipt.tsx');
+    await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
+    await page.getByRole('button', { exact: true, name: 'iPhone 15 Pro Max 430px' }).click();
+    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.waitForTimeout(800);
+    const appleIosInversion = await page.locator('main .ring-2 iframe').evaluate((frame) => {
+      const doc = frame.contentDocument;
+      const link = doc?.querySelector('a');
+      const body = doc?.body;
+      const elements = [...(doc?.querySelectorAll('p, span, td, a') || [])];
+      const headline = elements.find((element) =>
+        element.textContent?.includes('Save 3% on all your Apple purchases')
+      );
+      const muted = elements
+        .filter((element) => element.textContent?.includes('HBO Max Ad-Free'))
+        .sort((a, b) => (a.textContent?.length || 0) - (b.textContent?.length || 0))[0];
+
+      return {
+        backgroundColor: body ? getComputedStyle(body).backgroundColor : null,
+        headlineColor: headline ? getComputedStyle(headline).color : null,
+        mutedColor: muted ? getComputedStyle(muted).color : null,
+        linkColor: link ? getComputedStyle(link).color : null
+      };
+    });
+    await page.screenshot({ fullPage: true, path: '/tmp/preview-apple-ios-inversion.png' });
+    await openPreview('tool-panel-card-state');
+    await addTemplate('airbnb-review.tsx');
+    await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
+    await page.getByRole('button', { exact: true, name: 'iPhone 15 Pro Max 430px' }).click();
+    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.locator('#preview-send-to').fill('first@example.com');
+    await addTemplate('apple-receipt.tsx');
+    const secondPanelWidth = await page
+      .locator('#tool-panel')
+      .evaluate((element) => element.getBoundingClientRect().width);
+    const secondCardState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
+      bodyBackground: frame.contentDocument?.body.style.backgroundColor,
+      shellWidth: frame.parentElement?.getBoundingClientRect().width
+    }));
+    await page.getByRole('button', { exact: true, name: 'airbnb-review.tsx' }).click();
+    await page.waitForTimeout(900);
+    const firstCardRestoredState = {
+      email: await page.locator('#preview-send-to').inputValue(),
+      invertPressed: await page
+        .getByRole('button', { exact: true, name: 'Invert colors' })
+        .getAttribute('aria-pressed'),
+      panelWidth: await page
+        .locator('#tool-panel')
+        .evaluate((element) => element.getBoundingClientRect().width),
+      preview: await page.locator('main .ring-2 iframe').evaluate((frame) => ({
+        bodyBackground: frame.contentDocument?.body.style.backgroundColor,
+        shellWidth: frame.parentElement?.getBoundingClientRect().width
+      }))
+    };
+    await page.locator('#preview-send-to').fill('deliver@example.com');
+    await page.getByRole('button', { exact: true, name: 'Send' }).click();
+    await page.waitForTimeout(250);
+    const sendButtonEarly = await page
+      .locator('#tool-panel button[type="submit"]')
+      .evaluate((button) => {
+        const icon = button.querySelector('i');
+
+        return {
+          disabled: (button as HTMLButtonElement).disabled,
+          iconAnimation: icon ? getComputedStyle(icon).animationName : null,
+          text: button.textContent
+        };
+      });
+    await page.waitForTimeout(4100);
+    const sendButtonText = await page
+      .locator('#tool-panel button[type="submit"]')
+      .textContent();
+    const plunkRequest = plunkRequests.at(-1);
+    const sendRequest = {
+      authIsBearer: plunkRequest?.authorization?.startsWith('Bearer sk_') || false,
+      bodyHasHtml: typeof plunkRequest?.body?.body === 'string' && plunkRequest.body.body.includes('<!DOCTYPE html'),
+      contentType: plunkRequest?.contentType,
+      subject: plunkRequest?.body?.subject,
+      to: plunkRequest?.body?.to
+    };
 
     results.toolPanel = {
       before,
+      appleIosInversion,
+      applePresetInversion,
       colorState,
+      cssInversion,
+      darkSchemeState,
+      firstCardRestoredState,
+      inversionOffState,
+      inversionScroll,
       labelClickColorState,
+      secondCardState,
+      secondPanelWidth,
+      sendButtonEarly,
+      sendButtonText,
+      sendDisabledState,
+      sendRequest,
       collapsedIconGeometry,
       collapsedIconCount,
       collapsedInitialIconGeometry,
