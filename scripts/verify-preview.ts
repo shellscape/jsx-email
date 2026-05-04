@@ -183,8 +183,11 @@ async function main() {
     await page.waitForTimeout(250);
     const presetFrame = await page.locator('main .ring-2 iframe').evaluate((frame) => {
       const shell = frame.parentElement;
+      const styles = shell ? getComputedStyle(shell) : null;
       return {
         shellClass: shell?.className,
+        shellTransitionDuration: styles?.transitionDuration,
+        shellTransitionProperty: styles?.transitionProperty,
         shellWidth: shell?.getBoundingClientRect().width
       };
     });
@@ -194,38 +197,38 @@ async function main() {
         .getByRole('button', { exact: true, name: 'Dark Mode color scheme' })
         .getAttribute('aria-pressed'),
       invertPressed: await page
-        .getByRole('button', { exact: true, name: 'Invert colors' })
+        .getByRole('button', { exact: true, name: 'Gmail Color Inversion' })
         .getAttribute('aria-pressed'),
       shellClass: await page.locator('main .ring-2 iframe').evaluate((frame) => frame.parentElement?.className)
     };
-    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.getByRole('button', { exact: true, name: 'Gmail Color Inversion' }).click();
     await page.waitForTimeout(800);
     const colorState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
       bodyBackground: frame.contentDocument?.body.style.backgroundColor,
       darkPressed: document
         .querySelector('[aria-label="Dark Mode color scheme"]')
         ?.getAttribute('aria-pressed'),
-      invertPressed: document.querySelector('[aria-label="Invert colors"]')?.getAttribute('aria-pressed'),
+      invertPressed: document.querySelector('[aria-label="Gmail Color Inversion"]')?.getAttribute('aria-pressed'),
       shellClass: frame.parentElement?.className
     }));
     const inversionScroll = await page.locator('main .ring-2 iframe').evaluate((frame) => {
       frame.contentWindow?.scrollTo(0, 160);
       return frame.contentWindow?.scrollY || 0;
     });
-    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.getByRole('button', { exact: true, name: 'Gmail Color Inversion' }).click();
     await page.waitForTimeout(250);
     const inversionOffState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
       bodyBackground: frame.contentDocument?.body.style.backgroundColor,
       scrollY: frame.contentWindow?.scrollY || 0
     }));
-    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.getByRole('button', { exact: true, name: 'Gmail Color Inversion' }).click();
     await page.waitForTimeout(250);
     await page.getByText('Dark Mode color scheme', { exact: true }).click();
     const labelClickColorState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
       darkPressed: document
         .querySelector('[aria-label="Dark Mode color scheme"]')
         ?.getAttribute('aria-pressed'),
-      invertPressed: document.querySelector('[aria-label="Invert colors"]')?.getAttribute('aria-pressed'),
+      invertPressed: document.querySelector('[aria-label="Gmail Color Inversion"]')?.getAttribute('aria-pressed'),
       shellClass: frame.parentElement?.className
     }));
     await page.getByText('Dark Mode color scheme', { exact: true }).click();
@@ -260,11 +263,13 @@ async function main() {
       const presetScroller = document.querySelector('.preset-pill')?.parentElement;
       const pill = document.querySelector('.preset-pill');
       const switchElement = document.querySelector('.switch');
+      const panel = document.getElementById('tool-panel');
       const tooltipRows = [...document.querySelectorAll('[data-tippy-content]')].map((row) =>
         row.textContent?.trim()
       );
 
       return {
+        panelTransitionDuration: panel ? getComputedStyle(panel).transitionDuration : null,
         pillBorderRadius: pill ? getComputedStyle(pill).borderRadius : null,
         presetFlexWrap: presetScroller ? getComputedStyle(presetScroller).flexWrap : null,
         presetOverflowX: presetScroller ? getComputedStyle(presetScroller).overflowX : null,
@@ -272,11 +277,24 @@ async function main() {
         tooltipRows
       };
     });
+    await page.getByText('Gmail Color Inversion', { exact: true }).hover();
+    await page.waitForTimeout(350);
+    const tooltipVisible = await page.locator('.tippy-box').evaluateAll((boxes) =>
+      boxes.some((box) => box.textContent?.includes('Gmail inverts colors for dark mode'))
+    );
     await page.getByRole('button', { exact: true, name: 'Collapse tool panel' }).click();
     await page.waitForTimeout(250);
     const panelAfter = await page
       .locator('#tool-panel')
       .evaluate((element) => element.getBoundingClientRect().width);
+    const panelAfterCollapseState = await page.locator('#tool-panel').evaluate((element) => {
+      const styles = getComputedStyle(element);
+      return {
+        cursor: styles.cursor,
+        role: element.getAttribute('role'),
+        tabIndex: (element as HTMLElement).tabIndex
+      };
+    });
     const collapsedIconCount = await page
       .locator('#tool-panel [aria-label="Color mode"], #tool-panel [aria-label="Presets"], #tool-panel [aria-label="Send email"]')
       .count();
@@ -293,10 +311,15 @@ async function main() {
         panelHeight: panel.height
       };
     });
+    await page.locator('#tool-panel').click({ position: { x: 24, y: 220 } });
+    await page.waitForTimeout(200);
+    const panelAfterRailClick = await page
+      .locator('#tool-panel')
+      .evaluate((element) => element.getBoundingClientRect().width);
     await openPreview('tool-panel-css');
     await addTemplate('netlify-welcome.tsx');
     await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
-    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.getByRole('button', { exact: true, name: 'Gmail Color Inversion' }).click();
     await page.waitForTimeout(800);
     const cssInversion = await page.locator('main .ring-2 iframe').evaluate((frame) => {
       const styleText = [...(frame.contentDocument?.querySelectorAll('style') || [])]
@@ -311,7 +334,7 @@ async function main() {
     await openPreview('tool-panel-apple-preset');
     await addTemplate('apple-receipt.tsx');
     await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
-    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.getByRole('button', { exact: true, name: 'Gmail Color Inversion' }).click();
     await page.waitForTimeout(800);
     const appleFullWidthColor = await page.locator('main .ring-2 iframe').evaluate((frame) => {
       const link = frame.contentDocument?.querySelector('a');
@@ -335,7 +358,7 @@ async function main() {
     await addTemplate('apple-receipt.tsx');
     await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
     await page.getByRole('button', { exact: true, name: 'iPhone 15 Pro Max 430px' }).click();
-    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.getByRole('button', { exact: true, name: 'Gmail Color Inversion' }).click();
     await page.waitForTimeout(800);
     const appleIosInversion = await page.locator('main .ring-2 iframe').evaluate((frame) => {
       const doc = frame.contentDocument;
@@ -361,7 +384,7 @@ async function main() {
     await addTemplate('airbnb-review.tsx');
     await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
     await page.getByRole('button', { exact: true, name: 'iPhone 15 Pro Max 430px' }).click();
-    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    await page.getByRole('button', { exact: true, name: 'Gmail Color Inversion' }).click();
     await page.locator('#preview-send-to').fill('first@example.com');
     await addTemplate('apple-receipt.tsx');
     const secondPanelWidth = await page
@@ -376,7 +399,7 @@ async function main() {
     const firstCardRestoredState = {
       email: await page.locator('#preview-send-to').inputValue(),
       invertPressed: await page
-        .getByRole('button', { exact: true, name: 'Invert colors' })
+        .getByRole('button', { exact: true, name: 'Gmail Color Inversion' })
         .getAttribute('aria-pressed'),
       panelWidth: await page
         .locator('#tool-panel')
@@ -437,11 +460,14 @@ async function main() {
       initialPanelCount,
       panelAfterAdd,
       panelAfter,
+      panelAfterCollapseState,
+      panelAfterRailClick,
       panelBefore,
       panelStructure,
       presetFrame,
       plunkLink,
-      sendInput
+      sendInput,
+      tooltipVisible
     };
   }
 

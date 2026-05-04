@@ -453,7 +453,6 @@
       .preview-frame-shell {
         background: #ffffff;
         max-width: 100%;
-        transition: width 160ms ease;
       }
       .preview-frame-shell.is-mobile {
         margin: 0 auto;
@@ -1483,15 +1482,38 @@
           }
         }
 
+        useEffect(() => {
+          if (panelCollapsed || !window.tippy) return undefined;
+
+          const instances = window.tippy('#tool-panel [data-tippy-content]', {
+            delay: [250, 0],
+            offset: [0, 8],
+            placement: 'bottom'
+          });
+
+          return () => instances.forEach((instance) => instance.destroy());
+        }, [cardId, panelCollapsed]);
+
         return h(
           'aside',
           {
             id: 'tool-panel',
+            'aria-label': panelCollapsed ? 'Expand tool panel' : undefined,
             className: cn(
-              'fixed right-3 z-40 app-panel overflow-hidden transition-[width] duration-200 ease-out',
-              panelCollapsed ? 'w-12' : 'w-80'
+              'fixed right-3 z-40 app-panel overflow-hidden transition-[width] duration-150 ease-out',
+              panelCollapsed ? 'w-12 cursor-pointer' : 'w-80'
             ),
-            style: { bottom: '6rem', top: '6rem' }
+            onClick: panelCollapsed ? () => labStore.getState().setPanelCollapsed(false) : undefined,
+            onKeyDown: panelCollapsed
+              ? (event) => {
+                  if (event.key !== 'Enter' && event.key !== ' ') return;
+                  event.preventDefault();
+                  labStore.getState().setPanelCollapsed(false);
+                }
+              : undefined,
+            role: panelCollapsed ? 'button' : undefined,
+            style: { bottom: '6rem', top: '6rem' },
+            tabIndex: panelCollapsed ? 0 : undefined
           },
           h(
             'div',
@@ -1510,16 +1532,25 @@
                   { className: 'text-xs font-semibold uppercase tracking-[0.08em]', style: { color: 'var(--text-strong)' } },
                   'Lab Controls'
                 ),
-              h(
-                Button,
-                {
-                  'aria-label': panelCollapsed ? 'Expand tool panel' : 'Collapse tool panel',
-                  className: 'min-h-0 px-1.5 py-1',
-                  onClick: () => labStore.getState().setPanelCollapsed(!panelCollapsed),
-                  title: panelCollapsed ? 'Expand tool panel' : 'Collapse tool panel'
-                },
-                h(Icon, { name: panelCollapsed ? 'nav-arrow-left' : 'nav-arrow-right' })
-              )
+              panelCollapsed
+                ? h(
+                    'span',
+                    {
+                      'aria-hidden': true,
+                      className: 'inline-flex min-h-0 items-center justify-center px-1.5 py-1'
+                    },
+                    h(Icon, { name: 'nav-arrow-left' })
+                  )
+                : h(
+                    Button,
+                    {
+                      'aria-label': 'Collapse tool panel',
+                      className: 'min-h-0 px-1.5 py-1',
+                      onClick: () => labStore.getState().setPanelCollapsed(true),
+                      title: 'Collapse tool panel'
+                    },
+                    h(Icon, { name: 'nav-arrow-right' })
+                  )
             ),
             panelCollapsed &&
               h(
@@ -1561,7 +1592,7 @@
                   }),
                   h(SwitchControl, {
                     checked: invertColors,
-                    label: 'Invert colors',
+                    label: 'Gmail Color Inversion',
                     onChange: (value) => labStore.getState().setInvertColors(cardId, value),
                     tooltip: 'Gmail inverts colors for dark mode'
                   })
@@ -1856,18 +1887,6 @@
           document.documentElement.classList.toggle('light', !dark);
           document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
         }, [dark]);
-
-        useEffect(() => {
-          if (!window.tippy) return;
-
-          const instances = window.tippy('[data-tippy-content]', {
-            delay: [250, 0],
-            offset: [0, 8],
-            placement: 'bottom'
-          });
-
-          return () => instances.forEach((instance) => instance.destroy());
-        }, [selectedId]);
 
         useLayoutEffect(() => {
           const frame = requestAnimationFrame(() => {
