@@ -715,6 +715,33 @@
       const maxZoom = 130;
       const zoomStep = 10;
       const canvasOrigin = 50000;
+      const floatingPanelInset = 12;
+      const fileSystemPanelWidth = 288;
+      const collapsedLabPanelWidth = 48;
+      const canvasPaddingX = 32;
+      const cardAlignmentAdjustment = 6;
+      const initialCardOffset =
+        floatingPanelInset +
+        fileSystemPanelWidth +
+        (496 - floatingPanelInset - fileSystemPanelWidth - collapsedLabPanelWidth) / 2 -
+        canvasPaddingX -
+        cardAlignmentAdjustment;
+
+      function getWorkspaceCenter(canvasRect) {
+        const explorerRect = document
+          .getElementById('templates-window')
+          ?.getBoundingClientRect();
+        const leftEdge = explorerRect
+          ? explorerRect.right
+          : canvasRect.left + floatingPanelInset + fileSystemPanelWidth;
+        const collapsedLabLeftEdge =
+          canvasRect.right - floatingPanelInset - collapsedLabPanelWidth;
+
+        return collapsedLabLeftEdge > leftEdge
+          ? leftEdge + (collapsedLabLeftEdge - leftEdge) / 2
+          : canvasRect.left + canvasRect.width / 2;
+      }
+
       const previewPresets = [
         { name: 'Full Width', width: null, label: '100%' },
         { name: 'iPhone 15 Pro Max', width: 430, label: '430px' },
@@ -1938,15 +1965,7 @@
             if (!canvas || !card) return;
 
             const canvasRect = canvas.getBoundingClientRect();
-            const explorerRect = document
-              .getElementById('templates-window')
-              ?.getBoundingClientRect();
-            const leftEdge = explorerRect ? explorerRect.right : canvasRect.left;
-            const rightEdge = canvasRect.right;
-            const workspaceCenter =
-              rightEdge > leftEdge
-                ? leftEdge + (rightEdge - leftEdge) / 2
-                : canvasRect.left + canvasRect.width / 2;
+            const workspaceCenter = getWorkspaceCenter(canvasRect);
             const cardRect = card.getBoundingClientRect();
             const cardCenter = cardRect.left + cardRect.width / 2;
 
@@ -2072,7 +2091,7 @@
               {
                 className: 'mr-16 origin-top-left transition-transform',
                 style: {
-                  marginLeft: canvasOrigin + 366 + 'px',
+                  marginLeft: canvasOrigin + initialCardOffset + 'px',
                   marginTop: canvasOrigin + 'px',
                   minHeight: canvasOrigin * 2 + 2400 + 'px',
                   transform: 'scale(' + zoom / 100 + ')',

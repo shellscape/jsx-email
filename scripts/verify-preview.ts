@@ -82,8 +82,9 @@ async function main() {
         return null;
       }
 
-      const rightEdge = canvas.getBoundingClientRect().right;
-      const workspaceCenter = explorerRect.right + (rightEdge - explorerRect.right) / 2;
+      const canvasRight = canvas.getBoundingClientRect().right;
+      const labCollapsedLeft = canvasRight - 12 - 48;
+      const workspaceCenter = explorerRect.right + (labCollapsedLeft - explorerRect.right) / 2;
       const cardCenter = cardRect.left + cardRect.width / 2;
 
       return {
@@ -94,7 +95,8 @@ async function main() {
         scrollLeft: canvas.scrollLeft,
         scrollMax: canvas.scrollWidth - canvas.clientWidth,
         templatesRight: explorerRect.right,
-        canvasRight: rightEdge,
+        canvasRight,
+        labCollapsedLeft,
         workspaceCenter
       };
     });
@@ -111,8 +113,9 @@ async function main() {
         return null;
       }
 
-      const rightEdge = canvas.getBoundingClientRect().right;
-      const workspaceCenter = explorerRect.right + (rightEdge - explorerRect.right) / 2;
+      const canvasRight = canvas.getBoundingClientRect().right;
+      const labCollapsedLeft = canvasRight - 12 - 48;
+      const workspaceCenter = explorerRect.right + (labCollapsedLeft - explorerRect.right) / 2;
       const cardCenter = cardRect.left + cardRect.width / 2;
 
       return {
@@ -122,7 +125,8 @@ async function main() {
         delta: cardCenter - workspaceCenter,
         scrollLeft: canvas.scrollLeft,
         templatesRight: explorerRect.right,
-        canvasRight: rightEdge,
+        canvasRight,
+        labCollapsedLeft,
         workspaceCenter
       };
     });
@@ -145,12 +149,14 @@ async function main() {
 
       if (!canvas || !emptyRect || !explorerRect) return null;
 
-      const rightEdge = canvas.getBoundingClientRect().right;
-      const workspaceCenter = explorerRect.right + (rightEdge - explorerRect.right) / 2;
+      const canvasRight = canvas.getBoundingClientRect().right;
+      const labCollapsedLeft = canvasRight - 12 - 48;
+      const workspaceCenter = explorerRect.right + (labCollapsedLeft - explorerRect.right) / 2;
       const emptyCenter = emptyRect.left + emptyRect.width / 2;
 
       return {
         delta: emptyCenter - workspaceCenter,
+        labCollapsedLeft,
         width: emptyRect.width
       };
     });
