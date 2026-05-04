@@ -66,7 +66,8 @@ async function main() {
         return null;
       }
 
-      const workspaceCenter = explorerRect.right + (canvas.getBoundingClientRect().right - explorerRect.right) / 2;
+      const rightEdge = canvas.getBoundingClientRect().right;
+      const workspaceCenter = explorerRect.right + (rightEdge - explorerRect.right) / 2;
       const cardCenter = cardRect.left + cardRect.width / 2;
 
       return {
@@ -77,6 +78,7 @@ async function main() {
         scrollLeft: canvas.scrollLeft,
         scrollMax: canvas.scrollWidth - canvas.clientWidth,
         templatesRight: explorerRect.right,
+        canvasRight: rightEdge,
         workspaceCenter
       };
     });
@@ -93,8 +95,8 @@ async function main() {
         return null;
       }
 
-      const workspaceCenter =
-        explorerRect.right + (canvas.getBoundingClientRect().right - explorerRect.right) / 2;
+      const rightEdge = canvas.getBoundingClientRect().right;
+      const workspaceCenter = explorerRect.right + (rightEdge - explorerRect.right) / 2;
       const cardCenter = cardRect.left + cardRect.width / 2;
 
       return {
@@ -104,6 +106,7 @@ async function main() {
         delta: cardCenter - workspaceCenter,
         scrollLeft: canvas.scrollLeft,
         templatesRight: explorerRect.right,
+        canvasRight: rightEdge,
         workspaceCenter
       };
     });
@@ -126,8 +129,8 @@ async function main() {
 
       if (!canvas || !emptyRect || !explorerRect) return null;
 
-      const workspaceCenter =
-        explorerRect.right + (canvas.getBoundingClientRect().right - explorerRect.right) / 2;
+      const rightEdge = canvas.getBoundingClientRect().right;
+      const workspaceCenter = explorerRect.right + (rightEdge - explorerRect.right) / 2;
       const emptyCenter = emptyRect.left + emptyRect.width / 2;
 
       return {
@@ -135,6 +138,119 @@ async function main() {
         width: emptyRect.width
       };
     });
+  }
+
+  if (check === 'all' || check === 'tool-panel') {
+    await openPreview('tool-panel');
+    const initialPanelCount = await page.locator('#tool-panel').count();
+    await addTemplate('airbnb-review.tsx');
+    const panelAfterAdd = await page
+      .locator('#tool-panel')
+      .evaluate((element) => element.getBoundingClientRect().width);
+    const collapsedInitialIconGeometry = await page.evaluate(() => {
+      const panel = document.getElementById('tool-panel')?.getBoundingClientRect();
+      const icons = [
+        ...document.querySelectorAll(
+          '#tool-panel [aria-label="Color mode"], #tool-panel [aria-label="Presets"], #tool-panel [aria-label="Send email"]'
+        )
+      ].map((element) => {
+        const rect = element.getBoundingClientRect();
+        return Math.round(rect.top - (panel?.top ?? 0));
+      });
+
+      return { icons };
+    });
+    await page.getByRole('button', { exact: true, name: 'Expand tool panel' }).click();
+    await page.waitForTimeout(250);
+    const before = await readSelectedScrollGeometry();
+    await page.getByRole('button', { exact: true, name: 'iPhone 15 Pro Max 430px' }).click();
+    await page.waitForTimeout(250);
+    const presetFrame = await page.locator('main .ring-2 iframe').evaluate((frame) => {
+      const shell = frame.parentElement;
+      return {
+        shellClass: shell?.className,
+        shellWidth: shell?.getBoundingClientRect().width
+      };
+    });
+    await page.getByRole('button', { exact: true, name: 'Dark Mode color scheme' }).click();
+    await page.getByRole('button', { exact: true, name: 'Invert colors' }).click();
+    const colorState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
+      shellClass: frame.parentElement?.className
+    }));
+    await page.getByText('Dark Mode color scheme', { exact: true }).click();
+    const labelClickColorState = await page.locator('main .ring-2 iframe').evaluate((frame) => ({
+      shellClass: frame.parentElement?.className
+    }));
+    await page.getByText('Dark Mode color scheme', { exact: true }).click();
+    const plunkLink = await page.getByRole('link', { name: /Plunk/ }).getAttribute('href');
+    const sendInput = await page.locator('#preview-send-to').getAttribute('placeholder');
+    const panelBefore = await page
+      .locator('#tool-panel')
+      .evaluate((element) => element.getBoundingClientRect().width);
+    const expandedIconGeometry = await page.evaluate(() => {
+      const panel = document.getElementById('tool-panel')?.getBoundingClientRect();
+      const icons = [...document.querySelectorAll('#tool-panel .tool-title i')].map((element) => {
+        const rect = element.getBoundingClientRect();
+        return Math.round(rect.top - (panel?.top ?? 0));
+      });
+
+      return { icons };
+    });
+    const panelStructure = await page.evaluate(() => {
+      const presetScroller = document.querySelector('.preset-pill')?.parentElement;
+      const pill = document.querySelector('.preset-pill');
+      const switchElement = document.querySelector('.switch');
+      const tooltipRows = [...document.querySelectorAll('[data-tippy-content]')].map((row) =>
+        row.textContent?.trim()
+      );
+
+      return {
+        pillBorderRadius: pill ? getComputedStyle(pill).borderRadius : null,
+        presetFlexWrap: presetScroller ? getComputedStyle(presetScroller).flexWrap : null,
+        presetOverflowX: presetScroller ? getComputedStyle(presetScroller).overflowX : null,
+        switchBorderRadius: switchElement ? getComputedStyle(switchElement).borderRadius : null,
+        tooltipRows
+      };
+    });
+    await page.getByRole('button', { exact: true, name: 'Collapse tool panel' }).click();
+    await page.waitForTimeout(250);
+    const panelAfter = await page
+      .locator('#tool-panel')
+      .evaluate((element) => element.getBoundingClientRect().width);
+    const collapsedIconCount = await page
+      .locator('#tool-panel [aria-label="Color mode"], #tool-panel [aria-label="Presets"], #tool-panel [aria-label="Send email"]')
+      .count();
+    const collapsedIconGeometry = await page.evaluate(() => {
+      const panel = document.getElementById('tool-panel')?.getBoundingClientRect();
+      const icon = document
+        .querySelector('#tool-panel [aria-label="Color mode"]')
+        ?.getBoundingClientRect();
+
+      if (!panel || !icon) return null;
+
+      return {
+        iconTopFromPanel: icon.top - panel.top,
+        panelHeight: panel.height
+      };
+    });
+
+    results.toolPanel = {
+      before,
+      colorState,
+      labelClickColorState,
+      collapsedIconGeometry,
+      collapsedIconCount,
+      collapsedInitialIconGeometry,
+      expandedIconGeometry,
+      initialPanelCount,
+      panelAfterAdd,
+      panelAfter,
+      panelBefore,
+      panelStructure,
+      presetFrame,
+      plunkLink,
+      sendInput
+    };
   }
 
   if (check === 'all' || check === 'scroll-zoom') {
