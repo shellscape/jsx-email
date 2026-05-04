@@ -383,11 +383,31 @@
           opacity 150ms ease;
       }
       .send-button:disabled {
-        background: var(--surface-muted);
-        border-color: var(--border);
-        color: var(--text-subtle);
+        background: color-mix(in srgb, var(--control-active) 82%, var(--control-active-text) 18%);
+        border-color: color-mix(in srgb, var(--control-active) 82%, var(--control-active-text) 18%);
+        color: var(--control-active-text);
         cursor: not-allowed;
-        opacity: 0.58;
+        opacity: 1;
+      }
+      html.is-zooming-in,
+      html.is-zooming-in body,
+      html.is-zooming-in body * {
+        cursor: zoom-in !important;
+      }
+      html.is-zooming-out,
+      html.is-zooming-out body,
+      html.is-zooming-out body * {
+        cursor: zoom-out !important;
+      }
+      html.is-zooming-in #templates-window,
+      html.is-zooming-in #templates-window *,
+      html.is-zooming-in #tool-panel,
+      html.is-zooming-in #tool-panel *,
+      html.is-zooming-out #templates-window,
+      html.is-zooming-out #templates-window *,
+      html.is-zooming-out #tool-panel,
+      html.is-zooming-out #tool-panel * {
+        cursor: auto !important;
       }
       @keyframes send-spin {
         from {
@@ -1019,6 +1039,9 @@
       function isZoomKey(event) {
         return event.code === 'KeyZ' || event.key.toLowerCase() === 'z';
       }
+      function isZoomExcludedTarget(target) {
+        return Boolean(target?.closest?.('#templates-window, #tool-panel'));
+      }
       function Icon({ className, name }) {
         return h('i', { className: cn('iconoir-' + name, className), 'aria-hidden': 'true' });
       }
@@ -1086,7 +1109,7 @@
         );
       }
 
-      function Header({ dark, setDark, zoom, setZoom }) {
+      function Header({ dark, onZoomChange, setDark, zoom }) {
         const [stars, setStars] = useState('...');
         useEffect(() => {
           let active = true;
@@ -1183,7 +1206,7 @@
                 Button,
                 {
                   'aria-label': 'Zoom out',
-                  onClick: () => setZoom((value) => nextZoom(value, -1)),
+                  onClick: () => onZoomChange(-1),
                   title: 'Zoom out'
                 },
                 h(Icon, { name: 'minus' })
@@ -1193,7 +1216,7 @@
                 Button,
                 {
                   'aria-label': 'Zoom in',
-                  onClick: () => setZoom((value) => nextZoom(value, 1)),
+                  onClick: () => onZoomChange(1),
                   title: 'Zoom in'
                 },
                 h(Icon, { name: 'plus' })
@@ -1709,12 +1732,12 @@
                         'button',
                         {
                           className:
-                            'send-button inline-flex h-9 items-center justify-center gap-1.5 rounded-[6px] px-3 text-sm font-medium',
+                            'send-button inline-flex h-9 w-[82px] items-center justify-center gap-1.5 rounded-[6px] px-3 text-sm font-medium',
                           disabled: !sendEmail.trim().length || sendState === 'sending' || sendState === 'sent',
                           type: 'submit'
                         },
                         sendState === 'idle' && 'Send',
-                        sendState === 'sending' && h(Icon, { name: 'refresh', className: 'send-spin' }),
+                        sendState === 'sending' && h(React.Fragment, null, h(Icon, { name: 'refresh', className: 'send-spin' }), 'Send'),
                         sendState === 'sent' && h(React.Fragment, null, h(Icon, { name: 'mail-out' }), 'Sent!'),
                         sendState === 'error' && 'Error'
                       )
@@ -1906,6 +1929,7 @@
         const canvasInitialized = useRef(false);
         const preserveSelectionPosition = useRef(null);
         const previousCardCount = useRef(0);
+        const pendingZoomAnchor = useRef(null);
 
         const selected = cards.find((c) => c.id === selectedId) || null;
 
@@ -1927,6 +1951,36 @@
 
           return () => cancelAnimationFrame(frame);
         }, []);
+
+        useEffect(() => {
+          const root = document.documentElement;
+          root.classList.toggle('is-zooming-in', isZoomKeyDown && !isAltDown);
+          root.classList.toggle('is-zooming-out', isZoomKeyDown && isAltDown);
+
+          return () => {
+            root.classList.remove('is-zooming-in', 'is-zooming-out');
+          };
+        }, [isAltDown, isZoomKeyDown]);
+
+        useEffect(() => {
+          if (!isZoomKeyDown) return undefined;
+
+          function handleDocumentClick(event) {
+            if (isZoomExcludedTarget(event.target)) return;
+
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            changeZoom(event.altKey || isAltDown ? -1 : 1, {
+              x: event.clientX,
+              y: event.clientY
+            });
+          }
+
+          document.addEventListener('click', handleDocumentClick, true);
+
+          return () => document.removeEventListener('click', handleDocumentClick, true);
+        }, [isAltDown, isZoomKeyDown, zoom]);
 
         useEffect(() => {
           function handleKeyDown(event) {
@@ -1979,6 +2033,25 @@
 
           return () => cancelAnimationFrame(frame);
         }, [focusTarget, cards.length]);
+
+        useLayoutEffect(() => {
+          const anchor = pendingZoomAnchor.current;
+          if (!anchor) return;
+
+          const canvas = canvasRef.current;
+          if (!canvas) {
+            pendingZoomAnchor.current = null;
+            return;
+          }
+
+          const nextScale = zoom / 100;
+          canvas.scrollTo({
+            left: anchor.scrollLeft + anchor.localX * (nextScale - anchor.scale),
+            top: anchor.scrollTop + anchor.localY * (nextScale - anchor.scale),
+            behavior: 'auto'
+          });
+          pendingZoomAnchor.current = null;
+        }, [zoom]);
 
         useLayoutEffect(() => {
           const preserved = preserveSelectionPosition.current;
@@ -2042,13 +2115,38 @@
             preserveSelectionPosition.current = null;
           }
         }
+        function changeZoom(direction, anchorPoint) {
+          const next = nextZoom(zoom, direction);
+          if (next === zoom) return;
+
+          const canvas = canvasRef.current;
+          const content = canvas?.firstElementChild;
+          if (canvas && content) {
+            const canvasRect = canvas.getBoundingClientRect();
+            const contentRect = content.getBoundingClientRect();
+            const scale = zoom / 100;
+            const anchorX = anchorPoint?.x ?? canvasRect.left + canvasRect.width / 2;
+            const anchorY = anchorPoint?.y ?? canvasRect.top + canvasRect.height / 2;
+
+            pendingZoomAnchor.current = {
+              localX: (anchorX - contentRect.left) / scale,
+              localY: (anchorY - contentRect.top) / scale,
+              scale,
+              scrollLeft: canvas.scrollLeft,
+              scrollTop: canvas.scrollTop
+            };
+          }
+
+          setZoom(next);
+        }
         function handleCanvasClickCapture(event) {
           if (!isZoomKeyDown) return;
+          if (isZoomExcludedTarget(event.target)) return;
 
           event.preventDefault();
           event.stopPropagation();
           const direction = event.altKey || isAltDown ? -1 : 1;
-          setZoom((value) => nextZoom(value, direction));
+          changeZoom(direction, { x: event.clientX, y: event.clientY });
         }
         function handleCanvasMouseMove(event) {
           if (isZoomKeyDown && event.altKey !== isAltDown) setIsAltDown(event.altKey);
@@ -2064,7 +2162,16 @@
           {
             className: 'min-h-screen bg-white text-black dark:bg-black dark:text-white'
           },
-          h(Header, { dark, setDark, zoom, setZoom }),
+          h(Header, { dark, onZoomChange: changeZoom, setDark, zoom }),
+          isZoomKeyDown &&
+            h('div', {
+              'aria-hidden': true,
+              className: 'fixed inset-0',
+              style: {
+                cursor: isAltDown ? 'zoom-out' : 'zoom-in',
+                zIndex: 35
+              }
+            }),
           h(Explorer, {
             focusTemplate,
             selectedTemplateId: selected ? selected.templateId : null
@@ -2089,7 +2196,7 @@
             h(
               'div',
               {
-                className: 'mr-16 origin-top-left transition-transform',
+                className: 'mr-16 origin-top-left',
                 style: {
                   marginLeft: canvasOrigin + initialCardOffset + 'px',
                   marginTop: canvasOrigin + 'px',

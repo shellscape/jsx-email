@@ -57,6 +57,51 @@ async function main() {
     return page.locator('span:has-text("%")').textContent();
   }
 
+  async function readViewportCenterLocalPoint() {
+    return page.locator('main').evaluate((canvas) => {
+      const content = canvas.firstElementChild;
+      if (!content) return null;
+
+      const canvasRect = canvas.getBoundingClientRect();
+      const contentRect = content.getBoundingClientRect();
+      const transform = getComputedStyle(content).transform;
+      const scale = transform === 'none' ? 1 : new DOMMatrixReadOnly(transform).a;
+      const anchorX = canvasRect.left + canvasRect.width / 2;
+      const anchorY = canvasRect.top + canvasRect.height / 2;
+
+      return {
+        localX: (anchorX - contentRect.left) / scale,
+        localY: (anchorY - contentRect.top) / scale,
+        scale,
+        scrollLeft: canvas.scrollLeft,
+        scrollTop: canvas.scrollTop,
+        transitionDuration: getComputedStyle(content).transitionDuration
+      };
+    });
+  }
+
+  async function readLocalPointAt(clientX: number, clientY: number) {
+    return page.locator('main').evaluate(
+      (canvas, point) => {
+        const content = canvas.firstElementChild;
+        if (!content) return null;
+
+        const contentRect = content.getBoundingClientRect();
+        const transform = getComputedStyle(content).transform;
+        const scale = transform === 'none' ? 1 : new DOMMatrixReadOnly(transform).a;
+
+        return {
+          localX: (point.x - contentRect.left) / scale,
+          localY: (point.y - contentRect.top) / scale,
+          scale,
+          scrollLeft: canvas.scrollLeft,
+          scrollTop: canvas.scrollTop
+        };
+      },
+      { x: clientX, y: clientY }
+    );
+  }
+
   async function readSelected() {
     return page.evaluate(() => {
       const selected = [...document.querySelectorAll('main .ring-2')].map((element) =>
@@ -247,10 +292,13 @@ async function main() {
 
         return {
           backgroundColor: styles.backgroundColor,
+          borderColor: styles.borderColor,
           color: styles.color,
           cursor: styles.cursor,
           disabled: (button as HTMLButtonElement).disabled,
-          opacity: styles.opacity
+          height: button.getBoundingClientRect().height,
+          opacity: styles.opacity,
+          width: button.getBoundingClientRect().width
         };
       });
     const panelBefore = await page
@@ -425,14 +473,20 @@ async function main() {
 
         return {
           disabled: (button as HTMLButtonElement).disabled,
+          height: button.getBoundingClientRect().height,
           iconAnimation: icon ? getComputedStyle(icon).animationName : null,
-          text: button.textContent
+          text: button.textContent,
+          width: button.getBoundingClientRect().width
         };
       });
     await page.waitForTimeout(4100);
-    const sendButtonText = await page
+    const sendButtonComplete = await page
       .locator('#tool-panel button[type="submit"]')
-      .textContent();
+      .evaluate((button) => ({
+        height: button.getBoundingClientRect().height,
+        text: button.textContent,
+        width: button.getBoundingClientRect().width
+      }));
     const plunkRequest = plunkRequests.at(-1);
     const sendRequest = {
       authIsBearer: plunkRequest?.authorization?.startsWith('Bearer sk_') || false,
@@ -456,7 +510,7 @@ async function main() {
       secondCardState,
       secondPanelWidth,
       sendButtonEarly,
-      sendButtonText,
+      sendButtonComplete,
       sendDisabledState,
       sendRequest,
       collapsedIconGeometry,
@@ -489,6 +543,11 @@ async function main() {
   }
 
   if (check === 'all' || check === 'zoom-sequence') {
+    await openPreview('zoom-empty');
+    const emptyCenterBeforeZoom = await readViewportCenterLocalPoint();
+    await zoomByClicks('out', 1);
+    const emptyCenterAfterZoom = await readViewportCenterLocalPoint();
+
     await openPreview('zoom-sequence');
     await addTemplate('airbnb-review.tsx');
     await zoomByClicks('out', 7);
@@ -503,16 +562,24 @@ async function main() {
     }
 
     const beforeZoom = await readScrollGeometry();
+    const centerBeforeZoomIn = await readViewportCenterLocalPoint();
     const scrollBeforeZoom = await page.locator('main').evaluate((element) => element.scrollLeft);
     await zoomByClicks('in', 5);
+    const centerAfterZoomIn = await readViewportCenterLocalPoint();
     const scrollAfterZoomIn = await page.locator('main').evaluate((element) => element.scrollLeft);
     await zoomByClicks('out', 5);
+    const centerAfterZoomOut = await readViewportCenterLocalPoint();
     const scrollAfterZoomOut = await page.locator('main').evaluate((element) => element.scrollLeft);
     const afterZoom = await readScrollGeometry();
 
     results.zoomSequence = {
       afterZoom,
       beforeZoom,
+      centerAfterZoomIn,
+      centerAfterZoomOut,
+      centerBeforeZoomIn,
+      emptyCenterAfterZoom,
+      emptyCenterBeforeZoom,
       scrollAfterZoomIn,
       scrollAfterZoomOut,
       scrollBeforeZoom,
@@ -799,6 +866,37 @@ async function main() {
     });
     await page.keyboard.up('Alt');
 
+    await openPreview('zzoom-surfaces');
+    await addTemplate('airbnb-review.tsx');
+    await page.keyboard.down('z');
+    const zoomBeforeCardSurface = await readZoom();
+    const selectedBeforeCardSurface = await readSelected();
+    const cardMousePointBeforeZoom = await readLocalPointAt(760, 320);
+    await page.mouse.click(760, 320);
+    await page.waitForTimeout(100);
+    const cardMousePointAfterZoom = await readLocalPointAt(760, 320);
+    const zoomAfterCardSurface = await readZoom();
+    const selectedAfterCardSurface = await readSelected();
+    const headerDarkBefore = await page.evaluate(() => document.documentElement.classList.contains('dark'));
+    await page.getByRole('button', { exact: true, name: 'Toggle dark mode' }).click();
+    await page.waitForTimeout(100);
+    const headerDarkAfter = await page.evaluate(() => document.documentElement.classList.contains('dark'));
+    const zoomAfterHeaderSurface = await readZoom();
+    await page.getByRole('button', { exact: true, name: 'apple-receipt.tsx' }).click();
+    await page.waitForTimeout(200);
+    const zoomAfterFileSystemClick = await readZoom();
+    const selectedAfterFileSystemClick = await readSelected();
+    const fileSystemCursor = await page
+      .getByRole('button', { exact: true, name: 'apple-receipt.tsx' })
+      .evaluate((element) => getComputedStyle(element).cursor);
+    await page.locator('#tool-panel').click({ position: { x: 24, y: 220 } });
+    await page.waitForTimeout(200);
+    const zoomAfterLabClick = await readZoom();
+    const labPanelWidthAfterClick = await page
+      .locator('#tool-panel')
+      .evaluate((element) => element.getBoundingClientRect().width);
+    await page.keyboard.up('z');
+
     results.zzoom = {
       afterZoomIn,
       afterZoomOut,
@@ -807,7 +905,21 @@ async function main() {
       cursorNormal,
       cursorOut,
       cursorOutAltFirst,
+      fileSystemCursor,
+      headerDarkAfter,
+      headerDarkBefore,
       minZoomValue,
+      cardMousePointAfterZoom,
+      cardMousePointBeforeZoom,
+      selectedAfterCardSurface,
+      selectedAfterFileSystemClick,
+      selectedBeforeCardSurface,
+      zoomAfterCardSurface,
+      zoomAfterFileSystemClick,
+      zoomAfterHeaderSurface,
+      zoomAfterLabClick,
+      labPanelWidthAfterClick,
+      zoomBeforeCardSurface,
       zoomInSequence
     };
   }
