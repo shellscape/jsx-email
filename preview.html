@@ -39,6 +39,17 @@
         --ring: #111827;
         --grid-dot: rgba(107, 114, 128, 0.2);
         --grid-dot-active: rgba(17, 24, 39, 0.42);
+        --astro-code-color-text: #414141;
+        --astro-code-color-background: transparent;
+        --astro-code-token-constant: #1976d2;
+        --astro-code-token-string: #22863a;
+        --astro-code-token-comment: #aaa;
+        --astro-code-token-keyword: #d32f2f;
+        --astro-code-token-parameter: #ff9800;
+        --astro-code-token-function: #6f42c1;
+        --astro-code-token-string-expression: #22863a;
+        --astro-code-token-punctuation: #212121;
+        --astro-code-token-link: #22863a;
       }
       html.dark {
         color-scheme: dark;
@@ -59,6 +70,16 @@
         --ring: #f9fafb;
         --grid-dot: rgba(75, 85, 99, 0.34);
         --grid-dot-active: rgba(229, 231, 235, 0.52);
+        --astro-code-color-text: #d1d1d1;
+        --astro-code-token-constant: #79b8ff;
+        --astro-code-token-string: #ffab70;
+        --astro-code-token-comment: #6b737c;
+        --astro-code-token-keyword: #f97583;
+        --astro-code-token-parameter: #ff9800;
+        --astro-code-token-function: #b392f0;
+        --astro-code-token-string-expression: #4bb74a;
+        --astro-code-token-punctuation: #bbb;
+        --astro-code-token-link: #ffab70;
       }
       * {
         box-sizing: border-box;
@@ -69,11 +90,16 @@
         color: var(--text);
         font-family: var(--font-sans);
         font-weight: 400;
+        overscroll-behavior-x: contain;
+      }
+      html {
+        overscroll-behavior-x: contain;
       }
       .canvas-grid {
         background-color: var(--bg);
         background-image: radial-gradient(circle, var(--grid-dot) 1px, transparent 1px);
         background-size: 14.4px 14.4px;
+        overscroll-behavior-x: contain;
         position: relative;
       }
       .canvas-grid::before {
@@ -183,8 +209,65 @@
       }
       .card-code {
         background: var(--surface-raised);
+        color: var(--astro-code-color-text);
+        font-family: Menlo, ui-monospace, SFMono-Regular, Monaco, Consolas, Liberation Mono, monospace;
+      }
+      .card-code figure,
+      .card-code pre,
+      .card-code code {
+        background: transparent !important;
+        border: 0;
+        color: var(--astro-code-color-text);
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        margin: 0;
+        overflow: visible;
+        padding: 0;
+      }
+      .code-block-wrap {
+        position: relative;
+      }
+      .code-actions {
+        display: inline-flex;
+        gap: 6px;
+        opacity: 1;
+        pointer-events: auto;
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        z-index: 2;
+      }
+      .code-action {
+        align-items: center;
+        background: color-mix(in srgb, var(--surface-raised) 92%, transparent);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        color: var(--text-subtle);
+        display: inline-flex;
+        height: 30px;
+        justify-content: center;
+        width: 30px;
+      }
+      .code-action:hover {
+        background: var(--control-hover);
         color: var(--text-strong);
-        font-family: SFMono-Regular, Consolas, Menlo, Monaco, monospace;
+      }
+      .docs-inline-code {
+        overflow-wrap: break-word;
+        border-radius: 2px;
+        border: 1px solid #21272e1f;
+        background: #fafafa;
+        padding: 3px 4px;
+        font-size: 13px;
+        color: #0a0a0a;
+        line-height: normal;
+        font-family: Menlo, ui-monospace, SFMono-Regular, Monaco, Consolas, Liberation Mono, monospace;
+      }
+      html.dark .docs-inline-code {
+        background-color: #1a1a1a;
+        border-color: #292929;
+        color: #c4c5c6;
       }
       .tree-branch {
         border-left: 1px solid var(--tree-line);
@@ -246,6 +329,21 @@
 
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script type="module">
+      import { codeToHtml } from 'https://esm.sh/shiki@1.22.2';
+      import { createCssVariablesTheme } from 'https://esm.sh/shiki@1.22.2/core';
+
+      const codeTheme = createCssVariablesTheme({
+        variablePrefix: '--astro-code-'
+      });
+
+      window.highlightPreviewCode = (code, lang) =>
+        codeToHtml(code, {
+          lang,
+          theme: codeTheme
+        });
+      window.dispatchEvent(new Event('preview-shiki-ready'));
+    </script>
 
     <script>
       const { useEffect, useLayoutEffect, useRef, useState } = React;
@@ -447,9 +545,117 @@
       const minZoom = 25;
       const maxZoom = 130;
       const zoomStep = 10;
+      const canvasOrigin = 50000;
 
       function cn() {
         return Array.from(arguments).filter(Boolean).join(' ');
+      }
+      function nextZoom(value, direction) {
+        if (direction > 0) {
+          const next = Math.ceil((value + 1) / zoomStep) * zoomStep;
+          return Math.min(maxZoom, Math.max(minZoom, next));
+        }
+
+        const next = Math.floor((value - 1) / zoomStep) * zoomStep;
+        return Math.max(minZoom, Math.min(maxZoom, next));
+      }
+      function escapeHtml(value) {
+        return value.replace(/[&<>"']/g, (char) => {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+          }[char];
+        });
+      }
+      function downloadCode(code, fileName) {
+        const url = URL.createObjectURL(
+          new Blob([code], {
+            type: 'text/plain;charset=utf-8'
+          })
+        );
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = fileName;
+        anchor.click();
+        window.setTimeout(() => URL.revokeObjectURL(url), 0);
+      }
+      function CodeBlock({ code, fileName, lang }) {
+        const [html, setHtml] = useState('');
+        const [copied, setCopied] = useState(false);
+
+        useEffect(() => {
+          let active = true;
+
+          let readyTimer = null;
+
+          async function highlight() {
+            if (!window.highlightPreviewCode) {
+              readyTimer = window.setTimeout(highlight, 50);
+              return;
+            }
+
+            try {
+              const nextHtml = await window.highlightPreviewCode(code, lang);
+              if (active) setHtml(nextHtml);
+            } catch {
+              if (active) setHtml('<pre><code>' + escapeHtml(code) + '</code></pre>');
+            }
+          }
+
+          highlight();
+
+          return () => {
+            active = false;
+            if (readyTimer) window.clearTimeout(readyTimer);
+          };
+        }, [code, lang]);
+
+        return h(
+          'div',
+          { className: 'code-block-wrap h-full' },
+          h(
+            'div',
+            { className: 'code-actions' },
+            h(
+              'button',
+              {
+                'aria-label': 'Download code',
+                className: 'code-action',
+                onClick: (event) => {
+                  event.stopPropagation();
+                  downloadCode(code, fileName);
+                },
+                title: 'Download code',
+                type: 'button'
+              },
+              h(Icon, { name: 'download' })
+            ),
+            h(
+              'button',
+              {
+                'aria-label': copied ? 'Copied code' : 'Copy code',
+                className: 'code-action',
+                onClick: async (event) => {
+                  event.stopPropagation();
+                  await navigator.clipboard.writeText(code);
+                  setCopied(true);
+                  window.setTimeout(() => setCopied(false), 1500);
+                },
+                title: copied ? 'Copied' : 'Copy code',
+                type: 'button'
+              },
+              h(Icon, { name: copied ? 'check' : 'copy' })
+            )
+          ),
+          h('div', {
+            className: 'card-code h-full overflow-auto rounded-[6px] border p-4 pr-24 text-xs leading-5',
+            dangerouslySetInnerHTML: { __html: html },
+            style: { borderColor: 'var(--border)' }
+          })
+        );
       }
       function isZoomKey(event) {
         return event.code === 'KeyZ' || event.key.toLowerCase() === 'z';
@@ -605,7 +811,7 @@
                 Button,
                 {
                   'aria-label': 'Zoom out',
-                  onClick: () => setZoom(Math.max(minZoom, zoom - zoomStep)),
+                  onClick: () => setZoom((value) => nextZoom(value, -1)),
                   title: 'Zoom out'
                 },
                 h(Icon, { name: 'minus' })
@@ -615,7 +821,7 @@
                 Button,
                 {
                   'aria-label': 'Zoom in',
-                  onClick: () => setZoom(Math.min(maxZoom, zoom + zoomStep)),
+                  onClick: () => setZoom((value) => nextZoom(value, 1)),
                   title: 'Zoom in'
                 },
                 h(Icon, { name: 'plus' })
@@ -848,13 +1054,17 @@
           ['plain', 'Plain']
         ];
         const source = tab === 'jsx' ? t.jsx : tab === 'html' ? t.html : t.plain;
+        const sourceLang = tab === 'jsx' ? 'tsx' : tab === 'html' ? 'html' : 'text';
+        const sourceFileName =
+          t.id + (tab === 'jsx' ? '.tsx' : tab === 'html' ? '.html' : '.txt');
         return h(
           'div',
           {
             ref: (node) => setCardNode(card.id, node),
             onClick: () => select(card),
             className: cn(
-              'inline-block cursor-pointer rounded-[6px] align-top transition',
+              'inline-block rounded-[6px] align-top transition',
+              isSelected ? 'cursor-default' : 'cursor-pointer',
               isSelected && 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-black'
             ),
             style: {
@@ -864,7 +1074,7 @@
           },
           h(
             Card,
-            { className: 'h-[520px] overflow-hidden' },
+            { className: 'h-[680px] overflow-hidden' },
             h(
               'div',
               {
@@ -924,7 +1134,7 @@
             h(
               'div',
               {
-                className: 'h-[463px] p-5',
+                className: 'h-[623px] p-5',
                 style: { background: 'var(--surface-muted)' }
               },
               tab === 'preview'
@@ -945,14 +1155,7 @@
                       style: { width: '100%', height: '100%', border: 0, display: 'block' }
                     })
                   )
-                : h(
-                    'pre',
-                    {
-                      className: 'card-code h-full overflow-auto rounded-[6px] border p-4 text-xs leading-5',
-                      style: { borderColor: 'var(--border)' }
-                    },
-                    source
-                  )
+                : h(CodeBlock, { code: source, fileName: sourceFileName, lang: sourceLang })
             )
           )
         );
@@ -968,6 +1171,7 @@
         const [isAltDown, setIsAltDown] = useState(false);
         const canvasRef = useRef(null);
         const cardNodes = useRef(new Map());
+        const canvasInitialized = useRef(false);
         const previousCardCount = useRef(0);
 
         const selected = cards.find((c) => c.id === selectedId) || null;
@@ -977,6 +1181,19 @@
           document.documentElement.classList.toggle('light', !dark);
           document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
         }, [dark]);
+
+        useLayoutEffect(() => {
+          const frame = requestAnimationFrame(() => {
+            const canvas = canvasRef.current;
+            if (!canvas || canvasInitialized.current) return;
+
+            canvas.scrollLeft = canvasOrigin;
+            canvas.scrollTop = canvasOrigin;
+            canvasInitialized.current = true;
+          });
+
+          return () => cancelAnimationFrame(frame);
+        }, []);
 
         useEffect(() => {
           function handleKeyDown(event) {
@@ -1029,6 +1246,7 @@
 
             canvas.scrollTo({
               left: canvas.scrollLeft + cardCenter - workspaceCenter,
+              top: canvas.scrollTop,
               behavior: previousCardCount.current === 0 ? 'auto' : 'smooth'
             });
             previousCardCount.current = cards.length;
@@ -1071,9 +1289,7 @@
           event.preventDefault();
           event.stopPropagation();
           const direction = event.altKey || isAltDown ? -1 : 1;
-          setZoom((value) =>
-            Math.min(maxZoom, Math.max(minZoom, value + direction * zoomStep))
-          );
+          setZoom((value) => nextZoom(value, direction));
         }
         function handleCanvasMouseMove(event) {
           if (isZoomKeyDown && event.altKey !== isAltDown) setIsAltDown(event.altKey);
@@ -1110,8 +1326,14 @@
             h(
               'div',
               {
-                className: 'ml-80 mr-16 origin-top-left transition-transform',
-                style: { minHeight: '2400px', transform: 'scale(' + zoom / 100 + ')' }
+                className: 'mr-16 origin-top-left transition-transform',
+                style: {
+                  marginLeft: canvasOrigin + 342 + 'px',
+                  marginTop: canvasOrigin + 'px',
+                  minHeight: canvasOrigin * 2 + 2400 + 'px',
+                  transform: 'scale(' + zoom / 100 + ')',
+                  width: canvasOrigin * 2 + 'px'
+                }
               },
               cards.length === 0
                 ? h(
@@ -1124,7 +1346,8 @@
                         borderRadius: 'var(--radius)',
                         boxShadow:
                           '0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
-                        color: 'var(--text)'
+                        color: 'var(--text)',
+                        width: 'calc(100vw - 28rem)'
                       }
                     },
                     h(
@@ -1150,12 +1373,7 @@
                         h(
                           'code',
                           {
-                            className: 'rounded-[4px] border px-1.5 py-0.5 text-xs',
-                            style: {
-                              background: 'var(--surface-muted)',
-                              borderColor: 'var(--border)',
-                              color: 'var(--text-strong)'
-                            }
+                            className: 'docs-inline-code'
                           },
                           'email create <template-name>'
                         ),
@@ -1165,12 +1383,7 @@
                         h(
                           'code',
                           {
-                            className: 'rounded-[4px] border px-1.5 py-0.5 text-xs',
-                            style: {
-                              background: 'var(--surface-muted)',
-                              borderColor: 'var(--border)',
-                              color: 'var(--text-strong)'
-                            }
+                            className: 'docs-inline-code'
                           },
                           'email help create'
                         ),
@@ -1207,7 +1420,7 @@
                         key: card.id,
                         card,
                         selected,
-                        select: (c) => setSelectedId(c.id),
+                        select: (c) => focusCard(c.id),
                         remove,
                         setCardNode
                       })

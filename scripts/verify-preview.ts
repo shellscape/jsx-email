@@ -11,7 +11,11 @@ async function main() {
   const url = getArg('--url', defaultUrl);
   const check = getArg('--check', 'all');
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  const context = await browser.newContext({
+    permissions: ['clipboard-read', 'clipboard-write'],
+    viewport: { width: 1280, height: 900 }
+  });
+  const page = await context.newPage();
   const results: Record<string, unknown> = {};
 
   async function openPreview(suffix: string) {
@@ -78,11 +82,59 @@ async function main() {
     });
   }
 
+  async function readSelectedScrollGeometry() {
+    return page.evaluate(() => {
+      const canvas = document.querySelector('main');
+      const selected = document.querySelector('main .ring-2');
+      const explorerRect = document.getElementById('templates-window')?.getBoundingClientRect();
+      const cardRect = selected?.getBoundingClientRect();
+
+      if (!canvas || !explorerRect || !cardRect) {
+        return null;
+      }
+
+      const workspaceCenter =
+        explorerRect.right + (canvas.getBoundingClientRect().right - explorerRect.right) / 2;
+      const cardCenter = cardRect.left + cardRect.width / 2;
+
+      return {
+        cardCenter,
+        cardLeft: cardRect.left,
+        cardRight: cardRect.right,
+        delta: cardCenter - workspaceCenter,
+        scrollLeft: canvas.scrollLeft,
+        templatesRight: explorerRect.right,
+        workspaceCenter
+      };
+    });
+  }
+
   if (check === 'all' || check === 'scroll') {
     await openPreview('scroll');
     await addTemplate('airbnb-review.tsx');
     await addTemplate('apple-receipt.tsx');
     results.scroll = await readScrollGeometry();
+  }
+
+  if (check === 'all' || check === 'empty-card') {
+    await openPreview('empty-card');
+    results.emptyCard = await page.evaluate(() => {
+      const canvas = document.querySelector('main');
+      const empty = canvas?.querySelector('.mt-24');
+      const explorerRect = document.getElementById('templates-window')?.getBoundingClientRect();
+      const emptyRect = empty?.getBoundingClientRect();
+
+      if (!canvas || !emptyRect || !explorerRect) return null;
+
+      const workspaceCenter =
+        explorerRect.right + (canvas.getBoundingClientRect().right - explorerRect.right) / 2;
+      const emptyCenter = emptyRect.left + emptyRect.width / 2;
+
+      return {
+        delta: emptyCenter - workspaceCenter,
+        width: emptyRect.width
+      };
+    });
   }
 
   if (check === 'all' || check === 'scroll-zoom') {
@@ -133,11 +185,21 @@ async function main() {
     await addTemplate('airbnb-review.tsx');
     await addTemplate('apple-receipt.tsx');
     const pan = await page.locator('main').evaluate((canvas) => {
-      canvas.scrollTo({ left: 500, top: 500 });
+      const initialLeft = canvas.scrollLeft;
+      const initialTop = canvas.scrollTop;
+      canvas.scrollBy({ left: -500, top: -500 });
+      const afterLeftUp = {
+        scrollLeft: canvas.scrollLeft,
+        scrollTop: canvas.scrollTop
+      };
+      canvas.scrollBy({ left: 1000, top: 1000 });
 
       return {
+        afterLeftUp,
         clientHeight: canvas.clientHeight,
         clientWidth: canvas.clientWidth,
+        initialLeft,
+        initialTop,
         scrollHeight: canvas.scrollHeight,
         scrollLeft: canvas.scrollLeft,
         scrollTop: canvas.scrollTop,
@@ -148,19 +210,99 @@ async function main() {
     results.canvasPan = pan;
   }
 
+  if (check === 'all' || check === 'overscroll-back') {
+    await page.goto(`${url}?verify=overscroll-before-${Date.now()}`, { waitUntil: 'networkidle' });
+    const previousUrl = page.url();
+    await openPreview('overscroll-back');
+    await addTemplate('airbnb-review.tsx');
+    const beforeUrl = page.url();
+    const beforeState = await page.locator('main').evaluate((canvas) => ({
+      overscrollBehaviorX: getComputedStyle(canvas).overscrollBehaviorX,
+      scrollLeft: canvas.scrollLeft
+    }));
+    await page.locator('main').hover();
+    await page.mouse.wheel(-1200, 0);
+    await page.waitForTimeout(500);
+    const afterWheelUrl = page.url();
+    const client = await context.newCDPSession(page);
+    await client.send('Input.synthesizeScrollGesture', {
+      gestureSourceType: 'mouse',
+      speed: 800,
+      x: 640,
+      xDistance: 1200,
+      y: 450,
+      yDistance: 0
+    });
+    await page.waitForTimeout(500);
+    const afterGestureUrl = page.url();
+
+    results.overscrollBack = {
+      afterGestureUrl,
+      afterWheelUrl,
+      backTriggered: afterWheelUrl === previousUrl || afterGestureUrl === previousUrl,
+      beforeState,
+      beforeUrl,
+      previousUrl
+    };
+  }
+
   if (check === 'all' || check === 'select') {
     await openPreview('select');
+    const inlineCodeStyle = await page.evaluate(() => {
+      const element = document.querySelector('.docs-inline-code');
+      if (!element) return null;
+      const styles = getComputedStyle(element);
+
+      return {
+        backgroundColor: styles.backgroundColor,
+        borderRadius: styles.borderRadius,
+        fontSize: styles.fontSize
+      };
+    });
     await addTemplate('airbnb-review.tsx');
     await addTemplate('apple-receipt.tsx');
     await page.locator('main .inline-block').first().click({ position: { x: 20, y: 20 } });
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(900);
+    const codeText = await (async () => {
+      await page.getByRole('tab', { exact: true, name: 'JSX' }).first().click();
+      await page.waitForTimeout(900);
+      return page.locator('main .ring-2 pre').textContent();
+    })();
+    await page.locator('main .ring-2 .card-code').hover();
+    await page.getByRole('button', { exact: true, name: 'Copy code' }).click();
+    const copiedText = await page.evaluate(() => navigator.clipboard.readText());
+    const download = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { exact: true, name: 'Download code' }).click()
+    ]).then(([nextDownload]) => nextDownload);
+    const downloadContent = await download.createReadStream().then(
+      (stream) =>
+        new Promise<string>((resolve, reject) => {
+          const chunks: Buffer[] = [];
+          stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+          stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+          stream.on('error', reject);
+        })
+    );
     results.select = {
       ...(await readSelected()),
-      codeAfterTab: await (async () => {
-        await page.getByRole('tab', { exact: true, name: 'JSX' }).first().click();
-        await page.waitForTimeout(100);
-        return page.locator('main .ring-2 pre').textContent();
-      })(),
+      selectedGeometry: await readSelectedScrollGeometry(),
+      codeAfterTab: codeText,
+      codeActionButtons: await page
+        .locator('main .ring-2')
+        .getByRole('button', { name: /Copy code|Download code|Copied code/ })
+        .count(),
+      cursor: await page
+        .locator('main .ring-2')
+        .evaluate((element) => getComputedStyle(element).cursor),
+      codeHighlight: await page.locator('main .ring-2 .card-code span[style*="--astro-code"]').count(),
+      codeColor: await page
+        .locator('main .ring-2 .card-code')
+        .evaluate((element) => getComputedStyle(element).color),
+      copiedMatchesCode: copiedText === codeText,
+      downloadMatchesCode: downloadContent === codeText,
+      downloadName: download.suggestedFilename(),
+      inlineCodeStyle,
       bottomToolboxButtons: await page
         .locator('main')
         .getByRole('button', { name: /320|480|600|800|MJML \/ HTML|Compare widths|Duplicate|Send/ })
@@ -240,6 +382,15 @@ async function main() {
   if (check === 'all' || check === 'zzoom') {
     await openPreview('zzoom');
     const canvas = page.locator('main');
+    await zoomByClicks('out', 8);
+    const minZoomValue = await readZoom();
+    const zoomInSequence: Array<string | null> = [];
+
+    for (let index = 0; index < 8; index++) {
+      await zoomByClicks('in', 1);
+      zoomInSequence.push(await readZoom());
+    }
+
     await page.keyboard.down('z');
     await page.mouse.move(640, 450);
     await page.mouse.click(640, 450);
@@ -293,7 +444,9 @@ async function main() {
       cursorIn,
       cursorNormal,
       cursorOut,
-      cursorOutAltFirst
+      cursorOutAltFirst,
+      minZoomValue,
+      zoomInSequence
     };
   }
 
