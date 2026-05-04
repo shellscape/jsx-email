@@ -73,7 +73,7 @@ function transformDarkModeLightness(rgb, role, saturationScale = 0.8) {
 
   if (role === 'background') {
     if (hsl.l >= 0.5) {
-      hsl.l = 0.5 - (hsl.l - 0.5) * 0.75;
+      hsl.l = 0.875 - hsl.l * 0.75;
     }
   } else if (isNeutral && hsl.l < 0.5) {
     hsl.l = 0.95 - hsl.l * 0.75;
@@ -83,7 +83,7 @@ function transformDarkModeLightness(rgb, role, saturationScale = 0.8) {
     hsl.l += 0.1;
   }
 
-  hsl.s *= saturationScale;
+  hsl.s -= hsl.s * (1 - saturationScale);
 
   return hslToRgb(hsl);
 }
