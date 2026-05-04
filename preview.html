@@ -513,7 +513,7 @@
     </script>
 
     <script type="module">
-      import { approximateGmailCssColor } from './inversion.js';
+      import { approximateGmailIosCssColor } from './inversion.js';
       import { createStore } from 'https://esm.sh/zustand@4.5.5/vanilla';
 
       const { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } = React;
@@ -717,15 +717,15 @@
       const zoomStep = 10;
       const canvasOrigin = 50000;
       const previewPresets = [
-        { name: 'Full Width', width: null, label: '100%', gmailPlatform: 'gmail-ios' },
-        { name: 'iPhone 15 Pro Max', width: 430, label: '430px', gmailPlatform: 'gmail-ios' },
-        { name: 'iPhone 15 Pro', width: 393, label: '393px', gmailPlatform: 'gmail-ios' },
-        { name: 'iPhone 13 mini', width: 375, label: '375px', gmailPlatform: 'gmail-ios' },
-        { name: 'Gmail Mobile', width: 360, label: '360px', gmailPlatform: 'gmail-android' },
-        { name: 'iPad Air 4', width: 820, height: 1180, label: '820x1180', gmailPlatform: 'gmail-ios' },
-        { name: 'iPad Pro 10.5"', width: 834, height: 1112, label: '834x1112', gmailPlatform: 'gmail-ios' },
-        { name: 'iPad Mini 4', width: 768, height: 1024, label: '768x1024', gmailPlatform: 'gmail-ios' },
-        { name: 'iPad 3 / 4', width: 768, height: 1024, label: '768x1024', gmailPlatform: 'gmail-ios' }
+        { name: 'Full Width', width: null, label: '100%' },
+        { name: 'iPhone 15 Pro Max', width: 430, label: '430px' },
+        { name: 'iPhone 15 Pro', width: 393, label: '393px' },
+        { name: 'iPhone 13 mini', width: 375, label: '375px' },
+        { name: 'Gmail Mobile', width: 360, label: '360px' },
+        { name: 'iPad Air 4', width: 820, height: 1180, label: '820x1180' },
+        { name: 'iPad Pro 10.5"', width: 834, height: 1112, label: '834x1112' },
+        { name: 'iPad Mini 4', width: 768, height: 1024, label: '768x1024' },
+        { name: 'iPad 3 / 4', width: 768, height: 1024, label: '768x1024' }
       ];
       const colorProperties = [
         'color',
@@ -815,45 +815,40 @@
       function cn() {
         return Array.from(arguments).filter(Boolean).join(' ');
       }
-      function platformForPreset(presetName) {
-        return (
-          previewPresets.find((item) => item.name === presetName)?.gmailPlatform || 'gmail-ios'
-        );
-      }
-      function transformColorDeclaration(style, property, platform) {
+      function transformColorDeclaration(style, property) {
         const value = style.getPropertyValue(property);
         if (!value) return;
 
-        const transformed = approximateGmailCssColor(value, property, platform);
+        const transformed = approximateGmailIosCssColor(value, property);
         if (transformed === value) return;
 
         style.setProperty(property, transformed, style.getPropertyPriority(property));
       }
-      function transformStyleDeclaration(style, platform) {
-        colorProperties.forEach((property) => transformColorDeclaration(style, property, platform));
+      function transformStyleDeclaration(style) {
+        colorProperties.forEach((property) => transformColorDeclaration(style, property));
       }
-      function transformCssRules(rules, platform) {
+      function transformCssRules(rules) {
         Array.from(rules).forEach((rule) => {
           if (rule.style) {
-            transformStyleDeclaration(rule.style, platform);
+            transformStyleDeclaration(rule.style);
           }
 
           try {
             if (rule.cssRules) {
-              transformCssRules(rule.cssRules, platform);
+              transformCssRules(rule.cssRules);
             }
           } catch {
             // Some grouping rules can reject cssRules access; leave them unchanged.
           }
         });
       }
-      function transformStyleBlock(css, platform) {
+      function transformStyleBlock(css) {
         if (!window.CSSStyleSheet) return css;
 
         try {
           const sheet = new CSSStyleSheet();
           sheet.replaceSync(css);
-          transformCssRules(sheet.cssRules, platform);
+          transformCssRules(sheet.cssRules);
           return Array.from(sheet.cssRules)
             .map((rule) => rule.cssText)
             .join('\n');
@@ -861,7 +856,7 @@
           return css;
         }
       }
-      function applyGmailInversion(html, platform) {
+      function applyGmailInversion(html) {
         try {
           const doc = new DOMParser().parseFromString(html, 'text/html');
 
@@ -876,11 +871,11 @@
           }
 
           doc.querySelectorAll('[style]').forEach((element) => {
-            transformStyleDeclaration(element.style, platform);
+            transformStyleDeclaration(element.style);
           });
 
           doc.querySelectorAll('style').forEach((styleElement) => {
-            styleElement.textContent = transformStyleBlock(styleElement.textContent || '', platform);
+            styleElement.textContent = transformStyleBlock(styleElement.textContent || '');
           });
 
           return '<!doctype html>\n' + doc.documentElement.outerHTML;
@@ -1733,9 +1728,7 @@
         const sourceFileName =
           t.id + (tab === 'jsx' ? '.tsx' : tab === 'html' ? '.html' : '.txt');
         const activePreset = previewPresets.find((item) => item.name === preset) || previewPresets[0];
-        const previewHtml = invertColors
-          ? applyGmailInversion(t.html, platformForPreset(activePreset.name))
-          : t.html;
+        const previewHtml = invertColors ? applyGmailInversion(t.html) : t.html;
         return h(
           'div',
           {
