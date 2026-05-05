@@ -2,7 +2,6 @@ import { mkdir, readFile, rm, unlink, writeFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
-import { type Plugin, build as esbuild } from 'esbuild';
 import { build as viteBuild } from 'vite';
 
 const previewRoot = resolve(import.meta.dirname, '..');
@@ -11,41 +10,136 @@ const outRoot = resolve(previewRoot, 'dist/packed');
 const cssBuildRoot = resolve(outRoot, '.css-build');
 const cssEntry = resolve(appRoot, '.packed-css-entry.html');
 const sourceIndex = resolve(appRoot, 'index.html');
-const sourceEntry = resolve(appRoot, 'src/main.tsx');
-const packedEntry = resolve(outRoot, 'main.js');
+const srcRoot = resolve(appRoot, 'src');
+const packedEntry = resolve(outRoot, 'main.tsx');
 const packedIndex = resolve(outRoot, 'index.html');
 const entryScript = '<script type="module" src="/src/main.tsx"></script>';
-const packedScript = '<script type="module" src="/main.js"></script>';
-
-const rawTextPlugin: Plugin = {
-  name: 'raw-text',
-  setup(build) {
-    build.onResolve({ filter: /\?raw$/ }, (args) => ({
-      namespace: 'raw-text',
-      path: resolve(args.resolveDir, args.path.replace(/\?raw$/, ''))
-    }));
-
-    build.onLoad({ filter: /.*/, namespace: 'raw-text' }, async (args) => ({
-      contents: await readFile(args.path, 'utf8'),
-      loader: 'text'
-    }));
-  }
-};
-
-const emptyCssPlugin: Plugin = {
-  name: 'empty-css',
-  setup(build) {
-    build.onLoad({ filter: /\.css$/ }, () => ({
-      contents: '',
-      loader: 'js'
-    }));
-  }
-};
+const packedScript = '<script type="module" src="/main.tsx"></script>';
+const importPattern = /^import[\s\S]*?;\n?/gm;
+const sourceFiles = [
+  'types/lab.ts',
+  'types/templates.ts',
+  'helpers/file.ts',
+  'helpers/zoom.ts',
+  'helpers/consts.ts',
+  'helpers/presets.ts',
+  'helpers/gmail-color.ts',
+  'helpers/cn.ts',
+  'helpers/file-tree.ts',
+  'helpers/templates.ts',
+  'helpers/color-inversion.ts',
+  'helpers/canvas-positioning.ts',
+  'stores/preview-store.ts',
+  'components/ui/button.tsx',
+  'components/plunk-logo.tsx',
+  'components/code/code-block.tsx',
+  'components/canvas/preview-iframe.tsx',
+  'components/canvas/empty-card.tsx',
+  'components/canvas/use-canvas-zoom.ts',
+  'components/canvas/template-card.tsx',
+  'components/canvas/canvas.tsx',
+  'components/logo-wordmark.tsx',
+  'components/lab-controls/switch-control.tsx',
+  'components/lab-controls/send-email-section.tsx',
+  'components/lab-controls/lab-controls-panel.tsx',
+  'components/file-system/file-tree.tsx',
+  'components/file-system/file-system-panel.tsx',
+  'components/header.tsx',
+  'app.tsx',
+  'main.tsx'
+];
+const importHeader = `import React, {
+  type ButtonHTMLAttributes,
+  type FormEvent,
+  type ReactNode,
+  type RefObject,
+  type SVGProps,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
+import ReactDOM from 'react-dom/client';
+import {
+  Check,
+  Copy,
+  Download,
+  FolderMinus,
+  FolderPlus,
+  HalfMoon,
+  MailOut,
+  Minus,
+  NavArrowDown,
+  NavArrowLeft,
+  NavArrowRight,
+  NavArrowUp,
+  Page,
+  Plus,
+  Refresh,
+  Send,
+  SmartphoneDevice,
+  Xmark
+} from 'iconoir-react';
+import beautify from 'js-beautify';
+import { createHighlighterCoreSync } from 'shiki/core';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import shikiHtmlLang from 'shiki/langs/html.mjs';
+import shikiJsLang from 'shiki/langs/javascript.mjs';
+import shikiTsxLang from 'shiki/langs/tsx.mjs';
+import shikiGithubDarkHighContrastTheme from 'shiki/themes/github-dark-high-contrast.mjs';
+import shikiGithubLightTheme from 'shiki/themes/github-light.mjs';
+import tippy from 'tippy.js';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { create } from 'zustand';
+`;
 
 function assertIncludes(content: string, value: string, file: string) {
   if (!content.includes(value)) {
     throw new TypeError(`${relative(previewRoot, file)} does not include ${value}.`);
   }
+}
+
+function stripImports(source: string) {
+  return source.replace(importPattern, '');
+}
+
+function stripExports(source: string) {
+  return source
+    .replace(/\bexport\s+(?=(?:interface|type|const|function)\b)/g, '')
+    .replace(/\bexport\s+\{[^}]+};?\n?/g, '');
+}
+
+async function readLogoWordmarkSource() {
+  return readFile(resolve(previewRoot, '../web/src/ui/components/LogoWordmark.astro'), 'utf8');
+}
+
+async function packSource() {
+  const logoSource = await readLogoWordmarkSource();
+  const chunks = await Promise.all(
+    sourceFiles.map(async (file) => {
+      const filePath = resolve(srcRoot, file);
+      let source = await readFile(filePath, 'utf8');
+      source = stripExports(stripImports(source));
+
+      if (file === 'components/logo-wordmark.tsx') {
+        source = `const logoWordmarkSource = ${JSON.stringify(logoSource)};\n${source}`;
+      }
+
+      return `// src/${file}\n${source.trim()}\n`;
+    })
+  );
+
+  const packed = `${importHeader}\n${chunks.join('\n')}\n`;
+  assertIncludes(packed, 'import.meta.glob', packedEntry);
+  assertIncludes(packed, '@jsxemailbuild', packedEntry);
+
+  if (/from\s+['"]\.{1,2}\//.test(packed)) {
+    throw new TypeError('Packed source still contains local import declarations.');
+  }
+
+  await writeFile(packedEntry, packed, 'utf8');
 }
 
 function rewriteIndex(html: string, css: string) {
@@ -103,19 +197,7 @@ async function pack() {
   await rm(outRoot, { force: true, recursive: true });
   await mkdir(outRoot, { recursive: true });
 
-  await esbuild({
-    bundle: true,
-    entryPoints: [sourceEntry],
-    external: ['@jsxemailbuild/*'],
-    format: 'esm',
-    jsx: 'automatic',
-    logLevel: 'warning',
-    outfile: packedEntry,
-    platform: 'browser',
-    plugins: [rawTextPlugin, emptyCssPlugin],
-    target: 'esnext'
-  });
-
+  await packSource();
   const css = await buildCss();
   await writeFile(packedIndex, rewriteIndex(await readFile(sourceIndex, 'utf8'), css), 'utf8');
 
@@ -124,7 +206,7 @@ async function pack() {
 
   assertIncludes(main, 'import.meta.glob', packedEntry);
   assertIncludes(main, '@jsxemailbuild', packedEntry);
-  assertIncludes(index, 'src="/main.js"', packedIndex);
+  assertIncludes(index, 'src="/main.tsx"', packedIndex);
   assertIncludes(index, '<style>', packedIndex);
 
   if (index.includes('/src/main.tsx')) {

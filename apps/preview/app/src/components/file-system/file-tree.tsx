@@ -44,13 +44,7 @@ interface TreeNodeProps extends Omit<FileTreeProps, 'nodes'> {
   toggle: (path: string) => void;
 }
 
-function TreeNode({
-  expanded,
-  node,
-  onTemplateClick,
-  selectedTemplateId,
-  toggle
-}: TreeNodeProps) {
+function TreeNode({ expanded, node, onTemplateClick, selectedTemplateId, toggle }: TreeNodeProps) {
   if (node.type === 'folder') {
     const isOpen = expanded.has(node.path);
     const FolderIcon = isOpen ? FolderMinus : FolderPlus;
@@ -58,7 +52,7 @@ function TreeNode({
     return (
       <div>
         <button
-          className="tree-row text-xs font-medium uppercase tracking-wide"
+          className="tree-row cursor-pointer text-xs font-medium uppercase tracking-wide"
           onClick={() => toggle(node.path)}
           type="button"
         >
@@ -85,7 +79,7 @@ function TreeNode({
 
   return (
     <button
-      className={cn('tree-row text-sm', isSelected && 'is-active')}
+      className={cn('tree-row cursor-pointer text-sm', isSelected && 'is-active')}
       onClick={() => node.template && onTemplateClick(node.template.id)}
       type="button"
     >
