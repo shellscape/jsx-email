@@ -17,6 +17,7 @@
     "**/*.svg",
     ".snapshots/**",
     "**/.snapshots/**",
+    "apps/preview/dist/packed/**",
     "apps/preview/dev/fixtures/*.js",
     "apps/preview/dev/fixtures/**/*.js",
     "dist/**",

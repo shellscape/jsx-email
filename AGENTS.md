@@ -79,6 +79,7 @@ Husky is enabled via the root `prepare` script. The `pre-commit` hook runs
 - Prefer a `helpers` directory/files over `utils`
 - Never use a `lib` directory for app code
 - Filenames are `kebab-case` for files you control
+- Prefer arrow functions `const f = () => {}` vs `function f {}` where scope of `this` is not a concern
 
 ## Tests
 

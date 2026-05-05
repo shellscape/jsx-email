@@ -1,5 +1,4 @@
-// @ts-expect-error The shared preview approximation is authored as an ESM script.
-import { approximateGmailIosCssColor } from '../../../../../inversion.js';
+import { approximateGmailIosCssColor } from './gmail-color';
 
 const colorProperties = [
   'color',

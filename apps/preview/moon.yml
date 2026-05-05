@@ -20,6 +20,26 @@ tasks:
       cache: false
       persistent: true
 
+  dev.packed:
+    command: vite --config app/vite.packed.config.ts
+    deps:
+      - ~:pack
+    options:
+      cache: false
+      persistent: true
+
+  pack:
+    command: tsx scripts/pack-preview.ts
+    inputs:
+      - app/index.html
+      - app/src
+      - app/vite.packed.config.ts
+      - package.json
+      - scripts/pack-preview.ts
+      - tsconfig.json
+    outputs:
+      - dist/packed
+
   typecheck:
     command: tsc --project tsconfig.json
     inputs:

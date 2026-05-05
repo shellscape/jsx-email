@@ -1,5 +1,5 @@
 {
-  "name": "app-preview-canvas",
+  "name": "app-preview",
   "version": "0.0.0",
   "private": true,
   "description": "Canvas preview app source for jsx-email",
@@ -24,6 +24,7 @@
     "@types/node": "25.0.8",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "esbuild": "^0.25.2",
     "typescript": "catalog:"
   },
   "engines": {
