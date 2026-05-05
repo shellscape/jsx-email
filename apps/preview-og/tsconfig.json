@@ -8,9 +8,8 @@
     "moduleResolution": "bundler",
     "noEmit": true,
     "skipLibCheck": true,
-    "strict": true,
     "target": "ESNext",
     "types": ["vite/client"]
   },
-  "include": ["app", "dev"]
+  "include": ["app", "src", "src/devices.json"]
 }

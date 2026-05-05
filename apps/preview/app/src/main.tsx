@@ -1,13 +1,12 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { App } from './app';
 import './index.css';
+import 'tippy.js/dist/tippy.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>
+  </React.StrictMode>
 );
