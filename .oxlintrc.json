@@ -15,8 +15,13 @@
     "**/*.less",
     "**/*.scss",
     "**/*.svg",
+    ".snapshots/**",
+    "**/.snapshots/**",
+    "apps/preview/dev/fixtures/*.js",
+    "apps/preview/dev/fixtures/**/*.js",
     "dist/**",
-    "node_modules/**"
+    "node_modules/**",
+    "packages/create-mail/starter/**"
   ],
 
   "overrides": [
@@ -24,6 +29,12 @@
       "files": ["apps/**/*.*"],
       "globals": {
         "Astro": "readonly"
+      }
+    },
+    {
+      "files": ["scripts/agents/**/*.{js,ts}"],
+      "rules": {
+        "no-await-in-loop": "off"
       }
     },
     {
