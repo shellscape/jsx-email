@@ -25,6 +25,47 @@ const roleAliases: Record<string, string> = {
   'text-color': 'text'
 };
 
+/*
+ * Background-image handling is intentionally absent from this helper.
+ *
+ * The original canvas preview prototype accepted roles like `background-image`,
+ * `gradient`, `image`, and `img`, and preserved background-image colors instead
+ * of applying the Gmail iOS foreground transform. That behavior was removed when
+ * this logic moved from the standalone prototype into the app helper because the
+ * current `applyGmailInversion` path only transforms concrete CSS color
+ * declarations such as `color`, `background-color`, and `border-color`.
+ *
+ * Do not re-add `background-image` to `colorProperties` in `color-inversion.ts`
+ * unless there is a real parser for full CSS image values. `parseCssColor` only
+ * accepts named colors, hex, rgb, and rgba values; it does not parse
+ * `url(...)`, `linear-gradient(...)`, `radial-gradient(...)`, or color stops
+ * inside those functions.
+ *
+ * If a future caller extracts individual color tokens from a background image
+ * value and needs to preserve them, reintroduce support here, where the color
+ * approximation lives:
+ *
+ * 1. Add role aliases:
+ *
+ *    'background-image': 'background-image',
+ *    gradient: 'background-image',
+ *
+ * 2. Normalize the role once in `approximateGmailIosCssColor`:
+ *
+ *    const normalizedRole = normalizeRole(role);
+ *
+ * 3. Preserve extracted background-image color tokens before the foreground /
+ *    background transform:
+ *
+ *    if (normalizedRole === 'background-image') {
+ *      return rgbToCssColor(clampRgb(rgb));
+ *    }
+ *
+ * 4. Use `normalizedRole` for the existing background-color / border-color
+ *    branch, and add tests showing that full gradient strings remain unchanged
+ *    while separately extracted color tokens are preserved.
+ */
+
 const namedColors: Record<string, string> = {
   black: '#000000',
   blue: '#0000ff',
