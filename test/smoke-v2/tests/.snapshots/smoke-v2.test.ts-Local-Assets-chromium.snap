@@ -20,21 +20,16 @@
     <img
       id="image"
       alt="Cat"
-      src="/static/cat.jpeg"
+      src="https://jsx.email/assets/demo/cat.jpeg"
       width="200"
       height="200"
       style="border:none;display:block;outline:none;text-decoration:none"
     >
     <a
-      href="/static/cat.jpeg"
+      href="https://jsx.email/assets/demo/cat.jpeg"
       style="color:#067df7;text-decoration:none"
     >
       /static/cat.jpeg
     </a>
   </body>
 </html>
-<style>
-  body {
-      overflow-wrap: anywhere;
-    }
-</style>
