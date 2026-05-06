@@ -1,48 +1,24 @@
-import { Provider as MobxProvider, observer } from 'mobx-react';
-import { StrictMode, useState } from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { Canvas } from './components/canvas/canvas';
+import { FileSystemPanel } from './components/file-system/file-system-panel';
+import { Header } from './components/header';
+import { LabControlsPanel } from './components/lab-controls/lab-controls-panel';
+import { usePreviewStore } from './stores/preview-store';
 
-import { useAppStore } from './composables/useAppStore';
-import { PrimaryLayout } from './layouts/primary';
-import { AppStore } from './stores/AppStore';
-import { Preview } from './views/Preview/index';
-import { IndexView } from './views/index-view';
-
-const Router = observer(() => {
-  const appStore = useAppStore();
+export function App() {
+  const cards = usePreviewStore((state) => state.cards);
+  const selectedId = usePreviewStore((state) => state.selectedId);
+  const templates = usePreviewStore((state) => state.templates);
+  const selected = cards.find((card) => card.id === selectedId);
+  const selectedTemplate = templates.find((template) => template.id === selected?.templateId);
 
   return (
-    <>
-      {appStore.templates.isReady && (
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<PrimaryLayout />}>
-              <Route index element={<IndexView />} />
-              <Route path="emails">
-                {Object.values(appStore.templates.records).map((template, index) => (
-                  <Route
-                    path={template.path.replace('.tsx', '')}
-                    key={index}
-                    element={<Preview />}
-                  />
-                ))}
-              </Route>
-            </Route>
-          </Routes>
-        </HashRouter>
+    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white">
+      <Header />
+      <FileSystemPanel />
+      {selected && selectedTemplate && (
+        <LabControlsPanel cardId={selected.id} template={selectedTemplate} />
       )}
-    </>
+      <Canvas />
+    </div>
   );
-});
-
-export const App = () => {
-  const [appStore] = useState(() => new AppStore());
-
-  return (
-    <StrictMode>
-      <MobxProvider store={appStore}>
-        <Router />
-      </MobxProvider>
-    </StrictMode>
-  );
-};
+}

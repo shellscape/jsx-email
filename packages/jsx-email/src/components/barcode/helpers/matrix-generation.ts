@@ -7,6 +7,7 @@ import type {
   BarcodeType,
   BwipBarMatrix,
   BwipPixelMatrix,
+  LinearBarcodeData,
   Matrix
 } from '../types.js';
 
@@ -18,6 +19,16 @@ export function generateMatrix(type: BarcodeType, text: string, ecLevel: Barcode
   }
 
   return generateBwipMatrix(type, text, barcodeTypes[type].hasEc ? ecLevel : null);
+}
+
+export function generateLinearBarcode(type: BarcodeType, text: string): LinearBarcodeData {
+  const raw = getBwipRaw(type as Exclude<BarcodeType, 'qrcode'>, text, null);
+
+  if (!raw || 'pixs' in raw) {
+    return { cells: [{ dark: false, height: 1, offset: 0, span: 1 }], height: 1 };
+  }
+
+  return fromBwipLinearBars(raw);
 }
 
 function generateQrMatrix(text: string, ecLevel: BarcodeEcLevel): Matrix {
@@ -38,6 +49,24 @@ function generateBwipMatrix(
   text: string,
   ecLevel: BarcodeEcLevel | null
 ): Matrix {
+  const raw = getBwipRaw(type, text, ecLevel);
+
+  if (!raw) {
+    return [[0]];
+  }
+
+  if ('pixs' in raw) {
+    return fromBwipPixels(raw);
+  }
+
+  return fromBwipBars(raw);
+}
+
+function getBwipRaw(
+  type: Exclude<BarcodeType, 'qrcode'>,
+  text: string,
+  ecLevel: BarcodeEcLevel | null
+): BwipPixelMatrix | BwipBarMatrix | undefined {
   const rawOptions = {
     bcid: type,
     text,
@@ -49,15 +78,7 @@ function generateBwipMatrix(
 
   const [raw] = bwipjs.raw(rawOptions) as Array<BwipPixelMatrix | BwipBarMatrix>;
 
-  if (!raw) {
-    return [[0]];
-  }
-
-  if ('pixs' in raw) {
-    return fromBwipPixels(raw);
-  }
-
-  return fromBwipBars(raw);
+  return raw;
 }
 
 function fromBwipPixels(raw: BwipPixelMatrix): Matrix {
@@ -80,11 +101,31 @@ function fromBwipPixels(raw: BwipPixelMatrix): Matrix {
 }
 
 function fromBwipBars(raw: BwipBarMatrix): Matrix {
+  const linear = fromBwipLinearBars(raw);
+  const matrix = createEmptyMatrix(linear.height, getLinearBarcodeWidth(linear));
+
+  let cursor = 0;
+
+  for (const cell of linear.cells) {
+    if (cell.dark && cell.span > 0) {
+      const yStart = Math.max(0, linear.height - cell.height - cell.offset);
+      const yEnd = Math.min(linear.height, yStart + cell.height);
+
+      for (let row = yStart; row < yEnd; row += 1) {
+        for (let col = cursor; col < cursor + cell.span; col += 1) {
+          matrix[row][col] = 1;
+        }
+      }
+    }
+
+    cursor += cell.span;
+  }
+
+  return matrix;
+}
+
+function fromBwipLinearBars(raw: BwipBarMatrix): LinearBarcodeData {
   const widths = raw.sbs.map((value) => Math.max(0, Math.round(value)));
-  const totalWidth = Math.max(
-    1,
-    widths.reduce((sum, value) => sum + value, 0)
-  );
   const barHeights = raw.bhs.length
     ? raw.bhs.map((value) => Math.max(1, Math.round(value * BWIP_ROW_UNITS_PER_INCH)))
     : [1];
@@ -96,10 +137,7 @@ function fromBwipBars(raw: BwipBarMatrix): Matrix {
     1,
     ...barHeights.map((height, index) => height + (barOffsets[index] ?? 0))
   );
-
-  const matrix = createEmptyMatrix(totalHeight, totalWidth);
-
-  let cursor = 0;
+  const cells = [];
   let barIndex = 0;
 
   for (let index = 0; index < widths.length; index += 1) {
@@ -107,26 +145,28 @@ function fromBwipBars(raw: BwipBarMatrix): Matrix {
     const isBar = index % 2 === 0;
 
     if (isBar && span > 0) {
-      const height = barHeights[barIndex] ?? totalHeight;
-      const offset = barOffsets[barIndex] ?? 0;
-      const yStart = Math.max(0, totalHeight - height - offset);
-      const yEnd = Math.min(totalHeight, yStart + height);
-
-      for (let row = yStart; row < yEnd; row += 1) {
-        for (let col = cursor; col < cursor + span; col += 1) {
-          matrix[row][col] = 1;
-        }
-      }
-
+      cells.push({
+        dark: true,
+        height: barHeights[barIndex] ?? totalHeight,
+        offset: barOffsets[barIndex] ?? 0,
+        span
+      });
       barIndex += 1;
     } else if (isBar) {
       barIndex += 1;
+    } else if (span > 0) {
+      cells.push({ dark: false, height: totalHeight, offset: 0, span });
     }
-
-    cursor += span;
   }
 
-  return matrix;
+  return { cells, height: totalHeight };
+}
+
+function getLinearBarcodeWidth(barcode: LinearBarcodeData): number {
+  return Math.max(
+    1,
+    barcode.cells.reduce((sum, cell) => sum + cell.span, 0)
+  );
 }
 
 function createEmptyMatrix(height: number, width: number): Matrix {
