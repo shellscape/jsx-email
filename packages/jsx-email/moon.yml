@@ -47,7 +47,7 @@ tasks:
       cache: false
 
   copy.preview:
-    command: cp -r ../../apps/preview/app dist/preview
+    command: cp -r ../../apps/preview/dist/packed dist/preview
     options:
       cache: false
 
