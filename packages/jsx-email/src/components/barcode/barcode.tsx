@@ -8,13 +8,16 @@ import type { JsxEmailComponent } from '../../types.js';
 import {
   applyLossy,
   applyQuietZone,
+  generateLinearBarcode,
   generateMatrix,
   normalizeCellSize,
   packRow,
   resolveEcLevel
 } from './helpers/index.js';
+import { barcodeTypes } from './helpers/barcode-config.js';
 import type {
   AztecCodeProps,
+  BarcodeCellProps,
   BarcodeCssIsolation,
   BarcodeProps,
   BarcodeTableProps,
@@ -22,6 +25,7 @@ import type {
   Code128BarcodeProps,
   DataMatrixProps,
   EanBarcodeProps,
+  LinearBarcodeData,
   QrCodeProps,
   UpcBarcodeProps
 } from './types.js';
@@ -83,6 +87,14 @@ function getIsolationTableStyle(cssIsolation: BarcodeCssIsolation): CSSPropertie
     maxWidth: 'none !important',
     tableLayout: 'fixed !important' as unknown as CSSProperties['tableLayout'],
     width: 'auto !important'
+  };
+}
+
+function getStrictCellStyle(width: number): CSSProperties {
+  return {
+    maxWidth: `${width}px`,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap'
   };
 }
 
@@ -148,16 +160,6 @@ export const Barcode: JsxEmailComponent<BarcodeProps> = (props) => {
 
   const resolvedEcLevel = resolveEcLevel(type, ecLevel);
   const configDisableDefaultStyle = config.current().render.disableDefaultStyle;
-
-  const matrix = generateMatrix(type, text, resolvedEcLevel);
-  const paddedMatrix = applyQuietZone(matrix, quietZone ? 4 : 0);
-  const lossyMatrix = applyLossy(paddedMatrix, {
-    ecLevel: resolvedEcLevel,
-    lossyBudget,
-    lossyEnabled,
-    type
-  });
-  const packedRows = lossyMatrix.map(packRow);
   const normalizedCellSize = normalizeCellSize(cellSize);
   const defaultStyleDisabled = configDisableDefaultStyle || disableDefaultStyle;
   const resolvedCssIsolation = defaultStyleDisabled ? 'none' : cssIsolation;
@@ -185,6 +187,88 @@ export const Barcode: JsxEmailComponent<BarcodeProps> = (props) => {
     ...sanitizedRootStyle,
     ...sanitizedTableProps?.style
   };
+
+  if (barcodeTypes[type].family === '1d') {
+    const barcode = generateLinearBarcode(type, text);
+    const quietZoneUnits = quietZone ? 4 : 0;
+    const totalHeight = (barcode.height + quietZoneUnits * 2) * normalizedCellSize;
+
+    return (
+      <table
+        {...sanitizedTableProps}
+        {...debugProps}
+        {...barcodeMarkerAttribute}
+        role="presentation"
+        border={0}
+        cellPadding={0}
+        cellSpacing={0}
+        style={tableStyle}
+      >
+        <tbody>
+          <tr>
+            {quietZoneUnits > 0 ? (
+              <td
+                {...sanitizedCellProps}
+                style={{
+                  backgroundColor: bgColor,
+                  fontSize: 0,
+                  height: `${totalHeight}px`,
+                  lineHeight: 0,
+                  margin: 0,
+                  minWidth: `${quietZoneUnits * normalizedCellSize}px`,
+                  padding: 0,
+                  width: `${quietZoneUnits * normalizedCellSize}px`,
+                  ...(resolvedCssIsolation === 'strict'
+                    ? getStrictCellStyle(quietZoneUnits * normalizedCellSize)
+                    : {}),
+                  ...sanitizedCellProps?.style
+                }}
+              />
+            ) : null}
+            {renderLinearCells({
+              barcode,
+              bgColor,
+              cellProps: sanitizedCellProps,
+              cssIsolation: resolvedCssIsolation,
+              fgColor,
+              quietZoneUnits,
+              size: normalizedCellSize,
+              totalHeight
+            })}
+            {quietZoneUnits > 0 ? (
+              <td
+                {...sanitizedCellProps}
+                style={{
+                  backgroundColor: bgColor,
+                  fontSize: 0,
+                  height: `${totalHeight}px`,
+                  lineHeight: 0,
+                  margin: 0,
+                  minWidth: `${quietZoneUnits * normalizedCellSize}px`,
+                  padding: 0,
+                  width: `${quietZoneUnits * normalizedCellSize}px`,
+                  ...(resolvedCssIsolation === 'strict'
+                    ? getStrictCellStyle(quietZoneUnits * normalizedCellSize)
+                    : {}),
+                  ...sanitizedCellProps?.style
+                }}
+              />
+            ) : null}
+          </tr>
+        </tbody>
+      </table>
+    );
+  }
+
+  const matrix = generateMatrix(type, text, resolvedEcLevel);
+  const paddedMatrix = applyQuietZone(matrix, quietZone ? 4 : 0);
+  const lossyMatrix = applyLossy(paddedMatrix, {
+    ecLevel: resolvedEcLevel,
+    lossyBudget,
+    lossyEnabled,
+    type
+  });
+  const packedRows = lossyMatrix.map(packRow);
 
   return (
     <table
@@ -215,11 +299,7 @@ export const Barcode: JsxEmailComponent<BarcodeProps> = (props) => {
                   padding: 0,
                   width: `${cell.span * normalizedCellSize}px`,
                   ...(resolvedCssIsolation === 'strict'
-                    ? {
-                        maxWidth: `${cell.span * normalizedCellSize}px`,
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap'
-                      }
+                    ? getStrictCellStyle(cell.span * normalizedCellSize)
                     : {}),
                   ...sanitizedCellProps?.style
                 }}
@@ -231,6 +311,76 @@ export const Barcode: JsxEmailComponent<BarcodeProps> = (props) => {
     </table>
   );
 };
+
+function renderLinearCells({
+  barcode,
+  bgColor,
+  cellProps,
+  cssIsolation,
+  fgColor,
+  quietZoneUnits,
+  size,
+  totalHeight
+}: {
+  barcode: LinearBarcodeData;
+  bgColor: string;
+  cellProps: BarcodeCellProps | undefined;
+  cssIsolation: BarcodeCssIsolation;
+  fgColor: string;
+  quietZoneUnits: number;
+  size: number;
+  totalHeight: number;
+}) {
+  return barcode.cells.map((cell, index) => {
+    const width = cell.span * size;
+
+    if (!cell.dark) {
+      return (
+        <td
+          {...cellProps}
+          key={index}
+          style={{
+            backgroundColor: bgColor,
+            fontSize: 0,
+            height: `${totalHeight}px`,
+            lineHeight: 0,
+            margin: 0,
+            minWidth: `${width}px`,
+            padding: 0,
+            width: `${width}px`,
+            ...(cssIsolation === 'strict' ? getStrictCellStyle(width) : {}),
+            ...cellProps?.style
+          }}
+        />
+      );
+    }
+
+    const barHeight = cell.height * size;
+    const topPad = (quietZoneUnits + barcode.height - cell.height - cell.offset) * size;
+    const bottomPad = (quietZoneUnits + cell.offset) * size;
+
+    return (
+      <td
+        {...cellProps}
+        key={index}
+        style={{
+          backgroundColor: fgColor,
+          borderBottom: bottomPad > 0 ? `${bottomPad}px solid ${bgColor}` : undefined,
+          borderTop: topPad > 0 ? `${topPad}px solid ${bgColor}` : undefined,
+          fontSize: 0,
+          height: `${barHeight}px`,
+          lineHeight: 0,
+          margin: 0,
+          minWidth: `${width}px`,
+          padding: 0,
+          width: `${width}px`,
+          ...(cssIsolation === 'strict' ? getStrictCellStyle(width) : {}),
+          ...cellProps?.style
+        }}
+      />
+    );
+  });
+}
 
 Barcode.displayName = 'Barcode';
 

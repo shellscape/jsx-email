@@ -99,6 +99,10 @@ function getDarkRowCount(html: string): number {
   return rows.filter((row) => row.includes('background-color:#000000')).length;
 }
 
+function getTableRowCount(html: string): number {
+  return html.match(/<tr>/g)?.length ?? 0;
+}
+
 describe('<Barcode> component', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -193,10 +197,20 @@ describe('<Barcode> component', () => {
     expect(code128WithOuterWhitespace).not.toBe(code128TrimmedPayload);
   });
 
-  it('renders multi-row geometry for 1D barcodes', async () => {
+  it('renders compact single-row geometry for 1D barcodes', async () => {
     const html = await jsxToString(<Barcode type="code128" text={code128Text} quietZone={false} />);
 
-    expect(getDarkRowCount(html)).toBeGreaterThan(10);
+    expect(getTableRowCount(html)).toBe(1);
+    expect(getDarkRowCount(html)).toBe(1);
+    expect(html).toContain('height:288px');
+    expect(html).not.toContain('colspan');
+  });
+
+  it('keeps multi-row matrix rendering for 2D barcodes', async () => {
+    const html = await jsxToString(<Barcode type="qrcode" text={matrixText} quietZone={false} />);
+
+    expect(getTableRowCount(html)).toBeGreaterThan(10);
+    expect(html).toContain('colspan');
   });
 
   it('does not apply lossy mutation to 1D symbologies', async () => {
