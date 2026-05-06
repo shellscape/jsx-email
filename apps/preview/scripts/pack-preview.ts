@@ -111,21 +111,12 @@ function stripExports(source: string) {
     .replace(/\bexport\s+\{[^}]+};?\n?/g, '');
 }
 
-async function readLogoWordmarkSource() {
-  return readFile(resolve(previewRoot, '../web/src/ui/components/LogoWordmark.astro'), 'utf8');
-}
-
 async function packSource() {
-  const logoSource = await readLogoWordmarkSource();
   const chunks = await Promise.all(
     sourceFiles.map(async (file) => {
       const filePath = resolve(srcRoot, file);
       let source = await readFile(filePath, 'utf8');
       source = stripExports(stripImports(source));
-
-      if (file === 'components/logo-wordmark.tsx') {
-        source = `const logoWordmarkSource = ${JSON.stringify(logoSource)};\n${source}`;
-      }
 
       return `// src/${file}\n${source.trim()}\n`;
     })
