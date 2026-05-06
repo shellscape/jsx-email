@@ -95,7 +95,7 @@ export function SendEmailSection({ cardId, html }: SendEmailSectionProps) {
           </a>
         </p>
         <button
-          className="send-button inline-flex h-9 w-[82px] items-center justify-center gap-1.5 rounded-[6px] px-3 text-sm font-medium"
+          className="send-button inline-flex h-9 w-[82px] cursor-pointer items-center justify-center gap-1.5 rounded-[6px] px-3 text-sm font-medium disabled:cursor-not-allowed"
           disabled={!sendEmail.trim().length || sendState === 'sending' || sendState === 'sent'}
           type="submit"
         >

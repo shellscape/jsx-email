@@ -49,6 +49,9 @@ moon run :test
 
 If `moon` isn’t available on your PATH, run it via `./node_modules/.bin/moon` (for example `./node_modules/.bin/moon run :lint`).
 
+`moon repo:build.all --cache off` is the canonical task to use for building (compiling) all packages.
+Do not run `:compile` tasks directly. `:build` tasks can be called on projects outside of packages.
+
 ## Moon config
 
 - Workspace config lives in `.moon/workspace.yml`.
@@ -79,6 +82,8 @@ Husky is enabled via the root `prepare` script. The `pre-commit` hook runs
 - Prefer a `helpers` directory/files over `utils`
 - Never use a `lib` directory for app code
 - Filenames are `kebab-case` for files you control
+- Prefer arrow functions `const f = () => {}` vs `function f {}` where scope of `this` is not a concern
+- Parent-path imports outside of the current/affected project directory are forbidden
 
 ## Tests
 

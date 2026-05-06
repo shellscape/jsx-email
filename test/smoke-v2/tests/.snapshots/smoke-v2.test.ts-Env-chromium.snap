@@ -17,8 +17,3 @@
     joker
   </body>
 </html>
-<style>
-  body {
-      overflow-wrap: anywhere;
-    }
-</style>

@@ -71,7 +71,7 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
       outDir,
       rollupOptions: {
         output: {
-          manualChunks: {}
+          manualChunks: () => void 0
         }
       },
       target: 'esnext',

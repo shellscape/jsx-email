@@ -1,10 +1,4 @@
-import {
-  HalfMoon,
-  NavArrowLeft,
-  NavArrowRight,
-  Send,
-  SmartphoneDevice
-} from 'iconoir-react';
+import { HalfMoon, NavArrowLeft, NavArrowRight, Send, SmartphoneDevice } from 'iconoir-react';
 import { useEffect } from 'react';
 import tippy from 'tippy.js';
 
@@ -93,7 +87,11 @@ export function LabControlsPanel({ cardId, template }: LabControlsPanelProps) {
             </Button>
           )}
         </div>
-        {panelCollapsed ? <CollapsedIcons /> : <ExpandedPanel cardId={cardId} template={template} />}
+        {panelCollapsed ? (
+          <CollapsedIcons />
+        ) : (
+          <ExpandedPanel cardId={cardId} template={template} />
+        )}
       </div>
     </aside>
   );
@@ -110,7 +108,10 @@ export function LabControlsPanel({ cardId, template }: LabControlsPanelProps) {
             checked={lab.colorScheme}
             label="Dark Mode color scheme"
             onChange={(value) =>
-              updateLab(cardId, { colorScheme: value, invertColors: value ? false : lab.invertColors })
+              updateLab(cardId, {
+                colorScheme: value,
+                invertColors: value ? false : lab.invertColors
+              })
             }
             tooltip="Apple Mail supports dark/light schemes"
           />
@@ -118,7 +119,10 @@ export function LabControlsPanel({ cardId, template }: LabControlsPanelProps) {
             checked={lab.invertColors}
             label="Gmail Color Inversion"
             onChange={(value) =>
-              updateLab(cardId, { colorScheme: value ? false : lab.colorScheme, invertColors: value })
+              updateLab(cardId, {
+                colorScheme: value ? false : lab.colorScheme,
+                invertColors: value
+              })
             }
             tooltip="Gmail inverts colors for dark mode"
           />
@@ -132,7 +136,10 @@ export function LabControlsPanel({ cardId, template }: LabControlsPanelProps) {
             {previewPresets.map((preset) => (
               <button
                 aria-pressed={lab.preset === preset.name}
-                className={cn('preset-pill', lab.preset === preset.name && 'is-active')}
+                className={cn(
+                  'preset-pill cursor-pointer',
+                  lab.preset === preset.name && 'is-active'
+                )}
                 key={preset.name}
                 onClick={() => updateLab(cardId, { preset: preset.name })}
                 type="button"
@@ -164,7 +171,11 @@ function CollapsedIcons() {
         ['Send email', Send, 'is-send']
       ].map(([label, Icon, className]) => (
         <section className={cn('tool-collapsed-section', className)} key={label as string}>
-          <span aria-label={label as string} className="tool-collapsed-icon" title={label as string}>
+          <span
+            aria-label={label as string}
+            className="tool-collapsed-icon"
+            title={label as string}
+          >
             <Icon className="size-[17px]" />
           </span>
         </section>

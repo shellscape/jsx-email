@@ -48,6 +48,8 @@ tasks:
 
   copy.preview:
     command: cp -r ../../apps/preview/dist/packed dist/preview
+    deps:
+      - preview:pack
     options:
       cache: false
 
