@@ -36,6 +36,23 @@ const getIndexUrl = () => {
 const getTemplateButton = (page: Page, name: string) =>
   page.locator('#templates-window').getByRole('button', { name, exact: true });
 
+const reloadPreview = async (page: Page) => {
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      await page.goto(getIndexUrl());
+      return;
+    } catch (error) {
+      if (!String(error).includes('net::ERR_ABORTED')) {
+        throw error;
+      }
+
+      await page.waitForTimeout(500);
+    }
+  }
+
+  await page.goto(getIndexUrl());
+};
+
 test.describe.configure({ mode: 'serial' });
 
 test('landing', async ({ page }) => {
@@ -95,8 +112,8 @@ test('watcher', async ({ page }) => {
       .toBe(true);
 
     // When templates rebuild, Vite's HMR doesn't always update the iframe content deterministically.
-    // Reloading ensures the latest compiled template HTML is reflected in `srcdoc`.
-    await page.reload();
+    // Navigating to a fresh URL ensures the latest compiled template HTML is reflected in `srcdoc`.
+    await reloadPreview(page);
     await getTemplateButton(page, 'Base').click(timeout);
     await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
     await expect(iframeEl).toHaveAttribute('srcdoc', /Removed Content/, { timeout: 60e3 });

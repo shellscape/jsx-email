@@ -18,7 +18,7 @@ mkdir -p "$TESTS_DIR"
 
 REPO_DIR="$(pwd)"
 
-pnpm exec create-mail "$PROJECT_DIR_NAME" --yes
+./node_modules/.bin/create-mail "$PROJECT_DIR_NAME" --yes
 
 mv -f "$PROJECT_DIR_NAME" "$TESTS_DIR/$PROJECT_DIR_NAME"
 
@@ -35,12 +35,6 @@ packages:
 dangerouslyAllowAllBuilds: true
 EOF
 
-pnpm i
-
-# The dependencies below are required for fixtures
-pnpm add unocss
-
-# The dependencies below have to be pointed back to the repo
 pack_local_package() {
   local package_dir="$1"
   (
@@ -49,22 +43,50 @@ pack_local_package() {
   )
 }
 
-# Pack local packages before installing into the isolated smoke workspace so
-# workspace/catalog protocols are replaced with publishable dependency specs.
+# Pack local packages before installing into the isolated smoke workspace so:
+# - workspace/catalog protocols are replaced with publishable dependency specs
+# - prerelease smoke tests don't try to resolve unpublished v3 packages from npm
 APP_PREVIEW_TARBALL=$(pack_local_package "$REPO_DIR/apps/preview")
 PLUGIN_INLINE_TARBALL=$(pack_local_package "$REPO_DIR/packages/plugin-inline")
 PLUGIN_MINIFY_TARBALL=$(pack_local_package "$REPO_DIR/packages/plugin-minify")
 PLUGIN_PRETTY_TARBALL=$(pack_local_package "$REPO_DIR/packages/plugin-pretty")
 JSX_EMAIL_TARBALL=$(pack_local_package "$REPO_DIR/packages/jsx-email")
 
-pnpm add "@jsx-email/app-preview@file:$APP_PREVIEW_TARBALL"
-pnpm add "@jsx-email/plugin-inline@file:$PLUGIN_INLINE_TARBALL"
-pnpm add "@jsx-email/plugin-minify@file:$PLUGIN_MINIFY_TARBALL"
-pnpm add "@jsx-email/plugin-pretty@file:$PLUGIN_PRETTY_TARBALL"
-pnpm add "jsx-email@file:$JSX_EMAIL_TARBALL"
+APP_PREVIEW_TARBALL="$APP_PREVIEW_TARBALL" \
+PLUGIN_INLINE_TARBALL="$PLUGIN_INLINE_TARBALL" \
+PLUGIN_MINIFY_TARBALL="$PLUGIN_MINIFY_TARBALL" \
+PLUGIN_PRETTY_TARBALL="$PLUGIN_PRETTY_TARBALL" \
+JSX_EMAIL_TARBALL="$JSX_EMAIL_TARBALL" \
+REPO_DIR="$REPO_DIR" \
+node - <<'EOF'
+const fs = require('node:fs');
 
-# We have to link this due to the workspace dependency
-pnpm link "$REPO_DIR/packages/jsx-email"
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+const repoPkg = JSON.parse(fs.readFileSync(`${process.env.REPO_DIR}/package.json`, 'utf8'));
+const repoOverrides = repoPkg.pnpm?.overrides ?? {};
+
+pkg.dependencies = {
+  ...pkg.dependencies,
+  '@jsx-email/app-preview': `file:${process.env.APP_PREVIEW_TARBALL}`,
+  '@jsx-email/plugin-inline': `file:${process.env.PLUGIN_INLINE_TARBALL}`,
+  '@jsx-email/plugin-minify': `file:${process.env.PLUGIN_MINIFY_TARBALL}`,
+  '@jsx-email/plugin-pretty': `file:${process.env.PLUGIN_PRETTY_TARBALL}`,
+  'jsx-email': `file:${process.env.JSX_EMAIL_TARBALL}`,
+  unocss: '^66.0.0'
+};
+
+pkg.devDependencies = {
+  ...pkg.devDependencies,
+  '@types/react': repoOverrides['@types/react'],
+  '@types/react-dom': repoOverrides['@types/react-dom'],
+  react: repoOverrides.react,
+  'react-dom': repoOverrides['react-dom']
+};
+
+fs.writeFileSync('package.json', `${JSON.stringify(pkg, null, 2)}\n`);
+EOF
+
+pnpm i
 
 # Remove the templates that were created for us
 rm -rf templates

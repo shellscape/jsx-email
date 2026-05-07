@@ -53,6 +53,7 @@ tasks:
     command: 'oxfmt --write .github/**/*.md **/README.md docs/**/*.md --no-error-on-unmatched-pattern'
     options:
       cache: false
+      unixShell: bash
 
   lint.js:
     command: oxlint --format stylish --tsconfig tsconfig.json apps infra packages scripts services
