@@ -35,7 +35,8 @@ export function TemplateCard({ card, selected, setCardNode, template }: Template
 
   useEffect(() => ensureLab(card.id), [card.id, ensureLab]);
 
-  const activePreset = previewPresets.find((item) => item.name === lab?.preset) || previewPresets[0];
+  const activePreset =
+    previewPresets.find((item) => item.name === lab?.preset) || previewPresets[0];
   const previewHtml = lab?.invertColors ? applyGmailInversion(template.html) : template.html;
   const code = useMemo(() => {
     if (tab === 'html') return template.html;
@@ -66,7 +67,9 @@ export function TemplateCard({ card, selected, setCardNode, template }: Template
             }}
             type="button"
           >
-            <h2 className="truncate font-medium text-[var(--text-strong)]">{template.templateName}</h2>
+            <h2 className="truncate font-medium text-[var(--text-strong)]">
+              {template.templateName}
+            </h2>
           </button>
           <div className="ml-3 flex shrink-0 items-center gap-2">
             <div aria-label={`${template.templateName} views`} className="card-tabs" role="tablist">
@@ -95,6 +98,7 @@ export function TemplateCard({ card, selected, setCardNode, template }: Template
               }}
               onPointerDown={(event) => event.stopPropagation()}
               size="icon"
+              title={`Close ${template.templateName}`}
               type="button"
               variant="ghost"
             >

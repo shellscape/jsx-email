@@ -3,6 +3,12 @@ import { create } from 'zustand';
 import type { CardState, LabState } from '../types/lab';
 import type { TemplateData } from '../types/templates';
 import { previewPresets } from '../helpers/presets';
+import {
+  addTemplateSlugs,
+  clearTemplateHash,
+  updateTemplateHash,
+  type RoutedTemplateData
+} from '../helpers/template-routing';
 import { gatherTemplates } from '../helpers/templates';
 
 const defaultLabState = (): LabState => ({
@@ -20,9 +26,10 @@ interface PreviewStore {
   labs: Record<string, LabState>;
   panelCollapsed: boolean;
   selectedId: string | null;
-  templates: TemplateData[];
+  templates: RoutedTemplateData[];
   zoom: number;
   addOrFocusTemplate: (templateId: string) => string;
+  addOrFocusTemplateBySlug: (slug: string) => string | null;
   closeCard: (cardId: string) => void;
   ensureLab: (cardId: string) => void;
   focusCard: (cardId: string | null) => void;
@@ -38,11 +45,13 @@ export const usePreviewStore = create<PreviewStore>((set, get) => ({
   labs: {},
   panelCollapsed: true,
   selectedId: null,
-  templates: gatherTemplates(),
+  templates: addTemplateSlugs(gatherTemplates()),
   zoom: 100,
   addOrFocusTemplate(templateId) {
+    const template = get().templates.find((item) => item.id === templateId);
     const existing = get().cards.find((card) => card.templateId === templateId);
     if (existing) {
+      if (template) updateTemplateHash(template.slug);
       set((state) => ({
         focusRequest: { id: existing.id, sequence: (state.focusRequest?.sequence || 0) + 1 },
         selectedId: existing.id
@@ -51,6 +60,7 @@ export const usePreviewStore = create<PreviewStore>((set, get) => ({
     }
 
     const id = `${templateId}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    if (template) updateTemplateHash(template.slug);
     set((state) => ({
       cards: [...state.cards, { id, templateId }],
       focusRequest: { id, sequence: (state.focusRequest?.sequence || 0) + 1 },
@@ -59,31 +69,43 @@ export const usePreviewStore = create<PreviewStore>((set, get) => ({
     }));
     return id;
   },
+  addOrFocusTemplateBySlug(slug) {
+    const template = get().templates.find((item) => item.slug === slug);
+    return template ? get().addOrFocusTemplate(template.id) : null;
+  },
   closeCard(cardId) {
-    set((state) => {
-      const labs = { ...state.labs };
-      delete labs[cardId];
-      const cards = state.cards.filter((card) => card.id !== cardId);
-      const selectedId = state.selectedId === cardId ? cards.at(-1)?.id || null : state.selectedId;
-      return {
-        cards,
-        focusRequest:
-          selectedId && state.selectedId === cardId
-            ? { id: selectedId, sequence: (state.focusRequest?.sequence || 0) + 1 }
-            : state.focusRequest,
-        labs,
-        selectedId
-      };
+    const state = get();
+    const labs = { ...state.labs };
+    delete labs[cardId];
+    const cards = state.cards.filter((card) => card.id !== cardId);
+    const selectedId = state.selectedId === cardId ? cards.at(-1)?.id || null : state.selectedId;
+    const selectedTemplate = state.templates.find(
+      (template) => template.id === cards.find((card) => card.id === selectedId)?.templateId
+    );
+
+    if (selectedTemplate) updateTemplateHash(selectedTemplate.slug);
+    else if (!selectedId) clearTemplateHash();
+
+    set({
+      cards,
+      focusRequest:
+        selectedId && state.selectedId === cardId
+          ? { id: selectedId, sequence: (state.focusRequest?.sequence || 0) + 1 }
+          : state.focusRequest,
+      labs,
+      selectedId
     });
   },
   ensureLab(cardId) {
     set((state) =>
-      state.labs[cardId]
-        ? state
-        : { labs: { ...state.labs, [cardId]: defaultLabState() } }
+      state.labs[cardId] ? state : { labs: { ...state.labs, [cardId]: defaultLabState() } }
     );
   },
   focusCard(cardId) {
+    const template = get().templates.find(
+      (item) => item.id === get().cards.find((card) => card.id === cardId)?.templateId
+    );
+    if (template) updateTemplateHash(template.slug);
     set((state) => ({
       focusRequest: cardId
         ? { id: cardId, sequence: (state.focusRequest?.sequence || 0) + 1 }
@@ -95,7 +117,7 @@ export const usePreviewStore = create<PreviewStore>((set, get) => ({
     set({ panelCollapsed: value });
   },
   setTemplates(templates) {
-    set({ templates });
+    set({ templates: addTemplateSlugs(templates) });
   },
   setZoom(value) {
     set({ zoom: value });

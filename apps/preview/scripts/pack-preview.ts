@@ -26,6 +26,7 @@ const sourceFiles = [
   'helpers/gmail-color.ts',
   'helpers/cn.ts',
   'helpers/file-tree.ts',
+  'helpers/template-routing.ts',
   'helpers/templates.ts',
   'helpers/color-inversion.ts',
   'helpers/canvas-positioning.ts',
