@@ -1,7 +1,7 @@
 ---
 interface Props {
   class?: string;
-  copiedLabel?: string;
+  hideLabel?: boolean;
   label?: string;
   prompt?: string;
 }
@@ -22,10 +22,13 @@ const defaultPrompt = [
 
 const {
   class: className,
-  copiedLabel = 'Copied to clipboard!',
+  hideLabel = false,
   label = 'Prompt',
   prompt = defaultPrompt,
 } = Astro.props;
+
+const hasVisibleLabel = !hideLabel && label.length > 0;
+const ariaLabel = label.length > 0 ? label : 'Copy prompt';
 ---
 
 <!--
@@ -41,10 +44,12 @@ const {
      that subtly splay outward on hover, hinting the prompt is
      useful across a range of AI tools. On click, copies the configured
      prompt to the clipboard and briefly swaps the label to confirm. -->
-<span class="inline-flex" data-copy-prompt-root data-copied-label={copiedLabel}>
+<span class="inline-flex" data-copy-prompt-root>
   <button
     type="button"
     aria-live="polite"
+    aria-label={ariaLabel}
+    title={ariaLabel}
     class:list={[
       'group inline-flex items-center gap-2.5 rounded-[6px] bg-black px-5 py-3 text-sm sm:text-base font-medium text-white transition-colors cursor-pointer hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200',
       className,
@@ -55,7 +60,40 @@ const {
       <svg class="w-5 h-5 ml-1 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:-rotate-6 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" xmlns="http://www.w3.org/2000/svg"><path d="M20.998 10.949H24v3.102h-3v3.028h-1.487V20H18v-2.921h-1.487V20H15v-2.921H9V20H7.488v-2.921H6V20H4.487v-2.921H3V14.05H0V10.95h3V5h17.998v5.949zM6 10.949h1.488V8.102H6v2.847zm10.51 0H18V8.102h-1.49v2.847z"/></svg>
       <svg class="w-5 h-5 ml-0.5 transition-transform duration-300 ease-out rotate-6 group-hover:rotate-12 group-hover:translate-x-1" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg"><path d="M16 6H8v12h8V6zm4 16H4V2h16v20z"/></svg>
     </span>
-    <span class="copy-prompt-label">{label}</span>
+    {hasVisibleLabel && <span class="copy-prompt-label">{label}</span>}
+    <span class="relative ml-1 h-4 w-4 shrink-0" aria-hidden="true">
+      <svg
+        data-copy-prompt-icon="copy"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="absolute inset-0 transition-opacity duration-200 ease-out opacity-100"
+      >
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <svg
+        data-copy-prompt-icon="success"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="absolute inset-0 transition-opacity duration-200 ease-out opacity-0"
+      >
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </span>
   </button>
   <template data-copy-prompt-text>{prompt}</template>
 </span>
@@ -63,16 +101,15 @@ const {
 <script>
   // --- Copy Prompt CTA ---------------------------------------------------
   // Copies each configured prompt to the clipboard. Visual feedback:
-  // swap the button label, then restore after 10s.
+  // swap the trailing copy icon for a checkmark, then restore after 3s.
   document.querySelectorAll('[data-copy-prompt-root]').forEach((root) => {
     const copyPromptBtn = root.querySelector('button');
     const copyPromptSrc = root.querySelector('[data-copy-prompt-text]');
     if (!copyPromptBtn || !copyPromptSrc) return;
 
     const promptSource = copyPromptSrc;
-    const copyLabel = copyPromptBtn.querySelector('.copy-prompt-label');
-    const copiedLabel = root.getAttribute('data-copied-label') ?? 'Copied to clipboard!';
-    const originalLabel = copyLabel?.textContent ?? 'Prompt';
+    const copyIcon = root.querySelector('[data-copy-prompt-icon="copy"]');
+    const successIcon = root.querySelector('[data-copy-prompt-icon="success"]');
     let resetTimer: ReturnType<typeof setTimeout> | undefined;
 
     async function copyPrompt() {
@@ -91,11 +128,17 @@ const {
         try { document.execCommand('copy'); } catch {}
         ta.remove();
       }
-      if (copyLabel) copyLabel.textContent = copiedLabel;
+      copyIcon?.classList.add('opacity-0');
+      copyIcon?.classList.remove('opacity-100');
+      successIcon?.classList.add('opacity-100');
+      successIcon?.classList.remove('opacity-0');
       clearTimeout(resetTimer);
       resetTimer = setTimeout(() => {
-        if (copyLabel) copyLabel.textContent = originalLabel;
-      }, 10000);
+        copyIcon?.classList.add('opacity-100');
+        copyIcon?.classList.remove('opacity-0');
+        successIcon?.classList.add('opacity-0');
+        successIcon?.classList.remove('opacity-100');
+      }, 3000);
     }
 
     copyPromptBtn.addEventListener('click', copyPrompt);

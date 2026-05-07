@@ -1,7 +1,7 @@
 ---
-import ThemeSelector from "../ThemeSelector.astro";
 import Logo from "../Logo.astro";
-import GithubStars from "../GithubStars.astro";
+import HeaderControls from "./HeaderControls.astro";
+import HeaderLinks from "./HeaderLinks.astro";
 import { Book } from "iconoir-react";
 ---
 
@@ -16,10 +16,9 @@ import { Book } from "iconoir-react";
         <span>Documentation</span>
       </a>
     </div>
-    <div class="header-spacer" />
+    <HeaderLinks />
     <div class="header_nav">
-      <GithubStars />
-      <ThemeSelector />
+      <HeaderControls />
       <div class="burger" data-nav-burger-btn>
         <svg
           fill="none"
@@ -99,10 +98,6 @@ import { Book } from "iconoir-react";
     gap: 10px;
   }
 
-  .header-spacer {
-    flex: 1;
-  }
-
   .docs-logo {
     display: flex;
     gap: 6px;
@@ -131,7 +126,7 @@ import { Book } from "iconoir-react";
 
   .header_nav {
     display: flex;
-    gap: 8px;
+    gap: 16px;
     align-items: center;
     flex: 1;
     justify-content: flex-end;

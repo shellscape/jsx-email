@@ -1,0 +1,74 @@
+<nav class="header_links" aria-label="Primary navigation">
+  <a href="/docs/components/avatar">Components</a>
+  <a href="/blocks">Blocks</a>
+  <a href="http://samples.jsx.email" target="_blank" rel="noreferrer">
+    Samples
+    <svg
+      class="external-icon"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
+        fill="currentColor"></path>
+    </svg>
+  </a>
+  <a href="https://pro.jsx.email" target="_blank" rel="noreferrer">
+    Pro Templates
+    <svg
+      class="external-icon"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
+        fill="currentColor"></path>
+    </svg>
+  </a>
+</nav>
+
+<style>
+  .header_links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex: 1;
+    white-space: nowrap;
+  }
+
+  .header_links a {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .header_links a:hover {
+    color: #4b5563;
+  }
+
+  html.dark .header_links a:hover {
+    color: #d1d5db;
+  }
+
+  .external-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 4px;
+  }
+
+  @media screen and (max-width: 914px) {
+    .header_links {
+      display: none;
+    }
+  }
+</style>

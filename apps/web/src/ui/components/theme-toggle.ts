@@ -100,3 +100,21 @@ export const initHomepageThemeToggle = () => {
   applyTheme(getStoredTheme());
   updateThemeToggle(themeToggle, tooltip);
 };
+
+export const initDiscordTooltip = () => {
+  document.querySelectorAll<HTMLElement>('[data-discord-tooltip]').forEach((discordButton) => {
+    if (discordButton.dataset.discordTooltipInitialized === 'true') return;
+
+    tippy(discordButton, {
+      arrow: false,
+      content: 'Join our Discord',
+      hideOnClick: true,
+      offset: [0, 8],
+      placement: 'bottom',
+      theme: 'jsx-email',
+      trigger: 'mouseenter focus'
+    });
+
+    discordButton.dataset.discordTooltipInitialized = 'true';
+  });
+};

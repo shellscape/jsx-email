@@ -3,7 +3,7 @@ interface Props {
   title?: string;
 }
 
-const { title = "JSX&thinsp;email - Building Emails doesn't have to be Painful" } = Astro.props;
+const { title = "JSX\u2009email - Building Emails doesn't have to be Painful" } = Astro.props;
 ---
 
 <!doctype html>
@@ -44,9 +44,10 @@ const { title = "JSX&thinsp;email - Building Emails doesn't have to be Painful" 
     <slot />
 
     <script>
-      import { initHomepageThemeToggle } from '@components/theme-toggle';
+      import { initDiscordTooltip, initHomepageThemeToggle } from '@components/theme-toggle';
 
       initHomepageThemeToggle();
+      initDiscordTooltip();
     </script>
     <style is:global>
       .tippy-box[data-theme~='jsx-email'] {

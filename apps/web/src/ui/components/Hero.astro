@@ -117,7 +117,7 @@ import CopyPrompt from './CopyPrompt.astro';
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="ml-2"
+          class="ml-2 transition-opacity duration-200 ease-out opacity-100"
         >
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -134,7 +134,7 @@ import CopyPrompt from './CopyPrompt.astro';
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="ml-2 hidden"
+          class="-ml-4 transition-opacity duration-200 ease-out opacity-0"
         >
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
@@ -205,13 +205,17 @@ import CopyPrompt from './CopyPrompt.astro';
           await navigator.clipboard.writeText(textToCopy);
 
           // Show success icon, hide copy icon
-          copyIcon.classList.add('hidden');
-          successIcon.classList.remove('hidden');
+          copyIcon.classList.add('opacity-0');
+          copyIcon.classList.remove('opacity-100');
+          successIcon.classList.add('opacity-100');
+          successIcon.classList.remove('opacity-0');
 
           // After 3 seconds, revert back
           setTimeout(() => {
-            copyIcon.classList.remove('hidden');
-            successIcon.classList.add('hidden');
+            copyIcon.classList.add('opacity-100');
+            copyIcon.classList.remove('opacity-0');
+            successIcon.classList.add('opacity-0');
+            successIcon.classList.remove('opacity-100');
           }, 3000);
         } catch (err) {
           console.error('Failed to copy text: ', err);
