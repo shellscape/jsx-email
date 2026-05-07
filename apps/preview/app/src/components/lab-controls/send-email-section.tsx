@@ -27,7 +27,7 @@ export function SendEmailSection({ cardId, html }: SendEmailSectionProps) {
       const response = await fetch('https://api.useplunk.com/v1/send', {
         body: JSON.stringify({
           body: html,
-          subject: 'Test jsx-email template',
+          subject: 'Test JSX&thinsp;email template',
           to: sendEmail
         }),
         headers: {
