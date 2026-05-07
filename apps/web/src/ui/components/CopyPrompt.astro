@@ -1,0 +1,102 @@
+---
+interface Props {
+  class?: string;
+  copiedLabel?: string;
+  label?: string;
+  prompt?: string;
+}
+
+const defaultPrompt = [
+  'Use JSX email to build production-ready email templates with React and TypeScript.',
+  'If this is a new project, scaffold it with `npx create-mail@latest`;',
+  'if this is an existing project, install with `pnpm add jsx-email`.',
+  'Prefer JSX email components and helpers from `jsx-email` for email-client compatibility,',
+  'use `render` to generate HTML strings for providers like Resend, Postmark, SendGrid,',
+  'Nodemailer, AWS SES, Loops, or Plunk, and use the CLI preview/check/build workflow',
+  'while developing. Favor simple, standards-compliant email markup, account for',
+  'inconsistent email client CSS support, use the `Tailwind` component when utility',
+  'styling is helpful, and run `email check` before sending when compatibility matters.',
+  'Reference the docs at https://jsx.email/docs/introduction and https://jsx.email/docs/quick-start.',
+].join(' ');
+
+const {
+  class: className,
+  copiedLabel = 'Copied to clipboard!',
+  label = 'Prompt',
+  prompt = defaultPrompt,
+} = Astro.props;
+---
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+<span class="inline-flex" data-copy-prompt-root data-copied-label={copiedLabel}>
+  <button
+    type="button"
+    aria-live="polite"
+    class:list={[
+      'group inline-flex items-center gap-2.5 rounded-[6px] bg-black px-5 py-3 text-sm sm:text-base font-medium text-white transition-colors cursor-pointer hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200',
+      className,
+    ]}
+  >
+    <span class="relative flex items-center justify-start shrink-0 text-white h-5" aria-hidden="true">
+      <svg class="w-5 h-5 ml-1 transition-transform duration-300 ease-out group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-6 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg"><path d="M9.205 8.658v-2.26c0-.19.072-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.566 0 .167 0 .357-.024.547l-4.71-2.759a.797.797 0 00-.856 0l-5.97 3.473zm10.609 8.8V12.06c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.433.433 0 01.476 0l4.543 2.617c1.309.76 2.189 2.378 2.189 3.948 0 1.808-1.07 3.473-2.76 4.163zM7.802 12.703l-1.95-1.142c-.167-.095-.239-.238-.239-.428V5.899c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.067c-.285.166-.428.404-.428.737v6.898zM12 15.128l-2.795-1.57v-3.33L12 8.658l2.795 1.57v3.33L12 15.128zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472zm-5.637-5.303l-4.544-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.482 4.482 0 014.21 6.327v5.423c0 .333.143.571.428.738l5.947 3.449-1.95 1.118a.432.432 0 01-.476 0zm-.262 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.71c.286.167.571.167.856 0l5.97-3.448v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.523-2.117.523zm5.899 2.83a5.947 5.947 0 005.827-4.756C22.287 18.339 24 15.84 24 13.296c0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.095-1.88.31A5.962 5.962 0 0010.205 0a5.947 5.947 0 00-5.827 4.757C1.713 5.447 0 7.945 0 10.49c0 1.666.713 3.283 1.998 4.448-.119.5-.19 1-.19 1.499 0 3.401 2.759 5.946 5.946 5.946.642 0 1.26-.095 1.88-.309a5.96 5.96 0 004.162 1.713z"/></svg>
+      <svg class="w-5 h-5 ml-1 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:-rotate-6 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" xmlns="http://www.w3.org/2000/svg"><path d="M20.998 10.949H24v3.102h-3v3.028h-1.487V20H18v-2.921h-1.487V20H15v-2.921H9V20H7.488v-2.921H6V20H4.487v-2.921H3V14.05H0V10.95h3V5h17.998v5.949zM6 10.949h1.488V8.102H6v2.847zm10.51 0H18V8.102h-1.49v2.847z"/></svg>
+      <svg class="w-5 h-5 ml-0.5 transition-transform duration-300 ease-out rotate-6 group-hover:rotate-12 group-hover:translate-x-1" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg"><path d="M16 6H8v12h8V6zm4 16H4V2h16v20z"/></svg>
+    </span>
+    <span class="copy-prompt-label">{label}</span>
+  </button>
+  <template data-copy-prompt-text>{prompt}</template>
+</span>
+
+<script>
+  // --- Copy Prompt CTA ---------------------------------------------------
+  // Copies each configured prompt to the clipboard. Visual feedback:
+  // swap the button label, then restore after 10s.
+  document.querySelectorAll('[data-copy-prompt-root]').forEach((root) => {
+    const copyPromptBtn = root.querySelector('button');
+    const copyPromptSrc = root.querySelector('[data-copy-prompt-text]');
+    if (!copyPromptBtn || !copyPromptSrc) return;
+
+    const promptSource = copyPromptSrc;
+    const copyLabel = copyPromptBtn.querySelector('.copy-prompt-label');
+    const copiedLabel = root.getAttribute('data-copied-label') ?? 'Copied to clipboard!';
+    const originalLabel = copyLabel?.textContent ?? 'Prompt';
+    let resetTimer: ReturnType<typeof setTimeout> | undefined;
+
+    async function copyPrompt() {
+      const text = (promptSource.textContent ?? '').trim();
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // Fallback for older browsers / insecure contexts: use the
+        // execCommand('copy') technique via a hidden textarea.
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch {}
+        ta.remove();
+      }
+      if (copyLabel) copyLabel.textContent = copiedLabel;
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        if (copyLabel) copyLabel.textContent = originalLabel;
+      }, 10000);
+    }
+
+    copyPromptBtn.addEventListener('click', copyPrompt);
+  });
+</script>
