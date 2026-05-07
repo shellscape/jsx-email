@@ -9,74 +9,66 @@
 	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"/><br/><br/>
 </div>
 
-<div>
-  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub" class="brackets" />
-  <svg xmlns="http://www.w3.org/2000/svg" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="brackets">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-  </svg>
-  JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients.
-  <br/><br/>
-  The components handle the heavy lifting of compatibility and client inconsistency so designers and developers can focus on building impactful and engaging templates.
-  <br/>
-</div>
+# JSX&thinsp;email
 
-## Migrating to Version 2.0.0
+Build and send emails using React and TypeScript.
 
-Version 2 represents a big leap forward for the project, but it's not without a few bumps. As with most major version releases in the Node ecosystem, there are a few breaking changes (nothing major) and steps to be performed. Please read our [Migration Guide](https://jsx.email/docs/v2/migration).
+JSX email provides a set of React components and helpers for building delightful, responsive email templates that work across modern email clients. The components handle compatibility and client inconsistencies so designers and developers can focus on building impactful templates instead of fighting email rendering quirks.
 
-To browse the source code and documentation markdown for v1.12.1 please [click here](https://github.com/shellscape/jsx-email/tree/545ad7550fef11cc18fafe71c772c7b66a8b2373).
+## Version 3.0.0
+
+Version 3 modernizes the runtime, package exports, preview app, scaffold, plugins, and CLI. It requires Node.js `22.0.0` or newer and React `19.1.0` or newer. Please read the [v3 Migration Guide](https://jsx.email/docs/v3/migration) before upgrading existing projects.
+
+To browse the source code and documentation markdown for v2.8.4, use the [jsx-email-v2.8.4 tag](https://github.com/shellscape/jsx-email/tree/jsx-email-v2.8.4).
 
 ## Getting Started
 
-Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs/introduction). Please give that a read and let us know if there's anything we can help with.
+Everything to know about components, props, and usage is available in the [Documentation](https://jsx.email/docs/introduction).
+
+For new projects, use `create-mail`:
+
+```sh
+npx create-mail my-email-project
+```
 
 ## Requirements
 
-The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version (v22.0.0+) and React v19.1.0+
-
-<div>
-  <br/>
-	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/clients.svg" alt="JSX email" class="clients"/><br/>
-  Compatible with all modern email services
-  <br/><br/>
-</div>
+The packages and components that make up JSX email require an [LTS](https://github.com/nodejs/Release) Node version, v22.0.0 or newer, and React v19.1.0 or newer.
 
 ## Components
 
-A list of available components can be found on the [`jsx-email` Documentation](https://jsx.email/docs/introduction)
+A list of available components can be found in the [JSX email documentation](https://jsx.email/docs/introduction).
 
-## Advantages Over `react-email`
+## Featured Features
 
-The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. As such, we feel that `jsx-email` has a number of improvements and advantages over `react-email`. Those include:
+The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements, and fast releases. JSX email includes:
 
 - [Email Client Compatibility Checking](https://jsx.email/docs/core/cli#client-compatibility-check)
 - Exclusive Components
+- Handles cross-client inconsistencies for you
 - Optional Configuration Files
 - Plugins
 - Crazy fast Tailwind support
 - Support for `<Suspense>` and `async` within Components
 - Enhanced Developer Experience (DX)
-- Better Command Line tools
+- Wonderful Command Line tools
 - Works with Monorepos out of the box. No exhaustive setup needed.
-- Less complex, smoother Preview Server
-- Faster improvements, feature development, and releases
-- Community-driven maintenance rather than company-planning priority
+- A smooth and simple Preview Server
+- Fast improvements, feature development, and releases
+- Community-driven, not Company-driven
 - No vendor lock-in for tools. `jsx-email` uses only generic components and tools
 
 ## Service Integrations
 
-Email built and rendered with JSX email can be used with any email provider that provides an API for sending email as a `String`.
-This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), [Plunk](https://www.useplunk.com/), and [SendGrid](https://sendgrid.com). See our documentation on [Email Providers](https://jsx.email/docs/email-providers) for more info and example usage.
-
-<!-- FIXME: Write and link to example code for integrations on the docs site -->
+Email built and rendered with JSX email can be used with any email provider that provides an API for sending email as a string. This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com), [Resend](https://resend.com), [Plunk](https://www.useplunk.com/), and [SendGrid](https://sendgrid.com). See [Email Providers](https://jsx.email/docs/email-providers) for more info and example usage.
 
 ## Contributing, Working With This Repo
 
-We 💛 contributions! After all, this is a community-driven project. We have no corporate sponsorship or backing. The maintainers and users keep this project going!
+We welcome contributions. This is a community-driven project with no corporate sponsorship or backing. The maintainers and users keep this project going.
 
 Please check out our [Contribution Guide](./CONTRIBUTING.md).
 
-We (the maintainers) use JSX email daily
+We, the maintainers, use JSX email daily.
 
 ## License
 

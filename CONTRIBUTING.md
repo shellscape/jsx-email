@@ -9,7 +9,9 @@ We 💛 contributions! The rules for contributing to this org are few:
 
 ## Repo Info
 
-The `jsx-email` repository is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) that uses two primary tools; [`pnpm`](https://pnpm.io/) and [`Moon`](https://moonrepo.dev/). `pnpm` is used for package management and [workspace management](https://pnpm.io/workspaces) of the repo. `Moon` is used as our task runner for the repo - all commands to work with the packages and code in the repo go through `Moon`. We also assume that you have Node.js installed, because this is a project that leverages React.
+The `jsx-email` repository is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) that uses two primary tools: [`pnpm`](https://pnpm.io/) and [`Moon`](https://moonrepo.dev/). `pnpm` is used for package management and workspace management. `Moon` is used as our task runner. Repo checks, tests, and builds should be run through `Moon`.
+
+JSX email v3 requires Node.js v22.0.0 or newer and React v19.1.0 or newer.
 
 ### Getting Started
 
@@ -28,14 +30,16 @@ $ pnpm install
 Then build all the things:
 
 ```console
-$ moon repo:build.all
+$ moon repo:build.all --cache off
 ```
 
 ## Before Committing
 
 1. Use at least Node.js v22.0.0 or higher. [NVM](https://github.com/creationix/nvm) can be handy for switching between Node versions.
-1. Lint your changes via `moon run repo:lint`. Fix any errors and warnings before committing.
-1. Test your changes via `moon run repo:test`. Only Pull Requests with passing tests will be accepted.
+1. Lint your changes via `moon run :lint`. Fix any errors before committing.
+1. Format your changes via `moon run :format`.
+1. Typecheck your changes via `moon run :typecheck`.
+1. Test your changes via `moon run :test`. Only Pull Requests with passing tests will be accepted.
 
 ## Submitting Code
 
@@ -44,7 +48,7 @@ Any code change should be submitted as a pull request. Our guidelines for Pull R
 - Please fill in our template in its entirety. Please don't reformat it or modify it
 - The description should explain what the code does and give steps to execute it
 - The pull request should also contain tests
-- Before submitting your Pull Request, please lint your changes by running `moon run repo:lint` in the root directory
+- Before submitting your Pull Request, please run `moon run :lint`, `moon run :format`, `moon run :typecheck`, and `moon run :test` in the root directory
 - If any checks fail for your Pull Request, please resolve them. Always feel free to ask for help if unable to resolve issues with checks
 
 ## Code Review Process

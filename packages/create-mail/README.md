@@ -6,36 +6,31 @@
 [![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
 
 <div align="center">
-	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"><br/><br/>
+	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"/><br/><br/>
 </div>
 
-# create-mail
+# JSX&thinsp;email create-mail
 
-![jsx-email](../../assets/brackets.svg) The starter command for JSX email.
-
-<div>
-  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub">
-  The fastest way to get started with JSX email. A utility for quickly scaffolding new JSX email projects.
-<div><br>
+The starter command for JSX email. Use it to scaffold a new JSX email project with the current v3 runtime assumptions.
 
 ## Requirements
 
-This package requires an [LTS](https://github.com/nodejs/Release) Node version (v22.0.0+) and React v19.1.0+.
+Generated projects target an [LTS](https://github.com/nodejs/Release) Node version, v22.0.0 or newer, and React v19.1.0 or newer.
 
-## Getting started
+## Getting Started
 
 To get started, open a new shell and run:
 
 ```sh
-npx create-mail
+npx create-mail my-email-project
 ```
 
-This will create a new folder called `email-project` with a `jsx-email` project setup.
+This will create a new folder called `my-email-project` with a `jsx-email` project setup.
 
 Install the dependencies:
 
 ```sh
-cd email-project
+cd my-email-project
 pnpm install
 ```
 
@@ -47,7 +42,7 @@ pnpm run dev
 
 ## Options
 
-Alternatively, you can pass a parameter to specify the name of the folder:
+You can pass a different project name as the first argument:
 
 ```sh
 npx create-mail <project-name>

@@ -9,20 +9,13 @@
 	<img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/npm-header.svg" alt="JSX email"/><br/><br/>
 </div>
 
-<div>
-  <img src="https://raw.githubusercontent.com/shellscape/jsx-email/main/assets/brackets.svg" alt="JSX email" valign="sub" class="brackets" />
-  <svg xmlns="http://www.w3.org/2000/svg" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="brackets">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-  </svg>
-  JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients.
-  <br/><br/>
-  The components handle the heavy lifting of compatibility and client inconsistency so designers and developers can focus on building impactful and engaging templates.
-  <br/>
-</div>
+# JSX&thinsp;email Minify Plugin
 
-## Minify Plugin
+`@jsx-email/plugin-minify` is a core JSX email plugin that minifies rendered email HTML.
 
-This is a core `jsx-email` plugin. Please see the [documentation for this plugin](https://jsx.email/docs/plugins/minify) for more information.
+This plugin is a peer dependency of `jsx-email` and is loaded automatically when the related render option, `minify`, is enabled. If your package manager is configured not to automatically install peer dependencies, install this package manually before using that render option.
+
+Please see the [documentation for this plugin](https://jsx.email/docs/plugins/minify) for more information.
 
 ## License
 
