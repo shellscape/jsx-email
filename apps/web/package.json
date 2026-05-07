@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "dependencies": {
+    "@4hse/astro-llms-txt": "1.0.4",
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.8",
     "@astrojs/react": "^4.2.1",
