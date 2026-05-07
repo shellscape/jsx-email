@@ -1,0 +1,40 @@
+name: Smoke v2 Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - edited
+      - opened
+      - synchronize
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Smoke v2 Tests
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+
+      - name: Checkout Main
+        run: |
+          git fetch origin
+          git branch -f main origin/main
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Projects
+        run: |
+          moon jsx-email:build
+          moon create-mail:build
+          moon run :build --query "project~plugin-*"
+
+      - name: Run smoke-v2 tests
+        env:
+          DOT_LOG_LEVEL: debug
+          LOCAL_SMOKE: 'true'
+        run: moon smoke-v2:run

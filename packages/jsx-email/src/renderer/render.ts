@@ -1,13 +1,15 @@
 import { htmlToText } from 'html-to-text';
+import { rehype } from 'rehype';
+import stringify from 'rehype-stringify';
 
-import { defineConfig, loadConfig, mergeConfig, type JsxEmailConfig } from '../config.js';
+import { type JsxEmailConfig, defineConfig, loadConfig, mergeConfig } from '../config.js';
 import { callHook, callProcessHook } from '../plugins.js';
 import type { PlainTextOptions, RenderOptions } from '../types.js';
 
+import { getConditionalPlugin } from './conditional.js';
 import { jsxToString } from './jsx-to-string.js';
 import { getMovePlugin } from './move-style.js';
 import { getRawPlugin, unescapeForRawComponent } from './raw.js';
-import { getConditionalPlugin } from './conditional.js';
 
 export const jsxEmailTags = ['jsx-email-cond'];
 
@@ -70,8 +72,6 @@ export const render = async (component: React.ReactElement, options?: RenderOpti
 };
 
 const processHtml = async (config: JsxEmailConfig, html: string) => {
-  const { rehype } = await import('rehype');
-  const { default: stringify } = await import('rehype-stringify');
   const docType =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const movePlugin = await getMovePlugin();

@@ -22,6 +22,8 @@ tasks:
     command: playwright test -x --config playwright.dev.ts
     deps:
       - ~:install
+    env:
+      JSX_DEV_LOCAL: 'true'
     options:
       cache: false
       outputStyle: 'stream'

@@ -15,7 +15,7 @@ tasks:
       - plugin-inline:build
       - plugin-minify:build
       - plugin-pretty:build
-      - create-jsx-email:build
+      - create-mail:build
 
   build.all:
     command: moon repo:build.deps
@@ -30,7 +30,7 @@ tasks:
       cache: false
 
   clean.samples:
-    command: rimraf /tmp/samples.jsx.email
+    command: rm -rf /tmp/samples.jsx.email
     inputs:
       - src
       - package.json
@@ -50,24 +50,28 @@ tasks:
       cache: false
 
   lint.docs:
-    command: 'prettier --write .github/**/*.md **/README.md docs/**/*.md'
+    command: 'oxfmt --write .github/**/*.md **/README.md docs/**/*.md --no-error-on-unmatched-pattern'
+    options:
+      cache: false
+      unixShell: bash
+
+  lint.js:
+    command: oxlint --format stylish --tsconfig tsconfig.json apps infra packages scripts services
     options:
       cache: false
 
-  lint.js:
-    command: 'eslint --cache apps packages --ext .js,.ts,.tsx'
-    env:
-      NODE_OPTIONS: '--max-old-space-size=16384'
+  lint.format:
+    command: oxfmt --write **/*.{js,ts,cjs}
     options:
       cache: false
 
   lint.json:
-    command: 'prettier --write .github/**/*.yml **/tsconfig.json **/tsconfig.*.json pnpm-workspace.yaml .moon/*.yml **/moon.yml'
+    command: 'oxfmt --write .github/**/*.yml **/tsconfig.json **/tsconfig.*.json pnpm-workspace.yaml .moon/*.yml **/moon.yml'
     options:
       cache: false
 
   lint.package:
-    command: 'prettier --write **/package.json'
+    command: 'oxfmt --write **/package.json'
     options:
       cache: false
 

@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`cli check --email-clients > checks compatibility using the provided clients list 1`] = `
+"Checking email template for Client Compatibility...
+
+[time]  info  Found 1 file:
+[time]  info     <template-path>
+
+[time]  info  Starting build...
+[time]  info
+[time]  info  Build complete
+
+<template-path> → HTML: 257 B
+
+  warn   1:122 dir attribute:
+                 Notes:
+                 1. Buggy on anchor \`<a>\` tags.
+
+                 outlook.windows
+
+  warn   1:238 <body> element:
+                 Notes:
+                 1. Partial. Replaced by a \`<div>\` with supported attributes.
+
+                 gmail.desktop-webmail
+
+ ✓ Check Complete: 0 error(s), 2 warning(s)"
+`;

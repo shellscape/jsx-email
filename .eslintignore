@@ -1,7 +1,0 @@
-# Note: We're ignoring this while we get the rest of the repo setup
-.snapshots
-dist
-node_modules
-
-# Starter template files
-packages/create-jsx-email/starter

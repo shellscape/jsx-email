@@ -1,0 +1,123 @@
+---
+import GlobalStyles from "@components/docs/GlobalStyles.astro";
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const defaultDescription =
+  "Build and send emails using JSX with a delightful developer experience.";
+const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD === "true";
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content={isProd ? "index,follow" : "noindex,nofollow"} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <ViewTransitions />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  <meta name="description" content={description || defaultDescription} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description || defaultDescription} />
+  <meta property="og:image" content="https://jsx.email/og.png" />
+  <meta property="twitter:image" content="https://jsx.email/og.png" />
+  <script is:inline>
+    const transitionManager = () => {
+      const style = document.createElement("style");
+      const css = document.createTextNode(`* {
+     -webkit-transition: none !important;
+     -moz-transition: none !important;
+     -o-transition: none !important;
+     -ms-transition: none !important;
+     transition: none !important;
+  }`);
+      style.appendChild(css);
+      const enable = () => document.head.removeChild(style);
+      const disable = () => document.head.appendChild(style);
+      return { enable, disable, style };
+    };
+
+    const setPreference = (themeName) => {
+      const transitions = transitionManager();
+      transitions.disable();
+      localStorage.setItem("theme", themeName);
+      if (!document.firstElementChild) return;
+      let resolvedThemeName = themeName;
+      if (themeName === "system") {
+        resolvedThemeName = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+      document.firstElementChild.classList.toggle("dark", resolvedThemeName === "dark");
+      document.firstElementChild.classList.toggle(
+        "light",
+        resolvedThemeName !== "dark",
+      );
+      document.firstElementChild.setAttribute(
+        "style",
+        resolvedThemeName === "dark" ? "color-scheme: dark" : "color-scheme: light",
+      );
+
+      void window.getComputedStyle(transitions.style).opacity;
+      transitions.enable();
+    };
+    window.setPreference = setPreference;
+
+    const getColorPreference = () => {
+      let preference = localStorage.getItem("theme");
+      if (preference === "system") {
+        return preference;
+      }
+
+      if (!preference) {
+        preference = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+      return preference;
+    };
+
+    setPreference(getColorPreference());
+    document.addEventListener("astro:page-load", () =>
+      setPreference(getColorPreference()),
+    );
+    document.addEventListener("astro:after-swap", () =>
+      setPreference(getColorPreference()),
+    );
+
+    const [navigationEntry] = performance.getEntriesByType("navigation");
+    if (navigationEntry && navigationEntry.type !== "reload") {
+      localStorage.removeItem("sidebar-scroll");
+    }
+
+    window.addEventListener("popstate", () => {
+      localStorage.removeItem("sidebar-scroll");
+    });
+
+    document.addEventListener("click", function (event) {
+      const target = event.target.closest("a");
+      if (!target || !target.href) return;
+
+      const isSideBarElement =
+        target &&
+        target.href &&
+        (target.getAttribute("data-nav-index") ||
+          target.getAttribute("data-slug"));
+
+      if (!isSideBarElement && target.hostname === window.location.hostname) {
+        localStorage.removeItem("sidebar-scroll");
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="/preferred.css" />
+  <GlobalStyles />
+</head>

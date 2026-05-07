@@ -1,0 +1,166 @@
+---
+title: 'Migrating to v3'
+description: 'Migrating to Version 3.0.0'
+---
+
+## Migrating to Version 3.0.0
+
+Version 3.0.0 of `jsx-email` modernizes the runtime, package exports, preview app, and CLI. It also removes the v1 compatibility escape hatch that was deprecated during the v2 cycle.
+
+This guide was compiled from the `next/v3` branch history, the PRs merged into `next/v3`, and the v2 migration guide.
+
+## Quick Checklist
+
+- Use Node.js `22.0.0` or newer.
+- Use React `19.1.0` and React DOM `19.1.0` or newer.
+- Replace `Butan` usage with the current `Button` component.
+- Use `create-mail` for new projects instead of the old create package.
+- Review `Raw` and `Conditional` output if you snapshot rendered HTML.
+
+## Breaking Changes
+
+### Node.js 22 Minimum
+
+All v3 packages set the minimum Node runtime to `>=22.0.0`. Upgrade local development, CI, deployment images, and package manager toolchains before upgrading `jsx-email`.
+
+```json
+{
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
+```
+
+### React 19 Peer Dependencies
+
+The v3 branch targets React 19. Projects should move to React and React DOM `^19.1.0`.
+
+```sh
+npm install jsx-email react@^19.1.0 react-dom@^19.1.0
+```
+
+TypeScript projects should also update React types to the matching v19 range.
+
+### ESM-only Package Entrypoints
+
+All `jsx-email` related packages, including plugins, are now ESM-only. While this is a breaking change, v3 also requires Node 22+ which now has compatibilty for `require`ing ESM modules. So there should be no fundamental changes to make, only something to be aware of.
+
+If your project is still CommonJS, please consider migrating to ESM-only.
+
+### `Butan` Has Been Removed
+
+The v2 migration guide marked `Butan` as deprecated and stated that it would be removed in the next major version. In v3, `Butan` is no longer exported from `jsx-email`.
+
+Before:
+
+```tsx
+import { Butan } from 'jsx-email';
+
+<Butan href="https://example.com" style={{ padding: '10px 20px' }}>
+  Click me
+</Butan>;
+```
+
+After:
+
+```tsx
+import { Button } from 'jsx-email';
+
+<Button
+  href="https://example.com"
+  width={160}
+  height={44}
+  backgroundColor="#111827"
+  borderRadius={6}
+  textColor="#ffffff"
+>
+  Click me
+</Button>;
+```
+
+The current `Button` component is the supported path and is designed around explicit email-safe props rather than relying primarily on CSS styles.
+
+### `create-mail` Replaces the Old Create Package
+
+Use `create-mail` for new projects. The v3 scaffold targets Node 22 and includes React 19 and React DOM 19 in generated project dev dependencies.
+
+```sh
+npx create-mail my-email-project
+```
+
+### `Raw` and `Conditional` Rendering Changed Internally
+
+The public component APIs remain the same, but the renderer now uses a rehype-based pipeline for `Raw` and `Conditional` output. This can change rendered HTML details and snapshots.
+
+Review output if you rely on exact HTML strings. The v3 behavior includes:
+
+- multiline `Raw` HTML emitted verbatim
+- nested `Raw` inside `Conditional` preserved correctly
+- safer conditional comment closing syntax
+- improved placement for head-aware conditional content
+
+## CLI Changes
+
+### `--use-preview-props` Works for `build` and `check`
+
+`email build` and `email check` both support `--use-preview-props`. When set, the CLI uses the template’s exported `previewProps` instead of separately supplied props.
+
+```sh
+email build ./emails --use-preview-props
+email check ./emails/welcome.tsx --use-preview-props
+```
+
+### `check` Supports `--email-clients`
+
+`email check` can limit compatibility validation to a comma-separated list of email clients.
+
+```sh
+email check ./emails/welcome.tsx --email-clients gmail,outlook
+```
+
+The v3 check command remains caniemail-based.
+
+## New Components
+
+These additions do not require migration, but they are new in v3 branch work and may replace custom code in your project:
+
+- `Avatar`
+- `AvatarGroup`
+- `Background`
+- `Barcode`
+- `QrCode`
+- `AztecCode`
+- `DataMatrix`
+- `Code128Barcode`
+- `Code39Barcode`
+- `EanBarcode`
+- `UpcBarcode`
+
+## Package-level Notes
+
+### `jsx-email`
+
+- ESM-only
+- Node minimum is `>=22.0.0`
+- React peer dependencies target React 19
+- `Butan` is removed
+- `Avatar`, `AvatarGroup`, `Background`, and barcode components are new
+
+### `create-mail`
+
+- Use this package for scaffolding.
+- Generated projects include React 19 and React DOM 19 as dev dependencies, plus the v3 runtime assumptions.
+
+## References
+
+- [`next/v3` merged PRs](https://github.com/shellscape/jsx-email/pulls?q=is%3Apr+base%3Anext%2Fv3+is%3Amerged)
+- [Node 22 minimum PR #419](https://github.com/shellscape/jsx-email/pull/419)
+- [ESM compile export PR #414](https://github.com/shellscape/jsx-email/pull/414)
+- [ESM plugin entrypoints PR #415](https://github.com/shellscape/jsx-email/pull/415)
+- [`--use-preview-props` CLI PR #358](https://github.com/shellscape/jsx-email/pull/358)
+- [`--email-clients` check PR #421](https://github.com/shellscape/jsx-email/pull/421)
+- [Raw and Conditional renderer PR #360](https://github.com/shellscape/jsx-email/pull/360)
+- [Create-mail scaffold PR #359](https://github.com/shellscape/jsx-email/pull/359)
+- [Avatar components PR #417](https://github.com/shellscape/jsx-email/pull/417)
+- [Barcode components PR #416](https://github.com/shellscape/jsx-email/pull/416)
+- [Migrating to v2](https://jsx.email/docs/v2/migration)

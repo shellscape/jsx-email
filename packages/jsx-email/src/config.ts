@@ -1,14 +1,14 @@
-import { AssertionError } from 'assert';
 import { isAbsolute, resolve as resolvePath } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import chalk from 'chalk';
-import { lilconfig } from 'lilconfig';
 import type { MethodFactoryLevels } from '@dot/log';
+import { AssertionError } from 'assert';
+import chalk from 'chalk-template';
+import { lilconfig } from 'lilconfig';
 
 import { getPluginLog, log } from './log.js';
 // @ts-ignore
-import { pluginSymbol, type JsxEmailPlugin, type PluginInternal } from './plugins.js';
+import { type JsxEmailPlugin, type PluginInternal, pluginSymbol } from './plugins.js';
 import type { ESBuildOptions, RenderOptions } from './types.js';
 
 export interface JsxEmailConfig {
@@ -104,7 +104,6 @@ const handleImportError = (error: any, name: string) => {
 // their names without additional config, and we don't want that burden on users
 const importInlinePlugin = async () => {
   try {
-    // Note: tshy up to bullshit again with compile errors where there are none
     // @ts-ignore
     const { plugin } = (await import('@jsx-email/plugin-inline')) as unknown as PluginImport;
     return plugin;

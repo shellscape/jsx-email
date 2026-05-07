@@ -1,0 +1,24 @@
+{
+  "name": "{{{ name }}}",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A simple starter for jsx-email",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "email build ./templates",
+    "create": "email create",
+    "dev": "email preview ./templates"
+  },
+  "dependencies": {
+    "@jsx-email/plugin-inline": "^3.0.0",
+    "@jsx-email/plugin-minify": "^3.0.0",
+    "@jsx-email/plugin-pretty": "^3.0.0",
+    "jsx-email": "^3.0.0"
+  },
+  "devDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"{{{ typeDep }}}
+  }
+}

@@ -15,57 +15,69 @@ tasks:
       - ~:copy.preview
       - ~:copy.templates
     inputs:
+      - cli.js
+      - generators
       - src
       - package.json
+      - tsconfig.json
     options:
+      cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
 
   clean.readme:
     command: rm README.md
+    options:
+      cache: false
 
   compile:
-    command: tshy
+    command: tsc --project tsconfig.json
     inputs:
       - src
       - package.json
     options:
+      mergeArgs: replace
       runDepsInParallel: false
 
   # Note: https://github.com/isaacs/tshy/issues/61
   # For all the things that tshy solves, it creates new problems
   copy.package:
     command: cp -r ./package.json dist
+    options:
+      cache: false
 
   copy.preview:
-    command: cp -r ../../apps/preview/app dist/preview
+    command: rm -rf dist/preview && cp -r ../../apps/preview/dist/packed dist/preview
+    deps:
+      - preview:pack
+    options:
+      cache: false
 
   copy.templates:
     command: cp -r ../../assets/templates dist
+    options:
+      cache: false
 
   start.preview:
     command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
+    options:
+      cache: false
 
   test:
-    command: vitest --config ../../shared/vitest.config.mts
-    # command: vitest test/config/define-config.test.ts --config ../../shared/vitest.config.mts
-    # command: vitest test/config/load/mjs/load-mjs.test.ts --config ../../shared/vitest.config.mts
-    # command: vitest test/config/load/mjs-json/load-mjs-json.test.ts --config ../../shared/vitest.config.mts
+    command: vitest --config ../../shared/vitest.config.ts
+    # command: vitest test/config/define-config.test.ts --config ../../shared/vitest.config.ts
+    # command: vitest test/config/load/mjs/load-mjs.test.ts --config ../../shared/vitest.config.ts
+    # command: vitest test/config/load/mjs-json/load-mjs-json.test.ts --config ../../shared/vitest.config.ts
     deps:
       - ~:build
     inputs:
       - src
       - test
       - package.json
-    local: true
-    options:
-      outputStyle: 'stream'
-
-  test.ci:
-    command: vitest --config ../../shared/vitest.config.mts
     env:
       FORCE_COLOR: '1'
     options:
+      cache: false
       outputStyle: 'stream'
 
   tsc:

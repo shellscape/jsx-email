@@ -1,0 +1,16 @@
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #FFFFFF;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #111111;
+  }
+}
+
+
+html::view-transition-group(*) {
+  animation-duration: 0s;
+}

@@ -1,7 +1,7 @@
 {
   "extends": "../../shared/tsconfig.base.json",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "NodeNext",
     "types": ["vite/client", "@types/node"]
   }
 }

@@ -4,15 +4,19 @@ description: Sets up the CI environment
 runs:
   using: 'composite'
   steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
     - name: Setup Moon
       uses: moonrepo/setup-toolchain@v0
       with:
-        moon-version: '1.41.7'
+        moon-version: 1.41.2
 
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: 20
+        node-version: 24.15.0
 
     - name: Install PNPM
       uses: pnpm/action-setup@v4

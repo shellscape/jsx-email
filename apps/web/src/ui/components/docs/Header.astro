@@ -1,0 +1,202 @@
+---
+import Logo from "../Logo.astro";
+import HeaderControls from "./HeaderControls.astro";
+import HeaderLinks from "./HeaderLinks.astro";
+import { Book } from "iconoir-react";
+---
+
+<div class="header" id="header">
+  <div class="header_content">
+    <div class="header__logo">
+      <Logo />
+      <a class="docs-logo" href="/docs/introduction">
+        <div class="docs-logo-icon">
+          <Book width="16" height="16" strokeWidth={1.75} />
+        </div>
+        <span>Documentation</span>
+      </a>
+    </div>
+    <HeaderLinks />
+    <div class="header_nav">
+      <HeaderControls />
+      <div class="burger" data-nav-burger-btn>
+        <svg
+          fill="none"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <g>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16"></path>
+          </g>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 12h16"></path>
+          <g>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 18h16"></path>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  html.dark .header {
+    background-color: #121212;
+    box-shadow:
+      0 0 transparent,
+      0 0 transparent,
+      inset 0 -1px #ffffff1a;
+  }
+
+  .header {
+    background-color: #fff;
+    box-shadow:
+      0 0 0 0 transparent,
+      0 0 0 0 transparent,
+      0 2px 4px #00000005,
+      0 1px #0000000f;
+
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 40px;
+  }
+
+  .header_content {
+    display: flex;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 22px;
+    margin: 0 auto;
+    max-width: 1440px;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .header__logo {
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    flex: 1;
+    font-weight: 600;
+    gap: 10px;
+  }
+
+  .docs-logo {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 4px;
+    background-color: #f6f6f7;
+  }
+
+  html.dark .docs-logo {
+    background-color: #1a1a1a;
+    color: #c8c9ca;
+  }
+
+  .docs-logo-icon {
+    color: #555;
+    fill: #cccccc;
+  }
+
+  html.dark .docs-logo-icon {
+    color: #949393;
+    fill: #c8c9ca;
+  }
+
+  .header_nav {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  html.dark .burger {
+    color: #c4c5c6;
+  }
+
+  .burger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: -8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 914px) {
+    .docs-logo {
+      height: 33px;
+      padding: 6px 8px;
+    }
+
+    .docs-logo span {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .docs-logo {
+      display: none;
+    }
+
+    .header_content {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .burger {
+      display: flex;
+    }
+  }
+</style>
+<script is:inline>
+  const toggleBurgerMenu = () => {
+    document.getElementById("header").classList.toggle("nav_container_open");
+    document.getElementById("aside").classList.toggle("invisible");
+    document.body.style.overflow = document.getElementById("header").classList.contains(
+      "nav_container_open",
+    )
+      ? "hidden"
+      : "auto";
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    document
+      .querySelector("[data-nav-burger-btn]")
+      ?.removeEventListener("click", toggleBurgerMenu, false);
+    if (
+      document.querySelector("[data-nav-burger-btn]") &&
+      document.getElementById("header") &&
+      document.getElementById("aside")
+    ) {
+      document
+        .querySelector("[data-nav-burger-btn]")
+        ?.addEventListener("click", toggleBurgerMenu);
+    }
+  });
+</script>

@@ -1,0 +1,68 @@
+<script is:inline>
+  const mobileLightIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const mobileDarkIconSvg = `<svg fill="none"viewBox="2 2 20 20"width="16"height="16"stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="currentColor" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+    </svg>`;
+
+  const themeMobileScript = () => {
+    const themeSelect = document.getElementById("theme__select");
+
+    const updateIconMobile = () => {
+      const currentThemeIcons = document.querySelectorAll(
+        "[data-current-theme-icon]",
+      );
+      const theme = localStorage.getItem("theme");
+      if (!theme || !currentThemeIcons) return;
+      currentThemeIcons.forEach((currentThemeIcon) => {
+        if (theme === "system") {
+          currentThemeIcon.innerHTML = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches
+            ? mobileDarkIconSvg
+            : mobileLightIconSvg;
+        } else if (theme === "light") {
+          currentThemeIcon.innerHTML = mobileLightIconSvg;
+        } else if (theme === "dark") {
+          currentThemeIcon.innerHTML = mobileDarkIconSvg;
+        }
+      });
+
+      if(themeSelect) {
+        themeSelect.value = theme;
+      }
+      let themeName = "";
+
+      if (theme === "system") {
+        themeName = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      } else {
+        themeName = theme;
+      }
+      if (window.inkeepWidget) {
+        window.inkeepWidget.render({
+          baseSettings: {
+            theme: {
+              colorMode: {
+                forcedColorMode: themeName,
+              },
+            },
+          },
+        });
+      }
+    };
+
+    if (themeSelect) {
+      themeSelect.addEventListener("change", (e) => {
+        const theme = e.target.value;
+        if (!theme) return;
+        window.setPreference(theme);
+        updateIconMobile();
+      });
+    }
+    updateIconMobile();
+  }
+
+  themeMobileScript();
+  document.addEventListener("astro:after-swap", themeMobileScript)
+</script>

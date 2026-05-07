@@ -1,0 +1,52 @@
+{
+  "name": "create-mail",
+  "version": "2.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "The fastest way to get started with JSX Email",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/create-mail"
+  },
+  "homepage": "https://jsx.email/",
+  "bin": {
+    "create-mail": "cli.js"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "bin/**",
+    "dist/**"
+  ],
+  "keywords": [
+    "jsx",
+    "react",
+    "email"
+  ],
+  "dependencies": {
+    "@types/yargs-parser": "catalog:",
+    "chalk-template": "catalog:",
+    "globby": "catalog:",
+    "mustache": "catalog:",
+    "package-manager-detector": "^1.2.0",
+    "prompts": "^2.4.2",
+    "yargs-parser": "catalog:"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.2",
+    "@types/mustache": "catalog:",
+    "@types/prompts": "^2.4.8"
+  },
+  "types": "dist/src/index.d.ts",
+  "bump": "1",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
+  "generatorsBump": "0"
+}

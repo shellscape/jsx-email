@@ -7,35 +7,27 @@ workspace:
 
 tasks:
   build:
-    command: vitepress build
+    command: astro build
+    deps:
+      - ~:check
     inputs:
-      - .vitepress
-      - markdown
+      - .astro
       - package.json
-    options:
-      cache: false
+      - src
 
-  cname:
-    command: mkdir -p dist && echo jsx.email > dist/CNAME && touch dist/.nojekyll
-    options:
-      cache: false
+  check:
+    command: astro check
+    inputs:
+      - .astro
+      - package.json
+      - src
 
   dev:
-    command: vitepress dev
+    command: astro dev --host
     options:
       cache: false
 
   preview:
-    command: vitepress preview
+    command: astro preview
     options:
       cache: false
-
-  publish:
-    command: gh-pages -d dist -u "Release Workflow <release-workflow@jsx.email>"
-    deps:
-      - build
-      - cname
-    options:
-      cache: false
-      outputStyle: 'stream'
-      runDepsInParallel: false

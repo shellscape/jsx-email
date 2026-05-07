@@ -4,3 +4,52 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 workspace:
   inheritedTasks:
     exclude: ['build', 'compile', 'release', 'test']
+
+tasks:
+  build:
+    command: vite build --config app/vite.config.ts
+    inputs:
+      - app
+      - dev
+      - package.json
+      - tsconfig.json
+
+  dev:
+    command: vite --config app/vite.config.ts --host 0.0.0.0
+    options:
+      cache: false
+      persistent: true
+
+  dev.packed:
+    command: vite --config app/vite.packed.config.ts
+    deps:
+      - ~:pack
+    options:
+      cache: false
+      persistent: true
+
+  pack:
+    command: tsx scripts/pack-preview.ts
+    inputs:
+      - app/index.html
+      - app/src
+      - app/vite.packed.config.ts
+      - package.json
+      - scripts/pack-preview.ts
+      - tsconfig.json
+    outputs:
+      - dist/packed
+
+  typecheck:
+    command: tsc --project tsconfig.json
+    inputs:
+      - app
+      - package.json
+      - tsconfig.json
+
+  test:
+    command: vitest run --config app/vite.config.ts app/test
+    inputs:
+      - app
+      - package.json
+      - tsconfig.json

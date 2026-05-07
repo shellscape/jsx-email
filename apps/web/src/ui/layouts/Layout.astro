@@ -1,0 +1,78 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "JSX\u2009email - Building Emails doesn't have to be Painful" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="Build and send emails using JSX with a delightful developer experience"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script is:inline>
+      const starlightTheme = localStorage.getItem('starlight-theme');
+      const savedTheme = starlightTheme || localStorage.getItem('theme') || 'system';
+      const normalizedTheme = savedTheme === 'auto' ? 'system' : savedTheme;
+      const resolvedTheme =
+        normalizedTheme === 'system'
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+          : normalizedTheme;
+
+      document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+      document.documentElement.classList.toggle('light', resolvedTheme !== 'dark');
+      document.documentElement.style.colorScheme = resolvedTheme;
+    </script>
+  </head>
+  <body class="bg-white dark:bg-black text-black dark:text-white font-sans antialiased">
+    <slot />
+
+    <script>
+      import { initDiscordTooltip, initHomepageThemeToggle } from '@components/theme-toggle';
+
+      initHomepageThemeToggle();
+      initDiscordTooltip();
+    </script>
+    <style is:global>
+      .tippy-box[data-theme~='jsx-email'] {
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.08),
+          0 4px 6px -4px rgb(0 0 0 / 0.08);
+        color: #374151;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1;
+        padding: 2px 4px;
+      }
+
+      html.dark .tippy-box[data-theme~='jsx-email'] {
+        background-color: #111827;
+        border-color: #1f2937;
+        color: #e5e7eb;
+      }
+
+      .tippy-box[data-theme~='jsx-email'] > .tippy-content {
+        padding: 4px 6px;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+---
+import LogoWordmark from "./LogoWordmark.astro";
+---
+
+<a href="/" class="logo-wrap" aria-label="JSX email home">
+  <LogoWordmark />
+</a>
+
+<style>
+  .logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    min-height: 40px;
+    width: var(--sidebar-width);
+    max-width: 100%;
+    color: #000;
+  }
+
+  html.dark .logo-wrap {
+    color: #fff;
+  }
+
+</style>

@@ -1,0 +1,53 @@
+---
+title: 'Head'
+description: |
+  A JSX email component which creates an HTML head element
+type: component
+copyPrompt: Use inside `Html` for metadata, title, format detection, `Font`, `ColorScheme`, and `Conditional` Outlook/MSO head content.
+---
+
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
+
+|
+
+<Callout type="info" title="Tips">
+This component is required VML in outlook compatibility for adding elements such as `<style>` and `meta` directly to the document
+</Callout>
+
+<InstallTabs />
+
+## Usage
+
+Add the component to your email template. Include children tags where needed.
+
+```jsx
+import { Head } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Head>
+      <title>My email title</title>
+    </Head>
+  );
+};
+```
+
+## Component Props
+
+```tsx
+export interface HeadProps extends BaseProps<'head'> {
+  enableFormatDetection?: boolean;
+}
+```
+
+```tsx
+enableFormatDetection?: boolean;
+```
+
+This is used to disable the `format-detection` meta (will be useful for some very specific use-cases)
+Default value is `false`
+
+<Callout type="info" title="Tips">
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'head'>`.
+</Callout>

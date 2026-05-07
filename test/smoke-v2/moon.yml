@@ -1,0 +1,45 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'release', 'test']
+
+tasks:
+  dev:
+    command: email preview fixtures/templates
+    options:
+      cache: false
+      outputStyle: 'stream'
+
+  install:
+    command: playwright install --with-deps
+    options:
+      cache: false
+      outputStyle: 'stream'
+
+  run:
+    command: playwright test -x
+    deps:
+      - ~:install
+      - ~:setup
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
+  setup:
+    command: ./scripts/ci-preview-setup-smoke-v2.sh
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runFromWorkspaceRoot: true
+    platform: system
+
+  start:
+    command: ./scripts/ci-preview-start-smoke-v2.sh
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runFromWorkspaceRoot: true
+    platform: system

@@ -1,0 +1,57 @@
+---
+title: HTML
+description: Wraps the email document with a root element
+type: component
+copyPromptComponent: Html
+copyPrompt: Use as the root email document wrapper. Set `lang` and `dir` when known, and compose `Head` plus `Body` inside it for complete templates.
+---
+
+import Callout from '@mdx/Callout.astro';
+import InstallTabs from '@components/docs/InstallTabs.mdx';
+
+Wraps the email document with a root element
+
+<InstallTabs />
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Button, Html } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Button href="https://example.com" style={{ color: '#61dafb' }}>
+        Click me
+      </Button>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+```ts
+lang?: string;
+```
+
+Identify the language of text content on the email
+
+```ts
+dir?: string;
+```
+
+Identify the direction of text content on the email
+
+```ts
+enableVML?: boolean;
+```
+
+This is used the `xmlns:o` and `xmlns:v` attributes to the `html` element for maximum VML compatibility
+Default value is `true`
+
+<Callout type="info" title="Tips">
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.
+</Callout>

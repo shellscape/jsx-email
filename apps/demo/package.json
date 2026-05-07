@@ -5,12 +5,15 @@
   "description": "A project to demo and test the `email preview` CLI command",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^18.2.0 || ^19"
+    "react": "catalog:"
   },
   "dependencies": {
     "jsx-email": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "20.10.5"
+    "@types/node": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

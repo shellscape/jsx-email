@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+
+import Link from '@mdx/Link.astro';
+import CustomHeader from '@components/docs/CustomHeader.astro';
+import DocsLayout from '@/ui/layouts/DocsLayout.astro';
+import CopyPrompt from '@components/CopyPrompt.astro';
+
+const docsBaseUrl = 'https://jsx.email/docs/components';
+
+const commonComponentPrompt = [
+  'Use JSX email to build production-ready email templates with React and TypeScript.',
+  'Prefer JSX email components and helpers from `jsx-email` for email-client compatibility.',
+  'Use `render` to generate HTML strings for providers like Resend, Postmark, SendGrid, Nodemailer, AWS SES, Loops, or Plunk, and use the CLI preview/check/build workflow while developing.',
+  'Favor simple, standards-compliant email markup, account for inconsistent email client CSS support, use the `Tailwind` component when utility styling is helpful, and run `email check` before sending when compatibility matters.',
+  'For complete agent-readable documentation, fetch https://jsx.email/llms-full.txt before implementing.',
+].join(' ');
+
+const getComponentPrompt = (
+  slug: string | undefined,
+  title: string | undefined,
+  guidance: string | undefined,
+) => {
+  if (!slug || !title || !guidance) return null;
+
+  return [
+    commonComponentPrompt,
+    `Implement or refactor with the \`${title}\` component when it fits the email's content and layout.`,
+    guidance,
+    `Reference the component docs at ${docsBaseUrl}/${slug.split('/').at(-1)}.`,
+  ].join(' ');
+};
+
+export async function getStaticPaths() {
+  const metaFiles = import.meta.glob('../content/**/*.json');
+  const slugs: string[] = [];
+  const regex = /\.\.\/content\/(.*?)\/_meta\.json/;
+
+  const parsedMetaFiles = await Promise.all(
+    Object.entries(metaFiles).map(async ([meta, loadMeta]) => ({
+      meta,
+      parsed: ((await loadMeta()) as { default: string[] }).default,
+    })),
+  );
+  for (const { meta, parsed } of parsedMetaFiles) {
+    const metaSlug = meta.match(regex);
+    if (metaSlug) {
+      const extractedText = metaSlug[1];
+
+      parsed.forEach((key) => {
+        if(Array.isArray(key)) {
+          slugs.push(`${extractedText}/${key[0]}`);
+        }
+      })
+    }
+  }
+
+  const docEntries = await getCollection("docs", (entry) => {
+    return slugs.includes(`docs/${entry.slug}`);
+  });
+  return docEntries.map(entry => ({
+    params: { slug: `docs/${entry.slug}` }, props: { entry, frontmatter: entry.data },
+  }));
+}
+
+const { entry, frontmatter } = Astro.props;
+const componentPrompt = getComponentPrompt(
+  entry.slug,
+  frontmatter.copyPromptComponent ?? frontmatter.title,
+  frontmatter.copyPrompt,
+);
+
+const { Content, headings } = await entry.render();
+
+---
+<DocsLayout customTitle={entry.data.title} description={frontmatter.description} headings={headings}>
+  {frontmatter?.title && <CustomHeader>{frontmatter.title}</CustomHeader>}
+  {
+    componentPrompt && (
+      <div class="component-copy-prompt">
+        <CopyPrompt prompt={componentPrompt} variant="subtle" />
+      </div>
+    )
+  }
+  <Content components={{ a: Link }} />
+</DocsLayout>
+
+<style>
+  .component-copy-prompt {
+    display: flex;
+    margin: 14px 0 20px;
+  }
+</style>

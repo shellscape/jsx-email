@@ -1,26 +1,12 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
 
+import { App } from './app';
 import './index.css';
-import { setup } from './app';
-import { getRouter } from './routes';
-import { gather } from './templates';
+import 'tippy.js/dist/tippy.css';
 
-setup();
-
-// if (import.meta.hot) {
-//   import.meta.hot.accept((mod) => {
-//     console.log(mod);
-//   });
-// }
-
-const router = getRouter(await gather());
-const rootElement = document.getElementById('root');
-const root = ReactDOM.createRoot(rootElement);
-
-root.render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

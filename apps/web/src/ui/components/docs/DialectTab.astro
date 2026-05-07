@@ -1,0 +1,39 @@
+---
+import type { ICard } from "@/types";
+interface Props {
+  card: ICard;
+}
+
+const { card } = Astro.props;
+
+const { title } = card;
+---
+
+<div class={"dialect-selector__wrap"}>
+  <div>
+    <h3 class={"dialect-selector__header"}>{title}</h3>
+  </div>
+</div>
+<style>
+  html[class~="dark"] .dialect-selector__header {
+    color: #c4c5c6;
+  }
+
+  .dialect-selector__wrap {
+    transition-duration: 0.2s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    gap: 8px;
+  }
+
+  .dialect-selector__header {
+    margin: 0;
+    font-weight: 700;
+    font-size: 14px;
+  }
+</style>

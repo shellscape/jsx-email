@@ -1,5 +1,3 @@
-// Note: tshy has some bugs with dual-mode package importing in the cjs build https://github.com/isaacs/tshy/issues/50
-// @ts-ignore
 import hash from 'hash-it';
 
 const promiseMap = new Map();
@@ -23,6 +21,7 @@ const wrapPromise = <TPromise extends Promise<any>>(promise: TPromise) => {
       if (status === 'pending') {
         throw suspender;
       } else if (status === 'error') {
+        // oxlint-disable-next-line no-throw-literal
         throw result;
       } else if (status === 'success') {
         return result;

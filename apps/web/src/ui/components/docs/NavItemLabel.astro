@@ -1,0 +1,50 @@
+---
+import { GithubCircle, HexagonPlus } from "iconoir-react";
+
+interface Props {
+  title: string;
+  badge?: string;
+}
+
+const { title, badge } = Astro.props;
+const isCodeTitle = title[0] === "`" && title[title.length - 1] === "`";
+const displayTitle = title.replaceAll("`", "");
+
+const badgeConfig = {
+  "new-component": {
+    ariaLabel: "New in v3",
+    Icon: HexagonPlus,
+    title: "New in v3",
+  },
+  "open-source": {
+    ariaLabel: "Open Source",
+    Icon: GithubCircle,
+    title: "Open Source",
+  },
+} as const;
+
+const badgeDefinition =
+  badge && badge in badgeConfig
+    ? badgeConfig[badge as keyof typeof badgeConfig]
+    : undefined;
+---
+
+<span class="nav-item-label">
+  {isCodeTitle ? <code>{displayTitle}</code> : displayTitle}
+  {badgeDefinition && (
+    <span
+      class="nav-item-badge-wrap"
+      aria-label={badgeDefinition.ariaLabel}
+      role="img"
+      title={badgeDefinition.title}
+    >
+      <badgeDefinition.Icon
+        className="nav-item-badge-icon"
+        width="20"
+        height="20"
+        strokeWidth="1.8"
+        aria-hidden="true"
+      />
+    </span>
+  )}
+</span>

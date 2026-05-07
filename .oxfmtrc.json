@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "arrowParens": "always",
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "endOfLine": "lf",
+  "importOrder": [
+    "^node:(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@jsx-email/(.*)$",
+    "^(../)+(.*)$",
+    "^[./]"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.astro"],
+      "options": {
+        "singleQuote": true
+      }
+    },
+    {
+      "files": ["**/*.mdx"],
+      "options": {
+        "proseWrap": "preserve",
+        "singleQuote": true
+      }
+    }
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "**/@codegen",
+    "**/dist/",
+    "**/fixtures/",
+    ".moon/cache",
+    ".snapshots",
+    "dist",
+    "pnpm-lock.yaml"
+  ]
+}

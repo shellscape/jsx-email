@@ -1,0 +1,417 @@
+---
+title: 'Email Integrations'
+description: 'Use JSX email with an Email Provider of your choice'
+---
+
+import Callout from '@mdx/Callout.astro';
+
+Use JSX email with an Email Provider of your choice
+
+Using JSX email with email providers or integrations is as simple as rendering the template you've already built. Rendering transforms your template from JSX/TSX into HTML, and optionally plain text. That's accomplished with the [jsx-email `render`](/docs/core/render) method. _We're going to assume that you've made it through the [Quick Start Guide](/docs/quick-start) before arriving here, and have an email template to use._
+
+While JSX email can be used with just about any email provider that takes a string for content input, this page will demonstrate use with a few popular providers.
+
+## Plunk
+
+```tsx
+import Plunk from '@plunk/node';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const plunk = new Plunk(process.env.PLUNK_API_KEY);
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+plunk.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  body: html
+});
+```
+
+## useSend
+
+useSend accepts both text and HTML content, which makes it a good fit when you want to send rendered JSX email output through its API.
+
+```tsx
+import { render } from 'jsx-email';
+import { UseSend } from 'usesend-js';
+
+import { Template } from './emails/Batman.tsx';
+
+const usesend = new UseSend(process.env.USESEND_API_KEY!);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await usesend.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## AWS SES
+
+```tsx
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const ses = new SESv2Client({ region: process.env.AWS_SES_REGION });
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await ses.send(
+  new SendEmailCommand({
+    FromEmailAddress: 'penguin@joker.us',
+    Destination: {
+      ToAddresses: ['bruce@wayneinc.com']
+    },
+    Content: {
+      Simple: {
+        Body: {
+          Html: {
+            Charset: 'UTF-8',
+            Data: html
+          }
+        },
+        Subject: {
+          Charset: 'UTF-8',
+          Data: 'Did you get that thing I sent you?'
+        }
+      }
+    }
+  })
+);
+```
+
+## Bento
+
+Bento supports sending transactional emails with raw HTML, so JSX email can be rendered first and passed directly to the SDK.
+
+```tsx
+import { Analytics } from '@bentonow/bento-node-sdk';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const bento = new Analytics({
+  authentication: {
+    publishableKey: process.env.BENTO_PUBLISHABLE_KEY!,
+    secretKey: process.env.BENTO_SECRET_KEY!
+  },
+  siteUuid: process.env.BENTO_SITE_UUID!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await bento.V1.Batch.sendTransactionalEmails({
+  emails: [
+    {
+      to: 'bruce@wayneinc.com',
+      from: 'penguin@joker.us',
+      subject: 'Did you get that thing I sent you?',
+      html_body: html
+    }
+  ]
+});
+```
+
+## Brevo
+
+Brevo's transactional email API accepts rendered HTML content, which makes it a straightforward fit for JSX email.
+
+```tsx
+import {
+  SendSmtpEmail,
+  TransactionalEmailsApi,
+  TransactionalEmailsApiApiKeys
+} from '@getbrevo/brevo';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const brevo = new TransactionalEmailsApi();
+brevo.setApiKey(TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY!);
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await brevo.sendTransacEmail(
+  new SendSmtpEmail({
+    sender: { email: 'penguin@joker.us', name: 'Copperpot' },
+    to: [{ email: 'bruce@wayneinc.com' }],
+    subject: 'Did you get that thing I sent you?',
+    htmlContent: html
+  })
+);
+```
+
+## Inbound
+
+Inbound can send both plain text and HTML bodies, so it's easy to pass JSX email output into a transactional message.
+
+```tsx
+import Inbound from 'inbound';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const inbound = new Inbound(process.env.INBOUND_API_KEY!);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await inbound.emails.send({
+  from: 'penguin@joker.us',
+  to: ['bruce@wayneinc.com'],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Loops
+
+Loops uses provider-hosted transactional templates instead of accepting raw HTML directly. In that setup, JSX email is not part of the final send path, but the SDK call looks like this:
+
+```tsx
+import { LoopsClient } from 'loops';
+
+const loops = new LoopsClient(process.env.LOOPS_API_KEY!);
+
+await loops.sendTransactionalEmail({
+  transactionalId: 'password-reset',
+  email: 'bruce@wayneinc.com',
+  dataVariables: {
+    resetUrl: 'https://joker.us/reset'
+  }
+});
+```
+
+## Mailersend
+
+```tsx
+import { render } from 'jsx-email';
+import { EmailParams, MailerSend, Recipient, Sender } from 'mailersend';
+
+import { Template } from './emails/Batman.tsx';
+
+const mailerSend = new MailerSend({
+  apiKey: process.env.MAILERSEND_API_KEY || ''
+});
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+const sentFrom = new Sender('penguin@joker.us', 'Copperpot');
+const recipients = [new Recipient('bruce@wayneinc.com', 'Bruce Wayne')];
+
+const params = new EmailParams()
+  .setFrom(sentFrom)
+  .setTo(recipients)
+  .setSubject('This is a Subject')
+  .setHtml(html);
+
+mailerSend.email.send(params);
+```
+
+## Mailgun
+
+Mailgun accepts rendered text and HTML content, so JSX email can be used directly with its messages API.
+
+```tsx
+import FormData from 'form-data';
+import { render } from 'jsx-email';
+import Mailgun from 'mailgun.js';
+
+import { Template } from './emails/Batman.tsx';
+
+const mg = new Mailgun(FormData).client({
+  username: 'api',
+  key: process.env.MAILGUN_API_KEY!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
+  from: 'Copperpot <penguin@joker.us>',
+  to: ['bruce@wayneinc.com'],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Mailtrap
+
+Mailtrap's sending API also accepts raw HTML content, so it works cleanly with JSX email output.
+
+```tsx
+import { render } from 'jsx-email';
+import { MailtrapClient } from 'mailtrap';
+
+import { Template } from './emails/Batman.tsx';
+
+const mailtrap = new MailtrapClient({
+  token: process.env.MAILTRAP_API_KEY!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await mailtrap.send({
+  from: { email: 'penguin@joker.us', name: 'Copperpot' },
+  to: [{ email: 'bruce@wayneinc.com' }],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Nodemailer
+
+```tsx
+import { render } from 'jsx-email';
+import nodemailer from 'nodemailer';
+
+import { Template } from './emails/Batman.tsx';
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+const transport = nodemailer.createTransport({
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'batman',
+    pass: 'j0ker$mells!1'
+  }
+});
+
+await transport.sendMail({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html: html
+});
+```
+
+## Postmark
+
+```tsx
+import { render } from 'jsx-email';
+import { ServerClient } from 'postmark';
+
+import { Template } from './emails/Batman.tsx';
+
+const client = new ServerClient(process.env.POSTMARK_API_KEY);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+client.sendEmail({
+  From: 'penguin@joker.us',
+  To: 'bruce@wayneinc.com',
+  Subject: 'Did you get that thing I sent you?',
+  HtmlBody: html
+});
+```
+
+## Resend
+
+<Callout type="info" title="Tips">
+  The `resend` package ships with support for `react-email` with its `react` property on
+  `sendEmail`. However, `react-email` is fairly far behind `jsx-email` in terms of functionality,
+  and its render method cannot process the advanced features in `jsx-email`. Because of that, users
+  should run jsx-email's `render` method as shown below, to render html first, and pass that to the
+  `sendEmail` function.
+</Callout>
+
+```tsx
+import { render } from 'jsx-email';
+import { Resend } from 'resend';
+
+import { Template } from './emails/Batman.tsx';
+
+const resend = new Resend('re_123456789');
+const template = <Template firstName="Bruce" lastName="Wayne" />;
+const html = await render(template);
+
+resend.sendEmail({
+  from: 'penguin@joker.us',
+  html,
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?'
+});
+```
+
+## Scaleway
+
+Scaleway's transactional email service supports rendered HTML bodies, making it another straightforward transport option for JSX email.
+
+```tsx
+import { createClient, TransactionalEmail } from '@scaleway/sdk';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const client = createClient({
+  accessKey: process.env.SCALEWAY_ACCESS_KEY!,
+  secretKey: process.env.SCALEWAY_SECRET_KEY!,
+  defaultProjectId: process.env.SCALEWAY_PROJECT_ID!,
+  defaultRegion: 'fr-par',
+  defaultZone: 'fr-par-1'
+});
+
+const transactionalEmail = new TransactionalEmail.v1alpha1.API(client);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await transactionalEmail.createEmail({
+  from: {
+    email: 'penguin@joker.us',
+    name: 'Copperpot'
+  },
+  to: [
+    {
+      email: 'bruce@wayneinc.com',
+      name: 'Bruce Wayne'
+    }
+  ],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Sendgrid
+
+```tsx
+import sendgrid from '@sendgrid/mail';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+sendgrid.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html: html
+});
+```
+
+## Sequenzy
+
+Sequenzy can send a transactional HTML body directly, so JSX email output can be handed off after rendering.
+
+```tsx
+import { render } from 'jsx-email';
+import Sequenzy from 'sequenzy';
+
+import { Template } from './emails/Batman.tsx';
+
+const sequenzy = new Sequenzy({
+  apiKey: process.env.SEQUENZY_API_KEY!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await sequenzy.transactional.send({
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  body: html
+});
+```
