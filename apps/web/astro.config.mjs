@@ -115,6 +115,28 @@ const llmsTxtFileFormatBridgeCleanup = () => ({
   },
 });
 
+const llmsTxtWellKnownAliases = () => ({
+  name: "web:llms-txt-well-known-aliases",
+  hooks: {
+    "astro:build:done": async ({ dir }) => {
+      const distDir = dir.pathname;
+      const wellKnownDir = path.join(distDir, ".well-known");
+      const files = ["llms.txt", "llms-full.txt", "llms-small.txt"];
+
+      await fs.mkdir(wellKnownDir, { recursive: true });
+
+      for (const file of files) {
+        await fs.copyFile(
+          path.join(distDir, file),
+          path.join(wellKnownDir, file),
+        );
+      }
+
+      await fs.writeFile(path.join(distDir, ".nojekyll"), "", "utf-8");
+    },
+  },
+});
+
 // https://astro.build/config
 export default defineConfig({
   site: isProd ? "https://jsx.email" : "http://localhost:4321",
@@ -240,6 +262,7 @@ export default defineConfig({
       ],
       pageSeparator: "\n\n---\n\n",
     }),
+    llmsTxtWellKnownAliases(),
     llmsTxtFileFormatBridgeCleanup(),
     ...(isProd ? [sitemap()] : []),
   ],
