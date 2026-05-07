@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import { join } from 'node:path';
 
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 import { getHTML } from './helpers/html.js';
 
@@ -33,15 +33,18 @@ const getIndexUrl = () => {
   return `/?smoke=${current}`;
 };
 
+const getTemplateButton = (page: Page, name: string) =>
+  page.locator('#templates-window').getByRole('button', { name, exact: true });
+
 test.describe.configure({ mode: 'serial' });
 
 test('landing', async ({ page }) => {
   await page.goto(getIndexUrl());
-  await expect(page).toHaveTitle('jsx-email Canvas Preview');
+  await expect(page).toHaveTitle(/JSX\s*email Preview/);
 
-  await expect(page.getByRole('heading', { name: 'jsx-email Preview' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /JSX\s*email Preview/ })).toBeVisible();
   await expect(page.locator('#templates-window')).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Base' })).toBeVisible();
+  await expect(getTemplateButton(page, 'Base')).toBeVisible();
 });
 
 test('templates', async ({ page }) => {
@@ -50,7 +53,7 @@ test('templates', async ({ page }) => {
   for (const { buttonName, snapshotName } of templates) {
     await test.step(`template: ${snapshotName}`, async () => {
       await page.goto(getIndexUrl());
-      await page.getByRole('button', { name: buttonName }).click(timeout);
+      await getTemplateButton(page, buttonName).click(timeout);
 
       // Reading the iframe srcdoc is more reliable than traversing into the frame in CI.
       const iframeEl = page.locator('iframe');
@@ -73,7 +76,7 @@ test('watcher', async ({ page }) => {
 
   try {
     await page.goto(getIndexUrl());
-    await page.getByRole('button', { name: 'Base' }).click(timeout);
+    await getTemplateButton(page, 'Base').click(timeout);
 
     const iframeEl = page.locator('iframe');
     await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
@@ -94,7 +97,7 @@ test('watcher', async ({ page }) => {
     // When templates rebuild, Vite's HMR doesn't always update the iframe content deterministically.
     // Reloading ensures the latest compiled template HTML is reflected in `srcdoc`.
     await page.reload();
-    await page.getByRole('button', { name: 'Base' }).click(timeout);
+    await getTemplateButton(page, 'Base').click(timeout);
     await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
     await expect(iframeEl).toHaveAttribute('srcdoc', /Removed Content/, { timeout: 60e3 });
 
