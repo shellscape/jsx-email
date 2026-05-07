@@ -76,7 +76,7 @@ Husky is enabled via the root `prepare` script. The `pre-commit` hook runs
 
 - Keep source files to ~200 lines max
   - If a file is pushing past ~200 lines, split it by concern (extract helpers/types, or move discrete features into separate modules).
-  - Test files are exempt from this limit.
+  - Test files and `.astro` components are exempt from this limit.
   - Markdown, MDX and CSS files are exempt
 - Constant variable names should use `camelCase` (for example `const myVar = null`, not `const MY_VAR = null`)
 - Prefer a `helpers` directory/files over `utils`
