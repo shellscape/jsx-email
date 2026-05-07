@@ -35,7 +35,7 @@ export async function getStaticPaths() {
   const metaFiles = import.meta.glob('../content/**/*.json');
   const slugs: string[] = [];
   const regex = /\.\.\/content\/(.*?)\/_meta\.json/;
-  
+
   const parsedMetaFiles = await Promise.all(
     Object.entries(metaFiles).map(async ([meta, loadMeta]) => ({
       meta,

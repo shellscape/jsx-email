@@ -16,7 +16,10 @@ describe('cli check --email-clients', () => {
 
     const plain = strip(stdout)
       .replace(/\[\d{2}:\d{2}:\d{2}\]/g, '[time]')
-      .replaceAll(templatePath, '<template-path>');
+      .replaceAll(templatePath, '<template-path>')
+      .split('\n')
+      .map((line) => line.trimEnd())
+      .join('\n');
 
     expect(plain).toMatchSnapshot();
   });

@@ -4,27 +4,23 @@ exports[`cli check --email-clients > checks compatibility using the provided cli
 "Checking email template for Client Compatibility...
 
 [time]  info  Found 1 file:
-[time]  info     <template-path> 
+[time]  info     <template-path>
 
 [time]  info  Starting build...
-[time]  info  
+[time]  info
 [time]  info  Build complete
 
 <template-path> → HTML: 257 B
 
-{ noteLines: '1. Buggy on anchor \`<a>\` tags.' }
   warn   1:122 dir attribute:
                  Notes:
-.................asshole
+                 1. Buggy on anchor \`<a>\` tags.
 
                  outlook.windows
 
-{
-  noteLines: '1. Partial. Replaced by a \`<div>\` with supported attributes.'
-}
   warn   1:238 <body> element:
                  Notes:
-.................asshole
+                 1. Partial. Replaced by a \`<div>\` with supported attributes.
 
                  gmail.desktop-webmail
 

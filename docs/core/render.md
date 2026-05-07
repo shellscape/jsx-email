@@ -10,6 +10,10 @@ type: package
 
 <!--@include: @/include/install.md-->
 
+::: info Peer Dependencies
+`@jsx-email/plugin-inline`, `@jsx-email/plugin-minify`, and `@jsx-email/plugin-pretty` are peer dependencies of `jsx-email`. Package managers that automatically install peer dependencies will install them for you. If you disable peer dependency auto-installation, install the plugin packages manually before using `inlineCss`, `minify`, or `pretty`.
+:::
+
 ## Usage
 
 ```jsx

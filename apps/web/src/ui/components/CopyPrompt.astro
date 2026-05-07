@@ -22,17 +22,16 @@ const defaultPrompt = [
   'Reference the human docs at https://jsx.email/docs/introduction and https://jsx.email/docs/quick-start.',
 ].join(' ');
 
-const {
-  class: className,
-  hideLabel = false,
-  label = 'Prompt',
-  prompt = defaultPrompt,
-  showGlyphs = true,
-  variant = 'primary',
-} = Astro.props;
+const props = Astro.props as Props;
+const className = props.class;
+const hideLabel = props.hideLabel ?? false;
+const label = props.label ?? 'Prompt';
+const prompt = props.prompt ?? defaultPrompt;
+const showGlyphs = props.showGlyphs ?? true;
+const variant = props.variant ?? 'primary';
 
 const hasVisibleLabel = !hideLabel && label.length > 0;
-const ariaLabel = label.length > 0 ? label : 'Copy prompt';
+const ariaLabel = hasVisibleLabel ? label : 'Copy prompt';
 ---
 
 <!--

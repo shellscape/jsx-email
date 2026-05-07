@@ -2,7 +2,7 @@
 
 exports[`create-mail > command 1`] = `
 "
-create-mail 
+create-mail
 
 The fastest way to get started with JSX Email
 
@@ -124,7 +124,7 @@ export const Template = ({ email, name }: TemplateProps) => (
 "
 `;
 
-exports[`create-mail > command 3`] = `
+exports[`create-mail > command 5`] = `
 [
   ".test/new/.gitignore",
   ".test/new/README.md",

@@ -26,16 +26,17 @@ const isProd = env.PROD_BUILD === "true";
 const llmsTxtBridgeFiles = new Set();
 
 const removeEmptyDirs = async (dir, stopDir) => {
-  let current = dir;
-
-  while (current.startsWith(stopDir) && current !== stopDir) {
-    try {
-      await fs.rmdir(current);
-      current = path.dirname(current);
-    } catch {
-      break;
-    }
+  if (!dir.startsWith(stopDir) || dir === stopDir) {
+    return;
   }
+
+  try {
+    await fs.rmdir(dir);
+  } catch {
+    return;
+  }
+
+  await removeEmptyDirs(path.dirname(dir), stopDir);
 };
 
 const getDocsHtmlFiles = async (distDir) => {
@@ -59,7 +60,7 @@ const getDocsHtmlFiles = async (distDir) => {
       return;
     }
 
-    for (const entry of entries) {
+    await Promise.all(entries.map(async (entry) => {
       const file = path.join(dir, entry.name);
 
       if (entry.isDirectory()) {
@@ -67,7 +68,7 @@ const getDocsHtmlFiles = async (distDir) => {
       } else if (entry.isFile() && entry.name.endsWith(".html")) {
         files.push(file);
       }
-    }
+    }));
   };
 
   await walk(docsDir);
@@ -82,7 +83,7 @@ const llmsTxtFileFormatBridge = () => ({
       const distDir = dir.pathname;
       const htmlFiles = await getDocsHtmlFiles(distDir);
 
-      for (const source of htmlFiles) {
+      await Promise.all(htmlFiles.map(async (source) => {
         const relative = path.relative(distDir, source);
         const pathname = relative.slice(0, -".html".length);
         const target = path.join(distDir, pathname, "index.html");
@@ -94,7 +95,7 @@ const llmsTxtFileFormatBridge = () => ({
         } catch {
           // @4hse/astro-llms-txt will report any missing docs page it needs.
         }
-      }
+      }));
     },
   },
 });
@@ -105,10 +106,10 @@ const llmsTxtFileFormatBridgeCleanup = () => ({
     "astro:build:done": async ({ dir }) => {
       const distDir = dir.pathname;
 
-      for (const file of llmsTxtBridgeFiles) {
+      await Promise.all([...llmsTxtBridgeFiles].map(async (file) => {
         await fs.rm(file, { force: true });
         await removeEmptyDirs(path.dirname(file), distDir);
-      }
+      }));
 
       llmsTxtBridgeFiles.clear();
     },
@@ -125,12 +126,11 @@ const llmsTxtWellKnownAliases = () => ({
 
       await fs.mkdir(wellKnownDir, { recursive: true });
 
-      for (const file of files) {
-        await fs.copyFile(
-          path.join(distDir, file),
-          path.join(wellKnownDir, file),
-        );
-      }
+      await Promise.all(
+        files.map((file) =>
+          fs.copyFile(path.join(distDir, file), path.join(wellKnownDir, file)),
+        ),
+      );
 
       await fs.writeFile(path.join(distDir, ".nojekyll"), "", "utf-8");
     },

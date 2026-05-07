@@ -27,7 +27,7 @@ This package requires an [LTS](https://github.com/nodejs/Release) Node version (
 To get started, open a new shell and run:
 
 ```sh
-npm create jsx-email
+npx create-mail
 ```
 
 This will create a new folder called `email-project` with a `jsx-email` project setup.
@@ -50,7 +50,7 @@ pnpm run dev
 Alternatively, you can pass a parameter to specify the name of the folder:
 
 ```sh
-npm create jsx-email <project-name>
+npx create-mail <project-name>
 ```
 
 ## License

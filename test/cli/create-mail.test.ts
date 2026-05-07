@@ -17,12 +17,32 @@ describe('create-mail', async () => {
     })`IS_CLI_TEST=true create-mail .test/new --yes`;
     const plain = strip(stdout)
       .replace(/^(.*)create-mail/, 'create-mail')
-      .replace(/v(\d+\.\d+\.\d+)/, '');
+      .replace(/v(\d+\.\d+\.\d+)/, '')
+      .split('\n')
+      .map((line) => line.trimEnd())
+      .join('\n');
 
     expect(plain).toMatchSnapshot();
 
     const contents = await readFile(join(__dirname, '.test/new/templates/email.tsx'), 'utf8');
     expect(contents).toMatchSnapshot();
+
+    const packageJson = JSON.parse(
+      await readFile(join(__dirname, '.test/new/package.json'), 'utf8')
+    );
+    expect(packageJson.engines).toMatchInlineSnapshot(`
+      {
+        "node": ">=22.0.0",
+      }
+    `);
+    expect(packageJson.dependencies).toMatchInlineSnapshot(`
+      {
+        "@jsx-email/plugin-inline": "^3.0.0",
+        "@jsx-email/plugin-minify": "^3.0.0",
+        "@jsx-email/plugin-pretty": "^3.0.0",
+        "jsx-email": "^3.0.0",
+      }
+    `);
 
     const files = await globby('.test/new/**/*', { dot: true });
 

@@ -57,9 +57,8 @@ Check jsx-email templates for client compatibility
 
 const formatNotes = (notes: string[], indent: string) => {
   if (!notes.length) return '';
-  const noteLines = (notes as string[]).join(`\n${'.'.repeat(indent.length)}**`);
-  console.log({ noteLines });
-  return chalkTmpl`\n${indent}{cyan Notes}:\n${'.'.repeat(indent.length)}asshole\n`;
+  const noteLines = notes.map((note) => `${indent}${note}`).join('\n');
+  return chalkTmpl`\n${indent}{cyan Notes}:\n${noteLines}\n`;
 };
 
 const formatIssue = (group: IssueGroup): string => {

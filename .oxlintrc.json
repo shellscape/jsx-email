@@ -20,6 +20,7 @@
     "apps/preview/dist/packed/**",
     "apps/preview/dev/fixtures/*.js",
     "apps/preview/dev/fixtures/**/*.js",
+    "apps/web/src/ui/components/CopyPrompt.astro",
     "dist/**",
     "node_modules/**",
     "packages/create-mail/starter/**"
