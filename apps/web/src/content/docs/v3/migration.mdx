@@ -13,11 +13,9 @@ This guide was compiled from the `next/v3` branch history, the PRs merged into `
 
 - Use Node.js `22.0.0` or newer.
 - Use React `19.1.0` and React DOM `19.1.0` or newer.
-- Stop using CommonJS `require()` for `jsx-email` and `@jsx-email/*` plugins.
 - Replace `Butan` usage with the current `Button` component.
 - Use `create-mail` for new projects instead of the old create package.
 - Review `Raw` and `Conditional` output if you snapshot rendered HTML.
-- Review Tailwind usage against the v3 `Tailwind` component docs.
 
 ## Breaking Changes
 
@@ -45,43 +43,9 @@ TypeScript projects should also update React types to the matching v19 range.
 
 ### ESM-only Package Entrypoints
 
-The v3 package output is ESM-only. The `jsx-email`, `jsx-email/compile`, `jsx-email/config`, and `@jsx-email/*` plugin export maps point at ESM artifacts and no longer provide CommonJS `require` mappings.
+All `jsx-email` related packages, including plugins, are now ESM-only. While this is a breaking change, v3 also requires Node 22+ which now has compatibilty for `require`ing ESM modules. So there should be no fundamental changes to make, only something to be aware of.
 
-Before:
-
-```js
-const { render } = require('jsx-email');
-const { compile } = require('jsx-email/compile');
-```
-
-After:
-
-```js
-import { render } from 'jsx-email';
-import { compile } from 'jsx-email/compile';
-```
-
-If your project is still CommonJS, migrate the email build/render path to ESM or use dynamic `import()`.
-
-### Plugin Packages Are ESM-only
-
-The plugin packages are also ESM-only:
-
-- `@jsx-email/plugin-inline`
-- `@jsx-email/plugin-minify`
-- `@jsx-email/plugin-pretty`
-
-Before:
-
-```js
-const inline = require('@jsx-email/plugin-inline');
-```
-
-After:
-
-```js
-import inline from '@jsx-email/plugin-inline';
-```
+If your project is still CommonJS, please consider migrating to ESM-only.
 
 ### `Butan` Has Been Removed
 
@@ -124,13 +88,6 @@ Use `create-mail` for new projects. The v3 scaffold targets Node 22 and React 19
 npx create-mail my-email-project
 ```
 
-Existing generated projects should make sure they include:
-
-- `react`
-- `react-dom`
-- `@types/react` when using TypeScript
-- `typescript` when using TypeScript
-
 ### `Raw` and `Conditional` Rendering Changed Internally
 
 The public component APIs remain the same, but the renderer now uses a rehype-based pipeline for `Raw` and `Conditional` output. This can change rendered HTML details and snapshots.
@@ -163,32 +120,13 @@ email check ./emails/welcome.tsx --email-clients gmail,outlook
 
 The v3 check command remains caniemail-based.
 
-### Preview Build Path Behavior Was Aligned
-
-Preview deploy builds were aligned with main-branch behavior. If you use `email preview --build-path`, verify CI/deploy scripts that assume a specific output layout.
-
-```sh
-email preview ./emails --build-path ./dist/email-preview
-```
-
-## Tailwind and Styling
-
-The v3 `Tailwind` component uses UnoCSS for atomic CSS generation and supports Tailwind/Windi-style syntax. The docs call out that native Tailwind plugins are not supported; use UnoCSS presets and transformers instead.
-
-If you were using the deprecated standalone `@jsx-email/tailwind` package, migrate to the `Tailwind` component exported by `jsx-email`.
-
-```tsx
-import { Tailwind } from 'jsx-email';
-```
-
-For Gmail compatibility and smaller output, prefer `production={true}` where appropriate.
-
 ## New Components
 
 These additions do not require migration, but they are new in v3 branch work and may replace custom code in your project:
 
 - `Avatar`
 - `AvatarGroup`
+- `Background`
 - `Barcode`
 - `QrCode`
 - `AztecCode`
@@ -202,36 +140,18 @@ These additions do not require migration, but they are new in v3 branch work and
 
 ### `jsx-email`
 
-- ESM-only export maps.
-- Node minimum is `>=22.0.0`.
-- React peer dependencies target React 19.
-- `Butan` is removed.
-- `Avatar`, `AvatarGroup`, and barcode components are exported.
-- `jsx-email/compile` remains available, but through the ESM export path.
-
-### `@jsx-email/plugin-inline`, `@jsx-email/plugin-minify`, `@jsx-email/plugin-pretty`
-
-- ESM-only export maps.
-- Node minimum is `>=22.0.0`.
-- Peer dependency remains `jsx-email`.
+- ESM-only
+- Node minimum is `>=22.0.0`
+- React peer dependencies target React 19
+- `Butan` is removed
+- `Avatar`, `AvatarGroup`, `Background`, and barcode components are new
 
 ### `create-mail`
 
 - Use this package for scaffolding.
 - Generated projects include React 19, React DOM 19, and the v3 runtime assumptions.
 
-## Suggested Migration Order
-
-1. Upgrade Node locally and in CI to Node 22 or newer.
-2. Upgrade React and React DOM to the v19 range.
-3. Convert any `require()` usage for `jsx-email` or plugins to ESM imports.
-4. Replace `Butan` with `Button`.
-5. Update scaffold/developer docs from the old create command to `create-mail`.
-6. Run `email build`, `email preview`, and `email check`.
-7. Compare rendered HTML snapshots for templates using `Raw`, `Conditional`, Tailwind-heavy markup, or buttons.
-8. Use `email check --email-clients` for any client-specific validation you care about.
-
-## Sources
+## References
 
 - [`next/v3` merged PRs](https://github.com/shellscape/jsx-email/pulls?q=is%3Apr+base%3Anext%2Fv3+is%3Amerged)
 - [Node 22 minimum PR #419](https://github.com/shellscape/jsx-email/pull/419)
