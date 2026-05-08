@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v3.0.0
+
+_2026-05-08_
+
+### Breaking Changes
+
+- jsx-email!: v3 release. please see v3 migration guide ([30ad731](https://github.com/shellscape/jsx-email/commit/30ad731))
+
 ## v2.7.1
 
 _2025-03-05_
