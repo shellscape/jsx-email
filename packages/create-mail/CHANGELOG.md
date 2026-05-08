@@ -1,5 +1,17 @@
 # create-mail ChangeLog
 
+## v3.0.0
+
+_2026-05-08_
+
+### Breaking Changes
+
+- create-mail!: v3 release. please see v3 migration guide ([b8a5201](https://github.com/shellscape/jsx-email/commit/b8a5201))
+
+### Updates
+
+- \*: use tsup (again) to produce compatible esm and cjs builds ([#42](https://github.com/shellscape/jsx-email/issues/42))
+
 ## v2.1.0
 
 _2025-01-12_
