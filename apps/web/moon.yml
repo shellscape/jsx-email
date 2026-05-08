@@ -15,6 +15,17 @@ tasks:
       - package.json
       - src
 
+  build.production:
+    command: astro build
+    deps:
+      - ~:check
+    env:
+      PROD_BUILD: 'true'
+    inputs:
+      - .astro
+      - package.json
+      - src
+
   check:
     command: astro check
     inputs:
@@ -22,10 +33,26 @@ tasks:
       - package.json
       - src
 
+  cname:
+    command: echo jsx.email > dist/CNAME && touch dist/.nojekyll
+    deps:
+      - ~:build.production
+    options:
+      cache: false
+
   dev:
     command: astro dev --host
     options:
       cache: false
+
+  deploy:
+    command: gh-pages -d dist -u "Release Workflow <release-workflow@jsx.email>"
+    deps:
+      - ~:cname
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
 
   preview:
     command: astro preview
