@@ -1,5 +1,13 @@
 # @jsx-email/plugin-inline ChangeLog
 
+## v2.0.0
+
+_2026-05-08_
+
+### Breaking Changes
+
+- plugin-inline!: v3 release blank ([24c4a48](https://github.com/shellscape/jsx-email/commit/24c4a48))
+
 ## v1.0.1
 
 _2024-10-04_
