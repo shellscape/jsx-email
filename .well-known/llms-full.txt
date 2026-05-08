@@ -1,0 +1,4827 @@
+<SYSTEM>Full JSX email documentation as Markdown.</SYSTEM>
+
+# Introduction
+
+> Build and send emails using React and TypeScript.
+
+JSX email provides a set of React components and helpers for building delightful and responsive email templates, compatible with modern email clients. Our components handle the heavy lifting of compatibility and client inconsistency so designers and developers can focus on building impactful and engaging templates.
+
+## Getting Started
+
+Everything to know about the components, props, and usage is available within our [Documentation Site](https://jsx.email/docs/introduction). Please give that a read and let us know if there’s anything we can help with.
+
+## Components
+
+A list of available components can be found on the [`jsx-email` Documentation](https://jsx.email/docs/introduction)
+
+## Featured Features
+
+The goals of this project are to provide an improved focus on Developer Experience, maintenance, fast improvements and fast releases. And there are number of key features that make JSX email what it is:
+
+* [Email Client Compatibility Checking](https://jsx.email/docs/core/cli#client-compatibility-check)
+* Exclusive Components
+* Handles cross-client inconsistencies for you
+* Optional Configuration Files
+* Plugins
+* Crazy fast Tailwind support
+* Support for `<Suspense>` and `async` within Components
+* Enhanced Developer Experience (DX)
+* Wonderful Command Line tools
+* Works with Monorepos out of the box. No exhaustive setup needed.
+* A smooth and simple Preview Server
+* Fast improvements, feature development, and releases
+* Community-driven, not Company-driven
+* No vendor lock-in for tools. `jsx-email` uses only generic components and tools
+
+## Service Integrations
+
+This includes [AWS SES](https://aws.amazon.com/ses), [Loops](https://loops.so), [Nodemailer](https://nodemailer.com), [Postmark](https://postmarkapp.com),[Resend](https://resend.com), [Plunk](https://www.useplunk.com/), and [SendGrid](https://sendgrid.com). See our documentation on [Email Providers](https://jsx.email/docs/email-providers) for more info and example usage.
+
+## Migrating to Version 3
+
+See the [v3 migration guide](/docs/v3/migration) for a full list of breaking changes and important information about updating to v3.0.0.
+
+To browse the source code and documentation markdown for v2.8.4 please [click here](https://github.com/shellscape/jsx-email/tree/jsx-email-v2.8.4).
+
+## Contributing, Working With This Repo
+
+[![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
+
+We 💛 contributions! After all, this is a community-driven project. We have no corporate sponsorship or backing. The maintainers and users keep this project going! Please check out our [Contribution Guide](./CONTRIBUTING.md). JSX email is [MIT Licensed](./LICENSE.md)
+
+We (the maintainers) use JSX email daily.
+
+<!-- <Footer /> -->
+
+---
+
+# Quick Start
+
+> Quick Start
+
+## Quick Start
+
+In this doc you’ll find information on quickly getting started using JSX email. For more in-depth information, please see the other sections of our Documentation.
+
+Info
+
+This guide, along with the rest of the documentation here, assume that the reader has fundamental Node and NPM skills and is familiar with using command line tools on Window, Linux, or Mac OS.
+
+For those not familiar with the bits above, here are some links to resources that we’d recommend reading before working with this project:
+
+* [Node Fundamentals](https://www.codecademy.com/learn/learn-nodejs-fundamentals/modules/intro-to-node-js/cheatsheet)
+* [NPM Fundamentals](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/)
+* [Executing Local NPM Packages](https://jaireina.medium.com/executing-local-npm-packages-226820ad2c31)
+* [`npx`](https://docs.npmjs.com/cli/v8/commands/npx) and [`pnpm exec`](https://pnpm.io/cli/exec)
+* [How to use relative paths on windows CMD?](https://superuser.com/a/1270599)
+
+## Prerequisites
+
+* [Node.js](https://nodejs.org/en/) [LTS Version](https://github.com/nodejs/Release) v22.0.0+
+* React v19.1.0+
+
+## New Projects
+
+If you’re starting a new project — whether that’s a project solely for email templates, or a project that will eventually host additional code — our [`create-mail`](https://github.com/shellscape/jsx-email/tree/main/packages/create-mail) utility is a perfect choice, and the fastest way to get started. The utility will scaffold a new project and get everything ready for developing new email templates. To begin, make sure you have a terminal (or command line) open and your current working directory is the directory you’d like to create a new project. Run the following command in your terminal (without the `$` symbol):
+
+```
+$ npx create-mail my-email-project
+```
+
+This command will install and execute `create-mail`, create a `my-email-project` directory, and add a starter template.
+
+While the *Existing Projects* section below can be safely skipped, the information beneath it is useful and worth giving a read before working with JSX email, as it contains information on the project and template that was just created.
+
+## Existing Projects
+
+The happy path for adding JSX email to an existing project is by using the JSX email CLI:
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+If you want to avoid global installation, you can use `pnpm dlx`, `npx`, or `yarn` instead like so:
+
+```
+$ pnpm dlx email <command>
+```
+
+## Create A Template
+
+First, we’ll create a directory for our email templates, and then add a new template:
+
+```
+$ mkdir ./emails
+$ email create BatmanEmail --out=./emails
+```
+
+This command will create a new template named `BatmanEmail.tsx` in the `./emails` directory.
+
+Tips
+
+If you’d rather create a `.jsx` file, use the `--jsx` flag
+
+## Email Previews
+
+One of the major benefits of JSX email over alternatives is our incredibly slim and fast preview server, which requires no additional dependency installation, complex mounting, or difficult setup rules for monorepos. To run the preview server, run the following command in your terminal:
+
+```
+# MacOS and Linux
+$ email preview ./emails
+```
+
+Info
+
+Windows paths are different than MacOS or Linux paths. `./emails` above will not work on Windows. Please see the link above regarding Windows relative paths if you are unfamiliar with how they work on the Command Line
+
+The CLI will startup a preview server and open a new browser tab at `http://localhost:55420`. It’s that simple.
+
+Tips
+
+Please use `email help preview` to view optional flags, including setting the port.
+
+## Building Your Template
+
+The next step is to build your template. This can be done with the CLI, or with the [`render` method](/docs/core/render) in code. While most people will need to render emails dynamically at runtime using `render`, the CLI is capable of rendering both static and dynamic emails that take props as input. To build your email into an HTML document, run:
+
+```
+$ email build ./emails/BatmanEmail.tsx
+```
+
+Tips
+
+Please use `email help build` to view optional flags, including providing props and setting the output path.
+
+<!-- <Footer /> -->
+
+---
+
+# CLI
+
+> The Command Line Interface and developer tooling for JSX email
+
+The Command Line Interface and developer tooling for JSX email
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+Nearly all installations of this package will want it installed into `devDependencies` so please make sure to add the `-D` flag.
+
+## Usage
+
+Installing this package will add an `email` binary, which will be available to `pnpm exec`, `npx`, and `yarn`.
+
+Invoking the CLI without parameters or flags will produce help information in the console. From there, all of the functions of the CLI can be viewed, along with any applicable parameters and flags:
+
+```
+→ pnpm exec email
+
+jsx-email v0.0.0
+
+A CLI for working with Email Templates made with jsx-email
+
+Usage
+  $ email [...options]
+
+Commands
+  build       <template file or dir path>
+  check       <template file path>
+  create      <template name>
+  help        [<command>]
+  preview     <template dir path>
+
+Options
+  --help      Displays this message
+  --version   Displays the current jsx-email version
+
+Examples
+  $ email
+  $ email --help
+  $ email build ./src/templates/Invite.tsx
+  $ email create invite
+  $ email preview ./src/templates
+```
+
+## Build
+
+Tips
+
+To view info, flags, and options for the `build` command, run `email help build`.
+
+The `build` command compiles and renders an email template to HTML for use with an email provider. The command takes a directory or single file as input:
+
+```
+$ cd ~/code/email-app
+$ email build ./emails
+```
+
+Or for a single file:
+
+```
+$ cd ~/code/email-app
+$ email build ./emails/Batman.tsx
+```
+
+To render using the sample props you export from a template file, pass the `--use-preview-props` flag. When set, `email build` will use the `previewProps` export (if present) instead of `--props`.
+
+## Check
+
+Tips
+
+To view info, flags, and options for the `check` command, run `email help check`.
+
+`jsx-email` can run a client compatibility check on any template, comparing it to the compatibility tables from \`[caniuse.com](https://caniemail.com/) and display any email client incompatibility issues. This check is incredibly helpful in diagnosing and debugging display issues between multiple email clients.
+
+```
+$ email check ./emails/Batman.tsx
+```
+
+To check templates using their exported `previewProps`, pass the `--use-preview-props` flag so the check runs against the same sample data as your previews and builds.
+
+Example output:
+
+```
+Checking email template for Client Compatibility...
+
+Found 1 files:
+   ./emails/Batman.tsx
+
+Starting build...
+
+Build complete
+
+./emails/Batman.tsx
+
+  error  Class selector is not supported by:
+           gmail.mobile-webmail
+           protonmail.desktop-webmail
+           protonmail.ios
+
+  error  border-radius is not supported by:
+           outlook.windows
+           outlook.windows-mail
+
+  ...
+
+  warn  target attribute is only partially supported by:
+          apple-mail.macos
+          apple-mail.ios
+          outlook.windows
+          outlook.windows-mail
+          outlook.ios
+          outlook.android
+
+Check Complete: 14 error(s), 20 warning(s)
+```
+
+## Preview
+
+Tips
+
+To view info, flags, and options for the `preview` command, run `email help preview`.
+
+JSX email ships with a Preview Tool as part of the CLI. Our Preview is fast, simple, and smooth. It doesn’t require installing any crazy dependencies, downloading additional “clients,” or copying your project’s dependencies. It just works. And the best part: it works with monorepos out of the box.
+
+The preview also supports static local assets. For a good example of how to handle local assets like images, please have a look at [the samples AirBnB template](https://github.com/shellscape/jsx-email/blob/main/apps/samples/emails/airbnb-review.tsx). Notice that `baseUrl` is set using a condition on `import.meta.isJsxEmailPreview`. That `import.meta` property is specific to `jsx-email` and will be replaced appropriately at build time. Local assets are served from the templates root directory, in this case `apps/samples/emails`, at the server root. So a `apps/samples/emails/batman.png` file would be served at `/batman.png` in the browser. We recommend using a `static` or `assets` directory in your templates root directory, so it’s clear where files are being served from when viewing in the Preview Tool.
+
+To use the Preview Tool, open your terminal and navigate to your project. We’re assuming you’ve already installed the CLI as shown above, and that you’ve already run `email create` to create an email in an `emails` directory.
+
+```
+$ cd ~/code/email-app
+$ email preview ./emails
+```
+
+The Preview Tool will start up and open a new window in your browser, and you’ll be presented with a page that looks like:
+
+![Preview 1](/preview-1.png)\
+\
+![Preview 1](/preview-2.png)\
+\
+![Preview 1](/preview-3.png)\
+\
+![Preview 1](/preview-4.png)
+
+## Deploying Your Preview App
+
+As part of the CLI, users have the ability to build their templates into a deployable preview app. The resulting app can be deployed anywhere, not just select service providers. To build templates into a deployable app, run:
+
+```
+$ email preview <templates-path> --build-path <build-path>
+```
+
+where `<build-path>` is the path you want the build output files placed.
+
+<!-- <Footer /> -->
+
+---
+
+# Compile
+
+> Compile jsx-email templates into a bundle
+
+Compile jsx-email templates into a bundle
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+```
+import { readFile } from 'node:fs/promises;';
+import { resolve } from 'node:path';
+
+import { compile } from 'jsx-email/compile';
+
+const templatePath = resolve(__dirname, './emails/Batman');
+const outDir = resolve(__dirname, '.compiled');
+
+const compiledFiles = await compile({ files: [templatePath], hashFiles: false, outDir });
+```
+
+Tips
+
+Once compiled into a bundle, the file can be imported and passed to render such like:
+
+```
+import { render } from 'jsx-email';
+
+import { Template } from './.compiled/batman.js';
+
+const html = render(<Template />);
+```
+
+Note that whether or not to use a file extension in the import depends on your project’s settings. When using TypeScript you may have to adjust types to avoid errors, using this method.
+
+## Method Options
+
+```
+export interface Options {
+  disableDefaultStyle?: boolean;
+  inlineCss?: boolean;
+  minify?: boolean;
+  plainText?: boolean | PlainTextOptions;
+  pretty?: boolean;
+}
+```
+
+### Options
+
+```
+files: string[];
+```
+
+An array of absolute paths for JSX/TSX template files to compile
+
+```
+hashFiles?: boolean;
+```
+
+Default: true. If `true`, adds the build hash to compiled file names. Set this to `false` if hashing and unique output filenames aren’t needed.
+
+```
+outDir: string;
+```
+
+An absolute path to output the compiled file(s)
+
+```
+writeMeta?: boolean;
+```
+
+If `true`, writes the ESBuild metadata for the compiled file(s)
+
+<!-- <Footer /> -->
+
+---
+
+# Configuration
+
+> Configuration
+
+## Configuring jsx-email
+
+When running `email` from the command line or programmatically using the [`render`](/docs/core/render) function, jsx-email will attempt to find and use a `jsx-email.config` file. jsx-email will traverse a directory structure looking for config files until it reaches a git repository root directory, or the OS’s home directory. This is quite fast, and allows for scoping your configuration file at the filesystem level you’d like to. By default, jsx-email looks for configuration files with the following file extensions and locations:
+
+```
+.config/jsx-emailrc.js
+.config/jsx-emailrc.cjs
+.config/jsx-emailrc.mjs
+.config/jsx-email.config.js
+.config/jsx-email.config.cjs
+.config/jsx-email.config.mjs
+.jsx-emailrc.js
+.jsx-emailrc.cjs
+.jsx-emailrc.mjs
+jsx-email.config.js
+jsx-email.config.cjs
+jsx-email.config.mjs
+```
+
+Info
+
+jsx-email does not currently support TypeScript, YAML, or JSON files.
+
+### Config File
+
+The most basic configuration file might look like this:
+
+```
+import { defineConfig } from 'jsx-email/config';
+
+export const config = defineConfig({
+  render: { minify: true }
+});
+```
+
+The named export `config` is required regardless of how the file is constructed. Note the use of the `defineConfig` import and the `config` named export - while any plain object will be accepted and parsed, the use of `defineConfig` is encouraged for ensuring your config is compliant.
+
+### Intellisense
+
+Since jsx-email ships with TypeScript typings, you can leverage your IDE’s intellisense with jsdoc type hints:
+
+```
+/** @type {import('jsx-email/config').JsxEmailConfig} */
+export const config = { ... };
+```
+
+### Async Configuration
+
+The `config` export inherently supports `Promise`. This is helpful when needing to perform other async operations before returning a value to the export. This can be done in a few ways:
+
+```
+export const config = (async () => { ... })();
+```
+
+Or
+
+```
+export const config = new Promise((resolve, reject) => { ... })
+```
+
+Alternatively, when using the `defineConfig` function, an async function may be passed to it as the first argument:
+
+```
+export const config = defineConfig(async () => {
+  const data = await asyncFunction()
+  return {
+    ...
+  }
+});
+```
+
+### Available Properties
+
+jsx-email configuration files support the following properties:
+
+```
+esbuild?: {
+  plugins?: Plugin[]
+}
+```
+
+*Optional*. Default: `undefined`. Allows the configuration file to specify [ESBuild Plugins](https://esbuild.github.io/plugins) to use during the initial transform from JSX/TSX to JavaScript for the `build` and `preview` commands.
+
+Tips
+
+ESBuild plugins are only run when using the CLI’s `build` or `preview` commands. ESBuild, and by extension the `esbuild` configuration option, are not used when using `render` directly in code
+
+```
+logLevel?: 'debug' | 'info' | 'warn' | 'error';
+```
+
+*Optional*. Default: `info`. The level at which logs for jsx-email will appear in the terminal / console.
+
+```
+plugins?: JsxEmailPlugin[];
+```
+
+*Optional*. An array of plugins; objects which contain a valid [`JsxEmailPlugin` definition](/docs/core/plugins).
+
+```
+render?: RenderOptions;
+```
+
+*Optional*. The value specified will be merged with the [`render` function options](https://jsx.email/docs/core/render#method-options) when a render takes place. Please see the [`render` documentation](https://jsx.email/docs/core/render#method-options) for more details.
+
+<!-- <Footer /> -->
+
+---
+
+# Plugins
+
+> Plugins
+
+## Plugins
+
+`jsx-email` supports plugins to modify the rendering pipeline according to need. A plugin might provide custom minifcation after rendering, or replace tokens in a template before rendering, for example. For implementation examples, please see the Core Plugins below.
+
+### Core Plugins
+
+By default, `jsx-email` ships with `peerDependencies` on several plugins:
+
+* [plugin-inline](/docs/plugins/inline)
+* [plugin-minify](/docs/plugins/minify)
+* [plugin-pretty](/docs/plugins/pretty)
+
+### Authoring Plugins
+
+Plugins are extremely flexible in how they’re provided to `jsx-email`. They can be the result of a local function, a file export, or a package export. Regardless of how a plugin is provided, all plugins are defined by a straightforward interface:
+
+```
+export interface JsxEmailPlugin {
+  afterRender?: RenderHookFn;
+  beforeRender?: RenderHookFn;
+  name: string;
+  process?: ProcessHookFn;
+  symbol: typeof pluginSymbol;
+}
+```
+
+To instruct a render to use plugins, utilize a [Configuration File](/docs/core/config) and specify the `plugins` property:
+
+```
+import { defineConfig } from 'jsx-email/config';
+
+import { somePlugin } from './plugins/some-plugin';
+
+export const config = defineConfig({
+  plugins: [somePlugin]
+});
+```
+
+### Lifecycle Hooks
+
+Plugins can affect a template at several different stages throughout the rendering process. The following hooks are supported, and are executed in the following order:
+
+* `afterRender`
+* `process`
+* `beforeRender`
+
+Implemented hooks within plugins can be synchronous or asynchrounous and return a `Promise`. All hooks are exexcuted *after* JSX is converted to HTML.
+
+Function definitions for both `afterRender` and `beforeRender` should match:
+
+```
+(params: RenderHookParams) => string | Promise<string>;
+```
+
+The `params` argument provided to these two hooks match the following definition:
+
+```
+interface RenderHookParams {
+  chalk: typeof chalk;
+  html: string;
+  log: any;
+}
+```
+
+As a convenience, all hooks are provided a `chalk` instance and a `log` utility for providing user feedback in the console.
+
+#### `afterRender`
+
+As the name suggests, this hook is run after the other hooks and after `render` is considered to be complete, but before the resulting HTML is written to disk.
+
+#### `beforeRender`
+
+This hook is run just before the HTML processing step is begun. It can be handy for replacing tokens in the HTML that may have an effect in the processing step or `afterRender` hooks.
+
+#### `process`
+
+The `process` hook is unique in that the return result from the hook function should return a [`rehype` Plugin](https://unifiedjs.com/learn/guide/create-a-rehype-plugin/). `jsx-email` uses [`rehype`](https://github.com/rehypejs/rehype) for compliant and *fast* HTML processing and modification. The [`plugin-minify` Core Plugin](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) provides an example of such a `rehype` plugin. This hook runs between `beforeRender` and `afterRender`. The function definition for this hook should match:
+
+```
+interface ProcessHookParams {
+  chalk: typeof chalk;
+  log: any;
+}
+
+(params: ProcessHookParams) =>
+  RehypePlugin | RehypePreset | Promise<RehypePlugin> | Promise<RehypePreset>;
+```
+
+<!-- <Footer /> -->
+
+---
+
+# Render
+
+> Render JSX email components to HTML email
+
+Render JSX email components to HTML email
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+Peer Dependencies
+
+`@jsx-email/plugin-inline`, `@jsx-email/plugin-minify`, and `@jsx-email/plugin-pretty` are peer dependencies of `jsx-email`. Package managers that automatically install peer dependencies will install them for you. If you disable peer dependency auto-installation, install the plugin packages manually before using `inlineCss`, `minify`, or `pretty`.
+
+## Usage
+
+```
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman';
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+```
+
+## Method Options
+
+```
+export interface Options {
+  disableDefaultStyle?: boolean;
+  inlineCss?: boolean;
+  minify?: boolean;
+  plainText?: boolean | PlainTextOptions;
+  pretty?: boolean;
+}
+```
+
+### Options
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, disables all of the default styles for all components for the rendering operation.
+
+```
+inlineCss?: boolean;
+```
+
+If `true`, converts any elements with CSS class names to use style attributes with the combined CSS styles from the class names on the element. This option loads the [`plugin-inline`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline) plugin.
+
+```
+minify?: boolean;
+```
+
+If `true`, minifies the HTML for rendered templates. This option loads the [`plugin-minify`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify) plugin.
+
+```
+plainText?: boolean  | PlainTextOptions;
+```
+
+If `true` or an `object`, renders the target email(s) to plain text. If you need to modify how the target is rendered to plain text, an `object` representing [`html-to-text` options](https://github.com/html-to-text/node-html-to-text/blob/master/packages/html-to-text/README.md#options) should be used.
+
+```
+pretty?: boolean;
+```
+
+If `true`, beautifies the HTML output for each target email. This option loads the [`plugin-pretty`](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty) plugin.
+
+## Debugging
+
+The rendered HTML can often be difficult to trace or match back to the JSX source template. To make things easier, users can enable a debugging flag which will output jsx-email-specific `data-type` attributes in the HTML. To enable this, set an environment variable like so: `DEBUG=jsx-email:elements`.
+
+Users may also wish to pass the `{ minify: false }` option to the `render` method.
+
+<!-- <Footer /> -->
+
+---
+
+# Avatar
+
+> Displays a profile avatar with image and fallback support
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Displays a profile avatar with image and fallback support
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Use `Avatar` for profile images. If `src` is missing, it renders fallback text.
+
+```
+import { Avatar } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Avatar
+      src="https://assets.example.com/users/bruce.jpg"
+      name="Bruce Wayne"
+      width={48}
+      height={48}
+    />
+  );
+};
+```
+
+Fallback-only example:
+
+```
+import { Avatar } from 'jsx-email';
+
+const Email = () => {
+  return <Avatar name="Bruce Wayne" />;
+};
+```
+
+### Image Fallbacks
+
+* Visible fallback text uses this order:
+
+  1. trimmed `fallback`
+  2. derived initials from `name`
+  3. literal `"?"`
+
+* Non-decorative fallback avatars (`decorative={false}`) use this accessible label order:
+
+  1. trimmed `alt`
+  2. `name`
+  3. resolved visible fallback text
+
+* Decorative fallback avatars (`decorative={true}`) render with `role="presentation"` and `aria-hidden="true"`.
+
+## Component Props
+
+```
+src?: string;
+```
+
+Path or URL for the avatar image.
+
+```
+alt?: string;
+```
+
+Accessible alt text for image avatars. If omitted, the component derives text from `name` or `fallback`.
+
+```
+name?: string;
+```
+
+A readable label used for alt derivation and fallback initials.
+
+```
+fallback?: string;
+```
+
+Fallback text used when `src` is not provided.
+
+```
+decorative?: boolean;
+```
+
+Marks the avatar as decorative. Decorative avatars use presentational accessibility attributes.
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+```
+width?: string | number;
+```
+
+Avatar width. Defaults to `40` when no explicit size is provided.
+
+```
+height?: string | number;
+```
+
+Avatar height. Defaults to `40` when no explicit size is provided.
+
+## Caveats
+
+* Default avatar images use `object-fit: cover` to maintain rounded presentation.
+* Some email clients may not fully support `object-fit`, so source images may appear stretched or letterboxed.
+* For the most consistent results, provide pre-cropped square images and explicit `width`/`height`.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`, except `children`.
+
+<!-- <Footer /> -->
+
+---
+
+# AvatarGroup
+
+> Displays a group of avatars with optional overlap
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Displays a group of avatars with optional overlap
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+`AvatarGroup` arranges `Avatar` children in a row.
+
+```
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup>
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+    </AvatarGroup>
+  );
+};
+```
+
+Use overlap only when needed:
+
+```
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup overlap={true} spacing={10}>
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+    </AvatarGroup>
+  );
+};
+```
+
+Truncate long groups with a `+N` overflow token:
+
+```
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup max={3}>
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+      <Avatar name="Diana Prince" />
+    </AvatarGroup>
+  );
+};
+```
+
+Render in reverse order for right-to-left layouts:
+
+```
+import { Avatar, AvatarGroup } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <AvatarGroup direction="rtl">
+      <Avatar name="Bruce Wayne" />
+      <Avatar name="Selina Kyle" />
+      <Avatar name="Clark Kent" />
+    </AvatarGroup>
+  );
+};
+```
+
+## Component Props
+
+```
+direction?: 'ltr' | 'rtl';
+```
+
+Controls group rendering order. Defaults to `"ltr"`.
+
+```
+max?: number;
+```
+
+Maximum number of avatars to render before appending an overflow token (for example, `+2`).
+
+```
+overlap?: boolean;
+```
+
+If `true`, overlaps avatars. Defaults to `false` for compatibility-safe rendering.
+
+```
+spacing?: number;
+```
+
+Spacing in pixels between avatars. Defaults to `8`.
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+## Caveats
+
+* `overlap={true}` is an enhanced mode that depends on negative margins and layered stacking. Rendering can vary across older or stricter email clients.
+* Keep overlap values conservative and verify output with `email check` before sending.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`, except `cellPadding` and `cellSpacing`.
+
+<!-- <Footer /> -->
+
+---
+
+# Background
+
+> A JSX email component for background images in your Email template
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component for background images in your Email template
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the background component to your email template.
+
+```
+import { Body, Column, Html, Section } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Body>
+        <Background src="link-to-image" bgColor="#FFFFFF" width={600}>
+          <Row>
+            <Column>Content goes here</Column>
+          </Row>
+        </Background>
+      </Body>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+```
+interface BackgroundProps extends Omit<
+  React.ComponentPropsWithoutRef<'td'>,
+  'height' | 'width' | 'bgcolor'
+> {
+  src: string;
+  bgColor?: string;
+  bgRepeat?: 'repeat' | 'no-repeat';
+  height?: number;
+  width?: number;
+}
+```
+
+```
+src: string;
+```
+
+The path to the image
+
+```
+bgColor?: string;
+```
+
+The hex code that represents the fallback `background-color` incase the image doesn’t load
+
+```
+bgRepeat?: 'repeat' | 'no-repeat';
+```
+
+A string that represents the value of `background-repeat`. Default value is `no-repeat`
+
+```
+height?: number;
+```
+
+The `height` of the container in pixels
+
+```
+width?: number;
+```
+
+The `width` of the container in pixels
+
+<!-- <Footer /> -->
+
+---
+
+# Barcode
+
+> Render email-safe 1D and 2D barcodes as HTML tables
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Render email-safe 1D and 2D barcodes and QR codes as HTML tables
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+```
+import { Barcode } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Barcode
+      type="qrcode"
+      text="https://jsx.email/components/barcode"
+      ecLevel="M"
+      quietZone
+      cellSize={4}
+    />
+  );
+};
+```
+
+## Barcode Types
+
+The component also exports typed wrappers with fixed `type` values:
+
+* `QrCode`
+* `AztecCode`
+* `DataMatrix`
+* `Code128Barcode`
+* `Code39Barcode`
+* `EanBarcode`
+* `UpcBarcode`
+
+```
+import {
+  AztecCode,
+  Code128Barcode,
+  Code39Barcode,
+  DataMatrix,
+  EanBarcode,
+  QrCode,
+  UpcBarcode
+} from 'jsx-email';
+
+const Email = () => {
+  return (
+    <>
+      <QrCode text="https://jsx.email" ecLevel="Q" />
+      <AztecCode text="AZTEC-2026" ecLevel="M" />
+      <DataMatrix text="DATAMATRIX-2026" />
+      <Code128Barcode text="CODE128-2026-HELLO" />
+      <Code39Barcode text="CODE39-2026" />
+      <EanBarcode text="590123412345" />
+      <UpcBarcode text="01234567890" />
+    </>
+  );
+};
+```
+
+## Props
+
+### TypeScript Interface
+
+```
+type BarcodeType = 'qrcode' | 'azteccode' | 'datamatrix' | 'code128' | 'code39' | 'ean13' | 'upca';
+
+type BarcodeEcLevel = 'L' | 'M' | 'Q' | 'H';
+
+type BarcodeProps =
+  | {
+      type?: 'qrcode';
+      text: string;
+      ecLevel?: BarcodeEcLevel;
+      fgColor?: string;
+      bgColor?: string;
+      cellSize?: number;
+      quietZone?: boolean;
+      lossyEnabled?: boolean;
+      lossyBudget?: number;
+    }
+  | {
+      type: 'azteccode';
+      text: string;
+      ecLevel?: BarcodeEcLevel;
+      fgColor?: string;
+      bgColor?: string;
+      cellSize?: number;
+      quietZone?: boolean;
+      lossyEnabled?: boolean;
+      lossyBudget?: number;
+    }
+  | {
+      type: 'datamatrix' | 'code128' | 'code39' | 'ean13' | 'upca';
+      text: string;
+      ecLevel?: never;
+      fgColor?: string;
+      bgColor?: string;
+      cellSize?: number;
+      quietZone?: boolean;
+      lossyEnabled?: boolean;
+      lossyBudget?: number;
+    };
+```
+
+### Required Props
+
+#### text
+
+```
+text: string;
+```
+
+Barcode payload.
+
+### Optional Props
+
+#### type
+
+```
+type?: BarcodeType;
+```
+
+Barcode symbology. Defaults to `'qrcode'`.
+
+#### ecLevel
+
+```
+ecLevel?: 'L' | 'M' | 'Q' | 'H';
+```
+
+Error-correction level for `qrcode` and `azteccode` only.
+
+#### fgColor
+
+```
+fgColor?: string;
+```
+
+Foreground color for dark modules.
+
+#### bgColor
+
+```
+bgColor?: string;
+```
+
+Background color for light modules.
+
+#### cellSize
+
+```
+cellSize?: number;
+```
+
+Size in pixels for each rendered module.
+
+#### quietZone
+
+```
+quietZone?: boolean;
+```
+
+Adds a 4-module border when `true`.
+
+#### lossyEnabled
+
+```
+lossyEnabled?: boolean;
+```
+
+Enables optional lossy compression.
+
+#### lossyBudget
+
+```
+lossyBudget?: number;
+```
+
+Compression budget between `0` and `1` (clamped at runtime).
+
+### Additional Props
+
+`Barcode` expresses common React props for `ComponentProps<'table'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Body
+
+> A JSX email component for using a React `Body` component to wrap email content
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component for using a React `Body` component to wrap email content
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Body, Column, Html, Section } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Body style={{ backgroundColor: '#61dafb' }}>
+        <Section>
+          <Column style={{ width: '50%' }}>{/* First column */}</Column>
+          <Column style={{ width: '50%' }}>{/* Second column */}</Column>
+        </Section>
+      </Body>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'body'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Button
+
+> A JSX email component which styles an anchor element to appear as a button
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component which styles an anchor element to appear as a button
+
+Tips
+
+Semantics: Quite often in the email world we talk about buttons when we actually mean links. Behind the scenes this component is a `<a>` element which is styled like a `<button>` element.
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Button } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Button width={160} height={60} href="https://jsx.email" target="_blank">
+      JOIN US
+    </Button>
+  );
+};
+```
+
+## Component Props
+
+```
+export interface ButtonProps extends BaseProps<'a'> {
+  width: number;
+  height: number;
+  href?: string;
+  align?: 'left' | 'center' | 'right';
+  backgroundColor?: string;
+  borderColor?: string;
+  borderRadius?: number;
+  borderSize?: number;
+  fontSize?: number;
+  textColor?: string;
+  withBackground?: boolean;
+}
+```
+
+Tips
+
+It’s **highly reccommended** for **optimal email client compatibility** to use the component props below to set styles, rather than CSS, the `style` property, or [`Tailwind`](/docs/components/tailwind) classes. This is especially important for Outlook.
+
+```
+href?: string;
+```
+
+The url to navigate to when the button is clicked.
+
+```
+width: number;
+```
+
+Specifies the `width` of the Button in pixels
+
+```
+height: number;
+```
+
+Specifies the `height` of the Button in pixels
+
+```
+align?: 'left' | 'center' | 'right';
+```
+
+Specifies the horizontal alignment of the Button in the container. Default value is `left`
+
+```
+target?: string;
+```
+
+Specifies the value of the `"target"` attribute for the button `target`.
+
+```
+backgroundColor?: string;
+```
+
+Specifies the hex value for the `background-color` of the button
+
+```
+borderColor?: string;
+```
+
+Specifies the hex value `border-color` for the button
+
+```
+borderRadius?: number;
+```
+
+Specifies the `border-radius` value for the button in pixels
+
+```
+borderSize?: number;
+```
+
+Specifies the `border-width` value in pixels
+
+```
+fontSize?: number;
+```
+
+Specifies the `font-size` value in pixels
+
+```
+textColor?: string;
+```
+
+Specifies the hex value for the `color` of the text
+
+```
+withBackground?: boolean;
+```
+
+Set to `true` if `Button` is nested in a `Background` component. Neccessary for good Outlook compatibility.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Code
+
+> A JSX email component which displays a syntax-highlighted code block using <a href="https://shiki.matsu.io/">Shiki</a>
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component which displays a syntax-highlighted code block using [Shiki](https://shiki.matsu.io/)
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Code } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Code>
+      {`
+      import { batman } from 'superheros';
+      import { joker } from 'villains';
+
+      const henchmen = joker.help();
+
+      batman.fight(henchmen);
+      batman.arrest(joker);
+    `}
+    </Code>
+  );
+};
+```
+
+## Component Props
+
+```
+language: string;
+```
+
+Specifies the language to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/languages.md) for more information on supported languages.
+
+```
+theme?: string;
+```
+
+*Optional*. Defaults to `'nord'`. Specifies the theme to use for the highlighter. See the [`shiki` documentation](https://github.com/shikijs/shiki/blob/main/docs/themes.md) for more information on supported themes, modifying themes, and how to make your own.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'pre'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# ColorScheme
+
+> A JSX email component which provides meta and style foundations for color scheme support
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component which provides meta and style foundations for color scheme support
+
+Tips
+
+Please be sure to read our FAQ about Dark Mode in the context of email templates: <https://jsx.email/docs/faq#dark-and-light-mode>
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template.
+
+```
+import { Body, ColorScheme, Head, Html } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html>
+      <Head>
+        <ColorScheme mode="light only" />
+      </Head>
+      <Body></Body>
+    </Html>
+  );
+};
+```
+
+Which will produce the following HTML:
+
+```
+<html>
+  <head>
+    <meta name="color-scheme" content="light only" />
+    <meta name="supported-color-schemes" content="light only" />
+    <style>
+      :root {
+        color-scheme: light only;
+        supported-color-schemes: light only;
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
+```
+
+## Component Props
+
+```
+export interface ColorSchemeProps {
+  mode?: Mode;
+}
+```
+
+### Individual Props
+
+```
+mode?: ColorSchemeMode;
+```
+
+Default: `'normal'`
+
+Selects the color scheme mode that informs the email client which mode to render.
+
+Supported Values:
+
+* `'dark'`
+* `'dark only'` The email client will only ever render the content in the dark color scheme and forbids the email client from overriding the color scheme.
+* `'light'`
+* `'light dark'` The email client will choose the light or dark theme to match the user’s preference. If the user’s preference does not match something in the list, the email client will choose which mode to display.
+* `'light dark only'` The email client will choose the first of the listed schemes that it supports taking user preference into account and forbids the email client from overriding the color scheme.
+* `'light only'` The email client will only ever render the content in the light color scheme and forbids the email client from overriding the color scheme.
+* `'normal'` Indicates that the email supports the page’s supported color schemes, if they are set, or that it supports no color schemes at all otherwise.
+
+<!-- <Footer /> -->
+
+---
+
+# Column
+
+> A JSX email component which displays columns that separate content bounaries vertically
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component which displays columns that separate content bounaries vertically
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Column, Row } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Row>
+      <Column>A</Column>
+      <Column>B</Column>
+      <Column>C</Column>
+    </Row>
+  );
+};
+```
+
+## Component Props
+
+```
+export interface ColumnProps extends BaseProps<'td'> {
+  bgColor?: string;
+  bgImage?: string;
+}
+```
+
+```
+bgColor: string;
+```
+
+Used to set the background color in HTML email by wrapping the `bgcolor` property of `<td>` elements
+
+```
+bgImage: string;
+```
+
+Used to set background images in HTML email by wrapping the `background` property of `<td>` elements
+
+Tips
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'td'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Conditional
+
+> Use HTML conditional comments effortlessly
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Use HTML conditional comments effortlessly
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Conditional, Head } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Head>
+      <Conditional mso={true}>
+        <meta content="batman" />
+      </Conditional>
+    </Head>
+  );
+};
+```
+
+## Component Props
+
+```
+interface ConditionalProps {
+  children?: React.ReactNode;
+  expression?: string;
+  mso?: boolean;
+}
+```
+
+Info
+
+The `expression` prop or the `mso` prop must be defined, but not both.
+
+### Props
+
+```
+expression?: string;
+```
+
+If provided, the string will be used as the conditional expression within the HTML comment. e.g. a value of `lt ie 10` would result in a conditional comment block starting with `...`.
+
+<!-- <Footer /> -->
+
+---
+
+# Container
+
+> Horizontally center child components and content
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Horizontally center child components and content
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Button, Container } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Container>
+      <Button href="https://example.com" style={{ color: '#61dafb' }}>
+        Click me
+      </Button>
+    </Container>
+  );
+};
+```
+
+Info
+
+Though the `Container` component wraps a `<table>` element, it has a specific use-case and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Container` as a table, please consider using a `Section` component or a combination of `Row` and `Column`.
+
+## Component Props
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for `cellPadding` and `cellSpacing`.
+
+<!-- <Footer /> -->
+
+---
+
+# Font
+
+> Sets up custom fonts for use in email
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Sets up custom fonts for use in email
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. This applies your font to all tags inside your email. Note, that not all email clients supports web fonts, this is why it is important to configure your `fallbackFontFamily`. To view all email clients that supports web fonts [see](https://www.caniemail.com/features/css-at-font-face/)
+
+```
+import { Font, Head, Html } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Head>
+        <Font
+          fontFamily="Roboto"
+          fallbackFontFamily="Verdana"
+          webFont={{
+            url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
+            format: 'woff2'
+          }}
+          fontWeight={400}
+          fontStyle="normal"
+        />
+      </Head>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+```
+export interface FontProps {
+  fallbackFontFamily: FallbackFont | FallbackFont[];
+  fontFamily: string;
+  fontStyle?: FontStyle;
+  fontWeight?: FontWeight;
+  webFont?: {
+    format: FontFormat;
+    url: string;
+  };
+}
+```
+
+### Props
+
+```
+fallbackFontFamily: FallbackFont | FallbackFont[];
+```
+
+The fallback font family the system should use, if web fonts are not supported or the chosen font is not installed on the system.
+
+```
+fontFamily: string;
+```
+
+The font family you want to use. If the webFont property is configured, this should contain the name of that font. Note: Do not insert multiple fonts here, use `fallbackFontFamily` for that\_
+
+```
+fontStyle?: FontStyle;`
+```
+
+Default: `'normal'`
+
+The style of the font.
+
+```
+fontWeight?: FontWeight;`
+```
+
+Default: `400`
+
+The weight of the font.
+
+```
+webFont?: {
+  format: FontFormat;
+  url: string;
+}
+```
+
+The webFont the supported email client should use. *Note: Not all clients support web fonts. For support check: <https://www.caniemail.com/features/css-at-font-face>*
+
+<!-- <Footer /> -->
+
+---
+
+# Graph
+
+> A JSX email component for displaying graphs in your Email template
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component for displaying graphs in your Email template
+
+Tips
+
+This component is wrapper around [QuickChart API](https://quickchart.io/) for generating email compatible charts
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the graph component to your email template.
+
+```
+import { Body, Graph, Html, Section } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Body>
+        <Section>
+          <Graph
+            width={100}
+            height={100}
+            title="Graph with jsx-email"
+            config={{
+              type: 'bar',
+              data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                  {
+                    data: [10, 6.5, 3, 6, 4, 0.1, 0.5]
+                  }
+                ]
+              }
+            }}
+          />
+        </Section>
+      </Body>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+```
+config: ChartConfiguration & Record<string, any>;
+```
+
+An object that contains the chart configuration settings, combining [ChartConfiguration](https://www.chartjs.org/docs/2.9.4/charts/) properties.
+
+Tips
+
+You can play around with your chart configuration in this [playground](https://quickchart.io/sandbox)
+
+```
+title: string;
+```
+
+This is a required string that provides the title of the graph.
+
+```
+background?: string;
+```
+
+An optional string that sets the background color of the graph.
+
+```
+className?: string;
+```
+
+This is optional string that applies a custom CSS class to the graph component for additional styling.
+
+```
+height?: number;
+```
+
+This is an optional number that specifies the height of the graph in pixels.
+
+```
+width?: number;
+```
+
+This is an optional number that specifies the width of the graph in pixels.
+
+<!-- <Footer /> -->
+
+---
+
+# Head
+
+> A JSX email component which creates an HTML head element
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+|
+
+Tips
+
+This component is required VML in outlook compatibility for adding elements such as `<style>` and `meta` directly to the document
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include children tags where needed.
+
+```
+import { Head } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Head>
+      <title>My email title</title>
+    </Head>
+  );
+};
+```
+
+## Component Props
+
+```
+export interface HeadProps extends BaseProps<'head'> {
+  enableFormatDetection?: boolean;
+}
+```
+
+```
+enableFormatDetection?: boolean;
+```
+
+This is used to disable the `format-detection` meta (will be useful for some very specific use-cases) Default value is `false`
+
+Tips
+
+This component expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'head'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Heading
+
+> A stylable heading (h1, h2, etc) element
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A stylable heading (h1, h2, etc) element
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Heading } from 'jsx-email';
+
+const Email = () => {
+  return <Heading as="h2">Lorem ipsum</Heading>;
+};
+```
+
+## Component Props
+
+```
+export interface Margin {
+  m?: number | string;
+  mb?: number | string;
+  ml?: number | string;
+  mr?: number | string;
+  mt?: number | string;
+  mx?: number | string;
+  my?: number | string;
+}
+
+export type PresentAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+export type HeadingProps = Margin & { as?: PresentAs };
+```
+
+```
+as?: string;
+```
+
+Render component as `h1`, `h2`, `h3`, `h4`, `h5` or `h6`.
+
+```
+m?: number | string;
+```
+
+A shortcut for `margin` CSS property.
+
+```
+mx?: number | string;
+```
+
+A shortcut for `margin-left` and `margin-right` CSS properties.
+
+```
+my?: number | string;
+```
+
+A shortcut for `margin-top` and `margin-bottom` CSS properties.
+
+```
+mt?: number | string;
+```
+
+A shortcut for `margin-top` CSS property.
+
+```
+mr?: number | string;
+```
+
+A shortcut for `margin-right` CSS property.
+
+```
+mb?: number | string;
+```
+
+A shortcut for `margin-bottom` CSS property.
+
+```
+ml?: number | string;
+```
+
+A shortcut for `margin-left` CSS property.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'h1'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Hr
+
+> Creates divider (horizontal rule) that separates content
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Creates divider (horizontal rule) that separates content
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Hr } from 'jsx-email';
+
+const Email = () => {
+  return <Hr />;
+};
+```
+
+## Component Props
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'hr'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# HTML
+
+> Wraps the email document with a root element
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Wraps the email document with a root element
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Button, Html } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Button href="https://example.com" style={{ color: '#61dafb' }}>
+        Click me
+      </Button>
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+```
+lang?: string;
+```
+
+Identify the language of text content on the email
+
+```
+dir?: string;
+```
+
+Identify the direction of text content on the email
+
+```
+enableVML?: boolean;
+```
+
+This is used the `xmlns:o` and `xmlns:v` attributes to the `html` element for maximum VML compatibility Default value is `true`
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'html'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Image
+
+> Displays an image
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Displays an image
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Img } from 'jsx-email';
+
+const Email = () => {
+  return <Img src="cat.jpg" alt="Cat" width="300" height="300" />;
+};
+```
+
+Tips
+
+All email clients can display `.png`, `.gif`, and `.jpg` images. Unfortunately, `.svg` images are not well supported, regardless of how they’re referenced, so avoid using these. See [Can I Email](https://www.caniemail.com/features/image-svg/) for more information.
+
+Tips
+
+To use local images during development, place the images in your templates directory. We recommend using a `assets/` or `static/` subdirectory. Images can then be accessed from the server root. Just remember, for production, you’ll need to host the images somewhere and reference them with a URL.
+
+```
+import { Img } from 'jsx-email';
+
+const baseUrl = import.meta.isJsxEmailPreview ?
+  ? '/assets/'
+  : 'https://assets.example.com/';
+
+const Email = () => {
+  return <Img src={`${baseUrl}cat.jpg`} alt="Cat" width="300" height="300" />;
+};
+```
+
+## Component Props
+
+```
+alt?: string;
+```
+
+Alternate description for an image
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+```
+height?: string;
+```
+
+The height of an image in pixels
+
+```
+src?: string;
+```
+
+The path to the image
+
+```
+width?: string;
+```
+
+The width of an image in pixels
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'img'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Link
+
+> Renders a hyperlink to an external resource
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Renders a hyperlink to an external resource
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Link } from 'jsx-email';
+
+const Email = () => {
+  return <Link href="https://example.com">Example</Link>;
+};
+```
+
+## Component Props
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+```
+href: string;
+```
+
+Link to be triggered when the button is clicked.
+
+```
+target?: string;
+```
+
+Specify the target attribute for the button link.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'a'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Markdown
+
+> Converts markdown input to valid HTML for email
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Converts markdown input to valid HTML for email
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Html, Markdown } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Markdown
+        markdownCustomStyles={{
+          h1: { color: 'red' },
+          h2: { color: 'blue' },
+          codeInline: { background: 'grey' }
+        }}
+        markdownContainerStyles={{
+          padding: '12px',
+          border: 'solid 1px black'
+        }}
+      >{`# Hello, World!`}</Markdown>
+
+      {/* OR */}
+
+      <Markdown children={`# This is a ~~strikethrough~~`} />
+    </Html>
+  );
+};
+```
+
+## Component Props
+
+```
+export interface MarkdownProps {
+  children: string;
+  markdownContainerStyles?: React.CSSProperties;
+  markdownCustomStyles?: StylesType;
+}
+```
+
+```
+children: string | string[];
+```
+
+Contains the markdown content that will be rendered in the email template
+
+```
+markdownContainerStyles?: React.CSSProperties;
+```
+
+Provide custom styles for the containing div that wraps the markdown content
+
+```
+markdownCustomStyles?: StylesType;
+```
+
+Provide custom styles for the corresponding html element (p, h1, h2, etc.)
+
+Tips
+
+Note: Passing a custom style for an element overrides the default styles.
+
+<!-- <Footer /> -->
+
+---
+
+# Preview
+
+> Renders a preview viewable in recipient email clients
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Renders a preview viewable in recipient email clients
+
+Tips
+
+Email clients have this concept of “preview text” which gives insight into what’s inside the email before you open. A good practice is to keep that text under 90 characters.
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Preview } from 'jsx-email';
+
+const Email = () => {
+  return <Preview>Email preview text</Preview>;
+};
+```
+
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'div'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Raw
+
+> Use raw HTML and unescaped text effortlessly
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Use raw HTML and unescaped text effortlessly
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+This component is especially useful for placing additional templating languages in your rendered email templates, for use in email providers which have their own value injection, or for further processing later in a separate system.
+
+IMPORTANT
+
+It’s important to understand that the values set as `content` will be placed into the rendered template unescaped. `jsx-email` goes to great lengths to validate and correct mistakes in HTML which may cause issues in email clients. Please use this component cautiously and thoughtfully.
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Raw } from 'jsx-email';
+
+const hero = true;
+
+const HeroOrVillain = () => {
+  return (
+    <>
+      <Raw content={`<#if ${hero}>`} />
+      <b>Batman's a hero</b>
+      <Raw content={`</#if>`} />
+    </>
+  );
+};
+```
+
+Which if used in a template, would yield the following when rendered:
+
+```
+<#if true>
+  <b>Batman's a hero</b>
+</#if>
+```
+
+## Component Props
+
+```
+content?: string;
+```
+
+The raw text content to render into a template
+
+```
+disablePlainTextOutput?: boolean;
+```
+
+If `true`, the content of the `Raw` component will not be rendered during plain text rendering
+
+<!-- <Footer /> -->
+
+---
+
+# Row
+
+> Separates content boundaries horizontally
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Separates content boundaries horizontally
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Column, Row, Section } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Section>
+      <Row>
+        <Column>A</Column>
+      </Row>
+      <Row>
+        <Column>B</Column>
+      </Row>
+      <Row>
+        <Column>C</Column>
+      </Row>
+    </Section>
+  );
+};
+```
+
+Info
+
+Though the `Row` component wraps a `table` element, it is not designed to identically mimic a `table`, rather provide a visual row element that has maximum email client compatibility. Setting `cellPadding` or `cellSpacing` on a `Row` component can achieve similar results to using a custom `table` element, but it’s not recommended. For custom behavior and for needs like `cellPadding` it’s recommended to use a `table` element instead of `Row`.
+
+## Component Props
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Section
+
+> Creates section boundaries that can be formatted with columns and rows
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+Creates section boundaries that can be formatted with columns and rows
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Column, Row, Section, Text } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <>
+      {/* A simple `section` */}
+      <Section>
+        <Text>Hello World</Text>
+      </Section>
+
+      {/* Formatted with `rows` and `columns` */}
+      <Section>
+        <Row>
+          <Column>Column 1, Row 1</Column>
+          <Column>Column 2, Row 1</Column>
+        </Row>
+        <Row>
+          <Column>Column 1, Row 2</Column>
+          <Column>Column 2, Row 2</Column>
+        </Row>
+      </Section>
+    </>
+  );
+};
+```
+
+Info
+
+Though the `Section` component wraps a `<table>` element, it’s not designed to mimic a `table` and has a specific use for email client compatibility and does not support setting `cellPadding` or `cellSpacing`. If attempting to use `Section` as a table, please consider using a `<table>` element. If using `Row` and `Column` with a `Section` and the need arises to set either `cellPadding` or `cellSpacing`, please set those properties on the appropriate `Row` component(s).
+
+## Component Props
+
+This component has no custom props, but expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'table'>` except for `cellPadding` and `cellSpacing`.
+
+<!-- <Footer /> -->
+
+---
+
+# Tailwind
+
+> A JSX email component which enables using Tailwind-style CSS to style emails
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component which enables using Tailwind-style CSS to style emails
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+Our `Tailwind` component is lightning quick and extensible. No other email template system is as flexible or renders smaller with Tailwind styles. That’s because we leverage the insanely fast and flexible [UnoCSS](https://unocss.dev/) project for Atomic CSS - including Tailwind *and* [Windi CSS](https://windicss.org/) support. Not only do you get Tailwind support, but also the vast ecosystem of UnoCSS possibilities.
+
+Tips
+
+These are docs for the unified `jsx-email` package, and the Tailwind component contained within.
+
+Docs for the deprecated `@jsx-email/tailwind` v3.0.0+ can be found at <https://github.com/shellscape/jsx-email/blob/tailwind-v3.0.4/docs/components/tailwind.md>
+
+## Usage
+
+Add the component around your email body content.
+
+```
+import { Button, Tailwind } from 'jsx-email';
+
+const Email = () => {
+  return (
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              brand: '#007291'
+            }
+          }
+        }
+      }}
+    >
+      <Button
+        href="https://example.com"
+        className="bg-brand px-3 py-2 font-medium leading-4 text-white"
+      >
+        Click me
+      </Button>
+    </Tailwind>
+  );
+};
+```
+
+Tips
+
+Note: Most email clients are style-limited and some styles may not work. It’s always recommended to use `email check` to check your CSS for client compatibility.
+
+## Component Props
+
+```
+export interface TailwindProps {
+  config?: UnoCssConfig;
+  production?: boolean;
+}
+```
+
+### Props
+
+```
+config?: UnoCssConfig;
+```
+
+This option allows customizing the theme for your template, using [UnoCSS Configuration](https://unocss.dev/config/) as well as UnoCSS `layers`, `presets`, `rules`, `separators`, `shortcuts`, and `variants`. See: [Configuration](https://unocss.dev/guide/config-file) for type and further information. For more information on theming and any of the other customization options, please see <https://unocss.dev/config/>.
+
+```
+production?: boolean;
+```
+
+If true, any Tailwind class names will be converted to hashed names. e.g. The class `bg-purple-400` is transformed into `#ae387`, with an accompanying class in the associated `<style>` tag. This is adventageous as it reduces the overall size of the rendered email. In email, every byte counts towards your user’s experience.
+
+Tips
+
+Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind />` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail’s rules.
+
+## Tailwind Plugins
+
+The `Tailwind` component isn’t compatible with [Tailwind Plugins](https://tailwindcss.com/docs/plugins) out of the box. This is a side-effect of using [UnoCSS](https://unocss.dev/) for our Tailwind processor. However, UnoCSS does have a set of commonly-used equivalent core [UnoCSS presets](https://unocss.dev/presets/), [Community Presets](https://unocss.dev/presets/community), and [Transformers](https://unocss.dev/transformers/variant-group). While not entirely ideal for 1:1 Tailwind plugin support, complex rulesets and plugins are an unlikely need for formatting emails. If you’d like to port a Tailwind plugin to an UnoCSS present, there is [documentation for that](https://unocss.dev/guide/presets) as well.
+
+Should you find yourself in need of a Tailwind Plugin for an email template, please stop by our [Discord Channel](https://discord.gg/FywZN57mTg) and we’ll be happy to help you.
+
+<!-- <Footer /> -->
+
+---
+
+# Text
+
+> A JSX email component which renders a paragraph element
+
+<!--
+  Portions of this component are derived from the Flue website.
+  Original source: https://github.com/withastro/flue/blob/d09472c9c94212a12e879cae72429c701d586041/apps/www/src/pages/index.astro
+  Copyright withastro/flue contributors.
+  Licensed under the Apache License, Version 2.0.
+  Modified for JSX email.
+-->
+
+<!-- Copy Prompt CTA.
+     Cluster of three AI-tool glyphs (retro-pixel / Web3 / modern)
+     that subtly splay outward on hover, hinting the prompt is
+     useful across a range of AI tools. On click, copies the configured
+     prompt to the clipboard and briefly swaps the label to confirm. -->
+
+Prompt
+
+<!--
+  This Astro component intentionally keeps its styles colocated with the
+  markup/script, so it is exempt from the repo's ~200-line source guidance.
+-->
+
+A JSX email component which renders a paragraph element
+
+pnpm
+
+aube
+
+bun
+
+npm
+
+yarn
+
+```
+pnpm add jsx-email
+```
+
+```
+aube add jsx-email
+```
+
+```
+bun add jsx-email
+```
+
+```
+npm add jsx-email
+```
+
+```
+yarn add jsx-email
+```
+
+## Usage
+
+Add the component to your email template. Include styles where needed.
+
+```
+import { Text } from 'jsx-email';
+
+const Email = () => {
+  return <Text>Lorem ipsum</Text>;
+};
+```
+
+## Component Props
+
+```
+disableDefaultStyle?: boolean;
+```
+
+If `true`, instructs the component *not to add* default `style` properties to the component. This can be useful when attempting to override default styles with `Tailwind` or class names.
+
+Tips
+
+This component also expresses all of the [Common Component Props](https://react.dev/reference/react-dom/components/common) for `ComponentProps<'p'>`.
+
+<!-- <Footer /> -->
+
+---
+
+# Email Integrations
+
+> Use JSX email with an Email Provider of your choice
+
+Use JSX email with an Email Provider of your choice
+
+Using JSX email with email providers or integrations is as simple as rendering the template you’ve already built. Rendering transforms your template from JSX/TSX into HTML, and optionally plain text. That’s accomplished with the [jsx-email `render`](/docs/core/render) method. *We’re going to assume that you’ve made it through the [Quick Start Guide](/docs/quick-start) before arriving here, and have an email template to use.*
+
+While JSX email can be used with just about any email provider that takes a string for content input, this page will demonstrate use with a few popular providers.
+
+## Plunk
+
+```
+import Plunk from '@plunk/node';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const plunk = new Plunk(process.env.PLUNK_API_KEY);
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+plunk.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  body: html
+});
+```
+
+## useSend
+
+useSend accepts both text and HTML content, which makes it a good fit when you want to send rendered JSX email output through its API.
+
+```
+import { render } from 'jsx-email';
+import { UseSend } from 'usesend-js';
+
+import { Template } from './emails/Batman.tsx';
+
+const usesend = new UseSend(process.env.USESEND_API_KEY!);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await usesend.emails.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## AWS SES
+
+```
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const ses = new SESv2Client({ region: process.env.AWS_SES_REGION });
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await ses.send(
+  new SendEmailCommand({
+    FromEmailAddress: 'penguin@joker.us',
+    Destination: {
+      ToAddresses: ['bruce@wayneinc.com']
+    },
+    Content: {
+      Simple: {
+        Body: {
+          Html: {
+            Charset: 'UTF-8',
+            Data: html
+          }
+        },
+        Subject: {
+          Charset: 'UTF-8',
+          Data: 'Did you get that thing I sent you?'
+        }
+      }
+    }
+  })
+);
+```
+
+## Bento
+
+Bento supports sending transactional emails with raw HTML, so JSX email can be rendered first and passed directly to the SDK.
+
+```
+import { Analytics } from '@bentonow/bento-node-sdk';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const bento = new Analytics({
+  authentication: {
+    publishableKey: process.env.BENTO_PUBLISHABLE_KEY!,
+    secretKey: process.env.BENTO_SECRET_KEY!
+  },
+  siteUuid: process.env.BENTO_SITE_UUID!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await bento.V1.Batch.sendTransactionalEmails({
+  emails: [
+    {
+      to: 'bruce@wayneinc.com',
+      from: 'penguin@joker.us',
+      subject: 'Did you get that thing I sent you?',
+      html_body: html
+    }
+  ]
+});
+```
+
+## Brevo
+
+Brevo’s transactional email API accepts rendered HTML content, which makes it a straightforward fit for JSX email.
+
+```
+import {
+  SendSmtpEmail,
+  TransactionalEmailsApi,
+  TransactionalEmailsApiApiKeys
+} from '@getbrevo/brevo';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const brevo = new TransactionalEmailsApi();
+brevo.setApiKey(TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY!);
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await brevo.sendTransacEmail(
+  new SendSmtpEmail({
+    sender: { email: 'penguin@joker.us', name: 'Copperpot' },
+    to: [{ email: 'bruce@wayneinc.com' }],
+    subject: 'Did you get that thing I sent you?',
+    htmlContent: html
+  })
+);
+```
+
+## Inbound
+
+Inbound can send both plain text and HTML bodies, so it’s easy to pass JSX email output into a transactional message.
+
+```
+import Inbound from 'inbound';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const inbound = new Inbound(process.env.INBOUND_API_KEY!);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await inbound.emails.send({
+  from: 'penguin@joker.us',
+  to: ['bruce@wayneinc.com'],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Loops
+
+Loops uses provider-hosted transactional templates instead of accepting raw HTML directly. In that setup, JSX email is not part of the final send path, but the SDK call looks like this:
+
+```
+import { LoopsClient } from 'loops';
+
+const loops = new LoopsClient(process.env.LOOPS_API_KEY!);
+
+await loops.sendTransactionalEmail({
+  transactionalId: 'password-reset',
+  email: 'bruce@wayneinc.com',
+  dataVariables: {
+    resetUrl: 'https://joker.us/reset'
+  }
+});
+```
+
+## Mailersend
+
+```
+import { render } from 'jsx-email';
+import { EmailParams, MailerSend, Recipient, Sender } from 'mailersend';
+
+import { Template } from './emails/Batman.tsx';
+
+const mailerSend = new MailerSend({
+  apiKey: process.env.MAILERSEND_API_KEY || ''
+});
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+const sentFrom = new Sender('penguin@joker.us', 'Copperpot');
+const recipients = [new Recipient('bruce@wayneinc.com', 'Bruce Wayne')];
+
+const params = new EmailParams()
+  .setFrom(sentFrom)
+  .setTo(recipients)
+  .setSubject('This is a Subject')
+  .setHtml(html);
+
+mailerSend.email.send(params);
+```
+
+## Mailgun
+
+Mailgun accepts rendered text and HTML content, so JSX email can be used directly with its messages API.
+
+```
+import FormData from 'form-data';
+import { render } from 'jsx-email';
+import Mailgun from 'mailgun.js';
+
+import { Template } from './emails/Batman.tsx';
+
+const mg = new Mailgun(FormData).client({
+  username: 'api',
+  key: process.env.MAILGUN_API_KEY!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await mg.messages.create(process.env.MAILGUN_DOMAIN!, {
+  from: 'Copperpot <penguin@joker.us>',
+  to: ['bruce@wayneinc.com'],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Mailtrap
+
+Mailtrap’s sending API also accepts raw HTML content, so it works cleanly with JSX email output.
+
+```
+import { render } from 'jsx-email';
+import { MailtrapClient } from 'mailtrap';
+
+import { Template } from './emails/Batman.tsx';
+
+const mailtrap = new MailtrapClient({
+  token: process.env.MAILTRAP_API_KEY!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await mailtrap.send({
+  from: { email: 'penguin@joker.us', name: 'Copperpot' },
+  to: [{ email: 'bruce@wayneinc.com' }],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Nodemailer
+
+```
+import { render } from 'jsx-email';
+import nodemailer from 'nodemailer';
+
+import { Template } from './emails/Batman.tsx';
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+const transport = nodemailer.createTransport({
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'batman',
+    pass: 'j0ker$mells!1'
+  }
+});
+
+await transport.sendMail({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html: html
+});
+```
+
+## Postmark
+
+```
+import { render } from 'jsx-email';
+import { ServerClient } from 'postmark';
+
+import { Template } from './emails/Batman.tsx';
+
+const client = new ServerClient(process.env.POSTMARK_API_KEY);
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+client.sendEmail({
+  From: 'penguin@joker.us',
+  To: 'bruce@wayneinc.com',
+  Subject: 'Did you get that thing I sent you?',
+  HtmlBody: html
+});
+```
+
+## Resend
+
+Tips
+
+The `resend` package ships with support for `react-email` with its `react` property on `sendEmail`. However, `react-email` is fairly far behind `jsx-email` in terms of functionality, and its render method cannot process the advanced features in `jsx-email`. Because of that, users should run jsx-email’s `render` method as shown below, to render html first, and pass that to the `sendEmail` function.
+
+```
+import { render } from 'jsx-email';
+import { Resend } from 'resend';
+
+import { Template } from './emails/Batman.tsx';
+
+const resend = new Resend('re_123456789');
+const template = <Template firstName="Bruce" lastName="Wayne" />;
+const html = await render(template);
+
+resend.sendEmail({
+  from: 'penguin@joker.us',
+  html,
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?'
+});
+```
+
+## Scaleway
+
+Scaleway’s transactional email service supports rendered HTML bodies, making it another straightforward transport option for JSX email.
+
+```
+import { createClient, TransactionalEmail } from '@scaleway/sdk';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+const client = createClient({
+  accessKey: process.env.SCALEWAY_ACCESS_KEY!,
+  secretKey: process.env.SCALEWAY_SECRET_KEY!,
+  defaultProjectId: process.env.SCALEWAY_PROJECT_ID!,
+  defaultRegion: 'fr-par',
+  defaultZone: 'fr-par-1'
+});
+
+const transactionalEmail = new TransactionalEmail.v1alpha1.API(client);
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await transactionalEmail.createEmail({
+  from: {
+    email: 'penguin@joker.us',
+    name: 'Copperpot'
+  },
+  to: [
+    {
+      email: 'bruce@wayneinc.com',
+      name: 'Bruce Wayne'
+    }
+  ],
+  subject: 'Did you get that thing I sent you?',
+  html
+});
+```
+
+## Sendgrid
+
+```
+import sendgrid from '@sendgrid/mail';
+import { render } from 'jsx-email';
+
+import { Template } from './emails/Batman.tsx';
+
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+
+const html = render(<Template firstName="Bruce" lastName="Wayne" />);
+
+sendgrid.send({
+  from: 'penguin@joker.us',
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  html: html
+});
+```
+
+## Sequenzy
+
+Sequenzy can send a transactional HTML body directly, so JSX email output can be handed off after rendering.
+
+```
+import { render } from 'jsx-email';
+import Sequenzy from 'sequenzy';
+
+import { Template } from './emails/Batman.tsx';
+
+const sequenzy = new Sequenzy({
+  apiKey: process.env.SEQUENZY_API_KEY!
+});
+
+const html = await render(<Template firstName="Bruce" lastName="Wayne" />);
+
+await sequenzy.transactional.send({
+  to: 'bruce@wayneinc.com',
+  subject: 'Did you get that thing I sent you?',
+  body: html
+});
+```
+
+<!-- <Footer /> -->
+
+---
+
+# Common Questions
+
+> You know the drill. Questions that get asked oodles
+
+You know the drill. Questions that get asked oodles
+
+## Dark and Light Mode
+
+Handling dark and light mode in emails is tricky, and doesn’t work exactly like one would expect with relevant experience handling modes on the web. Gmail and Outlook on Windows in particular, have essentially no support for color switching. There’s a lot of information (and misinformation) out there about dark and light mode when authoring emails, but we recommend taking a look at the following articles, which hit most of the important bits of info for authoring emails:
+
+* <https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers>
+* <https://web.dev/articles/color-scheme> (crucial web development related dark mode info)
+
+## Deploying Your Preview App
+
+Can I deploy my own preview app? Absolutely! The CLI has the ability to build a custom, deployable preview app using your templates. Please see [the documentation](https://jsx.email/docs/core/cli#deploying-your-preview-app) for more information.
+
+## Gmail and Tailwind
+
+Gmail is one of the more restrictive email clients when it comes to CSS classes. When using the `<Tailwind/>` component, set the `production: true` prop for Gmail compatibility. The `Tailwind` component will hash and combine class names for compatibility with Gmail’s rules.
+
+## Monorepo Setup
+
+`jsx-email` works out of the box with *nearly* every monorepo setup. There are no additional or exhaustive setup steps to perform. Enjoy!
+
+As an aside, `Nx` is just awful for monorepo tooling. Highly suggest using [Moon](https://moonrepo.dev/), [Turborepo](https://turbo.build/), or straight up [pnpm Workspaces](https://pnpm.io/workspaces).
+
+## Next.js `x await isn't allowed in non-async function` Build Errors
+
+If you’re a Next.js user and encountering an error when building your project which looks similar to:
+
+```
+8058.js from Terser
+  x await isn't allowed in non-async function
+```
+
+Then congratulations, you’ve been affected by Next.js using webpack, and some naughty configuration within Next.js. This is a [known issue with Next.js and Webpack](https://github.com/vercel/next.js/discussions/57535), and this may happen when a server action (or `use server`) is directly imported into a client component. To workaround this, there are two options:
+
+### I. Change imports
+
+You can import the server action into a server component first, and then pass it into your client component as a prop. For example:
+
+```
+// page.jsx
+import { MyForm } from './MyForm';
+import { myEmailAction } from './myEmailAction';
+
+export async function Page() {
+  return <MyForm action={myEmailAction} />;
+}
+
+// MyForm.jsx
+'use client';
+export function MyForm({ action }) {
+  // Note the passing of `action` as a prop
+  return <form action={action}>...</form>;
+}
+
+// myEmailAction.js
+'use server';
+import { render } from 'jsx-email';
+import { MyEmail } from '@/emails/MyEmail';
+
+export async function myEmailAction() {
+  const body = await render(<MyEmail />);
+  ...
+}
+```
+
+### II. Disable ESM Externals
+
+Alternatively, you can also turn off `esmExternals` in `next.config.js` which will allow you to keep importing server actions which use `jsx-email` into client components:
+
+```
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    esmExternals: false
+  }
+};
+
+module.exports = nextConfig;
+```
+
+## How do I use React context?
+
+Import context helpers from jsx-email instead of from React.
+
+```
+import { createContext, useContext } from 'jsx-email';
+```
+
+## I have another question that isn’t answered here!
+
+If you have a question that isn’t answered here, please [open an issue](https://github.com/shellscape/jsx-email/issues), start a [Discussion](https://github.com/shellscape/jsx-email/discussions), or [join our friendly Discord](https://discord.gg/FywZN57mTg) and ask away!
+
+If your question relates to a bug or code issue, we really do need you to create a minimal reproduction. Without a reproduction it is nearly impossible for us to work out what whether the problem might be in your code, your individual setup, or a bug in JSX email! The reproduction helps everyone by ensuring we’re all working with the same information.
+
+The reproduction should be a small, self-contained project. Try and narrow it down to just demonstrating what is causing the issue.
+
+It’s easy to do, and you can either:
+
+* Use the [`jsx-email-repro` StackBlitz reproduction template](https://stackblitz.com/fork/jsx-email-repro); or
+* Provide a minimal repository link. Read [this gist](https://gist.github.com/Rich-Harris/88c5fc2ac6dc941b22e7996af05d70ff) for instructions.
+
+Include the reproduction link with your question, and we’ll be happy to help!
+
+<!-- <Footer /> -->
+
+---
+
+# Inline CSS Plugin
+
+> The Inline CSS Plugin
+
+## Inline Plugin
+
+The `@jsx-email/plugin-inline` package provides a plugin to [Inline CSS](https://www.codecademy.com/article/html-inline-styles). That is to say, converting classes defined in the `class` attribute of an HTML element, to the appropriate CSS declarations appended to a `style` attribute. This plugin is a `peerDependency` of `jsx-email` and is loaded automatically if the [`inline` render option](https://jsx.email/docs/core/render#method-options) is set.
+
+If your package manager is configured not to automatically install peer dependencies, install `@jsx-email/plugin-inline` manually before using `inlineCss`.
+
+Browse this plugin’s [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-inline)
+
+## Why
+
+This can be extremely useful when working with email clients like Gmail, which do not keep `<style>` elements when forwarding or replying to emails. Using inline CSS will assert that the style and visuals of the email remain the same in replies and forwards. For example, it will take HTML that looks like this:
+
+```
+<style>
+  .batman {
+    border: 1px solid black;
+  }
+</style>
+<div class="batman">batcave</div>
+```
+
+And transform it to this:
+
+```
+<div style="border: 1px solid black">batcave</div>
+```
+
+There is one “gotcha” when using this plugin - it will significantly increase the size in bytes of the email HTML. Bear in mind that email clients (like Gmail) will clip an email if it surpases their size limits, forcing a recipient to click a “Show Full Message” button at the bottom of their email. Be sure to keep an eye on the console output when running [`render`](https://jsx.email/docs/core/render) as it will alert you if the size of the HTML is too large.
+
+<!-- <Footer /> -->
+
+---
+
+# Minify Plugin
+
+> The Minify Plugin
+
+## Inline Plugin
+
+The `@jsx-email/plugin-minify` package provides a plugin to [minify](https://en.wikipedia.org/wiki/Minification_\(programming\)) an email’s HTML output. This plugin is a `peerDependency` of `jsx-email` and is loaded automatically if the [`minify` render option](https://jsx.email/docs/core/render#method-options) is set.
+
+If your package manager is configured not to automatically install peer dependencies, install `@jsx-email/plugin-minify` manually before using `minify`.
+
+Browse this plugin’s [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-minify)
+
+## Why
+
+Minifying the HTML for an email is very beneficial when working with emails that have a large amount of content. Email clients (like Gmail) will clip an email if it surpases their size limits, forcing a recipient to click a “Show Full Message” button at the bottom of their email. Be sure to keep an eye on the console output when running [`render`](https://jsx.email/docs/core/render) as it will alert you if the size of the HTML is too large.
+
+<!-- <Footer /> -->
+
+---
+
+# Pretty Plugin
+
+> The Pretty Plugin
+
+## Inline Plugin
+
+The `@jsx-email/plugin-pretty` package provides a plugin to format an email’s HTML output in an easy-to-read format. This plugin is a `peerDependency` of `jsx-email` and is loaded automatically if the [`pretty` render option](https://jsx.email/docs/core/render#method-options) is set.
+
+If your package manager is configured not to automatically install peer dependencies, install `@jsx-email/plugin-pretty` manually before using `pretty`.
+
+Browse this plugin’s [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-pretty)
+
+## Why
+
+Mostly useful for debugging, and in preview environments, prettifying code in general makes it easy to read, nagivate, and look for problems. We don’t recommend using this for production, but it’s very handy for development.
+
+<!-- <Footer /> -->
+
+---
+
+# Recipes
+
+> Recipes for jsx-email
+
+## 🧁 jsx-email Recipes
+
+Recipes are actual, working examples of jsx-email features and techniques that can be copied and pasted. They help users to understand how a thing works outside of the documentation.
+
+### Available recipes:
+
+|    |               |                                                                                             |
+| -- | ------------- | ------------------------------------------------------------------------------------------- |
+| 🧁 | Importing CSS | [/recipes/import-css](https://github.com/shellscape/jsx-email/tree/main/recipes/import-css) |
+
+### External Recipes
+
+|    |                                |                                                                                                                  |
+| -- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| 🧁 | Integration with Keycloak(ify) | [github.com/timofei-iatsenko/keycloakify-jsx-emails](https://github.com/timofei-iatsenko/keycloakify-jsx-emails) |
+
+
+
+Don’t see a recipe that you’d like to? [Open an Issue!](https://github.com/shellscape/jsx-email/issues/new?assignees=\&labels=\&projects=\&template=DOCS.md)
+
+<!-- <Footer /> -->
+
+---
+
+# Migrating to v3
+
+> Migrating to Version 3.0.0
+
+## Migrating to Version 3.0.0
+
+Version 3.0.0 of `jsx-email` modernizes the runtime, package exports, preview app, and CLI. It also removes the v1 compatibility escape hatch that was deprecated during the v2 cycle.
+
+This guide was compiled from the `next/v3` branch history, the PRs merged into `next/v3`, and the v2 migration guide.
+
+## Quick Checklist
+
+* Use Node.js `22.0.0` or newer.
+* Use React `19.1.0` and React DOM `19.1.0` or newer.
+* Replace `Butan` usage with the current `Button` component.
+* Use `create-mail` for new projects instead of the old create package.
+* Review `Raw` and `Conditional` output if you snapshot rendered HTML.
+
+## Breaking Changes
+
+### Node.js 22 Minimum
+
+All v3 packages set the minimum Node runtime to `>=22.0.0`. Upgrade local development, CI, deployment images, and package manager toolchains before upgrading `jsx-email`.
+
+```
+{
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
+```
+
+### React 19 Peer Dependencies
+
+The v3 branch targets React 19. Projects should move to React and React DOM `^19.1.0`.
+
+```
+npm install jsx-email react@^19.1.0 react-dom@^19.1.0
+```
+
+TypeScript projects should also update React types to the matching v19 range.
+
+### ESM-only Package Entrypoints
+
+All `jsx-email` related packages, including plugins, are now ESM-only. While this is a breaking change, v3 also requires Node 22+ which now has compatibilty for `require`ing ESM modules. So there should be no fundamental changes to make, only something to be aware of.
+
+If your project is still CommonJS, please consider migrating to ESM-only.
+
+### `Butan` Has Been Removed
+
+The v2 migration guide marked `Butan` as deprecated and stated that it would be removed in the next major version. In v3, `Butan` is no longer exported from `jsx-email`.
+
+Before:
+
+```
+import { Butan } from 'jsx-email';
+
+<Butan href="https://example.com" style={{ padding: '10px 20px' }}>
+  Click me
+</Butan>;
+```
+
+After:
+
+```
+import { Button } from 'jsx-email';
+
+<Button
+  href="https://example.com"
+  width={160}
+  height={44}
+  backgroundColor="#111827"
+  borderRadius={6}
+  textColor="#ffffff"
+>
+  Click me
+</Button>;
+```
+
+The current `Button` component is the supported path and is designed around explicit email-safe props rather than relying primarily on CSS styles.
+
+### `create-mail` Replaces the Old Create Package
+
+Use `create-mail` for new projects. The v3 scaffold targets Node 22 and includes React 19 and React DOM 19 in generated project dev dependencies.
+
+```
+npx create-mail my-email-project
+```
+
+### `Raw` and `Conditional` Rendering Changed Internally
+
+The public component APIs remain the same, but the renderer now uses a rehype-based pipeline for `Raw` and `Conditional` output. This can change rendered HTML details and snapshots.
+
+Review output if you rely on exact HTML strings. The v3 behavior includes:
+
+* multiline `Raw` HTML emitted verbatim
+* nested `Raw` inside `Conditional` preserved correctly
+* safer conditional comment closing syntax
+* improved placement for head-aware conditional content
+
+## CLI Changes
+
+### `--use-preview-props` Works for `build` and `check`
+
+`email build` and `email check` both support `--use-preview-props`. When set, the CLI uses the template’s exported `previewProps` instead of separately supplied props.
+
+```
+email build ./emails --use-preview-props
+email check ./emails/welcome.tsx --use-preview-props
+```
+
+### `check` Supports `--email-clients`
+
+`email check` can limit compatibility validation to a comma-separated list of email clients.
+
+```
+email check ./emails/welcome.tsx --email-clients gmail,outlook
+```
+
+The v3 check command remains caniemail-based.
+
+## New Components
+
+These additions do not require migration, but they are new in v3 branch work and may replace custom code in your project:
+
+* `Avatar`
+* `AvatarGroup`
+* `Background`
+* `Barcode`
+* `QrCode`
+* `AztecCode`
+* `DataMatrix`
+* `Code128Barcode`
+* `Code39Barcode`
+* `EanBarcode`
+* `UpcBarcode`
+
+## Package-level Notes
+
+### `jsx-email`
+
+* ESM-only
+* Node minimum is `>=22.0.0`
+* React peer dependencies target React 19
+* `Butan` is removed
+* `Avatar`, `AvatarGroup`, `Background`, and barcode components are new
+
+### `create-mail`
+
+* Use this package for scaffolding.
+* Generated projects include React 19 and React DOM 19 as dev dependencies, plus the v3 runtime assumptions.
+
+## References
+
+* [`next/v3` merged PRs](https://github.com/shellscape/jsx-email/pulls?q=is%3Apr+base%3Anext%2Fv3+is%3Amerged)
+* [Node 22 minimum PR #419](https://github.com/shellscape/jsx-email/pull/419)
+* [ESM compile export PR #414](https://github.com/shellscape/jsx-email/pull/414)
+* [ESM plugin entrypoints PR #415](https://github.com/shellscape/jsx-email/pull/415)
+* [`--use-preview-props` CLI PR #358](https://github.com/shellscape/jsx-email/pull/358)
+* [`--email-clients` check PR #421](https://github.com/shellscape/jsx-email/pull/421)
+* [Raw and Conditional renderer PR #360](https://github.com/shellscape/jsx-email/pull/360)
+* [Create-mail scaffold PR #359](https://github.com/shellscape/jsx-email/pull/359)
+* [Avatar components PR #417](https://github.com/shellscape/jsx-email/pull/417)
+* [Barcode components PR #416](https://github.com/shellscape/jsx-email/pull/416)
+* [Migrating to v2](https://jsx.email/docs/v2/migration)
+
+<!-- <Footer /> -->
+
+---
+
+# Contributing
+
+> We 💛 contributions!
+
+We 💛 contributions! The rules for contributing to this org are few:
+
+1. Don’t be a jerk
+2. Search issues before opening a new one
+3. Lint and run tests locally before submitting a PR
+4. Adhere to the code style the project has chosen
+
+## Repo Info
+
+The `jsx-email` repository is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) that uses two primary tools; [`pnpm`](https://pnpm.io/) and [`Moon`](https://moonrepo.dev/). `pnpm` is used for package management and [workspace management](https://pnpm.io/workspaces) of the repo. `Moon` is used as our task runner for the repo - all commands to work with the packages and code in the repo go through `Moon`. We also assume that you have Node.js installed, because this is a project that leverages React.
+
+### Getting Started
+
+If you’re new to either `pnpm` or `Moon` you’ll want to run the `bootstrap.sh` script first. It will install everything you’ll need to get started, and bootstrap your environment:
+
+```
+$ ./shared/bootstrap.sh
+```
+
+Next we’ll want to get dependencies installed, and get everything built. *(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don’t technically have to install dependencies first)*:
+
+```
+$ pnpm install
+```
+
+Then build all the things:
+
+```
+$ moon repo:build.all
+```
+
+## Before Committing
+
+1. Use at least Node.js v22.0.0 or higher. [NVM](https://github.com/creationix/nvm) can be handy for switching between Node versions.
+2. Lint your changes via `moon run repo:lint`. Fix any errors and warnings before committing.
+3. Test your changes via `moon run repo:test`. Only Pull Requests with passing tests will be accepted.
+
+## Submitting Code
+
+Any code change should be submitted as a pull request. Our guidelines for Pull Requests:
+
+* Please fill in our template in its entirety. Please don’t reformat it or modify it
+* The description should explain what the code does and give steps to execute it
+* The pull request should also contain tests
+* Before submitting your Pull Request, please lint your changes by running `moon run repo:lint` in the root directory
+* If any checks fail for your Pull Request, please resolve them. Always feel free to ask for help if unable to resolve issues with checks
+
+## Code Review Process
+
+The bigger the pull request, the longer it will take to review and merge. Try to break down large pull requests in smaller chunks that are easier to review and merge.
+
+It is also always helpful to have some context for your pull request. What was the purpose? Why does it matter to you? Does it resolve any known Github issues? Adding a line “resolves #\<issue number>” (e.g. “resolves #23”) to the description of your pull request or of a specific commit will automatically close this issue once the pull request is merged.
+
+<!-- <Footer /> -->
