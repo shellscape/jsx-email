@@ -1,0 +1,326 @@
+<SYSTEM>Compact JSX email documentation outline.</SYSTEM>
+
+# Introduction
+
+> Build and send emails using React and TypeScript.
+
+
+
+---
+
+# Quick Start
+
+> Quick Start
+
+
+
+---
+
+# CLI
+
+> The Command Line Interface and developer tooling for JSX email
+
+
+
+---
+
+# Compile
+
+> Compile jsx-email templates into a bundle
+
+
+
+---
+
+# Configuration
+
+> Configuration
+
+
+
+---
+
+# Plugins
+
+> Plugins
+
+
+
+---
+
+# Render
+
+> Render JSX email components to HTML email
+
+
+
+---
+
+# Avatar
+
+> Displays a profile avatar with image and fallback support
+
+
+
+---
+
+# AvatarGroup
+
+> Displays a group of avatars with optional overlap
+
+
+
+---
+
+# Background
+
+> A JSX email component for background images in your Email template
+
+
+
+---
+
+# Barcode
+
+> Render email-safe 1D and 2D barcodes as HTML tables
+
+
+
+---
+
+# Body
+
+> A JSX email component for using a React `Body` component to wrap email content
+
+
+
+---
+
+# Button
+
+> A JSX email component which styles an anchor element to appear as a button
+
+
+
+---
+
+# Code
+
+> A JSX email component which displays a syntax-highlighted code block using <a href="https://shiki.matsu.io/">Shiki</a>
+
+
+
+---
+
+# ColorScheme
+
+> A JSX email component which provides meta and style foundations for color scheme support
+
+
+
+---
+
+# Column
+
+> A JSX email component which displays columns that separate content bounaries vertically
+
+
+
+---
+
+# Conditional
+
+> Use HTML conditional comments effortlessly
+
+
+
+---
+
+# Container
+
+> Horizontally center child components and content
+
+
+
+---
+
+# Font
+
+> Sets up custom fonts for use in email
+
+
+
+---
+
+# Graph
+
+> A JSX email component for displaying graphs in your Email template
+
+
+
+---
+
+# Head
+
+> A JSX email component which creates an HTML head element
+
+
+
+---
+
+# Heading
+
+> A stylable heading (h1, h2, etc) element
+
+
+
+---
+
+# Hr
+
+> Creates divider (horizontal rule) that separates content
+
+
+
+---
+
+# HTML
+
+> Wraps the email document with a root element
+
+
+
+---
+
+# Image
+
+> Displays an image
+
+
+
+---
+
+# Link
+
+> Renders a hyperlink to an external resource
+
+
+
+---
+
+# Markdown
+
+> Converts markdown input to valid HTML for email
+
+
+
+---
+
+# Preview
+
+> Renders a preview viewable in recipient email clients
+
+
+
+---
+
+# Raw
+
+> Use raw HTML and unescaped text effortlessly
+
+
+
+---
+
+# Row
+
+> Separates content boundaries horizontally
+
+
+
+---
+
+# Section
+
+> Creates section boundaries that can be formatted with columns and rows
+
+
+
+---
+
+# Tailwind
+
+> A JSX email component which enables using Tailwind-style CSS to style emails
+
+
+
+---
+
+# Text
+
+> A JSX email component which renders a paragraph element
+
+
+
+---
+
+# Email Integrations
+
+> Use JSX email with an Email Provider of your choice
+
+
+
+---
+
+# Common Questions
+
+> You know the drill. Questions that get asked oodles
+
+
+
+---
+
+# Inline CSS Plugin
+
+> The Inline CSS Plugin
+
+
+
+---
+
+# Minify Plugin
+
+> The Minify Plugin
+
+
+
+---
+
+# Pretty Plugin
+
+> The Pretty Plugin
+
+
+
+---
+
+# Recipes
+
+> Recipes for jsx-email
+
+
+
+---
+
+# Migrating to v3
+
+> Migrating to Version 3.0.0
+
+
+
+---
+
+# Contributing
+
+> We 💛 contributions!
+

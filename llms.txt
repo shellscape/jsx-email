@@ -1,0 +1,20 @@
+# JSX email
+
+> JSX email provides React and TypeScript components and helpers for building responsive, standards-compliant email templates compatible with modern email clients.
+
+Use these docs for JSX email component APIs, CLI usage, rendering, compilation, plugins, Tailwind support, preview tooling, and provider integration guidance.
+
+## Documentation Sets
+
+- [Complete documentation](https://jsx.email/llms-full.txt): Full JSX email documentation as Markdown.
+- [Compact documentation](https://jsx.email/llms-small.txt): Compact JSX email documentation outline.
+
+## Notes
+
+- Generated from the official JSX email documentation.
+- Prefer the full docs file for complete context and the small docs file for a compact outline.
+
+## Optional
+
+- [GitHub](https://github.com/shellscape/jsx-email): Source repository for JSX email.
+- [npm](https://www.npmjs.com/package/jsx-email): jsx-email package on npm.

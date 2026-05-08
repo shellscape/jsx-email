@@ -1,0 +1,515 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gallery - Blocks - JSX Email</title><meta name="description" content="Build and send emails using JSX with a delightful developer experience"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"><script>
+      const starlightTheme = localStorage.getItem('starlight-theme');
+      const savedTheme = starlightTheme || localStorage.getItem('theme') || 'system';
+      const normalizedTheme = savedTheme === 'auto' ? 'system' : savedTheme;
+      const resolvedTheme =
+        normalizedTheme === 'system'
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+          : normalizedTheme;
+
+      document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+      document.documentElement.classList.toggle('light', resolvedTheme !== 'dark');
+      document.documentElement.style.colorScheme = resolvedTheme;
+    </script><style>.tippy-box[data-animation=fade][data-state=hidden]{opacity:0}[data-tippy-root]{max-width:calc(100vw - 10px)}.tippy-box{background-color:#333;border-radius:4px;color:#fff;font-size:14px;line-height:1.4;outline:0;position:relative;transition-property:transform,visibility,opacity;white-space:normal}.tippy-box[data-placement^=top]>.tippy-arrow{bottom:0}.tippy-box[data-placement^=top]>.tippy-arrow:before{border-top-color:initial;border-width:8px 8px 0;bottom:-7px;left:0;transform-origin:center top}.tippy-box[data-placement^=bottom]>.tippy-arrow{top:0}.tippy-box[data-placement^=bottom]>.tippy-arrow:before{border-bottom-color:initial;border-width:0 8px 8px;left:0;top:-7px;transform-origin:center bottom}.tippy-box[data-placement^=left]>.tippy-arrow{right:0}.tippy-box[data-placement^=left]>.tippy-arrow:before{border-left-color:initial;border-width:8px 0 8px 8px;right:-7px;transform-origin:center left}.tippy-box[data-placement^=right]>.tippy-arrow{left:0}.tippy-box[data-placement^=right]>.tippy-arrow:before{border-right-color:initial;border-width:8px 8px 8px 0;left:-7px;transform-origin:center right}.tippy-box[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.54,1.5,.38,1.11)}.tippy-arrow{color:#333;height:16px;width:16px}.tippy-arrow:before{border-color:#0000;border-style:solid;content:"";position:absolute}.tippy-content{padding:5px 9px;position:relative;z-index:1}
+</style>
+<link rel="stylesheet" href="/_astro/Layout.DYGMbqsu.css">
+<style>.logo-wordmark[data-astro-cid-ksilfqi2]{display:block;height:auto;max-width:100%;width:auto}.logo-wrap[data-astro-cid-ps6ru5vp]{align-items:center;color:#000;cursor:pointer;display:inline-flex;max-width:100%;min-height:40px;width:var(--sidebar-width)}html.dark .logo-wrap[data-astro-cid-ps6ru5vp]{color:#fff}
+.block-preview-tab[data-astro-cid-h4xqnlqv]{border-radius:4px;color:#4b5563;font-size:12px;font-weight:500;padding:4px 12px;transition:color .15s ease,background-color .15s ease}.block-preview-tab[data-astro-cid-h4xqnlqv]:hover{color:#111827}.block-preview-tab-active[data-astro-cid-h4xqnlqv]{background-color:#fff;color:#111827}.block-preview[data-astro-cid-h4xqnlqv]{--astro-code-background:var(--astro-code-color-background);--astro-code-color-text:#414141;--astro-code-color-background:transparent;--astro-code-foreground:var(--astro-code-color-text);--astro-code-token-constant:#1976d2;--astro-code-token-string:#22863a;--astro-code-token-comment:#aaa;--astro-code-token-keyword:#d32f2f;--astro-code-token-parameter:#ff9800;--astro-code-token-function:#6f42c1;--astro-code-token-string-expression:#22863a;--astro-code-token-punctuation:#212121;--astro-code-token-link:#22863a}.code-panel[data-astro-cid-h4xqnlqv]{background-color:#fafafa}.copy-code-button[data-astro-cid-h4xqnlqv]{background:#f5f5f5;border:1px solid #e0e1e3;border-radius:2px;color:#111827;font-size:13px;padding:4px 12px;transition:background-color .15s ease,border-color .15s ease}.copy-code-button[data-astro-cid-h4xqnlqv]:hover{background:#eee;border-color:#d1d5db}.code-scroll[data-astro-cid-h4xqnlqv] pre{background-color:#fafafa!important;border:1px solid #e4e4e5;border-radius:2px;font-family:Menlo,ui-monospace,SFMono-Regular,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-size:13px;font-weight:500;line-height:1.25rem;margin:0;min-height:100%;overflow-x:auto;padding:1rem 0;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-font-smoothing:auto}.code-scroll[data-astro-cid-h4xqnlqv] code{background:none!important;border-style:none!important;display:grid;line-height:1.25rem;min-width:100%;padding:0!important}.code-scroll[data-astro-cid-h4xqnlqv] .line{display:block;min-height:1.25rem;padding-left:1rem;padding-right:1rem}html.dark .block-preview-tab[data-astro-cid-h4xqnlqv]{color:#9ca3af}html.dark .block-preview[data-astro-cid-h4xqnlqv]{--astro-code-color-text:#d1d1d1;--astro-code-token-constant:#79b8ff;--astro-code-token-string:#ffab70;--astro-code-token-comment:#6b737c;--astro-code-token-keyword:#f97583;--astro-code-token-parameter:#ff9800;--astro-code-token-function:#b392f0;--astro-code-token-string-expression:#4bb74a;--astro-code-token-punctuation:#bbb;--astro-code-token-link:#ffab70}html.dark .block-preview-tab-active[data-astro-cid-h4xqnlqv],html.dark .block-preview-tab[data-astro-cid-h4xqnlqv]:hover{color:#fff}html.dark .block-preview-tab-active[data-astro-cid-h4xqnlqv]{background-color:#4b5563}html.dark .code-panel[data-astro-cid-h4xqnlqv],html.dark .code-scroll[data-astro-cid-h4xqnlqv] pre{background-color:#1a1a1a!important}html.dark .code-scroll[data-astro-cid-h4xqnlqv] pre{border-color:#292929}html.dark .copy-code-button[data-astro-cid-h4xqnlqv]{background-color:#141414;border-color:#292929;color:#c4c5c6}html.dark .copy-code-button[data-astro-cid-h4xqnlqv]:hover{background-color:#1f1f1f;border-color:#3a3a3a}
+</style><script type="module" src="/_astro/page.DOTXyZMP.js"></script></head> <body class="bg-white dark:bg-black text-black dark:text-white font-sans antialiased">  <header class="fixed top-0 left-0 w-full z-50 bg-white/90 dark:bg-black/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800"> <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between"> <!-- Logo --> <a href="/" class="logo-wrap" aria-label="JSX email home" data-astro-cid-ps6ru5vp> <svg class="logo-wordmark" height="36" viewBox="0 0 547 134" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-astro-cid-ksilfqi2> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.199951 50V109V113H4.19995H121.8H125.8V109V50H117.8V105H8.19995V50H0.199951Z" fill="currentColor" data-astro-cid-ksilfqi2></path> <path d="M0 53.429V47.4258L48.3069 22.8124V32.4176L11.2516 50.2773L11.5517 49.677V51.1778L11.2516 50.5775L48.3069 68.4372V78.0424L0 53.429Z" fill="currentColor" data-astro-cid-ksilfqi2></path> <path d="M79.4367 0L54.6832 92H46.582L71.3356 0H79.4367Z" fill="currentColor" data-astro-cid-ksilfqi2></path> <path d="M126 53.429L77.6931 78.0424V68.4372L114.748 50.5775L114.448 51.1778V49.677L114.748 50.2773L77.6931 32.4176V22.8124L126 47.4258V53.429Z" fill="currentColor" data-astro-cid-ksilfqi2></path> <path d="M167.01 111.54C163.47 111.54 160.14 110.76 157.02 109.2C153.96 107.64 151.5 105.42 149.64 102.54L153.51 98.04C155.25 100.56 157.26 102.48 159.54 103.8C161.82 105.12 164.34 105.78 167.1 105.78C174.9 105.78 178.8 101.16 178.8 91.92V53.76H155.76V48H185.37V91.65C185.37 98.31 183.81 103.29 180.69 106.59C177.63 109.89 173.07 111.54 167.01 111.54ZM235.318 111.54C230.638 111.54 226.138 110.79 221.818 109.29C217.558 107.73 214.258 105.75 211.918 103.35L214.528 98.22C216.748 100.38 219.718 102.21 223.438 103.71C227.218 105.15 231.178 105.87 235.318 105.87C239.278 105.87 242.488 105.39 244.948 104.43C247.468 103.41 249.298 102.06 250.438 100.38C251.638 98.7 252.238 96.84 252.238 94.8C252.238 92.34 251.518 90.36 250.078 88.86C248.698 87.36 246.868 86.19 244.588 85.35C242.308 84.45 239.788 83.67 237.028 83.01C234.268 82.35 231.508 81.66 228.748 80.94C225.988 80.16 223.438 79.14 221.098 77.88C218.818 76.62 216.958 74.97 215.518 72.93C214.138 70.83 213.448 68.1 213.448 64.74C213.448 61.62 214.258 58.77 215.878 56.19C217.558 53.55 220.108 51.45 223.528 49.89C226.948 48.27 231.328 47.46 236.668 47.46C240.208 47.46 243.718 47.97 247.198 48.99C250.678 49.95 253.678 51.3 256.198 53.04L253.948 58.35C251.248 56.55 248.368 55.23 245.308 54.39C242.308 53.55 239.398 53.13 236.578 53.13C232.798 53.13 229.678 53.64 227.218 54.66C224.758 55.68 222.928 57.06 221.728 58.8C220.588 60.48 220.018 62.4 220.018 64.56C220.018 67.02 220.708 69 222.088 70.5C223.528 72 225.388 73.17 227.668 74.01C230.008 74.85 232.558 75.6 235.318 76.26C238.078 76.92 240.808 77.64 243.508 78.42C246.268 79.2 248.788 80.22 251.068 81.48C253.408 82.68 255.268 84.3 256.648 86.34C258.088 88.38 258.808 91.05 258.808 94.35C258.808 97.41 257.968 100.26 256.288 102.9C254.608 105.48 252.028 107.58 248.548 109.2C245.128 110.76 240.718 111.54 235.318 111.54ZM275.959 111L301.789 76.08V81.21L277.489 48H285.139L305.569 75.72L302.599 75.81L323.029 48H330.229L306.199 80.76V76.08L331.939 111H324.199L302.419 81.39H305.209L283.609 111H275.959Z" fill="currentColor" data-astro-cid-ksilfqi2></path> <path d="M157.02 109.2L156.566 110.091L156.573 110.094L157.02 109.2ZM149.64 102.54L148.882 101.888L148.394 102.455L148.8 103.083L149.64 102.54ZM153.51 98.04L154.333 97.4718L153.597 96.4056L152.752 97.388L153.51 98.04ZM159.54 103.8L160.041 102.935L160.041 102.935L159.54 103.8ZM178.8 53.76H179.8V52.76H178.8V53.76ZM155.76 53.76H154.76V54.76H155.76V53.76ZM155.76 48V47H154.76V48H155.76ZM185.37 48H186.37V47H185.37V48ZM180.69 106.59L179.963 105.903L179.957 105.91L180.69 106.59ZM167.01 110.54C163.623 110.54 160.446 109.795 157.467 108.306L156.573 110.094C159.834 111.725 163.317 112.54 167.01 112.54V110.54ZM157.474 108.309C154.571 106.829 152.244 104.729 150.48 101.997L148.8 103.083C150.756 106.111 153.349 108.451 156.566 110.091L157.474 108.309ZM150.398 103.192L154.268 98.692L152.752 97.388L148.882 101.888L150.398 103.192ZM152.687 98.6082C154.498 101.23 156.612 103.26 159.039 104.665L160.041 102.935C157.908 101.7 156.002 99.8898 154.333 97.4718L152.687 98.6082ZM159.039 104.665C161.479 106.078 164.173 106.78 167.1 106.78V104.78C164.507 104.78 162.161 104.162 160.041 102.935L159.039 104.665ZM167.1 106.78C171.203 106.78 174.447 105.557 176.639 102.96C178.804 100.396 179.8 96.6567 179.8 91.92H177.8C177.8 96.4233 176.846 99.6144 175.111 101.67C173.403 103.693 170.797 104.78 167.1 104.78V106.78ZM179.8 91.92V53.76H177.8V91.92H179.8ZM178.8 52.76H155.76V54.76H178.8V52.76ZM156.76 53.76V48H154.76V53.76H156.76ZM155.76 49H185.37V47H155.76V49ZM184.37 48V91.65H186.37V48H184.37ZM184.37 91.65C184.37 98.1723 182.841 102.86 179.963 105.903L181.417 107.277C184.779 103.72 186.37 98.4477 186.37 91.65H184.37ZM179.957 105.91C177.145 108.942 172.892 110.54 167.01 110.54V112.54C173.248 112.54 178.115 110.838 181.423 107.27L179.957 105.91ZM221.818 109.29L221.474 110.229L221.482 110.232L221.49 110.235L221.818 109.29ZM211.918 103.35L211.027 102.897L210.702 103.535L211.202 104.048L211.918 103.35ZM214.528 98.22L215.225 97.5033L214.252 96.5565L213.637 97.7665L214.528 98.22ZM223.438 103.71L223.064 104.637L223.073 104.641L223.082 104.644L223.438 103.71ZM244.948 104.43L245.311 105.362L245.323 105.357L244.948 104.43ZM250.438 100.38L249.624 99.7988L249.617 99.8085L249.61 99.8185L250.438 100.38ZM250.078 88.86L249.342 89.5371L249.349 89.5449L249.357 89.5525L250.078 88.86ZM244.588 85.35L244.221 86.2802L244.231 86.2844L244.242 86.2883L244.588 85.35ZM228.748 80.94L228.476 81.9023L228.486 81.9051L228.495 81.9076L228.748 80.94ZM221.098 77.88L220.614 78.7553L220.624 78.7605L221.098 77.88ZM215.518 72.93L214.682 73.4792L214.691 73.4931L214.701 73.5067L215.518 72.93ZM215.878 56.19L215.034 55.6531L215.031 55.6582L215.878 56.19ZM223.528 49.89L223.943 50.7998L223.949 50.7968L223.956 50.7937L223.528 49.89ZM247.198 48.99L246.917 49.9496L246.924 49.9519L246.932 49.954L247.198 48.99ZM256.198 53.04L257.119 53.4301L257.436 52.68L256.766 52.2171L256.198 53.04ZM253.948 58.35L253.393 59.182L254.398 59.8517L254.869 58.7401L253.948 58.35ZM245.308 54.39L245.038 55.353L245.043 55.3543L245.308 54.39ZM227.218 54.66L226.835 53.7363L226.835 53.7363L227.218 54.66ZM221.728 58.8L220.905 58.2322L220.9 58.2385L221.728 58.8ZM222.088 70.5L221.352 71.1771L221.359 71.1849L221.367 71.1925L222.088 70.5ZM227.668 74.01L227.322 74.9484L227.33 74.9512L227.668 74.01ZM235.318 76.26L235.085 77.2326L235.085 77.2326L235.318 76.26ZM243.508 78.42L243.23 79.3807L243.236 79.3823L243.508 78.42ZM251.068 81.48L250.584 82.3552L250.598 82.3627L250.612 82.3698L251.068 81.48ZM256.648 86.34L255.82 86.9003L255.825 86.9086L255.831 86.9167L256.648 86.34ZM256.288 102.9L257.126 103.446L257.132 103.437L256.288 102.9ZM248.548 109.2L248.963 110.11L248.97 110.107L248.548 109.2ZM235.318 110.54C230.747 110.54 226.358 109.808 222.146 108.345L221.49 110.235C225.918 111.772 230.529 112.54 235.318 112.54V110.54ZM222.162 108.351C217.995 106.825 214.839 104.914 212.634 102.652L211.202 104.048C213.676 106.586 217.121 108.635 221.474 110.229L222.162 108.351ZM212.809 103.803L215.419 98.6735L213.637 97.7665L211.027 102.897L212.809 103.803ZM213.831 98.9367C216.167 101.21 219.257 103.103 223.064 104.637L223.812 102.783C220.178 101.317 217.329 99.5503 215.225 97.5033L213.831 98.9367ZM223.082 104.644C226.978 106.129 231.059 106.87 235.318 106.87V104.87C231.297 104.87 227.458 104.171 223.794 102.776L223.082 104.644ZM235.318 106.87C239.346 106.87 242.693 106.383 245.311 105.362L244.584 103.498C242.283 104.397 239.21 104.87 235.318 104.87V106.87ZM245.323 105.357C247.966 104.287 249.982 102.832 251.265 100.942L249.61 99.8185C248.614 101.288 246.97 102.533 244.573 103.503L245.323 105.357ZM251.252 100.961C252.571 99.1138 253.238 97.0511 253.238 94.8H251.238C251.238 96.6289 250.705 98.2862 249.624 99.7988L251.252 100.961ZM253.238 94.8C253.238 92.1323 252.45 89.8872 250.799 88.1675L249.357 89.5525C250.586 90.8328 251.238 92.5477 251.238 94.8H253.238ZM250.814 88.1829C249.308 86.5457 247.334 85.2961 244.934 84.4117L244.242 86.2883C246.402 87.0839 248.088 88.1743 249.342 89.5371L250.814 88.1829ZM244.955 84.4198C242.625 83.5001 240.059 82.7067 237.26 82.0374L236.795 83.9826C239.516 84.6333 241.991 85.3999 244.221 86.2802L244.955 84.4198ZM237.26 82.0374C234.507 81.379 231.754 80.6907 229 79.9724L228.495 81.9076C231.262 82.6293 234.029 83.321 236.795 83.9826L237.26 82.0374ZM229.02 79.9777C226.325 79.216 223.843 78.2224 221.572 76.9995L220.624 78.7605C223.033 80.0576 225.651 81.104 228.476 81.9023L229.02 79.9777ZM221.582 77.0048C219.428 75.8146 217.684 74.2645 216.335 72.3533L214.701 73.5067C216.232 75.6755 218.208 77.4254 220.614 78.7552L221.582 77.0048ZM216.354 72.3808C215.111 70.4905 214.448 67.9692 214.448 64.74H212.448C212.448 68.2308 213.164 71.1695 214.682 73.4792L216.354 72.3808ZM214.448 64.74C214.448 61.8033 215.207 59.1384 216.725 56.7218L215.031 55.6582C213.308 58.4016 212.448 61.4367 212.448 64.74H214.448ZM216.722 56.7269C218.278 54.2803 220.663 52.2959 223.943 50.7998L223.113 48.9802C219.553 50.6041 216.837 52.8197 215.034 55.6531L216.722 56.7269ZM223.956 50.7937C227.199 49.2576 231.419 48.46 236.668 48.46V46.46C231.237 46.46 226.697 47.2824 223.1 48.9863L223.956 50.7937ZM236.668 48.46C240.11 48.46 243.526 48.9557 246.917 49.9496L247.479 48.0304C243.91 46.9843 240.305 46.46 236.668 46.46V48.46ZM246.932 49.954C250.323 50.8894 253.217 52.1967 255.63 53.8629L256.766 52.2171C254.139 50.4032 251.033 49.0106 247.464 48.026L246.932 49.954ZM255.277 52.6498L253.027 57.9598L254.869 58.7401L257.119 53.4301L255.277 52.6498ZM254.503 57.5179C251.716 55.66 248.738 54.2946 245.573 53.4257L245.043 55.3543C247.998 56.1654 250.78 57.44 253.393 59.182L254.503 57.5179ZM245.578 53.427C242.499 52.565 239.498 52.13 236.578 52.13V54.13C239.298 54.13 242.117 54.535 245.038 55.353L245.578 53.427ZM236.578 52.13C232.717 52.13 229.456 52.6495 226.835 53.7363L227.601 55.5837C229.9 54.6305 232.878 54.13 236.578 54.13V52.13ZM226.835 53.7363C224.243 54.8109 222.239 56.2971 220.905 58.2323L222.551 59.3677C223.616 57.8229 225.273 56.5491 227.601 55.5837L226.835 53.7363ZM220.9 58.2385C219.641 60.095 219.018 62.2133 219.018 64.56H221.018C221.018 62.5867 221.535 60.865 222.555 59.3615L220.9 58.2385ZM219.018 64.56C219.018 67.2161 219.768 69.4558 221.352 71.1771L222.824 69.8229C221.647 68.5442 221.018 66.8239 221.018 64.56H219.018ZM221.367 71.1925C222.928 72.8189 224.924 74.0647 227.322 74.9483L228.014 73.0717C225.852 72.2753 224.128 71.1811 222.809 69.8075L221.367 71.1925ZM227.33 74.9512C229.709 75.8052 232.295 76.5652 235.085 77.2326L235.55 75.2874C232.821 74.6348 230.307 73.8948 228.006 73.0688L227.33 74.9512ZM235.085 77.2326C237.83 77.889 240.545 78.6051 243.23 79.3807L243.785 77.4593C241.07 76.6749 238.325 75.951 235.55 75.2874L235.085 77.2326ZM243.236 79.3823C245.93 80.1436 248.378 81.1358 250.584 82.3552L251.552 80.6048C249.198 79.3042 246.606 78.2564 243.78 77.4577L243.236 79.3823ZM250.612 82.3698C252.812 83.4984 254.54 85.0091 255.82 86.9003L257.476 85.7797C255.996 83.5909 254.003 81.8616 251.524 80.5902L250.612 82.3698ZM255.831 86.9167C257.119 88.7412 257.808 91.1908 257.808 94.35H259.808C259.808 90.9092 259.057 88.0188 257.465 85.7633L255.831 86.9167ZM257.808 94.35C257.808 97.2153 257.025 99.8797 255.444 102.363L257.132 103.437C258.911 100.64 259.808 97.6047 259.808 94.35H257.808ZM255.45 102.354C253.895 104.743 251.478 106.733 248.126 108.293L248.97 110.107C252.578 108.427 255.321 106.217 257.126 103.446L255.45 102.354ZM248.133 108.29C244.887 109.771 240.633 110.54 235.318 110.54V112.54C240.803 112.54 245.369 111.749 248.963 110.11L248.133 108.29ZM275.959 111L275.155 110.405L273.975 112H275.959V111ZM301.789 76.08H302.789V73.0465L300.985 75.4853L301.789 76.08ZM301.789 81.21L300.981 81.8005L302.789 84.2701V81.21H301.789ZM277.489 48V47H275.518L276.681 48.5905L277.489 48ZM285.139 48L285.944 47.4067L285.644 47H285.139V48ZM305.569 75.72L305.599 76.7195L307.505 76.6618L306.374 75.1267L305.569 75.72ZM302.599 75.81L301.793 75.218L300.578 76.8717L302.629 76.8095L302.599 75.81ZM323.029 48V47H322.522L322.223 47.408L323.029 48ZM330.229 48L331.035 48.5915L332.202 47H330.229V48ZM306.199 80.76H305.199V83.814L307.005 81.3515L306.199 80.76ZM306.199 76.08L307.003 75.4867L305.199 73.038V76.08H306.199ZM331.939 111V112H333.918L332.743 110.407L331.939 111ZM324.199 111L323.393 111.593L323.693 112H324.199V111ZM302.419 81.39V80.39H300.442L301.613 81.9825L302.419 81.39ZM305.209 81.39L306.016 81.9793L307.176 80.39H305.209V81.39ZM283.609 111V112H284.117L284.416 111.589L283.609 111ZM276.762 111.595L302.592 76.6747L300.985 75.4853L275.155 110.405L276.762 111.595ZM300.789 76.08V81.21H302.789V76.08H300.789ZM302.596 80.6195L278.296 47.4095L276.681 48.5905L300.981 81.8005L302.596 80.6195ZM277.489 49H285.139V47H277.489V49ZM284.334 48.5933L304.764 76.3133L306.374 75.1267L285.944 47.4067L284.334 48.5933ZM305.538 74.7205L302.568 74.8105L302.629 76.8095L305.599 76.7195L305.538 74.7205ZM303.404 76.402L323.834 48.592L322.223 47.408L301.793 75.218L303.404 76.402ZM323.029 49H330.229V47H323.029V49ZM329.422 47.4085L305.392 80.1685L307.005 81.3515L331.035 48.5915L329.422 47.4085ZM307.199 80.76V76.08H305.199V80.76H307.199ZM305.394 76.6733L331.134 111.593L332.743 110.407L307.003 75.4867L305.394 76.6733ZM331.939 110H324.199V112H331.939V110ZM325.004 110.407L303.224 80.7975L301.613 81.9825L323.393 111.593L325.004 110.407ZM302.419 82.39H305.209V80.39H302.419V82.39ZM304.401 80.8007L282.801 110.411L284.416 111.589L306.016 81.9793L304.401 80.8007ZM283.609 110H275.959V112H283.609V110Z" fill="currentColor" data-astro-cid-ksilfqi2></path> <path d="M373.54 111.35C369.713 111.35 366.353 110.557 363.46 108.97C360.567 107.337 358.303 105.12 356.67 102.32C355.037 99.4733 354.22 96.23 354.22 92.59C354.22 88.95 354.99 85.73 356.53 82.93C358.117 80.13 360.263 77.9367 362.97 76.35C365.723 74.7167 368.803 73.9 372.21 73.9C375.663 73.9 378.72 74.6933 381.38 76.28C384.087 77.82 386.21 80.0133 387.75 82.86C389.29 85.66 390.06 88.9033 390.06 92.59C390.06 92.8233 390.037 93.08 389.99 93.36C389.99 93.5933 389.99 93.85 389.99 94.13H358V90.42H387.33L385.37 91.89C385.37 89.23 384.787 86.8733 383.62 84.82C382.5 82.72 380.96 81.0867 379 79.92C377.04 78.7533 374.777 78.17 372.21 78.17C369.69 78.17 367.427 78.7533 365.42 79.92C363.413 81.0867 361.85 82.72 360.73 84.82C359.61 86.92 359.05 89.3233 359.05 92.03V92.8C359.05 95.6 359.657 98.0733 360.87 100.22C362.13 102.32 363.857 103.977 366.05 105.19C368.29 106.357 370.833 106.94 373.68 106.94C375.92 106.94 377.997 106.543 379.91 105.75C381.87 104.957 383.55 103.743 384.95 102.11L387.75 105.33C386.117 107.29 384.063 108.783 381.59 109.81C379.163 110.837 376.48 111.35 373.54 111.35ZM446.096 73.9C449.083 73.9 451.673 74.4833 453.866 75.65C456.106 76.77 457.833 78.4967 459.046 80.83C460.306 83.1633 460.936 86.1033 460.936 89.65V111H455.966V90.14C455.966 86.2667 455.033 83.35 453.166 81.39C451.346 79.3833 448.756 78.38 445.396 78.38C442.876 78.38 440.683 78.9167 438.816 79.99C436.996 81.0167 435.573 82.5333 434.546 84.54C433.566 86.5 433.076 88.88 433.076 91.68V111H428.106V90.14C428.106 86.2667 427.173 83.35 425.306 81.39C423.439 79.3833 420.826 78.38 417.466 78.38C414.993 78.38 412.823 78.9167 410.956 79.99C409.089 81.0167 407.643 82.5333 406.616 84.54C405.636 86.5 405.146 88.88 405.146 91.68V111H400.176V74.25H404.936V84.19L404.166 82.44C405.286 79.78 407.083 77.7033 409.556 76.21C412.076 74.67 415.039 73.9 418.446 73.9C422.039 73.9 425.096 74.81 427.616 76.63C430.136 78.4033 431.769 81.0867 432.516 84.68L430.556 83.91C431.629 80.9233 433.519 78.52 436.226 76.7C438.979 74.8333 442.269 73.9 446.096 73.9ZM497.444 111V102.88L497.234 101.55V87.97C497.234 84.8433 496.348 82.44 494.574 80.76C492.848 79.08 490.258 78.24 486.804 78.24C484.424 78.24 482.161 78.6367 480.014 79.43C477.868 80.2233 476.048 81.2733 474.554 82.58L472.314 78.87C474.181 77.2833 476.421 76.07 479.034 75.23C481.648 74.3433 484.401 73.9 487.294 73.9C492.054 73.9 495.718 75.09 498.284 77.47C500.898 79.8033 502.204 83.3733 502.204 88.18V111H497.444ZM484.774 111.35C482.021 111.35 479.618 110.907 477.564 110.02C475.558 109.087 474.018 107.827 472.944 106.24C471.871 104.607 471.334 102.74 471.334 100.64C471.334 98.7267 471.778 97 472.664 95.46C473.598 93.8733 475.091 92.6133 477.144 91.68C479.244 90.7 482.044 90.21 485.544 90.21H498.214V93.92H485.684C482.138 93.92 479.664 94.55 478.264 95.81C476.911 97.07 476.234 98.6333 476.234 100.5C476.234 102.6 477.051 104.28 478.684 105.54C480.318 106.8 482.604 107.43 485.544 107.43C488.344 107.43 490.748 106.8 492.754 105.54C494.808 104.233 496.301 102.367 497.234 99.94L498.354 103.37C497.421 105.797 495.788 107.733 493.454 109.18C491.168 110.627 488.274 111.35 484.774 111.35ZM515.703 111V74.25H520.673V111H515.703ZM518.223 66.13C517.197 66.13 516.333 65.78 515.633 65.08C514.933 64.38 514.583 63.54 514.583 62.56C514.583 61.58 514.933 60.7633 515.633 60.11C516.333 59.41 517.197 59.06 518.223 59.06C519.25 59.06 520.113 59.3867 520.813 60.04C521.513 60.6933 521.863 61.51 521.863 62.49C521.863 63.5167 521.513 64.38 520.813 65.08C520.16 65.78 519.297 66.13 518.223 66.13ZM534.502 111V59.06H539.472V111H534.502Z" fill="currentColor" data-astro-cid-ksilfqi2></path> </svg> </a> <!-- Desktop Navigation --> <nav class="hidden lg:flex items-center space-x-6"> <a href="/docs/introduction" class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300">
+Documentation
+</a> <a href="/docs/components/avatar" class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300">
+Components
+</a> <a href="/blocks" class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300">
+Blocks
+</a> <a href="/samples" target="_blank" rel="noreferrer" class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300">
+Samples
+<svg class="inline-block ml-1 w-3 h-3" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z" fill="currentColor"></path> </svg> </a> <!-- <a
+        href="https://pro.jsx.email"
+        target="_blank"
+        rel="noreferrer"
+        class="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-300"
+      >
+        Pro Templates
+        <svg
+          class="inline-block ml-1 w-3 h-3"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
+            fill="currentColor"></path>
+        </svg>
+      </a> --> </nav> <!-- Right side icons --> <div class="flex items-center gap-4"> <!-- Theme Switcher --> <button id="theme-toggle" type="button" class="flex items-center justify-center p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 focus:outline-none cursor-pointer" aria-label="Toggle dark mode"> <svg data-theme-toggle-icon="light" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path> </svg> <svg data-theme-toggle-icon="dark" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path> </svg> <svg data-theme-toggle-icon="system" class="h-5 w-5 hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92488 18.0751 1.00001 12 1V23Z" fill="currentColor"></path> </svg> </button> <!-- Social Icons - Always visible --> <a href="https://discord.gg/FywZN57mTg" target="_blank" rel="noopener noreferrer" data-discord-tooltip class="flex items-center justify-center p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 cursor-pointer" aria-label="Join our Discord"> <svg width="20" height="20" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0"> <g clip-path="url(#clip0)"> <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="currentColor"></path> </g> <defs> <clipPath id="clip0"> <rect width="71" height="55" fill="currentColor"></rect> </clipPath> </defs> </svg> </a> <a href="https://github.com/shellscape/jsx-email" target="_blank" rel="noopener noreferrer" id="github-star-button" class="flex items-center justify-center gap-1.5 p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 cursor-pointer"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="flex-shrink-0"> <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path> </svg> <span id="github-stars" class="text-xs font-medium">...</span> </a> <!-- Mobile menu button --> <button id="mobile-menu-toggle" type="button" class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500" aria-controls="mobile-menu" aria-expanded="false"> <span class="sr-only">Open main menu</span> <!-- Icon when menu is closed --> <svg id="menu-icon-closed" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> <!-- Icon when menu is open --> <svg id="menu-icon-open" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> </div> </div> <!-- Mobile menu --> <div class="lg:hidden hidden" id="mobile-menu"> <div class="px-4 py-3 space-y-4 border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-black/95 backdrop-blur-sm"> <a href="/docs/introduction" class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2">
+Documentation
+</a> <a href="/docs/components/background" class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2">
+Components
+</a> <a href="/blocks" class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2">
+Blocks
+</a> <a href="/samples" target="_blank" rel="noreferrer" class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2">
+Samples
+<svg class="inline-block ml-1 w-3 h-3" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z" fill="currentColor"></path> </svg> </a> <!-- <a
+        href="/pro-templates"
+        class="block text-base font-medium hover:text-gray-600 dark:hover:text-gray-300 py-2"
+      >
+        Pro Templates
+        <svg
+          class="inline-block ml-1 w-3 h-3"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
+            fill="currentColor"></path>
+        </svg>
+      </a> --> </div> </div> </header> <script type="module">document.addEventListener("DOMContentLoaded",()=>{const n=document.getElementById("mobile-menu-toggle"),o=document.getElementById("mobile-menu"),s=document.getElementById("menu-icon-closed"),a=document.getElementById("menu-icon-open");n&&o&&s&&a&&n.addEventListener("click",()=>{o.classList.toggle("hidden"),s.classList.toggle("hidden"),a.classList.toggle("hidden");const t=o.classList.contains("hidden")?"false":"true";n.setAttribute("aria-expanded",t)}),(async()=>{const t=document.getElementById("github-stars");if(t)try{const e=await fetch("https://api.github.com/repos/shellscape/jsx-email");if(e.ok){const c=(await e.json()).stargazers_count,i=new Intl.NumberFormat("en-US",{notation:c>=1e3?"compact":"standard",maximumFractionDigits:1}).format(c);t.textContent=i}else t.remove()}catch(e){console.error("Error fetching GitHub stars:",e),t.remove()}})()});</script> <!-- lint-staged test --> <main class="min-h-screen"> <div class="container-custom mx-auto px-4 md:px-6 py-16 pt-24"> <div class="mb-8"> <a href="/blocks" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm mb-4 inline-block">&larr; Back to Blocks</a> <h1 class="text-4xl font-bold mb-4">Gallery</h1> <p class="text-lg text-gray-600 dark:text-gray-400">
+Display images in single, multi-column, and grid layouts.
+</p> </div> <section class="mb-16"> <div class="block-preview mb-8 overflow-hidden rounded-[6px] border border-gray-200 bg-white dark:border-gray-800 dark:bg-black" data-block-preview="block-preview-single-image" data-astro-cid-h4xqnlqv> <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800" data-astro-cid-h4xqnlqv> <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200" data-astro-cid-h4xqnlqv>Single Image</h3> <div class="flex gap-1 rounded-[6px] bg-gray-200 p-1 dark:bg-gray-700" role="tablist" data-astro-cid-h4xqnlqv> <button class="block-preview-tab block-preview-tab-active" type="button" role="tab" aria-selected="true" data-block-tab="preview" data-astro-cid-h4xqnlqv>
+Preview
+</button> <button class="block-preview-tab" type="button" role="tab" aria-selected="false" data-block-tab="code" data-astro-cid-h4xqnlqv>
+Code
+</button> </div> </div> <div style="height: 540px" data-astro-cid-h4xqnlqv> <div class="h-full bg-white p-6 dark:bg-gray-900" data-block-panel="preview" data-astro-cid-h4xqnlqv> <iframe srcdoc="<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body><!DOCTYPE html PUBLIC &#34;-//W3C//DTD XHTML 1.0 Transitional//EN&#34; &#34;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&#34;><html><head><style tailwind>/* layer: preflights */
+/* layer: default */
+.mx-auto{margin-left:auto;margin-right:auto;}
+.max-w-\[600px\]{max-width:600px;}
+.w-full{width:100%;}
+.rounded-lg{border-radius:8px;}
+.px-4{padding-left:16px;padding-right:16px;}
+.py-4{padding-top:16px;padding-bottom:16px;}</style></head><body><div style=&#34;table-layout:fixed;width:100%&#34;><div style=&#34;margin:0 auto;max-width:600px&#34;><span><!--[if mso]><table align=&#34;center&#34; width=&#34;600&#34; style=&#34;border-spacing: 0; width:600px;&#34; role=&#34;presentation&#34;><tr><td><![endif]--></span><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;mx-auto max-w-[600px]&#34; style=&#34;max-width:600px&#34;><tbody><tr style=&#34;width:100%&#34;><td align=&#34;center&#34;><table align=&#34;center&#34; width=&#34;100%&#34; class=&#34;px-4 py-4&#34; border=&#34;0&#34; cellpadding=&#34;0&#34; cellspacing=&#34;0&#34; role=&#34;presentation&#34;><tbody><tr><td><img class=&#34;w-full rounded-lg&#34; alt=&#34;Mountain landscape&#34; src=&#34;https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&#38;#x26;h=400&#38;#x26;fit=crop&#34; width=&#34;600&#34; height=&#34;400&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td></tr></tbody></table></td></tr></tbody></table><span><!--[if mso]></td></tr></table><![endif]--></span></div></div></body></html></body></html>" class="h-full w-full rounded border-0 bg-white" title="Preview: Single Image" data-astro-cid-h4xqnlqv></iframe> </div> <div class="code-panel relative hidden h-full" data-block-panel="code" data-astro-cid-h4xqnlqv> <button class="copy-code-button absolute right-2 top-2 z-10" type="button" data-copy-block-code data-astro-cid-h4xqnlqv>
+Copy
+</button> <textarea class="hidden" data-block-code-source data-astro-cid-h4xqnlqv>import { Container, Img, Section, Tailwind } from &#39;jsx-email&#39;;
+
+&lt;Tailwind&gt;
+  &lt;Container className=&quot;mx-auto max-w-[600px]&quot;&gt;
+    &lt;Section className=&quot;px-4 py-4&quot;&gt;
+      &lt;Img
+        src=&quot;https://example.com/image.jpg&quot;
+        alt=&quot;Description&quot;
+        width={600}
+        height={400}
+        className=&quot;w-full rounded-lg&quot;
+      /&gt;
+    &lt;/Section&gt;
+  &lt;/Container&gt;
+&lt;/Tailwind&gt;</textarea> <div class="code-scroll h-full overflow-auto" data-astro-cid-h4xqnlqv><pre class="shiki css-variables" style="background-color:var(--astro-code-background);color:var(--astro-code-foreground)" tabindex="0"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">import</span><span style="color:var(--astro-code-foreground)"> { Container</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Img</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Section</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Tailwind } </span><span style="color:var(--astro-code-token-keyword)">from</span><span style="color:var(--astro-code-token-string-expression)"> 'jsx-email'</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"mx-auto max-w-[600px]"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;</span><span style="color:var(--astro-code-token-constant)">Section</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"px-4 py-4"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">        src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">        alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Description"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">        width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">600</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">        height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">400</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">        className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Section</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;/</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span></code></pre></div> </div> </div> </div> <script>
+  document.querySelectorAll("[data-block-preview]").forEach((preview) => {
+    if (preview.dataset.initialized) return;
+    preview.dataset.initialized = "true";
+
+    const tabs = preview.querySelectorAll("[data-block-tab]");
+    const panels = preview.querySelectorAll("[data-block-panel]");
+    const copyButton = preview.querySelector("[data-copy-block-code]");
+    const codeSource = preview.querySelector("[data-block-code-source]");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const activeTab = tab.dataset.blockTab;
+
+        tabs.forEach((item) => {
+          const isActive = item.dataset.blockTab === activeTab;
+          item.classList.toggle("block-preview-tab-active", isActive);
+          item.setAttribute("aria-selected", String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.blockPanel !== activeTab);
+        });
+      });
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      if (!codeSource?.value) return;
+
+      await navigator.clipboard.writeText(codeSource.value);
+      copyButton.textContent = "Copied!";
+      setTimeout(() => {
+        copyButton.textContent = "Copy";
+      }, 2000);
+    });
+  });
+</script><div class="block-preview mb-8 overflow-hidden rounded-[6px] border border-gray-200 bg-white dark:border-gray-800 dark:bg-black" data-block-preview="block-preview-two-column-images" data-astro-cid-h4xqnlqv> <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800" data-astro-cid-h4xqnlqv> <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200" data-astro-cid-h4xqnlqv>Two Column Images</h3> <div class="flex gap-1 rounded-[6px] bg-gray-200 p-1 dark:bg-gray-700" role="tablist" data-astro-cid-h4xqnlqv> <button class="block-preview-tab block-preview-tab-active" type="button" role="tab" aria-selected="true" data-block-tab="preview" data-astro-cid-h4xqnlqv>
+Preview
+</button> <button class="block-preview-tab" type="button" role="tab" aria-selected="false" data-block-tab="code" data-astro-cid-h4xqnlqv>
+Code
+</button> </div> </div> <div style="height: 400px" data-astro-cid-h4xqnlqv> <div class="h-full bg-white p-6 dark:bg-gray-900" data-block-panel="preview" data-astro-cid-h4xqnlqv> <iframe srcdoc="<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body><!DOCTYPE html PUBLIC &#34;-//W3C//DTD XHTML 1.0 Transitional//EN&#34; &#34;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&#34;><html><head><style tailwind>/* layer: preflights */
+/* layer: default */
+.mx-auto{margin-left:auto;margin-right:auto;}
+.max-w-\[600px\]{max-width:600px;}
+.w-1\/2{width:50%;}
+.w-full{width:100%;}
+.rounded-lg{border-radius:8px;}
+.pl-2{padding-left:8px;}
+.pr-2{padding-right:8px;}</style></head><body><div style=&#34;table-layout:fixed;width:100%&#34;><div style=&#34;margin:0 auto;max-width:600px&#34;><span><!--[if mso]><table align=&#34;center&#34; width=&#34;600&#34; style=&#34;border-spacing: 0; width:600px;&#34; role=&#34;presentation&#34;><tr><td><![endif]--></span><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;mx-auto max-w-[600px]&#34; style=&#34;max-width:600px&#34;><tbody><tr style=&#34;width:100%&#34;><td align=&#34;center&#34;><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;w-full&#34;><tbody style=&#34;width:100%&#34;><tr style=&#34;width:100%&#34;><td class=&#34;w-1/2 pr-2&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Nature scene 1&#34; src=&#34;https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;300&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td><td class=&#34;w-1/2 pl-2&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Nature scene 2&#34; src=&#34;https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=300&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;300&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td></tr></tbody></table></td></tr></tbody></table><span><!--[if mso]></td></tr></table><![endif]--></span></div></div></body></html></body></html>" class="h-full w-full rounded border-0 bg-white" title="Preview: Two Column Images" data-astro-cid-h4xqnlqv></iframe> </div> <div class="code-panel relative hidden h-full" data-block-panel="code" data-astro-cid-h4xqnlqv> <button class="copy-code-button absolute right-2 top-2 z-10" type="button" data-copy-block-code data-astro-cid-h4xqnlqv>
+Copy
+</button> <textarea class="hidden" data-block-code-source data-astro-cid-h4xqnlqv>import { Column, Container, Img, Row, Tailwind } from &#39;jsx-email&#39;;
+
+&lt;Tailwind&gt;
+  &lt;Container className=&quot;mx-auto max-w-[600px]&quot;&gt;
+    &lt;Row className=&quot;w-full&quot;&gt;
+      &lt;Column className=&quot;w-1/2 pr-2&quot;&gt;
+        &lt;Img
+          src=&quot;https://example.com/image1.jpg&quot;
+          alt=&quot;Image 1&quot;
+          width={300}
+          height={200}
+          className=&quot;w-full rounded-lg&quot;
+        /&gt;
+      &lt;/Column&gt;
+      &lt;Column className=&quot;w-1/2 pl-2&quot;&gt;
+        &lt;Img
+          src=&quot;https://example.com/image2.jpg&quot;
+          alt=&quot;Image 2&quot;
+          width={300}
+          height={200}
+          className=&quot;w-full rounded-lg&quot;
+        /&gt;
+      &lt;/Column&gt;
+    &lt;/Row&gt;
+  &lt;/Container&gt;
+&lt;/Tailwind&gt;</textarea> <div class="code-scroll h-full overflow-auto" data-astro-cid-h4xqnlqv><pre class="shiki css-variables" style="background-color:var(--astro-code-background);color:var(--astro-code-foreground)" tabindex="0"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">import</span><span style="color:var(--astro-code-foreground)"> { Column</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Container</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Img</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Row</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Tailwind } </span><span style="color:var(--astro-code-token-keyword)">from</span><span style="color:var(--astro-code-token-string-expression)"> 'jsx-email'</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"mx-auto max-w-[600px]"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/2 pr-2"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image1.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 1"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">300</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/2 pl-2"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image2.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 2"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">300</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;/</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span></code></pre></div> </div> </div> </div> <script>
+  document.querySelectorAll("[data-block-preview]").forEach((preview) => {
+    if (preview.dataset.initialized) return;
+    preview.dataset.initialized = "true";
+
+    const tabs = preview.querySelectorAll("[data-block-tab]");
+    const panels = preview.querySelectorAll("[data-block-panel]");
+    const copyButton = preview.querySelector("[data-copy-block-code]");
+    const codeSource = preview.querySelector("[data-block-code-source]");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const activeTab = tab.dataset.blockTab;
+
+        tabs.forEach((item) => {
+          const isActive = item.dataset.blockTab === activeTab;
+          item.classList.toggle("block-preview-tab-active", isActive);
+          item.setAttribute("aria-selected", String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.blockPanel !== activeTab);
+        });
+      });
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      if (!codeSource?.value) return;
+
+      await navigator.clipboard.writeText(codeSource.value);
+      copyButton.textContent = "Copied!";
+      setTimeout(() => {
+        copyButton.textContent = "Copy";
+      }, 2000);
+    });
+  });
+</script><div class="block-preview mb-8 overflow-hidden rounded-[6px] border border-gray-200 bg-white dark:border-gray-800 dark:bg-black" data-block-preview="block-preview-three-column-images" data-astro-cid-h4xqnlqv> <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800" data-astro-cid-h4xqnlqv> <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200" data-astro-cid-h4xqnlqv>Three Column Images</h3> <div class="flex gap-1 rounded-[6px] bg-gray-200 p-1 dark:bg-gray-700" role="tablist" data-astro-cid-h4xqnlqv> <button class="block-preview-tab block-preview-tab-active" type="button" role="tab" aria-selected="true" data-block-tab="preview" data-astro-cid-h4xqnlqv>
+Preview
+</button> <button class="block-preview-tab" type="button" role="tab" aria-selected="false" data-block-tab="code" data-astro-cid-h4xqnlqv>
+Code
+</button> </div> </div> <div style="height: 400px" data-astro-cid-h4xqnlqv> <div class="h-full bg-white p-6 dark:bg-gray-900" data-block-panel="preview" data-astro-cid-h4xqnlqv> <iframe srcdoc="<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body><!DOCTYPE html PUBLIC &#34;-//W3C//DTD XHTML 1.0 Transitional//EN&#34; &#34;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&#34;><html><head><style tailwind>/* layer: preflights */
+/* layer: default */
+.mx-auto{margin-left:auto;margin-right:auto;}
+.max-w-\[600px\]{max-width:600px;}
+.w-1\/3{width:33.3333333333%;}
+.w-full{width:100%;}
+.rounded-lg{border-radius:8px;}
+.px-1{padding-left:4px;padding-right:4px;}</style></head><body><div style=&#34;table-layout:fixed;width:100%&#34;><div style=&#34;margin:0 auto;max-width:600px&#34;><span><!--[if mso]><table align=&#34;center&#34; width=&#34;600&#34; style=&#34;border-spacing: 0; width:600px;&#34; role=&#34;presentation&#34;><tr><td><![endif]--></span><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;mx-auto max-w-[600px]&#34; style=&#34;max-width:600px&#34;><tbody><tr style=&#34;width:100%&#34;><td align=&#34;center&#34;><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;w-full&#34;><tbody style=&#34;width:100%&#34;><tr style=&#34;width:100%&#34;><td class=&#34;w-1/3 px-1&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Ocean view&#34; src=&#34;https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;200&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td><td class=&#34;w-1/3 px-1&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Beach&#34; src=&#34;https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;200&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td><td class=&#34;w-1/3 px-1&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Lake&#34; src=&#34;https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=200&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;200&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td></tr></tbody></table></td></tr></tbody></table><span><!--[if mso]></td></tr></table><![endif]--></span></div></div></body></html></body></html>" class="h-full w-full rounded border-0 bg-white" title="Preview: Three Column Images" data-astro-cid-h4xqnlqv></iframe> </div> <div class="code-panel relative hidden h-full" data-block-panel="code" data-astro-cid-h4xqnlqv> <button class="copy-code-button absolute right-2 top-2 z-10" type="button" data-copy-block-code data-astro-cid-h4xqnlqv>
+Copy
+</button> <textarea class="hidden" data-block-code-source data-astro-cid-h4xqnlqv>import { Column, Container, Img, Row, Tailwind } from &#39;jsx-email&#39;;
+
+&lt;Tailwind&gt;
+  &lt;Container className=&quot;mx-auto max-w-[600px]&quot;&gt;
+    &lt;Row className=&quot;w-full&quot;&gt;
+      &lt;Column className=&quot;w-1/3 px-1&quot;&gt;
+        &lt;Img
+          src=&quot;https://example.com/image1.jpg&quot;
+          alt=&quot;Image 1&quot;
+          width={200}
+          height={200}
+          className=&quot;w-full rounded-lg&quot;
+        /&gt;
+      &lt;/Column&gt;
+      &lt;Column className=&quot;w-1/3 px-1&quot;&gt;
+        &lt;Img
+          src=&quot;https://example.com/image2.jpg&quot;
+          alt=&quot;Image 2&quot;
+          width={200}
+          height={200}
+          className=&quot;w-full rounded-lg&quot;
+        /&gt;
+      &lt;/Column&gt;
+      &lt;Column className=&quot;w-1/3 px-1&quot;&gt;
+        &lt;Img
+          src=&quot;https://example.com/image3.jpg&quot;
+          alt=&quot;Image 3&quot;
+          width={200}
+          height={200}
+          className=&quot;w-full rounded-lg&quot;
+        /&gt;
+      &lt;/Column&gt;
+    &lt;/Row&gt;
+  &lt;/Container&gt;
+&lt;/Tailwind&gt;</textarea> <div class="code-scroll h-full overflow-auto" data-astro-cid-h4xqnlqv><pre class="shiki css-variables" style="background-color:var(--astro-code-background);color:var(--astro-code-foreground)" tabindex="0"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">import</span><span style="color:var(--astro-code-foreground)"> { Column</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Container</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Img</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Row</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Tailwind } </span><span style="color:var(--astro-code-token-keyword)">from</span><span style="color:var(--astro-code-token-string-expression)"> 'jsx-email'</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"mx-auto max-w-[600px]"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/3 px-1"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image1.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 1"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/3 px-1"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image2.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 2"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/3 px-1"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image3.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 3"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">          className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;/</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span></code></pre></div> </div> </div> </div> <script>
+  document.querySelectorAll("[data-block-preview]").forEach((preview) => {
+    if (preview.dataset.initialized) return;
+    preview.dataset.initialized = "true";
+
+    const tabs = preview.querySelectorAll("[data-block-tab]");
+    const panels = preview.querySelectorAll("[data-block-panel]");
+    const copyButton = preview.querySelector("[data-copy-block-code]");
+    const codeSource = preview.querySelector("[data-block-code-source]");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const activeTab = tab.dataset.blockTab;
+
+        tabs.forEach((item) => {
+          const isActive = item.dataset.blockTab === activeTab;
+          item.classList.toggle("block-preview-tab-active", isActive);
+          item.setAttribute("aria-selected", String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.blockPanel !== activeTab);
+        });
+      });
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      if (!codeSource?.value) return;
+
+      await navigator.clipboard.writeText(codeSource.value);
+      copyButton.textContent = "Copied!";
+      setTimeout(() => {
+        copyButton.textContent = "Copy";
+      }, 2000);
+    });
+  });
+</script><div class="block-preview mb-8 overflow-hidden rounded-[6px] border border-gray-200 bg-white dark:border-gray-800 dark:bg-black" data-block-preview="block-preview-image-grid" data-astro-cid-h4xqnlqv> <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800" data-astro-cid-h4xqnlqv> <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200" data-astro-cid-h4xqnlqv>Image Grid</h3> <div class="flex gap-1 rounded-[6px] bg-gray-200 p-1 dark:bg-gray-700" role="tablist" data-astro-cid-h4xqnlqv> <button class="block-preview-tab block-preview-tab-active" type="button" role="tab" aria-selected="true" data-block-tab="preview" data-astro-cid-h4xqnlqv>
+Preview
+</button> <button class="block-preview-tab" type="button" role="tab" aria-selected="false" data-block-tab="code" data-astro-cid-h4xqnlqv>
+Code
+</button> </div> </div> <div style="height: 540px" data-astro-cid-h4xqnlqv> <div class="h-full bg-white p-6 dark:bg-gray-900" data-block-panel="preview" data-astro-cid-h4xqnlqv> <iframe srcdoc="<!DOCTYPE html><html><head><style>body{margin:0;padding:16px;font-family:system-ui,sans-serif;background:#fff;}</style></head><body><!DOCTYPE html PUBLIC &#34;-//W3C//DTD XHTML 1.0 Transitional//EN&#34; &#34;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&#34;><html><head><style tailwind>/* layer: preflights */
+/* layer: default */
+.mx-auto{margin-left:auto;margin-right:auto;}
+.mb-2{margin-bottom:8px;}
+.max-w-\[600px\]{max-width:600px;}
+.w-1\/2{width:50%;}
+.w-full{width:100%;}
+.rounded-lg{border-radius:8px;}
+.pl-1{padding-left:4px;}
+.pr-1{padding-right:4px;}</style></head><body><div style=&#34;table-layout:fixed;width:100%&#34;><div style=&#34;margin:0 auto;max-width:600px&#34;><span><!--[if mso]><table align=&#34;center&#34; width=&#34;600&#34; style=&#34;border-spacing: 0; width:600px;&#34; role=&#34;presentation&#34;><tr><td><![endif]--></span><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;mx-auto max-w-[600px]&#34; style=&#34;max-width:600px&#34;><tbody><tr style=&#34;width:100%&#34;><td align=&#34;center&#34;><table align=&#34;center&#34; width=&#34;100%&#34; border=&#34;0&#34; cellpadding=&#34;0&#34; cellspacing=&#34;0&#34; role=&#34;presentation&#34;><tbody><tr><td><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;mb-2 w-full&#34;><tbody style=&#34;width:100%&#34;><tr style=&#34;width:100%&#34;><td class=&#34;w-1/2 pr-1&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Travel 1&#34; src=&#34;https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;300&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td><td class=&#34;w-1/2 pl-1&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Travel 2&#34; src=&#34;https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=300&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;300&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td></tr></tbody></table><table align=&#34;center&#34; width=&#34;100%&#34; role=&#34;presentation&#34; cellspacing=&#34;0&#34; cellpadding=&#34;0&#34; border=&#34;0&#34; class=&#34;w-full&#34;><tbody style=&#34;width:100%&#34;><tr style=&#34;width:100%&#34;><td class=&#34;w-1/2 pr-1&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Travel 3&#34; src=&#34;https://images.unsplash.com/photo-1476900543704-4312b78632f8?w=300&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;300&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td><td class=&#34;w-1/2 pl-1&#34;><img class=&#34;w-full rounded-lg&#34; alt=&#34;Travel 4&#34; src=&#34;https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=300&#38;#x26;h=200&#38;#x26;fit=crop&#34; width=&#34;300&#34; height=&#34;200&#34; style=&#34;border:none;display:block;outline:none;text-decoration:none&#34;></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table><span><!--[if mso]></td></tr></table><![endif]--></span></div></div></body></html></body></html>" class="h-full w-full rounded border-0 bg-white" title="Preview: Image Grid" data-astro-cid-h4xqnlqv></iframe> </div> <div class="code-panel relative hidden h-full" data-block-panel="code" data-astro-cid-h4xqnlqv> <button class="copy-code-button absolute right-2 top-2 z-10" type="button" data-copy-block-code data-astro-cid-h4xqnlqv>
+Copy
+</button> <textarea class="hidden" data-block-code-source data-astro-cid-h4xqnlqv>import { Column, Container, Img, Row, Section, Tailwind } from &#39;jsx-email&#39;;
+
+&lt;Tailwind&gt;
+  &lt;Container className=&quot;mx-auto max-w-[600px]&quot;&gt;
+    &lt;Section&gt;
+      &lt;Row className=&quot;mb-2 w-full&quot;&gt;
+        &lt;Column className=&quot;w-1/2 pr-1&quot;&gt;
+          &lt;Img
+            src=&quot;https://example.com/image1.jpg&quot;
+            alt=&quot;Image 1&quot;
+            width={300}
+            height={200}
+            className=&quot;w-full rounded-lg&quot;
+          /&gt;
+        &lt;/Column&gt;
+        &lt;Column className=&quot;w-1/2 pl-1&quot;&gt;
+          &lt;Img
+            src=&quot;https://example.com/image2.jpg&quot;
+            alt=&quot;Image 2&quot;
+            width={300}
+            height={200}
+            className=&quot;w-full rounded-lg&quot;
+          /&gt;
+        &lt;/Column&gt;
+      &lt;/Row&gt;
+      &lt;Row className=&quot;w-full&quot;&gt;
+        &lt;Column className=&quot;w-1/2 pr-1&quot;&gt;
+          &lt;Img
+            src=&quot;https://example.com/image3.jpg&quot;
+            alt=&quot;Image 3&quot;
+            width={300}
+            height={200}
+            className=&quot;w-full rounded-lg&quot;
+          /&gt;
+        &lt;/Column&gt;
+        &lt;Column className=&quot;w-1/2 pl-1&quot;&gt;
+          &lt;Img
+            src=&quot;https://example.com/image4.jpg&quot;
+            alt=&quot;Image 4&quot;
+            width={300}
+            height={200}
+            className=&quot;w-full rounded-lg&quot;
+          /&gt;
+        &lt;/Column&gt;
+      &lt;/Row&gt;
+    &lt;/Section&gt;
+  &lt;/Container&gt;
+&lt;/Tailwind&gt;</textarea> <div class="code-scroll h-full overflow-auto" data-astro-cid-h4xqnlqv><pre class="shiki css-variables" style="background-color:var(--astro-code-background);color:var(--astro-code-foreground)" tabindex="0"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">import</span><span style="color:var(--astro-code-foreground)"> { Column</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Container</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Img</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Row</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Section</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-foreground)"> Tailwind } </span><span style="color:var(--astro-code-token-keyword)">from</span><span style="color:var(--astro-code-token-string-expression)"> 'jsx-email'</span><span style="color:var(--astro-code-foreground)">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"mx-auto max-w-[600px]"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;</span><span style="color:var(--astro-code-token-constant)">Section</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"mb-2 w-full"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/2 pr-1"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image1.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 1"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">300</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/2 pl-1"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image2.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 2"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">300</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/2 pr-1"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image3.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 3"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">300</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-token-function)"> className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-1/2 pl-1"</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          &#x3C;</span><span style="color:var(--astro-code-token-constant)">Img</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            src</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"https://example.com/image4.jpg"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            alt</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"Image 4"</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            width</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">300</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            height</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-foreground)">{</span><span style="color:var(--astro-code-token-constant)">200</span><span style="color:var(--astro-code-foreground)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">            className</span><span style="color:var(--astro-code-token-keyword)">=</span><span style="color:var(--astro-code-token-string-expression)">"w-full rounded-lg"</span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">          /></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">        &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Column</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">      &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Row</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">    &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Section</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">  &#x3C;/</span><span style="color:var(--astro-code-token-constant)">Container</span><span style="color:var(--astro-code-foreground)">></span></span>
+<span class="line"><span style="color:var(--astro-code-foreground)">&#x3C;/</span><span style="color:var(--astro-code-token-constant)">Tailwind</span><span style="color:var(--astro-code-foreground)">></span></span></code></pre></div> </div> </div> </div> <script>
+  document.querySelectorAll("[data-block-preview]").forEach((preview) => {
+    if (preview.dataset.initialized) return;
+    preview.dataset.initialized = "true";
+
+    const tabs = preview.querySelectorAll("[data-block-tab]");
+    const panels = preview.querySelectorAll("[data-block-panel]");
+    const copyButton = preview.querySelector("[data-copy-block-code]");
+    const codeSource = preview.querySelector("[data-block-code-source]");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const activeTab = tab.dataset.blockTab;
+
+        tabs.forEach((item) => {
+          const isActive = item.dataset.blockTab === activeTab;
+          item.classList.toggle("block-preview-tab-active", isActive);
+          item.setAttribute("aria-selected", String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.blockPanel !== activeTab);
+        });
+      });
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      if (!codeSource?.value) return;
+
+      await navigator.clipboard.writeText(codeSource.value);
+      copyButton.textContent = "Copied!";
+      setTimeout(() => {
+        copyButton.textContent = "Copy";
+      }, 2000);
+    });
+  });
+</script> </section> </div> </main> <footer class="py-6 border-t border-gray-200 dark:border-gray-800"> <div class="container mx-auto px-4 md:px-6"> <div class="flex flex-col md:flex-row items-center justify-between gap-6"> <div class="flex flex-col md:flex-row items-center justify-between gap-6"> <div class="hidden md:block text-sm text-center order-3 md:order-2">© 2024 jsx.email</div> </div> <!-- Navigation & Social --> <div class="flex items-center flex-wrap justify-center gap-4 md:gap-0 md:space-x-4 order-2 md:order-3"> <a href="/docs/components/avatar" class="text-sm font-medium"> Components </a> <a href="/blocks" class="text-sm font-medium"> Blocks </a> <a href="/samples" target="_blank" rel="noreferrer" class="text-sm font-medium flex items-center">
+Samples
+<svg class="inline-block ml-1 w-3 h-3" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z" fill="currentColor"></path> </svg> </a> <a href="https://pro.jsx.email" target="_blank" rel="noreferrer" class="text-sm font-medium flex items-center">
+Pro Templates
+<svg class="inline-block ml-1 w-3 h-3" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z" fill="currentColor"></path> </svg> </a> <a href="https://discord.gg/FywZN57mTg" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 cursor-pointer"> <svg width="20" height="20" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0"> <g clip-path="url(#footer-clip0)"> <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="currentColor"></path> </g> <defs> <clipPath id="footer-clip0"> <rect width="71" height="55" fill="currentColor"></rect> </clipPath> </defs> </svg> </a> <a href="https://github.com/shellscape/jsx-email" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800 cursor-pointer"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="flex-shrink-0"> <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path> </svg> </a> </div> </div> <div class="block md:hidden text-sm text-center my-4 order-3 md:order-2">
+© 2024 jsx.email.
+</div> </div> </footer>  <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.Or7Rsumy.js"></script> </body> </html>
