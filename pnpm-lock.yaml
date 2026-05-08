@@ -391,15 +391,6 @@ importers:
       '@dot/log':
         specifier: ^0.2.0
         version: 0.2.1
-      '@jsx-email/plugin-inline':
-        specifier: workspace:^
-        version: link:../plugin-inline
-      '@jsx-email/plugin-minify':
-        specifier: workspace:^
-        version: link:../plugin-minify
-      '@jsx-email/plugin-pretty':
-        specifier: workspace:^
-        version: link:../plugin-pretty
       '@parcel/watcher':
         specifier: ^2.4.1
         version: 2.4.1
@@ -575,6 +566,15 @@ importers:
         specifier: 'catalog:'
         version: 22.0.0
     devDependencies:
+      '@jsx-email/plugin-inline':
+        specifier: workspace:^
+        version: link:../plugin-inline
+      '@jsx-email/plugin-minify':
+        specifier: workspace:^
+        version: link:../plugin-minify
+      '@jsx-email/plugin-pretty':
+        specifier: workspace:^
+        version: link:../plugin-pretty
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -629,9 +629,6 @@ importers:
       hast-util-to-string:
         specifier: ^3.0.1
         version: 3.0.1
-      jsx-email:
-        specifier: workspace:^
-        version: link:../jsx-email
       unist-util-remove:
         specifier: ^4.0.0
         version: 4.0.0
@@ -642,15 +639,15 @@ importers:
       hast:
         specifier: 'catalog:'
         version: 1.0.0
+      jsx-email:
+        specifier: workspace:^
+        version: link:../jsx-email
       unified:
         specifier: 'catalog:'
         version: 11.0.5
 
   packages/plugin-minify:
     dependencies:
-      jsx-email:
-        specifier: workspace:^
-        version: link:../jsx-email
       rehype-minify-attribute-whitespace:
         specifier: ^4.0.1
         version: 4.0.1
@@ -705,12 +702,13 @@ importers:
       unified:
         specifier: 'catalog:'
         version: 11.0.5
-
-  packages/plugin-pretty:
-    dependencies:
+    devDependencies:
       jsx-email:
         specifier: workspace:^
         version: link:../jsx-email
+
+  packages/plugin-pretty:
+    dependencies:
       pretty:
         specifier: 2.0.0
         version: 2.0.0
@@ -718,6 +716,9 @@ importers:
       '@types/pretty':
         specifier: 'catalog:'
         version: 2.0.3
+      jsx-email:
+        specifier: workspace:^
+        version: link:../jsx-email
 
   test/cli:
     dependencies:

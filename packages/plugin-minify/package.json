@@ -43,7 +43,7 @@
     "unified"
   ],
   "peerDependencies": {
-    "jsx-email": "workspace:^"
+    "jsx-email": "^3.0.0"
   },
   "dependencies": {
     "rehype-minify-attribute-whitespace": "^4.0.1",
@@ -64,6 +64,9 @@
     "rehype-sort-attribute-values": "^5.0.1",
     "rehype-sort-attributes": "^5.0.1",
     "unified": "catalog:"
+  },
+  "devDependencies": {
+    "jsx-email": "workspace:^"
   },
   "types": "./dist/index.d.ts",
   "funding": {

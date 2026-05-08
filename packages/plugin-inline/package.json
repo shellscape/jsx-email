@@ -41,7 +41,7 @@
     "unified"
   ],
   "peerDependencies": {
-    "jsx-email": "workspace:^"
+    "jsx-email": "^3.0.0"
   },
   "dependencies": {
     "@adobe/css-tools": "^4.4.2",
@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "hast": "catalog:",
+    "jsx-email": "workspace:^",
     "unified": "catalog:"
   },
   "types": "./dist/index.d.ts",

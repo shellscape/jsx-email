@@ -41,13 +41,14 @@
     "unified"
   ],
   "peerDependencies": {
-    "jsx-email": "workspace:^"
+    "jsx-email": "^3.0.0"
   },
   "dependencies": {
     "pretty": "2.0.0"
   },
   "devDependencies": {
-    "@types/pretty": "catalog:"
+    "@types/pretty": "catalog:",
+    "jsx-email": "workspace:^"
   },
   "types": "./dist/index.d.ts",
   "funding": {

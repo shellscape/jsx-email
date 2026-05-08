@@ -44,9 +44,9 @@
     "email"
   ],
   "peerDependencies": {
-    "@jsx-email/plugin-inline": "workspace:^",
-    "@jsx-email/plugin-minify": "workspace:^",
-    "@jsx-email/plugin-pretty": "workspace:^",
+    "@jsx-email/plugin-inline": "^2.0.0",
+    "@jsx-email/plugin-minify": "^2.0.0",
+    "@jsx-email/plugin-pretty": "^2.0.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "react": "catalog:",
@@ -110,6 +110,9 @@
     "yargs-parser": "catalog:"
   },
   "devDependencies": {
+    "@jsx-email/plugin-inline": "workspace:^",
+    "@jsx-email/plugin-minify": "workspace:^",
+    "@jsx-email/plugin-pretty": "workspace:^",
     "@types/debug": "^4.1.12",
     "@types/hast": "^3.0.4",
     "@types/html-minifier-terser": "^7.0.0",
