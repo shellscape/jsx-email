@@ -1,5 +1,13 @@
 # @jsx-email/plugin-pretty ChangeLog
 
+## v2.0.0
+
+_2026-05-08_
+
+### Breaking Changes
+
+- plugin-pretty!: v3 release blank ([3326a6d](https://github.com/shellscape/jsx-email/commit/3326a6d))
+
 ## v1.0.0
 
 _2024-10-04_
