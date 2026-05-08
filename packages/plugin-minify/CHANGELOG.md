@@ -1,5 +1,13 @@
 # @jsx-email/plugin-minify ChangeLog
 
+## v2.0.0
+
+_2026-05-08_
+
+### Breaking Changes
+
+- plugin-minify!: v3 release blank ([085ad4e](https://github.com/shellscape/jsx-email/commit/085ad4e))
+
 ## v1.0.2
 
 _2025-01-17_
