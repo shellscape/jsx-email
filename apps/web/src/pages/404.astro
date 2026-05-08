@@ -61,6 +61,10 @@ import Layout from '@/ui/layouts/Layout.astro';
     width: min(100%, 960px, 76svh);
   }
 
+  html.dark .not-found {
+    filter: invert(1);
+  }
+
   .content {
     display: grid;
     place-items: center;

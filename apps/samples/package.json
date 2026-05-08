@@ -1,0 +1,19 @@
+{
+  "name": "app-samples",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A project for building and testing the JSX email samples preview",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "catalog:"
+  },
+  "dependencies": {
+    "jsx-email": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

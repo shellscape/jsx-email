@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { loadEnv } from "vite";
 import mdx from "@astrojs/mdx";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -21,8 +20,7 @@ import {
   transformerMetaWordHighlight,
 } from "@shikijs/transformers";
 
-const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
-const isProd = env.PROD_BUILD === "true";
+const isProd = process.env.PROD_BUILD === "true";
 const llmsTxtBridgeFiles = new Set();
 
 const removeEmptyDirs = async (dir, stopDir) => {

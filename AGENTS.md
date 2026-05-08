@@ -36,6 +36,11 @@ forbidden; use the best tool for the job.
 "scripts" are defined as code files intended to be run standalone and typically located in a
 `scripts/` directory. "scripts" does not mean Moon commands or Bash commands.
 
+Adhoc browser automation commands are forbidden. Do not run inline Playwright, Puppeteer, Chrome,
+or other browser scripts with `node -e`, heredocs, shell one-liners, or temporary files outside the
+repo. Browser automation must live in a committed TypeScript script under `scripts/agents/` and be
+run with `tsx`.
+
 ## Checks
 
 Run checks through Moon (mirrors CI):

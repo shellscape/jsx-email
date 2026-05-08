@@ -8,13 +8,12 @@ import {
 import { gatherTemplates } from '../../src/helpers/templates';
 
 describe('gatherTemplates', () => {
-  it('rewrites preview static image URLs to public demo asset URLs', () => {
+  it('rewrites preview static image URLs to the preview static path', () => {
     const airbnb = gatherTemplates().find((template) => template.templateName === 'Airbnb Review');
 
-    expect(airbnb?.html).toContain('https://jsx.email/assets/demo/airbnb-logo.png');
-    expect(airbnb?.html).toContain('https://jsx.email/assets/demo/batman-twilight.jpg');
-    expect(airbnb?.html).not.toContain('/static/');
-    expect(airbnb?.source).not.toContain('/static/');
+    expect(airbnb?.html).toContain('/static/airbnb-logo.png');
+    expect(airbnb?.html).toContain('/static/batman-twilight.jpg');
+    expect(airbnb?.source).toContain('/static/');
   });
 
   it('can derive unique canonical slugs from gathered template file names', () => {

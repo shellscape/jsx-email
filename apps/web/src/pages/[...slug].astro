@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 import Link from '@mdx/Link.astro';
 import CustomHeader from '@components/docs/CustomHeader.astro';
@@ -56,21 +56,21 @@ export async function getStaticPaths() {
   }
 
   const docEntries = await getCollection("docs", (entry) => {
-    return slugs.includes(`docs/${entry.slug}`);
+    return slugs.includes(`docs/${entry.id}`);
   });
   return docEntries.map(entry => ({
-    params: { slug: `docs/${entry.slug}` }, props: { entry, frontmatter: entry.data },
+    params: { slug: `docs/${entry.id}` }, props: { entry, frontmatter: entry.data },
   }));
 }
 
 const { entry, frontmatter } = Astro.props;
 const componentPrompt = getComponentPrompt(
-  entry.slug,
+  entry.id,
   frontmatter.copyPromptComponent ?? frontmatter.title,
   frontmatter.copyPrompt,
 );
 
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 
 ---
 <DocsLayout customTitle={entry.data.title} description={frontmatter.description} headings={headings}>

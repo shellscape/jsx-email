@@ -1,6 +1,6 @@
 ---
 import GlobalStyles from "@components/docs/GlobalStyles.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -17,7 +17,7 @@ const isProd = import.meta.env.PROD_BUILD === "true" || process.env.PROD_BUILD =
   <meta charset="UTF-8" />
   <meta name="robots" content={isProd ? "index,follow" : "noindex,nofollow"} />
   <link rel="sitemap" href="/sitemap-index.xml" />
-  <ViewTransitions />
+  <ClientRouter />
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"

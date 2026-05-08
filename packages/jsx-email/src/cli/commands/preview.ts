@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { AssertionError } from 'node:assert';
 import { existsSync } from 'node:fs';
-import { mkdir, rm } from 'node:fs/promises';
+import { cp, mkdir, rm } from 'node:fs/promises';
 import os from 'node:os';
 import { isAbsolute, join, resolve, win32 } from 'node:path';
 
@@ -59,6 +59,7 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
 
   const { basePath = './', buildPath = './.deploy' } = argv;
   const common = { argv, targetPath };
+  globalThis.isJsxEmailPreview = true;
   await prepareBuild(common);
   const config = await getConfig(common);
   const outDir = isAbsolute(buildPath) ? buildPath : resolve(join(originalCwd, buildPath));
@@ -82,6 +83,8 @@ const buildDeployable = async ({ argv, targetPath }: PreviewCommonParams) => {
     },
     mode: 'development'
   });
+
+  await copyStaticAssets({ outDir, targetPath });
 };
 
 const getConfig = async ({ argv, targetPath }: PreviewCommonParams) => {
@@ -159,6 +162,16 @@ const prepareBuild = async ({ targetPath, argv }: PreviewCommonParams) => {
   const files = await buildForPreview({ buildPath, exclude, targetPath });
   await writePreviewDataFiles(files);
   return files;
+};
+
+const copyStaticAssets = async ({ outDir, targetPath }: { outDir: string; targetPath: string }) => {
+  const staticPath = join(targetPath, 'static');
+
+  if (!existsSync(staticPath)) return;
+
+  await cp(staticPath, join(outDir, 'static'), {
+    recursive: true
+  });
 };
 
 const start = async ({ targetPath, argv }: PreviewCommonParams) => {

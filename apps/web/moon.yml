@@ -12,6 +12,7 @@ tasks:
       - ~:check
     inputs:
       - .astro
+      - astro.config.mjs
       - package.json
       - src
 
@@ -23,6 +24,7 @@ tasks:
       PROD_BUILD: 'true'
     inputs:
       - .astro
+      - astro.config.mjs
       - package.json
       - src
 
@@ -30,6 +32,7 @@ tasks:
     command: astro check
     inputs:
       - .astro
+      - astro.config.mjs
       - package.json
       - src
 
@@ -40,14 +43,31 @@ tasks:
     options:
       cache: false
 
+  clean.samples:
+    command: rm -rf dist/samples
+    options:
+      cache: false
+
+  build.samples:
+    command: email preview ../samples/emails --build-path dist/samples --base-path /samples/
+    deps:
+      - jsx-email:build
+      - ~:clean.samples
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
   dev:
     command: astro dev --host
     options:
       cache: false
 
   deploy:
-    command: gh-pages -d dist -u "Release Workflow <release-workflow@jsx.email>"
+    command: gh-pages -d dist --dotfiles -u "Release Workflow <release-workflow@jsx.email>"
     deps:
+      - ~:build.production
+      - ~:build.samples
       - ~:cname
     options:
       cache: false

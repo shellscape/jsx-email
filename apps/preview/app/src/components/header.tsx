@@ -51,9 +51,8 @@ export function Header() {
           {[
             ['Documentation', '/docs/introduction'],
             ['Components', '/docs/components/avatar'],
-            ['Blocks', '/blocks'],
-            ['Samples', 'http://samples.jsx.email'],
-            ['Pro Templates', 'https://pro.jsx.email']
+            ['Blocks', '/blocks']
+            // ['Pro Templates', 'https://pro.jsx.email']
           ].map(([label, href]) => (
             <a
               className="text-sm font-medium text-black hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
@@ -78,7 +77,9 @@ export function Header() {
           <Button
             aria-label="Zoom out"
             className="header-zoom-button"
-            onClick={() => window.dispatchEvent(new CustomEvent('preview-canvas-zoom', { detail: -1 }))}
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent('preview-canvas-zoom', { detail: -1 }))
+            }
             size="icon"
             variant="ghost"
           >
@@ -90,13 +91,20 @@ export function Header() {
           <Button
             aria-label="Zoom in"
             className="header-zoom-button"
-            onClick={() => window.dispatchEvent(new CustomEvent('preview-canvas-zoom', { detail: 1 }))}
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent('preview-canvas-zoom', { detail: 1 }))
+            }
             size="icon"
             variant="ghost"
           >
             <Plus className="size-5" />
           </Button>
-          <Button aria-label="Toggle dark mode" onClick={() => setDark(!dark)} size="icon" variant="ghost">
+          <Button
+            aria-label="Toggle dark mode"
+            onClick={() => setDark(!dark)}
+            size="icon"
+            variant="ghost"
+          >
             {dark ? <SunIcon /> : <MoonIcon />}
           </Button>
           <a
@@ -144,7 +152,13 @@ function Svg({
   viewBox: string;
 }) {
   return (
-    <svg aria-hidden="true" className={className} fill="currentColor" viewBox={viewBox} xmlns="http://www.w3.org/2000/svg">
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="currentColor"
+      viewBox={viewBox}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       {children}
     </svg>
   );

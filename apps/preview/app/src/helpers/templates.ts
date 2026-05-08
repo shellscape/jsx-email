@@ -6,7 +6,7 @@ const imports = import.meta.glob<PreviewImportContent>('@jsxemailbuild/**/*.js',
   import: 'default'
 });
 
-const demoAssetBaseUrl = 'https://jsx.email/assets/demo/';
+const previewAssetBaseUrl = `${(import.meta.env.VITE_JSXEMAIL_BASE_PATH || '/').replace(/\/?$/, '/')}static/`;
 
 function parseTemplateName(path: string) {
   return stripExtension(path)
@@ -33,7 +33,7 @@ function toRelativePath(file: PreviewImportContent, targetPath: string) {
 }
 
 function normalizePreviewAssetUrls(value: string) {
-  return value.replaceAll(/(["'(])\/static\//g, `$1${demoAssetBaseUrl}`);
+  return value.replaceAll(/(["'(])\/static\//g, `$1${previewAssetBaseUrl}`);
 }
 
 export function gatherTemplates() {

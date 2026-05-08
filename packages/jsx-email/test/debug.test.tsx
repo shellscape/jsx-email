@@ -13,9 +13,8 @@ describe('render', () => {
   });
 
   it('renders with debug attributes', async () => {
-    const { Template: PlaidEmail } = await import(
-      '../../../apps/demo/emails/plaid-verify-identity'
-    );
+    const { Template: PlaidEmail } =
+      await import('../../../apps/samples/emails/plaid-verify-identity');
     expect(await render(<PlaidEmail />, { minify: false, pretty: true })).toMatchSnapshot();
   });
 });
