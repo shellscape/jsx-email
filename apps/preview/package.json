@@ -7,17 +7,17 @@
   "dependencies": {
     "@tailwindcss/vite": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "clsx": "^2.1.1",
+    "clsx": "catalog:",
     "iconoir-react": "catalog:",
-    "js-beautify": "^1.15.1",
+    "js-beautify": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "shiki": "catalog:",
-    "tailwind-merge": "^3.3.1",
+    "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "tippy.js": "catalog:",
     "vite": "catalog:",
-    "zustand": "^5.0.12"
+    "zustand": "catalog:"
   },
   "devDependencies": {
     "@types/js-beautify": "^1.14.3",

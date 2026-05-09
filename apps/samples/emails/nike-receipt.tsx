@@ -184,7 +184,7 @@ const footer = {
   } as React.CSSProperties
 };
 
-const baseUrl = 'https://jsx.email/assets/demo/';
+const baseUrl = 'https://jsx.email/assets/samples/';
 
 export const templateName = 'Nike Receipt';
 

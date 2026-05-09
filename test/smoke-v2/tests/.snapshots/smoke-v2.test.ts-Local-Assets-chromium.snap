@@ -20,13 +20,13 @@
     <img
       id="image"
       alt="Cat"
-      src="https://jsx.email/assets/demo/cat.jpeg"
+      src="/static/cat.jpeg"
       width="200"
       height="200"
       style="border:none;display:block;outline:none;text-decoration:none"
     >
     <a
-      href="https://jsx.email/assets/demo/cat.jpeg"
+      href="/static/cat.jpeg"
       style="color:#067df7;text-decoration:none"
     >
       /static/cat.jpeg

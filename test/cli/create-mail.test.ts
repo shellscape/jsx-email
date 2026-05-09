@@ -37,9 +37,9 @@ describe('create-mail', async () => {
     `);
     expect(packageJson.dependencies).toMatchInlineSnapshot(`
       {
-        "@jsx-email/plugin-inline": "^3.0.0",
-        "@jsx-email/plugin-minify": "^3.0.0",
-        "@jsx-email/plugin-pretty": "^3.0.0",
+        "@jsx-email/plugin-inline": "^2.0.0",
+        "@jsx-email/plugin-minify": "^2.0.0",
+        "@jsx-email/plugin-pretty": "^2.0.0",
         "jsx-email": "^3.0.0",
       }
     `);

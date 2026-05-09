@@ -67,7 +67,7 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
   links: ['Visit the forums', 'Read the docs', 'Contact an expert']
 };
 
-const baseUrl = 'https://jsx.email/assets/demo/';
+const baseUrl = 'https://jsx.email/assets/samples/';
 
 export const templateName = 'Netlify Welcome';
 
