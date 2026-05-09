@@ -93,7 +93,7 @@ const text = {
   lineHeight: '24px'
 };
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   validationCode: 'DJZ-TLX'

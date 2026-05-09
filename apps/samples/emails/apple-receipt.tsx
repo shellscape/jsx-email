@@ -13,7 +13,7 @@ import {
   Text
 } from 'jsx-email';
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 const main = {
   fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',

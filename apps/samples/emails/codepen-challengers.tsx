@@ -179,7 +179,7 @@ const footerLink = {
   cursor: 'pointer'
 };
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 export const templateName = 'Codepen Challengers';
 

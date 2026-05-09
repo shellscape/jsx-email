@@ -50,7 +50,7 @@ const footer = {
   marginTop: '60px'
 };
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   username: 'Batman'

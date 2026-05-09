@@ -76,7 +76,7 @@ const code = {
   color: '#3c4149'
 };
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   validationCode: 'tt226-5398x'

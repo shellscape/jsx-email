@@ -146,7 +146,7 @@ const footerHeart = {
   margin: '0 0 32px 0'
 };
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 const PropDefaults: StackOverflowTipsEmailProps = {
   tips: [

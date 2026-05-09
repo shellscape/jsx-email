@@ -29,7 +29,7 @@ const anchor = {
   textDecoration: 'underline'
 };
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   userFirstname: 'Bruce',

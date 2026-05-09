@@ -9,11 +9,17 @@ import { gatherTemplates } from '../../src/helpers/templates';
 
 describe('gatherTemplates', () => {
   it('rewrites preview static image URLs to the preview static path', () => {
-    const airbnb = gatherTemplates().find((template) => template.templateName === 'Airbnb Review');
+    const templates = gatherTemplates();
+    const airbnb = templates.find((template) => template.templateName === 'Airbnb Review');
 
     expect(airbnb?.html).toContain('/static/airbnb-logo.png');
     expect(airbnb?.html).toContain('/static/batman-twilight.jpg');
     expect(airbnb?.source).toContain('/static/');
+    expect(templates).toHaveLength(21);
+
+    for (const template of templates) {
+      expect(template.html, template.templateName).not.toContain('jsx.email/assets/samples');
+    }
   });
 
   it('can derive unique canonical slugs from gathered template file names', () => {

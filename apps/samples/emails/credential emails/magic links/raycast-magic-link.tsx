@@ -60,7 +60,7 @@ const footer = {
   marginLeft: '4px'
 };
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   magicLink: 'https://raycast.com'

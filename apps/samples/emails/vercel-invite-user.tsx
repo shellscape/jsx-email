@@ -28,11 +28,11 @@ interface VercelInviteUserEmailProps {
   inviteFromLocation?: string;
 }
 
-const baseUrl = 'https://jsx.email/assets/samples/';
+const baseUrl = import.meta.isJsxEmailPreview ? '/static/' : 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   username: 'batman',
-  userImage: `${baseUrl}batman-adam.jpg`,
+  userImage: `${baseUrl}vercel-user.png`,
   invitedByUsername: 'joker',
   invitedByEmail: 'joker@arkham.com',
   teamName: 'Batmobile',

@@ -50,9 +50,10 @@ const contentTypes: Record<string, string> = {
 const startServer = async () => {
   const server = createServer(async (request, response) => {
     const url = new URL(request.url || '/', 'http://localhost');
-    const requestedPath = url.pathname === '/' || url.pathname.endsWith('/')
-      ? `${url.pathname}index.html`
-      : url.pathname;
+    const requestedPath =
+      url.pathname === '/' || url.pathname.endsWith('/')
+        ? `${url.pathname}index.html`
+        : url.pathname;
     const filePath = normalize(join(distRoot, requestedPath));
 
     if (!filePath.startsWith(distRoot)) {
@@ -107,15 +108,20 @@ const main = async () => {
     html.includes('src="/samples/assets/'),
     'Samples HTML does not reference the hosted /samples asset path'
   );
-  assert(
-    html.includes('href="/favicon.svg"'),
-    'Samples HTML does not reference the web favicon'
-  );
+  assert(html.includes('href="/favicon.svg"'), 'Samples HTML does not reference the web favicon');
 
   const bundle = await readSamplesBundle();
   assert(
     bundle.includes('static/airbnb-logo.png'),
     'Samples bundle does not include Airbnb static asset references'
+  );
+  assert(
+    !bundle.includes('src=\\"https://jsx.email/assets/samples/'),
+    'Samples bundle includes rendered image URLs for the removed /assets/samples path'
+  );
+  assert(
+    bundle.includes('/static/apple-logo.png'),
+    'Samples bundle does not include rewritten Apple static asset references'
   );
   assert(bundle.includes('"/samples/"'), 'Samples bundle does not include the /samples/ base path');
   await assertStaticAsset('airbnb-logo.png');
