@@ -60,7 +60,7 @@ const code = {
   color: '#333'
 };
 
-const baseUrl = 'https://jsx.email/assets/demo/';
+const baseUrl = 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   loginCode: 'sparo-ndigo-amurt-secan'

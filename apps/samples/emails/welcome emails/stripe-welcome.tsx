@@ -52,7 +52,7 @@ const footer = {
   lineHeight: '16px'
 };
 
-const baseUrl = 'https://jsx.email/assets/demo/';
+const baseUrl = 'https://jsx.email/assets/samples/';
 
 export const templateName = 'Stripe Welcome';
 

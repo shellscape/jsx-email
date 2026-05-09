@@ -55,7 +55,7 @@ const containerImageFooter = {
   padding: '45px 0 0 0'
 };
 
-const baseUrl = 'https://jsx.email/assets/demo/';
+const baseUrl = 'https://jsx.email/assets/samples/';
 
 export const previewProps = {
   userFirstName: 'Bruce',
