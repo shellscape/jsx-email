@@ -34,6 +34,39 @@ const main = async () => {
     });
     const page = await context.newPage();
 
+    await page.goto(openPage('index'), {
+      waitUntil: 'networkidle'
+    });
+
+    const commandButton = page.locator('#copy-command-btn');
+    await commandButton.waitFor({ state: 'visible' });
+    await commandButton.click();
+
+    const commandClipboardText = await page.evaluate(() => navigator.clipboard.readText());
+    assert(
+      commandClipboardText === 'npx create-mail@latest',
+      `Home command copied wrong text: ${commandClipboardText}`
+    );
+
+    const commandButtonState = await page.evaluate(() => {
+      const copyIcon = document.querySelector<SVGElement>('#copy-icon');
+      const successIcon = document.querySelector<SVGElement>('#success-icon');
+
+      return {
+        copyIconClass: copyIcon?.getAttribute('class'),
+        successIconClass: successIcon?.getAttribute('class')
+      };
+    });
+
+    assert(
+      commandButtonState.copyIconClass?.includes('opacity-0') === true,
+      `Home command copy icon did not hide: ${JSON.stringify(commandButtonState)}`
+    );
+    assert(
+      commandButtonState.successIconClass?.includes('opacity-100') === true,
+      `Home command success icon did not show: ${JSON.stringify(commandButtonState)}`
+    );
+
     await page.goto(openPage('docs/components/avatar-group'), {
       waitUntil: 'networkidle'
     });
@@ -116,7 +149,9 @@ const main = async () => {
     const quickStartButtons = await page.locator('[data-copy-prompt-root]').count();
     assert(quickStartButtons === 0, 'Copy prompt should not render on Quick Start');
 
-    console.log(JSON.stringify({ componentMetrics, quickStartButtons }, null, 2));
+    console.log(
+      JSON.stringify({ commandClipboardText, componentMetrics, quickStartButtons }, null, 2)
+    );
   } finally {
     await browser.close();
   }

@@ -102,6 +102,7 @@ import CopyPrompt from './CopyPrompt.astro';
       <CopyPrompt />
       <button
         id="copy-command-btn"
+        data-copy-command="npx create-mail@latest"
         class="inline-flex items-center justify-center py-2 sm:py-3 px-4 sm:px-6 text-sm sm:text-base font-medium rounded-[6px] bg-white text-black border border-gray-300 dark:bg-black dark:text-white dark:border-gray-700 transition-all hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer"
       >
         npx create-mail@latest
@@ -197,29 +198,38 @@ import CopyPrompt from './CopyPrompt.astro';
 
     if (copyBtn && copyIcon && successIcon) {
       copyBtn.addEventListener('click', async () => {
-        // The text to copy
-        const textToCopy = 'pnpm add jsx-email';
+        const textToCopy = copyBtn.dataset.copyCommand ?? copyBtn.textContent?.trim() ?? '';
+        if (!textToCopy) return;
 
         try {
-          // Copy text to clipboard
-          await navigator.clipboard.writeText(textToCopy);
-
-          // Show success icon, hide copy icon
-          copyIcon.classList.add('opacity-0');
-          copyIcon.classList.remove('opacity-100');
-          successIcon.classList.add('opacity-100');
-          successIcon.classList.remove('opacity-0');
-
-          // After 3 seconds, revert back
-          setTimeout(() => {
-            copyIcon.classList.add('opacity-100');
-            copyIcon.classList.remove('opacity-0');
-            successIcon.classList.add('opacity-0');
-            successIcon.classList.remove('opacity-100');
-          }, 3000);
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(textToCopy);
+          } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            textarea.setAttribute('readonly', '');
+            textarea.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            textarea.remove();
+          }
         } catch (err) {
           console.error('Failed to copy text: ', err);
+          return;
         }
+
+        copyIcon.classList.add('opacity-0');
+        copyIcon.classList.remove('opacity-100');
+        successIcon.classList.add('opacity-100');
+        successIcon.classList.remove('opacity-0');
+
+        setTimeout(() => {
+          copyIcon.classList.add('opacity-100');
+          copyIcon.classList.remove('opacity-0');
+          successIcon.classList.add('opacity-0');
+          successIcon.classList.remove('opacity-100');
+        }, 3000);
       });
     }
   });
