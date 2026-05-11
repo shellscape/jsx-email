@@ -80,6 +80,7 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
   const settings = { emitParseErrors: true };
   // Remove any stray jsx-email markers (with or without attributes)
   const reJsxTags = new RegExp(`<[/]?(${jsxEmailTags.join('|')})(?:\\s[^>]*)?>`, 'g');
+  const reHrefAttributes = /href="([^"]*)"/g;
 
   // @ts-ignore: This is perfectly valid, see here: https://www.npmjs.com/package/rehype#examples
   const processor = rehype().data('settings', settings);
@@ -94,15 +95,20 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     .use(stringify, {
       allowDangerousCharacters: true,
       allowDangerousHtml: true,
-      characterReferences: {
-        useNamedReferences: true
-      },
       closeEmptyElements: true,
       collapseEmptyAttributes: true
     })
     .process(html);
 
   let result = docType + String(doc).replace('<!doctype html>', '').replace('<head></head>', '');
+
+  result = result.replace(reHrefAttributes, (match, href) => {
+    if (!href.includes('&#x26;')) {
+      return match;
+    }
+
+    return `href="${href.replaceAll('&#x26;', '&amp;')}"`;
+  });
 
   result = result.replace(reJsxTags, '');
 
