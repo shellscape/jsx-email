@@ -1,11 +1,11 @@
 [
   [
-    "inline",
-    "Inline CSS Plugin"
-  ],
-  [
     "clean",
     "Clean Plugin"
+  ],
+  [
+    "inline",
+    "Inline CSS Plugin"
   ],
   [
     "minify",
