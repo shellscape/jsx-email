@@ -45,5 +45,6 @@
   "Plugins",
   ["plugins/inline", "Inline CSS Plugin"],
   ["plugins/minify", "Minify Plugin"],
-  ["plugins/pretty", "Pretty Plugin"]
+  ["plugins/pretty", "Pretty Plugin"],
+  ["plugins/url", "URL Plugin"]
 ]
