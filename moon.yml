@@ -12,6 +12,7 @@ workspace:
 tasks:
   build.deps:
     deps:
+      - plugin-clean:build
       - plugin-inline:build
       - plugin-minify:build
       - plugin-pretty:build

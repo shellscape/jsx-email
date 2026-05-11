@@ -4,6 +4,10 @@
     "Inline CSS Plugin"
   ],
   [
+    "clean",
+    "Clean Plugin"
+  ],
+  [
     "minify",
     "Minify Plugin"
   ],
