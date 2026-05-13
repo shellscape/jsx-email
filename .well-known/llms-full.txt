@@ -4492,6 +4492,84 @@ Include the reproduction link with your question, and we’ll be happy to help!
 
 ---
 
+# Clean Plugin
+
+> The Clean Plugin
+
+## Clean Plugin
+
+The `@jsx-email/plugin-clean` package provides a plugin that removes unused CSS selectors and class names from rendered email HTML.
+
+Configure it through the `plugins` array in your JSX email config:
+
+```
+import { clean } from '@jsx-email/plugin-clean';
+import { defineConfig } from 'jsx-email/config';
+
+export const config = defineConfig({
+  plugins: [
+    clean({
+      whitelist: ['.External*', '.ReadMsgBody', '#*']
+    })
+  ]
+});
+```
+
+### Options
+
+```
+interface CleanOptions {
+  backend?: Array<{ heads: string; tails: string }>;
+  doNotRemoveHTMLCommentsWhoseOpeningTagContains?: string[];
+  removeCSSComments?: boolean;
+  removeHTMLComments?: boolean;
+  uglify?: boolean;
+  whitelist?: string[];
+}
+```
+
+```
+backend?: Array<{ heads: string; tails: string }>;
+```
+
+Template delimiters that should be preserved when they appear in class names or selectors. Defaults to preserving `{{ }}` and `{% %}` blocks.
+
+```
+doNotRemoveHTMLCommentsWhoseOpeningTagContains?: string[];
+```
+
+HTML comment opening text fragments that should be preserved when comments are removed. Defaults to preserving Outlook conditional comment markers with `[if` and `[endif`.
+
+```
+removeCSSComments?: boolean;
+```
+
+If `true`, removes comments from CSS in the rendered output.
+
+```
+removeHTMLComments?: boolean;
+```
+
+If `true`, removes HTML comments from the rendered output. Conditional comments that match `doNotRemoveHTMLCommentsWhoseOpeningTagContains` are preserved.
+
+```
+uglify?: boolean;
+```
+
+If `true`, renames classes and IDs in `<style>` tags and matching HTML attributes to shorter values.
+
+```
+whitelist?: string[];
+```
+
+Selectors to keep even when they are not found in the rendered HTML. Supports exact selectors and glob-style patterns, such as `.External*`, `.ReadMsgBody`, or `#*`.
+
+Browse this plugin’s [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-clean)
+
+<!-- <Footer /> -->
+
+---
+
 # Inline CSS Plugin
 
 > The Inline CSS Plugin
@@ -4564,6 +4642,155 @@ Browse this plugin’s [source code](https://github.com/shellscape/jsx-email/blo
 ## Why
 
 Mostly useful for debugging, and in preview environments, prettifying code in general makes it easy to read, nagivate, and look for problems. We don’t recommend using this for production, but it’s very handy for development.
+
+<!-- <Footer /> -->
+
+---
+
+# URL Plugin
+
+> The URL Plugin
+
+## URL Plugin
+
+The `@jsx-email/plugin-url` package provides a plugin for modifying URLs in rendered email HTML. The initial `append` option appends URL parameters to matching URL attributes.
+
+This plugin is not loaded automatically by `jsx-email`. Add it to your configuration’s `plugins` array.
+
+Browse this plugin’s [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-url)
+
+## Usage
+
+```
+import { defineConfig } from 'jsx-email/config';
+import { urlPlugin } from '@jsx-email/plugin-url';
+
+export const config = defineConfig({
+  plugins: [
+    urlPlugin({
+      append: {
+        parameters: {
+          utm_campaign: 'Campaign Name',
+          utm_medium: 'email',
+          utm_source: 'jsx-email'
+        }
+      }
+    })
+  ]
+});
+```
+
+Given this HTML:
+
+```
+<a href="https://example.com">Test</a>
+```
+
+The output will include appended URL parameters:
+
+```
+<a href="https://example.com?utm_campaign=Campaign Name&utm_medium=email&utm_source=jsx-email"
+  >Test</a
+>
+```
+
+## Options
+
+### append
+
+Type: `Object`
+
+Appends URL parameters to matching URL attributes.
+
+### attributes
+
+Type: `String[]` Default: `['src', 'href', 'poster', 'srcset', 'background']`
+
+Array of attributes to process for matching tags.
+
+```
+urlPlugin({
+  append: {
+    attributes: ['data-href', 'src'],
+    parameters: {
+      foo: 'bar'
+    },
+    tags: ['a', 'img']
+  }
+});
+```
+
+### parameters
+
+Type: `Object`
+
+Object containing the URL parameters to append.
+
+```
+urlPlugin({
+  append: {
+    parameters: {
+      custom_parameter: 'foo',
+      utm_campaign: 'Campaign Name',
+      utm_medium: 'email',
+      utm_source: 'jsx-email'
+    }
+  }
+});
+```
+
+### qs
+
+Type: `Object` Default: `{ encode: false }`
+
+Options for serializing appended URL parameters.
+
+```
+urlPlugin({
+  append: {
+    parameters: {
+      foo: '@Bar@'
+    },
+    qs: {
+      encode: true
+    }
+  }
+});
+```
+
+### strict
+
+Type: `Boolean` Default: `true`
+
+When enabled, URL parameters are appended only to valid URLs. Disable strict mode to append URL parameters to any string.
+
+```
+urlPlugin({
+  append: {
+    parameters: {
+      foo: 'bar'
+    },
+    strict: false
+  }
+});
+```
+
+### tags
+
+Type: `String[]` Default: `['a']`
+
+Array of tag names or CSS selectors to process.
+
+```
+urlPlugin({
+  append: {
+    parameters: {
+      foo: 'bar'
+    },
+    tags: ['a[href*="example.com"]']
+  }
+});
+```
 
 <!-- <Footer /> -->
 
