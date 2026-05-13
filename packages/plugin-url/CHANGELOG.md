@@ -1,9 +1,9 @@
 # @jsx-email/plugin-url ChangeLog
 
-## v2.0.0
+## v1.0.0
 
-_2026-05-11_
+_2026-05-13_
 
 ### Features
 
-- plugin-url: add URL parameter appending plugin
+- plugin-url: initial release
