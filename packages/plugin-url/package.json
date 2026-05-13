@@ -1,0 +1,63 @@
+{
+  "name": "@jsx-email/plugin-url",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A URL plugin for jsx-email",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/plugin-url"
+  },
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "https://jsx.email/",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "email",
+    "html",
+    "jsx",
+    "jsx-email",
+    "plugin",
+    "preset",
+    "react",
+    "rehype",
+    "rehype-plugin",
+    "unified",
+    "url"
+  ],
+  "peerDependencies": {
+    "jsx-email": "^3.0.0"
+  },
+  "dependencies": {
+    "hast-util-select": "^6.0.4",
+    "unist-util-visit": "catalog:"
+  },
+  "devDependencies": {
+    "hast": "catalog:",
+    "jsx-email": "workspace:^",
+    "rehype": "^13.0.1",
+    "rehype-stringify": "^10.0.0",
+    "unified": "catalog:"
+  },
+  "types": "./dist/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
+  "sideEffects": false
+}

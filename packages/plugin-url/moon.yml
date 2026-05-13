@@ -1,0 +1,17 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/project.json'
+
+tasks:
+  test:
+    command: vitest --config ../../shared/vitest.config.ts
+    deps:
+      - ~:build
+    inputs:
+      - src
+      - test
+      - package.json
+    env:
+      FORCE_COLOR: '1'
+    options:
+      cache: false
+      outputStyle: 'stream'
