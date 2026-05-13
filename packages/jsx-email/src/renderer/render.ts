@@ -94,6 +94,9 @@ const processHtml = async (config: JsxEmailConfig, html: string) => {
     .use(stringify, {
       allowDangerousCharacters: true,
       allowDangerousHtml: true,
+      characterReferences: {
+        useNamedReferences: true
+      },
       closeEmptyElements: true,
       collapseEmptyAttributes: true
     })

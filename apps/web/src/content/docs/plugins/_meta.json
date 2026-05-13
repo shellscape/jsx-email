@@ -14,5 +14,9 @@
   [
     "pretty",
     "Pretty Plugin"
+  ],
+  [
+    "url",
+    "URL Plugin"
   ]
 ]

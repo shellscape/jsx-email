@@ -4,6 +4,12 @@ packages:
   - 'test/*'
   - '!recipes/*'
 
+allowBuilds:
+  '@swc/core': true
+  '@tailwindcss/oxide': true
+  esbuild: true
+  sharp: true
+
 catalog:
   '@types/react': '19.2.14'
   '@types/react-dom': '19.2.3'
@@ -37,6 +43,7 @@ catalog:
 
 enablePrePostScripts: true
 linkWorkspacePackages: false
+minimumReleaseAge: 43200 # 30 days
 onlyBuiltDependencies:
   - '@moonrepo/cli'
   - '@parcel/watcher'

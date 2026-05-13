@@ -16,6 +16,7 @@ tasks:
       - plugin-inline:build
       - plugin-minify:build
       - plugin-pretty:build
+      - plugin-url:build
       - create-mail:build
 
   build.all:

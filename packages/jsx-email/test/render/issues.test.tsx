@@ -21,4 +21,12 @@ describe('render', () => {
     );
     expect(await render(fragment, { minify: false })).toMatchSnapshot();
   });
+
+  it('issue 368, href query delimiters', async () => {
+    const fragment = <a href="https://example.com?foo=bar&baz=qux">Test Link</a>;
+    const result = await render(fragment);
+
+    expect(result).toContain('href="https://example.com?foo=bar&amp;baz=qux"');
+    expect(result).not.toContain('href="https://example.com?foo=bar&#x26;baz=qux"');
+  });
 });
