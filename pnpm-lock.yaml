@@ -653,6 +653,16 @@ importers:
         specifier: 'catalog:'
         version: 11.0.5
 
+  packages/plugin-clean:
+    dependencies:
+      email-comb:
+        specifier: ^7.1.3
+        version: 7.1.3
+    devDependencies:
+      jsx-email:
+        specifier: workspace:^
+        version: link:../jsx-email
+
   packages/plugin-inline:
     dependencies:
       '@adobe/css-tools':
@@ -3989,6 +3999,10 @@ packages:
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
 
+  array-pull-all-with-glob@7.1.3:
+    resolution: {integrity: sha512-BCkrHE6iK3EXywYuivo1okICHMD5WnKcoMsyM7O5AjpvTpsYM96UTFaukKv/pRAj42rzmXrNuSAMZXwFKNWn4Q==}
+    engines: {node: '>=14.18.0'}
+
   array-union@1.0.2:
     resolution: {integrity: sha512-Dxr6QJj/RdU/hCaBjOfxW+q6lyuVE6JFWIrAUpuOOhoJJoQ99cUn3igRaHVB5P9WrgFVN0FfArM3x0cueOU8ng==}
     engines: {node: '>=0.10.0'}
@@ -4020,6 +4034,10 @@ packages:
   arraybuffer.prototype.slice@1.0.4:
     resolution: {integrity: sha512-BNoCY6SXXPQ7gF2opIP4GBE+Xw7U+pHMYKuzjgCN3GwiaIR09UUeKfheyIry77QtrCBlC0KK0q5/TER/tYh3PQ==}
     engines: {node: '>= 0.4'}
+
+  arrayiffy-if-string@5.1.3:
+    resolution: {integrity: sha512-LQk6w4KAE/65Yr1v9/1Z6dMXNnWrU5TxtQm5nFBNbqzoimKReG1tfYgmIctzMiYW1KgnsGXL8F9G0vlH0r01Ww==}
+    engines: {node: '>=14.18.0'}
 
   arrify@1.0.1:
     resolution: {integrity: sha512-3CYzex9M9FGQjCGMGyi6/31c8GJbgb0qGyrx5HWxPd0aCwh4cB2YjMb2Xf9UuoogrMrlO9cTqnB5rI5GHZTcUA==}
@@ -4259,6 +4277,10 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
+
+  codsen-utils@1.7.3:
+    resolution: {integrity: sha512-YIFQQ1n2NSgwoB3sCe7RpkZzsrPxTMek6jc7wC9fXOm1wwfWAKja9gLOMEjlXOUd3LKV3o6Jci7n9BoHs5Z8Sg==}
+    engines: {node: '>=14.18.0'}
 
   collapse-white-space@2.1.0:
     resolution: {integrity: sha512-loKTxY1zCOuG4j9f6EPnuyyYkf58RnhhWTvRoZEokgB+WbdXehfjFviyOVYkqzEWz1Q5kRiZdBYS5SwxbQYwzw==}
@@ -4624,6 +4646,10 @@ packages:
 
   email-addresses@5.0.0:
     resolution: {integrity: sha512-4OIPYlA6JXqtVn8zpHpGiI7vE6EQOAg16aGnDMIAlZVinnoZ8208tW1hAbjWydgN/4PLTT9q+O1K6AH/vALJGw==}
+
+  email-comb@7.1.3:
+    resolution: {integrity: sha512-QOv6wPr7qU+aM/8cJ8Eddrb86q2djGyDTnLdvAp/7B2FQ+XFRrk4VNn22xarc6NzvcDSEslaM4oF2hp10xFNZw==}
+    engines: {node: '>=14.18.0'}
 
   emmet@2.4.11:
     resolution: {integrity: sha512-23QPJB3moh/U9sT4rQzGgeyyGIrcM+GH5uVYg2C6wZIxAIJq7Ng3QLT79tl8FUwDXhyq9SusfknOrofAKqvgyQ==}
@@ -5363,6 +5389,10 @@ packages:
     resolution: {integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==}
     engines: {node: '>=10'}
 
+  html-crush@6.1.3:
+    resolution: {integrity: sha512-IrDC4BrdrMmV+GMYfXtx6BtzQ6hVf+GjLSDhmg/14DkpNbXtxAcbH3Wk9VeNZbg/y2MpobWTVOSrCzr/HWBwcw==}
+    engines: {node: '>=14.18.0'}
+
   html-encoding-sniffer@4.0.0:
     resolution: {integrity: sha512-Y22oTqIU4uuPgEemfz7NDJz6OeKf12Lsu+QC+s3BVpda64lTiMYCyGwg5ki4vFxkMwQdeZDl2adZoqUgdFuTgQ==}
     engines: {node: '>=18'}
@@ -6074,6 +6104,10 @@ packages:
     engines: {node: '>= 16'}
     hasBin: true
 
+  matcher@6.0.0:
+    resolution: {integrity: sha512-TzDerdcNtI79w7Av4GT57bLdElPA/VAkjqdMZv8yhuc8geU2z0ljW9anXbX/55aHEMTpYypZb1lxsA/46r9oOQ==}
+    engines: {node: '>=20'}
+
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -6444,6 +6478,10 @@ packages:
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
+
+  object-boolean-combinations@6.2.3:
+    resolution: {integrity: sha512-A2inWgy5Hy3+9prMyiKBUBYcTpbuZbKOMt+YKMD3ZAsli7TwKh6TPSZdK+kNF5hmJFhaVbjHwP/xsfjO2Z/GmQ==}
+    engines: {node: '>=14.18.0'}
 
   object-inspect@1.13.4:
     resolution: {integrity: sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew==}
@@ -6984,6 +7022,22 @@ packages:
   radix3@1.1.2:
     resolution: {integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==}
 
+  ranges-apply@7.1.3:
+    resolution: {integrity: sha512-+dpc801TK6qUoMKU9dnwD0wH6XORtZicXLVm4p43jEp+te7Q+Tw0Pa4cHX9Mj1W0zshVYh1S4RIYI38ZUPglqQ==}
+    engines: {node: '>=14.18.0'}
+
+  ranges-merge@9.1.3:
+    resolution: {integrity: sha512-dPS11e7AHD1tnuzrboYa+n07JqbHccMqt94C3cSlJ9tTC/RN6P+iGePhTyvCPpoNDWVOEVX4JGyGH0oHjwas0g==}
+    engines: {node: '>=14.18.0'}
+
+  ranges-push@7.1.3:
+    resolution: {integrity: sha512-3laGXNa4CW1vt6e2RqC35xRmxXpcWwLNpepTQJ+dkftc/7rH+d9pQ/UQgV6/peN6DsDcpJuu+PjLjWprz2UjDA==}
+    engines: {node: '>=14.18.0'}
+
+  ranges-sort@6.1.3:
+    resolution: {integrity: sha512-JsTMmurWEOPYowp1OwUbjcfXyDfaTB+AWoiZwjV+3qOv0uUI7A1CExGwyFwfXEO5HYThOTDC96qC9a6BYqFbyg==}
+    engines: {node: '>=14.18.0'}
+
   react-dom@19.2.5:
     resolution: {integrity: sha512-J5bAZz+DXMMwW/wV3xzKke59Af6CHY7G4uYLN1OvBcKEsWOs4pQExj86BBKamxl/Ik5bx9whOrvBlSDfWzgSag==}
     peerDependencies:
@@ -7092,6 +7146,10 @@ packages:
   reflect.getprototypeof@1.0.10:
     resolution: {integrity: sha512-00o4I+DVrefhv+nX0ulyi3biSHCPDe+yLv5o/p6d/UVlirijB8E16FtfwSAi4g3tcqrQ4lRAqQSoFEZJehYEcw==}
     engines: {node: '>= 0.4'}
+
+  regex-empty-conditional-comments@3.1.3:
+    resolution: {integrity: sha512-1bld//jNjpNXXfcuv7Ch7gDaHaK4DU8I7B52E7c20jPjwUJk5X9TpP7BmLr6KtyLUZgKqTzZME+TRL1JzfOROg==}
+    engines: {node: '>=14.18.0'}
 
   regex-recursion@5.1.1:
     resolution: {integrity: sha512-ae7SBCbzVNrIjgSbh7wMznPcQel1DNlDtzensnFxpiNpXt1U2ju/bHugH422r+4LAVS1FpW1YCwilmnNsjum9w==}
@@ -7481,6 +7539,38 @@ packages:
     resolution: {integrity: sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==}
     engines: {node: '>=0.6.19'}
 
+  string-character-is-astral-surrogate@3.1.3:
+    resolution: {integrity: sha512-sqj1xo8SMWp6WG/pUYoIiYNgSHQTTuJA/BmdpnvoAoo121RVOTJJQ7V1RKAOwT+vVOYhwiLydb9ul5tgnMPY9w==}
+    engines: {node: '>=14.18.0'}
+
+  string-collapse-leading-whitespace@7.1.3:
+    resolution: {integrity: sha512-bCgNODedM9daANnnNPOHuz++qUeVHgsPMghNPznbLLnBviNyuKt9vzHIa6OGTSpWzJUO4Rlffu4+RD47pSTq3g==}
+    engines: {node: '>=14.18.0'}
+
+  string-extract-class-names@8.1.3:
+    resolution: {integrity: sha512-C93V3u9dZHHsIaNab765gQv+ewuRvkgx6tseXclrxN1DgLakhbfL8s48QG30uRryXqRttCJrLCQs3EeO5WAz9w==}
+    engines: {node: '>=14.18.0'}
+
+  string-left-right@6.1.3:
+    resolution: {integrity: sha512-XPqLphMTTbPMRs4DPX0flLtVFsDWZ+Og3tyku1FiiE2b/+SUHmiO1KRg7NBlb5e9UrojE5F3ryXORL0VYhwwgA==}
+    engines: {node: '>=14.18.0'}
+
+  string-match-left-right@9.1.3:
+    resolution: {integrity: sha512-X+lhDoz+Ef7aGeczV+s6W219mpygsytvt/N+WbnJ/ZSi38siK0LgYfAKHe6LPZiRYTYgN2UPXA/FW6bExcxRLg==}
+    engines: {node: '>=14.18.0'}
+
+  string-range-expander@4.1.3:
+    resolution: {integrity: sha512-gUBIVv6YYHhXU+fqyEhTQzGHhsVq6NjUpX7y3ZcOtiSbIEiIYzeUzx/+p1koy20LZkfeWbhusRuR4AHdh1JxNg==}
+    engines: {node: '>=14.18.0'}
+
+  string-trim-spaces-only@5.1.3:
+    resolution: {integrity: sha512-Flb782YX49j4GkLv/M2rqJik/lUq+OJnT/q7kQ6byZtgknAo1wb1XFBN3b+7UMW5I6VB1QdNAoh9oiUa9izBpA==}
+    engines: {node: '>=14.18.0'}
+
+  string-uglify@3.1.3:
+    resolution: {integrity: sha512-g93pMqRK4swYKXxYOVma28u7ON/2bg+g5iectIvRZEu6ZSCEMOE19pa2cMGmzqkfS4DxG1Jc4y11wf/luTF3Mg==}
+    engines: {node: '>=14.18.0'}
+
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -7618,6 +7708,10 @@ packages:
     engines: {node: '>=18'}
     deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
+  test-mixer@4.2.3:
+    resolution: {integrity: sha512-6sBlzwiDARX7Qp13MwYygwjeNrtlkbHj+6t/+1OnROQWLX+rpquOc+XXbjVs5xYUtltNo6ZpvFM4nNWtOdInHw==}
+    engines: {node: '>=14.18.0'}
+
   text-extensions@1.9.0:
     resolution: {integrity: sha512-wiBrwC1EhBelW12Zy26JeOUkQ5mRu+5o8rpsJk5+2t+Y5vE7e842qtZDQ2g1NpX/29HdyFeJ4nSIhI47ENSxlQ==}
     engines: {node: '>=0.10'}
@@ -7630,6 +7724,9 @@ packages:
 
   tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
+
+  tiny-invariant@1.3.3:
+    resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -11411,6 +11508,10 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
+  array-pull-all-with-glob@7.1.3:
+    dependencies:
+      matcher: 6.0.0
+
   array-union@1.0.2:
     dependencies:
       array-uniq: 1.0.3
@@ -11467,6 +11568,8 @@ snapshots:
       es-errors: 1.3.0
       get-intrinsic: 1.3.0
       is-array-buffer: 3.0.5
+
+  arrayiffy-if-string@5.1.3: {}
 
   arrify@1.0.1: {}
 
@@ -11801,6 +11904,10 @@ snapshots:
       wrap-ansi: 7.0.0
 
   clsx@2.1.1: {}
+
+  codsen-utils@1.7.3:
+    dependencies:
+      rfdc: 1.4.1
 
   collapse-white-space@2.1.0: {}
 
@@ -12162,6 +12269,21 @@ snapshots:
   electron-to-chromium@1.5.340: {}
 
   email-addresses@5.0.0: {}
+
+  email-comb@7.1.3:
+    dependencies:
+      array-pull-all-with-glob: 7.1.3
+      codsen-utils: 1.7.3
+      html-crush: 6.1.3
+      matcher: 6.0.0
+      ranges-apply: 7.1.3
+      ranges-push: 7.1.3
+      regex-empty-conditional-comments: 3.1.3
+      string-extract-class-names: 8.1.3
+      string-left-right: 6.1.3
+      string-match-left-right: 9.1.3
+      string-range-expander: 4.1.3
+      string-uglify: 3.1.3
 
   emmet@2.4.11:
     dependencies:
@@ -13326,6 +13448,16 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
+  html-crush@6.1.3:
+    dependencies:
+      codsen-utils: 1.7.3
+      ranges-apply: 7.1.3
+      ranges-push: 7.1.3
+      string-left-right: 6.1.3
+      string-match-left-right: 9.1.3
+      string-range-expander: 4.1.3
+      test-mixer: 4.2.3
+
   html-encoding-sniffer@4.0.0:
     dependencies:
       whatwg-encoding: 3.1.1
@@ -13972,6 +14104,10 @@ snapshots:
 
   marked@7.0.4: {}
 
+  matcher@6.0.0:
+    dependencies:
+      escape-string-regexp: 5.0.0
+
   math-intrinsics@1.1.0: {}
 
   md-to-react-email@5.0.5(react@19.2.5):
@@ -14613,6 +14749,11 @@ snapshots:
 
   object-assign@4.1.1: {}
 
+  object-boolean-combinations@6.2.3:
+    dependencies:
+      codsen-utils: 1.7.3
+      rfdc: 1.4.1
+
   object-inspect@1.13.4: {}
 
   object-keys@1.1.1: {}
@@ -15162,6 +15303,25 @@ snapshots:
 
   radix3@1.1.2: {}
 
+  ranges-apply@7.1.3:
+    dependencies:
+      ranges-merge: 9.1.3
+      tiny-invariant: 1.3.3
+
+  ranges-merge@9.1.3:
+    dependencies:
+      ranges-push: 7.1.3
+      ranges-sort: 6.1.3
+
+  ranges-push@7.1.3:
+    dependencies:
+      codsen-utils: 1.7.3
+      ranges-sort: 6.1.3
+      string-collapse-leading-whitespace: 7.1.3
+      string-trim-spaces-only: 5.1.3
+
+  ranges-sort@6.1.3: {}
+
   react-dom@19.2.5(react@19.2.5):
     dependencies:
       react: 19.2.5
@@ -15285,6 +15445,8 @@ snapshots:
       get-intrinsic: 1.3.0
       get-proto: 1.0.1
       which-builtin-type: 1.2.1
+
+  regex-empty-conditional-comments@3.1.3: {}
 
   regex-recursion@5.1.1:
     dependencies:
@@ -15903,6 +16065,33 @@ snapshots:
 
   string-argv@0.3.2: {}
 
+  string-character-is-astral-surrogate@3.1.3: {}
+
+  string-collapse-leading-whitespace@7.1.3: {}
+
+  string-extract-class-names@8.1.3:
+    dependencies:
+      string-left-right: 6.1.3
+
+  string-left-right@6.1.3:
+    dependencies:
+      codsen-utils: 1.7.3
+      rfdc: 1.4.1
+
+  string-match-left-right@9.1.3:
+    dependencies:
+      arrayiffy-if-string: 5.1.3
+      codsen-utils: 1.7.3
+      string-character-is-astral-surrogate: 3.1.3
+
+  string-range-expander@4.1.3:
+    dependencies:
+      codsen-utils: 1.7.3
+
+  string-trim-spaces-only@5.1.3: {}
+
+  string-uglify@3.1.3: {}
+
   string-width@4.2.3:
     dependencies:
       emoji-regex: 8.0.0
@@ -16072,6 +16261,11 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
+  test-mixer@4.2.3:
+    dependencies:
+      object-boolean-combinations: 6.2.3
+      rfdc: 1.4.1
+
   text-extensions@1.9.0: {}
 
   through2@4.0.2:
@@ -16081,6 +16275,8 @@ snapshots:
   through@2.3.8: {}
 
   tiny-inflate@1.0.3: {}
+
+  tiny-invariant@1.3.3: {}
 
   tinybench@2.9.0: {}
 

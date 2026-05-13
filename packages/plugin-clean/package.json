@@ -1,0 +1,57 @@
+{
+  "name": "@jsx-email/plugin-clean",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A plugin for jsx-email that removes unused CSS from rendered email HTML",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/plugin-clean"
+  },
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "https://jsx.email/",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "clean",
+    "css",
+    "email",
+    "html",
+    "jsx",
+    "jsx-email",
+    "plugin",
+    "purge",
+    "react",
+    "unused"
+  ],
+  "peerDependencies": {
+    "jsx-email": "^3.0.0"
+  },
+  "dependencies": {
+    "email-comb": "^7.1.3"
+  },
+  "devDependencies": {
+    "jsx-email": "workspace:^"
+  },
+  "types": "./dist/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
+  "sideEffects": false
+}

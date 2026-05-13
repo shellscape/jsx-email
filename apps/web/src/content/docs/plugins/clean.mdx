@@ -1,0 +1,74 @@
+---
+title: 'Clean Plugin'
+description: 'The Clean Plugin'
+---
+
+## Clean Plugin
+
+The `@jsx-email/plugin-clean` package provides a plugin that removes unused CSS selectors and class names from rendered email HTML.
+
+Configure it through the `plugins` array in your JSX email config:
+
+```js
+import { clean } from '@jsx-email/plugin-clean';
+import { defineConfig } from 'jsx-email/config';
+
+export const config = defineConfig({
+  plugins: [
+    clean({
+      whitelist: ['.External*', '.ReadMsgBody', '#*']
+    })
+  ]
+});
+```
+
+### Options
+
+```ts
+interface CleanOptions {
+  backend?: Array<{ heads: string; tails: string }>;
+  doNotRemoveHTMLCommentsWhoseOpeningTagContains?: string[];
+  removeCSSComments?: boolean;
+  removeHTMLComments?: boolean;
+  uglify?: boolean;
+  whitelist?: string[];
+}
+```
+
+```ts
+backend?: Array<{ heads: string; tails: string }>;
+```
+
+Template delimiters that should be preserved when they appear in class names or selectors. Defaults to preserving `{{ }}` and `{% %}` blocks.
+
+```ts
+doNotRemoveHTMLCommentsWhoseOpeningTagContains?: string[];
+```
+
+HTML comment opening text fragments that should be preserved when comments are removed. Defaults to preserving Outlook conditional comment markers with `[if` and `[endif`.
+
+```ts
+removeCSSComments?: boolean;
+```
+
+If `true`, removes comments from CSS in the rendered output.
+
+```ts
+removeHTMLComments?: boolean;
+```
+
+If `true`, removes HTML comments from the rendered output. Conditional comments that match `doNotRemoveHTMLCommentsWhoseOpeningTagContains` are preserved.
+
+```ts
+uglify?: boolean;
+```
+
+If `true`, renames classes and IDs in `<style>` tags and matching HTML attributes to shorter values.
+
+```ts
+whitelist?: string[];
+```
+
+Selectors to keep even when they are not found in the rendered HTML. Supports exact selectors and glob-style patterns, such as `.External*`, `.ReadMsgBody`, or `#*`.
+
+Browse this plugin's [source code](https://github.com/shellscape/jsx-email/blob/main/packages/plugin-clean)

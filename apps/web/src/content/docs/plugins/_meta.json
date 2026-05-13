@@ -1,5 +1,9 @@
 [
   [
+    "clean",
+    "Clean Plugin"
+  ],
+  [
     "inline",
     "Inline CSS Plugin"
   ],
