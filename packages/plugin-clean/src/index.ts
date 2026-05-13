@@ -36,7 +36,7 @@ const getCombOptions = ({ whitelist = [], ...options }: CleanOptions = {}) => ({
 });
 
 export const clean = (options: CleanOptions = {}): JsxEmailPlugin => ({
-  afterRender: ({ html }) => comb(html, getCombOptions(options)).result,
+  beforeRender: ({ html }) => comb(html, getCombOptions(options)).result,
   name: 'root/clean',
   symbol: pluginSymbol
 });

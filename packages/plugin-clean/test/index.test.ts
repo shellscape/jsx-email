@@ -5,11 +5,11 @@ import { clean } from '../src/index.js';
 const runClean = async (html: string, options = {}) => {
   const plugin = clean(options);
 
-  if (!plugin.afterRender) {
-    throw new TypeError('Expected clean plugin to expose an afterRender hook');
+  if (!plugin.beforeRender) {
+    throw new TypeError('Expected clean plugin to expose a beforeRender hook');
   }
 
-  return plugin.afterRender({ chalk: {} as never, html, log: {} });
+  return plugin.beforeRender({ chalk: {} as never, html, log: {} });
 };
 
 describe('plugin-clean', () => {
