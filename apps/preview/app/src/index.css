@@ -320,18 +320,30 @@ body {
   color: var(--text-strong);
 }
 
+.spam-button-wrap {
+  display: inline-flex;
+  position: relative;
+}
+
 .spam-button {
   align-items: center;
   background: transparent;
-  border: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
   color: var(--text-subtle);
-  cursor: default;
+  cursor: pointer;
   display: inline-flex;
   height: 28px;
   justify-content: center;
   padding: 0;
-  transition: color 150ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
   width: 34px;
+}
+
+.spam-button:hover,
+.spam-button[aria-expanded='true'] {
+  background: var(--control-hover);
+  color: var(--text-strong);
 }
 
 .spam-button svg {
@@ -344,6 +356,10 @@ body {
   color: #16803c;
 }
 
+.spam-button.is-grey {
+  color: #e5e7eb;
+}
+
 .spam-button.is-yellow {
   color: #b7791f;
 }
@@ -354,6 +370,10 @@ body {
 
 .dark .spam-button.is-green {
   color: #45c16d;
+}
+
+.dark .spam-button.is-grey {
+  color: #6b7280;
 }
 
 .dark .spam-button.is-yellow {
@@ -380,6 +400,10 @@ body {
   color: #16803c;
 }
 
+.spam-tooltip-icon.is-grey {
+  color: #e5e7eb;
+}
+
 .spam-tooltip-icon.is-yellow {
   color: #b7791f;
 }
@@ -392,12 +416,251 @@ body {
   color: #45c16d;
 }
 
+.dark .spam-tooltip-icon.is-grey {
+  color: #6b7280;
+}
+
 .dark .spam-tooltip-icon.is-yellow {
   color: #f2c94c;
 }
 
 .dark .spam-tooltip-icon.is-red {
   color: #ff6b5f;
+}
+
+.spam-popover {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow:
+    0 20px 35px -12px rgb(0 0 0 / 0.28),
+    0 8px 16px -8px rgb(0 0 0 / 0.18);
+  color: var(--text);
+  max-height: var(--spam-popover-max-height, calc(100vh - 48px));
+  overflow: visible;
+  position: fixed;
+  width: 430px;
+  z-index: 80;
+}
+
+.spam-popover::before {
+  background: var(--surface-raised);
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  content: '';
+  height: 14px;
+  position: absolute;
+  right: 11px;
+  top: -8px;
+  transform: rotate(45deg);
+  width: 14px;
+}
+
+.spam-popover-header {
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  padding: 11px 12px;
+}
+
+.spam-popover-heading {
+  min-width: 0;
+}
+
+.spam-popover-title {
+  color: currentColor;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.spam-popover-subtitle {
+  color: var(--text-subtle);
+  font-size: 14px;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.spam-popover-body {
+  max-height: calc(var(--spam-popover-max-height, calc(100vh - 48px)) - 109px);
+  overflow: auto;
+  padding: 11px 12px;
+}
+
+.spam-popover-findings {
+  display: grid;
+  gap: 10px;
+}
+
+.spam-popover-finding {
+  align-items: start;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 34px minmax(0, 1fr);
+  padding: 7px 8px;
+}
+
+.spam-popover-finding-icon {
+  border-radius: var(--radius);
+  height: 28px;
+  padding: 5px;
+  width: 28px;
+}
+
+.spam-popover-finding-icon.is-green {
+  background: rgb(22 128 60 / 0.12);
+  color: #16803c;
+}
+
+.spam-popover-finding-icon.is-yellow {
+  background: rgb(183 121 31 / 0.14);
+  color: #b7791f;
+}
+
+.spam-popover-finding-icon.is-red {
+  background: rgb(217 45 32 / 0.12);
+  color: #d92d20;
+}
+
+.spam-popover-finding-text {
+  min-width: 0;
+}
+
+.spam-popover-finding-title {
+  align-items: center;
+  color: var(--text-strong);
+  cursor: default;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 500;
+  gap: 6px;
+  line-height: 1.25;
+}
+
+.spam-popover-count {
+  align-items: center;
+  background: var(--control-hover);
+  border-radius: var(--radius);
+  color: var(--text-subtle);
+  display: inline-flex;
+  font-weight: 600;
+  justify-content: center;
+}
+
+.spam-popover-count.is-small {
+  font-size: 11px;
+  height: 18px;
+  min-width: 22px;
+  padding: 0 6px;
+}
+
+.spam-popover-count.is-normal {
+  font-size: inherit;
+  line-height: 1;
+  min-width: 24px;
+  padding: 1px 6px;
+  vertical-align: baseline;
+}
+
+.spam-popover-evidence {
+  margin-top: 3px;
+}
+
+.spam-popover-evidence-toggle {
+  background: transparent;
+  border: 0;
+  color: var(--text-subtle);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0;
+}
+
+.spam-popover-evidence-toggle:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.spam-popover-evidence-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.spam-popover-evidence-list span {
+  background: #fafafa;
+  border: 1px solid #21272e1f;
+  border-radius: 2px;
+  color: #0a0a0a;
+  font-family: Menlo, ui-monospace, SFMono-Regular, Monaco, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  overflow-wrap: break-word;
+  padding: 3px 4px;
+}
+
+.spam-popover-evidence-list.is-links {
+  display: grid;
+}
+
+.spam-popover-evidence-list.is-links span {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spam-popover.is-green {
+  color: #16803c;
+}
+
+.spam-popover.is-yellow {
+  color: #b7791f;
+}
+
+.spam-popover.is-red {
+  color: #d92d20;
+}
+
+.dark .spam-popover.is-green,
+.dark .spam-popover-finding-icon.is-green {
+  color: #45c16d;
+}
+
+.dark .spam-popover.is-yellow,
+.dark .spam-popover-finding-icon.is-yellow {
+  color: #f2c94c;
+}
+
+.dark .spam-popover.is-red,
+.dark .spam-popover-finding-icon.is-red {
+  color: #ff6b5f;
+}
+
+.dark .spam-popover-finding-icon.is-green {
+  background: rgb(69 193 109 / 0.16);
+}
+
+.dark .spam-popover-finding-icon.is-yellow {
+  background: rgb(242 201 76 / 0.16);
+}
+
+.dark .spam-popover-finding-icon.is-red {
+  background: rgb(255 107 95 / 0.16);
+}
+
+.dark .spam-popover-evidence-list span {
+  background-color: #1a1a1a;
+  border-color: #292929;
+  color: #c4c5c6;
 }
 
 .card-code {

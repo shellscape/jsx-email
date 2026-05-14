@@ -1,4 +1,10 @@
-import { scan, type CanispamClassification } from 'canispam';
+import {
+  scan,
+  type CanispamClassification,
+  type CanispamClassifierResult,
+  type CanispamFinding,
+  type CanispamScoreBreakdown
+} from 'canispam';
 import { toEml } from 'jsx-email/eml';
 
 import type { TemplateData } from '../types/templates';
@@ -7,12 +13,15 @@ export type SpamAnalysisStatus = 'error' | 'fail' | 'idle' | 'pass' | 'scanning'
 
 export interface SpamAnalysisState {
   classification?: CanispamClassification;
+  classifier?: CanispamClassifierResult;
+  findings?: CanispamFinding[];
   message?: string;
   score?: number;
+  scoreBreakdown?: CanispamScoreBreakdown;
   status: SpamAnalysisStatus;
 }
 
-export type SpamLabelVariant = 'green' | 'red' | 'yellow';
+export type SpamLabelVariant = 'green' | 'grey' | 'red' | 'yellow';
 
 export const getTemplateSpamKey = (
   template: Pick<TemplateData, 'html' | 'plain' | 'templateName'>
@@ -20,9 +29,10 @@ export const getTemplateSpamKey = (
 
 export const getSpamLabelVariant = (state?: SpamAnalysisState): SpamLabelVariant => {
   if (state?.status === 'fail') return 'red';
+  if (state?.status === 'warn') return 'yellow';
   if (state?.status === 'pass') return 'green';
 
-  return 'yellow';
+  return 'grey';
 };
 
 export const getSpamLabelTitle = (state?: SpamAnalysisState) => {
@@ -46,7 +56,10 @@ export const analyzeTemplateSpam = async (
 
     return {
       classification: result.classification,
+      classifier: result.classifier,
+      findings: result.findings,
       score: result.score,
+      scoreBreakdown: result.scoreBreakdown,
       status: result.classification
     };
   } catch (error) {

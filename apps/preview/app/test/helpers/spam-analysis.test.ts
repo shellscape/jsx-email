@@ -13,9 +13,9 @@ describe('spam analysis helpers', () => {
     expect(getSpamLabelVariant({ status: 'pass' })).toBe('green');
     expect(getSpamLabelVariant({ status: 'warn' })).toBe('yellow');
     expect(getSpamLabelVariant({ status: 'fail' })).toBe('red');
-    expect(getSpamLabelVariant({ status: 'scanning' })).toBe('yellow');
-    expect(getSpamLabelVariant({ status: 'error' })).toBe('yellow');
-    expect(getSpamLabelVariant()).toBe('yellow');
+    expect(getSpamLabelVariant({ status: 'scanning' })).toBe('grey');
+    expect(getSpamLabelVariant({ status: 'error' })).toBe('grey');
+    expect(getSpamLabelVariant()).toBe('grey');
   });
 
   it('creates descriptive label titles', () => {
