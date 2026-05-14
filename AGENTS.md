@@ -2,6 +2,7 @@ This repo is a pnpm workspace and uses Moon as the task runner.
 
 - Repo tasks are run via Moon (not `package.json` scripts). The only root script is `prepare` (Husky).
 - `pnpm` is for dependency management only. Never use it as a prefix to run another Node binary (no `pnpm exec`, no `pnpm <tool>`, etc.). The only exception is inside Husky hooks (for example `.husky/pre-commit`).
+- Do not bypass pnpm's `minimumReleaseAge` policy. When adding or updating dependencies, choose versions that satisfy the policy in `pnpm-workspace.yaml`.
 - Bun is BANNED in this repository. NEVER use it (use `tsx` for running TypeScript scripts).
 
 ## Commits and PR titles

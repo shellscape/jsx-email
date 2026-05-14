@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2023", "ESNext", "DOM"],
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "extends": "../../shared/tsconfig.base.json",
+  "include": ["src"]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "canispam",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Browser-safe spam analysis for generated email messages",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "packages/canispam"
+  },
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "https://jsx.email/",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "dist/**",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "keywords": [
+    "browser",
+    "email",
+    "eml",
+    "jsx-email",
+    "spam"
+  ],
+  "types": "./dist/index.d.ts",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/shellscape"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@ladjs/naivebayes": "^0.1.0"
+  }
+}
