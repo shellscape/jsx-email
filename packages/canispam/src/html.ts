@@ -1,6 +1,7 @@
 const trailingUrlPunctuation = new Set([')', ',', '.', ';', '!', '?']);
 const urlBreakChars = new Set(['"', "'", '<', '>']);
-const hiddenTextColors = new Set(['white', '#fff', '#ffffff', 'rgb(255, 255, 255)']);
+const hiddenTextColors = new Set(['white', '#fff', '#ffffff', 'rgb(255,255,255)']);
+const transparentColors = new Set(['transparent', 'rgba(0,0,0,0)']);
 
 const parseHtml = (html: string) => {
   const document = new DOMParser().parseFromString(html, 'text/html');
@@ -139,21 +140,63 @@ export const hasBase64Image = (html: string) => {
   return false;
 };
 
+const normalizeCssValue = (value: string) => value.toLowerCase().replace(/\s+/g, '');
+
+const getVisibleBackground = (element: HTMLElement) => {
+  let current: HTMLElement | null = element;
+
+  while (current) {
+    const backgroundColor = normalizeCssValue(current.style.backgroundColor);
+
+    if (backgroundColor && !transparentColors.has(backgroundColor)) return backgroundColor;
+
+    current = current.parentElement;
+  }
+
+  return '';
+};
+
+const isHiddenOrTinyElement = (element: HTMLElement) => {
+  if (element.closest('[data-skip="true"]')) return false;
+
+  const { style } = element;
+  const color = normalizeCssValue(style.color);
+  const fontSize = style.fontSize.toLowerCase();
+  const hasSupportedFontSize =
+    !fontSize || !globalThis.CSS || globalThis.CSS.supports('font-size', fontSize);
+  const background = getVisibleBackground(element);
+  const isWhiteTextHidden =
+    hiddenTextColors.has(color) && (!background || hiddenTextColors.has(background));
+
+  return (
+    isWhiteTextHidden ||
+    (hasSupportedFontSize && (fontSize === '0px' || fontSize === '1px')) ||
+    style.display === 'none' ||
+    style.visibility === 'hidden' ||
+    style.opacity === '0'
+  );
+};
+
 export const hasHiddenOrTinyText = (html: string) => {
   const document = parseHtml(html);
 
   for (const element of document.querySelectorAll<HTMLElement>('[style]')) {
-    const { style } = element;
-    const color = style.color.toLowerCase();
-    const fontSize = style.fontSize.toLowerCase();
-    const hasSupportedFontSize =
-      !fontSize || !globalThis.CSS || globalThis.CSS.supports('font-size', fontSize);
-
-    if (hiddenTextColors.has(color)) return true;
-    if (hasSupportedFontSize && (fontSize === '0px' || fontSize === '1px')) return true;
-    if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0')
-      return true;
+    if (isHiddenOrTinyElement(element)) return true;
   }
 
   return false;
+};
+
+export const extractHiddenOrTinyText = (html: string) => {
+  const document = parseHtml(html);
+  const texts: string[] = [];
+
+  for (const element of document.querySelectorAll<HTMLElement>('[style]')) {
+    if (isHiddenOrTinyElement(element)) {
+      const text = normalizeText(element.textContent || '');
+      if (text && !texts.includes(text)) texts.push(text);
+    }
+  }
+
+  return texts;
 };

@@ -39,13 +39,30 @@ describe('scan rules', () => {
   });
 
   it('flags HTML hiding and image-heavy emails', async () => {
-    const rules = await findingRules(
+    const result = await scan(
       htmlEml('<p style="color:#fff;font-size:1px">hidden</p><img><img><img><img><img><img>')
     );
+    const rules = result.findings.map((finding) => finding.rule);
 
     expect(rules).toContain('hidden-text');
     expect(rules).toContain('image-heavy');
     expect(rules).toContain('missing-plain-text');
+    expect(result.findings.find((finding) => finding.rule === 'hidden-text')?.evidence).toBe(
+      'hidden'
+    );
+  });
+
+  it('ignores preview text and visible white button text', async () => {
+    const result = await scan(
+      htmlEml(
+        [
+          '<div data-skip="true" style="display:none;opacity:0">Read review</div>',
+          '<a style="background-color:#ff5a5f;color:#fff">Send My Feedback</a>'
+        ].join('')
+      )
+    );
+
+    expect(result.findings.map((finding) => finding.rule)).not.toContain('hidden-text');
   });
 
   it('flags base64 images', async () => {

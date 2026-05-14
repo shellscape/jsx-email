@@ -333,11 +333,11 @@ body {
   color: var(--text-subtle);
   cursor: pointer;
   display: inline-flex;
-  height: 28px;
+  height: 36px;
   justify-content: center;
   padding: 0;
   transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
-  width: 34px;
+  width: 40px;
 }
 
 .spam-button:hover,

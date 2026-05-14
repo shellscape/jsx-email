@@ -18,11 +18,11 @@ interface SpamButtonProps {
   state?: SpamAnalysisState;
 }
 
-const getTooltipText = (state?: SpamAnalysisState) => {
+export const getTooltipText = (state?: SpamAnalysisState) => {
   if (!state || state.status === 'idle') return 'Spam score pending';
   if (state.status === 'scanning') return 'Analyzing spam score';
   if (state.status === 'error') return state.message || 'Spam score unavailable';
-  if (state.status === 'pass') return `Score ${state.score ?? 0}: not spam`;
+  if (state.status === 'pass') return 'No Spam Here';
   if (state.status === 'warn') return 'A Bit Spammy';
 
   return 'Likely Filtered';

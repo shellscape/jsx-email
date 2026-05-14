@@ -192,8 +192,8 @@ export const Template = () => (
           <Section style={callout}>
             <Text style={calloutTitle}>Pilot window</Text>
             <Text style={{ ...text, margin: 0 }}>
-              This is a limited time offer for your pilot group. Please review the workspace before
-              Friday at 5:00 PM.
+              This is a guaranteed, risk free, limited time offer for your pilot group. Please
+              review the workspace before Friday at 5:00 PM.
             </Text>
           </Section>
           <Button

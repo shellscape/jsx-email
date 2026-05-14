@@ -208,18 +208,9 @@ export function SpamPopover({ state, style }: SpamPopoverProps) {
       </div>
       <div className="spam-popover-body">
         <div className="spam-popover-findings">
-          {findingGroups.length ? (
-            findingGroups
-              .slice(0, 5)
-              .map((group) => <FindingGroupCard group={group} key={group.rule} />)
-          ) : (
-            <div className="spam-popover-finding">
-              <FindingIcon severity="green" />
-              <div className="spam-popover-finding-text">
-                <strong>No spam signals found</strong>
-              </div>
-            </div>
-          )}
+          {findingGroups.slice(0, 5).map((group) => (
+            <FindingGroupCard group={group} key={group.rule} />
+          ))}
         </div>
       </div>
     </div>
@@ -238,14 +229,26 @@ function FindingGroupCard({ group }: { group: FindingGroup }) {
           {group.count > 1 && <CountBadge count={group.count} />}
         </TippyTitle>
         {group.evidences.length > 0 && (
-          <EvidenceCloud evidences={group.evidences} linkStyle={isLinkEvidence(group.rule)} />
+          <EvidenceCloud
+            evidences={group.evidences}
+            linkStyle={isLinkEvidence(group.rule)}
+            toggleLabel={group.rule === 'hidden-text' ? 'text' : 'matches'}
+          />
         )}
       </div>
     </div>
   );
 }
 
-function EvidenceCloud({ evidences, linkStyle }: { evidences: string[]; linkStyle: boolean }) {
+function EvidenceCloud({
+  evidences,
+  linkStyle,
+  toggleLabel
+}: {
+  evidences: string[];
+  linkStyle: boolean;
+  toggleLabel: string;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -256,7 +259,7 @@ function EvidenceCloud({ evidences, linkStyle }: { evidences: string[]; linkStyl
         onClick={() => setExpanded((value) => !value)}
         type="button"
       >
-        {expanded ? 'Hide matches' : 'Show matches'}
+        {expanded ? `Hide ${toggleLabel}` : `Show ${toggleLabel}`}
       </button>
       {expanded && (
         <div className={cn('spam-popover-evidence-list', linkStyle && 'is-links')}>
