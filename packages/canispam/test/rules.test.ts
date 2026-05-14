@@ -72,6 +72,14 @@ describe('scan rules', () => {
     ).resolves.toContain('link-mismatch');
   });
 
+  it('flags redirect URL parameters to another host', async () => {
+    await expect(
+      findingRules(
+        htmlEml('<a href="https://example.com/login?next=https://evil.example">Login</a>')
+      )
+    ).resolves.toContain('redirect-url-param');
+  });
+
   it('flags IDN homograph domains', async () => {
     await expect(
       findingRules(htmlEml('<a href="https://раypal.com/login">PayPal</a>'))

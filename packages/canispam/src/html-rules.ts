@@ -1,11 +1,11 @@
-import { countPattern, stripHtml } from './html.js';
+import { countImages, hasBase64Image, hasHiddenOrTinyText, stripHtml } from './html.js';
 import type { CanispamFinding } from './types.js';
 
 export const scanHtml = (text: string, html: string): CanispamFinding[] => {
   const findings: CanispamFinding[] = [];
   if (!html) return findings;
 
-  if (/color\s*:\s*(#fff|#ffffff|white)\b/i.test(html) || /font-size\s*:\s*[01]px/i.test(html)) {
+  if (hasHiddenOrTinyText(html)) {
     findings.push({
       message: 'HTML contains hidden or tiny text.',
       rule: 'hidden-text',
@@ -13,7 +13,7 @@ export const scanHtml = (text: string, html: string): CanispamFinding[] => {
     });
   }
 
-  if (/data:image\/[^;]+;base64,/i.test(html)) {
+  if (hasBase64Image(html)) {
     findings.push({
       message: 'HTML embeds base64 image data.',
       rule: 'base64-image',
@@ -21,7 +21,7 @@ export const scanHtml = (text: string, html: string): CanispamFinding[] => {
     });
   }
 
-  const imageCount = countPattern(html, /<img\b/gi);
+  const imageCount = countImages(html);
   const visibleText = text || stripHtml(html);
   if (imageCount > 5 && visibleText.length < 100) {
     findings.push({

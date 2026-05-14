@@ -1,3 +1,4 @@
+import { decodeBase64Bytes, decodeBytes, hexToByte, isHexByte } from './encoding.js';
 import { InvalidEmlError } from './errors.js';
 import {
   decodeHeaderValue,
@@ -19,31 +20,45 @@ const splitHeaderAndBody = (eml: string) => {
   };
 };
 
-const decodeQuotedPrintable = (value: string) =>
-  value
-    .replaceAll(/=\n/g, '')
-    .replaceAll(/=([a-fA-F\d]{2})/g, (_, hex: string) =>
-      String.fromCharCode(Number.parseInt(hex, 16))
-    );
+const decodeQuotedPrintableBytes = (value: string) => {
+  const bytes: number[] = [];
+  const input = value.replaceAll(/=\n/g, '');
+  let index = 0;
 
-const decodeBody = (body: string, encoding: string) => {
+  while (index < input.length) {
+    const hex = input.slice(index + 1, index + 3);
+    if (input[index] === '=' && isHexByte(hex)) {
+      bytes.push(hexToByte(hex));
+      index += 3;
+    } else {
+      bytes.push(input.charCodeAt(index));
+      index += 1;
+    }
+  }
+
+  return new Uint8Array(bytes);
+};
+
+const decodeBody = (body: string, encoding: string, charset: string) => {
   const normalizedEncoding = encoding.toLowerCase();
-  if (normalizedEncoding === 'quoted-printable') return decodeQuotedPrintable(body).trim();
+  if (normalizedEncoding === 'quoted-printable')
+    return decodeBytes(decodeQuotedPrintableBytes(body), charset).trim();
   if (normalizedEncoding !== 'base64') return body.trim();
 
   try {
-    const compact = body.replaceAll(/\s/g, '');
-    const binary = globalThis.atob(compact);
-    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-    return new TextDecoder().decode(bytes);
+    return decodeBytes(decodeBase64Bytes(body), charset);
   } catch {
     return body.trim();
   }
 };
 
 const parseSinglePart = (headers: Map<string, string>, body: string) => {
-  const { type } = parseContentType(getHeader(headers, 'content-type'));
-  const content = decodeBody(body, getHeader(headers, 'content-transfer-encoding'));
+  const { parameters, type } = parseContentType(getHeader(headers, 'content-type'));
+  const content = decodeBody(
+    body,
+    getHeader(headers, 'content-transfer-encoding'),
+    parameters.get('charset') || 'utf-8'
+  );
 
   return {
     html: type === 'text/html' ? content : '',

@@ -1,8 +1,9 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
-const sourceRoot = new URL('../src', import.meta.url).pathname;
+const sourceRoot = join(dirname(fileURLToPath(import.meta.url)), '../src');
 const bannedImportPattern =
   /from ['"]node:|from ['"](node:)?(fs|path|process|crypto|util|dns|buffer)['"]/;
 

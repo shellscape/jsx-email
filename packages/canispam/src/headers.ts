@@ -1,3 +1,5 @@
+import { decodeBase64Bytes, decodeBytes, hexToByte, isHexByte } from './encoding.js';
+
 const encodedWordPattern = /=\?([^?]+)\?([bqBQ])\?([^?]*)\?=/g;
 
 export const normalizeLineEndings = (value: string) => value.replaceAll(/\r\n|\r/g, '\n');
@@ -27,27 +29,38 @@ export const parseHeaders = (headerText: string) => {
   return headers;
 };
 
-const decodeBase64 = (value: string) => {
-  const binary = globalThis.atob(value);
-  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-  return new TextDecoder().decode(bytes);
+const decodeBase64 = (value: string, charset: string) => {
+  const bytes = decodeBase64Bytes(value);
+  return decodeBytes(bytes, charset);
 };
 
-const decodeQuotedPrintableWord = (value: string) =>
-  value
-    .replaceAll('_', ' ')
-    .replaceAll(/=([a-fA-F\d]{2})/g, (_, hex: string) =>
-      String.fromCharCode(Number.parseInt(hex, 16))
-    );
+const decodeQuotedPrintableWord = (value: string, charset: string) => {
+  const bytes: number[] = [];
+  const input = value.replaceAll('_', ' ');
+  let index = 0;
+
+  while (index < input.length) {
+    const hex = input.slice(index + 1, index + 3);
+    if (input[index] === '=' && isHexByte(hex)) {
+      bytes.push(hexToByte(hex));
+      index += 3;
+    } else {
+      bytes.push(input.charCodeAt(index));
+      index += 1;
+    }
+  }
+
+  return decodeBytes(new Uint8Array(bytes), charset);
+};
 
 export const decodeHeaderValue = (value: string) =>
   value.replaceAll(
     encodedWordPattern,
     (_match, charset: string, encoding: string, encoded: string) => {
       if (!/^utf-?8$/i.test(charset)) return encoded;
-      if (encoding.toLowerCase() === 'b') return decodeBase64(encoded);
+      if (encoding.toLowerCase() === 'b') return decodeBase64(encoded, charset);
 
-      return decodeQuotedPrintableWord(encoded);
+      return decodeQuotedPrintableWord(encoded, charset);
     }
   );
 
