@@ -21,9 +21,9 @@ const getTooltipText = (state?: SpamAnalysisState) => {
   if (state.status === 'scanning') return 'Analyzing spam score';
   if (state.status === 'error') return state.message || 'Spam score unavailable';
   if (state.status === 'pass') return `Score ${state.score ?? 0}: not spam`;
-  if (state.status === 'warn') return `Score ${state.score ?? 0}: warning`;
+  if (state.status === 'warn') return 'A Bit Spammy';
 
-  return `Score ${state.score ?? 0}: probable spam`;
+  return 'Likely Filtered';
 };
 
 export function SpamButton({ className, state }: SpamButtonProps) {
