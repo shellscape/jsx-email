@@ -15,7 +15,7 @@ describe('gatherTemplates', () => {
     expect(airbnb?.html).toContain('/static/airbnb-logo.png');
     expect(airbnb?.html).toContain('/static/batman-twilight.jpg');
     expect(airbnb?.source).toContain('/static/');
-    expect(templates).toHaveLength(21);
+    expect(templates).toHaveLength(23);
 
     for (const template of templates) {
       expect(template.html, template.templateName).not.toContain('jsx.email/assets/samples');
