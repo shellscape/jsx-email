@@ -30,6 +30,10 @@
     "./config": {
       "types": "./dist/config.d.ts",
       "default": "./dist/config.js"
+    },
+    "./eml": {
+      "types": "./dist/eml/index.d.ts",
+      "default": "./dist/eml/index.js"
     }
   },
   "engines": {
@@ -74,6 +78,7 @@
     "autoprefixer": "catalog:",
     "bwip-js": "^4.9.2",
     "caniemail": "1.0.0",
+    "canispam": "workspace:*",
     "chalk": "5.4.1",
     "chalk-template": "catalog:",
     "classnames": "2.5.1",
@@ -119,6 +124,7 @@
     "@jsx-email/plugin-inline": "workspace:^",
     "@jsx-email/plugin-minify": "workspace:^",
     "@jsx-email/plugin-pretty": "workspace:^",
+    "canispam": "workspace:*",
     "@types/debug": "^4.1.12",
     "@types/hast": "^3.0.4",
     "@types/html-minifier-terser": "^7.0.0",
