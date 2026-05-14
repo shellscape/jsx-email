@@ -1,12 +1,14 @@
-import { countImages, hasBase64Image, hasHiddenOrTinyText, stripHtml } from './html.js';
+import { countImages, extractHiddenOrTinyText, hasBase64Image, stripHtml } from './html.js';
 import type { CanispamFinding } from './types.js';
 
 export const scanHtml = (text: string, html: string): CanispamFinding[] => {
   const findings: CanispamFinding[] = [];
   if (!html) return findings;
 
-  if (hasHiddenOrTinyText(html)) {
+  const hiddenText = extractHiddenOrTinyText(html);
+  if (hiddenText.length > 0) {
     findings.push({
+      evidence: hiddenText.join(' '),
       message: 'HTML contains hidden or tiny text.',
       rule: 'hidden-text',
       score: 3
