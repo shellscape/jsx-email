@@ -4,13 +4,17 @@ import type { CardState, LabState } from '../types/lab';
 import type { TemplateData } from '../types/templates';
 import { previewPresets } from '../helpers/presets';
 import {
+  analyzeTemplateSpam,
+  getTemplateSpamKey,
+  type SpamAnalysisState
+} from '../helpers/spam-analysis';
+import {
   addTemplateSlugs,
   clearTemplateHash,
   updateTemplateHash,
   type RoutedTemplateData
 } from '../helpers/template-routing';
 import { gatherTemplates } from '../helpers/templates';
-
 const defaultLabState = (): LabState => ({
   colorScheme: false,
   invertColors: false,
@@ -19,13 +23,22 @@ const defaultLabState = (): LabState => ({
   sendError: null,
   sendState: 'idle'
 });
-
+const waitForIdle = () =>
+  new Promise<void>((resolve) => {
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(() => resolve(), { timeout: 750 });
+    } else {
+      globalThis.setTimeout(resolve, 0);
+    }
+  });
 interface PreviewStore {
   cards: CardState[];
   focusRequest: { id: string; sequence: number } | null;
   labs: Record<string, LabState>;
   panelCollapsed: boolean;
   selectedId: string | null;
+  spamAnalysisStarted: boolean;
+  spamByTemplateId: Record<string, SpamAnalysisState>;
   templates: RoutedTemplateData[];
   zoom: number;
   addOrFocusTemplate: (templateId: string) => string;
@@ -36,15 +49,17 @@ interface PreviewStore {
   setPanelCollapsed: (value: boolean) => void;
   setTemplates: (templates: TemplateData[]) => void;
   setZoom: (value: number) => void;
+  startSpamAnalysis: () => void;
   updateLab: (cardId: string, patch: Partial<LabState>) => void;
 }
-
 export const usePreviewStore = create<PreviewStore>((set, get) => ({
   cards: [],
   focusRequest: null,
   labs: {},
   panelCollapsed: true,
   selectedId: null,
+  spamAnalysisStarted: false,
+  spamByTemplateId: {},
   templates: addTemplateSlugs(gatherTemplates()),
   zoom: 100,
   addOrFocusTemplate(templateId) {
@@ -117,10 +132,62 @@ export const usePreviewStore = create<PreviewStore>((set, get) => ({
     set({ panelCollapsed: value });
   },
   setTemplates(templates) {
-    set({ templates: addTemplateSlugs(templates) });
+    set({
+      spamAnalysisStarted: false,
+      spamByTemplateId: {},
+      templates: addTemplateSlugs(templates)
+    });
   },
   setZoom(value) {
     set({ zoom: value });
+  },
+  startSpamAnalysis() {
+    if (get().spamAnalysisStarted) return;
+
+    const templates = get().templates.map((template) => ({
+      ...template,
+      spamKey: getTemplateSpamKey(template)
+    }));
+
+    set((state) => ({
+      spamAnalysisStarted: true,
+      spamByTemplateId: templates.reduce<Record<string, SpamAnalysisState>>(
+        (next, template) => ({
+          ...next,
+          [template.id]: state.spamByTemplateId[template.id] || { status: 'scanning' }
+        }),
+        {}
+      )
+    }));
+
+    const scanNext = async (index: number): Promise<void> => {
+      const template = templates[index];
+      if (!template) return;
+
+      await waitForIdle();
+
+      set((state) => ({
+        spamByTemplateId: {
+          ...state.spamByTemplateId,
+          [template.id]: { status: 'scanning' }
+        }
+      }));
+
+      const result = await analyzeTemplateSpam(template);
+      const current = get().templates.find((item) => item.id === template.id);
+      if (current && getTemplateSpamKey(current) === template.spamKey) {
+        set((state) => ({
+          spamByTemplateId: {
+            ...state.spamByTemplateId,
+            [template.id]: result
+          }
+        }));
+      }
+
+      await scanNext(index + 1);
+    };
+
+    void scanNext(0);
   },
   updateLab(cardId, patch) {
     set((state) => {

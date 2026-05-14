@@ -11,10 +11,11 @@ export function SwitchControl({ checked, label, onChange, tooltip }: SwitchContr
   return (
     <div
       className="flex cursor-pointer items-center justify-between gap-3 py-1.5"
-      data-tippy-content={tooltip}
       onClick={() => onChange(!checked)}
     >
-      <span className="text-sm text-[var(--text)]">{label}</span>
+      <span className="text-sm text-[var(--text)]" data-tippy-content={tooltip}>
+        {label}
+      </span>
       <button
         aria-label={label}
         aria-pressed={checked}

@@ -320,6 +320,86 @@ body {
   color: var(--text-strong);
 }
 
+.spam-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--text-subtle);
+  cursor: default;
+  display: inline-flex;
+  height: 28px;
+  justify-content: center;
+  padding: 0;
+  transition: color 150ms ease;
+  width: 34px;
+}
+
+.spam-button svg {
+  display: block;
+  height: 25px;
+  width: auto;
+}
+
+.spam-button.is-green {
+  color: #16803c;
+}
+
+.spam-button.is-yellow {
+  color: #b7791f;
+}
+
+.spam-button.is-red {
+  color: #d92d20;
+}
+
+.dark .spam-button.is-green {
+  color: #45c16d;
+}
+
+.dark .spam-button.is-yellow {
+  color: #f2c94c;
+}
+
+.dark .spam-button.is-red {
+  color: #ff6b5f;
+}
+
+.spam-tooltip-content {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.spam-tooltip-icon {
+  height: 14px;
+  width: 14px;
+}
+
+.spam-tooltip-icon.is-green {
+  color: #16803c;
+}
+
+.spam-tooltip-icon.is-yellow {
+  color: #b7791f;
+}
+
+.spam-tooltip-icon.is-red {
+  color: #d92d20;
+}
+
+.dark .spam-tooltip-icon.is-green {
+  color: #45c16d;
+}
+
+.dark .spam-tooltip-icon.is-yellow {
+  color: #f2c94c;
+}
+
+.dark .spam-tooltip-icon.is-red {
+  color: #ff6b5f;
+}
+
 .card-code {
   background: var(--surface-raised);
   color: var(--astro-code-color-text);
@@ -556,17 +636,28 @@ html.dark .docs-inline-code {
   color: #c4c5c6;
 }
 
-.tippy-box {
-  background: color-mix(in srgb, var(--surface-raised) 96%, transparent);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 24px rgb(0 0 0 / 0.12);
-  color: var(--text);
+.tippy-box[data-theme~='jsx-email'] {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.08),
+    0 4px 6px -4px rgb(0 0 0 / 0.08);
+  color: #374151;
   font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 2px 4px;
 }
 
-.tippy-arrow {
-  color: color-mix(in srgb, var(--surface-raised) 96%, transparent);
+html.dark .tippy-box[data-theme~='jsx-email'] {
+  background-color: #111827;
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+.tippy-box[data-theme~='jsx-email'] > .tippy-content {
+  padding: 4px 6px;
 }
 
 html.is-zooming-in,

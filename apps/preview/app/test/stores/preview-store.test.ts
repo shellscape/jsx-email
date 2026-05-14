@@ -10,6 +10,8 @@ function resetPreviewStore() {
     focusRequest: null,
     labs: {},
     selectedId: null,
+    spamAnalysisStarted: false,
+    spamByTemplateId: {},
     templates: addTemplateSlugs(gatherTemplates())
   });
 }

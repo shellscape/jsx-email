@@ -4,6 +4,7 @@ import tippy from 'tippy.js';
 
 import { cn } from '../../helpers/cn';
 import { previewPresets } from '../../helpers/presets';
+import { previewTippyProps } from '../../helpers/tippy';
 import { usePreviewStore } from '../../stores/preview-store';
 import type { TemplateData } from '../../types/templates';
 import { Button } from '../ui/button';
@@ -23,12 +24,7 @@ export function LabControlsPanel({ cardId, template }: LabControlsPanelProps) {
 
   useEffect(() => {
     if (panelCollapsed) return;
-    const instances = tippy('#tool-panel [data-tippy-content]', {
-      delay: [250, 0],
-      offset: [0, 8],
-      placement: 'bottom',
-      theme: 'preview-canvas'
-    });
+    const instances = tippy('#tool-panel [data-tippy-content]', previewTippyProps);
     return () => instances.forEach((instance) => instance.destroy());
   }, [cardId, panelCollapsed]);
 
