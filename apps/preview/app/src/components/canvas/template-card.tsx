@@ -10,6 +10,7 @@ import type { CardState } from '../../types/lab';
 import type { TemplateData, TemplateTab } from '../../types/templates';
 import { Button } from '../ui/button';
 import { PreviewIframe } from './preview-iframe';
+import { SpamButton } from './spam-button';
 
 interface TemplateCardProps {
   card: CardState;
@@ -29,6 +30,7 @@ const tabLabels: Record<TemplateTab, string> = {
 export function TemplateCard({ card, selected, setCardNode, template }: TemplateCardProps) {
   const [tab, setTab] = useState<TemplateTab>('preview');
   const lab = usePreviewStore((state) => state.labs[card.id]);
+  const spamState = usePreviewStore((state) => state.spamByTemplateId[template.id]);
   const ensureLab = usePreviewStore((state) => state.ensureLab);
   const focusCard = usePreviewStore((state) => state.focusCard);
   const closeCard = usePreviewStore((state) => state.closeCard);
@@ -72,6 +74,7 @@ export function TemplateCard({ card, selected, setCardNode, template }: Template
             </h2>
           </button>
           <div className="ml-3 flex shrink-0 items-center gap-2">
+            <SpamButton className="mr-2" state={spamState} />
             <div aria-label={`${template.templateName} views`} className="card-tabs" role="tablist">
               {tabs.map((item) => (
                 <button

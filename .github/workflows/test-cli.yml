@@ -33,9 +33,7 @@ jobs:
 
       - name: Build Projects
         run: |
-          moon jsx-email:build
-          moon create-mail:build
-          moon run :build --query "project~plugin-*"
+          moon repo:build.all
 
       - name: Run Tests
         # Note: We're running `pnpm i` again so that pnpm places the `email` bin in root node_modules

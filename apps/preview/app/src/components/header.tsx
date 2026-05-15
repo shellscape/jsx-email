@@ -1,6 +1,8 @@
 import { Minus, Plus } from 'iconoir-react';
 import { type ReactNode, useEffect, useState } from 'react';
+import tippy from 'tippy.js';
 
+import { previewTippyProps } from '../helpers/tippy';
 import { usePreviewStore } from '../stores/preview-store';
 import { LogoWordmark } from './logo-wordmark';
 import { Button } from './ui/button';
@@ -9,6 +11,7 @@ export function Header() {
   const zoom = usePreviewStore((state) => state.zoom);
   const [dark, setDark] = useState(false);
   const [stars, setStars] = useState('...');
+  const themeLabel = dark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
@@ -36,6 +39,11 @@ export function Header() {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    const instances = tippy('[data-preview-header-tip]', previewTippyProps);
+    return () => instances.forEach((instance) => instance.destroy());
+  }, [themeLabel]);
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full border-b border-[var(--border)] bg-white/90 backdrop-blur-sm dark:bg-black/90">
@@ -100,7 +108,9 @@ export function Header() {
             <Plus className="size-5" />
           </Button>
           <Button
-            aria-label="Toggle dark mode"
+            aria-label={themeLabel}
+            data-preview-header-tip
+            data-tippy-content={themeLabel}
             onClick={() => setDark(!dark)}
             size="icon"
             variant="ghost"
@@ -110,6 +120,8 @@ export function Header() {
           <a
             aria-label="Join Discord"
             className="flex items-center justify-center rounded-md p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+            data-preview-header-tip
+            data-tippy-content="Join our Discord"
             href="https://discord.gg/FywZN57mTg"
             rel="noopener noreferrer"
             target="_blank"

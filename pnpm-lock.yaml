@@ -161,6 +161,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 'catalog:'
         version: 6.0.1(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(sass@1.99.0)(tsx@4.19.2)(yaml@2.8.3))
+      canispam:
+        specifier: workspace:*
+        version: link:../../packages/canispam
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -170,6 +173,9 @@ importers:
       js-beautify:
         specifier: 'catalog:'
         version: 1.15.1
+      jsx-email:
+        specifier: workspace:*
+        version: link:../../packages/jsx-email
       react:
         specifier: 'catalog:'
         version: 19.2.5
@@ -652,6 +658,9 @@ importers:
       '@types/yargs-parser':
         specifier: 'catalog:'
         version: 21.0.3
+      canispam:
+        specifier: workspace:*
+        version: link:../canispam
       hast:
         specifier: 'catalog:'
         version: 1.0.0

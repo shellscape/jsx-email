@@ -6,6 +6,7 @@ import { defineConfig } from 'vite';
 
 const appRoot = resolve(import.meta.dirname);
 const projectRoot = resolve(appRoot, '..');
+const repoRoot = resolve(projectRoot, '../..');
 const fixtureRoot = resolve(projectRoot, 'dev/fixtures');
 
 export default defineConfig({
@@ -22,7 +23,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(appRoot, 'src'),
-      '@jsxemailbuild': process.env.VITE_JSXEMAIL_BUILD_PATH || fixtureRoot
+      '@jsxemailbuild': process.env.VITE_JSXEMAIL_BUILD_PATH || fixtureRoot,
+      canispam: resolve(repoRoot, 'packages/canispam/src/index.ts'),
+      'jsx-email/eml': resolve(repoRoot, 'packages/jsx-email/src/eml/index.ts')
     }
   },
   root: appRoot,

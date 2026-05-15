@@ -42,6 +42,20 @@ or other browser scripts with `node -e`, heredocs, shell one-liners, or temporar
 repo. Browser automation must live in a committed TypeScript script under `scripts/agents/` and be
 run with `tsx`.
 
+## Preview app
+
+- The preview app lives in `apps/preview/app/src`; keep app code there and mirror tests under
+  `apps/preview/app/test`.
+- The packed preview is built by `apps/preview/scripts/pack-preview.ts`, which concatenates an
+  explicit `sourceFiles` list and strips local imports. When adding, moving, or importing preview
+  source files that must run in the packed app, update that list and the `importHeader` in the pack
+  script for any external imports/types those files need.
+- After changing preview source used by the packed app, run
+  `./node_modules/.bin/moon run app-preview:pack` and the smoke test
+  `./node_modules/.bin/moon run smoke-v2:run`.
+- Do not rely only on the Vite dev app checks for preview changes; smoke tests exercise the packed
+  preview path used by the CLI.
+
 ## Checks
 
 Run checks through Moon (mirrors CI):
@@ -57,6 +71,9 @@ If `moon` isn’t available on your PATH, run it via `./node_modules/.bin/moon` 
 
 `moon repo:build.all --cache off` is the canonical task to use for building (compiling) all packages.
 Do not run `:compile` tasks directly. `:build` tasks can be called on projects outside of packages.
+
+If a test fails because a workspace package entry cannot be resolved, check whether that package
+needs to be built first. Fix the Moon dependency graph; do not remove or weaken the test.
 
 ## Moon config
 
