@@ -12,6 +12,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     name: Smoke v2 Tests
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-noble
+      options: --ipc=host --init
 
     steps:
       - name: Checkout Commit
@@ -37,4 +40,4 @@ jobs:
         env:
           DOT_LOG_LEVEL: debug
           LOCAL_SMOKE: 'true'
-        run: moon smoke-v2:run
+        run: moon smoke-v2:run-ci
