@@ -53,6 +53,7 @@
     "@jsx-email/plugin-pretty": "^2.0.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "canispam": "^1.0.0",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

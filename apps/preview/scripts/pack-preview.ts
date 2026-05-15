@@ -30,6 +30,8 @@ const sourceFiles = [
   'helpers/templates.ts',
   'helpers/color-inversion.ts',
   'helpers/canvas-positioning.ts',
+  'helpers/spam-analysis.ts',
+  'helpers/tippy.ts',
   'stores/preview-store.ts',
   'components/ui/button.tsx',
   'components/plunk-logo.tsx',
@@ -37,6 +39,8 @@ const sourceFiles = [
   'components/canvas/preview-iframe.tsx',
   'components/canvas/empty-card.tsx',
   'components/canvas/use-canvas-zoom.ts',
+  'components/canvas/spam-popover.tsx',
+  'components/canvas/spam-button.tsx',
   'components/canvas/template-card.tsx',
   'components/canvas/canvas.tsx',
   'components/logo-wordmark.tsx',
@@ -62,6 +66,8 @@ const importHeader = `import React, {
   useState
 } from 'react';
 import ReactDOM from 'react-dom/client';
+import { createPortal } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
   Check,
   Copy,
@@ -77,12 +83,23 @@ import {
   NavArrowUp,
   Page,
   Plus,
+  Prohibition,
   Refresh,
   Send,
   SmartphoneDevice,
+  WarningTriangle,
   Xmark
 } from 'iconoir-react';
 import beautify from 'js-beautify';
+import {
+  scan,
+  type CanispamClassification,
+  type CanispamClassifierResult,
+  type CanispamFinding,
+  type CanispamScoreBreakdown
+} from 'canispam';
+import { toEml } from 'jsx-email/eml';
+import type { Props } from 'tippy.js';
 import { createHighlighterCoreSync } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 import shikiHtmlLang from 'shiki/langs/html.mjs';
