@@ -72,6 +72,9 @@ If `moon` isn’t available on your PATH, run it via `./node_modules/.bin/moon` 
 `moon repo:build.all --cache off` is the canonical task to use for building (compiling) all packages.
 Do not run `:compile` tasks directly. `:build` tasks can be called on projects outside of packages.
 
+If a test fails because a workspace package entry cannot be resolved, check whether that package
+needs to be built first. Fix the Moon dependency graph; do not remove or weaken the test.
+
 ## Moon config
 
 - Workspace config lives in `.moon/workspace.yml`.

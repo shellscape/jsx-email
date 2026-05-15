@@ -22,7 +22,10 @@ tasks:
   build.all:
     command: moon repo:build.deps
     deps:
+      - canispam:build
       - jsx-email:build
+    options:
+      runDepsInParallel: false
 
   lint:
     deps:
