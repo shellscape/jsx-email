@@ -24,7 +24,7 @@ mv -f "$PROJECT_DIR_NAME" "$TESTS_DIR/$PROJECT_DIR_NAME"
 
 cd "$TESTS_DIR/$PROJECT_DIR_NAME"
 
-REPO_PACKAGE_MANAGER=$(node -p "require('$REPO_DIR/package.json').packageManager")
+REPO_PACKAGE_MANAGER=$(REPO_DIR="$REPO_DIR" node -p "require(require('node:path').join(process.env.REPO_DIR, 'package.json')).packageManager")
 
 REPO_PACKAGE_MANAGER="$REPO_PACKAGE_MANAGER" node -e "const fs=require('node:fs'); const pkg=JSON.parse(fs.readFileSync('package.json', 'utf8')); pkg.packageManager=process.env.REPO_PACKAGE_MANAGER; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
 

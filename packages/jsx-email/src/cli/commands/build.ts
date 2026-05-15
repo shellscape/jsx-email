@@ -43,6 +43,12 @@ interface BuildTemplateParams {
   targetPath: string;
 }
 
+interface RelativeOutputDirParams {
+  baseDir: string;
+  outputBasePath: string;
+  pathApi?: Pick<typeof posix, 'isAbsolute' | 'relative'>;
+}
+
 interface BuildOptions {
   argv: BuildCommandOptions;
   outputBasePath?: string;
@@ -63,6 +69,25 @@ export interface BuildResult {
 export interface BuildTempatesResult extends BuildResult {
   fileName: string;
 }
+
+export const getRelativeOutputDir = ({
+  baseDir,
+  outputBasePath,
+  pathApi = isWindows ? win32 : posix
+}: RelativeOutputDirParams) => {
+  const relativeOutputDir = pathApi.relative(outputBasePath, baseDir);
+
+  if (
+    !relativeOutputDir ||
+    relativeOutputDir === '.' ||
+    relativeOutputDir.startsWith('..') ||
+    pathApi.isAbsolute(relativeOutputDir)
+  ) {
+    return null;
+  }
+
+  return relativeOutputDir;
+};
 
 export const help = chalkTmpl`
 {blue email build}
@@ -123,8 +148,13 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
+  const relativeOutputDir = outputBasePath
+    ? getRelativeOutputDir({ baseDir, outputBasePath })
+    : null;
   const writePath = outputBasePath
-    ? join(out!, baseDir.replace(outputBasePath, ''), templateName)
+    ? relativeOutputDir
+      ? join(out!, relativeOutputDir, templateName)
+      : join(out!, templateName)
     : join(out!, templateName);
   // const writePath = outputBasePath
   //   ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)
