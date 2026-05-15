@@ -26,6 +26,8 @@ const exists = (path: string) =>
     () => true,
     () => false
   );
+const nodeModulesPathRegex = /(^|[\\/])node_modules([\\/]|$)/;
+const isNodeModulesPath = (path: string) => nodeModulesPathRegex.test(path);
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
@@ -114,7 +116,7 @@ export const watch = async (args: WatchArgs) => {
   const { argv } = common;
   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
   const { depPaths, deps: metaDeps } = await mapDeps(files);
-  const dependencyPaths = depPaths.filter((path) => !path.includes('/node_modules/'));
+  const dependencyPaths = depPaths.filter((path) => !isNodeModulesPath(path));
   const { entrypoints, watchPaths: watchDirectories } = await getWatchDirectories(
     files,
     dependencyPaths
@@ -139,7 +141,7 @@ export const watch = async (args: WatchArgs) => {
     const mappedDeps = await mapDeps(results);
 
     addTemplateDeps(mappedDeps.deps);
-    addValidFiles(mappedDeps.depPaths.filter((path) => !path.includes('/node_modules/')));
+    addValidFiles(mappedDeps.depPaths.filter((path) => !isNodeModulesPath(path)));
   };
 
   const upsertBuildResults = (results: BuildTempatesResult[]) => {
@@ -168,7 +170,7 @@ export const watch = async (args: WatchArgs) => {
     // the event path is in the set of files we want to watch, unless it's a create
     // event
     const events = incoming.filter((event) => {
-      if (event.path.includes('/node_modules/')) return false;
+      if (isNodeModulesPath(event.path)) return false;
       if (event.type !== 'create') return validFiles.includes(event.path);
       return true;
     });
