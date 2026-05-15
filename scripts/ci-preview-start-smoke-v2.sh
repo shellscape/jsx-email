@@ -13,4 +13,4 @@ STATE_PATH=${SMOKE_V2_STATE_PATH:-"${TMP_ROOT%/}/jsx-email-smoke-v2.state"}
 
 SMOKE_DIR=$(cat "$STATE_PATH")
 cd "$SMOKE_DIR"
-pnpm exec email preview fixtures/templates --no-open --port 55420
+exec pnpm exec email preview fixtures/templates --no-open --port 55420
