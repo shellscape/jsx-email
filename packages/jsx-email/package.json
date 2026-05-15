@@ -79,7 +79,6 @@
     "autoprefixer": "catalog:",
     "bwip-js": "^4.9.2",
     "caniemail": "1.0.0",
-    "canispam": "workspace:*",
     "chalk": "5.4.1",
     "chalk-template": "catalog:",
     "classnames": "2.5.1",

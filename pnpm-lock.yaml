@@ -486,9 +486,6 @@ importers:
       caniemail:
         specifier: 1.0.0
         version: 1.0.0(@vue/compiler-sfc@3.3.4)(prettier@3.5.3)
-      canispam:
-        specifier: workspace:*
-        version: link:../canispam
       chalk:
         specifier: 5.4.1
         version: 5.4.1
@@ -661,6 +658,9 @@ importers:
       '@types/yargs-parser':
         specifier: 'catalog:'
         version: 21.0.3
+      canispam:
+        specifier: workspace:*
+        version: link:../canispam
       hast:
         specifier: 'catalog:'
         version: 1.0.0

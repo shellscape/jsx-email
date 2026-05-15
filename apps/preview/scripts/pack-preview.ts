@@ -98,7 +98,7 @@ import {
   type CanispamFinding,
   type CanispamScoreBreakdown
 } from 'canispam';
-import { toEml } from 'jsx-email/eml';
+import { toEml } from '../eml/index.js';
 import type { Props } from 'tippy.js';
 import { createHighlighterCoreSync } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
@@ -140,11 +140,12 @@ async function packSource() {
     })
   );
 
-  const packed = `${importHeader}\n${chunks.join('\n')}\n`;
+  const packedSource = chunks.join('\n');
+  const packed = `${importHeader}\n${packedSource}\n`;
   assertIncludes(packed, 'import.meta.glob', packedEntry);
   assertIncludes(packed, '@jsxemailbuild', packedEntry);
 
-  if (/from\s+['"]\.{1,2}\//.test(packed)) {
+  if (/from\s+['"]\.{1,2}\//.test(packedSource)) {
     throw new TypeError('Packed source still contains local import declarations.');
   }
 
