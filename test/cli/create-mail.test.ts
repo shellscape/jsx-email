@@ -51,7 +51,25 @@ describe('create-mail', async () => {
       }
     `);
 
-    const files = (await globby('.test/new/**/*', { dot: true })).map(normalizePathSeparators);
+    const files = (await globby('.test/new/**/*', { dot: true }))
+      .map(normalizePathSeparators)
+      .sort((left, right) => {
+        const depthDifference = left.split('/').length - right.split('/').length;
+
+        if (depthDifference !== 0) {
+          return depthDifference;
+        }
+
+        if (left < right) {
+          return -1;
+        }
+
+        if (left > right) {
+          return 1;
+        }
+
+        return 0;
+      });
 
     expect(files).toMatchSnapshot();
   });
