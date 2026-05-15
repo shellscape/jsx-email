@@ -9,9 +9,14 @@ on:
       - synchronize
 
 jobs:
-  validate:
+  validate-ubuntu:
     runs-on: ubuntu-latest
-    name: Smoke v2 Tests
+    name: Smoke v2 Tests (ubuntu-latest)
+
+    defaults:
+      run:
+        shell: bash
+
     container:
       image: mcr.microsoft.com/playwright:v1.57.0-noble
       options: --ipc=host --init
@@ -54,5 +59,42 @@ jobs:
       - name: Run smoke-v2 tests
         env:
           DOT_LOG_LEVEL: debug
-          LOCAL_SMOKE: 'true'
+          LOCAL_SMOKE: "true"
+        run: moon smoke-v2:run-ci
+
+  validate-windows:
+    runs-on: windows-latest
+    name: Smoke v2 Tests (windows-latest)
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+
+      - name: Checkout Main
+        run: |
+          git fetch origin
+          git branch -f main origin/main
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Install Playwright browser
+        run: pnpm --filter test-smoke-v2 exec playwright install chromium
+
+      - name: Build Projects
+        run: |
+          moon jsx-email:build
+          moon create-mail:build
+          moon run :build --query "project~plugin-*"
+
+      - name: Run smoke-v2 tests
+        env:
+          DOT_LOG_LEVEL: debug
+          LOCAL_SMOKE: "true"
         run: moon smoke-v2:run-ci
