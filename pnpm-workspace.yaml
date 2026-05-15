@@ -43,7 +43,7 @@ catalog:
 
 enablePrePostScripts: true
 linkWorkspacePackages: false
-minimumReleaseAge: 43200 # 30 days
+minimumReleaseAge: 10080 # 7 days
 onlyBuiltDependencies:
   - '@moonrepo/cli'
   - '@parcel/watcher'

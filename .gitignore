@@ -3,6 +3,7 @@
 .moon/cache
 .eslintcache
 .compiled
+.pnpm-store
 .rendered
 .test
 node_modules
