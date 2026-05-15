@@ -7,6 +7,8 @@ import strip from 'strip-ansi';
 
 process.chdir(__dirname);
 
+const normalizePathSeparators = (value: string) => value.replaceAll('\\', '/');
+
 describe('create-mail', async () => {
   test('command', async () => {
     const { stdout } = await execa({
@@ -18,12 +20,14 @@ describe('create-mail', async () => {
       // Note: For some reason `pnpm exec` is fucking with our CWD, and resets it to
       // packages/jsx-email, which causes the config not to be found. so we use npx instead
     })`create-mail .test/new --yes`;
-    const plain = strip(stdout)
-      .replace(/^(.*)create-mail/, 'create-mail')
-      .replace(/v(\d+\.\d+\.\d+)/, '')
-      .split('\n')
-      .map((line) => line.trimEnd())
-      .join('\n');
+    const plain = normalizePathSeparators(
+      strip(stdout)
+        .replace(/^(.*)create-mail/, 'create-mail')
+        .replace(/v(\d+\.\d+\.\d+)/, '')
+        .split('\n')
+        .map((line) => line.trimEnd())
+        .join('\n')
+    );
 
     expect(plain).toMatchSnapshot();
 
@@ -47,7 +51,7 @@ describe('create-mail', async () => {
       }
     `);
 
-    const files = await globby('.test/new/**/*', { dot: true });
+    const files = (await globby('.test/new/**/*', { dot: true })).map(normalizePathSeparators);
 
     expect(files).toMatchSnapshot();
   });
