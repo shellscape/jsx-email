@@ -1,7 +1,17 @@
 /* eslint-disable import/no-default-export */
+import { readFileSync } from 'node:fs';
+import os from 'node:os';
+import { join } from 'node:path';
+
 import { defineConfig, devices } from '@playwright/test';
 
 // Note: https://playwright.dev/docs/test-configuration.
+
+const defaultStatePath = join(os.tmpdir(), 'jsx-email-smoke-v2.state');
+const statePath = process.env.SMOKE_V2_STATE_PATH || defaultStatePath;
+const smokeProjectDir = readFileSync(statePath, 'utf8').trim();
+const emailBin =
+  process.platform === 'win32' ? 'node_modules/.bin/email.cmd' : './node_modules/.bin/email';
 
 export default defineConfig({
   forbidOnly: !!process.env.CI,
@@ -23,7 +33,8 @@ export default defineConfig({
     trace: 'on-first-retry'
   },
   webServer: {
-    command: 'moon smoke-v2:start',
+    command: `${emailBin} preview fixtures/templates --no-open --port 55420`,
+    cwd: smokeProjectDir,
     env: {
       ENV_TEST_VALUE: 'joker'
     },
