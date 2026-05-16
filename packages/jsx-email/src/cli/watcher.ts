@@ -1,7 +1,7 @@
 // Note: Keep the star here. There are environments (ahem, Stackblitz) which
 // can't seem to handle the psuedo default export
 import { access, readFile, unlink } from 'node:fs/promises';
-import { dirname, extname, relative, resolve } from 'node:path';
+import { dirname, extname, isAbsolute, relative, resolve, sep } from 'node:path';
 
 import * as watcher from '@parcel/watcher';
 import chalk from 'chalk-template';
@@ -28,10 +28,18 @@ const exists = (path: string) =>
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
-const removeChildPaths = (paths: string[]): string[] =>
-  paths.filter(
-    (p1) => !paths.some((p2) => p1 !== p2 && relative(p2, p1) && !relative(p2, p1).startsWith('..'))
+export const isChildPath = (parentPath: string, childPath: string) => {
+  const relativePath = relative(parentPath, childPath);
+
+  return (
+    !!relativePath &&
+    relativePath !== '..' &&
+    !relativePath.startsWith(`..${sep}`) &&
+    !isAbsolute(relativePath)
   );
+};
+const removeChildPaths = (paths: string[]): string[] =>
+  paths.filter((p1) => !paths.some((p2) => p1 !== p2 && isChildPath(p2, p1)));
 export const isNodeModulePath = (path: string) =>
   normalizePath(path).split('/').includes('node_modules');
 export const normalizeWatcherPath = (path: string) => {

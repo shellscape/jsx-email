@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isNodeModulePath, normalizeWatcherPath } from '../../src/cli/watcher.js';
+import { isChildPath, isNodeModulePath, normalizeWatcherPath } from '../../src/cli/watcher.js';
 
 describe('watcher path helpers', () => {
   it('detects POSIX node_modules paths', () => {
@@ -29,5 +29,17 @@ describe('watcher path helpers', () => {
 
   it('preserves POSIX path casing for watcher lookups', () => {
     expect(normalizeWatcherPath('/Repo/Templates/Base.tsx')).toBe('/Repo/Templates/Base.tsx');
+  });
+
+  it('detects child paths', () => {
+    expect(isChildPath('/repo/templates', '/repo/templates/nested')).toBe(true);
+  });
+
+  it('does not treat sibling directories that start with two dots as child paths', () => {
+    expect(isChildPath('/repo/templates', '/repo/..templates')).toBe(false);
+  });
+
+  it('does not treat Windows cross-drive paths as child paths', () => {
+    expect(isChildPath('C:\\repo\\templates', 'D:\\repo\\templates\\nested')).toBe(false);
   });
 });
