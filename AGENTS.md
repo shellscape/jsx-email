@@ -58,16 +58,17 @@ run with `tsx`.
 
 ## Checks
 
-Run checks through Moon (mirrors CI):
+Run checks before considering work complete.
 
 ```bash
 moon run :lint
-moon run :format
 moon run :typecheck
 moon run :test
 ```
 
 If `moon` isn’t available on your PATH, run it via `./node_modules/.bin/moon` (for example `./node_modules/.bin/moon run :lint`).
+
+There is no repo-wide Moon format task. Format changed files directly with `./node_modules/.bin/oxfmt <files...>` before the final check pass.
 
 `moon repo:build.all --cache off` is the canonical task to use for building (compiling) all packages.
 Do not run `:compile` tasks directly. `:build` tasks can be called on projects outside of packages.

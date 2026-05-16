@@ -14,8 +14,18 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
-    name: CLI Tests
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    runs-on: ${{ matrix.os }}
+    name: CLI Tests (${{ matrix.os }})
+
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Checkout Commit

@@ -8,7 +8,7 @@ set -euo pipefail
 # up in a separate directory alleviates those differences and more closesly represents a user's machine
 # which provides a more accurate test environment
 
-TMP_ROOT=${TMPDIR:-"/tmp"}
+TMP_ROOT=$(node -p "require('node:os').tmpdir().replace(/\\\\/g, '/')")
 TESTS_DIR="${TMP_ROOT%/}/jsx-email-tests"
 PROJECT_DIR_NAME='smoke-v2'
 STATE_PATH=${SMOKE_V2_STATE_PATH:-"${TMP_ROOT%/}/jsx-email-smoke-v2.state"}
@@ -24,7 +24,7 @@ mv -f "$PROJECT_DIR_NAME" "$TESTS_DIR/$PROJECT_DIR_NAME"
 
 cd "$TESTS_DIR/$PROJECT_DIR_NAME"
 
-REPO_PACKAGE_MANAGER=$(node -p "require('$REPO_DIR/package.json').packageManager")
+REPO_PACKAGE_MANAGER=$(REPO_DIR="$REPO_DIR" node -p "require(require('node:path').join(process.env.REPO_DIR, 'package.json')).packageManager")
 
 REPO_PACKAGE_MANAGER="$REPO_PACKAGE_MANAGER" node -e "const fs=require('node:fs'); const pkg=JSON.parse(fs.readFileSync('package.json', 'utf8')); pkg.packageManager=process.env.REPO_PACKAGE_MANAGER; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
 
@@ -60,9 +60,10 @@ JSX_EMAIL_TARBALL="$JSX_EMAIL_TARBALL" \
 REPO_DIR="$REPO_DIR" \
 node - <<'EOF'
 const fs = require('node:fs');
+const path = require('node:path');
 
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-const repoPkg = JSON.parse(fs.readFileSync(`${process.env.REPO_DIR}/package.json`, 'utf8'));
+const repoPkg = JSON.parse(fs.readFileSync(path.join(process.env.REPO_DIR, 'package.json'), 'utf8'));
 const repoOverrides = repoPkg.pnpm?.overrides ?? {};
 
 pkg.dependencies = {

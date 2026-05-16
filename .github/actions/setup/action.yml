@@ -1,6 +1,11 @@
 name: Setup
 description: Sets up the CI environment
 
+inputs:
+  moon-cache:
+    description: Enable moonrepo/setup-toolchain caching
+    default: 'true'
+
 runs:
   using: 'composite'
   steps:
@@ -11,6 +16,7 @@ runs:
     - name: Setup Moon
       uses: moonrepo/setup-toolchain@v0
       with:
+        cache: ${{ inputs.moon-cache }}
         moon-version: 1.41.2
 
     - name: Setup Node

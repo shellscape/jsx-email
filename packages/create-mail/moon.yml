@@ -33,7 +33,7 @@ tasks:
       runDepsInParallel: false
 
   copy:
-    command: cp -r generators dist
+    command: cp -rL generators dist
     options:
       cache: false
 

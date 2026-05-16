@@ -8,8 +8,9 @@ import { expect, test, type Page } from '@playwright/test';
 import { getHTML } from './helpers/html.js';
 
 const timeout = { timeout: 15e3 };
-const defaultStatePath = join(os.tmpdir(), 'jsx-email-smoke-v2.state');
-const defaultPreviewBuildFilePath = join(os.tmpdir(), 'jsx-email', 'preview', 'base.js');
+const tempRoot = process.env.TMPDIR || os.tmpdir();
+const defaultStatePath = join(tempRoot, 'jsx-email-smoke-v2.state');
+const defaultPreviewBuildFilePath = join(tempRoot, 'jsx-email', 'preview', 'base.js');
 const templates = [
   { buttonName: 'Base', snapshotName: 'Base' },
   { buttonName: 'Code', snapshotName: 'Code' },

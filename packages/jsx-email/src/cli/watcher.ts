@@ -1,7 +1,8 @@
 // Note: Keep the star here. There are environments (ahem, Stackblitz) which
 // can't seem to handle the psuedo default export
 import { access, readFile, unlink } from 'node:fs/promises';
-import { dirname, extname, relative, resolve } from 'node:path';
+import { dirname, extname, isAbsolute, relative, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import * as watcher from '@parcel/watcher';
 import chalk from 'chalk-template';
@@ -10,9 +11,12 @@ import { type ViteDevServer } from 'vite';
 
 import { log } from '../log.js';
 
-import { type BuildTempatesResult, getTempPath } from './commands/build.js';
+import { type BuildTempatesResult, getTempPath, normalizePath } from './commands/build.js';
 import { type PreviewCommonParams } from './commands/types.js';
 import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.js';
+
+export const getParcelWatcherOptions = (platform: NodeJS.Platform = process.platform) =>
+  platform === 'win32' ? { backend: 'windows' as const } : void 0;
 
 interface WatchArgs {
   common: PreviewCommonParams;
@@ -20,26 +24,81 @@ interface WatchArgs {
   server: ViteDevServer;
 }
 
+interface RemoveDeletedFileParams {
+  files: BuildTempatesResult[];
+  path: string;
+  validFiles: string[];
+}
+
 const exists = (path: string) =>
   access(path).then(
     () => true,
     () => false
   );
+const toFilesystemPath = (path: string) =>
+  path.startsWith('file://') ? fileURLToPath(path) : path;
+const unlinkIfExists = async (path: string) => {
+  const fsPath = toFilesystemPath(path);
+
+  if (!(await exists(fsPath))) return;
+  await unlink(fsPath);
+};
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
-const removeChildPaths = (paths: string[]): string[] =>
-  paths.filter(
-    (p1) => !paths.some((p2) => p1 !== p2 && relative(p2, p1) && !relative(p2, p1).startsWith('..'))
+export const isChildPath = (parentPath: string, childPath: string) => {
+  const relativePath = relative(parentPath, childPath);
+
+  return (
+    !!relativePath &&
+    relativePath !== '..' &&
+    !relativePath.startsWith(`..${sep}`) &&
+    !isAbsolute(relativePath)
   );
+};
+const removeChildPaths = (paths: string[]): string[] =>
+  paths.filter((p1) => !paths.some((p2) => p1 !== p2 && isChildPath(p2, p1)));
+export const isNodeModulePath = (path: string) =>
+  normalizePath(path).split('/').includes('node_modules');
+export const normalizeWatcherPath = (path: string) => {
+  const normalizedPath = normalizePath(path);
+
+  if (/^[A-Za-z]:\//.test(normalizedPath) || normalizedPath.startsWith('//')) {
+    return normalizedPath.toLowerCase();
+  }
+
+  return normalizedPath;
+};
+export const removeDeletedFile = async ({ files, path, validFiles }: RemoveDeletedFileParams) => {
+  const normalizedPath = normalizeWatcherPath(path);
+  const index = files.findIndex(
+    ({ fileName }) => normalizeWatcherPath(fileName) === normalizedPath
+  );
+
+  if (index === -1) return false;
+  const file = files[index];
+  files.splice(index, 1);
+
+  await Promise.all([
+    unlinkIfExists(file.compiledPath),
+    unlinkIfExists(`${file.writePathBase}.js`)
+  ]);
+
+  const validFileIndex = validFiles.findIndex((fileName) => fileName === normalizedPath);
+  if (validFileIndex > -1) validFiles.splice(validFileIndex, 1);
+
+  return true;
+};
 
 const getEntrypoints = async (files: BuildTempatesResult[]) => {
   const entrypoints: Set<string> = new Set();
   const promises = files.map(async ({ metaPath }) => {
-    log.debug({ exists: await exists(metaPath ?? ''), metaPath });
+    const fsMetaPath = metaPath ? toFilesystemPath(metaPath) : null;
 
-    if (!metaPath || !(await exists(metaPath))) return null;
-    const contents = await readFile(metaPath, 'utf-8');
+    log.debug({ exists: await exists(fsMetaPath ?? ''), metaPath });
+
+    if (!fsMetaPath || !(await exists(fsMetaPath))) return null;
+    const contents = await readFile(fsMetaPath, 'utf-8');
     const metafile = JSON.parse(contents) as Metafile;
 
     Object.entries(metafile.outputs).forEach(([_, { entryPoint }]) => {
@@ -73,10 +132,12 @@ const getWatchDirectories = async (files: BuildTempatesResult[], depPaths: strin
 const mapDeps = async (files: BuildTempatesResult[]) => {
   const depPaths: string[] = [];
   const metaReads = files.map(async ({ metaPath }) => {
-    log.debug({ exists: await exists(metaPath ?? ''), metaPath });
+    const fsMetaPath = metaPath ? toFilesystemPath(metaPath) : null;
 
-    if (!metaPath || !(await exists(metaPath))) return null;
-    const contents = await readFile(metaPath, 'utf-8');
+    log.debug({ exists: await exists(fsMetaPath ?? ''), metaPath });
+
+    if (!fsMetaPath || !(await exists(fsMetaPath))) return null;
+    const contents = await readFile(fsMetaPath, 'utf-8');
     const metafile = JSON.parse(contents) as Metafile;
     const { outputs } = metafile;
     const result = new Map<string, Set<string>>();
@@ -102,6 +163,20 @@ const mapDeps = async (files: BuildTempatesResult[]) => {
 
   return { depPaths, deps };
 };
+const mergeTemplateDeps = (
+  templateDeps: Map<string, Set<string>>,
+  deps: Array<Map<string, Set<string>> | null>
+) => {
+  for (const map of deps) {
+    map?.forEach((value, key) => {
+      const normalizedKey = normalizeWatcherPath(key);
+      const set = templateDeps.get(normalizedKey) ?? new Set<string>();
+
+      value.forEach((entrypoint) => set.add(entrypoint));
+      templateDeps.set(normalizedKey, set);
+    });
+  }
+};
 
 export const watch = async (args: WatchArgs) => {
   newline();
@@ -111,17 +186,17 @@ export const watch = async (args: WatchArgs) => {
   const { argv } = common;
   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
   const { depPaths, deps: metaDeps } = await mapDeps(files);
-  const dependencyPaths = depPaths.filter((path) => !path.includes('/node_modules/'));
+  const dependencyPaths = depPaths.filter((path) => !isNodeModulePath(path));
   const { entrypoints, watchPaths: watchDirectories } = await getWatchDirectories(
     files,
     dependencyPaths
   );
   const templateDeps = new Map<string, Set<string>>();
-  const validFiles = Array.from(new Set([...entrypoints, ...dependencyPaths]));
+  const validFiles = Array.from(
+    new Set([...entrypoints, ...dependencyPaths].map(normalizeWatcherPath))
+  );
 
-  for (const map of metaDeps) {
-    map!.forEach((value, key) => templateDeps.set(key, value));
-  }
+  mergeTemplateDeps(templateDeps, metaDeps);
 
   log.info({ validFiles });
 
@@ -132,8 +207,8 @@ export const watch = async (args: WatchArgs) => {
     // the event path is in the set of files we want to watch, unless it's a create
     // event
     const events = incoming.filter((event) => {
-      if (event.path.includes('/node_modules/')) return false;
-      if (event.type !== 'create') return validFiles.includes(event.path);
+      if (isNodeModulePath(event.path)) return false;
+      if (event.type !== 'create') return validFiles.includes(normalizeWatcherPath(event.path));
       return true;
     });
 
@@ -142,7 +217,7 @@ export const watch = async (args: WatchArgs) => {
       .map((e) => e.path)
       .filter((path) => extensions.includes(extname(path)));
     const changedTemplates = changedFiles
-      .flatMap((file) => [...(templateDeps.get(file) || [])])
+      .flatMap((file) => [...(templateDeps.get(normalizeWatcherPath(file)) || [])])
       .filter(Boolean);
     const createdFiles = events
       .filter((event) => event.type === 'create')
@@ -169,18 +244,7 @@ export const watch = async (args: WatchArgs) => {
         '\n'
       );
 
-      deletedFiles.forEach((path) => {
-        let index: any = files.findIndex(({ fileName }) => path === fileName);
-        if (index === -1) return;
-        const file = files[index];
-        files.splice(index, 1);
-        // Note: Don't await either, we don't need to
-        unlink(file.compiledPath);
-        unlink(`${file.writePathBase}.js`);
-
-        index = validFiles.find((fileName) => path === fileName);
-        if (index > -1) validFiles.splice(index, 1);
-      });
+      await Promise.all(deletedFiles.map((path) => removeDeletedFile({ files, path, validFiles })));
     }
 
     if (createdFiles.length) {
@@ -203,9 +267,10 @@ export const watch = async (args: WatchArgs) => {
 
           const mappedDeps = await mapDeps(results);
           files.push(...results);
+          mergeTemplateDeps(templateDeps, mappedDeps.deps);
           validFiles.push(
-            path,
-            ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))
+            normalizeWatcherPath(path),
+            ...mappedDeps.depPaths.filter((p) => !isNodeModulePath(p)).map(normalizeWatcherPath)
           );
 
           await writePreviewDataFiles(results);
@@ -223,15 +288,24 @@ export const watch = async (args: WatchArgs) => {
       '\n'
     );
 
-    changedTemplates.forEach(async (path) => {
-      const results = await buildForPreview({ buildPath, exclude, quiet: true, targetPath: path });
-      await writePreviewDataFiles(results);
-    });
+    await Promise.all(
+      changedTemplates.map(async (path) => {
+        const results = await buildForPreview({
+          buildPath,
+          exclude,
+          quiet: true,
+          targetPath: path
+        });
+        await writePreviewDataFiles(results);
+      })
+    );
   };
 
   log.debug('Watching Paths:', watchDirectories.sort());
 
-  const subPromises = watchDirectories.map((path) => watcher.subscribe(path, handler));
+  const subPromises = watchDirectories.map((path) =>
+    watcher.subscribe(path, handler, getParcelWatcherOptions())
+  );
   const subscriptions = await Promise.all(subPromises);
 
   server.httpServer!.on('close', () => {

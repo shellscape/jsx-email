@@ -43,6 +43,12 @@ interface BuildTemplateParams {
   targetPath: string;
 }
 
+interface RelativeOutputDirParams {
+  baseDir: string;
+  outputBasePath: string;
+  pathApi?: Pick<typeof posix, 'isAbsolute' | 'relative' | 'sep'>;
+}
+
 interface BuildOptions {
   argv: BuildCommandOptions;
   outputBasePath?: string;
@@ -63,6 +69,26 @@ export interface BuildResult {
 export interface BuildTempatesResult extends BuildResult {
   fileName: string;
 }
+
+export const getRelativeOutputDir = ({
+  baseDir,
+  outputBasePath,
+  pathApi = isWindows ? win32 : posix
+}: RelativeOutputDirParams) => {
+  const relativeOutputDir = pathApi.relative(outputBasePath, baseDir);
+
+  if (
+    !relativeOutputDir ||
+    relativeOutputDir === '.' ||
+    relativeOutputDir === '..' ||
+    relativeOutputDir.startsWith(`..${pathApi.sep}`) ||
+    pathApi.isAbsolute(relativeOutputDir)
+  ) {
+    return null;
+  }
+
+  return relativeOutputDir;
+};
 
 export const help = chalkTmpl`
 {blue email build}
@@ -105,8 +131,9 @@ export const getTempPath = async (type: 'build' | 'preview') => {
 export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const { argv, outputBasePath, path, sourceFile } = options;
   const { html = true, out, plain, props = '{}', usePreviewProps, writeToFile = true } = argv;
-  const compiledPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
-  const template = await import(compiledPath);
+  const compiledPath = normalizePath(path);
+  const importPath = isWindows ? pathToFileURL(compiledPath).toString() : compiledPath;
+  const template = await import(importPath);
   // proper named export
   const componentExport: TemplateFn = template.Template;
 
@@ -123,8 +150,13 @@ export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const templateName = basename(path, fileExt).replace(/-[^-]{8}$/, '');
   const component = componentExport(renderProps);
   const baseDir = dirname(path);
+  const relativeOutputDir = outputBasePath
+    ? getRelativeOutputDir({ baseDir, outputBasePath })
+    : null;
   const writePath = outputBasePath
-    ? join(out!, baseDir.replace(outputBasePath, ''), templateName)
+    ? relativeOutputDir
+      ? join(out!, relativeOutputDir, templateName)
+      : join(out!, templateName)
     : join(out!, templateName);
   // const writePath = outputBasePath
   //   ? join(out!, baseDir.replace(outputBasePath, ''), templateName + extension)
