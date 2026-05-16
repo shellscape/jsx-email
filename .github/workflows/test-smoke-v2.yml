@@ -12,6 +12,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     name: Smoke v2 Tests
+    container:
+      image: mcr.microsoft.com/playwright:v1.57.0-noble
+      options: --ipc=host --init
 
     steps:
       - name: Checkout Commit
@@ -19,10 +22,25 @@ jobs:
         with:
           fetch-depth: 10
 
+      - name: Configure git safe.directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Checkout Main
         run: |
           git fetch origin
           git branch -f main origin/main
+
+      - name: Ensure xz is available
+        run: |
+          if ! command -v xz >/dev/null 2>&1; then
+            if command -v sudo >/dev/null 2>&1; then
+              sudo apt-get update
+              sudo apt-get install -y xz-utils
+            else
+              apt-get update
+              apt-get install -y xz-utils
+            fi
+          fi
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -35,4 +53,4 @@ jobs:
         env:
           DOT_LOG_LEVEL: debug
           LOCAL_SMOKE: 'true'
-        run: moon smoke-v2:run
+        run: moon smoke-v2:run-ci

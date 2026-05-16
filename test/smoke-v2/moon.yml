@@ -28,8 +28,17 @@ tasks:
       outputStyle: 'stream'
       runDepsInParallel: false
 
+  run-ci:
+    command: playwright test -x
+    deps:
+      - ~:setup
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
   setup:
-    command: ./scripts/ci-preview-setup-smoke-v2.sh
+    command: bash ./scripts/ci-preview-setup-smoke-v2.sh
     options:
       cache: false
       outputStyle: 'stream'
@@ -37,7 +46,7 @@ tasks:
     platform: system
 
   start:
-    command: ./scripts/ci-preview-start-smoke-v2.sh
+    command: bash ./scripts/ci-preview-start-smoke-v2.sh
     options:
       cache: false
       outputStyle: 'stream'
