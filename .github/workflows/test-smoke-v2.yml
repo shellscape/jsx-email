@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 10
 
       - name: Configure git safe.directory
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        run: git config --global --add safe.directory '$GITHUB_WORKSPACE'
 
       - name: Checkout Main
         run: |
@@ -57,7 +57,7 @@ jobs:
       - name: Run smoke-v2 tests
         env:
           DOT_LOG_LEVEL: debug
-          LOCAL_SMOKE: "true"
+          LOCAL_SMOKE: 'true'
         run: moon smoke-v2:run-ci
 
   validate-windows:
@@ -89,10 +89,10 @@ jobs:
         run: |
           moon jsx-email:build
           moon create-mail:build
-          moon run :build --query "project~plugin-*"
+          moon run :build --query 'project~plugin-*'
 
       - name: Run smoke-v2 tests
         env:
           DOT_LOG_LEVEL: debug
-          LOCAL_SMOKE: "true"
+          LOCAL_SMOKE: 'true'
         run: moon smoke-v2:run-ci
