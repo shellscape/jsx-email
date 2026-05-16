@@ -1,6 +1,22 @@
+import { access, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
-import { isChildPath, isNodeModulePath, normalizeWatcherPath } from '../../src/cli/watcher.js';
+import type { BuildTempatesResult } from '../../src/cli/commands/build.js';
+import {
+  isChildPath,
+  isNodeModulePath,
+  normalizeWatcherPath,
+  removeDeletedFile
+} from '../../src/cli/watcher.js';
+
+const fileExists = (path: string) =>
+  access(path).then(
+    () => true,
+    () => false
+  );
 
 describe('watcher path helpers', () => {
   it('detects POSIX node_modules paths', () => {
@@ -41,5 +57,45 @@ describe('watcher path helpers', () => {
 
   it('does not treat Windows cross-drive paths as child paths', () => {
     expect(isChildPath('C:\\repo\\templates', 'D:\\repo\\templates\\nested')).toBe(false);
+  });
+
+  it('removes deleted files by normalized watcher path and cleans artifacts', async () => {
+    const tempDir = await mkdtemp(join(os.tmpdir(), 'jsx-email-watcher-test-'));
+    const compiledPath = join(tempDir, 'base.js');
+    const writePathBase = join(tempDir, 'preview-base');
+    const previewDataPath = `${writePathBase}.js`;
+    const fileName = 'C:\\Repo\\Templates\\Base.tsx';
+    const files = [
+      {
+        compiledPath,
+        fileName,
+        html: '',
+        plainText: '',
+        sourceFile: fileName,
+        templateName: 'Base',
+        writePathBase
+      }
+    ] satisfies BuildTempatesResult[];
+    const validFiles = [normalizeWatcherPath(fileName)];
+
+    await writeFile(compiledPath, '');
+    await writeFile(previewDataPath, '');
+
+    try {
+      await expect(
+        removeDeletedFile({
+          files,
+          path: 'c:/repo/templates/base.tsx',
+          validFiles
+        })
+      ).resolves.toBe(true);
+
+      expect(files).toEqual([]);
+      expect(validFiles).toEqual([]);
+      await expect(fileExists(compiledPath)).resolves.toBe(false);
+      await expect(fileExists(previewDataPath)).resolves.toBe(false);
+    } finally {
+      await rm(tempDir, { force: true, recursive: true });
+    }
   });
 });

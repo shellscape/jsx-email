@@ -20,11 +20,21 @@ interface WatchArgs {
   server: ViteDevServer;
 }
 
+interface RemoveDeletedFileParams {
+  files: BuildTempatesResult[];
+  path: string;
+  validFiles: string[];
+}
+
 const exists = (path: string) =>
   access(path).then(
     () => true,
     () => false
   );
+const unlinkIfExists = async (path: string) => {
+  if (!(await exists(path))) return;
+  await unlink(path);
+};
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
@@ -50,6 +60,26 @@ export const normalizeWatcherPath = (path: string) => {
   }
 
   return normalizedPath;
+};
+export const removeDeletedFile = async ({ files, path, validFiles }: RemoveDeletedFileParams) => {
+  const normalizedPath = normalizeWatcherPath(path);
+  const index = files.findIndex(
+    ({ fileName }) => normalizeWatcherPath(fileName) === normalizedPath
+  );
+
+  if (index === -1) return false;
+  const file = files[index];
+  files.splice(index, 1);
+
+  await Promise.all([
+    unlinkIfExists(file.compiledPath),
+    unlinkIfExists(`${file.writePathBase}.js`)
+  ]);
+
+  const validFileIndex = validFiles.findIndex((fileName) => fileName === normalizedPath);
+  if (validFileIndex > -1) validFiles.splice(validFileIndex, 1);
+
+  return true;
 };
 
 const getEntrypoints = async (files: BuildTempatesResult[]) => {
@@ -196,18 +226,7 @@ export const watch = async (args: WatchArgs) => {
         '\n'
       );
 
-      deletedFiles.forEach((path) => {
-        let index: any = files.findIndex(({ fileName }) => path === fileName);
-        if (index === -1) return;
-        const file = files[index];
-        files.splice(index, 1);
-        // Note: Don't await either, we don't need to
-        unlink(file.compiledPath);
-        unlink(`${file.writePathBase}.js`);
-
-        index = validFiles.find((fileName) => path === fileName);
-        if (index > -1) validFiles.splice(index, 1);
-      });
+      await Promise.all(deletedFiles.map((path) => removeDeletedFile({ files, path, validFiles })));
     }
 
     if (createdFiles.length) {
