@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isNodeModulePath } from '../../src/cli/watcher.js';
+import { isNodeModulePath, normalizeWatcherPath } from '../../src/cli/watcher.js';
 
 describe('watcher path helpers', () => {
   it('detects POSIX node_modules paths', () => {
@@ -13,5 +13,21 @@ describe('watcher path helpers', () => {
 
   it('does not match node_modules as part of another path segment', () => {
     expect(isNodeModulePath('/repo/not_node_modules/pkg/file.js')).toBe(false);
+  });
+
+  it('normalizes Windows drive paths for watcher lookups', () => {
+    expect(normalizeWatcherPath('C:\\Repo\\Templates\\Base.tsx')).toBe(
+      'c:/repo/templates/base.tsx'
+    );
+  });
+
+  it('normalizes Windows UNC paths for watcher lookups', () => {
+    expect(normalizeWatcherPath('\\\\Server\\Share\\Templates\\Base.tsx')).toBe(
+      '//server/share/templates/base.tsx'
+    );
+  });
+
+  it('preserves POSIX path casing for watcher lookups', () => {
+    expect(normalizeWatcherPath('/Repo/Templates/Base.tsx')).toBe('/Repo/Templates/Base.tsx');
   });
 });

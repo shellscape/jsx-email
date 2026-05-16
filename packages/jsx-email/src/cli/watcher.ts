@@ -34,6 +34,15 @@ const removeChildPaths = (paths: string[]): string[] =>
   );
 export const isNodeModulePath = (path: string) =>
   normalizePath(path).split('/').includes('node_modules');
+export const normalizeWatcherPath = (path: string) => {
+  const normalizedPath = normalizePath(path);
+
+  if (/^[A-Za-z]:\//.test(normalizedPath) || normalizedPath.startsWith('//')) {
+    return normalizedPath.toLowerCase();
+  }
+
+  return normalizedPath;
+};
 
 const getEntrypoints = async (files: BuildTempatesResult[]) => {
   const entrypoints: Set<string> = new Set();
@@ -119,10 +128,18 @@ export const watch = async (args: WatchArgs) => {
     dependencyPaths
   );
   const templateDeps = new Map<string, Set<string>>();
-  const validFiles = Array.from(new Set([...entrypoints, ...dependencyPaths]));
+  const validFiles = Array.from(
+    new Set([...entrypoints, ...dependencyPaths].map(normalizeWatcherPath))
+  );
 
   for (const map of metaDeps) {
-    map!.forEach((value, key) => templateDeps.set(key, value));
+    map!.forEach((value, key) => {
+      const normalizedKey = normalizeWatcherPath(key);
+      const set = templateDeps.get(normalizedKey) ?? new Set<string>();
+
+      value.forEach((entrypoint) => set.add(entrypoint));
+      templateDeps.set(normalizedKey, set);
+    });
   }
 
   log.info({ validFiles });
@@ -135,7 +152,7 @@ export const watch = async (args: WatchArgs) => {
     // event
     const events = incoming.filter((event) => {
       if (isNodeModulePath(event.path)) return false;
-      if (event.type !== 'create') return validFiles.includes(event.path);
+      if (event.type !== 'create') return validFiles.includes(normalizeWatcherPath(event.path));
       return true;
     });
 
@@ -144,7 +161,7 @@ export const watch = async (args: WatchArgs) => {
       .map((e) => e.path)
       .filter((path) => extensions.includes(extname(path)));
     const changedTemplates = changedFiles
-      .flatMap((file) => [...(templateDeps.get(file) || [])])
+      .flatMap((file) => [...(templateDeps.get(normalizeWatcherPath(file)) || [])])
       .filter(Boolean);
     const createdFiles = events
       .filter((event) => event.type === 'create')
@@ -205,7 +222,10 @@ export const watch = async (args: WatchArgs) => {
 
           const mappedDeps = await mapDeps(results);
           files.push(...results);
-          validFiles.push(path, ...mappedDeps.depPaths.filter((p) => !isNodeModulePath(p)));
+          validFiles.push(
+            normalizeWatcherPath(path),
+            ...mappedDeps.depPaths.filter((p) => !isNodeModulePath(p)).map(normalizeWatcherPath)
+          );
 
           await writePreviewDataFiles(results);
         })
