@@ -10,7 +10,7 @@ import { type ViteDevServer } from 'vite';
 
 import { log } from '../log.js';
 
-import { type BuildTempatesResult, getTempPath } from './commands/build.js';
+import { type BuildTempatesResult, getTempPath, normalizePath } from './commands/build.js';
 import { type PreviewCommonParams } from './commands/types.js';
 import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.js';
 
@@ -32,6 +32,8 @@ const removeChildPaths = (paths: string[]): string[] =>
   paths.filter(
     (p1) => !paths.some((p2) => p1 !== p2 && relative(p2, p1) && !relative(p2, p1).startsWith('..'))
   );
+export const isNodeModulePath = (path: string) =>
+  normalizePath(path).split('/').includes('node_modules');
 
 const getEntrypoints = async (files: BuildTempatesResult[]) => {
   const entrypoints: Set<string> = new Set();
@@ -111,7 +113,7 @@ export const watch = async (args: WatchArgs) => {
   const { argv } = common;
   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
   const { depPaths, deps: metaDeps } = await mapDeps(files);
-  const dependencyPaths = depPaths.filter((path) => !path.includes('/node_modules/'));
+  const dependencyPaths = depPaths.filter((path) => !isNodeModulePath(path));
   const { entrypoints, watchPaths: watchDirectories } = await getWatchDirectories(
     files,
     dependencyPaths
@@ -132,7 +134,7 @@ export const watch = async (args: WatchArgs) => {
     // the event path is in the set of files we want to watch, unless it's a create
     // event
     const events = incoming.filter((event) => {
-      if (event.path.includes('/node_modules/')) return false;
+      if (isNodeModulePath(event.path)) return false;
       if (event.type !== 'create') return validFiles.includes(event.path);
       return true;
     });
@@ -203,10 +205,7 @@ export const watch = async (args: WatchArgs) => {
 
           const mappedDeps = await mapDeps(results);
           files.push(...results);
-          validFiles.push(
-            path,
-            ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))
-          );
+          validFiles.push(path, ...mappedDeps.depPaths.filter((p) => !isNodeModulePath(p)));
 
           await writePreviewDataFiles(results);
         })
