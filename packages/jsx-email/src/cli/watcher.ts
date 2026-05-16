@@ -250,10 +250,17 @@ export const watch = async (args: WatchArgs) => {
       '\n'
     );
 
-    changedTemplates.forEach(async (path) => {
-      const results = await buildForPreview({ buildPath, exclude, quiet: true, targetPath: path });
-      await writePreviewDataFiles(results);
-    });
+    await Promise.all(
+      changedTemplates.map(async (path) => {
+        const results = await buildForPreview({
+          buildPath,
+          exclude,
+          quiet: true,
+          targetPath: path
+        });
+        await writePreviewDataFiles(results);
+      })
+    );
   };
 
   log.debug('Watching Paths:', watchDirectories.sort());
