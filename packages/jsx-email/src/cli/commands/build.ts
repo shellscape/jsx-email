@@ -46,7 +46,7 @@ interface BuildTemplateParams {
 interface RelativeOutputDirParams {
   baseDir: string;
   outputBasePath: string;
-  pathApi?: Pick<typeof posix, 'isAbsolute' | 'relative'>;
+  pathApi?: Pick<typeof posix, 'isAbsolute' | 'relative' | 'sep'>;
 }
 
 interface BuildOptions {
@@ -80,7 +80,8 @@ export const getRelativeOutputDir = ({
   if (
     !relativeOutputDir ||
     relativeOutputDir === '.' ||
-    relativeOutputDir.startsWith('..') ||
+    relativeOutputDir === '..' ||
+    relativeOutputDir.startsWith(`..${pathApi.sep}`) ||
     pathApi.isAbsolute(relativeOutputDir)
   ) {
     return null;

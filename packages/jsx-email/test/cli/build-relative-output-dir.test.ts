@@ -34,4 +34,14 @@ describe('cli build output path', () => {
 
     expect(relativePath).toBeNull();
   });
+
+  it('allows child directories that start with two dots', () => {
+    const relativePath = getRelativeOutputDir({
+      baseDir: 'C:\\Users\\batman\\AppData\\Local\\Temp\\jsx-email\\build\\..templates',
+      outputBasePath: 'C:/Users/batman/AppData/Local/Temp/jsx-email/build',
+      pathApi: win32
+    });
+
+    expect(relativePath).toBe('..templates');
+  });
 });

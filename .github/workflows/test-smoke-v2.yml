@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 10
 
       - name: Configure git safe.directory
-        run: git config --global --add safe.directory '$GITHUB_WORKSPACE'
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Checkout Main
         run: |
@@ -96,6 +96,8 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
+        with:
+          moon-cache: 'false'
 
       - name: Install Playwright browser
         run: pnpm --filter test-smoke-v2 exec playwright install chromium

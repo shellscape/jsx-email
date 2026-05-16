@@ -11,9 +11,8 @@ import { type ViteDevServer } from 'vite';
 import { log } from '../log.js';
 
 import { type BuildTempatesResult, getTempPath } from './commands/build.js';
-import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.js';
-import { createSerialAsyncQueue } from './serial-queue.js';
 import { type PreviewCommonParams } from './commands/types.js';
+import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.js';
 
 interface WatchArgs {
   common: PreviewCommonParams;
@@ -26,8 +25,6 @@ const exists = (path: string) =>
     () => true,
     () => false
   );
-const nodeModulesPathRegex = /(^|[\\/])node_modules([\\/]|$)/;
-const isNodeModulesPath = (path: string) => nodeModulesPathRegex.test(path);
 
 // eslint-disable-next-line no-console
 const newline = () => console.log('');
@@ -101,9 +98,7 @@ const mapDeps = async (files: BuildTempatesResult[]) => {
 
     return result;
   });
-  const deps = (await Promise.all(metaReads)).filter((result): result is Map<string, Set<string>> =>
-    Boolean(result)
-  );
+  const deps = (await Promise.all(metaReads)).filter(Boolean);
 
   return { depPaths, deps };
 };
@@ -116,61 +111,28 @@ export const watch = async (args: WatchArgs) => {
   const { argv } = common;
   const extensions = ['.css', '.js', '.jsx', '.ts', '.tsx'];
   const { depPaths, deps: metaDeps } = await mapDeps(files);
-  const dependencyPaths = depPaths.filter((path) => !isNodeModulesPath(path));
+  const dependencyPaths = depPaths.filter((path) => !path.includes('/node_modules/'));
   const { entrypoints, watchPaths: watchDirectories } = await getWatchDirectories(
     files,
     dependencyPaths
   );
   const templateDeps = new Map<string, Set<string>>();
   const validFiles = Array.from(new Set([...entrypoints, ...dependencyPaths]));
-  const enqueue = createSerialAsyncQueue();
 
-  const addValidFiles = (paths: string[]) => {
-    for (const path of paths) {
-      if (!validFiles.includes(path)) validFiles.push(path);
-    }
-  };
-
-  const addTemplateDeps = (dependencyMaps: Map<string, Set<string>>[]) => {
-    for (const dependencyMap of dependencyMaps) {
-      dependencyMap.forEach((value, key) => templateDeps.set(key, value));
-    }
-  };
-
-  const syncDeps = async (results: BuildTempatesResult[]) => {
-    const mappedDeps = await mapDeps(results);
-
-    addTemplateDeps(mappedDeps.deps);
-    addValidFiles(mappedDeps.depPaths.filter((path) => !isNodeModulesPath(path)));
-  };
-
-  const upsertBuildResults = (results: BuildTempatesResult[]) => {
-    for (const result of results) {
-      const index = files.findIndex((file) => file.fileName === result.fileName);
-
-      if (index === -1) files.push(result);
-      else files[index] = result;
-    }
-  };
-
-  const runSerial = async <T>(items: T[], task: (item: T) => Promise<void>) =>
-    items.reduce(async (previous, item) => {
-      await previous;
-      await task(item);
-    }, Promise.resolve());
-
-  addTemplateDeps(metaDeps);
+  for (const map of metaDeps) {
+    map!.forEach((value, key) => templateDeps.set(key, value));
+  }
 
   log.info({ validFiles });
 
-  const processIncomingEvents = async (incoming: watcher.Event[]) => {
+  const handler: watcher.SubscribeCallback = async (_, incoming) => {
     // Note: We perform this filter in case someone has a dependency of a template,
     // or has templates, at a path that includes node_modules. We also don't any
     // non-template files having builds attempted on them, so check to make sure
     // the event path is in the set of files we want to watch, unless it's a create
     // event
     const events = incoming.filter((event) => {
-      if (isNodeModulesPath(event.path)) return false;
+      if (event.path.includes('/node_modules/')) return false;
       if (event.type !== 'create') return validFiles.includes(event.path);
       return true;
     });
@@ -179,9 +141,9 @@ export const watch = async (args: WatchArgs) => {
       .filter((event) => event.type !== 'create' && event.type !== 'delete')
       .map((e) => e.path)
       .filter((path) => extensions.includes(extname(path)));
-    const changedTemplates = Array.from(
-      new Set(changedFiles.flatMap((file) => [...(templateDeps.get(file) || [])]).filter(Boolean))
-    );
+    const changedTemplates = changedFiles
+      .flatMap((file) => [...(templateDeps.get(file) || [])])
+      .filter(Boolean);
     const createdFiles = events
       .filter((event) => event.type === 'create')
       .map((e) => e.path)
@@ -216,7 +178,7 @@ export const watch = async (args: WatchArgs) => {
         unlink(file.compiledPath);
         unlink(`${file.writePathBase}.js`);
 
-        index = validFiles.findIndex((fileName) => path === fileName);
+        index = validFiles.find((fileName) => path === fileName);
         if (index > -1) validFiles.splice(index, 1);
       });
     }
@@ -230,19 +192,25 @@ export const watch = async (args: WatchArgs) => {
         '\n'
       );
 
-      await runSerial(createdFiles, async (path) => {
-        const results = await buildForPreview({
-          buildPath,
-          exclude,
-          quiet: true,
-          targetPath: path
-        });
+      await Promise.all(
+        createdFiles.map(async (path) => {
+          const results = await buildForPreview({
+            buildPath,
+            exclude,
+            quiet: true,
+            targetPath: path
+          });
 
-        upsertBuildResults(results);
-        addValidFiles([path]);
-        await syncDeps(results);
-        await writePreviewDataFiles(results);
-      });
+          const mappedDeps = await mapDeps(results);
+          files.push(...results);
+          validFiles.push(
+            path,
+            ...mappedDeps.depPaths.filter((p) => !p.includes('/node_modules/'))
+          );
+
+          await writePreviewDataFiles(results);
+        })
+      );
     }
 
     if (!changedTemplates.length) return;
@@ -255,25 +223,11 @@ export const watch = async (args: WatchArgs) => {
       '\n'
     );
 
-    await runSerial(changedTemplates, async (path) => {
+    changedTemplates.forEach(async (path) => {
       const results = await buildForPreview({ buildPath, exclude, quiet: true, targetPath: path });
-
-      upsertBuildResults(results);
-      await syncDeps(results);
       await writePreviewDataFiles(results);
     });
   };
-
-  const handler: watcher.SubscribeCallback = (_, incoming) =>
-    enqueue(async () => {
-      try {
-        await processIncomingEvents(incoming);
-      } catch (error) {
-        log.error(
-          chalk`{red Watcher rebuild failed:} ${error instanceof Error ? error.message : String(error)}`
-        );
-      }
-    });
 
   log.debug('Watching Paths:', watchDirectories.sort());
 
