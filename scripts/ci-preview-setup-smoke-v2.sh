@@ -60,9 +60,10 @@ JSX_EMAIL_TARBALL="$JSX_EMAIL_TARBALL" \
 REPO_DIR="$REPO_DIR" \
 node - <<'EOF'
 const fs = require('node:fs');
+const path = require('node:path');
 
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-const repoPkg = JSON.parse(fs.readFileSync(`${process.env.REPO_DIR}/package.json`, 'utf8'));
+const repoPkg = JSON.parse(fs.readFileSync(path.join(process.env.REPO_DIR, 'package.json'), 'utf8'));
 const repoOverrides = repoPkg.pnpm?.overrides ?? {};
 
 pkg.dependencies = {

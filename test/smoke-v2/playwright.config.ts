@@ -1,12 +1,7 @@
 /* eslint-disable import/no-default-export */
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import { defineConfig, devices } from '@playwright/test';
 
 // Note: https://playwright.dev/docs/test-configuration.
-
-const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 export default defineConfig({
   forbidOnly: !!process.env.CI,
@@ -28,8 +23,7 @@ export default defineConfig({
     trace: 'on-first-retry'
   },
   webServer: {
-    command: 'bash ./scripts/ci-preview-start-smoke-v2.sh',
-    cwd: repoRoot,
+    command: 'moon smoke-v2:start',
     env: {
       ENV_TEST_VALUE: 'joker'
     },
