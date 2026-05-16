@@ -2,6 +2,7 @@
 // can't seem to handle the psuedo default export
 import { access, readFile, unlink } from 'node:fs/promises';
 import { dirname, extname, isAbsolute, relative, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import * as watcher from '@parcel/watcher';
 import chalk from 'chalk-template';
@@ -13,6 +14,9 @@ import { log } from '../log.js';
 import { type BuildTempatesResult, getTempPath, normalizePath } from './commands/build.js';
 import { type PreviewCommonParams } from './commands/types.js';
 import { buildForPreview, originalCwd, writePreviewDataFiles } from './helpers.js';
+
+export const getParcelWatcherOptions = (platform: NodeJS.Platform = process.platform) =>
+  platform === 'win32' ? { backend: 'windows' as const } : void 0;
 
 interface WatchArgs {
   common: PreviewCommonParams;
@@ -31,9 +35,13 @@ const exists = (path: string) =>
     () => true,
     () => false
   );
+const toFilesystemPath = (path: string) =>
+  path.startsWith('file://') ? fileURLToPath(path) : path;
 const unlinkIfExists = async (path: string) => {
-  if (!(await exists(path))) return;
-  await unlink(path);
+  const fsPath = toFilesystemPath(path);
+
+  if (!(await exists(fsPath))) return;
+  await unlink(fsPath);
 };
 
 // eslint-disable-next-line no-console
@@ -85,10 +93,12 @@ export const removeDeletedFile = async ({ files, path, validFiles }: RemoveDelet
 const getEntrypoints = async (files: BuildTempatesResult[]) => {
   const entrypoints: Set<string> = new Set();
   const promises = files.map(async ({ metaPath }) => {
-    log.debug({ exists: await exists(metaPath ?? ''), metaPath });
+    const fsMetaPath = metaPath ? toFilesystemPath(metaPath) : null;
 
-    if (!metaPath || !(await exists(metaPath))) return null;
-    const contents = await readFile(metaPath, 'utf-8');
+    log.debug({ exists: await exists(fsMetaPath ?? ''), metaPath });
+
+    if (!fsMetaPath || !(await exists(fsMetaPath))) return null;
+    const contents = await readFile(fsMetaPath, 'utf-8');
     const metafile = JSON.parse(contents) as Metafile;
 
     Object.entries(metafile.outputs).forEach(([_, { entryPoint }]) => {
@@ -122,10 +132,12 @@ const getWatchDirectories = async (files: BuildTempatesResult[], depPaths: strin
 const mapDeps = async (files: BuildTempatesResult[]) => {
   const depPaths: string[] = [];
   const metaReads = files.map(async ({ metaPath }) => {
-    log.debug({ exists: await exists(metaPath ?? ''), metaPath });
+    const fsMetaPath = metaPath ? toFilesystemPath(metaPath) : null;
 
-    if (!metaPath || !(await exists(metaPath))) return null;
-    const contents = await readFile(metaPath, 'utf-8');
+    log.debug({ exists: await exists(fsMetaPath ?? ''), metaPath });
+
+    if (!fsMetaPath || !(await exists(fsMetaPath))) return null;
+    const contents = await readFile(fsMetaPath, 'utf-8');
     const metafile = JSON.parse(contents) as Metafile;
     const { outputs } = metafile;
     const result = new Map<string, Set<string>>();
@@ -151,6 +163,20 @@ const mapDeps = async (files: BuildTempatesResult[]) => {
 
   return { depPaths, deps };
 };
+const mergeTemplateDeps = (
+  templateDeps: Map<string, Set<string>>,
+  deps: Array<Map<string, Set<string>> | null>
+) => {
+  for (const map of deps) {
+    map?.forEach((value, key) => {
+      const normalizedKey = normalizeWatcherPath(key);
+      const set = templateDeps.get(normalizedKey) ?? new Set<string>();
+
+      value.forEach((entrypoint) => set.add(entrypoint));
+      templateDeps.set(normalizedKey, set);
+    });
+  }
+};
 
 export const watch = async (args: WatchArgs) => {
   newline();
@@ -170,15 +196,7 @@ export const watch = async (args: WatchArgs) => {
     new Set([...entrypoints, ...dependencyPaths].map(normalizeWatcherPath))
   );
 
-  for (const map of metaDeps) {
-    map!.forEach((value, key) => {
-      const normalizedKey = normalizeWatcherPath(key);
-      const set = templateDeps.get(normalizedKey) ?? new Set<string>();
-
-      value.forEach((entrypoint) => set.add(entrypoint));
-      templateDeps.set(normalizedKey, set);
-    });
-  }
+  mergeTemplateDeps(templateDeps, metaDeps);
 
   log.info({ validFiles });
 
@@ -249,6 +267,7 @@ export const watch = async (args: WatchArgs) => {
 
           const mappedDeps = await mapDeps(results);
           files.push(...results);
+          mergeTemplateDeps(templateDeps, mappedDeps.deps);
           validFiles.push(
             normalizeWatcherPath(path),
             ...mappedDeps.depPaths.filter((p) => !isNodeModulePath(p)).map(normalizeWatcherPath)
@@ -284,7 +303,9 @@ export const watch = async (args: WatchArgs) => {
 
   log.debug('Watching Paths:', watchDirectories.sort());
 
-  const subPromises = watchDirectories.map((path) => watcher.subscribe(path, handler));
+  const subPromises = watchDirectories.map((path) =>
+    watcher.subscribe(path, handler, getParcelWatcherOptions())
+  );
   const subscriptions = await Promise.all(subPromises);
 
   server.httpServer!.on('close', () => {

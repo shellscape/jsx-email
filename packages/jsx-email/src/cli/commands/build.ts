@@ -131,8 +131,9 @@ export const getTempPath = async (type: 'build' | 'preview') => {
 export const build = async (options: BuildOptions): Promise<BuildResult> => {
   const { argv, outputBasePath, path, sourceFile } = options;
   const { html = true, out, plain, props = '{}', usePreviewProps, writeToFile = true } = argv;
-  const compiledPath = isWindows ? pathToFileURL(normalizePath(path)).toString() : path;
-  const template = await import(compiledPath);
+  const compiledPath = normalizePath(path);
+  const importPath = isWindows ? pathToFileURL(compiledPath).toString() : compiledPath;
+  const template = await import(importPath);
   // proper named export
   const componentExport: TemplateFn = template.Template;
 
