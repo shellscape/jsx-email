@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { previewProps } from './fixtures/cli-preview-props-template.js';
 
 const caniemailMock = vi.fn(() => ({
-  issues: { errors: new Map(), warnings: undefined },
+  issues: { errors: new Map(), warnings: new Map() },
   success: true
 }));
 
