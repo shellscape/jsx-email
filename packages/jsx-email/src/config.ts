@@ -3,6 +3,7 @@ import { pathToFileURL } from 'node:url';
 
 import type { MethodFactoryLevels } from '@dot/log';
 import { AssertionError } from 'assert';
+import type { CanIEmailOptions } from 'caniemail';
 import chalk from 'chalk-template';
 import { lilconfig } from 'lilconfig';
 
@@ -11,7 +12,12 @@ import { getPluginLog, log } from './log.js';
 import { type JsxEmailPlugin, type PluginInternal, pluginSymbol } from './plugins.js';
 import type { ESBuildOptions, RenderOptions } from './types.js';
 
+export interface CheckOptions {
+  emailClients?: CanIEmailOptions['clients'];
+}
+
 export interface JsxEmailConfig {
+  check?: CheckOptions;
   esbuild?: ESBuildOptions;
   logLevel?: MethodFactoryLevels;
   plugins: JsxEmailPlugin[];
@@ -292,6 +298,8 @@ export const mergeConfig = async (a: Partial<JsxEmailConfig>, b: Partial<JsxEmai
     plugins: [...aPlugins, ...bPlugins],
     render: { ...a.render, ...b.render }
   } as JsxEmailConfig;
+
+  if (a.check || b.check) result.check = { ...a.check, ...b.check };
 
   return result;
 };

@@ -19,6 +19,7 @@ import {
   string
 } from 'valibot';
 
+import { current } from '../../config.js';
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.js';
 
 import { buildTemplates } from './build.js';
@@ -89,7 +90,9 @@ const formatIssue = (group: IssueGroup): string => {
 };
 
 const parseEmailClients = (emailClients?: string): EmailClients =>
-  emailClients ? (emailClients.split(',') as EmailClients) : [...defaultEmailClients];
+  emailClients
+    ? (emailClients.split(',') as EmailClients)
+    : (current().check?.emailClients ?? [...defaultEmailClients]);
 
 const runCheck = (fileName: string, html: string, emailClients: EmailClients) => {
   const bytes = Buffer.byteLength(html, 'utf8');

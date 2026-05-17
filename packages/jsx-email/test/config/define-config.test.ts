@@ -15,6 +15,16 @@ describe('defineConfig', async () => {
     expect(config).toMatchSnapshot();
   });
 
+  test('check clients', async () => {
+    const config = await defineConfig({
+      check: {
+        emailClients: ['gmail.*', 'outlook.*']
+      }
+    });
+
+    expect(config.check?.emailClients).toEqual(['gmail.*', 'outlook.*']);
+  });
+
   test('minify and pretty', async () => {
     const config = await defineConfig({
       render: {

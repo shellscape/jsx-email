@@ -81,6 +81,14 @@ export const config = defineConfig(async () => {
 jsx-email configuration files support the following properties:
 
 ```ts
+check?: {
+  emailClients?: string[]
+}
+```
+
+_Optional_. Allows the configuration file to specify the default email clients used by the CLI's `check` command. The `--email-clients` flag takes precedence when provided.
+
+```ts
 esbuild?: {
   plugins?: Plugin[]
 }
