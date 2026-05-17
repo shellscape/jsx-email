@@ -683,6 +683,31 @@ body {
   padding: 0;
 }
 
+.card-code code {
+  display: grid;
+  min-width: max-content;
+}
+
+.card-code .line {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  min-height: 1.25rem;
+}
+
+.card-code .code-line-number {
+  border-right: 1px solid var(--border);
+  color: var(--text-subtle);
+  padding-right: 0.75rem;
+  text-align: right;
+  user-select: none;
+}
+
+.card-code .code-line-content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  white-space: pre;
+}
+
 .code-block-wrap {
   position: relative;
 }

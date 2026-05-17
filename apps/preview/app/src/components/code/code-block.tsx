@@ -1,6 +1,7 @@
 import { Check, Copy, Download } from 'iconoir-react';
 import beautify from 'js-beautify';
 import { useMemo, useState } from 'react';
+import type { ShikiTransformer } from 'shiki';
 import { createHighlighterCoreSync } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 import shikiHtmlLang from 'shiki/langs/html.mjs';
@@ -15,6 +16,31 @@ const shiki = createHighlighterCoreSync({
   themes: [shikiGithubLightTheme, shikiGithubDarkHighContrastTheme]
 });
 
+const lineNumberTransformer: ShikiTransformer = {
+  name: 'jsx-email-preview-line-numbers',
+  line(node, line) {
+    const { children } = node;
+    node.children = [
+      {
+        type: 'element',
+        tagName: 'span',
+        properties: {
+          ariaHidden: 'true',
+          className: ['code-line-number'],
+          dataLineNumber: String(line)
+        },
+        children: [{ type: 'text', value: String(line) }]
+      },
+      {
+        type: 'element',
+        tagName: 'span',
+        properties: { className: ['code-line-content'] },
+        children
+      }
+    ];
+  }
+};
+
 interface CodeBlockProps {
   code: string;
   fileName: string;
@@ -26,17 +52,28 @@ export function formatCode(code: string, lang: CodeBlockProps['lang']) {
   return code;
 }
 
+export function codeToLineNumberedHtml(
+  code: string,
+  lang: CodeBlockProps['lang'],
+  theme: 'github-light' | 'github-dark-high-contrast'
+) {
+  if (lang === 'text') return escapeHtml(code);
+  return shiki.codeToHtml(code, {
+    lang,
+    theme,
+    transformers: [lineNumberTransformer]
+  });
+}
+
 export function CodeBlock({ code, fileName, lang }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const visibleCode = useMemo(() => formatCode(code, lang), [code, lang]);
   const html = useMemo(() => {
-    if (lang === 'text') return escapeHtml(visibleCode);
-    return shiki.codeToHtml(visibleCode, {
-      lang,
-      theme: document.documentElement.classList.contains('dark')
-        ? 'github-dark-high-contrast'
-        : 'github-light'
-    });
+    const theme = document.documentElement.classList.contains('dark')
+      ? 'github-dark-high-contrast'
+      : 'github-light';
+
+    return codeToLineNumberedHtml(visibleCode, lang, theme);
   }, [lang, visibleCode]);
 
   async function copy() {
@@ -68,7 +105,7 @@ export function CodeBlock({ code, fileName, lang }: CodeBlockProps) {
         </button>
       </div>
       <div
-        className="card-code h-full overflow-auto rounded-[6px] border border-[var(--border)] p-4 pr-24 text-xs leading-5"
+        className="card-code h-full overflow-auto rounded-[6px] border border-[var(--border)] py-4 pl-3 pr-24 text-xs leading-5"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>
@@ -76,8 +113,14 @@ export function CodeBlock({ code, fileName, lang }: CodeBlockProps) {
 }
 
 function escapeHtml(value: string) {
-  return `<pre class="shiki"><code>${value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')}</code></pre>`;
+  const lines = value.split('\n');
+  return `<pre class="shiki"><code>${lines
+    .map((line, index) => {
+      const lineNumber = index + 1;
+      return `<span class="line"><span class="code-line-number" aria-hidden="true" data-line-number="${lineNumber}">${lineNumber}</span><span class="code-line-content">${line
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')}</span></span>`;
+    })
+    .join('')}</code></pre>`;
 }
