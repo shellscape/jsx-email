@@ -68,6 +68,7 @@ const importHeader = `import React, {
 import ReactDOM from 'react-dom/client';
 import { createPortal } from 'react-dom';
 import { createRoot } from 'react-dom/client';
+import type { ShikiTransformer } from 'shiki';
 import {
   Check,
   Copy,
