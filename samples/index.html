@@ -353,6 +353,10 @@
 @layer components;
 
 @layer utilities {
+  .visible {
+    visibility: visible;
+  }
+
   .fixed {
     position: fixed;
   }
@@ -449,6 +453,10 @@
 
   .mt-24 {
     margin-top: calc(var(--spacing) * 24);
+  }
+
+  .mr-2 {
+    margin-right: calc(var(--spacing) * 2);
   }
 
   .mr-16 {
@@ -657,6 +665,10 @@
     cursor: pointer;
   }
 
+  .resize {
+    resize: both;
+  }
+
   .flex-col {
     flex-direction: column;
   }
@@ -818,10 +830,6 @@
     padding: calc(var(--spacing) * 3);
   }
 
-  .p-4 {
-    padding: calc(var(--spacing) * 4);
-  }
-
   .p-5 {
     padding: calc(var(--spacing) * 5);
   }
@@ -888,6 +896,10 @@
 
   .pb-16 {
     padding-bottom: calc(var(--spacing) * 16);
+  }
+
+  .pl-3 {
+    padding-left: calc(var(--spacing) * 3);
   }
 
   .text-left {
@@ -1549,6 +1561,343 @@ body {
   box-shadow: 0 1px 2px #00000014, 0 1px 1px #0000000a;
 }
 
+.spam-button-wrap {
+  display: inline-flex;
+  position: relative;
+}
+
+.spam-button {
+  border-radius: var(--radius);
+  color: var(--text-subtle);
+  cursor: pointer;
+  background: none;
+  border: 1px solid #0000;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  transition: background-color .15s, border-color .15s, color .15s;
+  display: inline-flex;
+}
+
+.spam-button:hover, .spam-button[aria-expanded="true"] {
+  background: var(--control-hover);
+  color: var(--text-strong);
+}
+
+.spam-button svg {
+  width: auto;
+  height: 25px;
+  display: block;
+}
+
+.spam-button.is-green {
+  color: #16803c;
+}
+
+.spam-button.is-grey {
+  color: #e5e7eb;
+}
+
+.spam-button.is-yellow {
+  color: #b7791f;
+}
+
+.spam-button.is-red {
+  color: #d92d20;
+}
+
+.dark .spam-button.is-green {
+  color: #45c16d;
+}
+
+.dark .spam-button.is-grey {
+  color: #6b7280;
+}
+
+.dark .spam-button.is-yellow {
+  color: #f2c94c;
+}
+
+.dark .spam-button.is-red {
+  color: #ff6b5f;
+}
+
+.spam-tooltip-content {
+  white-space: nowrap;
+  align-items: center;
+  gap: 6px;
+  display: inline-flex;
+}
+
+.spam-tooltip-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.spam-tooltip-icon.is-green {
+  color: #16803c;
+}
+
+.spam-tooltip-icon.is-grey {
+  color: #e5e7eb;
+}
+
+.spam-tooltip-icon.is-yellow {
+  color: #b7791f;
+}
+
+.spam-tooltip-icon.is-red {
+  color: #d92d20;
+}
+
+.dark .spam-tooltip-icon.is-green {
+  color: #45c16d;
+}
+
+.dark .spam-tooltip-icon.is-grey {
+  color: #6b7280;
+}
+
+.dark .spam-tooltip-icon.is-yellow {
+  color: #f2c94c;
+}
+
+.dark .spam-tooltip-icon.is-red {
+  color: #ff6b5f;
+}
+
+.spam-popover {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  max-height: var(--spam-popover-max-height, calc(100vh - 48px));
+  z-index: 80;
+  width: 430px;
+  position: fixed;
+  overflow: visible;
+  box-shadow: 0 20px 35px -12px #00000047, 0 8px 16px -8px #0000002e;
+}
+
+.spam-popover:before {
+  background: var(--surface-raised);
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  content: "";
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: -8px;
+  right: 11px;
+  transform: rotate(45deg);
+}
+
+.spam-popover-header {
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  padding: 11px 12px;
+  display: flex;
+}
+
+.spam-popover-heading {
+  min-width: 0;
+}
+
+.spam-popover-title {
+  color: currentColor;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.spam-popover-subtitle {
+  color: var(--text-subtle);
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.spam-popover-body {
+  max-height: calc(var(--spam-popover-max-height, calc(100vh - 48px)) - 109px);
+  padding: 11px 12px;
+  overflow: auto;
+}
+
+.spam-popover-findings {
+  gap: 10px;
+  display: grid;
+}
+
+.spam-popover-finding {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+  padding: 7px 8px;
+  display: grid;
+}
+
+.spam-popover-finding-icon {
+  border-radius: var(--radius);
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+}
+
+.spam-popover-finding-icon.is-green {
+  color: #16803c;
+  background: #16803c1f;
+}
+
+.spam-popover-finding-icon.is-yellow {
+  color: #b7791f;
+  background: #b7791f24;
+}
+
+.spam-popover-finding-icon.is-red {
+  color: #d92d20;
+  background: #d92d201f;
+}
+
+.spam-popover-finding-text {
+  min-width: 0;
+}
+
+.spam-popover-finding-title {
+  color: var(--text-strong);
+  cursor: default;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.25;
+  display: inline-flex;
+}
+
+.spam-popover-count {
+  background: var(--control-hover);
+  border-radius: var(--radius);
+  color: var(--text-subtle);
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  display: inline-flex;
+}
+
+.spam-popover-count.is-small {
+  min-width: 22px;
+  height: 18px;
+  padding: 0 6px;
+  font-size: 11px;
+}
+
+.spam-popover-count.is-normal {
+  font-size: inherit;
+  vertical-align: baseline;
+  min-width: 24px;
+  padding: 1px 6px;
+  line-height: 1;
+}
+
+.spam-popover-evidence {
+  margin-top: 3px;
+}
+
+.spam-popover-evidence-toggle {
+  color: var(--text-subtle);
+  cursor: pointer;
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+}
+
+.spam-popover-evidence-toggle:hover {
+  color: var(--text);
+  text-underline-offset: 3px;
+  text-decoration: underline;
+}
+
+.spam-popover-evidence-list {
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  display: flex;
+}
+
+.spam-popover-evidence-list span {
+  color: #0a0a0a;
+  overflow-wrap: break-word;
+  background: #fafafa;
+  border: 1px solid #21272e1f;
+  border-radius: 2px;
+  padding: 3px 4px;
+  font-family: Menlo, ui-monospace, SFMono-Regular, Monaco, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.spam-popover-evidence-list.is-links {
+  display: grid;
+}
+
+.spam-popover-evidence-list.is-links span {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.spam-popover.is-green {
+  color: #16803c;
+}
+
+.spam-popover.is-yellow {
+  color: #b7791f;
+}
+
+.spam-popover.is-red {
+  color: #d92d20;
+}
+
+.dark .spam-popover.is-green, .dark .spam-popover-finding-icon.is-green {
+  color: #45c16d;
+}
+
+.dark .spam-popover.is-yellow, .dark .spam-popover-finding-icon.is-yellow {
+  color: #f2c94c;
+}
+
+.dark .spam-popover.is-red, .dark .spam-popover-finding-icon.is-red {
+  color: #ff6b5f;
+}
+
+.dark .spam-popover-finding-icon.is-green {
+  background: #45c16d29;
+}
+
+.dark .spam-popover-finding-icon.is-yellow {
+  background: #f2c94c29;
+}
+
+.dark .spam-popover-finding-icon.is-red {
+  background: #ff6b5f29;
+}
+
+.dark .spam-popover-evidence-list span {
+  color: #c4c5c6;
+  background-color: #1a1a1a;
+  border-color: #292929;
+}
+
 .card-code {
   background: var(--surface-raised);
   color: var(--astro-code-color-text);
@@ -1565,6 +1914,32 @@ body {
   padding: 0;
   overflow: visible;
   background: none !important;
+}
+
+.card-code code {
+  min-width: max-content;
+  display: grid;
+}
+
+.card-code .line {
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  min-height: 1.25rem;
+  display: grid;
+}
+
+.card-code .code-line-number {
+  border-right: 1px solid var(--border);
+  color: var(--text-subtle);
+  text-align: right;
+  -webkit-user-select: none;
+  user-select: none;
+  padding-right: .75rem;
+}
+
+.card-code .code-line-content {
+  white-space: pre;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .code-block-wrap {
@@ -1809,32 +2184,26 @@ html.dark .docs-inline-code {
   border-color: #292929;
 }
 
-.tippy-box {
-  background: var(--surface-raised);
-}
-
-@supports (color: color-mix(in lab, red, red)) {
-  .tippy-box {
-    background: color-mix(in srgb, var(--surface-raised) 96%, transparent);
-  }
-}
-
-.tippy-box {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  color: var(--text);
+.tippy-box[data-theme~="jsx-email"] {
+  color: #374151;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 2px 4px;
   font-size: 12px;
-  box-shadow: 0 10px 24px #0000001f;
+  font-weight: 500;
+  line-height: 1;
+  box-shadow: 0 10px 15px -3px #00000014, 0 4px 6px -4px #00000014;
 }
 
-.tippy-arrow {
-  color: var(--surface-raised);
+html.dark .tippy-box[data-theme~="jsx-email"] {
+  color: #e5e7eb;
+  background-color: #111827;
+  border-color: #1f2937;
 }
 
-@supports (color: color-mix(in lab, red, red)) {
-  .tippy-arrow {
-    color: color-mix(in srgb, var(--surface-raised) 96%, transparent);
-  }
+.tippy-box[data-theme~="jsx-email"] > .tippy-content {
+  padding: 4px 6px;
 }
 
 html.is-zooming-in, html.is-zooming-in body, html.is-zooming-in body * {
@@ -2113,7 +2482,7 @@ html.is-zooming-in #templates-window, html.is-zooming-in #templates-window *, ht
   inherits: false
 }
 </style>
-    <script type="module" crossorigin src="/samples/assets/index-BEzZKHWP.js"></script>
+    <script type="module" crossorigin src="/samples/assets/index-CI5qf5hu.js"></script>
   </head>
   <body>
     <div id="root"></div>
