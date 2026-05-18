@@ -115,10 +115,10 @@ email check ./emails/welcome.tsx --use-preview-props
 `email check` can limit compatibility validation to a comma-separated list of email clients.
 
 ```sh
-email check ./emails/welcome.tsx --email-clients gmail,outlook
+email check ./emails/welcome.tsx --email-clients gmail.*,outlook.*
 ```
 
-The v3 check command remains caniemail-based.
+The v3 check command remains caniemail-based. Default check clients can also be configured with `check.emailClients` in `jsx-email.config.*`.
 
 ## New Components
 
