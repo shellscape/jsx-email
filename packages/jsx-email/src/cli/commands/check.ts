@@ -1,6 +1,12 @@
 import { lstat } from 'node:fs/promises';
 
-import { type IssueGroup, caniemail, groupIssues, sortIssues } from 'caniemail';
+import {
+  type CanIEmailOptions,
+  type IssueGroup,
+  caniemail,
+  groupIssues,
+  sortIssues
+} from 'caniemail';
 import chalk from 'chalk';
 import chalkTmpl from 'chalk-template';
 import stripAnsi from 'strip-ansi';
@@ -13,6 +19,7 @@ import {
   string
 } from 'valibot';
 
+import { current } from '../../config.js';
 import { formatBytes, gmailByteLimit, gmailBytesSafe } from '../helpers.js';
 
 import { buildTemplates } from './build.js';
@@ -26,6 +33,7 @@ const CheckOptionsStruct = object({
 });
 
 type CheckOptions = Infer<typeof CheckOptionsStruct>;
+type EmailClients = CanIEmailOptions['clients'];
 
 const defaultEmailClients = [
   'apple-mail.*',
@@ -34,7 +42,7 @@ const defaultEmailClients = [
   'protonmail.*',
   'hey.*',
   'fastmail.*'
-];
+] satisfies EmailClients;
 
 export const help = chalkTmpl`
 {blue email check}
@@ -81,10 +89,15 @@ const formatIssue = (group: IssueGroup): string => {
   return chalkTmpl`${preamble}${title}:${footnotes}\n${indent}{dim ${clients.join(`\n${indent}`)}}\n`;
 };
 
-const runCheck = (fileName: string, html: string, emailClients: string[]) => {
+const parseEmailClients = (emailClients?: string): EmailClients =>
+  emailClients
+    ? (emailClients.split(',') as EmailClients)
+    : (current().check?.emailClients ?? [...defaultEmailClients]);
+
+const runCheck = (fileName: string, html: string, emailClients: EmailClients) => {
   const bytes = Buffer.byteLength(html, 'utf8');
   const htmlSize = formatBytes(bytes);
-  const result = caniemail({ clients: emailClients as any, html });
+  const result = caniemail({ clients: emailClients, html });
   const { issues, success } = result;
   const { errors, warnings } = issues;
   const counts = {
@@ -93,7 +106,7 @@ const runCheck = (fileName: string, html: string, emailClients: string[]) => {
     warnings: 0
   };
 
-  if (success && !issues.warnings) return;
+  if (success && !warnings.size) return;
 
   log(chalkTmpl`{underline ${fileName}} → HTML: ${htmlSize}\n`);
 
@@ -105,7 +118,7 @@ const runCheck = (fileName: string, html: string, emailClients: string[]) => {
     counts.warnings += 1;
   }
 
-  if (errors?.size || warnings?.size) {
+  if (errors.size || warnings.size) {
     const groupedErrors = groupIssues(errors);
     const groupedWarnings = groupIssues(warnings);
     const sorted = sortIssues([...groupedErrors, ...groupedWarnings]);
@@ -155,7 +168,7 @@ export const command: CommandFn = async (argv: CheckOptions, input) => {
 
   log();
 
-  const emailClients = argv.emailClients ? argv.emailClients.split(',') : defaultEmailClients;
+  const emailClients = parseEmailClients(argv.emailClients);
 
   runCheck(file.fileName, file.html!, emailClients);
 

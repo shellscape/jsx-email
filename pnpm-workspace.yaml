@@ -44,6 +44,9 @@ catalog:
 enablePrePostScripts: true
 linkWorkspacePackages: false
 minimumReleaseAge: 10080 # 7 days
+minimumReleaseAgeExclude:
+  - caniemail
+minimumReleaseAgeStrict: false
 onlyBuiltDependencies:
   - '@moonrepo/cli'
   - '@parcel/watcher'

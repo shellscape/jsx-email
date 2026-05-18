@@ -85,6 +85,14 @@ $ email check ./emails/Batman.tsx
 
 To check templates using their exported `previewProps`, pass the `--use-preview-props` flag so the check runs against the same sample data as your previews and builds.
 
+To limit compatibility checks to specific email clients, pass `--email-clients` with a comma-separated list of caniemail client names or globs:
+
+```console
+$ email check ./emails/Batman.tsx --email-clients gmail.*,outlook.*
+```
+
+Default check clients can also be configured in `jsx-email.config.*` with `check.emailClients`. The CLI flag takes precedence over config when both are present.
+
 Example output:
 
 ```console

@@ -81,6 +81,32 @@ export const config = defineConfig(async () => {
 jsx-email configuration files support the following properties:
 
 ```ts
+check?: {
+  emailClients?: string[]
+}
+```
+
+_Optional_. Allows the configuration file to specify the default email clients used by the CLI's `check` command.
+
+```ts
+import { defineConfig } from 'jsx-email/config';
+
+export const config = defineConfig({
+  check: {
+    emailClients: ['gmail.*', 'outlook.*']
+  }
+});
+```
+
+The `emailClients` values use the same client names and glob patterns supported by [caniemail](https://www.caniemail.com/). Exact clients such as `gmail.desktop-webmail`, provider globs such as `outlook.*`, platform globs such as `*.ios`, and `*` for all clients are supported.
+
+The CLI's `--email-clients` flag takes precedence over this config value when provided:
+
+```console
+$ email check ./emails/welcome.tsx --email-clients apple-mail.*,gmail.*
+```
+
+```ts
 esbuild?: {
   plugins?: Plugin[]
 }
