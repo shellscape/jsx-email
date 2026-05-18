@@ -291,6 +291,14 @@ $ email check ./emails/Batman.tsx
 
 To check templates using their exported `previewProps`, pass the `--use-preview-props` flag so the check runs against the same sample data as your previews and builds.
 
+To limit compatibility checks to specific email clients, pass `--email-clients` with a comma-separated list of caniemail client names or globs:
+
+```
+$ email check ./emails/Batman.tsx --email-clients gmail.*,outlook.*
+```
+
+Default check clients can also be configured in `jsx-email.config.*` with `check.emailClients`. The CLI flag takes precedence over config when both are present.
+
 Example output:
 
 ```
@@ -552,6 +560,32 @@ export const config = defineConfig(async () => {
 ### Available Properties
 
 jsx-email configuration files support the following properties:
+
+```
+check?: {
+  emailClients?: string[]
+}
+```
+
+*Optional*. Allows the configuration file to specify the default email clients used by the CLI’s `check` command.
+
+```
+import { defineConfig } from 'jsx-email/config';
+
+export const config = defineConfig({
+  check: {
+    emailClients: ['gmail.*', 'outlook.*']
+  }
+});
+```
+
+The `emailClients` values use the same client names and glob patterns supported by [caniemail](https://www.caniemail.com/). Exact clients such as `gmail.desktop-webmail`, provider globs such as `outlook.*`, platform globs such as `*.ios`, and `*` for all clients are supported.
+
+The CLI’s `--email-clients` flag takes precedence over this config value when provided:
+
+```
+$ email check ./emails/welcome.tsx --email-clients apple-mail.*,gmail.*
+```
 
 ```
 esbuild?: {
@@ -4940,10 +4974,10 @@ email check ./emails/welcome.tsx --use-preview-props
 `email check` can limit compatibility validation to a comma-separated list of email clients.
 
 ```
-email check ./emails/welcome.tsx --email-clients gmail,outlook
+email check ./emails/welcome.tsx --email-clients gmail.*,outlook.*
 ```
 
-The v3 check command remains caniemail-based.
+The v3 check command remains caniemail-based. Default check clients can also be configured with `check.emailClients` in `jsx-email.config.*`.
 
 ## New Components
 
