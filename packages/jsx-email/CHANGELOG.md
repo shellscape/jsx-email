@@ -1,5 +1,17 @@
 # jsx-email ChangeLog
 
+## v3.2.0
+
+_2026-05-18_
+
+### Bugfixes
+
+- jsx-email: show line numbers in code views ([#451](https://github.com/shellscape/jsx-email/issues/451))
+
+### Features
+
+- jsx-email: update caniemail, support email clients in config files ([#452](https://github.com/shellscape/jsx-email/issues/452))
+
 ## v3.0.0
 
 _2026-05-08_
