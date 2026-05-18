@@ -40,7 +40,7 @@ export function useCanvasZoom({ canvasRef, setZoom, zoom }: UseCanvasZoomOptions
 
     document.addEventListener('click', handleDocumentClick, true);
     return () => document.removeEventListener('click', handleDocumentClick, true);
-  }, [isAltDown, isZoomKeyDown, zoom]);
+  }, [isAltDown, isZoomKeyDown]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -72,7 +72,7 @@ export function useCanvasZoom({ canvasRef, setZoom, zoom }: UseCanvasZoomOptions
 
     canvas.addEventListener('wheel', handleWheel, { passive: false });
     return () => canvas.removeEventListener('wheel', handleWheel);
-  }, [canvasRef, zoom]);
+  }, [canvasRef]);
 
   useEffect(() => {
     function handleZoomEvent(event: Event) {
@@ -124,7 +124,7 @@ export function useCanvasZoom({ canvasRef, setZoom, zoom }: UseCanvasZoomOptions
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('blur', handleBlur);
     };
-  }, [zoom]);
+  }, []);
 
   useLayoutEffect(() => {
     const anchor = pendingZoomAnchor.current;
