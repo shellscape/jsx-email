@@ -54,8 +54,8 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "canispam": "^1.0.0",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "dependencies": {
     "@dot/log": "^0.2.0",
@@ -138,6 +138,8 @@
     "@types/yargs-parser": "catalog:",
     "canispam": "workspace:*",
     "hast": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "unified": "catalog:"
   },
   "types": "./dist/index.d.ts",
