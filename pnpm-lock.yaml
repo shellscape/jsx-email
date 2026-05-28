@@ -555,12 +555,6 @@ importers:
       qrcode-generator:
         specifier: ^2.0.4
         version: 2.0.4
-      react:
-        specifier: 'catalog:'
-        version: 19.2.5
-      react-dom:
-        specifier: 'catalog:'
-        version: 19.2.5(react@19.2.5)
       react-router-dom:
         specifier: 7.12.0
         version: 7.12.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -664,6 +658,12 @@ importers:
       hast:
         specifier: 'catalog:'
         version: 1.0.0
+      react:
+        specifier: 'catalog:'
+        version: 19.2.5
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.5(react@19.2.5)
       unified:
         specifier: 'catalog:'
         version: 11.0.5
