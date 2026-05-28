@@ -1,5 +1,13 @@
 # jsx-email ChangeLog
 
+## v3.2.1
+
+_2026-05-28_
+
+### Bugfixes
+
+- jsx-email: relax react catalog pins to ^19.2.0 ([#455](https://github.com/shellscape/jsx-email/issues/455))
+
 ## v3.2.0
 
 _2026-05-18_
