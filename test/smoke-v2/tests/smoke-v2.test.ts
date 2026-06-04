@@ -78,25 +78,6 @@ const getTemplateButton = (page: Page, name: string) =>
 const getTemplateUrl = (templateSlug: string) =>
   `${getIndexUrl()}#/${encodeURIComponent(templateSlug)}`;
 
-const reloadPreview = async (page: Page, templateSlug: string) => {
-  const templateUrl = getTemplateUrl(templateSlug);
-
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    try {
-      await page.goto(templateUrl);
-      return;
-    } catch (error) {
-      if (!String(error).includes('net::ERR_ABORTED')) {
-        throw error;
-      }
-
-      await page.waitForTimeout(500);
-    }
-  }
-
-  await page.goto(templateUrl);
-};
-
 const escapeForRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const getPreviewBuildFilePath = (templateName: string) =>
@@ -198,9 +179,7 @@ test('watcher', async ({ page }) => {
         await replaceFileContents(targetFilePath, contents.replace(beforeContent, afterContent));
         await waitForPreviewBuild(previewBuildFilePath, afterContent);
 
-        // When templates rebuild, Vite's HMR doesn't always update the iframe content deterministically.
-        // Navigating to a fresh URL ensures the latest compiled template HTML is reflected in `srcdoc`.
-        await reloadPreview(page, templateSlug);
+        // Assert the preview iframe updates in-place after the watcher rebuild, without a forced reload.
         await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
         await expect(iframeEl).toHaveAttribute(
           'srcdoc',
