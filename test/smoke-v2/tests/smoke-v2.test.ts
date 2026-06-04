@@ -207,6 +207,9 @@ test('watcher', async ({ page }) => {
         }
       } finally {
         await writeFile(targetFilePath, contents, 'utf8');
+        // Ensure restore-triggered rebuilds settle before the next watcher step mutates a file.
+        // On Windows, rapid back-to-back edits can overlap in the watcher and destabilize preview.
+        await waitForPreviewBuild(previewBuildFilePath, beforeContent);
       }
     });
   }
