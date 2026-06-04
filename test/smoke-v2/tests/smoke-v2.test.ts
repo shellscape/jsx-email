@@ -10,7 +10,7 @@ import { getHTML } from './helpers/html.js';
 const timeout = { timeout: 15e3 };
 const tempRoot = process.env.TMPDIR || os.tmpdir();
 const defaultStatePath = join(tempRoot, 'jsx-email-smoke-v2.state');
-const defaultPreviewBuildFilePath = join(tempRoot, 'jsx-email', 'preview', 'base.js');
+const defaultPreviewBuildDirPath = join(tempRoot, 'jsx-email', 'preview');
 const templates = [
   { buttonName: 'Base', snapshotName: 'Base' },
   { buttonName: 'Code', snapshotName: 'Code' },
@@ -22,6 +22,44 @@ const templates = [
   { buttonName: 'Tailwind', snapshotName: 'Tailwind' }
 ];
 let navigationSequence = 0;
+
+type WatcherCase = {
+  afterContent: string;
+  beforeContent: string;
+  previewBuildFileName: string;
+  snapshotName?: string;
+  stepName: string;
+  templateSlug: string;
+  targetRelativePath: string;
+};
+
+const watcherCases: WatcherCase[] = [
+  {
+    afterContent: 'Removed Content',
+    beforeContent: 'Text Content',
+    previewBuildFileName: 'base',
+    snapshotName: 'watcher.snap',
+    stepName: 'template edit: Base template source file',
+    templateSlug: 'base',
+    targetRelativePath: 'fixtures/templates/base.tsx'
+  },
+  {
+    afterContent: 'robin',
+    beforeContent: 'batman',
+    previewBuildFileName: 'preview-props',
+    stepName: 'template edit: subdirectory template source file',
+    templateSlug: 'props-preview-props',
+    targetRelativePath: 'fixtures/templates/props/preview-props.tsx'
+  },
+  {
+    afterContent: 'component test updated',
+    beforeContent: 'component test',
+    previewBuildFileName: 'base',
+    stepName: 'template rebuild: imported dependency file change',
+    templateSlug: 'base',
+    targetRelativePath: 'fixtures/components/text.tsx'
+  }
+];
 
 const getSmokeProjectDir = async () => {
   const statePath = process.env.SMOKE_V2_STATE_PATH || defaultStatePath;
@@ -37,10 +75,15 @@ const getIndexUrl = () => {
 const getTemplateButton = (page: Page, name: string) =>
   page.locator('#templates-window').getByRole('button', { name, exact: true });
 
-const reloadPreview = async (page: Page) => {
+const getTemplateUrl = (templateSlug: string) =>
+  `${getIndexUrl()}#/${encodeURIComponent(templateSlug)}`;
+
+const reloadPreview = async (page: Page, templateSlug: string) => {
+  const templateUrl = getTemplateUrl(templateSlug);
+
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
-      await page.goto(getIndexUrl());
+      await page.goto(templateUrl);
       return;
     } catch (error) {
       if (!String(error).includes('net::ERR_ABORTED')) {
@@ -51,7 +94,29 @@ const reloadPreview = async (page: Page) => {
     }
   }
 
-  await page.goto(getIndexUrl());
+  await page.goto(templateUrl);
+};
+
+const escapeForRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const getPreviewBuildFilePath = (templateName: string) =>
+  join(defaultPreviewBuildDirPath, `${templateName}.js`);
+
+const waitForPreviewBuild = async (previewBuildFilePath: string, expectedContent: string) => {
+  await expect
+    .poll(
+      async () => {
+        try {
+          return (await readFile(previewBuildFilePath, 'utf8')).includes(expectedContent);
+        } catch {
+          return false;
+        }
+      },
+      {
+        timeout: 60e3
+      }
+    )
+    .toBe(true);
 };
 
 test.describe.configure({ mode: 'serial' });
@@ -86,43 +151,63 @@ test('templates', async ({ page }) => {
 });
 
 test('watcher', async ({ page }) => {
-  test.setTimeout(90e3);
+  test.setTimeout(3 * 60e3);
 
   const smokeProjectDir = await getSmokeProjectDir();
-  const targetFilePath = join(smokeProjectDir, 'fixtures/templates/base.tsx');
-  const contents = await readFile(targetFilePath, 'utf8');
 
-  try {
-    await page.goto(getIndexUrl());
-    await getTemplateButton(page, 'Base').click(timeout);
+  for (const watcherCase of watcherCases) {
+    await test.step(watcherCase.stepName, async () => {
+      const {
+        afterContent,
+        beforeContent,
+        previewBuildFileName,
+        snapshotName,
+        templateSlug,
+        targetRelativePath
+      } = watcherCase;
+      const targetFilePath = join(smokeProjectDir, targetRelativePath);
+      const previewBuildFilePath = getPreviewBuildFilePath(previewBuildFileName);
+      const contents = await readFile(targetFilePath, 'utf8');
 
-    const iframeEl = page.locator('iframe');
-    await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
-    await expect(iframeEl).toHaveAttribute('srcdoc', /Text Content/, { timeout: 30e3 });
+      expect(contents).toContain(beforeContent);
 
-    await writeFile(targetFilePath, contents.replace('Text Content', 'Removed Content'), 'utf8');
+      try {
+        await page.goto(getTemplateUrl(templateSlug));
 
-    await expect
-      .poll(
-        async () =>
-          (await readFile(defaultPreviewBuildFilePath, 'utf8')).includes('Removed Content'),
-        {
-          timeout: 60e3
+        const iframeEl = page.locator('iframe');
+        await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
+        await expect(iframeEl).toHaveAttribute(
+          'srcdoc',
+          new RegExp(escapeForRegExp(beforeContent)),
+          {
+            timeout: 30e3
+          }
+        );
+
+        await writeFile(targetFilePath, contents.replace(beforeContent, afterContent), 'utf8');
+        await waitForPreviewBuild(previewBuildFilePath, afterContent);
+
+        // When templates rebuild, Vite's HMR doesn't always update the iframe content deterministically.
+        // Navigating to a fresh URL ensures the latest compiled template HTML is reflected in `srcdoc`.
+        await reloadPreview(page, templateSlug);
+        await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
+        await expect(iframeEl).toHaveAttribute(
+          'srcdoc',
+          new RegExp(escapeForRegExp(afterContent)),
+          {
+            timeout: 60e3
+          }
+        );
+
+        if (snapshotName) {
+          const srcdoc = await iframeEl.getAttribute('srcdoc');
+          const html = await getHTML(srcdoc || '');
+
+          expect(html).toMatchSnapshot({ name: snapshotName });
         }
-      )
-      .toBe(true);
-
-    // When templates rebuild, Vite's HMR doesn't always update the iframe content deterministically.
-    // Navigating to a fresh URL ensures the latest compiled template HTML is reflected in `srcdoc`.
-    await reloadPreview(page);
-    await getTemplateButton(page, 'Base').click(timeout);
-    await expect(iframeEl).toHaveCount(1, { timeout: 30e3 });
-    await expect(iframeEl).toHaveAttribute('srcdoc', /Removed Content/, { timeout: 60e3 });
-
-    const srcdoc = await iframeEl.getAttribute('srcdoc');
-    const html = await getHTML(srcdoc || '');
-    expect(html).toMatchSnapshot({ name: 'watcher.snap' });
-  } finally {
-    await writeFile(targetFilePath, contents, 'utf8');
+      } finally {
+        await writeFile(targetFilePath, contents, 'utf8');
+      }
+    });
   }
 });
