@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop, no-underscore-dangle */
-import { readFile, writeFile } from 'node:fs/promises';
+import { open, readFile } from 'node:fs/promises';
 import os from 'node:os';
 import { join } from 'node:path';
 
@@ -119,6 +119,17 @@ const waitForPreviewBuild = async (previewBuildFilePath: string, expectedContent
     .toBe(true);
 };
 
+const replaceFileContents = async (filePath: string, content: string) => {
+  const handle = await open(filePath, 'r+');
+
+  try {
+    await handle.writeFile(content, 'utf8');
+    await handle.truncate(Buffer.byteLength(content, 'utf8'));
+  } finally {
+    await handle.close();
+  }
+};
+
 test.describe.configure({ mode: 'serial' });
 
 test('landing', async ({ page }) => {
@@ -184,7 +195,7 @@ test('watcher', async ({ page }) => {
           }
         );
 
-        await writeFile(targetFilePath, contents.replace(beforeContent, afterContent), 'utf8');
+        await replaceFileContents(targetFilePath, contents.replace(beforeContent, afterContent));
         await waitForPreviewBuild(previewBuildFilePath, afterContent);
 
         // When templates rebuild, Vite's HMR doesn't always update the iframe content deterministically.
@@ -206,7 +217,7 @@ test('watcher', async ({ page }) => {
           expect(html).toMatchSnapshot({ name: snapshotName });
         }
       } finally {
-        await writeFile(targetFilePath, contents, 'utf8');
+        await replaceFileContents(targetFilePath, contents);
         // Ensure restore-triggered rebuilds settle before the next watcher step mutates a file.
         // On Windows, rapid back-to-back edits can overlap in the watcher and destabilize preview.
         await waitForPreviewBuild(previewBuildFilePath, beforeContent);
