@@ -18,7 +18,7 @@ about: Something went awry and you'd like to tell us about it.
 
 - Component or Package Name:
 - Component or Package Version:
-- `@jsxp-email/cli` Version?:
+- `@jsx-email` Version?:
 - Operating System (or Browser):
 - Node Version:
 - Link to reproduction _(⚠️ read below)_:
