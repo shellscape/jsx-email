@@ -1,4 +1,6 @@
 ---
+import { execFileSync } from 'node:child_process';
+
 // Define types for our data structures
 interface Author {
   img: string;
@@ -17,8 +19,18 @@ interface PREntry {
   pr: PullRequest;
 }
 
+interface ReleaseEntry {
+  name: string;
+  url: string;
+}
+
+interface TimelineDay {
+  contributions: PREntry[];
+  releases: ReleaseEntry[];
+}
+
 interface ProcessedData {
-  [date: string]: PREntry[];
+  [date: string]: TimelineDay;
 }
 
 interface GitHubPR {
@@ -33,11 +45,15 @@ interface GitHubPR {
   };
 }
 
-type TimelineEntry = [string, PREntry[]];
+type TimelineEntry = [string, TimelineDay];
+
+const processedData: ProcessedData = {};
+const getTimelineDay = (date: string) => {
+  processedData[date] ??= { contributions: [], releases: [] };
+  return processedData[date];
+};
 
 // Fetch PR data from GitHub API
-let sortedData: TimelineEntry[] = [];
-
 try {
   // Use native fetch instead of Octokit
   const response = await fetch(
@@ -53,21 +69,14 @@ try {
     throw new Error(`GitHub API responded with ${response.status}: ${response.statusText}`);
   }
 
-  const releases = (await response.json()) as GitHubPR[];
+  const pullRequests = (await response.json()) as GitHubPR[];
 
-  // Process the data similar to the Vue implementation
-  const processedData: ProcessedData = {};
-
-  releases.forEach((pr) => {
+  pullRequests.forEach((pr) => {
     if (!pr.merged_at) return;
 
     const day = new Date(pr.merged_at).toISOString().split('T')[0];
 
-    if (!processedData[day]) {
-      processedData[day] = [];
-    }
-
-    processedData[day].push({
+    getTimelineDay(day).contributions.push({
       author: {
         img: pr.user.avatar_url,
         name: pr.user.login,
@@ -80,17 +89,45 @@ try {
       }
     });
   });
-
-  // Sort by date (newest first)
-  const sortedDates = Object.keys(processedData).sort(
-    (a, b) => new Date(b).getTime() - new Date(a).getTime()
-  );
-  sortedData = sortedDates.map((date) => [date, processedData[date]]);
 } catch (error) {
   console.error('Error fetching GitHub data:', error);
-  // Provide fallback data if API fails
-  sortedData = [];
 }
+
+// Read recent release tags from the repository used to build the site
+try {
+  const releaseTags = execFileSync(
+    'git',
+    [
+      'for-each-ref',
+      '--sort=-creatordate',
+      '--count=5',
+      '--format=%(refname:short)|%(creatordate:short)',
+      'refs/tags/jsx-email-v*'
+    ],
+    { encoding: 'utf8' }
+  );
+
+  releaseTags
+    .trim()
+    .split('\n')
+    .filter(Boolean)
+    .forEach((releaseTag) => {
+      const [name, day] = releaseTag.split('|');
+
+      getTimelineDay(day).releases.push({
+        name: name.replace('jsx-email-', ''),
+        url: `https://github.com/shellscape/jsx-email/tree/${name}`
+      });
+    });
+} catch (error) {
+  console.error('Error reading release tags:', error);
+}
+
+// Sort by date (newest first)
+const sortedDates = Object.keys(processedData).sort(
+  (a, b) => new Date(b).getTime() - new Date(a).getTime()
+);
+const sortedData: TimelineEntry[] = sortedDates.map((date) => [date, processedData[date]]);
 ---
 
 <section id="changelog" class="border-t border-gray-200 dark:border-gray-800">
@@ -120,7 +157,7 @@ try {
     <div class="mb-10">
       {
         sortedData.length > 0 ? (
-          sortedData.map(([day, events], index) => (
+          sortedData.map(([day, { contributions, releases }], index) => (
             <div
               class={`relative mb-10 ${index % 2 === 0 ? 'ml-auto mr-0 pl-8' : 'mr-auto ml-0 pr-8'}`}
               style={`width: 50%; transform: translateX(${index % 2 === 0 ? '-8px' : '8px'});`}
@@ -140,12 +177,25 @@ try {
                   {new Date(day).toLocaleString('en-us', {
                     year: 'numeric',
                     month: 'short',
-                    day: 'numeric'
+                    day: 'numeric',
+                    timeZone: 'UTC'
                   })}
                 </p>
 
-                {/* <!-- Events for this day --> */}
-                {events.map((entry: PREntry) => (
+                {/* <!-- Releases for this day --> */}
+                {releases.map((release) => (
+                  <a
+                    href={release.url}
+                    target="_blank"
+                    class={`inline-flex items-center gap-2 rounded-full bg-black px-3 py-1.5 text-xs font-semibold text-white dark:bg-white dark:text-black mb-4 ${index % 2 === 0 ? 'sm:self-start' : 'sm:self-end'}`}
+                  >
+                    <span class="text-[10px] uppercase tracking-wider opacity-60">Release</span>
+                    <span>{release.name}</span>
+                  </a>
+                ))}
+
+                {/* <!-- Contributions for this day --> */}
+                {contributions.map((entry: PREntry) => (
                   <div class="mb-4">
                     <a
                       href={entry.author.url}
